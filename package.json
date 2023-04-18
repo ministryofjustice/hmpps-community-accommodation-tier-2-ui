@@ -1,8 +1,8 @@
 {
-  "name": "hmpps-template-typescript",
+  "name": "hmpps-supported-accommodation-ui",
   "version": "0.0.1",
-  "description": "HMPPS Typescript Template",
-  "repository": "git@github.com:ministryofjustice/hmpps-template-typescript.git",
+  "description": "Hmpps Supported Accommodation Ui",
+  "repository": "git@github.com:ministryofjustice/hmpps-supported-accommodation-ui.git",
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
