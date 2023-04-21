@@ -6,6 +6,7 @@ generic-service:
 
   ingress:
     host: supported-accommodation-dev.hmpps.service.justice.gov.uk
+    tlsSecretName: hmpps-supported-accommodation-dev-cert
 
   env:
     ENVIRONMENT: dev
