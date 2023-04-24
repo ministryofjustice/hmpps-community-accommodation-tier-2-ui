@@ -1,22 +1,22 @@
 import { defineConfig } from 'cypress'
-import { resetStubs } from './integration_tests/mockApis/wiremock'
+import { resetStubs } from './wiremock'
 import auth from './integration_tests/mockApis/auth'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
 
 export default defineConfig({
   chromeWebSecurity: false,
-  fixturesFolder: 'integration_tests/fixtures',
+  fixturesFolder: 'cypress_shared/fixtures',
   screenshotsFolder: 'integration_tests/screenshots',
+  trashAssetsBeforeRuns: true,
+  downloadsFolder: 'integration_tests/downloads',
   videosFolder: 'integration_tests/videos',
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
     configFile: 'reporter-config.json',
   },
   videoUploadOnPasses: false,
-  taskTimeout: 60000,
+  taskTimeout: 70000,
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
     setupNodeEvents(on) {
       on('task', {
         reset: resetStubs,
@@ -26,7 +26,7 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:3007',
     excludeSpecPattern: '**/!(*.cy).ts',
-    specPattern: 'integration_tests/e2e/**/*.cy.{js,jsx,ts,tsx}',
+    specPattern: 'integration_tests/tests/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'integration_tests/support/index.ts',
   },
 })
