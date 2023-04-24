@@ -26,7 +26,10 @@
     "security_audit": "npx audit-ci --config audit-ci.json",
     "int-test": "cypress run --config video=false",
     "int-test-ui": "cypress open",
-    "clean": "rm -rf dist build node_modules stylesheets"
+    "clean": "rm -rf dist build node_modules stylesheets",
+    "test:integration": "npm run start-test-wiremock && start-server-and-test start-feature http://localhost:3007/ping int-test",
+    "test:integration:ui": "npm run start-test-wiremock && start-server-and-test start-feature:dev http://localhost:3007/ping int-test-ui",
+    "start-test-wiremock": "docker-compose -f docker-compose-test.yml up -d"
   },
   "engines": {
     "node": "^18",
@@ -166,6 +169,7 @@
     "prettier": "^2.8.7",
     "prettier-plugin-jinja-template": "^0.2.0",
     "sass": "^1.62.0",
+    "start-server-and-test": "^2.0.0",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
