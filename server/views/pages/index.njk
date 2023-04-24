@@ -1,3 +1,4 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "../partials/layout.njk" %}
 
 {% set pageTitle = applicationName + " - Home" %}
@@ -5,7 +6,55 @@
 
 {% block content %}
 
-  <h1>This site is under construction...</h1>
-  <p>Please check back later when there is content to view.</p>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1>Apply for a CAS-2 placement</h1>
+      <p>Community Accommodation Service Tier 2 (CAS-2) provides housing for people who do not have a suitable address for the term of their licence or Bail Order.</p>
+
+      <p>Use this service to apply for a CAS-2 placement on behalf of a person who needs supported accommodation.</p>
+
+      <p>You can leave and return to your application at any time. Your progress will be saved.</p>
+
+      {{ govukButton({
+          text: "Start now",
+          isStartButton: true,
+          preventDoubleClick: true
+      }) }}
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2>Before you start</h2>
+
+      <h3>Who is this for?</h3>
+
+      <ul>
+        <li>people without suitable accommodation in the community</li>
+        <li>people on Bail Order</li>
+        <li>people on a Home Detention Curfew (HDC) licence </li>
+        <li>people referred who are homeless on conditional release (HCRD)</li>
+        <li>people on licence considered for recall (ATCR)</li>
+      </ul>
+
+      <h3>You need</h3>
+
+      <ul>
+        <li>to have written consent from the applicant to apply for CAS-2 accommodation</li>
+        <li>the applicant’s CRN</li>
+        <li>an up to date OASys – we'll use this to pre-fill some of your application</li>
+        <li>factors that will have an impact on the placement location</li>
+      </ul>
+
+      <h4>If you need help using this service</h4>
+
+      <p>If you have any questions about the referral process or application forms, you can call the CAS-2 Referral Hub on <a href="tel:0300 555 0264">0300 555 0264</a> or <a href="tel:0300 555 0264">07423 434032</a> (alternative number) at the following times:</p>
+
+      <p>Monday to Friday, 8am-6pm </br> Saturday, 8am-1pm</p>
+
+      <p>You can also email us with any question you have via <a href = "mailto:referrals@nacrocas2.org.uk">referrals@nacrocas2.org.uk</a>.</p>
+    </div>
+  </div>
 
 {% endblock %}

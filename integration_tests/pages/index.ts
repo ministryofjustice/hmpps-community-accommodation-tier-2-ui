@@ -2,7 +2,7 @@ import Page, { PageElement } from './page'
 
 export default class IndexPage extends Page {
   constructor() {
-    super('This site is under construction...')
+    super('Apply for a CAS-2 placement')
   }
 
   static visit(): IndexPage {
