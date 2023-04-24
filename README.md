@@ -1,108 +1,76 @@
-# hmpps-supported-accommodation-ui
+# Supported Accommodation Service UI
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-supported-accommodation-ui)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-supported-accommodation-ui "Link to report")
 [![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-supported-accommodation-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-supported-accommodation-ui)
 
-Template github repo used for new Typescript based projects.
+The frontend for Tier 2 of the Community Accommodation Service (CAS-2).
 
-# Instructions
+## Prerequisites
 
-If this is a HMPPS project then the project will be created as part of bootstrapping - 
-see https://github.com/ministryofjustice/dps-project-bootstrap.
+* Docker
+* NodeJs
 
-This bootstrap is community managed by the mojdt `#typescript` slack channel. 
-Please raise any questions or queries there. Contributions welcome!
+## Setup
 
-Our security policy is located [here](https://github.com/ministryofjustice/hmpps-supported-accommodation-ui/security/policy). 
+## Running the application
 
-More information about the template project including features can be found [here](https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/3488677932/Typescript+template+project).
+To run the application there are two options.
 
-## Creating a CloudPlatform namespace
+### 1. Using AP Tools
 
-When deploying to a new namespace, you may wish to use this template typescript project namespace as the basis for your new namespace:
+In order to spin up a full stack of a working API and other [dependant
+services](./docker-compose.yml) we recommend using the [AP
+Tools](https://github.com/ministryofjustice/hmpps-approved-premises-tools).
 
-<https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-supported-accommodation-ui>
+NB. The approach AP Tools takes solves a critical limitation for working in
+development. Due to how the frontend and API authenticate requests they both
+require access to _the same_ instance of hmpps-auth. This project is the focus
+of our development tooling across all CAS services and is most likely to receive
+future updates.
 
-This template namespace includes an AWS elasticache setup - which is required by this template project.
+After following the set up the common commands are:
 
-Copy this folder, update all the existing namespace references, and submit a PR to the CloudPlatform team. Further instructions from the CloudPlatform team can be found here: <https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide>
+```bash
+ap-tools server start --local-ui --local-api
+```
+(remove the `local-ui` or `local-api` flags as needed)
 
-## Renaming from HMPPS Template Typescript - github Actions
+The service should then be available at <http://localhost:3000>
 
-Once the new repository is deployed. Navigate to the repository in github, and select the `Actions` tab.
-Click the link to `Enable Actions on this repository`.
+To stop run
 
-Find the Action workflow named: `rename-project-create-pr` and click `Run workflow`.  This workflow will
-execute the `rename-project.bash` and create Pull Request for you to review.  Review the PR and merge.
+```bash
+ap-tools server stop
+```
 
-Note: ideally this workflow would run automatically however due to a recent change github Actions are not
-enabled by default on newly created repos. There is no way to enable Actions other then to click the button in the UI.
-If this situation changes we will update this project so that the workflow is triggered during the bootstrap project.
-Further reading: <https://github.community/t/workflow-isnt-enabled-in-repos-generated-from-template/136421>
+[Log in credentials are documented within AP
+tools](https://github.com/ministryofjustice/hmpps-approved-premises-tools#start-server).
 
-## Manually branding from template app
-Run the `rename-project.bash` and create a PR.
+### 2. Manually
 
-The rename-project.bash script takes a single argument - the name of the project and calculates from it the project description
-It then performs a search and replace and directory renames so the project is ready to be used.
+TBD
 
-## Ensuring slack notifications are raised correctly
 
-To ensure notifications are routed to the correct slack channels, update the `alerts-slack-channel` and `releases-slack-channel` parameters in `.circle/config.yml` to an appropriate channel.
-
-## Running the app
-The easiest way to run the app is to use docker compose to create the service and all dependencies. 
-
-`docker-compose pull`
-
-`docker-compose up`
-
-### Dependencies
-The app requires: 
-* hmpps-auth - for authentication
-* redis - session store and token caching
-
-### Running the app for development
-
-To start the main services excluding the example typescript template app: 
-
-`docker-compose up --scale=app=0`
-
-Install dependencies using `npm install`, ensuring you are using `node v18.x` and `npm v9.x`
-
-Note: Using `nvm` (or [fnm](https://github.com/Schniz/fnm)), run `nvm install --latest-npm` within the repository folder to use the correct version of node, and the latest version of npm. This matches the `engines` config in `package.json` and the CircleCI build config.
-
-And then, to build the assets and start the app with nodemon:
-
-`npm run start:dev`
-
-### Run linter
+## Run linter
 
 `npm run lint`
 
-### Run tests
+## Run unit tests
 
 `npm run test`
 
-### Running integration tests
+## Running integration tests
 
-For local running, start a test db, redis, and wiremock instance by:
+Tun tests in headless mode with:
 
-`docker-compose -f docker-compose-test.yml up`
-
-Then run the server in test mode by:
-
-`npm run start-feature` (or `npm run start-feature:dev` to run with nodemon)
-
-And then either, run tests in headless mode with:
-
-`npm run int-test`
+`npm run test:integration`
  
 Or run tests with the cypress UI:
 
-`npm run int-test-ui`
+`npm run test:integration:ui`
 
 
-### Dependency Checks
+## Manage infrastructure & view logs
 
-The template project has implemented some scheduled checks to ensure that key dependencies are kept up to date.
-If these are not desired in the cloned project, remove references to `check_outdated` job from `.circleci/config.yml`
+This application is hosted on the MoJ Cloud Platform. For further details head
+over to [our infrastructure
+documentation](https://dsdmoj.atlassian.net/wiki/spaces/AP/pages/4325244964/Manage+infrastructure).
