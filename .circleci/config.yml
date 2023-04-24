@@ -9,12 +9,12 @@ parameters:
     type: string
     # Normally team specific alert channel e.g. hmpps_tech_alerts, syscon-alerts, dps_sed_alerts
     # This is to avoid a general alert dumping ground that no-one then monitors
-    default: hmpps_typescript_notifications
+    default: supported-accommodation-team-events
 
   releases-slack-channel:
     type: string
     # Normally dps-releases for most teams / projects
-    default: hmpps_typescript_notifications
+    default: supported-accommodation-team-events
 
   node-version:
     type: string
@@ -94,7 +94,7 @@ jobs:
           command: curl -o wiremock.jar https://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.27.1/wiremock-standalone-2.27.1.jar
       - run:
           name: Run wiremock
-          command: java -jar wiremock.jar --port 9091
+          command: java -jar wiremock.jar --port 9999
           background: true
       - run:
           name: Run the node app.
