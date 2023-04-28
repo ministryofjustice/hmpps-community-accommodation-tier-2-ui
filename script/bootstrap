@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+script/utils/launch-docker.sh
+
+echo "==> Installing application dependencies..."
+
+nodenv install --skip-existing
+npm install

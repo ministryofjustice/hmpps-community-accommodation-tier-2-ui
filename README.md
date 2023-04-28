@@ -11,6 +11,14 @@ The frontend for Tier 2 of the Community Accommodation Service (CAS-2).
 
 ## Setup
 
+When running the application for the first time, run the following command:
+
+```bash
+script/setup
+```
+
+This will create .env files and install dependencies.
+
 ## Running the application
 
 To run the application there are two options.
