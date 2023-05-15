@@ -1,0 +1,32 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "../../../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + pageHeading  %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-three-quarters">
+            <div>
+                <h1 class="govuk-heading-l">Risk of Serious Harm (RoSH) Summary</h1>
+            </div>
+
+            {% if oasysSections %}
+                {{OasysImportUtils.textareas(oasysSections.roshSummary, key) | safe}}
+            {% endif %}
+            <div>
+                <div class="govuk-inset-text">
+                    <p>This will not be written back into OASys. If the information in OASys is out of date, we suggest you also up-date it as well as entering it here.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% set questions = oasysSections.roshSummary %}
+{% set key = "roshAnswers" %}
