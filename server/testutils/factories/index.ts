@@ -1,4 +1,4 @@
-import oasysSectionsFactory from './oasysSections'
+import oasysSectionsFactory, { roshSummaryFactory } from './oasysSections'
 import oasysSelectionFactory from './oasysSelection'
 
-export { oasysSectionsFactory, oasysSelectionFactory }
+export { oasysSectionsFactory, oasysSelectionFactory, roshSummaryFactory }
