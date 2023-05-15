@@ -6,6 +6,7 @@
 /* istanbul ignore file */
 
 import { initialiseAppInsights, buildAppInsightsClient } from '../utils/azureAppInsights'
+import PersonClient from './personClient'
 
 initialiseAppInsights()
 buildAppInsightsClient()
@@ -18,8 +19,9 @@ type RestClientBuilder<T> = (token: string) => T
 
 export const dataAccess = () => ({
   hmppsAuthClient: new HmppsAuthClient(new TokenStore(createRedisClient())),
+  personClient: ((token: string) => new PersonClient(token)) as RestClientBuilder<PersonClient>,
 })
 
 export type DataAccess = ReturnType<typeof dataAccess>
 
-export { HmppsAuthClient, RestClientBuilder }
+export { HmppsAuthClient, PersonClient, RestClientBuilder }
