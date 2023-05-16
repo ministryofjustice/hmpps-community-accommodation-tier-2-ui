@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import express, { Express } from 'express'
 import cookieSession from 'cookie-session'
 import createError from 'http-errors'

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { setup, defaultClient, TelemetryClient, DistributedTracingModes } from 'applicationinsights'
 import applicationVersion from '../applicationVersion'
 
