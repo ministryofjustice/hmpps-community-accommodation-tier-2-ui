@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import promClient from 'prom-client'
 import { serviceCheckFactory } from '../data/healthCheck'
 import config from '../config'

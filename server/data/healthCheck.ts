@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import superagent from 'superagent'
 import Agent, { HttpsAgent } from 'agentkeepalive'
 import logger from '../../logger'

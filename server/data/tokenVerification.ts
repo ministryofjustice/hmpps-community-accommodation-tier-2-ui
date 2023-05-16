@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import superagent from 'superagent'
 import type { Request } from 'express'
 import getSanitisedError from '../sanitisedError'

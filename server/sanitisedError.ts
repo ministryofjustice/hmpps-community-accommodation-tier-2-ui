@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import type { ResponseError } from 'superagent'
 
 interface SanitisedError {

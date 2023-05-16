@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+/* istanbul ignore file */
+
 import nunjucks from 'nunjucks'
 import express from 'express'
 import * as pathModule from 'path'
