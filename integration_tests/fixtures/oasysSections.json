@@ -1,0 +1,19 @@
+{
+  "roshSummary": [
+    {
+      "questionNumber": "Q1",
+      "label": "The first RoSH question",
+      "answer": "Some answer for the first RoSH question"
+    },
+    {
+      "questionNumber": "Q2",
+      "label": "The second RoSH question",
+      "answer": "Some answer for the second RoSH question"
+    },
+    {
+      "questionNumber": "Q3",
+      "label": "The third RoSH question",
+      "answer": "Some answer for the third RoSH question"
+    }
+  ]
+}
