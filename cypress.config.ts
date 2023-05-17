@@ -2,10 +2,11 @@ import { defineConfig } from 'cypress'
 import { resetStubs } from './wiremock'
 import auth from './integration_tests/mockApis/auth'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
+import person from './integration_tests/mockApis/person'
 
 export default defineConfig({
   chromeWebSecurity: false,
-  fixturesFolder: 'cypress_shared/fixtures',
+  fixturesFolder: 'integration_tests/fixtures',
   screenshotsFolder: 'integration_tests/screenshots',
   trashAssetsBeforeRuns: true,
   downloadsFolder: 'integration_tests/downloads',
@@ -21,6 +22,7 @@ export default defineConfig({
       on('task', {
         reset: resetStubs,
         ...auth,
+        ...person,
         ...tokenVerification,
       })
     },
