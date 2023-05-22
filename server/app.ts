@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 
 import express from 'express'
+import flash from 'connect-flash'
 
 import path from 'path'
 import createError from 'http-errors'
@@ -41,6 +42,13 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(authorisationMiddleware())
   app.use(setUpCsrf())
   app.use(setUpCurrentUser(services))
+
+  app.use((req, res, next) => {
+    res.app.locals.infoMessages = req.flash('info')
+    res.app.locals.successMessages = req.flash('success')
+    return next()
+  })
+  app.use(flash())
 
   app.use(routes(controllers))
 
