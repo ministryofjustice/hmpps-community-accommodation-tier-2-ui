@@ -1,13 +1,18 @@
 import { OASysSections } from '@approved-premises/api'
 import { Request, RequestHandler, Response } from 'express'
 import PersonService from '../../services/personService'
+import { fetchErrorsAndUserInput } from '../../utils/validation'
 
 export default class ApplicationsController {
   constructor(private readonly personService: PersonService) {}
 
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
       return res.render('applications/new', {
+        errors,
+        errorSummary,
+        ...userInput,
         pageHeading: "Enter the person's CRN",
       })
     }
