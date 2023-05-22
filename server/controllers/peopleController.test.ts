@@ -3,8 +3,12 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 
 import paths from '../paths/apply'
 import PeopleController from './peopleController'
+import { errorMessage, errorSummary } from '../utils/validation'
+import PersonService from '../services/personService'
+import personFactory from '../testutils/factories/person'
 
-describe('applicationsController', () => {
+describe('peopleController', () => {
+  const flashSpy = jest.fn()
   const token = 'SOME_TOKEN'
   const crn = '1234'
 
@@ -12,37 +16,114 @@ describe('applicationsController', () => {
   let response: DeepMocked<Response> = createMock<Response>({})
   const next: DeepMocked<NextFunction> = jest.fn()
 
+  const personService = createMock<PersonService>({})
+
   let peopleController: PeopleController
 
   beforeEach(() => {
-    peopleController = new PeopleController()
-    request = createMock<Request>({ user: { token }, body: { crn } })
+    peopleController = new PeopleController(personService)
+    request = createMock<Request>({
+      body: { crn },
+      user: { token },
+      flash: flashSpy,
+      headers: {
+        referer: 'some-referrer/',
+      },
+    })
     response = createMock<Response>({})
     jest.clearAllMocks()
   })
 
   describe('find', () => {
     describe('when there is a crn', () => {
-      it('redirects to the show applications path', () => {
+      it('redirects to the show applications path', async () => {
         const requestHandler = peopleController.find()
-        requestHandler(request, response, next)
+
+        personService.findByCrn.mockResolvedValue(personFactory.build({}))
+
+        await requestHandler(request, response, next)
         expect(response.redirect).toHaveBeenCalledWith(paths.applications.show({ crn }))
+      })
+
+      describe('when there are errors', () => {
+        describe('when there is a 404 error', () => {
+          it('renders a not found error message', async () => {
+            const requestHandler = peopleController.find()
+
+            const err = { data: {}, status: 404 }
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'SOME_CRN'
+
+            await requestHandler(request, response, next)
+
+            expect(request.flash).toHaveBeenCalledWith('errors', {
+              crn: errorMessage('crn', `No person with a CRN of '${request.body.crn}' was found`),
+            })
+            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('crn', `No person with a CRN of '${request.body.crn}' was found`),
+            ])
+            expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
+          })
+        })
+
+        describe('when there is a 403 error', () => {
+          it('renders a permissions error message', async () => {
+            const requestHandler = peopleController.find()
+
+            const err = { data: {}, status: 403 }
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'SOME_CRN'
+
+            await requestHandler(request, response, next)
+
+            expect(request.flash).toHaveBeenCalledWith('errors', {
+              crn: errorMessage('crn', 'You do not have permission to access this CRN'),
+            })
+            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('crn', 'You do not have permission to access this CRN'),
+            ])
+            expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
+          })
+        })
+
+        describe('when there is an error of another type', () => {
+          it('throws the error', async () => {
+            const requestHandler = peopleController.find()
+
+            const err = new Error()
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'SOME_CRN'
+
+            expect(async () => requestHandler(request, response, next)).rejects.toThrow(err)
+          })
+        })
       })
     })
 
     describe('when there is not a crn', () => {
-      it('redirects back to referrer url', () => {
-        const requestHandler = peopleController.find()
-        request = createMock<Request>({ user: { token }, headers: { referer: 'example.com' } })
-        requestHandler(request, response, next)
-        expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
-      })
+      it('sends an error to the flash if a crn has not been provided', async () => {
+        request.body = {}
 
-      it('does not redirect if there is not a referrer url', () => {
         const requestHandler = peopleController.find()
-        request = createMock<Request>({ user: { token } })
-        requestHandler(request, response, next)
-        expect(response.redirect).toHaveBeenCalledWith('')
+
+        await requestHandler(request, response, next)
+
+        expect(response.redirect).toHaveBeenCalledWith('some-referrer/')
+
+        expect(flashSpy).toHaveBeenCalledWith('errors', { crn: errorMessage('crn', 'You must enter a CRN') })
+        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('crn', 'You must enter a CRN')])
       })
     })
   })

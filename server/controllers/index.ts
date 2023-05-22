@@ -2,11 +2,11 @@
 
 import { controllers as applyControllers } from './apply'
 
-import type { Services } from '../services'
+import { Services } from '../services'
 import PeopleController from './peopleController'
 
 export const controllers = (services: Services) => {
-  const peopleController = new PeopleController()
+  const peopleController = new PeopleController(services.personService)
   return {
     peopleController,
     ...applyControllers(services),
