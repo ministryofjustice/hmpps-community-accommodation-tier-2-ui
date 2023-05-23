@@ -1,4 +1,4 @@
-import { oasysSectionsFactory } from '../testutils/factories'
+import { oasysSectionsFactory, personFactory } from '../testutils/factories'
 import PersonService from './personService'
 import { PersonClient } from '../data'
 
@@ -28,6 +28,20 @@ describe('Person Service', () => {
       expect(serviceOasysSections).toEqual(oasysSections)
       expect(personClientFactory).toHaveBeenCalledWith(token)
       expect(personClient.oasysSections).toHaveBeenCalledWith('crn', [])
+    })
+  })
+
+  describe('findByCrn', () => {
+    it('on success returns the person given their CRN', async () => {
+      const person = personFactory.build()
+      personClient.search.mockResolvedValue(person)
+
+      const postedPerson = await service.findByCrn(token, 'crn')
+
+      expect(postedPerson).toEqual(person)
+
+      expect(personClientFactory).toHaveBeenCalledWith(token)
+      expect(personClient.search).toHaveBeenCalledWith('crn')
     })
   })
 })
