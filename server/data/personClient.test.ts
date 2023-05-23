@@ -1,5 +1,5 @@
 import PersonClient from './personClient'
-import { oasysSectionsFactory } from '../testutils/factories'
+import { oasysSectionsFactory, personFactory } from '../testutils/factories'
 import paths from '../paths/api'
 
 import describeClient from '../testutils/describeClient'
@@ -66,6 +66,35 @@ describeClient('PersonClient', provider => {
       const result = await personClient.oasysSections(crn)
 
       expect(result).toEqual(oasysSections)
+    })
+  })
+
+  describe('search', () => {
+    it('should return a person', async () => {
+      const person = personFactory.build()
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to search for a person',
+        withRequest: {
+          method: 'GET',
+          path: `/people/search`,
+          query: {
+            crn: 'crn',
+          },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: person,
+        },
+      })
+
+      const result = await personClient.search('crn')
+
+      expect(result).toEqual(person)
     })
   })
 })

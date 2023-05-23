@@ -1,4 +1,4 @@
-import type { OASysSections } from '@approved-premises/api'
+import type { OASysSections, Person } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -20,5 +20,16 @@ export default class PersonClient {
     const response = (await this.restClient.get({ path })) as OASysSections
 
     return response
+  }
+
+  async search(crn: string): Promise<Person> {
+    const query = { crn } as Record<string, string | boolean>
+
+    const path = `${paths.people.search({})}?${createQueryString(query)}`
+    const response = await this.restClient.get({
+      path,
+    })
+
+    return response as Person
   }
 }
