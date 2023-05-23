@@ -41,6 +41,8 @@ export type { BedSearchResultBedSummary } from './models/BedSearchResultBedSumma
 export type { BedSearchResultPremisesSummary } from './models/BedSearchResultPremisesSummary';
 export type { BedSearchResultRoomSummary } from './models/BedSearchResultRoomSummary';
 export type { BedSearchResults } from './models/BedSearchResults';
+export type { BedStatus } from './models/BedStatus';
+export type { BedSummary } from './models/BedSummary';
 export type { Booking } from './models/Booking';
 export type { BookingBody } from './models/BookingBody';
 export type { BookingNotMade } from './models/BookingNotMade';
