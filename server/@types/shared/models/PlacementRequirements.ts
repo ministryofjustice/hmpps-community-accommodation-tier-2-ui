@@ -15,6 +15,6 @@ export type PlacementRequirements = {
     radius: number;
     essentialCriteria: Array<PlacementCriteria>;
     desirableCriteria: Array<PlacementCriteria>;
-    mentalHealthSupport: boolean;
+    notes?: string;
 };
 

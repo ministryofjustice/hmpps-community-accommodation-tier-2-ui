@@ -5,6 +5,7 @@
 import type { AnyValue } from './AnyValue';
 import type { Application } from './Application';
 import type { ApplicationStatus } from './ApplicationStatus';
+import type { PersonRisks } from './PersonRisks';
 
 export type TemporaryAccommodationApplication = (Application & {
     createdByUserId: string;
@@ -13,5 +14,6 @@ export type TemporaryAccommodationApplication = (Application & {
     data?: AnyValue;
     document?: AnyValue;
     status: ApplicationStatus;
+    risks?: PersonRisks;
 });
 
