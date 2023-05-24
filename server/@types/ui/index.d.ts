@@ -1,3 +1,26 @@
+export interface ErrorsAndUserInput {
+  errorTitle?: string
+  errors: ErrorMessages
+  errorSummary: Array<string>
+  userInput: Record<string, unknown>
+}
+
+export interface ErrorMessage {
+  text: string
+  attributes: {
+    [K: string]: boolean
+  }
+}
+export interface ErrorMessages {
+  [K: string]: ErrorMessage
+}
+
+export interface ErrorSummary {
+  text?: string
+  html?: string
+  href?: string
+}
+
 export type UserDetails = {
   id: string
   name: string

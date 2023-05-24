@@ -9,5 +9,6 @@ export default {
     oasys: {
       sections: oasysPath.path('sections'),
     },
+    search: peoplePath.path('search'),
   },
 }
