@@ -9,12 +9,9 @@ import type { PlacementCriteria } from './PlacementCriteria';
 export type PlacementRequirements = {
     gender: Gender;
     type: ApType;
-    expectedArrival: string;
-    duration: number;
     location: string;
     radius: number;
     essentialCriteria: Array<PlacementCriteria>;
     desirableCriteria: Array<PlacementCriteria>;
-    notes?: string;
 };
 
