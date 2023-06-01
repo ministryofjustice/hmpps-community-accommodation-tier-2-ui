@@ -6,11 +6,12 @@ import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { Person } from './Person';
 import type { PersonRisks } from './PersonRisks';
+import type { PlacementDates } from './PlacementDates';
 import type { PlacementRequestStatus } from './PlacementRequestStatus';
 import type { PlacementRequirements } from './PlacementRequirements';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
 
-export type PlacementRequest = (PlacementRequirements & {
+export type PlacementRequest = (PlacementRequirements & PlacementDates & {
     id: string;
     person: Person;
     risks: PersonRisks;
@@ -21,5 +22,6 @@ export type PlacementRequest = (PlacementRequirements & {
     assessmentDecision: AssessmentDecision;
     assessmentDate: string;
     assessor: ApprovedPremisesUser;
+    notes?: string;
 });
 
