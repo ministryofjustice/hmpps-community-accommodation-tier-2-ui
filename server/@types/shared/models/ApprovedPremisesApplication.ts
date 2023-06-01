@@ -18,5 +18,6 @@ export type ApprovedPremisesApplication = (Application & {
     data?: AnyValue;
     document?: AnyValue;
     status: ApplicationStatus;
+    submittedAt?: string;
 });
 
