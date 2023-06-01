@@ -1,18 +1,18 @@
 ---
 generic-service:
-  nameOverride: hmpps-supported-accommodation-ui
+  nameOverride: hmpps-community-accommodation-tier-2-ui
 
   replicaCount: 4
 
   image:
-    repository: quay.io/hmpps/hmpps-supported-accommodation-ui
+    repository: quay.io/hmpps/hmpps-community-accommodation-tier-2-ui
     tag: app_version    # override at deployment time
     port: 3000
 
   ingress:
     enabled: true
     host: app-hostname.local    # override per environment
-    tlsSecretName: hmpps-supported-accommodation-ui-cert
+    tlsSecretName: hmpps-community-accommodation-tier-2-ui-cert
 
   livenessProbe:
     httpGet:
@@ -34,7 +34,7 @@ generic-service:
     REDIS_TLS_ENABLED: "true"
     TOKEN_VERIFICATION_ENABLED: "true"
     APPLICATIONINSIGHTS_CONNECTION_STRING: "InstrumentationKey=$(APPINSIGHTS_INSTRUMENTATIONKEY);IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/"
-    COMMUNITY_ACCOMMODATION_API_SERVICE_NAME: "supported-accommodation"
+    COMMUNITY_ACCOMMODATION_API_SERVICE_NAME: "community-accommodation-tier-2"
 
   # Pre-existing kubernetes secrets to load as environment variables in the deployment.
   # namespace_secrets:
@@ -42,7 +42,7 @@ generic-service:
   #     [name of environment variable as seen by app]: [key of kubernetes secret to load]
 
   namespace_secrets:
-    hmpps-supported-accommodation-ui:
+    hmpps-community-accommodation-tier-2-ui:
       APPINSIGHTS_INSTRUMENTATIONKEY: "APPINSIGHTS_INSTRUMENTATIONKEY"
       API_CLIENT_ID: "API_CLIENT_ID"
       API_CLIENT_SECRET: "API_CLIENT_SECRET"
@@ -64,4 +64,4 @@ generic-service:
     cloudplatform-live-3: "35.177.252.54/32"
 
 generic-prometheus-alerts:
-  targetApplication: hmpps-supported-accommodation-ui
+  targetApplication: hmpps-community-accommodation-tier-2-ui

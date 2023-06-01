@@ -1,6 +1,6 @@
-# Supported Accommodation Service UI
-[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-supported-accommodation-ui)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-supported-accommodation-ui "Link to report")
-[![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-supported-accommodation-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-supported-accommodation-ui)
+# Community Accommodation Service Tier-2 UI
+[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-community-accommodation-tier-2-ui)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-community-accommodation-tier-2-ui "Link to report")
+[![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-community-accommodation-tier-2-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-community-accommodation-tier-2-ui)
 
 The frontend for Tier 2 of the Community Accommodation Service (CAS-2).
 
