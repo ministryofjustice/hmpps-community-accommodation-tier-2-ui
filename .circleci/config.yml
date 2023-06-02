@@ -9,12 +9,12 @@ parameters:
     type: string
     # Normally team specific alert channel e.g. hmpps_tech_alerts, syscon-alerts, dps_sed_alerts
     # This is to avoid a general alert dumping ground that no-one then monitors
-    default: supported-accommodation-team-events
+    default: hmpps-cas-2-team-events
 
   releases-slack-channel:
     type: string
     # Normally dps-releases for most teams / projects
-    default: supported-accommodation-team-events
+    default: hmpps-cas-2-team-events
 
   node-version:
     type: string
@@ -96,7 +96,7 @@ workflows:
   #          jira_env_type: staging
   #          context:
   #            - hmpps-common-vars
-  #            - hmpps-supported-accommodation-ui-preprod
+  #            - hmpps-community-accommodation-tier-2-ui-preprod
   #          requires:
   #            - request-preprod-approval
   #          helm_timeout: 5m
@@ -113,7 +113,7 @@ workflows:
   #          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
   #          context:
   #            - hmpps-common-vars
-  #            - hmpps-supported-accommodation-ui-prod
+  #            - hmpps-community-accommodation-tier-2-ui-prod
   #          requires:
   #            - request-prod-approval
   #          helm_timeout: 5m
