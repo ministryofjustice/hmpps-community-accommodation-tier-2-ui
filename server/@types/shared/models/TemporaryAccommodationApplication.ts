@@ -15,5 +15,6 @@ export type TemporaryAccommodationApplication = (Application & {
     document?: AnyValue;
     status: ApplicationStatus;
     risks?: PersonRisks;
+    submittedAt?: string;
 });
 
