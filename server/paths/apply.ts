@@ -7,6 +7,7 @@ const risksPath = applicationsPath.path(':crn')
 
 const paths = {
   applications: {
+    create: applicationsPath.path('create'),
     new: applicationsPath.path('new'),
     people: {
       find: peoplePath.path('find'),

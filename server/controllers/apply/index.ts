@@ -5,8 +5,8 @@ import ApplicationsController from './applicationsController'
 import type { Services } from '../../services'
 
 export const controllers = (services: Services) => {
-  const { personService } = services
-  const applicationsController = new ApplicationsController(personService)
+  const { applicationService, personService } = services
+  const applicationsController = new ApplicationsController(personService, applicationService)
 
   return {
     applicationsController,
