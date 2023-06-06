@@ -30,6 +30,12 @@ export type UserDetails = {
 
 export type OasysImportArrays = ArrayOfOASysRiskOfSeriousHarmSummaryQuestions
 
+export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Very High'
+
+export type TierNumber = '1' | '2' | '3' | '4'
+export type TierLetter = 'A' | 'B' | 'C' | 'D'
+export type RiskTierLevel = `${TierLetter}${TierNumber}`
+
 // A utility type that allows us to define an object with a date attribute split into
 // date, month, year (and optionally, time) attributes. Designed for use with the GOV.UK
 // date input
