@@ -44,3 +44,5 @@ export type ObjectWithDateParts<K extends string | number> = { [P in `${K}-${'ye
 } & {
   [P in K]?: string
 }
+
+export type TableRow = Array<TableCell>
