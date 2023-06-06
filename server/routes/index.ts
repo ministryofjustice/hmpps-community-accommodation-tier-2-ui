@@ -17,8 +17,10 @@ export default function routes(controllers: Controllers): Router {
   const { applicationsController, peopleController } = controllers
 
   get(paths.applications.new.pattern, applicationsController.new())
-  post(paths.applications.people.find.pattern, peopleController.find())
   get(paths.applications.show.pattern, applicationsController.show())
+
+  post(paths.applications.create.pattern, applicationsController.create())
+  post(paths.applications.people.find.pattern, peopleController.find())
 
   return router
 }
