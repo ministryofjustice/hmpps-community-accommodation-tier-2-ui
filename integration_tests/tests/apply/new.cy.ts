@@ -1,8 +1,10 @@
+import { Cas2Application as Application } from '@approved-premises/api'
 import IndexPage from '../../pages'
-import { personFactory } from '../../../server/testutils/factories/index'
+import { personFactory, applicationFactory } from '../../../server/testutils/factories/index'
 
-context('Risks', () => {
+context('New', () => {
   const person = personFactory.build({})
+  const applications = applicationFactory.buildList(3) as Array<Application>
 
   beforeEach(() => {
     cy.task('reset')
@@ -20,15 +22,22 @@ context('Risks', () => {
         oasysSections: riskData,
       })
     })
+    // and existing applications
+    cy.task('stubApplications', applications)
   })
 
-  it('allows user to enter a CRN and see the first risk question data', () => {
+  it('shows existing applications, allows user to enter a CRN and see the first risk question data', () => {
     // Given I visit the start page
     IndexPage.visit()
     // And I click on the start button
     cy.get('[role="button"]').click()
 
-    // Then I see the CRN form
+    // Then I see all existing applications
+    applications.forEach(app => {
+      cy.get('td').contains(app.person.crn)
+    })
+
+    // And I see the CRN form
     // And enter a valid CRN
     cy.task('stubFindPerson', {
       person,
@@ -46,7 +55,7 @@ context('Risks', () => {
     // And I click on the start button
     cy.get('[role="button"]').click()
 
-    // Then I see the CRN form
+    // And I see the CRN form
     // And I click submit without entering a CRN
     cy.get('button').contains('Save and continue').click()
 
@@ -61,7 +70,7 @@ context('Risks', () => {
     // And I click on the start button
     cy.get('[role="button"]').click()
 
-    // Then I see the CRN form
+    // And I see the CRN form
     // And enter a CRN
     cy.task('stubPersonNotFound', {
       person,
@@ -91,5 +100,20 @@ context('Risks', () => {
     // Then I see an error message
     cy.get('.govuk-error-summary').should('contain', `You do not have permission to access this CRN`)
     cy.get(`[data-cy-error-crn]`).should('contain', `You do not have permission to access this CRN`)
+  })
+
+  it('does not render existing applications if none are returned', () => {
+    // Given I visit the start page
+    IndexPage.visit()
+    // And there are no existing applications
+    cy.task('stubApplications', [])
+    // And I click on the start button
+    cy.get('[role="button"]').click()
+
+    // Then I see the new applications section
+    cy.get('h2').contains('New applications')
+
+    // And I do not see the existing applications section
+    cy.get('h2').contains('Existing applications').should('not.exist')
   })
 })
