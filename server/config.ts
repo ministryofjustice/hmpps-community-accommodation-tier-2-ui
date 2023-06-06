@@ -1,5 +1,7 @@
 /* istanbul ignore file */
 
+import { ServiceName } from './@types/shared/models/ServiceName'
+
 const production = process.env.NODE_ENV === 'production'
 
 function get<T>(name: string, fallback: T, options = { requireInProduction: false }): T | string {
@@ -29,6 +31,7 @@ export interface ApiConfig {
     deadline: number
   }
   agent: AgentConfig
+  serviceName?: ServiceName
 }
 
 export default {
