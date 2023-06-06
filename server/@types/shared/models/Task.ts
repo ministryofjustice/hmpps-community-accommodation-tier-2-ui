@@ -4,6 +4,7 @@
 
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
 import type { Person } from './Person';
+import type { TaskStatus } from './TaskStatus';
 import type { TaskType } from './TaskType';
 
 export type Task = {
@@ -11,7 +12,7 @@ export type Task = {
     person: Person;
     dueDate: string;
     allocatedToStaffMember: ApprovedPremisesUser;
-    status: 'not_started' | 'in_progress' | 'complete';
+    status: TaskStatus;
     taskType: TaskType;
 };
 
