@@ -7,6 +7,7 @@ import * as pathModule from 'path'
 
 import applicationPaths from '../paths/apply'
 import { initialiseName } from './utils'
+import { dashboardTableRows } from './applicationUtils'
 
 import * as OasysImportUtils from './oasysImportUtils'
 
@@ -57,4 +58,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('OasysImportUtils', OasysImportUtils)
 
   njkEnv.addGlobal('paths', { ...applicationPaths })
+
+  njkEnv.addGlobal('dashboardTableRows', dashboardTableRows)
 }

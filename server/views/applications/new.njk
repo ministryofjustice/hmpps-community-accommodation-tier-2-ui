@@ -3,6 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% extends "../partials/layout.njk" %}
 
@@ -13,8 +14,34 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Applications</h1>
+
+      {% if applications.length %}
+
+        <h2>Existing applications</h2>
+            {{
+              govukTable({
+                  caption: title,
+                  captionClasses: "govuk-table__caption--m",
+                  firstCellIsHeader: true,
+                  head: [
+                    {
+                      text: "Person"
+                    },
+                    {
+                      text: "CRN"
+                    }
+                  ],
+                  rows: dashboardTableRows(applications)
+                })
+            }}
+      
+      {% endif %}
+
+      <h2>New applications</h2>
       <form action="{{ paths.applications.people.find() }}" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+        
 
         {{ showErrorSummary(errorSummary) }}
 
@@ -23,7 +50,7 @@
             {
               label: {
                 text: "Enter the person's CRN",
-                classes: "govuk-label--l",
+                classes: "govuk-label--m",
                 isPageHeading: true
               },
               hint: {

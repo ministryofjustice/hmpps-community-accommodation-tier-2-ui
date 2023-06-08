@@ -23,6 +23,16 @@
                 </div>
             </div>
 
+        <form action="{{ paths.applications.create() }}" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+            <input type="hidden" name="crn" value="{{ crn }}"/>
+
+            {{ govukButton({
+                name: 'submit',
+                text: "Save and continue"
+            }) }}
+        </form>
+
         </div>
     </div>
 
