@@ -5,6 +5,7 @@
 import type { PropertyStatus } from './PropertyStatus';
 
 export type PremisesSummary = {
+    service: string;
     id: string;
     name: string;
     addressLine1: string;

@@ -3,12 +3,10 @@
 /* eslint-disable */
 
 import type { ProbationRegion } from './ProbationRegion';
-import type { UserRole } from './UserRole';
 
 export type User = {
+    service: string;
     id: string;
     region: ProbationRegion;
-    roles: Array<UserRole>;
-    service: string;
 };
 
