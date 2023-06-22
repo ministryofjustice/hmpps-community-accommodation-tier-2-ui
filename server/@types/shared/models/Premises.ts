@@ -9,6 +9,7 @@ import type { ProbationRegion } from './ProbationRegion';
 import type { PropertyStatus } from './PropertyStatus';
 
 export type Premises = {
+    service: string;
     id: string;
     name: string;
     addressLine1: string;
@@ -17,7 +18,6 @@ export type Premises = {
     postcode: string;
     bedCount: number;
     availableBedsForToday: number;
-    service?: string;
     notes?: string;
     probationRegion: ProbationRegion;
     apArea: ApArea;

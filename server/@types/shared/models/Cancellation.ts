@@ -11,5 +11,6 @@ export type Cancellation = {
     reason: CancellationReason;
     notes?: string;
     createdAt: string;
+    premisesName: string;
 };
 

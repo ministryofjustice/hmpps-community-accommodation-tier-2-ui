@@ -8,6 +8,7 @@ import type { AssessmentStatus } from './AssessmentStatus';
 import type { ClarificationNote } from './ClarificationNote';
 
 export type Assessment = {
+    service: string;
     id: string;
     schemaVersion: string;
     outdatedSchema: boolean;
