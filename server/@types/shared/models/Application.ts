@@ -5,6 +5,7 @@
 import type { Person } from './Person';
 
 export type Application = {
+    type: string;
     id: string;
     person: Person;
     createdAt: string;
