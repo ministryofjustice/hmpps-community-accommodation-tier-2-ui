@@ -7,6 +7,7 @@ export type Person = {
     name: string;
     dateOfBirth: string;
     nomsNumber?: string;
+    ethnicity?: string;
     nationality?: string;
     religionOrBelief?: string;
     sex: string;

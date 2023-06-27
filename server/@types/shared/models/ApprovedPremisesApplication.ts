@@ -5,6 +5,7 @@
 import type { AnyValue } from './AnyValue';
 import type { Application } from './Application';
 import type { ApplicationStatus } from './ApplicationStatus';
+import type { AssessmentDecision } from './AssessmentDecision';
 import type { PersonRisks } from './PersonRisks';
 
 export type ApprovedPremisesApplication = (Application & {
@@ -18,6 +19,7 @@ export type ApprovedPremisesApplication = (Application & {
     data?: AnyValue;
     document?: AnyValue;
     status: ApplicationStatus;
+    assessmentDecision?: AssessmentDecision;
     submittedAt?: string;
 });
 

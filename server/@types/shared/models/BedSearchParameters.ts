@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type BedSearchParameters = {
-    serviceName?: string;
+    serviceName: string;
     /**
      * The date the Bed will need to be free from
      */
