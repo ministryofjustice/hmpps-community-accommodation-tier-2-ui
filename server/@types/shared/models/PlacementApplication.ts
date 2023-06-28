@@ -12,6 +12,9 @@ export type PlacementApplication = (NewPlacementApplication & {
     outdatedSchema?: boolean;
     createdAt: string;
     submittedAt?: string;
+    assessmentId: string;
+    assessmentCompletedAt: string;
+    applicationCompletedAt: string;
     data?: AnyValue;
     document?: AnyValue;
 });
