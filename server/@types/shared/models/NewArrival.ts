@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type NewArrival = {
-    arrivalDate: string;
+    type: string;
     expectedDepartureDate: string;
     notes?: string;
     keyWorkerStaffCode?: string;

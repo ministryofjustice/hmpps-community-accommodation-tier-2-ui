@@ -5,11 +5,14 @@
 import type { AnyValue } from './AnyValue';
 import type { Application } from './Application';
 import type { ApplicationStatus } from './ApplicationStatus';
+import type { AssessmentDecision } from './AssessmentDecision';
 import type { PersonRisks } from './PersonRisks';
 
 export type ApprovedPremisesApplication = (Application & {
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;
+    isEmergencyApplication?: boolean;
+    isEsapApplication?: boolean;
     arrivalDate?: string;
     risks?: PersonRisks;
     createdByUserId: string;
@@ -18,6 +21,7 @@ export type ApprovedPremisesApplication = (Application & {
     data?: AnyValue;
     document?: AnyValue;
     status: ApplicationStatus;
+    assessmentDecision?: AssessmentDecision;
     submittedAt?: string;
 });
 

@@ -8,7 +8,7 @@ import type { BedSearchResultRoomSummary } from './BedSearchResultRoomSummary';
 import type { ServiceName } from './ServiceName';
 
 export type BedSearchResult = {
-    serviceName?: ServiceName;
+    serviceName: ServiceName;
     premises: BedSearchResultPremisesSummary;
     room: BedSearchResultRoomSummary;
     bed: BedSearchResultBedSummary;
