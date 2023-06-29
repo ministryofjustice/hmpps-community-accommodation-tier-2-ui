@@ -4,7 +4,7 @@
 
 export type PersonAcctAlert = {
     alertId: number;
-    comment: string;
+    comment?: string;
     dateCreated: string;
     dateExpires?: string;
     expired: boolean;

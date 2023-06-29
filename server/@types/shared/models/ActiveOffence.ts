@@ -7,6 +7,6 @@ export type ActiveOffence = {
     offenceDescription: string;
     offenceId: string;
     convictionId: number;
-    offenceDate: string;
+    offenceDate?: string;
 };
 
