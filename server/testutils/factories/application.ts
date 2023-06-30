@@ -17,4 +17,5 @@ export default Factory.define<Application>(() => ({
   outdatedSchema: faker.datatype.boolean(),
   risks: risksFactory.build(),
   status: 'inProgress' as const,
+  type: 'CAS2',
 }))
