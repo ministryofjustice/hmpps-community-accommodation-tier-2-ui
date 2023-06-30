@@ -9,6 +9,8 @@ import type { PersonRisks } from './PersonRisks';
 export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;
+    isEmergencyApplication?: boolean;
+    isEsapApplication?: boolean;
     arrivalDate?: string;
     risks?: PersonRisks;
     createdByUserId: string;
