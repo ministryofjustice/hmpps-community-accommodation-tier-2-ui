@@ -3,10 +3,12 @@
 /* eslint-disable */
 
 export type Arrival = {
-    bookingId: string;
-    arrivalDate: string;
     expectedDepartureDate: string;
+    arrivalDate: string;
+    arrivalTime: string;
     notes?: string;
+    keyWorkerStaffCode?: string;
+    bookingId: string;
     createdAt: string;
 };
 

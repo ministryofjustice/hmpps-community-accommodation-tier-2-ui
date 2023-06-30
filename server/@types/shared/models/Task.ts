@@ -3,15 +3,17 @@
 /* eslint-disable */
 
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
-import type { Person } from './Person';
+import type { TaskStatus } from './TaskStatus';
 import type { TaskType } from './TaskType';
 
 export type Task = {
+    taskType: TaskType;
+    id: string;
     applicationId: string;
-    person: Person;
+    personName: string;
+    crn: string;
     dueDate: string;
     allocatedToStaffMember: ApprovedPremisesUser;
-    status: 'not_started' | 'in_progress' | 'complete';
-    taskType: TaskType;
+    status: TaskStatus;
 };
 

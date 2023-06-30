@@ -44,5 +44,7 @@ export type Booking = (BookingBody & {
     turnarounds?: Array<Turnaround>;
     turnaroundStartDate?: string;
     effectiveEndDate?: string;
+    applicationId?: string;
+    assessmentId?: string;
 });
 

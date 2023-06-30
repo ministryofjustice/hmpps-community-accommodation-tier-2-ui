@@ -9,6 +9,8 @@ export type UpdateApprovedPremisesApplication = (UpdateApplication & {
     isInapplicable?: boolean;
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;
+    isEmergencyApplication?: boolean;
+    isEsapApplication?: boolean;
     targetLocation?: string;
     releaseType?: ReleaseTypeOption;
     arrivalDate?: string;
