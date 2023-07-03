@@ -44,6 +44,10 @@ export default {
     password: process.env.REDIS_AUTH_TOKEN,
     tls_enabled: get('REDIS_TLS_ENABLED', 'false'),
   },
+  environment: process.env.ENVIRONMENT || 'local',
+  sentry: {
+    dsn: get('SENTRY_DSN', null, requiredInProduction),
+  },
   session: {
     secret: get('SESSION_SECRET', 'app-insecure-default-session', requiredInProduction),
     expiryMinutes: Number(get('WEB_SESSION_TIMEOUT_IN_MINUTES', 120)),
