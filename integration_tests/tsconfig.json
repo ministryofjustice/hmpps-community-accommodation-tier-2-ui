@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "target": "es5",
     "noEmit": true,
     "lib": ["es5", "dom", "es2015.promise"],
