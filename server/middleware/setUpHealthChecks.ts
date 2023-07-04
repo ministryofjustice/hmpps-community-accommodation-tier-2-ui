@@ -20,5 +20,9 @@ export default function setUpHealthChecks(): Router {
     }),
   )
 
+  router.get('/debug-sentry', (_req, res) => {
+    throw new Error('Test Sentry error thrown.')
+  })
+
   return router
 }
