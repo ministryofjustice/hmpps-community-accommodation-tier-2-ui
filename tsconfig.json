@@ -2,6 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "strict": true,
+    "useUnknownInCatchVariables": false,
     "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",

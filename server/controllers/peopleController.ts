@@ -12,7 +12,7 @@ export default class PeopleController {
 
       if (crn) {
         try {
-          await this.personService.findByCrn(req.user.token, crn)
+          await this.personService.findByCrn(req.user?.token as string, crn)
 
           res.redirect(paths.applications.show({ crn }))
         } catch (err) {
@@ -24,11 +24,11 @@ export default class PeopleController {
             throw err
           }
 
-          res.redirect(req.headers.referer)
+          res.redirect(req.headers.referer as string)
         }
       } else {
         this.addErrorMessagesToFlash(req, 'You must enter a CRN')
-        res.redirect(req.headers.referer)
+        res.redirect(req.headers.referer as string)
       }
     }
   }
