@@ -19,6 +19,7 @@ import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
+import { setUpSentryErrorHandler, setUpSentryRequestHandler } from './middleware/setUpSentry'
 
 import routes from './routes'
 import type { Services } from './services'
@@ -30,6 +31,8 @@ export default function createApp(controllers: Controllers, services: Services):
   app.set('json spaces', 2)
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
+
+  setUpSentryRequestHandler(app)
 
   app.use(metricsMiddleware)
   app.use(setUpHealthChecks())
@@ -53,6 +56,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(routes(controllers))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
+  setUpSentryErrorHandler(app)
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
 
   return app
