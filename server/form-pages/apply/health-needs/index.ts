@@ -2,18 +2,16 @@
 
 import { Section, Task } from '../../utils/decorators'
 import DescribeSubstanceMisuse from './substance-misuse/describeSubstanceMisuse'
-// @Section({
-//   title: 'Health needs',
-//   tasks: [SubstanceMisuse],
-// })
+import DescribePhysicalHealth from './physical-health/describePhysicalHealth'
+import PhysicalHealth from './physical-health'
 
 @Task({
   slug: 'health-needs',
-  name: 'Substance misuse (task)',
-  pages: [DescribeSubstanceMisuse],
+  name: 'Substance misuse',
+  pages: [DescribeSubstanceMisuse, DescribePhysicalHealth],
 })
 @Section({
-  title: 'Health needs (section)',
-  tasks: [HealthNeeds],
+  title: 'Health needs',
+  tasks: [HealthNeeds, PhysicalHealth],
 })
 export default class HealthNeeds {}
