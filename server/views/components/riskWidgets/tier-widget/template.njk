@@ -1,0 +1,8 @@
+{% if params.level %}
+    <div class="tier-widget">
+        <h3 class="govuk-heading-m">
+            <strong>TIER {{ params.level }}</strong>
+        </h3>
+        <p class="govuk-hint govuk-body-m">Last updated: {{ params.lastUpdated | default("Not known") }}</p>
+    </div>
+{% endif %}

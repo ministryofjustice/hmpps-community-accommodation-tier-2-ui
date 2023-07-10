@@ -1,0 +1,99 @@
+{% extends "../layout.njk" %}
+{% block questions %}
+
+  <h1 class="govuk-heading-l">{{page.title}}</h1>
+
+  {% set healthSubstances %}
+  {{
+    formPageTextarea(
+      {
+        fieldName: "substancesHistory",
+        spellcheck: false,
+        label: {
+          text: page.questions.substancesHistory
+        }
+      },
+      fetchContext()
+    )
+  }}
+  {% endset -%}
+
+  {% set healthSubstancesEngaged %}
+  {{
+    formPageTextarea(
+      {
+        fieldName: "engagedWithServiceDetail",
+        spellcheck: false,
+        label: {
+          text: page.questions.engagedWithServiceDetail
+        }
+      },
+      fetchContext()
+    )
+  }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "substancesYesNo",
+        fieldset: {
+          legend: {
+            text: page.questions.substancesYesNo,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "Guidance goes here..."
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: healthSubstances
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "engagedWithServiceYesNo",
+        fieldset: {
+          legend: {
+            text: page.questions.engagedWithServiceYesNo,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "Guidance goes here..."
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: healthSubstancesEngaged
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+
+{% endblock %}

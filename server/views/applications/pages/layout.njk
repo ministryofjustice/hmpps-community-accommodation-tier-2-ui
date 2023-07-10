@@ -1,0 +1,53 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% from "../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+{% from "../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% from "../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+{% from "../../components/formFields/form-page-textarea/macro.njk" import formPageTextarea %}
+
+{% extends "../../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + page.title %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {% if page.previous() === 'dashboard' %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.show({ id: applicationId })
+    }) }}
+  {% elif page.previous() %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.pages.show({ id: applicationId, task: task, page: page.previous() })
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ showErrorSummary(errorSummary) }}
+
+        {% block questions %}{% endblock %}
+
+        {{ govukButton({
+            text: "Save and continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

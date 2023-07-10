@@ -1,0 +1,11 @@
+{
+  "crn": {
+    "empty": "You must enter a CRN",
+    "doesNotExist": "This CRN does not exist",
+    "userPermission": "You do not have permission to access this CRN",
+    "doesNotHaveApplication": "This CRN does not have an application"
+  },
+  "data": {
+    "invalid": "This data does not conform to the newest application schema"
+  }
+}

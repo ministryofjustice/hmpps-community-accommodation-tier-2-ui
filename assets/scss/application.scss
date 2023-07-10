@@ -8,4 +8,7 @@ $govuk-page-width: $moj-page-width;
 @import 'moj/all';
 
 @import './components/header-bar';
+@import './components/task-list';
+@import './components/risk-widgets';
+
 @import 'assets/scss/local';

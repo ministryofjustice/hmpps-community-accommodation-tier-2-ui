@@ -1,0 +1,9 @@
+{% from "./rosh-widget/macro.njk" import roshWidget %}
+{% from "./mappa-widget/macro.njk" import mappaWidget %}
+{% from "./tier-widget/macro.njk" import tierWidget %}
+{% from "./risk-flag-widget/macro.njk" import riskFlagWidget %}
+
+{{ roshWidget(params.roshRisks) }}
+{{ mappaWidget(params.mappa) }}
+{{ tierWidget(params.tier)}}
+{{ riskFlagWidget(params.flags)}}

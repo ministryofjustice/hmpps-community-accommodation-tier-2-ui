@@ -1,3 +1,6 @@
+import type { ErrorMessages } from '@approved-premises/ui'
+import type { Cas2Application } from '@approved-premises/api'
+
 export default {}
 
 declare module 'express-session' {
@@ -5,7 +8,28 @@ declare module 'express-session' {
   interface SessionData {
     returnTo: string
     nowInMinutes: number
+    application: Cas2Application
+    previousPage: string
+    user: UserDetails
   }
+}
+declare module 'express' {
+  interface TypedRequest<T extends Query, U = Body> extends Express.Request {
+    body: U
+    params: T
+  }
+
+  interface TypedRequestHandler<T, U = Response> extends Express.RequestHandler {
+    (req: T, res: U, next: () => void): void
+  }
+
+  interface ShowParams {
+    id: string
+  }
+
+  type ShowRequest = TypedRequest<ShowParams>
+
+  type ShowRequestHandler = TypedRequestHandler<ShowParams>
 }
 
 export declare global {

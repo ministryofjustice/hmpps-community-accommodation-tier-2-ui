@@ -1,7 +1,25 @@
+import Case from 'case'
 import qs, { IStringifyOptions } from 'qs'
+import type { PersonRisksUI } from '@approved-premises/ui'
+import type { PersonRisks } from '@approved-premises/api'
+import { DateFormats } from './dateUtils'
 
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
+
+/**
+ * Converts a string from any case to Sentence case
+ * @param string string to be converted.
+ * @returns name converted to sentence case.
+ */
+export const sentenceCase = (string: string) => Case.sentence(string)
+
+/**
+ * Converts a string from any case to camelCase
+ * @param string string to be converted.
+ * @returns name converted to camelCase.
+ */
+export const camelCase = (string: string) => Case.camel(string)
 
 const isBlank = (str: string): boolean => !str || /^\s*$/.test(str)
 
@@ -29,4 +47,25 @@ export const createQueryString = (
   options: IStringifyOptions = { encode: false, indices: false },
 ): string => {
   return qs.stringify(params, options)
+}
+
+export const mapApiPersonRisksForUi = (risks: PersonRisks): PersonRisksUI => {
+  return {
+    ...risks,
+    roshRisks: {
+      ...risks.roshRisks?.value,
+      lastUpdated: risks.roshRisks?.value?.lastUpdated
+        ? DateFormats.isoDateToUIDate(risks.roshRisks.value.lastUpdated)
+        : '',
+    },
+    mappa: {
+      ...risks.mappa?.value,
+      lastUpdated: risks.mappa?.value?.lastUpdated ? DateFormats.isoDateToUIDate(risks.mappa.value.lastUpdated) : '',
+    },
+    tier: {
+      ...risks.tier?.value,
+      lastUpdated: risks.tier?.value?.lastUpdated ? DateFormats.isoDateToUIDate(risks.tier.value.lastUpdated) : '',
+    },
+    flags: risks.flags.value,
+  }
 }

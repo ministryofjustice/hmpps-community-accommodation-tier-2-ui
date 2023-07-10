@@ -1,0 +1,12 @@
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% macro formPageTextarea(params, context) %}
+  {{
+      govukTextarea(
+        mergeObjects(
+          params,
+          { id: params.fieldName, name: params.fieldName, errorMessage: context.errors[params.fieldName], value: context[params.fieldName] }
+        )
+      )
+  }}
+{% endmacro %}
