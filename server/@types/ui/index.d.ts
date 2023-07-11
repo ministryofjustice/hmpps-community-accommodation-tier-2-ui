@@ -1,3 +1,17 @@
+export type JourneyType = 'applications'
+
+export type DataServices = Partial<{
+  personService: {
+    findByCrn: (token: string, crn: string) => Promise<Person>
+  }
+  applicationService: {
+    findApplication: (token: string, id: string) => Promise<Cas2Application>
+  }
+  userService: {
+    getUserById: (token: string, id: string) => Promise<User>
+  }
+}>
+
 export interface ErrorsAndUserInput {
   errorTitle?: string
   errors: ErrorMessages
