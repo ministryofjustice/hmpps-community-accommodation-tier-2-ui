@@ -76,6 +76,10 @@ Or run tests with the cypress UI:
 
 `npm run test:integration:ui`
 
+## Running e2e tests
+
+End to end tests for this project can be found [in a seperate repo](https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-e2e).
+
 
 ## Manage infrastructure & view logs
 
