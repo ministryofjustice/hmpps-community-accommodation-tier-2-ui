@@ -12,16 +12,20 @@ export type FormSection = {
 }
 
 export type FormSections = Array<FormSection>
+export type TaskNames = 'funding-information'
 export type FormPages = { [key in TaskNames]: Record<string, unknown> }
 
 export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'
 export type TaskWithStatus = UiTask & { status: TaskStatus }
 
 export type TaskListErrors<K extends TasklistPage> = Partial<Record<keyof K['body'], unknown>>
+interface TasklistPage {
+  body: Record<string, unknown>
+}
 
 export type PageResponse = Record<string, string | Array<string> | Array<Record<string, unknown>>>
 
-export type FormArtifact = ApprovedPremisesApplication | ApprovedPremisesAssessment | PlacementApplication
+export type FormArtifact = Cas2Application
 
 export type DataServices = Partial<{
   personService: {
@@ -83,3 +87,12 @@ export type ObjectWithDateParts<K extends string | number> = { [P in `${K}-${'ye
 }
 
 export type TableRow = Array<TableCell>
+
+export interface RadioItem {
+  text: string
+  value: string
+  checked?: boolean
+  conditional?: {
+    html?: string
+  }
+}
