@@ -7,7 +7,8 @@ jest.mock('../data/applicationClient.ts')
 jest.mock('../data/personClient.ts')
 
 describe('ApplicationService', () => {
-  const applicationClient = new ApplicationClient(null) as jest.Mocked<ApplicationClient>
+  const token = 'SOME_TOKEN'
+  const applicationClient = new ApplicationClient(token) as jest.Mocked<ApplicationClient>
   const applicationClientFactory = jest.fn()
 
   const service = new ApplicationService(applicationClientFactory)
@@ -21,8 +22,6 @@ describe('ApplicationService', () => {
     it('calls the create method and returns an application', async () => {
       const application = applicationFactory.build()
 
-      const token = 'SOME_TOKEN'
-
       applicationClient.create.mockResolvedValue(application)
 
       const result = await service.createApplication(token, application.person.crn)
@@ -35,7 +34,6 @@ describe('ApplicationService', () => {
   })
 
   describe('getAllApplications', () => {
-    const token = 'SOME_TOKEN'
     const applications = applicationFactory.buildList(5)
 
     it('fetches all applications', async () => {

@@ -31,9 +31,9 @@ const tokenVerifier: TokenVerifier = async request => {
     return true
   }
 
-  logger.debug(`token request for user "${user.username}'`)
+  logger.debug(`token request for user "${user?.username}'`)
 
-  const result = await getApiClientToken(user.token)
+  const result = await getApiClientToken(user?.token as string)
   if (result) {
     request.verified = true
   }

@@ -139,7 +139,7 @@ describe('DateFormats', () => {
 
       const result = DateFormats.dateAndTimeInputsToIsoString(obj, 'date')
 
-      expect(result.date.toString()).toEqual('twothousandtwentytwo-20-oo')
+      expect(result?.date?.toString()).toEqual('twothousandtwentytwo-20-oo')
     })
   })
 
