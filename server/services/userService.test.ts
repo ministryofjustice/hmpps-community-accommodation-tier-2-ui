@@ -1,8 +1,15 @@
+import { createMock } from '@golevelup/ts-jest'
+
 import UserService from './userService'
-import HmppsAuthClient, { User } from '../data/hmppsAuthClient'
+import type { User } from '../data/hmppsAuthClient'
+import HmppsAuthClient from '../data/hmppsAuthClient'
+import type { RedisClient } from '../data/redisClient'
+import TokenStore from '../data/tokenStore'
 
 jest.mock('../data/hmppsAuthClient')
 
+const redisClient = createMock<RedisClient>({})
+const tokenStore = new TokenStore(redisClient) as jest.Mocked<TokenStore>
 const token = 'some token'
 
 describe('User service', () => {
@@ -11,7 +18,7 @@ describe('User service', () => {
 
   describe('getUser', () => {
     beforeEach(() => {
-      hmppsAuthClient = new HmppsAuthClient(null) as jest.Mocked<HmppsAuthClient>
+      hmppsAuthClient = new HmppsAuthClient(tokenStore) as jest.Mocked<HmppsAuthClient>
       userService = new UserService(hmppsAuthClient)
     })
     it('Retrieves and formats user name', async () => {

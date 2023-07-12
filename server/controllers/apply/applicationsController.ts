@@ -10,7 +10,7 @@ export default class ApplicationsController {
 
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const applications = await this.applicationService.getAllApplications(req.user.token)
+      const applications = await this.applicationService.getAllApplications(req.user?.token as string)
 
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
@@ -28,7 +28,7 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const { crn } = req.params
 
-      const oasysSections: OASysSections = await this.personService.getOasysSections(req.user.token, crn)
+      const oasysSections: OASysSections = await this.personService.getOasysSections(req.user?.token as string, crn)
 
       return res.render('applications/pages/risks/risks', {
         pageHeading: 'Risk of Serious Harm Summary',
@@ -44,7 +44,7 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const { crn } = req.body
 
-      await this.applicationService.createApplication(req.user.token, crn)
+      await this.applicationService.createApplication(req.user?.token as string, crn)
 
       return res.redirect(paths.applications.new({}))
     }

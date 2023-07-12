@@ -5,12 +5,11 @@ import { PersonClient } from '../data'
 jest.mock('../data/personClient.ts')
 
 describe('Person Service', () => {
-  const personClient = new PersonClient(null) as jest.Mocked<PersonClient>
+  const token = 'SOME_TOKEN'
+  const personClient = new PersonClient(token) as jest.Mocked<PersonClient>
   const personClientFactory = jest.fn()
 
   const service = new PersonService(personClientFactory)
-
-  const token = 'SOME_TOKEN'
 
   beforeEach(() => {
     jest.resetAllMocks()

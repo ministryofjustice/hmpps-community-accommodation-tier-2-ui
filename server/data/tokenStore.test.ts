@@ -22,7 +22,7 @@ describe('tokenStore', () => {
 
   describe('get token', () => {
     it('Can retrieve token', async () => {
-      redisClient.get.mockResolvedValue('token-1')
+      ;(redisClient.get as jest.Mock).mockResolvedValue('token-1')
 
       await expect(tokenStore.getToken('user-1')).resolves.toBe('token-1')
 

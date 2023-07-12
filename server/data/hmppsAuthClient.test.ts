@@ -1,12 +1,16 @@
+import { createMock } from '@golevelup/ts-jest'
 import nock from 'nock'
 
-import config from '../config'
 import HmppsAuthClient from './hmppsAuthClient'
+import type { RedisClient } from './redisClient'
 import TokenStore from './tokenStore'
+import config from '../config'
 
 jest.mock('./tokenStore')
+jest.mock('./redisClient')
 
-const tokenStore = new TokenStore(null) as jest.Mocked<TokenStore>
+const redisClient = createMock<RedisClient>({})
+const tokenStore = new TokenStore(redisClient) as jest.Mocked<TokenStore>
 
 const username = 'Bob'
 const token = { access_token: 'token-1', expires_in: 300 }
@@ -18,6 +22,7 @@ describe('hmppsAuthClient', () => {
   beforeEach(() => {
     fakeHmppsAuthApi = nock(config.apis.hmppsAuth.url)
     hmppsAuthClient = new HmppsAuthClient(tokenStore)
+    tokenStore.getToken.mockResolvedValue(token.access_token)
   })
 
   afterEach(() => {
@@ -58,12 +63,11 @@ describe('hmppsAuthClient', () => {
     })
 
     it('should return token from redis if one exists', async () => {
-      tokenStore.getToken.mockResolvedValue(token.access_token)
       const output = await hmppsAuthClient.getSystemClientToken(username)
       expect(output).toEqual(token.access_token)
     })
 
-    it('should return token from HMPPS Auth with username', async () => {
+    it("should fetch a new token from HMPPS Auth with username when one doesn't exist in redis", async () => {
       tokenStore.getToken.mockResolvedValue(null)
 
       fakeHmppsAuthApi
@@ -78,7 +82,7 @@ describe('hmppsAuthClient', () => {
       expect(tokenStore.setToken).toBeCalledWith('Bob', token.access_token, 240)
     })
 
-    it('should return token from HMPPS Auth without username', async () => {
+    it("should fetch a new token from HMPPS Auth without username when one doesn't exist in redis", async () => {
       tokenStore.getToken.mockResolvedValue(null)
 
       fakeHmppsAuthApi

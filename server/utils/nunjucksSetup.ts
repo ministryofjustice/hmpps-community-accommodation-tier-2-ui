@@ -48,6 +48,8 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addFilter('initialiseName', initialiseName)
 
   njkEnv.addGlobal('fetchContext', function fetchContext() {
+    // eslint-disable-next-line
+    // @ts-ignore
     return this.ctx
   })
 
