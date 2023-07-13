@@ -95,10 +95,6 @@ context('New', () => {
   // When I try to continue without answer the question
   //-------------------------------------------
   it('enforces answer', () => {
-    // stub error response
-    // WIP!
-    cy.task('stubApplicationUpdateError', { application, 'some error response for fundingSource' })
-
     // Given I'm on the Funding information task page
     cy.get('a').contains('Funding information for CAS-2 placement').click()
 
