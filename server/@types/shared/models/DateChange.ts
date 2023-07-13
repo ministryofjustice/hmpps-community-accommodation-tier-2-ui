@@ -2,12 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Extension = {
+export type DateChange = {
     id: string;
     bookingId: string;
+    previousArrivalDate: string;
+    newArrivalDate: string;
     previousDepartureDate: string;
     newDepartureDate: string;
-    notes?: string;
     createdAt: string;
 };
 
