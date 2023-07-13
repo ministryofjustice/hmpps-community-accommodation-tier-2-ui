@@ -6,7 +6,10 @@ import ApplicationService from '../../services/applicationService'
 import paths from '../../paths/apply'
 
 export default class ApplicationsController {
-  constructor(private readonly personService: PersonService, private readonly applicationService: ApplicationService) {}
+  constructor(
+    private readonly personService: PersonService,
+    private readonly applicationService: ApplicationService,
+  ) {}
 
   new(): RequestHandler {
     return async (req: Request, res: Response) => {

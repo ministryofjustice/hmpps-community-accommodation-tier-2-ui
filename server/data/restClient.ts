@@ -37,7 +37,11 @@ export default class RestClient {
 
   defaultHeaders: Record<string, string>
 
-  constructor(private readonly name: string, private readonly config: ApiConfig, private readonly token: string) {
+  constructor(
+    private readonly name: string,
+    private readonly config: ApiConfig,
+    private readonly token: string,
+  ) {
     this.agent = config.url.startsWith('https') ? new HttpsAgent(config.agent) : new Agent(config.agent)
     this.defaultHeaders = { 'X-SERVICE-NAME': 'cas2' }
   }
