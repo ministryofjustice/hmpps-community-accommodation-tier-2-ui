@@ -1,4 +1,4 @@
-import type { OASysSections, Person } from '@approved-premises/api'
+import type { OASysSections, OASysSection, Person, PersonRisks } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -20,6 +20,20 @@ export default class PersonClient {
     const response = (await this.restClient.get({ path })) as OASysSections
 
     return response
+  }
+
+  async oasysSelections(crn: string): Promise<Array<OASysSection>> {
+    const response = await this.restClient.get({ path: paths.people.oasys.selection({ crn }) })
+
+    return response as Array<OASysSection>
+  }
+
+  async risks(crn: string): Promise<PersonRisks> {
+    const response = await this.restClient.get({
+      path: paths.people.risks.show({ crn }),
+    })
+
+    return response as PersonRisks
   }
 
   async search(crn: string): Promise<Person> {

@@ -6,8 +6,10 @@ import express from 'express'
 import * as pathModule from 'path'
 
 import applicationPaths from '../paths/apply'
-import { initialiseName } from './utils'
+import { initialiseName, mapApiPersonRisksForUi } from './utils'
 import { dashboardTableRows } from './applicationUtils'
+import { DateFormats } from './dateUtils'
+import * as TasklistUtils from './taskListUtils'
 
 import * as OasysImportUtils from './oasysImportUtils'
 
@@ -47,6 +49,12 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addFilter('initialiseName', initialiseName)
 
+  njkEnv.addGlobal('formatDate', (date: string, options: { format: 'short' | 'long' } = { format: 'long' }) =>
+    DateFormats.isoDateToUIDate(date, options),
+  )
+  njkEnv.addGlobal('formatDateTime', (date: string) => DateFormats.isoDateTimeToUIDateTime(date))
+  njkEnv.addGlobal('dateObjToUIDate', (date: Date) => DateFormats.dateObjtoUIDate(date))
+
   njkEnv.addGlobal('fetchContext', function fetchContext() {
     return this.ctx
   })
@@ -58,6 +66,8 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('OasysImportUtils', OasysImportUtils)
 
   njkEnv.addGlobal('paths', { ...applicationPaths })
+  njkEnv.addGlobal('TasklistUtils', TasklistUtils)
+  njkEnv.addFilter('mapApiPersonRisksForUi', mapApiPersonRisksForUi)
 
   njkEnv.addGlobal('dashboardTableRows', dashboardTableRows)
 }

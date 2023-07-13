@@ -3,6 +3,7 @@ import { Request, RequestHandler, Response } from 'express'
 import PersonService from '../../services/personService'
 import { fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationService from '../../services/applicationService'
+import TasklistService from '../../services/tasklistService'
 import paths from '../../paths/apply'
 
 export default class ApplicationsController {
@@ -24,19 +25,33 @@ export default class ApplicationsController {
     }
   }
 
+  // show(): RequestHandler {
+  //   return async (req: Request, res: Response) => {
+  //     const { crn } = req.params
+  //     console.log('CRN', crn)
+
+  //     return res.render('applications/health-needs/substance', {
+  //       pageHeading: 'Heading set in controller',
+  //       oasysSections: {
+  //         roshSummary: [],
+  //       },
+  //       crn,
+  //     })
+  //   }
+  // }
+
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn } = req.params
-
-      const oasysSections: OASysSections = await this.personService.getOasysSections(req.user.token, crn)
-
-      return res.render('applications/pages/risks/risks', {
-        pageHeading: 'Risk of Serious Harm Summary',
-        oasysSections: {
-          roshSummary: [oasysSections.roshSummary[0]],
-        },
-        crn,
-      })
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+      const taskList = new TasklistService(application)
+      console.log('**APPLICATION STATUS**: ', application.status)
+      res.render('applications/tasklist', { application, taskList })
+      // if (application.status !== 'inProgress') {
+      //   const referrer = req.headers.referer
+      //   res.render('applications/show', { application, referrer })
+      // } else {
+      //   res.render('applications/tasklist', { application, taskList })
+      // }
     }
   }
 
