@@ -1,3 +1,53 @@
+export type JourneyType = 'applications'
+
+export type UiTask = {
+  id: string
+  title: string
+  pages: Record<string, unknown>
+}
+export type FormSection = {
+  title: string
+  name: string
+  tasks: Array<UiTask>
+}
+
+export type FormSections = Array<FormSection>
+export type TaskNames = 'funding-information'
+export type FormPages = { [key in TaskNames]: Record<string, unknown> }
+
+export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'
+export type TaskWithStatus = UiTask & { status: TaskStatus }
+
+export type TaskListErrors<K extends TasklistPage> = Partial<Record<keyof K['body'], unknown>>
+interface TasklistPage {
+  body: Record<string, unknown>
+}
+
+export type PageResponse = Record<string, string | Array<string> | Array<Record<string, unknown>>>
+
+export type FormArtifact = Cas2Application
+
+export type YesOrNo = 'yes' | 'no'
+
+export type YesOrNoWithDetail<T extends string> = {
+  [K in T]: YesOrNo
+} & {
+  [K in `${T}Detail`]: string
+}
+
+export type DataServices = Partial<{
+  personService: {
+    findByCrn: (token: string, crn: string) => Promise<Person>
+  }
+  applicationService: {
+    // getDocuments: (token: string, application: ApprovedPremisesApplication) => Promise<Array<Document>>
+    findApplication: (token: string, id: string) => Promise<Cas2Application>
+  }
+  userService: {
+    getUserById: (token: string, id: string) => Promise<User>
+  }
+}>
+
 export interface ErrorsAndUserInput {
   errorTitle?: string
   errors: ErrorMessages
@@ -46,3 +96,13 @@ export type ObjectWithDateParts<K extends string | number> = { [P in `${K}-${'ye
 }
 
 export type TableRow = Array<TableCell>
+
+export interface RadioItem {
+  text: string
+  value: string
+  checked?: boolean
+  hint?: { text: string }
+  conditional?: {
+    html?: string
+  }
+}
