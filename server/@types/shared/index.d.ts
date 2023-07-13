@@ -1,4 +1,3 @@
-/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -76,6 +75,7 @@ export type { CharacteristicPair } from './models/CharacteristicPair';
 export type { ClarificationNote } from './models/ClarificationNote';
 export type { Confirmation } from './models/Confirmation';
 export type { DateCapacity } from './models/DateCapacity';
+export type { DateChange } from './models/DateChange';
 export type { Departure } from './models/Departure';
 export type { DepartureReason } from './models/DepartureReason';
 export type { DestinationProvider } from './models/DestinationProvider';
@@ -106,6 +106,7 @@ export type { NewCas2Arrival } from './models/NewCas2Arrival';
 export type { NewCas3Arrival } from './models/NewCas3Arrival';
 export type { NewClarificationNote } from './models/NewClarificationNote';
 export type { NewConfirmation } from './models/NewConfirmation';
+export type { NewDateChange } from './models/NewDateChange';
 export type { NewDeparture } from './models/NewDeparture';
 export type { NewExtension } from './models/NewExtension';
 export type { NewLostBed } from './models/NewLostBed';
