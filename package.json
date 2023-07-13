@@ -193,7 +193,7 @@
     "mocha-junit-reporter": "^2.2.0",
     "nock": "^13.3.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.7",
+    "prettier": "^3.0.0",
     "prettier-plugin-jinja-template": "^0.5.0",
     "sass": "^1.62.0",
     "shellcheck": "^2.0.0",
