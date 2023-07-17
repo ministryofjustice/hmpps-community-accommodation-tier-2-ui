@@ -194,7 +194,6 @@
     "nock": "^13.3.0",
     "nodemon": "^3.0.0",
     "prettier": "^2.8.7",
-    "prettier-plugin-jinja-template": "^0.5.0",
     "sass": "^1.62.0",
     "shellcheck": "^2.0.0",
     "start-server-and-test": "^2.0.0",
