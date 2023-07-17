@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -186,8 +187,10 @@ export type { TemporaryAccommodationUser } from './models/TemporaryAccommodation
 export type { TemporaryAccommodationUserRole } from './models/TemporaryAccommodationUserRole';
 export type { Turnaround } from './models/Turnaround';
 export type { UpdateApplication } from './models/UpdateApplication';
+export type { UpdateApplicationType } from './models/UpdateApplicationType';
 export type { UpdateApprovedPremisesApplication } from './models/UpdateApprovedPremisesApplication';
 export type { UpdateAssessment } from './models/UpdateAssessment';
+export type { UpdateCas2Application } from './models/UpdateCas2Application';
 export type { UpdatedClarificationNote } from './models/UpdatedClarificationNote';
 export type { UpdateLostBed } from './models/UpdateLostBed';
 export type { UpdatePlacementApplication } from './models/UpdatePlacementApplication';
