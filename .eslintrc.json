@@ -46,6 +46,7 @@
         ],
         "@typescript-eslint/semi": 0,
         "import/no-unresolved": "error",
+        "max-classes-per-file": "off",
         "prettier/prettier": [
           "error",
           {
