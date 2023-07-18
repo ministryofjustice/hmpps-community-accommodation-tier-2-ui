@@ -30,7 +30,10 @@ export default class FundingInformation implements TaskListPage {
 
   body: FundingInformationBody
 
-  constructor(body: Partial<FundingInformationBody>, private readonly application: Application) {
+  constructor(
+    body: Partial<FundingInformationBody>,
+    private readonly application: Application,
+  ) {
     this.body = body as FundingInformationBody
   }
 
@@ -45,7 +48,7 @@ export default class FundingInformation implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.fundingSource) {
-      errors.fundingSource = 'You must specify a funding source'
+      errors.fundingSource = 'You must choose a funding source'
     }
     return errors
   }
