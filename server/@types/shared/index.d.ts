@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -65,6 +66,7 @@ export type { BookingSearchResultRoomSummary } from './models/BookingSearchResul
 export type { BookingSearchResults } from './models/BookingSearchResults';
 export type { BookingSearchSortField } from './models/BookingSearchSortField';
 export type { BookingStatus } from './models/BookingStatus';
+export type { BookingSummary } from './models/BookingSummary';
 export type { CacheType } from './models/CacheType';
 export type { Cancellation } from './models/Cancellation';
 export type { CancellationReason } from './models/CancellationReason';
@@ -186,8 +188,10 @@ export type { TemporaryAccommodationUser } from './models/TemporaryAccommodation
 export type { TemporaryAccommodationUserRole } from './models/TemporaryAccommodationUserRole';
 export type { Turnaround } from './models/Turnaround';
 export type { UpdateApplication } from './models/UpdateApplication';
+export type { UpdateApplicationType } from './models/UpdateApplicationType';
 export type { UpdateApprovedPremisesApplication } from './models/UpdateApprovedPremisesApplication';
 export type { UpdateAssessment } from './models/UpdateAssessment';
+export type { UpdateCas2Application } from './models/UpdateCas2Application';
 export type { UpdatedClarificationNote } from './models/UpdatedClarificationNote';
 export type { UpdateLostBed } from './models/UpdateLostBed';
 export type { UpdatePlacementApplication } from './models/UpdatePlacementApplication';

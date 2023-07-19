@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdatedClarificationNote = {
-    response: string;
-    responseReceivedOn: string;
-};
+import type { UpdateApplication } from './UpdateApplication';
+
+export type UpdateCas2Application = UpdateApplication;
 
