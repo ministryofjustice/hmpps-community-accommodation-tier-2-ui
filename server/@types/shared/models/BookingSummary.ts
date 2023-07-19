@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Extension = {
+export type BookingSummary = {
     id: string;
-    bookingId: string;
-    previousDepartureDate: string;
-    newDepartureDate: string;
-    notes?: string;
+    premisesId: string;
+    premisesName: string;
+    arrivalDate: string;
+    departureDate: string;
     createdAt: string;
 };
 

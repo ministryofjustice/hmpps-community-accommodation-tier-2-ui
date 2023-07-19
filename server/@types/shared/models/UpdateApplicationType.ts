@@ -3,8 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdatedClarificationNote = {
-    response: string;
-    responseReceivedOn: string;
-};
-
+export type UpdateApplicationType = 'CAS1' | 'CAS2' | 'CAS3';
