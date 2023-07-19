@@ -1,13 +1,13 @@
-import { OASysSections } from '@approved-premises/api'
 import { Request, RequestHandler, Response } from 'express'
 import PersonService from '../../services/personService'
 import { fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationService from '../../services/applicationService'
+import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
 
 export default class ApplicationsController {
   constructor(
-    private readonly personService: PersonService,
+    private readonly _personService: PersonService,
     private readonly applicationService: ApplicationService,
   ) {}
 
@@ -29,17 +29,10 @@ export default class ApplicationsController {
 
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn } = req.params
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+      const taskList = new TaskListService(application)
 
-      const oasysSections: OASysSections = await this.personService.getOasysSections(req.user.token, crn)
-
-      return res.render('applications/pages/risks/risks', {
-        pageHeading: 'Risk of Serious Harm Summary',
-        oasysSections: {
-          roshSummary: [oasysSections.roshSummary[0]],
-        },
-        crn,
-      })
+      return res.render('applications/taskList', { application, taskList })
     }
   }
 
