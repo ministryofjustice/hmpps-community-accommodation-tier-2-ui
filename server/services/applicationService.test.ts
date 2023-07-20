@@ -1,11 +1,11 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
-import { TaskListErrors } from '@approved-premises/ui'
+import { DataServices, TaskListErrors } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
-import TaskListPage from '../form-pages/taskListPage'
-import { getPageName, getTaskName } from '../form-pages/utils'
+import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
+import { getBody, getPageName, getTaskName } from '../form-pages/utils'
 import { ValidationError } from '../utils/errors'
 import { getApplicationUpdateData } from '../utils/applications/getApplicationData'
 
@@ -147,6 +147,91 @@ describe('ApplicationService', () => {
           expect(e).toEqual(new ValidationError(errors))
         }
       })
+    })
+  })
+
+  describe('initializePage', () => {
+    let request: DeepMocked<Request>
+
+    const dataServices = createMock<DataServices>({}) as DataServices
+    const application = applicationFactory.build()
+    const Page = jest.fn()
+
+    beforeEach(() => {
+      applicationClient.find.mockResolvedValue(application)
+
+      request = createMock<Request>({
+        params: { id: application.id, task: 'my-task', page: 'first' },
+        session: { previousPage: '' },
+        user: { token: 'some-token' },
+      })
+    })
+
+    it('should fetch the application from the API if it is not in the session', async () => {
+      ;(getBody as jest.Mock).mockReturnValue(request.body)
+
+      const result = await service.initializePage(Page, request, dataServices)
+
+      expect(result).toBeInstanceOf(Page)
+
+      expect(Page).toHaveBeenCalledWith(request.body, application, '')
+      expect(applicationClient.find).toHaveBeenCalledWith(request.params.id)
+    })
+
+    it('should return the session and a page from a page list', async () => {
+      ;(getBody as jest.Mock).mockReturnValue(request.body)
+
+      const result = await service.initializePage(Page, request, dataServices)
+
+      expect(result).toBeInstanceOf(Page)
+
+      expect(Page).toHaveBeenCalledWith(request.body, application, '')
+    })
+
+    it('should initialize the page with the session and the userInput if specified', async () => {
+      const userInput = { foo: 'bar' }
+      ;(getBody as jest.Mock).mockReturnValue(userInput)
+
+      const result = await service.initializePage(Page, request, dataServices, userInput)
+
+      expect(result).toBeInstanceOf(Page)
+
+      expect(Page).toHaveBeenCalledWith(userInput, application, '')
+    })
+
+    it('should load from the application if the body and userInput are blank', async () => {
+      const data = { 'my-task': { first: { foo: 'bar' } } }
+      const applicationWithData = {
+        ...application,
+        data,
+      }
+      request.body = {}
+      applicationClient.find.mockResolvedValue(applicationWithData)
+      ;(getBody as jest.Mock).mockReturnValue(data['my-task'].first)
+
+      const result = await service.initializePage(Page, request, dataServices)
+
+      expect(result).toBeInstanceOf(Page)
+
+      expect(Page).toHaveBeenCalledWith({ foo: 'bar' }, applicationWithData, '')
+    })
+
+    it("should call a service's initialize method if it exists", async () => {
+      const OtherPage = { initialize: jest.fn() } as unknown as TaskListPageInterface
+      ;(getBody as jest.Mock).mockReturnValue(request.body)
+
+      await service.initializePage(OtherPage, request, dataServices)
+
+      expect(OtherPage.initialize).toHaveBeenCalledWith(request.body, application, request.user.token, dataServices)
+    })
+
+    it("retrieve the 'previousPage' value from the session and call the Page object's constructor with that value", async () => {
+      ;(getBody as jest.Mock).mockReturnValue(request.body)
+
+      request.session.previousPage = 'previous-page-name'
+      await service.initializePage(Page, request, dataServices)
+
+      expect(Page).toHaveBeenCalledWith(request.body, application, 'previous-page-name')
     })
   })
 })
