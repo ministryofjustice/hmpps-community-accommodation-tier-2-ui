@@ -1,6 +1,6 @@
 import { createMock } from '@golevelup/ts-jest'
 import { applicationFactory } from '../../testutils/factories'
-import getTaskStatus from './getTaskStatus'
+import getTaskStatus, { getPageData } from './getTaskStatus'
 import TaskListPage from '../taskListPage'
 
 describe('getTaskStatus', () => {
@@ -142,5 +142,16 @@ describe('getTaskStatus', () => {
     expect(Page3).toHaveBeenCalled()
     expect(page3Instance.errors).toHaveBeenCalled()
     expect(page3Instance.next).toHaveBeenCalled()
+  })
+})
+
+describe('getPageData', () => {
+  it('returns undefined when there is not a matching task name', () => {
+    const application = applicationFactory.build({ data: { nonMatchingTaskName: { page: 'page data' } } })
+    expect(getPageData(application, 'taskName', 'pageName')).toEqual(undefined)
+  })
+  it('returns undefined when there is no data', () => {
+    const application = applicationFactory.build({ data: null })
+    expect(getPageData(application, 'taskName', 'pageName')).toEqual(undefined)
   })
 })
