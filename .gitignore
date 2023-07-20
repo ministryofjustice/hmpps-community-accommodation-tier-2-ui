@@ -115,7 +115,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
+# Cypress files
+integration_tests/downloads/
+integration_tests/videos/
+integration_tests/screenshots/
 
 assets/stylesheets/*.css
 .idea
@@ -123,8 +126,6 @@ assets/stylesheets/*.css
 build-info.json
 dist/
 test_results/
-integration_tests/videos/
-integration_tests/screenshots/
 */*.iml
 **/Chart.lock
 /tmp
