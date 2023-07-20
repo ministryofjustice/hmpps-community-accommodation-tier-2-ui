@@ -102,6 +102,20 @@ context('New', () => {
     )
   })
 
+  // When I click the back button
+  //-------------------------------------------
+  it('takes me back to the task list page', function test() {
+    // I click the link to the first page of the task
+    cy.get('a').contains('Funding information').click()
+
+    // I click the back button
+    const page = Page.verifyOnPage(FundingInformationPage, this.application)
+    page.clickBack()
+
+    // I'm on the task list page
+    Page.verifyOnPage(TaskListPage)
+  })
+
   // When I try to continue without answer the question
   // -------------------------------------------
   it('enforces answer', function test() {
