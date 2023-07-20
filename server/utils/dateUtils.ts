@@ -92,15 +92,6 @@ export class DateFormats {
     return dateInputObj
   }
 
-  static dateObjectToDateInputs<K extends string>(date: Date, key: K): ObjectWithDateParts<K> {
-    return {
-      [`${key}-year`]: String(date.getFullYear()),
-      [`${key}-month`]: String(date.getMonth() + 1),
-      [`${key}-day`]: String(date.getDate()),
-      [`${key}`]: DateFormats.dateObjToIsoDate(date),
-    } as ObjectWithDateParts<K>
-  }
-
   /**
    * @param date1 first day to compare.
    * @param date2 second day to compare.
@@ -108,10 +99,6 @@ export class DateFormats {
    */
   static differenceInDays(date1: Date, date2: Date): DifferenceInDays {
     return { ui: formatDistanceStrict(date1, date2, { unit: 'day' }), number: differenceInDays(date1, date2) }
-  }
-
-  static isoDateToDateInputs<K extends string>(isoDate: string, key: string): ObjectWithDateParts<K> {
-    return DateFormats.dateObjectToDateInputs(DateFormats.isoToDateObj(isoDate), key)
   }
 }
 
