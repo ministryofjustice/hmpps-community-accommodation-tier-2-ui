@@ -3,7 +3,7 @@ import type { TaskStatus, UiTask } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { TaskListPageInterface } from '../taskListPage'
 
-const getPageData = (application: Application, taskName: string, pageName: string) => {
+export const getPageData = (application: Application, taskName: string, pageName: string) => {
   return application.data?.[taskName]?.[pageName]
 }
 
