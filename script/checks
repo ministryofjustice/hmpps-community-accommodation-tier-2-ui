@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# script/test: Run the CI checks.
+
+set -e
+
+echo "==> Linting the code"
+
+npm run lint
+
+echo "==> Checking types"
+
+npm run typecheck
