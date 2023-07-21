@@ -5,7 +5,7 @@ import FundingInformation from './fundingInformation'
 
 @Task({
   slug: 'area-and-funding',
-  name: 'Funding information',
+  name: 'Add funding information',
   pages: [FundingInformation],
 })
 @Section({

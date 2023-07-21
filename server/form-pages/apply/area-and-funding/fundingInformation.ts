@@ -22,7 +22,7 @@ type FundingInformationBody = {
   bodyProperties: ['fundingSource'],
 })
 export default class FundingInformation implements TaskListPage {
-  title = 'Funding information'
+  title = `Funding information for ${this.application.person.name}`
 
   questions = {
     fundingSource: `How will ${this.application.person.name} pay for their accommodation and service charge?`,
@@ -48,7 +48,7 @@ export default class FundingInformation implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.fundingSource) {
-      errors.fundingSource = 'You must choose a funding source'
+      errors.fundingSource = 'Select a funding source'
     }
     return errors
   }

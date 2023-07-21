@@ -15,7 +15,7 @@ import errorLookups from '../i18n/en/errors.json'
 jest.mock('../i18n/en/errors.json', () => {
   return {
     fundingSource: {
-      empty: 'You must choose a funding source',
+      empty: 'Select a funding source',
     },
   }
 })

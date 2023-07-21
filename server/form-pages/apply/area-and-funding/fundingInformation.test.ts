@@ -115,7 +115,7 @@ describe('FundingInformation', () => {
       const page = new FundingInformation({}, application)
 
       expect(page.errors()).toEqual({
-        fundingSource: 'You must choose a funding source',
+        fundingSource: 'Select a funding source',
       })
     })
   })
