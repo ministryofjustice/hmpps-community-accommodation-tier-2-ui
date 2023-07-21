@@ -67,5 +67,13 @@ describe('taskListUtils', () => {
         '<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="second-task-status">Cannot start yet</strong>',
       )
     })
+
+    it('returns a completed tag when the task cannot be started', () => {
+      task.status = 'complete'
+
+      expect(statusTag(task)).toEqual(
+        '<strong class="govuk-tag app-task-list__tag" id="second-task-status">Completed</strong>',
+      )
+    })
   })
 })
