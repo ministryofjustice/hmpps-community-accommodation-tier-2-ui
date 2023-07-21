@@ -3,6 +3,11 @@ import ApplyPage from './applyPage'
 
 export default class FundingInformationPage extends ApplyPage {
   constructor(application: Application) {
-    super('Funding information', application, 'area-and-funding', 'funding-information')
+    super(
+      `How will ${application.person.name} pay for their accommodation and service charge`,
+      application,
+      'area-and-funding',
+      'funding-information',
+    )
   }
 }

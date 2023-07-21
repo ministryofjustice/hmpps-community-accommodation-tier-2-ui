@@ -73,7 +73,7 @@ context('New', () => {
     cy.get('.app-task-list__section').contains('Area and funding')
 
     // I see the expected TASK
-    cy.get('.app-task-list__task-name').contains('Funding information')
+    cy.get('.app-task-list__task-name').contains('Add funding information')
 
     // And I should see that the task has not been started
     const taskListPage = Page.verifyOnPage(TaskListPage)
@@ -82,17 +82,17 @@ context('New', () => {
 
   // And the task should link to its first page
   //-------------------------------------------
-  it('offers a link to the first page of the task', () => {
+  it('offers a link to the first page of the task', function test() {
     // I click the link to the first page of the task
-    cy.get('a').contains('Funding information').click()
+    cy.get('a').contains('Add funding information').click()
 
     // I'm on the expected page
-    cy.get('h1').contains('Funding information')
+    cy.get('span').contains(`Funding information for ${this.application.person.name}`)
 
     // And the task list page should have the expected question and answers
     //---------------------------------------------------------
     // And I see the expected question
-    cy.get('legend').contains('How will Roger Smith pay for their accommodation and service charge')
+    cy.get('h1').contains('How will Roger Smith pay for their accommodation and service charge')
 
     // And I see the expected answers
     cy.get('label').contains('Personal money or savings')
@@ -106,7 +106,7 @@ context('New', () => {
   //-------------------------------------------
   it('takes me back to the task list page', function test() {
     // I click the link to the first page of the task
-    cy.get('a').contains('Funding information').click()
+    cy.get('a').contains('Add funding information').click()
 
     // I click the back button
     const page = Page.verifyOnPage(FundingInformationPage, this.application)
@@ -120,7 +120,7 @@ context('New', () => {
   // -------------------------------------------
   it('enforces answer', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Funding information').click()
+    cy.get('a').contains('Add funding information').click()
 
     // I attempt to continue without making a choice
     cy.get('button').contains('Save and continue').click()
@@ -134,7 +134,7 @@ context('New', () => {
   // -------------------------------------------
   it('submits the form', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Funding information').click()
+    cy.get('a').contains('Add funding information').click()
     const page = Page.verifyOnPage(FundingInformationPage, this.application)
 
     // When I select an option and click save and continue
