@@ -7,7 +7,7 @@ describe('dashboardTableRows', () => {
       person: { name: 'A' },
     })
     const applicationB = applicationFactory.build({
-      person: { name: 'A' },
+      person: { name: 'B' },
     })
 
     const result = dashboardTableRows([applicationA, applicationB])
@@ -15,7 +15,7 @@ describe('dashboardTableRows', () => {
     expect(result).toEqual([
       [
         {
-          text: applicationA.person.name,
+          html: `<a href=/applications/${applicationA.id} data-cy-id="${applicationA.id}">A</a>`,
         },
         {
           text: applicationA.person.crn,
@@ -23,7 +23,7 @@ describe('dashboardTableRows', () => {
       ],
       [
         {
-          text: applicationB.person.name,
+          html: `<a href=/applications/${applicationB.id} data-cy-id="${applicationB.id}">B</a>`,
         },
         {
           text: applicationB.person.crn,
