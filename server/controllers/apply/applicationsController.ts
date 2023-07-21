@@ -11,13 +11,13 @@ export default class ApplicationsController {
     private readonly applicationService: ApplicationService,
   ) {}
 
-  new(): RequestHandler {
+  index(): RequestHandler {
     return async (req: Request, res: Response) => {
       const applications = await this.applicationService.getAllApplications(req.user.token)
 
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
-      return res.render('applications/new', {
+      return res.render('applications/index', {
         errors,
         errorSummary,
         ...userInput,

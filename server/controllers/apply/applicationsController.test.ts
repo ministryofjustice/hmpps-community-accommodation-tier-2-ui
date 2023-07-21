@@ -41,11 +41,11 @@ describe('applicationsController', () => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
 
-      const requestHandler = applicationsController.new()
+      const requestHandler = applicationsController.index()
 
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/new', {
+      expect(response.render).toHaveBeenCalledWith('applications/index', {
         pageHeading: "Enter the person's CRN",
         errors: {},
         errorSummary: [],
@@ -57,10 +57,10 @@ describe('applicationsController', () => {
       const errorsAndUserInput = createMock<ErrorsAndUserInput>()
       ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
 
-      const requestHandler = applicationsController.new()
+      const requestHandler = applicationsController.index()
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/new', {
+      expect(response.render).toHaveBeenCalledWith('applications/index', {
         pageHeading: "Enter the person's CRN",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
