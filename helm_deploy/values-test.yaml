@@ -1,0 +1,23 @@
+---
+# Per environment values which override defaults in approved-premises-ui/values.yaml
+
+generic-service:
+  replicaCount: 2
+
+  ingress:
+    hosts:
+      - community-accommodation-tier-2-test.hmpps.service.justice.gov.uk
+    contextColour: green
+    tlsSecretName: hmpps-community-accommodation-tier-2-test-cert
+
+  env:
+    ENVIRONMENT: test
+    APPROVED_PREMISES_API_URL: 'https://approved-premises-api-test.hmpps.service.justice.gov.uk'
+    INGRESS_URL: 'https://community-accommodation-tier-2-test.hmpps.service.justice.gov.uk'
+    HMPPS_AUTH_URL: 'https://sign-in-dev.hmpps.service.justice.gov.uk/auth'
+    TOKEN_VERIFICATION_API_URL: 'https://token-verification-api-dev.prison.service.justice.gov.uk'
+
+  allowlist: null
+
+generic-prometheus-alerts:
+  alertSeverity: digital-prison-service-dev
