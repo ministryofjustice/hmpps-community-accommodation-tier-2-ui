@@ -38,7 +38,7 @@ export default class FundingInformation implements TaskListPage {
   }
 
   previous() {
-    return 'dashboard'
+    return 'taskList'
   }
 
   next() {

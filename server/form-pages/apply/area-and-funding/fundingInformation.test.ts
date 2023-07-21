@@ -108,7 +108,7 @@ describe('FundingInformation', () => {
   })
 
   itShouldHaveNextValue(new FundingInformation({ fundingSource: 'personalSavings' }, application), '')
-  itShouldHavePreviousValue(new FundingInformation({ fundingSource: 'personalSavings' }, application), 'dashboard')
+  itShouldHavePreviousValue(new FundingInformation({ fundingSource: 'personalSavings' }, application), 'taskList')
 
   describe('errors', () => {
     it('should return errors when yes/no questions are blank', () => {

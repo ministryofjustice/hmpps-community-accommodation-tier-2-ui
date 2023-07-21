@@ -1,5 +1,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
 
 {% extends "../../partials/layout.njk" %}
@@ -7,6 +8,21 @@
 
 {% set pageTitle = applicationName + " - " + page.title %}
 {% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {% if page.previous() === 'taskList' %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.show({ id: applicationId })
+    }) }}
+  {% elif page.previous() %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.pages.show({ id: applicationId, task: task, page: page.previous() })
+    }) }}
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <div class="govuk-grid-row">
     <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
