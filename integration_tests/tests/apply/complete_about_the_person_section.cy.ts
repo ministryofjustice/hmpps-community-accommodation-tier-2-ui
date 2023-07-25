@@ -140,4 +140,18 @@ context('Visit "About the person" section', () => {
     const page = new WillAnswerEqualityQuestionsPage(this.application)
     page.shouldShowErrorMessagesForFields(['willAnswer'])
   })
+
+  // Scenario: return to task list using the back button
+  //----------------------------------------------------
+  it('takes me back to the task list page', function test() {
+    // Given I'm on the 'Equality and diversity' task page
+    cy.get('a').contains('Complete equality and diversity monitoring').click()
+
+    // When I use the back button
+    const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
+    page.clickBack()
+
+    // Then I'm on the task list page
+    Page.verifyOnPage(TaskListPage)
+  })
 })
