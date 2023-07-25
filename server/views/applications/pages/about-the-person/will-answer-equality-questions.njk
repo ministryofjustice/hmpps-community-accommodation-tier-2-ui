@@ -1,0 +1,24 @@
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+  <h1 class="govuk-heading-l">{{ page.questions.willAnswer }}</h1>
+
+    <p>These questions are optional. [MORE GUIDANCE TO FOLLOW...]</p>
+    <p>The answers will not affect their application.</p>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "willAnswer",
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+
+  {{ govukDetails({
+      summaryText: "Why we ask equality questions",
+      html: '<p>[INSERT RATIONALE]</p>
+            <p>[PARAGRAPH 2]</p>'
+    }) }}
+{% endblock %}

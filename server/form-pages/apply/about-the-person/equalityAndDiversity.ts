@@ -2,13 +2,19 @@ import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../utils/decorators'
 import TaskListPage from '../../taskListPage'
+import { convertKeyValuePairToRadioItems } from '../../../utils/formUtils'
 
 type EqualityAndDiversityBody = {
   willAnswer: YesOrNo
 }
 
+export const options = {
+  yes: 'Yes, answer the equality questions (takes 2 minutes)',
+  no: 'No, skip the equality questions',
+}
+
 @Page({
-  name: 'will-answer',
+  name: 'will-answer-equality-questions',
   bodyProperties: ['willAnswer'],
 })
 export default class EqualityAndDiversity implements TaskListPage {
@@ -45,9 +51,13 @@ export default class EqualityAndDiversity implements TaskListPage {
 
   response() {
     const response = {
-      [this.questions.willAnswer]: this.body.willAnswer,
+      [this.questions.willAnswer]: options[this.body.willAnswer],
     }
 
     return response
+  }
+
+  items() {
+    return convertKeyValuePairToRadioItems(options, this.body.willAnswer)
   }
 }
