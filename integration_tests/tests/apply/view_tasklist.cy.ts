@@ -50,5 +50,10 @@ context('View task list', () => {
     taskListPage.shouldShowAreaAndFundingSection()
     // And I should see that the task has not been started
     taskListPage.shouldShowTaskStatus('area-and-funding', 'Not started')
+
+    // And I see the 'About Person' section
+    taskListPage.shouldShowAboutPersonSection()
+    // And I should see that the task cannot yet be started
+    taskListPage.shouldShowTaskStatus('about-the-person', 'Cannot start yet')
   })
 })

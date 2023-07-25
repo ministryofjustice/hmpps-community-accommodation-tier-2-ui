@@ -23,6 +23,8 @@ interface TasklistPage {
   body: Record<string, unknown>
 }
 
+export type YesOrNo = 'yes' | 'no'
+
 export type PageResponse = Record<string, string | Array<string> | Array<Record<string, unknown>>>
 
 export type FormArtifact = Cas2Application
