@@ -39,4 +39,8 @@ export default abstract class Page {
   clickBack(): void {
     cy.get('a').contains('Back').click()
   }
+
+  getTextInputByIdAndEnterDetails(id: string, details: string): void {
+    cy.get(`#${id}`).type(details)
+  }
 }

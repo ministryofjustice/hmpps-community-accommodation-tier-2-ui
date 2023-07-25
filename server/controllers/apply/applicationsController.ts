@@ -48,7 +48,14 @@ export default class ApplicationsController {
 
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
-      return res.render('applications/new')
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/new', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: "Enter the person's CRN",
+      })
     }
   }
 }

@@ -33,12 +33,12 @@ context('Applications dashboard', () => {
     cy.task('stubApplications', [])
 
     // When I visit the Previous Applications page
-    const page = ListPage.visit([])
+    ListPage.visit([])
 
     // And I click the 'Start a new application' link
     cy.get('a').contains('Start a new application').click()
 
     // Then I should be on the 'Enter CRN' page
-    const crnPage = Page.verifyOnPage(CRNPage)
+    Page.verifyOnPage(CRNPage)
   })
 })
