@@ -126,4 +126,18 @@ context('Visit "About the person" section', () => {
     // And I see an explanation of the rationale for collecting this information
     page.hasRationale()
   })
+
+  // Scenario: answer is enforced
+  // ----------------------------
+  it('enforces answer', function test() {
+    // Given I'm on the 'Will answer equality questions' task page
+    cy.get('a').contains('Complete equality and diversity monitoring').click()
+
+    // I try to continue without making a choice
+    cy.get('button').contains('Save and continue').click()
+
+    // Then I see that an answer is required
+    const page = new WillAnswerEqualityQuestionsPage(this.application)
+    page.shouldShowErrorMessagesForFields(['willAnswer'])
+  })
 })
