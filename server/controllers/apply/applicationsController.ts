@@ -45,4 +45,10 @@ export default class ApplicationsController {
       return res.redirect(paths.applications.new({}))
     }
   }
+
+  new(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      return res.render('applications/new')
+    }
+  }
 }

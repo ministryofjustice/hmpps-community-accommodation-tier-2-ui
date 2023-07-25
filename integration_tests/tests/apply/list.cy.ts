@@ -1,4 +1,6 @@
 import ListPage from '../../pages/apply/list'
+import Page from '../../pages/page'
+import CRNPage from '../../pages/apply/crnPage'
 import { applicationSummaryFactory } from '../../../server/testutils/factories'
 
 context('Applications dashboard', () => {
@@ -22,5 +24,21 @@ context('Applications dashboard', () => {
 
     // Then I should see all of the in progress applications
     page.shouldShowInProgressApplications()
+  })
+
+  it('lets me navigate to the CRN page', () => {
+    // Given I am logged in
+    cy.signIn()
+
+    cy.task('stubApplications', [])
+
+    // When I visit the Previous Applications page
+    const page = ListPage.visit([])
+
+    // And I click the 'Start a new application' link
+    cy.get('a').contains('Start a new application').click()
+
+    // Then I should be on the 'Enter CRN' page
+    const crnPage = Page.verifyOnPage(CRNPage)
   })
 })
