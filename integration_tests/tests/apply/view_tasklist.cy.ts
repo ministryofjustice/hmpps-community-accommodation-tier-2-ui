@@ -8,10 +8,9 @@
 //    And an application exists
 //    And I am logged in
 //
-//  Scenario: Sees link to task within its section
+//  Scenario: Sees link to tasks within their sections
 //    When I view the application
-//    Then I see the task listed within the section
-//    And I see that the task has not been started
+//    Then I see the 'Area and funding' section
 
 import Page from '../../pages/page'
 import TaskListPage from '../../pages/apply/taskListPage'
@@ -37,8 +36,8 @@ context('View task list', () => {
     cy.signIn()
   })
 
-  // Scenario: Sees link to task within its section
-  // ----------------------------------------------
+  // Scenario: Sees link to tasks within their sections
+  // --------------------------------------------------
   it('shows the task listed within the section', () => {
     // When I view the application
     cy.visit('applications/abc123')
@@ -47,12 +46,8 @@ context('View task list', () => {
     cy.get('h2').contains('Application incomplete')
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
-    // And I see the expected SECTION
-    cy.get('.app-task-list__section').contains('Area and funding')
-
-    // And I see the expected TASK
-    cy.get('.app-task-list__task-name').contains('Add funding information')
-
+    // And I see the 'Area and funding' section
+    taskListPage.shouldShowAreaAndFundingSection()
     // And I should see that the task has not been started
     taskListPage.shouldShowTaskStatus('area-and-funding', 'Not started')
   })
