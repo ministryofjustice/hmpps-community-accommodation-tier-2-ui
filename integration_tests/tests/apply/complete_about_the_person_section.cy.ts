@@ -154,4 +154,39 @@ context('Visit "About the person" section', () => {
     // Then I'm on the task list page
     Page.verifyOnPage(TaskListPage)
   })
+
+  // Scenario: task completed successfully
+  // -------------------------------------
+  it('submits the valid form', function test() {
+    // Given I'm on the 'Equality and diversity' task page
+    cy.get('a').contains('Complete equality and diversity monitoring').click()
+    const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
+
+    // When I select an option and click save and continue
+    page.checkRadioButtonFromPageBody('willAnswer')
+
+    // after submission of the valid form the API will return the answered question
+    // -- note that the presence of the _page_ only is required in application.data
+    //    to signify that the page is complete
+    const answered = {
+      ...this.application,
+      data: {
+        'area-and-funding': {
+          'funding-information': {},
+        },
+        'about-the-person': {
+          'will-answer-equality-questions': {},
+        },
+      },
+    }
+    cy.task('stubApplicationGet', { application: answered })
+
+    page.clickSubmit()
+
+    // Then I return to the task list
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // And I see that the task is now complete
+    taskListPage.shouldShowTaskStatus('about-the-person', 'Completed')
+  })
 })
