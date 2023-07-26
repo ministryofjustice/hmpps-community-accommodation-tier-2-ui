@@ -121,6 +121,7 @@ export type { NewPremises } from './models/NewPremises';
 export type { NewReallocation } from './models/NewReallocation';
 export type { NewRoom } from './models/NewRoom';
 export type { NewTurnaround } from './models/NewTurnaround';
+export type { NewWithdrawal } from './models/NewWithdrawal';
 export type { Nonarrival } from './models/Nonarrival';
 export type { NonArrivalReason } from './models/NonArrivalReason';
 export type { OASysAssessmentId } from './models/OASysAssessmentId';
@@ -201,3 +202,4 @@ export type { UpdateTemporaryAccommodationApplication } from './models/UpdateTem
 export type { User } from './models/User';
 export type { UserQualification } from './models/UserQualification';
 export type { ValidationError } from './models/ValidationError';
+export type { WithdrawalReason } from './models/WithdrawalReason';
