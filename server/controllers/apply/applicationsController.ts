@@ -21,8 +21,8 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         ...userInput,
-        pageHeading: "Enter the person's CRN",
         applications,
+        pageHeading: 'Applications',
       })
     }
   }
