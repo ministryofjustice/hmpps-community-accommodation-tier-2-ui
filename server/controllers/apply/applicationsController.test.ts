@@ -35,8 +35,8 @@ describe('applicationsController', () => {
     jest.clearAllMocks()
   })
 
-  describe('new', () => {
-    it('renders existing applications and the crn form', async () => {
+  describe('index', () => {
+    it('renders existing applications', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
@@ -46,26 +46,10 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/index', {
-        pageHeading: "Enter the person's CRN",
         errors: {},
         errorSummary: [],
         applications,
-      })
-    })
-
-    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
-      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
-      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
-
-      const requestHandler = applicationsController.index()
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/index', {
-        pageHeading: "Enter the person's CRN",
-        errors: errorsAndUserInput.errors,
-        errorSummary: errorsAndUserInput.errorSummary,
-        ...errorsAndUserInput.userInput,
-        applications,
+        pageHeading: 'Applications',
       })
     })
   })
@@ -115,6 +99,38 @@ describe('applicationsController', () => {
       request.body.crn = '12345'
 
       expect(async () => requestHandler(request, response, next)).rejects.toThrow(err)
+    })
+  })
+
+  describe('new', () => {
+    it('renders the enter CRN template', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.new()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/new', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: "Enter the person's CRN",
+      })
+    })
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.new()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/new', {
+        pageHeading: "Enter the person's CRN",
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
     })
   })
 })

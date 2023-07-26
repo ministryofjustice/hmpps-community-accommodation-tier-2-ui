@@ -38,37 +38,11 @@
       
       {% endif %}
 
-      <h2>New applications</h2>
-      <form action="{{ paths.applications.people.find() }}" method="post">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
-        
+        <h2 class="govuk-heading-m">Start a new application</h2>
 
-        {{ showErrorSummary(errorSummary) }}
-
-        {{
-          formPageInput(
-            {
-              label: {
-                text: "Enter the person's CRN",
-                classes: "govuk-label--m",
-                isPageHeading: true
-              },
-              hint: {
-                html: "<p>Enter the CRN for the person needing an AP placement.</p><p>We'll import their details into your application.</p>
-                 <p>For example, a CRN is DO16821</p>"
-              },
-              classes: "govuk-input--width-10",
-              fieldName: "crn"
-            },
-            fetchContext()
-          )
-        }}
-
-        {{ govukButton({
-                    name: 'submit',
-                    text: "Save and continue"
-                }) }}
-      </form>
+        <p>Start a new application for a Short-Term Accommodation placement by clicking on the start button below.</p>
+      
+        <a class="govuk-button" href="{{ paths.applications.new() }}">Start a new application</a>
     </div>
   </div>
 

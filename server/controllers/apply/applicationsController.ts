@@ -21,8 +21,8 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         ...userInput,
-        pageHeading: "Enter the person's CRN",
         applications,
+        pageHeading: 'Applications',
       })
     }
   }
@@ -43,6 +43,19 @@ export default class ApplicationsController {
       await this.applicationService.createApplication(req.user.token, crn)
 
       return res.redirect(paths.applications.new({}))
+    }
+  }
+
+  new(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/new', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: "Enter the person's CRN",
+      })
     }
   }
 }
