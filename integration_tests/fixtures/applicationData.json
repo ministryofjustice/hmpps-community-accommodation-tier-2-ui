@@ -3,5 +3,10 @@
     "funding-information": {
       "fundingSource": "benefits"
     }
+  },
+  "about-the-person": {
+    "will-answer-equality-questions": {
+      "willAnswer": "yes"
+    }
   }
 }

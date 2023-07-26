@@ -1,5 +1,8 @@
 {
   "fundingSource": {
     "empty": "Select a funding source"
+  },
+  "willAnswer": {
+    "empty": "Choose either Yes or No"
   }
 }

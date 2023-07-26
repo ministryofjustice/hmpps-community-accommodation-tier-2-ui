@@ -1,0 +1,74 @@
+import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../shared-examples'
+import EqualityAndDiversity from './equalityAndDiversity'
+import { personFactory, applicationFactory } from '../../../testutils/factories/index'
+
+describe('EqualityAndDiversity', () => {
+  const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+
+  describe('question', () => {
+    it('personalises the question', () => {
+      const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
+
+      expect(page.questions).toEqual({
+        willAnswer: 'Does Roger Smith want to answer the equality questions?',
+      })
+    })
+  })
+
+  describe('title', () => {
+    it('personalises the page title', () => {
+      const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
+
+      expect(page.title).toEqual('Equality and diversity questions for Roger Smith')
+    })
+  })
+
+  itShouldHaveNextValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), '')
+  itShouldHavePreviousValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), 'taskList')
+
+  describe('response', () => {
+    it('Adds selected option to page response in _translated_ form', () => {
+      const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
+
+      expect(page.response()).toEqual({
+        'Does Roger Smith want to answer the equality questions?':
+          'Yes, answer the equality questions (takes 2 minutes)',
+      })
+    })
+
+    it('Deletes fields where there is not an answer', () => {
+      const page = new EqualityAndDiversity({ willAnswer: undefined }, application)
+
+      expect(page.response()).toEqual({})
+    })
+  })
+
+  describe('items', () => {
+    it('returns the radio with the expected label text', () => {
+      const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
+
+      expect(page.items()).toEqual([
+        {
+          value: 'yes',
+          text: 'Yes, answer the equality questions (takes 2 minutes)',
+          checked: true,
+        },
+        {
+          value: 'no',
+          text: 'No, skip the equality questions',
+          checked: false,
+        },
+      ])
+    })
+  })
+
+  describe('errors', () => {
+    it('should return errors when yes/no questions are blank', () => {
+      const page = new EqualityAndDiversity({}, application)
+
+      expect(page.errors()).toEqual({
+        willAnswer: 'Choose either Yes or No',
+      })
+    })
+  })
+})

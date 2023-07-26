@@ -1,5 +1,5 @@
 {% for section in taskList.sections %}
-  <li>
+  <li data-section_name="{{ section.title}}">
     <h2 class="app-task-list__section">
       <span class="app-task-list__section-number">{{ section.sectionNumber }}. </span>
       {{ section.title }}
