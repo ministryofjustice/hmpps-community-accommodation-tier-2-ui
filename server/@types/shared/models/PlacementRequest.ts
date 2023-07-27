@@ -24,6 +24,7 @@ export type PlacementRequest = (PlacementRequirements & PlacementDates & {
     assessmentDate: string;
     applicationDate: string;
     assessor: ApprovedPremisesUser;
+    isParole: boolean;
     notes?: string;
 });
 
