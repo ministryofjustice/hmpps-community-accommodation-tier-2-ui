@@ -56,10 +56,10 @@ export default {
     approvedPremises: {
       url: get('APPROVED_PREMISES_API_URL', 'http://localhost:9092', requiredInProduction),
       timeout: {
-        response: 10000,
-        deadline: 10000,
+        response: Number(get('COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE', 10000)),
+        deadline: Number(get('COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE', 10000)),
       },
-      agent: new AgentConfig(10000),
+      agent: new AgentConfig(Number(get('COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE', 10000))),
       serviceName: get('COMMUNITY_ACCOMMODATION_API_SERVICE_NAME', 'approved-premises', requiredInProduction),
     },
     hmppsAuth: {
