@@ -5,5 +5,7 @@
 
 import type { SubmitApplication } from './SubmitApplication';
 
-export type SubmitTemporaryAccommodationApplication = SubmitApplication;
+export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
+    arrivalDate: string;
+});
 

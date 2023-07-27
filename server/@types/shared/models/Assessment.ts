@@ -14,7 +14,7 @@ export type Assessment = {
     schemaVersion: string;
     outdatedSchema: boolean;
     createdAt: string;
-    allocatedAt: string;
+    allocatedAt?: string;
     submittedAt?: string;
     decision?: AssessmentDecision;
     rejectionRationale?: string;
