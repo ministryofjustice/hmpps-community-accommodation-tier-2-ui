@@ -99,3 +99,7 @@ export interface RadioItem {
     html?: string
   }
 }
+
+export interface GroupedApplications {
+  inProgress: Array<ApplicationSummary>
+}
