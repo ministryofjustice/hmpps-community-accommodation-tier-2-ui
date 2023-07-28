@@ -62,7 +62,7 @@ describe('getPage', () => {
 
   it('should raise an error if the page is not found', async () => {
     expect(() => {
-      getPage('area-and-funding', 'bar', 'applications')
+      getPage('funding-information', 'bar', 'applications')
     }).toThrow(UnknownPageError)
   })
 })

@@ -1,6 +1,6 @@
-import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../shared-examples'
+import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import EqualityAndDiversity from './equalityAndDiversity'
-import { personFactory, applicationFactory } from '../../../testutils/factories/index'
+import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('EqualityAndDiversity', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })

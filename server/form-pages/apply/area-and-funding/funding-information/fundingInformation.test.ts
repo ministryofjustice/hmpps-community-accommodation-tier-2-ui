@@ -1,9 +1,9 @@
-import { convertKeyValuePairToRadioItems } from '../../../utils/formUtils'
-import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../shared-examples'
+import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
+import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import FundingInformation from './fundingInformation'
-import { personFactory, applicationFactory } from '../../../testutils/factories/index'
+import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
-jest.mock('../../../utils/formUtils', () => ({
+jest.mock('../../../../utils/formUtils', () => ({
   convertKeyValuePairToRadioItems: jest.fn().mockImplementation(() => [
     {
       value: 'foo',

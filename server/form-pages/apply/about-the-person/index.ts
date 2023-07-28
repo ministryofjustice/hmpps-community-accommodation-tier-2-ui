@@ -1,15 +1,10 @@
 /* istanbul ignore file */
 
-import { Section, Task } from '../../utils/decorators'
-import EqualityAndDiversity from './equalityAndDiversity'
+import { Section } from '../../utils/decorators'
+import EqualityAndDiversityMonitoring from './equality-diversity-monitoring'
 
-@Task({
-  slug: 'about-the-person',
-  name: 'Complete equality and diversity monitoring',
-  pages: [EqualityAndDiversity],
-})
 @Section({
   title: 'About the person',
-  tasks: [AboutThePerson],
+  tasks: [EqualityAndDiversityMonitoring],
 })
 export default class AboutThePerson {}
