@@ -1,7 +1,7 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
-import { DataServices, TaskListErrors } from '@approved-premises/ui'
+import { DataServices, GroupedApplications, TaskListErrors } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
@@ -9,7 +9,7 @@ import { getBody, getPageName, getTaskName } from '../form-pages/utils'
 import { ValidationError } from '../utils/errors'
 import { getApplicationUpdateData } from '../utils/applications/getApplicationData'
 
-import { applicationFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 
 jest.mock('../data/applicationClient.ts')
 jest.mock('../data/personClient.ts')
@@ -60,16 +60,20 @@ describe('ApplicationService', () => {
     })
   })
 
-  describe('getAllApplications', () => {
+  describe('getAllForLoggedInUser', () => {
     const token = 'SOME_TOKEN'
-    const applications = applicationFactory.buildList(5)
+    const applications: GroupedApplications = {
+      inProgress: applicationSummaryFactory.buildList(1, { status: 'inProgress' }),
+    }
 
     it('fetches all applications', async () => {
-      applicationClient.all.mockResolvedValue(applications)
+      applicationClient.all.mockResolvedValue(Object.values(applications).flat())
 
-      const result = await service.getAllApplications(token)
+      const result = await service.getAllForLoggedInUser(token)
 
-      expect(result).toEqual(applications)
+      expect(result).toEqual({
+        inProgress: applications.inProgress,
+      })
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
       expect(applicationClient.all).toHaveBeenCalled()

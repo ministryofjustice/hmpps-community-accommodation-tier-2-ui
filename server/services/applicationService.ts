@@ -1,6 +1,6 @@
 import type { Request } from 'express'
 import { Cas2Application as Application } from '@approved-premises/api'
-import type { DataServices } from '@approved-premises/ui'
+import type { DataServices, GroupedApplications } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationUpdateData } from '../utils/applications/getApplicationData'
@@ -26,12 +26,22 @@ export default class ApplicationService {
     return application
   }
 
-  async getAllApplications(token: string): Promise<Array<Application>> {
+  async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
     const applicationClient = this.applicationClientFactory(token)
 
     const allApplications = await applicationClient.all()
 
-    return allApplications
+    const result = {
+      inProgress: [],
+    } as GroupedApplications
+
+    allApplications.map(async application => {
+      if (application.status === 'inProgress') {
+        result.inProgress.push(application)
+      }
+    })
+
+    return result
   }
 
   async save(page: TaskListPage, request: Request) {
