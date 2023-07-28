@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
-import { differenceInDays, formatDistanceStrict, getUnixTime, formatISO, parseISO, format, isPast } from 'date-fns'
+import { differenceInDays, formatDistanceStrict, formatISO, parseISO, format } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
 export class DateFormats {
@@ -25,10 +25,14 @@ export class DateFormats {
    * @param date JS Date object.
    * @returns the date in the to be shown in the UI: "Thursday, 20 December 2012".
    */
-  static dateObjtoUIDate(date: Date, options: { format: 'short' | 'long' } = { format: 'long' }) {
+  static dateObjtoUIDate(date: Date, options: { format: 'short' | 'medium' | 'long' } = { format: 'long' }) {
     if (options.format === 'long') {
       return format(date, 'cccc d MMMM y')
-    } else {
+    } 
+    if (options.format === 'medium') {
+      return format(date, 'd MMMM y')
+    }
+    else {
       return format(date, 'dd/LL/y')
     }
   }
@@ -53,7 +57,7 @@ export class DateFormats {
    * @param isoDate an ISO date string.
    * @returns the date in the to be shown in the UI: "Thursday, 20 December 2012".
    */
-  static isoDateToUIDate(isoDate: string, options: { format: 'short' | 'long' } = { format: 'long' }) {
+  static isoDateToUIDate(isoDate: string, options: { format: 'short' | 'long' | 'medium' } = { format: 'long' }) {
     return DateFormats.dateObjtoUIDate(DateFormats.isoToDateObj(isoDate), options)
   }
 
