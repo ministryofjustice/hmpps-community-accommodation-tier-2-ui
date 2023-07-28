@@ -6,7 +6,7 @@ export default class FundingInformationPage extends ApplyPage {
     super(
       `How will ${application.person.name} pay for their accommodation and service charge`,
       application,
-      'area-and-funding',
+      'funding-information',
       'funding-information',
     )
   }

@@ -6,7 +6,7 @@ export default class WillAnswerEqualityQuestionsPage extends ApplyPage {
     super(
       `Does ${application.person.name} want to answer the equality questions?`,
       application,
-      'about-the-person',
+      'equality-and-diversity-monitoring',
       'will-answer-equality-questions',
     )
   }

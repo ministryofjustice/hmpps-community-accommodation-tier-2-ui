@@ -1,27 +1,22 @@
 import Page from '../page'
+import Apply from '../../../server/form-pages/apply'
 
 export default class TaskListPage extends Page {
   constructor() {
     super('CAS 2: Refer for Accommodation')
   }
 
-  shouldShowAreaAndFundingSection = (): void => {
-    cy.get('[data-section_name="Area and funding"]').within(() => {
-      // And I see the expected SECTION
-      cy.get('.app-task-list__section').contains('Area and funding')
+  shouldShowTasksWithinTheirSections = (): void => {
+    Apply.sections.forEach(section => {
+      cy.get(`[data-section_name="${section.title}"]`).within(() => {
+        // And I see the expected SECTION
+        cy.get('.app-task-list__section').contains(section.title)
 
-      // And I see the expected TASK
-      cy.get('.app-task-list__task-name').contains('Add funding information')
-    })
-  }
-
-  shouldShowAboutPersonSection = (): void => {
-    cy.get('[data-section_name="About the person"]').within(() => {
-      // And I see the expected SECTION
-      cy.get('.app-task-list__section').contains('About the person')
-
-      // And I see the expected TASK
-      cy.get('.app-task-list__task-name').contains('Complete equality and diversity monitoring')
+        // And I see each expected TASK
+        section.tasks.forEach(task => {
+          cy.get('.app-task-list__task-name').contains(task.title)
+        })
+      })
     })
   }
 
