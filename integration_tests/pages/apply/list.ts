@@ -4,7 +4,7 @@ import { Cas2Application as Application, Cas2ApplicationSummary } from '../../..
 
 export default class ListPage extends Page {
   constructor(private readonly inProgressApplications: Array<Cas2ApplicationSummary>) {
-    super('Applications')
+    super('Short-Term Accommodation (CAS-2) applications')
   }
 
   static visit(inProgressApplications: Array<Cas2ApplicationSummary>): ListPage {

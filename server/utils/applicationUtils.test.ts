@@ -5,9 +5,11 @@ describe('dashboardTableRows', () => {
   it('returns an array of applications as table rows', async () => {
     const applicationA = applicationFactory.build({
       person: { name: 'A' },
+      createdAt: '2022-11-10T21:47:28Z',
     })
     const applicationB = applicationFactory.build({
       person: { name: 'B' },
+      createdAt: '2022-11-11T21:47:28Z',
     })
 
     const result = dashboardTableRows([applicationA, applicationB])
@@ -20,6 +22,9 @@ describe('dashboardTableRows', () => {
         {
           text: applicationA.person.crn,
         },
+        {
+          text: '10 November 2022',
+        },
       ],
       [
         {
@@ -27,6 +32,9 @@ describe('dashboardTableRows', () => {
         },
         {
           text: applicationB.person.crn,
+        },
+        {
+          text: '11 November 2022',
         },
       ],
     ])
