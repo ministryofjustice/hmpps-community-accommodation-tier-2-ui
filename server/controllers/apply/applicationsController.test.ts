@@ -24,9 +24,9 @@ describe('applicationsController', () => {
 
   let applicationsController: ApplicationsController
 
-  const applications = applicationFactory.buildList(3)
+  const applications = { inProgress: applicationFactory.buildList(3) }
 
-  applicationService.getAllApplications.mockResolvedValue(applications)
+  applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 
   beforeEach(() => {
     applicationsController = new ApplicationsController(personService, applicationService)

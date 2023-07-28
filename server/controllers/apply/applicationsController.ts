@@ -13,7 +13,7 @@ export default class ApplicationsController {
 
   index(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const applications = await this.applicationService.getAllApplications(req.user.token)
+      const applications = await this.applicationService.getAllForLoggedInUser(req.user.token)
 
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
