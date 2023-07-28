@@ -1,10 +1,15 @@
 import type { Cas2Application as Application } from '@approved-premises/api'
 import type { TableRow } from '@approved-premises/ui'
 import paths from '../paths/apply'
+import { DateFormats } from './dateUtils'
 
 export const dashboardTableRows = (applications: Array<Application>): Array<TableRow> => {
   return applications.map(application => {
-    return [nameAnchorElement(application.person.name, application.id), textValue(application.person.crn)]
+    return [
+      nameAnchorElement(application.person.name, application.id),
+      textValue(application.person.crn),
+      textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
+    ]
   })
 }
 const htmlValue = (value: string) => {
