@@ -56,7 +56,7 @@ export default function createApp(controllers: Controllers, services: Services):
   })
   app.use(flash())
 
-  app.use(routes(controllers))
+  app.use(routes(controllers, services))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
   setUpSentryErrorHandler(app)

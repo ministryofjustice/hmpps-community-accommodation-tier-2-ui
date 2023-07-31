@@ -1,32 +1,33 @@
-import { type RequestHandler, Router } from 'express'
+/* istanbul ignore file */
 
-import { Controllers } from 'server/controllers'
-import asyncMiddleware from '../middleware/asyncMiddleware'
+import { Router } from 'express'
+import { Controllers } from '../controllers'
+import { Services } from '../services'
+import { actions } from './utils'
 import paths from '../paths/apply'
 import applyRoutes from './apply'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function routes(controllers: Controllers): Router {
+export default function routes(controllers: Controllers, services: Services): Router {
   const router = Router()
-  const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-  const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
+  const { get, post } = actions(router, services.auditService)
 
-  get('/', (req, res, next) => {
-    res.render('pages/index')
+  get(
+    '/',
+    (req, res, next) => {
+      res.render('pages/index')
+    },
+    { auditEvent: 'VIEW_LANDING' },
+  )
+
+  const { peopleController } = controllers
+
+  post(paths.applications.people.find.pattern, peopleController.find(), {
+    auditEvent: 'FIND_APPLICATION_PERSON',
+    auditBodyParams: ['crn'],
   })
 
-  const { applicationsController, peopleController } = controllers
-
-  get(paths.applications.new.pattern, applicationsController.new())
-
-  get(paths.applications.index.pattern, applicationsController.index())
-
-  get(paths.applications.show.pattern, applicationsController.show())
-
-  post(paths.applications.create.pattern, applicationsController.create())
-  post(paths.applications.people.find.pattern, peopleController.find())
-
-  applyRoutes(controllers, router)
+  applyRoutes(controllers, router, services)
 
   return router
 }
