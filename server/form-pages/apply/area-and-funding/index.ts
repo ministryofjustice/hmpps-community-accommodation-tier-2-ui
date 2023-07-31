@@ -1,15 +1,10 @@
 /* istanbul ignore file */
 
-import { Section, Task } from '../../utils/decorators'
-import FundingInformation from './fundingInformation'
+import { Section } from '../../utils/decorators'
+import FundingInformation from './funding-information'
 
-@Task({
-  slug: 'area-and-funding',
-  name: 'Add funding information',
-  pages: [FundingInformation],
-})
 @Section({
   title: 'Area and funding',
-  tasks: [AreaAndFunding],
+  tasks: [FundingInformation],
 })
 export default class AreaAndFunding {}

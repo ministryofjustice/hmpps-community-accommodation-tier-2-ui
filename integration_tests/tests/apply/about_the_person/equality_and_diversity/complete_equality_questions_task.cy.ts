@@ -1,7 +1,7 @@
-//  Feature: Referrer completes 'About the person' section
-//    So that I can complete the 'About the person' section
+//  Feature: Referrer completes 'Equality questions' task
+//    So that I can complete the 'Equality questions' task
 //    As a referrer
-//    I want to answer questions within that section of the task list
+//    I want to answer questions within that task
 //
 //  Scenario: Follows link from task list
 //    Given there is a section with a task
@@ -9,9 +9,8 @@
 //    And I am logged in
 //    And I am viewing the application task list
 //
-//  Scenario: view task listed within the section
-//    Then I see the task listed within the section
-//    And I see that the task has not been started
+//  Scenario: view task status
+//    Then I see that the task has not been started
 //
 //  Scenario: follow link to first task page
 //    When I follow the link within the section
@@ -34,10 +33,10 @@
 //    Then I'm returned to the task list
 //    And I see that the task is now complete
 
-import Page from '../../pages/page'
-import TaskListPage from '../../pages/apply/taskListPage'
-import WillAnswerEqualityQuestionsPage from '../../pages/apply/willAnswerEqualityQuestionsPage'
-import { personFactory, applicationFactory } from '../../../server/testutils/factories/index'
+import Page from '../../../../pages/page'
+import TaskListPage from '../../../../pages/apply/taskListPage'
+import WillAnswerEqualityQuestionsPage from '../../../../pages/apply/willAnswerEqualityQuestionsPage'
+import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -51,8 +50,8 @@ context('Visit "About the person" section', () => {
       const application = applicationFactory.build({
         id: 'abc123',
         data: {
-          'area-and-funding': {
-            'funding-information': { fundingSource: 'personalSavings' },
+          'funding-information': {
+            'funding-source': { fundingSource: 'personalSavings' },
           },
         },
         person,
@@ -69,8 +68,8 @@ context('Visit "About the person" section', () => {
     const newApplication = applicationFactory.build({
       id: 'abc123',
       data: {
-        'area-and-funding': {
-          'funding-information': { fundingSource: 'personalSavings' },
+        'funding-information': {
+          'funding-source': { fundingSource: 'personalSavings' },
         },
       },
       person,
@@ -88,21 +87,12 @@ context('Visit "About the person" section', () => {
     Page.verifyOnPage(TaskListPage)
   })
 
-  // Scenario: view task listed within the section
+  // Scenario: view task status
   // ----------------------------------------------
   it('shows the task listed within the section', () => {
-    // I'm on the task list page
-    cy.get('h2').contains('Application incomplete')
-
-    // I see the expected SECTION
-    cy.get('.app-task-list__section').contains('About the person')
-
-    // I see the expected TASK
-    cy.get('.app-task-list__task-name').contains('Complete equality and diversity monitoring')
-
-    // And I should see that the task has not been started
+    // I see that the task has not been started
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('about-the-person', 'Not started')
+    taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Not started')
   })
 
   // Scenario: follow link to first task page
@@ -171,10 +161,10 @@ context('Visit "About the person" section', () => {
     const answered = {
       ...this.application,
       data: {
-        'area-and-funding': {
-          'funding-information': {},
+        'funding-information': {
+          'funding-source': {},
         },
-        'about-the-person': {
+        'equality-and-diversity-monitoring': {
           'will-answer-equality-questions': {},
         },
       },
@@ -187,6 +177,6 @@ context('Visit "About the person" section', () => {
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     // And I see that the task is now complete
-    taskListPage.shouldShowTaskStatus('about-the-person', 'Completed')
+    taskListPage.shouldShowTaskStatus('funding-information', 'Completed')
   })
 })

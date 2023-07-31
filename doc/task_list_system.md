@@ -87,26 +87,9 @@ An example 'Health needs' section with two tasks, e.g. at `apply/health-needs/in
 })
 ```
 
-#### one task in section
-
-An example section 'Area and Funding' with just one task, would be defined alongside the Task, like so: 
-
-```ts
-@Task({
-  slug: 'area-and-funding',
-  name: 'Funding information',
-  pages: [FundingInformation],
-})
-@Section({
-  title: 'Area and funding',
-  tasks: [AreaAndFunding],
-})
-export default class AreaAndFunding {}
-```
-
 ### Task
 
-Tasks are generally defined in sub-directories e.g. `apply/health-needs/physical-health/index.ts` and may list multiple pages from which the overall task is comprised:
+Tasks should be defined in sub-directories e.g. `apply/health-needs/physical-health/index.ts` and may list multiple pages defined within the same directory, from which the overall task is comprised:
 
 ```ts
 @Task({
@@ -140,7 +123,7 @@ A Page class is defined like so
 
 ```
 @Page({
-  name: 'funding-information',
+  name: 'funding-source',
   bodyProperties: ['fundingSource'],
 })
 ```
@@ -149,9 +132,9 @@ With a constructor method to define the body of the question
 
 ```
   constructor(
-    body: Partial<FundingInformationBody>,
+    body: Partial<FundingSourceBody>,
   ) {
-    this.body = body as FundingInformationBody
+    this.body = body as FundingSourceBody
   }
 
 ```

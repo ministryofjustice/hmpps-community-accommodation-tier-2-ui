@@ -1,8 +1,8 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { Page } from '../../utils/decorators'
-import TaskListPage from '../../taskListPage'
-import { convertKeyValuePairToRadioItems } from '../../../utils/formUtils'
+import { Page } from '../../../utils/decorators'
+import TaskListPage from '../../../taskListPage'
+import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
 type EqualityAndDiversityBody = {
   willAnswer: YesOrNo
