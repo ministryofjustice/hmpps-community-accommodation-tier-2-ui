@@ -115,6 +115,7 @@
     ]
   },
   "dependencies": {
+    "@aws-sdk/client-sqs": "^3.350.0",
     "@faker-js/faker": "^8.0.0",
     "@golevelup/ts-jest": "^0.4.0",
     "@ministryofjustice/frontend": "^1.6.6",
