@@ -140,7 +140,7 @@ A Page class is defined like so
 
 ```
 @Page({
-  name: 'funding-information',
+  name: 'funding-source',
   bodyProperties: ['fundingSource'],
 })
 ```
@@ -149,9 +149,9 @@ With a constructor method to define the body of the question
 
 ```
   constructor(
-    body: Partial<FundingInformationBody>,
+    body: Partial<FundingSourceBody>,
   ) {
-    this.body = body as FundingInformationBody
+    this.body = body as FundingSourceBody
   }
 
 ```

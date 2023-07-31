@@ -51,7 +51,7 @@ context('Visit "About the person" section', () => {
         id: 'abc123',
         data: {
           'funding-information': {
-            'funding-information': { fundingSource: 'personalSavings' },
+            'funding-source': { fundingSource: 'personalSavings' },
           },
         },
         person,
@@ -69,7 +69,7 @@ context('Visit "About the person" section', () => {
       id: 'abc123',
       data: {
         'funding-information': {
-          'funding-information': { fundingSource: 'personalSavings' },
+          'funding-source': { fundingSource: 'personalSavings' },
         },
       },
       person,
@@ -162,7 +162,7 @@ context('Visit "About the person" section', () => {
       ...this.application,
       data: {
         'funding-information': {
-          'funding-information': {},
+          'funding-source': {},
         },
         'equality-and-diversity-monitoring': {
           'will-answer-equality-questions': {},

@@ -13,28 +13,28 @@ const benefitsHint =
 
 export type FundingSources = keyof typeof fundingSources
 
-type FundingInformationBody = {
+type FundingSourceBody = {
   fundingSource: FundingSources
 }
 
 @Page({
-  name: 'funding-information',
+  name: 'funding-source',
   bodyProperties: ['fundingSource'],
 })
-export default class FundingInformation implements TaskListPage {
+export default class FundingSource implements TaskListPage {
   title = `Funding information for ${this.application.person.name}`
 
   questions = {
     fundingSource: `How will ${this.application.person.name} pay for their accommodation and service charge?`,
   }
 
-  body: FundingInformationBody
+  body: FundingSourceBody
 
   constructor(
-    body: Partial<FundingInformationBody>,
+    body: Partial<FundingSourceBody>,
     private readonly application: Application,
   ) {
-    this.body = body as FundingInformationBody
+    this.body = body as FundingSourceBody
   }
 
   previous() {

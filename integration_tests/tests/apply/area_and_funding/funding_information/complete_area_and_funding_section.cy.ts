@@ -35,7 +35,7 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import FundingInformationPage from '../../../../pages/apply/fundingInformationPage'
+import FundingSourcePage from '../../../../pages/apply/fundingSourcePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit area and funding section', () => {
@@ -86,7 +86,7 @@ context('Visit area and funding section', () => {
     cy.get('a').contains('Add funding information').click()
 
     // Then I'm on the expected page
-    Page.verifyOnPage(FundingInformationPage, this.application)
+    Page.verifyOnPage(FundingSourcePage, this.application)
 
     // And the task list page has the expected questions and answers
     // ------------------------------------------------------------
@@ -111,7 +111,7 @@ context('Visit area and funding section', () => {
     cy.get('button').contains('Save and continue').click()
 
     // Then I see that an answer is required
-    const fundingInfoPage = new FundingInformationPage(this.application)
+    const fundingInfoPage = new FundingSourcePage(this.application)
     fundingInfoPage.shouldShowErrorMessagesForFields(['fundingSource'])
   })
 
@@ -122,7 +122,7 @@ context('Visit area and funding section', () => {
     cy.get('a').contains('Add funding information').click()
 
     // When I use the back button
-    const page = Page.verifyOnPage(FundingInformationPage, this.application)
+    const page = Page.verifyOnPage(FundingSourcePage, this.application)
     page.clickBack()
 
     // Then I'm on the task list page
@@ -134,7 +134,7 @@ context('Visit area and funding section', () => {
   it('submits the valid form', function test() {
     // Given I'm on the Funding information task page
     cy.get('a').contains('Add funding information').click()
-    const page = Page.verifyOnPage(FundingInformationPage, this.application)
+    const page = Page.verifyOnPage(FundingSourcePage, this.application)
 
     // When I select an option and click save and continue
     page.checkRadioButtonFromPageBody('fundingSource')
@@ -146,7 +146,7 @@ context('Visit area and funding section', () => {
       ...this.application,
       data: {
         'funding-information': {
-          'funding-information': {},
+          'funding-source': {},
         },
       },
     }
