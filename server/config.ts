@@ -34,6 +34,15 @@ export interface ApiConfig {
   serviceName?: ServiceName
 }
 
+export interface AuditConfig {
+  region: string
+  accessKeyId: string
+  secretAccessKey: string
+  queueUrl: string
+  serviceName: string
+  logErrors: boolean
+}
+
 export default {
   production,
   https: production,
