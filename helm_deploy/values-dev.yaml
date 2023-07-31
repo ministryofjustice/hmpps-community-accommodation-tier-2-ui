@@ -14,8 +14,16 @@ generic-service:
     APPROVED_PREMISES_API_URL: "https://approved-premises-api-dev.hmpps.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
+    AUDIT_LOG_ERRORS: 'true'
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
+
+  namespace_secrets:
+    sqs-hmpps-audit-secret:
+      AUDIT_SQS_ACCESS_KEY_ID: "access_key_id"
+      AUDIT_SQS_SECRET_ACCESS_KEY: "secret_access_key"
+      AUDIT_SQS_QUEUE_URL: "sqs_queue_url"
+      AUDIT_SQS_QUEUE_NAME: "sqs_queue_name"
 
   allowlist: null
 

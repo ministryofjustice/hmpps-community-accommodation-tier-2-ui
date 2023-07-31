@@ -84,6 +84,14 @@ export default {
       agent: new AgentConfig(Number(get('TOKEN_VERIFICATION_API_TIMEOUT_RESPONSE', 5000))),
       enabled: get('TOKEN_VERIFICATION_ENABLED', 'false') === 'true',
     },
+    audit: {
+      region: get('AUDIT_SQS_REGION', 'eu-west-2'),
+      accessKeyId: get('AUDIT_SQS_ACCESS_KEY_ID', ''),
+      secretAccessKey: get('AUDIT_SQS_SECRET_ACCESS_KEY', ''),
+      queueUrl: get('AUDIT_SQS_QUEUE_URL', ''),
+      serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-ui'),
+      logErrors: get('AUDIT_LOG_ERRORS', 'false') === 'true',
+    },
   },
   domain: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   flags: {
