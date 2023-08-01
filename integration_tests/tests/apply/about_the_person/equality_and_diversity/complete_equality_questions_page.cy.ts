@@ -1,7 +1,7 @@
-//  Feature: Referrer completes 'Equality questions' task
-//    So that I can complete the 'Equality questions' task
+//  Feature: Referrer completes 'Equality questions' page
+//    So that I can complete the first page of the Equality and Diversity task
 //    As a referrer
-//    I want to answer questions within that task
+//    I want to answer the questions on that page
 //
 //  Scenario: Follows link from task list
 //    Given there is a section with a task
@@ -29,13 +29,13 @@
 //
 //  Scenario: task completed successfully
 //    Given I'm on the 'Will answer equality questions?' task page
-//    When I select an option and choose to save and continue
-//    Then I'm returned to the task list
-//    And I see that the task is now complete
+//    When I select 'yes' and continue
+//    Then I'm on the disability task page
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import WillAnswerEqualityQuestionsPage from '../../../../pages/apply/willAnswerEqualityQuestionsPage'
+import DisabilityPage from '../../../../pages/apply/disabilityPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
@@ -152,7 +152,7 @@ context('Visit "About the person" section', () => {
     cy.get('a').contains('Complete equality and diversity monitoring').click()
     const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
 
-    // When I select an option and click save and continue
+    // When I select 'yes' and continue
     page.checkRadioButtonFromPageBody('willAnswer')
 
     // after submission of the valid form the API will return the answered question
@@ -173,10 +173,7 @@ context('Visit "About the person" section', () => {
 
     page.clickSubmit()
 
-    // Then I return to the task list
-    const taskListPage = Page.verifyOnPage(TaskListPage)
-
-    // And I see that the task is now complete
-    taskListPage.shouldShowTaskStatus('funding-information', 'Completed')
+    // Then I'm on the disability task page
+    Page.verifyOnPage(DisabilityPage, this.application)
   })
 })
