@@ -1,0 +1,20 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% macro formPageCheckboxes(params, context) %}
+  {% set checkboxItems = [] %}
+
+  {% for item in params.items %}
+    {% set checkboxItems = (checkboxItems.push(mergeObjects(item, {
+      checked: (item.value in (context[params.fieldName] or[]))
+    })), checkboxItems) %}
+  {% endfor %}
+
+  {{
+      govukCheckboxes(
+        mergeObjects(
+          mergeObjects(params, { items: checkboxItems }),
+          { idPrefix: params.fieldName, name: params.fieldName, errorMessage: context.errors[params.fieldName] }
+        )
+      )
+  }}
+{% endmacro %}

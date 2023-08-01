@@ -1,5 +1,5 @@
 import * as nunjucks from 'nunjucks'
-import { RadioItem } from '@approved-premises/ui'
+import { RadioItem, CheckboxItem } from '@approved-premises/ui'
 
 export const escape = (text: string): string => {
   const escapeFilter = new nunjucks.Environment().getFilter('escape')
@@ -12,6 +12,19 @@ export function convertKeyValuePairToRadioItems<T>(object: T, checkedItem: strin
       value: key,
       text: object[key],
       checked: checkedItem === key,
+    }
+  })
+}
+
+export function convertKeyValuePairToCheckboxItems<T>(
+  object: T,
+  checkedItems: Array<string> = [],
+): Array<CheckboxItem> {
+  return Object.keys(object).map(key => {
+    return {
+      value: key,
+      text: object[key],
+      checked: checkedItems.includes(key),
     }
   })
 }
