@@ -7,6 +7,9 @@
   "equality-and-diversity-monitoring": {
     "will-answer-equality-questions": {
       "willAnswer": "yes"
+    },
+    "disability": {
+      "hasDisability": "yes"
     }
   }
 }

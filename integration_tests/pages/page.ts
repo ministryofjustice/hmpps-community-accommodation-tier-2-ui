@@ -43,4 +43,8 @@ export default abstract class Page {
   getTextInputByIdAndEnterDetails(id: string, details: string): void {
     cy.get(`#${id}`).type(details)
   }
+
+  checkCheckboxByLabel(option: string): void {
+    cy.get(`input[value="${option}"]`).check()
+  }
 }
