@@ -1,5 +1,5 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
-import EqualityAndDiversity from './equalityAndDiversity'
+import EqualityAndDiversity from './willAnswer'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('EqualityAndDiversity', () => {
