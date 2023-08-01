@@ -38,7 +38,10 @@ export default class EqualityAndDiversity implements TaskListPage {
   }
 
   next() {
-    return ''
+    if (this.body.willAnswer === 'no') {
+      return ''
+    }
+    return 'disability'
   }
 
   errors() {

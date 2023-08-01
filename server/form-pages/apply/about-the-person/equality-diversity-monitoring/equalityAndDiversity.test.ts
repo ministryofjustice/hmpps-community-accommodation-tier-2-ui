@@ -23,7 +23,8 @@ describe('EqualityAndDiversity', () => {
     })
   })
 
-  itShouldHaveNextValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), '')
+  itShouldHaveNextValue(new EqualityAndDiversity({ willAnswer: 'no' }, application), '')
+  itShouldHaveNextValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), 'disability')
   itShouldHavePreviousValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), 'taskList')
 
   describe('response', () => {
