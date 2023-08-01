@@ -6,6 +6,8 @@
     "empty": "Choose either Yes or No"
   },
   "hasDisability": {
-    "empty": "Choose either Yes or No"
+    "empty": "Choose either Yes, No or Prefer not to say",
+    "otherDisability": "Enter the other disability",
+    "typeOfDisability": "Choose a disability type"
   }
 }

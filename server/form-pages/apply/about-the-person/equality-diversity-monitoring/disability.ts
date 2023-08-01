@@ -3,6 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems, convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
+import errorLookups from '../../../../i18n/en/errors.json'
 
 export const options = {
   yes: 'Yes',
@@ -61,13 +62,13 @@ export default class Disability implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.hasDisability) {
-      errors.hasDisability = 'Choose either Yes, No or Prefer not to say'
+      errors.hasDisability = errorLookups.hasDisability.empty
     }
     if (this.body.hasDisability === 'yes' && !this.body.typeOfDisability) {
-      errors.typeOfDisability = 'Choose a disability type'
+      errors.typeOfDisability = errorLookups.hasDisability.typeOfDisability
     }
     if (this.body.typeOfDisability?.includes('other') && !this.body.otherDisability) {
-      errors.otherDisability = 'Enter the other disability'
+      errors.otherDisability = errorLookups.hasDisability.otherDisability
     }
     return errors
   }
