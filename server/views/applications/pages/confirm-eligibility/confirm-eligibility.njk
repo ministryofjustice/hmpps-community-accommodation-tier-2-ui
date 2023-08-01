@@ -2,6 +2,35 @@
 {% block questions %}
   <h1 class="govuk-heading-l">{{ page.title }}</span>
 
+  <div class="govuk-inset-text">
+    <p class="govuk-body">Check {{ page.application.person.name }} meets the requirements for Short-Term Accommodation (CAS-2)</p>
+
+    <p class="govuk-body">The applicant must:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+      <li>
+        be 18 years old or older
+      </li>
+      <li>
+        not be currently serving a sentence of 4 years or more for any offence
+      </li>
+      <li>
+        not be currently charged with, or have any past convictions of cautions, or current allegations of any sexual offences in Schedule 3 of the Sexual Offences Act 2003
+      </li>
+      <li>
+        not be assessed as high or very high risk of serious harm
+      </li>
+      <li>
+        not have breached immigration law (other than over staying on approved period of leave to enter or remain in UK)
+      </li>
+      <li>
+        not have the ‘no recourse to public funds’ (NRPF) condition applied to their permission to enter or stay in the UK
+      </li>
+      <li>
+        if a Home Detention Curfew (HDC) applicant, not be currently in prison having been recalled for failing to comply with HDC licence conditions
+      </li>
+    </ul>
+  </div>
+
   {{
     formPageRadios(
       {

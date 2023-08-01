@@ -3,20 +3,24 @@
 //    As a referrer
 //    I want to answer questions within that task
 //
-//  Scenario: Follows link from task list
-//    Given there is a section with a task
-//    And an application exists
-//    And I am logged in
+//  Background:
+//    Given I am logged in
+//    And I have successfully found a person by CRN
+//    And I'm now faced with the 'Confirm eligibility' task
 //    And I am viewing the application task list
 //
-//  Scenario: view task within task list
-//    Then I see that the task has not been started
+//  Scenario: Confirms that the person is eligible for CAS-2
+//    When I confirm that the person is eligible
+//    And I continue to the next task
+//    Then I see that the 'Confirm eligibility' task is complete
 
 import Page from '../../../../pages/page'
+import CRNPage from '../../../../pages/apply/crnPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
+import ConfirmEligibilityPage from '../../../../pages/apply/confirmEligibilityPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
-context('Visit "About the person" section', () => {
+context('Complete "Confirm eligibility" task in "Before you start" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
@@ -24,53 +28,74 @@ context('Visit "About the person" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    cy.fixture('applicationData.json').then(applicationData => {
-      const application = applicationFactory.build({
-        id: 'abc123',
-        data: {
-          'funding-information': {
-            'funding-source': { fundingSource: 'personalSavings' },
-          },
-        },
-        person,
-      })
-      application.data = applicationData
-      cy.wrap(application).as('application')
-      cy.wrap(application.data).as('applicationData')
-    })
-  })
-
-  beforeEach(function test() {
-    // And an application exists
-    // -------------------------
-    const newApplication = applicationFactory.build({
+    const application = applicationFactory.build({
       id: 'abc123',
       data: {
+        foo: 'bar',
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: null },
+        },
         'funding-information': {
           'funding-source': { fundingSource: 'personalSavings' },
         },
       },
       person,
     })
-    cy.task('stubApplicationGet', { application: newApplication })
-    cy.task('stubApplicationUpdate', { application: newApplication })
+    cy.task('stubFindPerson', { person })
 
-    // Given I am logged in
-    //---------------------
-    cy.signIn()
-
-    // And I am viewing the application
-    // --------------------------------
-    cy.visit('applications/abc123')
-    Page.verifyOnPage(TaskListPage)
+    cy.wrap(application).as('application')
   })
 
-  // Scenario: view task within task list
-  // ------------------------------------
-  it('shows the task listed within the section', () => {
-    // I see that the task has not been started
+  beforeEach(function test() {
+    cy.task('stubCreateApplication', { application: this.application })
+    cy.task('stubApplicationGet', { application: this.application })
+    cy.task('stubApplicationUpdate', { application: this.application })
+
+    //  Background:
+    //    Given I am logged in
+    cy.signIn()
+    //    And I have successfully found a person by CRN
+    const page = CRNPage.visit()
+    page.getTextInputByIdAndEnterDetails('crn', person.crn)
+
+    page.clickSubmit()
+
+    //   And I'm now faced with the 'Confirm eligibility' task
+    Page.verifyOnPage(ConfirmEligibilityPage, this.application)
+  })
+
+  //  Scenario: Confirms that the person is eligible for CAS-2
+  //    When I confirm that the person is eligible
+  //    And I continue to the next task
+  //    Then I see that the 'Confirm eligibility' task is complete
+  it('allows eligibility to be confirmed', function test() {
+    const confirmEligibilityPage = new ConfirmEligibilityPage(this.application)
+    confirmEligibilityPage.hasCaption()
+    confirmEligibilityPage.hasQuestionsAndAnswers()
+    confirmEligibilityPage.hasGuidance()
+
+    // When I select the 'Yes' option and click save and continue
+    confirmEligibilityPage.chooseYesOption()
+
+    // after submission of the valid form the API will return the answered question
+    // -- note that it this case the value must be yes or no to indicate that the
+    //    'Confirm eligibility' task is complete
+    const answered = {
+      ...this.application,
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
+      },
+    }
+    cy.task('stubApplicationGet', { application: answered })
+
+    confirmEligibilityPage.clickSubmit()
+
+    // Then I return to the task list
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Not started')
-    taskListPage.shouldShowTaskWithinSection('Check eligibility for CAS-2', 'Before you start')
+
+    // And I see that the task is now complete
+    taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Completed')
   })
 })
