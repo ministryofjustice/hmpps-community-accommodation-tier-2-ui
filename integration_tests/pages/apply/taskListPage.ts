@@ -23,4 +23,14 @@ export default class TaskListPage extends Page {
   shouldShowTaskStatus = (task: string, status: string): void => {
     cy.get(`#${task}-status`).should('contain', status)
   }
+
+  shouldShowTaskWithinSection = (taskTitle: string, sectionTitle: string): void => {
+    cy.get(`[data-section_name="${sectionTitle}"]`).within(() => {
+      // And I see the expected SECTION title
+      cy.get('.app-task-list__section').contains(sectionTitle)
+
+      // And I see each expected TASK title
+      cy.get('.app-task-list__task-name').contains(taskTitle)
+    })
+  }
 }
