@@ -4,5 +4,8 @@
   },
   "willAnswer": {
     "empty": "Choose either Yes or No"
+  },
+  "hasDisability": {
+    "empty": "Choose either Yes or No"
   }
 }
