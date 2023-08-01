@@ -1,4 +1,4 @@
-import { escape, convertKeyValuePairToRadioItems } from './formUtils'
+import { escape, convertKeyValuePairToRadioItems, convertKeyValuePairToCheckboxItems } from './formUtils'
 
 describe('formutils', () => {
   describe('escape', () => {
@@ -55,6 +55,84 @@ describe('formutils', () => {
           value: 'foo',
           text: 'Foo',
           checked: false,
+        },
+        {
+          value: 'bar',
+          text: 'Bar',
+          checked: true,
+        },
+      ])
+    })
+  })
+
+  describe('convertKeyValuePairToCheckboxItems', () => {
+    const obj = {
+      foo: 'Foo',
+      bar: 'Bar',
+    }
+
+    it('should convert a key value pair to checkbox items', () => {
+      expect(convertKeyValuePairToCheckboxItems(obj, [])).toEqual([
+        {
+          value: 'foo',
+          text: 'Foo',
+          checked: false,
+        },
+        {
+          value: 'bar',
+          text: 'Bar',
+          checked: false,
+        },
+      ])
+    })
+
+    it('should handle an undefined checkedItems value', () => {
+      expect(convertKeyValuePairToCheckboxItems(obj, undefined)).toEqual([
+        {
+          value: 'foo',
+          text: 'Foo',
+          checked: false,
+        },
+        {
+          value: 'bar',
+          text: 'Bar',
+          checked: false,
+        },
+      ])
+    })
+
+    it('should check the checked item', () => {
+      expect(convertKeyValuePairToCheckboxItems(obj, ['foo'])).toEqual([
+        {
+          value: 'foo',
+          text: 'Foo',
+          checked: true,
+        },
+        {
+          value: 'bar',
+          text: 'Bar',
+          checked: false,
+        },
+      ])
+
+      expect(convertKeyValuePairToCheckboxItems(obj, ['bar'])).toEqual([
+        {
+          value: 'foo',
+          text: 'Foo',
+          checked: false,
+        },
+        {
+          value: 'bar',
+          text: 'Bar',
+          checked: true,
+        },
+      ])
+
+      expect(convertKeyValuePairToCheckboxItems(obj, ['foo', 'bar'])).toEqual([
+        {
+          value: 'foo',
+          text: 'Foo',
+          checked: true,
         },
         {
           value: 'bar',

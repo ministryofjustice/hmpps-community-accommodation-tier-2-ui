@@ -25,6 +25,12 @@ interface TasklistPage {
 
 export type YesOrNo = 'yes' | 'no'
 
+export type YesOrNoWithDetail<T extends string> = {
+  [K in T]: YesOrNo
+} & {
+  [K in `${T}Detail`]: string
+}
+
 export type PageResponse = Record<string, string | Array<string> | Array<Record<string, unknown>>>
 
 export type FormArtifact = Cas2Application
@@ -103,3 +109,12 @@ export interface RadioItem {
 export interface GroupedApplications {
   inProgress: Array<ApplicationSummary>
 }
+export type CheckboxItem =
+  | {
+      text: string
+      value: string
+      checked?: boolean
+    }
+  | CheckboxDivider
+
+export type CheckboxDivider = { divider: string }
