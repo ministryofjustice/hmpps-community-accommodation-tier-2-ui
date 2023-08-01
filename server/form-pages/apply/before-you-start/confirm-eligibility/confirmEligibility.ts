@@ -7,12 +7,6 @@ import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 type ConfirmEligibilityBody = {
   isEligible: YesOrNo
 }
-
-export const options = {
-  yes: 'Yes, I can confirm Roger Smith is eligible',
-  no: 'No, Roger Smith is not eligible',
-}
-
 @Page({
   name: 'confirm-eligibility',
   bodyProperties: ['isEligible'],
@@ -22,6 +16,11 @@ export default class ConfirmEligibility implements TaskListPage {
 
   questions = {
     isEligible: `Is ${this.application.person.name} eligible for Short-Term Accommodation (CAS-2)?`,
+  }
+
+  options = {
+    yes: `Yes, I confirm ${this.application.person.name} is eligible`,
+    no: `No, ${this.application.person.name} is not eligible`,
   }
 
   body: ConfirmEligibilityBody
@@ -51,13 +50,13 @@ export default class ConfirmEligibility implements TaskListPage {
 
   response() {
     const response = {
-      [this.questions.isEligible]: options[this.body.isEligible],
+      [this.questions.isEligible]: this.options[this.body.isEligible],
     }
 
     return response
   }
 
   items() {
-    return convertKeyValuePairToRadioItems(options, this.body.isEligible)
+    return convertKeyValuePairToRadioItems(this.options, this.body.isEligible)
   }
 }

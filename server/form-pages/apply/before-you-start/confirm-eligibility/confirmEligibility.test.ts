@@ -31,7 +31,7 @@ describe('ConfirmEligibility', () => {
       const page = new ConfirmEligibility({ isEligible: 'yes' }, application)
 
       expect(page.response()).toEqual({
-        'Is Roger Smith eligible for Short-Term Accommodation (CAS-2)?': 'Yes, I can confirm Roger Smith is eligible',
+        'Is Roger Smith eligible for Short-Term Accommodation (CAS-2)?': 'Yes, I confirm Roger Smith is eligible',
       })
     })
 
@@ -49,12 +49,12 @@ describe('ConfirmEligibility', () => {
       expect(page.items()).toEqual([
         {
           value: 'yes',
-          text: 'Yes, I can confirm Roger Smith is eligible',
+          text: `Yes, I confirm ${application.person.name} is eligible`,
           checked: true,
         },
         {
           value: 'no',
-          text: 'No, Roger Smith is not eligible',
+          text: `No, ${application.person.name} is not eligible`,
           checked: false,
         },
       ])

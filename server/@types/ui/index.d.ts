@@ -12,7 +12,9 @@ export type FormSection = {
 }
 
 export type FormSections = Array<FormSection>
-export type TaskNames = 'funding-information' | 'equality-and-diversity-monitoring'
+
+export type TaskNames = 'funding-information' | 'confirm-eligibility' | 'equality-and-diversity-monitoring'
+
 export type FormPages = { [key in TaskNames]: Record<string, unknown> }
 
 export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'

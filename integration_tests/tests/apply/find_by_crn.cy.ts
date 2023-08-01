@@ -8,11 +8,11 @@
 //    And I click the link to start a new application
 //    Then I'm on the Enter CRN page
 //
-//  Scenario: enter a CRN and continue to the task list for the new application
+//  Scenario: enter a CRN and continue to the 'Before you start' section without seeing the task list
 //    Given I'm on the enter CRN page
 //    When I enter an existing CRN
 //    And I click save and continue
-//    Then I'm on the task list page
+//    Then I'm on the first task of the 'Before you start' section
 //
 //  Scenario: answer is enforced
 //    Given I'm on the enter CRN page
@@ -30,14 +30,14 @@
 //    Then I see an unathorised error message
 
 import { Cas2Application as Application } from '@approved-premises/api'
+import ConfirmEligibilityPage from '../../pages/apply/confirmEligibilityPage'
 import { personFactory, applicationFactory } from '../../../server/testutils/factories/index'
 import Page from '../../pages/page'
 import CRNPage from '../../pages/apply/crnPage'
 import ListPage from '../../pages/apply/list'
-import TaskListPage from '../../pages/apply/taskListPage'
 
 context('Find by CRN', () => {
-  const person = personFactory.build({})
+  const person = personFactory.build({ name: 'Roger Smith' })
   const applications = applicationFactory.buildList(3) as Array<Application>
 
   beforeEach(() => {
@@ -67,24 +67,37 @@ context('Find by CRN', () => {
     Page.verifyOnPage(CRNPage)
   })
 
-  //  Scenario: enter a CRN and continue to the task list for the new application
+  //  Scenario: enter a CRN and continue to 'Before you start' section without seeing the task list
   // ----------------------------------------------
-  it('creates an application and continues to the task list page', () => {
+  it('creates an application and continues to "Before you start" section (before task list)', () => {
     // I'm on the enter CRN page
     const page = CRNPage.visit()
 
     // I enter an existing CRN
     page.getTextInputByIdAndEnterDetails('crn', person.crn)
     cy.task('stubFindPerson', { person })
-    const application = applicationFactory.build({ person })
+    const application = applicationFactory.build({
+      person,
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': {},
+        },
+      },
+    })
+    // for the data:
+    // -------------
+    //   'task-name': {
+    //     'page-name' : { form properties }
+    //   }
+
     cy.task('stubCreateApplication', { application })
     cy.task('stubApplicationGet', { application })
 
     // I click save and continue
     page.clickSubmit()
 
-    // Then I'm on the task list page
-    Page.verifyOnPage(TaskListPage)
+    // Then I'm on the 'Confirm eligibility' page (in 'Before you start' section)
+    Page.verifyOnPage(ConfirmEligibilityPage, application)
   })
 
   //  Scenario: answer is enforced
