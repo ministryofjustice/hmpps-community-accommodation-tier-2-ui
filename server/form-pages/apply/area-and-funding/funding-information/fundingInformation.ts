@@ -1,4 +1,4 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { Radio, TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
@@ -68,7 +68,7 @@ export default class FundingSource implements TaskListPage {
   }
 
   items() {
-    const items = convertKeyValuePairToRadioItems(fundingSources, this.body.fundingSource)
+    const items = convertKeyValuePairToRadioItems(fundingSources, this.body.fundingSource) as [Radio]
     return items.map(radio => {
       if (radio.value === 'benefits') {
         return { ...radio, hint: { text: benefitsHint } }

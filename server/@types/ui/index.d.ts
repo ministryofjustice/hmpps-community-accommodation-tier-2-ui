@@ -12,7 +12,7 @@ export type FormSection = {
 }
 
 export type FormSections = Array<FormSection>
-export type TaskNames = 'funding-information'
+export type TaskNames = 'funding-information' | 'equality-and-diversity-monitoring'
 export type FormPages = { [key in TaskNames]: Record<string, unknown> }
 
 export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'
@@ -24,6 +24,8 @@ interface TasklistPage {
 }
 
 export type YesOrNo = 'yes' | 'no'
+
+export type YesOrNoOrPreferNotToSay = 'yes' | 'no' | 'preferNotToSay'
 
 export type YesOrNoWithDetail<T extends string> = {
   [K in T]: YesOrNo
@@ -96,7 +98,7 @@ export type ObjectWithDateParts<K extends string | number> = { [P in `${K}-${'ye
 
 export type TableRow = Array<TableCell>
 
-export interface RadioItem {
+export type Radio = {
   text: string
   value: string
   checked?: boolean
@@ -105,6 +107,10 @@ export interface RadioItem {
     html?: string
   }
 }
+
+export type RadioItem = Radio | Divider
+
+export type Divider = { divider: string }
 
 export interface GroupedApplications {
   inProgress: Array<ApplicationSummary>
@@ -115,6 +121,4 @@ export type CheckboxItem =
       value: string
       checked?: boolean
     }
-  | CheckboxDivider
-
-export type CheckboxDivider = { divider: string }
+  | Divider
