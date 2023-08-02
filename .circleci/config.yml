@@ -59,7 +59,7 @@ jobs:
 
   e2e_environment_test:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.34.1-focal
+      - image: mcr.microsoft.com/playwright:v1.36.2-focal
     circleci_ip_ranges: true # opt-in to jobs running on a restricted set of IPs
     steps:
       - run:
