@@ -46,18 +46,33 @@ context('Visit area and funding section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    cy.fixture('applicationData.json').then(applicationData => {
-      const application = applicationFactory.build({ id: 'abc123', person })
-      application.data = applicationData
-      cy.wrap(application).as('application')
-      cy.wrap(application.data).as('applicationData')
+    const application = applicationFactory.build({
+      id: 'abc123',
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
+        'funding-information': {
+          'funding-source': {},
+        },
+      },
+      person,
     })
+    cy.wrap(application).as('application')
   })
 
   beforeEach(function test() {
     // And an application exists
     // -------------------------
-    const newApplication = applicationFactory.build({ id: 'abc123', person })
+    const newApplication = applicationFactory.build({
+      id: 'abc123',
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
+      },
+      person,
+    })
     cy.task('stubApplicationGet', { application: newApplication })
     cy.task('stubApplicationUpdate', { application: newApplication })
 
@@ -137,14 +152,18 @@ context('Visit area and funding section', () => {
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
 
     // When I select an option and click save and continue
-    page.checkRadioButtonFromPageBody('fundingSource')
+    page.checkRadioByNameAndValue('fundingSource', 'personalSavings')
 
     // after submission of the valid form the API will return the answered question
     // -- note that the presence of the _page_ only is required in application.data
-    //    to signify that the page is complete
+    //    to signify that the page is complete,
+    //    apart from the eligibility question which must be answered
     const answered = {
       ...this.application,
       data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
         'funding-information': {
           'funding-source': {},
         },

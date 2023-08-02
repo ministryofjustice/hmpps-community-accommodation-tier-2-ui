@@ -46,20 +46,23 @@ context('Visit "About the person" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    cy.fixture('applicationData.json').then(applicationData => {
-      const application = applicationFactory.build({
-        id: 'abc123',
-        data: {
-          'funding-information': {
-            'funding-source': { fundingSource: 'personalSavings' },
-          },
+    const application = applicationFactory.build({
+      id: 'abc123',
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
         },
-        person,
-      })
-      application.data = applicationData
-      cy.wrap(application).as('application')
-      cy.wrap(application.data).as('applicationData')
+        'funding-information': {
+          'funding-source': { fundingSource: 'personalSavings' },
+        },
+        'equality-and-diversity-monitoring': {
+          'will-answer-equality-questions': {},
+          disability: {},
+        },
+      },
+      person,
     })
+    cy.wrap(application).as('application')
   })
 
   beforeEach(function test() {
@@ -68,6 +71,9 @@ context('Visit "About the person" section', () => {
     const newApplication = applicationFactory.build({
       id: 'abc123',
       data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
         'funding-information': {
           'funding-source': { fundingSource: 'personalSavings' },
         },
@@ -152,15 +158,19 @@ context('Visit "About the person" section', () => {
     cy.get('a').contains('Complete equality and diversity monitoring').click()
     const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
 
-    // When I select 'yes' and continue
-    page.checkRadioButtonFromPageBody('willAnswer')
+    // When I select the 'Yes' option and click save and continue
+    page.checkRadioByNameAndValue('willAnswer', 'yes')
 
     // after submission of the valid form the API will return the answered question
     // -- note that the presence of the _page_ only is required in application.data
-    //    to signify that the page is complete
+    //    to signify that the page is complete,
+    //    apart from the eligibility question which must be answered
     const answered = {
       ...this.application,
       data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
         'funding-information': {
           'funding-source': {},
         },

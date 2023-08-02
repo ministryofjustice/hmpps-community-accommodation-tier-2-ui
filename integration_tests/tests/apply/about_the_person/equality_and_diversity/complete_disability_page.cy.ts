@@ -38,6 +38,9 @@ context('Visit "About the person" section', () => {
     const application = applicationFactory.build({
       id: 'abc123',
       data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
         'funding-information': {
           'funding-source': {},
         },
