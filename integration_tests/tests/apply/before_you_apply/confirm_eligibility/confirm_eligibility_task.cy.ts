@@ -13,6 +13,29 @@
 //    When I confirm that the person is eligible
 //    And I continue to the next task
 //    Then I see that the 'Confirm eligibility' task is complete
+//
+//  Scenario: Confirms that the person is NOT eligible for CAS-2
+//    When I confirm that the person is NOT eligible
+//    And I continue to the next task
+//    Then I see that I have marked this person as ineligible
+//    And I am on the 'person ineligible' page
+//    And I am provided with a way of changing the eligibility answer
+//
+//  Scenario: Changes eligibility answer: from NO to YES
+//    Given I have confirmed that the person is not eligible
+//    And I am on the 'person ineligible' page
+//
+//    When I choose to change my eligibility answer
+//    I confirm that the person is eligible
+//    And I continue to the next task
+//    Then I see that the 'Confirm eligibility' task is complete
+//
+//  Scenario: Abandons ineligible application and starts new one
+//    Given I have confirmed that the person is not eligible
+//    And I am on the 'person ineligible' page
+//
+//    When I opt to start a new application
+//    Then I should be able to 'Find by CRN'
 
 import Page from '../../../../pages/page'
 import CRNPage from '../../../../pages/apply/crnPage'
