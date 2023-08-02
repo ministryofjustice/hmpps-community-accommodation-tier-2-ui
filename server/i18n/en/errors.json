@@ -9,5 +9,9 @@
     "empty": "Choose either Yes, No or Prefer not to say",
     "otherDisability": "Enter the other disability",
     "typeOfDisability": "Choose a disability type"
+  },
+  "sexAndGender": {
+    "sex": "Choose either Female, Male or Prefer not to say",
+    "gender": "Choose either Yes, No or Prefer not to say"
   }
 }
