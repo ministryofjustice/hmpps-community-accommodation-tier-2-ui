@@ -28,7 +28,7 @@ describe('Disability', () => {
     })
   })
 
-  itShouldHaveNextValue(new Disability({ hasDisability: 'yes' }, application), '')
+  itShouldHaveNextValue(new Disability({ hasDisability: 'yes' }, application), 'sex-and-gender')
   itShouldHavePreviousValue(new Disability({ hasDisability: 'yes' }, application), 'will-answer-equality-questions')
 
   describe('response', () => {
