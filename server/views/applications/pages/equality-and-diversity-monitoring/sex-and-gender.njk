@@ -1,0 +1,54 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+  <h1 class="govuk-heading-l">{{ page.heading }}</h1>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "sex",
+        fieldset: {
+          legend: {
+            text: page.questions.sex,
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: page.sexItems()
+      },
+      fetchContext()
+    )
+  }}
+
+  {% set optionalGenderIdentity %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.optionalGenderIdentity},
+          classes: "govuk-input--width-20",
+          fieldName: "optionalGenderIdentity"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "gender",
+        fieldset: {
+          legend: {
+            text: page.questions.gender,
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: page.genderItems(optionalGenderIdentity)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
