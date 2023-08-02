@@ -23,33 +23,21 @@ context('Visit "About the person" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
+      applicationData['equality-and-diversity-monitoring'] = { 'will-answer-equality-questions': {}, disability: {} }
       const application = applicationFactory.build({
+        id: 'abc123',
         person,
+        data: applicationData,
       })
-      application.data = applicationData
       cy.wrap(application).as('application')
-      cy.wrap(application.data).as('applicationData')
     })
   })
 
   beforeEach(function test() {
     // And an application exists
     // -------------------------
-    const application = applicationFactory.build({
-      id: 'abc123',
-      data: {
-        'funding-information': {
-          'funding-source': {},
-        },
-        'equality-and-diversity-monitoring': {
-          'will-answer-equality-questions': {},
-          disability: {},
-        },
-      },
-      person,
-    })
-    cy.task('stubApplicationGet', { application })
-    cy.task('stubApplicationUpdate', { application })
+    cy.task('stubApplicationGet', { application: this.application })
+    cy.task('stubApplicationUpdate', { application: this.application })
 
     // Given I am logged in
     //---------------------

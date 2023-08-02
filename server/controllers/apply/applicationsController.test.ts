@@ -55,20 +55,50 @@ describe('applicationsController', () => {
   })
 
   describe('show', () => {
-    it('renders the task list view', async () => {
-      const application = applicationFactory.build()
-      const stubTaskList = jest.fn()
-      applicationService.findApplication.mockResolvedValue(application)
-      ;(TaskListService as jest.Mock).mockImplementation(() => {
-        return stubTaskList
+    describe('when "Confirm eligibility" task ("Before you start" section) is complete', () => {
+      it('renders the task list view', async () => {
+        const application = applicationFactory.build({
+          data: {
+            'confirm-eligibility': {
+              'confirm-eligibility': { isEligible: 'yes' },
+            },
+          },
+        })
+        const stubTaskList = jest.fn()
+        applicationService.findApplication.mockResolvedValue(application)
+        ;(TaskListService as jest.Mock).mockImplementation(() => {
+          return stubTaskList
+        })
+
+        const requestHandler = applicationsController.show()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/taskList', {
+          application,
+          taskList: stubTaskList,
+        })
       })
+    })
 
-      const requestHandler = applicationsController.show()
-      await requestHandler(request, response, next)
+    describe('when "Confirm eligibility" task is NOT complete', () => {
+      it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
+        const application = applicationFactory.build({ data: {} })
+        const stubTaskList = jest.fn()
+        applicationService.findApplication.mockResolvedValue(application)
+        ;(TaskListService as jest.Mock).mockImplementation(() => {
+          return stubTaskList
+        })
 
-      expect(response.render).toHaveBeenCalledWith('applications/taskList', {
-        application,
-        taskList: stubTaskList,
+        const requestHandler = applicationsController.show()
+        await requestHandler(request, response, next)
+
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'confirm-eligibility',
+            page: 'confirm-eligibility',
+          }),
+        )
       })
     })
   })

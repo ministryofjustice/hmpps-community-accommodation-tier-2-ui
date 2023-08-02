@@ -1,4 +1,9 @@
 {
+  "confirm-eligibility": {
+    "confirm-eligibility": {
+      "isEligible": "yes"
+    }
+  },
   "funding-information": {
     "funding-source": {
       "fundingSource": "benefits"

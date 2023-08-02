@@ -12,7 +12,7 @@ export default class DisabilityPage extends ApplyPage {
   }
 
   enterOtherDisabilityType(): void {
-    this.checkRadioButtonFromPageBody('hasDisability')
+    this.checkRadioByNameAndValue('hasDisability', 'yes')
     this.checkCheckboxByLabel('other')
     this.getTextInputByIdAndEnterDetails('otherDisability', 'a different disability')
   }

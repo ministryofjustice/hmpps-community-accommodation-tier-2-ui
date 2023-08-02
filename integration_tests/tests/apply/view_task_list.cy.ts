@@ -6,6 +6,7 @@
 //  Scenario: view list of tasks
 //    Given I am logged in
 //    And an application exists
+//    And the 'Before you start' tasks are complete
 //    When I visit the task list page
 //    Then I see the task listed by section
 
@@ -14,7 +15,14 @@ import Page from '../../pages/page'
 import TaskListPage from '../../pages/apply/taskListPage'
 
 context('Visit task list', () => {
-  const application = applicationFactory.build({ id: 'abc123' })
+  const application = applicationFactory.build({
+    id: 'abc123',
+    data: {
+      'confirm-eligibility': {
+        'confirm-eligibility': { isEligible: 'yes' },
+      },
+    },
+  })
 
   beforeEach(function test() {
     cy.task('reset')
