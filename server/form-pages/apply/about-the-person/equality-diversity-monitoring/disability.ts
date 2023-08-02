@@ -56,7 +56,7 @@ export default class Disability implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'sex-and-gender'
   }
 
   errors() {
