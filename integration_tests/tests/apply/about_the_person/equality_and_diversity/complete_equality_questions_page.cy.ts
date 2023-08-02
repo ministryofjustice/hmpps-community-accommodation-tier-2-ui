@@ -46,42 +46,22 @@ context('Visit "About the person" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    const application = applicationFactory.build({
-      id: 'abc123',
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': { isEligible: 'yes' },
-        },
-        'funding-information': {
-          'funding-source': { fundingSource: 'personalSavings' },
-        },
-        'equality-and-diversity-monitoring': {
-          'will-answer-equality-questions': {},
-          disability: {},
-        },
-      },
-      person,
+    cy.fixture('applicationData.json').then(applicationData => {
+      applicationData['equality-and-diversity-monitoring'] = {}
+      const application = applicationFactory.build({
+        id: 'abc123',
+        person,
+        data: applicationData,
+      })
+      cy.wrap(application).as('application')
     })
-    cy.wrap(application).as('application')
   })
 
   beforeEach(function test() {
     // And an application exists
     // -------------------------
-    const newApplication = applicationFactory.build({
-      id: 'abc123',
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': { isEligible: 'yes' },
-        },
-        'funding-information': {
-          'funding-source': { fundingSource: 'personalSavings' },
-        },
-      },
-      person,
-    })
-    cy.task('stubApplicationGet', { application: newApplication })
-    cy.task('stubApplicationUpdate', { application: newApplication })
+    cy.task('stubApplicationGet', { application: this.application })
+    cy.task('stubApplicationUpdate', { application: this.application })
 
     // Given I am logged in
     //---------------------

@@ -28,22 +28,16 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    const application = applicationFactory.build({
-      id: 'abc123',
-      data: {
-        foo: 'bar',
-        'confirm-eligibility': {
-          'confirm-eligibility': { isEligible: null },
-        },
-        'funding-information': {
-          'funding-source': { fundingSource: 'personalSavings' },
-        },
-      },
-      person,
+    cy.fixture('applicationData.json').then(applicationData => {
+      applicationData['confirm-eligibility'] = {}
+      const application = applicationFactory.build({
+        id: 'abc123',
+        person,
+        data: applicationData,
+      })
+      cy.wrap(application).as('application')
     })
     cy.task('stubFindPerson', { person })
-
-    cy.wrap(application).as('application')
   })
 
   beforeEach(function test() {

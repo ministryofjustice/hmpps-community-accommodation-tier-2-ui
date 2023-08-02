@@ -46,35 +46,22 @@ context('Visit area and funding section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    const application = applicationFactory.build({
-      id: 'abc123',
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': { isEligible: 'yes' },
-        },
-        'funding-information': {
-          'funding-source': {},
-        },
-      },
-      person,
+    cy.fixture('applicationData.json').then(applicationData => {
+      applicationData['funding-information'] = {}
+      const application = applicationFactory.build({
+        id: 'abc123',
+        person,
+        data: applicationData,
+      })
+      cy.wrap(application).as('application')
     })
-    cy.wrap(application).as('application')
   })
 
   beforeEach(function test() {
     // And an application exists
     // -------------------------
-    const newApplication = applicationFactory.build({
-      id: 'abc123',
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': { isEligible: 'yes' },
-        },
-      },
-      person,
-    })
-    cy.task('stubApplicationGet', { application: newApplication })
-    cy.task('stubApplicationUpdate', { application: newApplication })
+    cy.task('stubApplicationGet', { application: this.application })
+    cy.task('stubApplicationUpdate', { application: this.application })
 
     // Given I am logged in
     //---------------------
