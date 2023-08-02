@@ -5,7 +5,6 @@
 
 import type { AnyValue } from './AnyValue';
 import type { AssessmentDecision } from './AssessmentDecision';
-import type { AssessmentStatus } from './AssessmentStatus';
 import type { ClarificationNote } from './ClarificationNote';
 
 export type Assessment = {
@@ -20,6 +19,5 @@ export type Assessment = {
     rejectionRationale?: string;
     data?: AnyValue;
     clarificationNotes: Array<ClarificationNote>;
-    status?: AssessmentStatus;
 };
 
