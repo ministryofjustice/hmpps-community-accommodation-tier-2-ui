@@ -22,4 +22,8 @@ export default class IneligiblePagePage extends Page {
       }),
     )
   }
+
+  chooseToChangeAnswer(): void {
+    cy.get('a').contains('Change eligibility answer').click()
+  }
 }
