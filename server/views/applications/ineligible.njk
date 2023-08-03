@@ -1,0 +1,30 @@
+{% extends "../partials/layout.njk" %}
+
+{% block pageTitle %}
+  CAS-2: Ineligible - {{application.person.name}} is not eligible for CAS-2 accommodation
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ govukPanel({
+        titleText: panelText,
+        classes: "govuk-!-margin-bottom-9 govuk-panel--fail",
+        attributes: {
+          style: "background-color: #d4351c; color: #ffffff;"
+        }
+      }) }}
+
+      <p class="govuk-body-l">
+        {{application.person.name}}'s Community Offender Manager (COM) should refer them to the regional Commissioned Rehabilitative Services provider (Accommodation contractor for men and Women’s Services contractor for women).
+      </p>
+
+      {{ govukButton({
+           text: "Change eligibility answer",
+           classes: "govuk-button--secondary",
+           href: changeAnswerPath
+      }) }}
+
+    </div>
+  </div>
+{% endblock %}

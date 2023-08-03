@@ -41,6 +41,7 @@ import Page from '../../../../pages/page'
 import CRNPage from '../../../../pages/apply/crnPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import ConfirmEligibilityPage from '../../../../pages/apply/confirmEligibilityPage'
+import IneligiblePage from '../../../../pages/apply/ineligiblePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Complete "Confirm eligibility" task in "Before you start" section', () => {
@@ -114,5 +115,40 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
 
     // And I see that the task is now complete
     taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Completed')
+  })
+
+  //  Scenario: Confirms that the person is NOT eligible for CAS-2
+  //    When I confirm that the person is NOT eligible
+  //    And I continue to the next task
+  //    Then I see that I have marked this person as ineligible
+  //    And I am on the 'person ineligible' page
+  //    And I am provided with a way of changing the eligibility answer
+  it('allows INELIGIBILITY to be confirmed', function test() {
+    const confirmEligibilityPage = new ConfirmEligibilityPage(this.application)
+
+    // When I select the 'NO' option and click save and continue
+    confirmEligibilityPage.chooseNoOption()
+
+    // after submission of the valid form the API will return the answered question
+    // -- note that it this case the value must be yes or no to indicate that the
+    //    'Confirm eligibility' task is complete
+    const answered = {
+      ...this.application,
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'no' },
+        },
+      },
+    }
+    cy.task('stubApplicationGet', { application: answered })
+
+    confirmEligibilityPage.clickSubmit()
+
+    // Then I see that I have marked this person as ineligible
+    // And I am on the 'person ineligible' page
+    const ineligiblePage = Page.verifyOnPage(IneligiblePage, this.application)
+    ineligiblePage.hasGuidance()
+    // And I am provided with a way of changing the eligibility answer)
+    ineligiblePage.hasLinkToChangeAnswer()
   })
 })
