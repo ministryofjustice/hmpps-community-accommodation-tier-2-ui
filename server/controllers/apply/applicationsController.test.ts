@@ -56,26 +56,48 @@ describe('applicationsController', () => {
 
   describe('show', () => {
     describe('when "Confirm eligibility" task ("Before you start" section) is complete', () => {
-      it('renders the task list view', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
+      describe('and the person is confirmed eligible', () => {
+        it('renders the task list view', async () => {
+          const application = applicationFactory.build({
+            data: {
+              'confirm-eligibility': {
+                'confirm-eligibility': { isEligible: 'yes' },
+              },
             },
-          },
-        })
-        const stubTaskList = jest.fn()
-        applicationService.findApplication.mockResolvedValue(application)
-        ;(TaskListService as jest.Mock).mockImplementation(() => {
-          return stubTaskList
-        })
+          })
+          const stubTaskList = jest.fn()
+          applicationService.findApplication.mockResolvedValue(application)
+          ;(TaskListService as jest.Mock).mockImplementation(() => {
+            return stubTaskList
+          })
 
-        const requestHandler = applicationsController.show()
-        await requestHandler(request, response, next)
+          const requestHandler = applicationsController.show()
+          await requestHandler(request, response, next)
 
-        expect(response.render).toHaveBeenCalledWith('applications/taskList', {
-          application,
-          taskList: stubTaskList,
+          expect(response.render).toHaveBeenCalledWith('applications/taskList', {
+            application,
+            taskList: stubTaskList,
+          })
+        })
+      })
+
+      describe('and the person is confirmed INELIGIBLE', () => {
+        it('renders the _ineligible_ page', async () => {
+          const application = applicationFactory.build({
+            data: {
+              'confirm-eligibility': {
+                'confirm-eligibility': { isEligible: 'no' },
+              },
+            },
+          })
+          applicationService.findApplication.mockResolvedValue(application)
+
+          const requestHandler = applicationsController.show()
+          await requestHandler(request, response, next)
+
+          expect(response.render).toHaveBeenCalledWith('applications/ineligible', {
+            application,
+          })
         })
       })
     })
@@ -83,11 +105,7 @@ describe('applicationsController', () => {
     describe('when "Confirm eligibility" task is NOT complete', () => {
       it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
         const application = applicationFactory.build({ data: {} })
-        const stubTaskList = jest.fn()
         applicationService.findApplication.mockResolvedValue(application)
-        ;(TaskListService as jest.Mock).mockImplementation(() => {
-          return stubTaskList
-        })
 
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)

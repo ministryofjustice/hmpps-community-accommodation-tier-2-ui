@@ -12,7 +12,16 @@ export const firstPageOfBeforeYouStartSection = (application: Application) => {
 }
 
 export const eligibilityQuestionIsAnswered = (application: Application): boolean => {
-  const eligibilityAnswer = application.data?.['confirm-eligibility']?.['confirm-eligibility']?.isEligible
+  return eligibilityAnswer(application) === 'yes' || eligibilityAnswer(application) === 'no'
+}
 
-  return eligibilityAnswer === 'yes' || eligibilityAnswer === 'no'
+export const eligibilityIsConfirmed = (application: Application): boolean => {
+  return eligibilityAnswer(application) === 'yes'
+}
+export const eligibilityIsDenied = (application: Application): boolean => {
+  return eligibilityAnswer(application) === 'no'
+}
+
+const eligibilityAnswer = (application: Application): string => {
+  return application.data?.['confirm-eligibility']?.['confirm-eligibility']?.isEligible
 }
