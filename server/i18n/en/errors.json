@@ -13,5 +13,8 @@
   "sexAndGender": {
     "sex": "Choose either Female, Male or Prefer not to say",
     "gender": "Choose either Yes, No or Prefer not to say"
+  },
+  "sexualOrientation": {
+    "orientation": "Select an orientation, or choose Prefer not to say"
   }
 }
