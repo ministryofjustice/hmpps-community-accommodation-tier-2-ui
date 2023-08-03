@@ -11,3 +11,8 @@ $govuk-page-width: $moj-page-width;
 @import './components/task-list';
 
 @import 'assets/scss/local';
+
+.govuk-panel--fail {
+  background-color: #d4351c;
+  color: #ffffff;
+}
