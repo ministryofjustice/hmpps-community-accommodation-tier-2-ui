@@ -52,7 +52,7 @@ export default class SexAndGender implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'sexual-orientation'
   }
 
   errors() {

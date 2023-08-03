@@ -13,7 +13,7 @@ describe('SexAndGender', () => {
     })
   })
 
-  itShouldHaveNextValue(new SexAndGender({ sex: 'female' }, application), '')
+  itShouldHaveNextValue(new SexAndGender({ sex: 'female' }, application), 'sexual-orientation')
   itShouldHavePreviousValue(new SexAndGender({}, application), 'disability')
 
   describe('response', () => {
