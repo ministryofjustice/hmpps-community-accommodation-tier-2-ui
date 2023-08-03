@@ -1,4 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
+import { Cas2Application } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import { fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationService from '../../services/applicationService'
@@ -42,19 +43,22 @@ export default class ApplicationsController {
       }
 
       if (eligibilityIsDenied(application)) {
-        const panelText = `${application.person.name} is not eligible for CAS-2 accommodation`
-        const changeAnswerPath = paths.applications.pages.show({
-          id: application.id,
-          task: 'confirm-eligibility',
-          page: 'confirm-eligibility',
-        })
-        const newApplicationPath = paths.applications.new({})
-
-        return res.render('applications/ineligible', { application, panelText, changeAnswerPath, newApplicationPath })
+        return res.render('applications/ineligible', this.ineligibleViewParams(application))
       }
 
       return res.redirect(firstPageOfBeforeYouStartSection(application))
     }
+  }
+
+  private ineligibleViewParams(application: Cas2Application): Record<string, string | Cas2Application> {
+    const panelText = `${application.person.name} is not eligible for CAS-2 accommodation`
+    const changeAnswerPath = paths.applications.pages.show({
+      id: application.id,
+      task: 'confirm-eligibility',
+      page: 'confirm-eligibility',
+    })
+    const newApplicationPath = paths.applications.new({})
+    return { application, panelText, changeAnswerPath, newApplicationPath }
   }
 
   create(): RequestHandler {
