@@ -198,4 +198,29 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     const taskListPage = Page.verifyOnPage(TaskListPage)
     taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Completed')
   })
+
+  //  Scenario: Abandons ineligible application and starts new one
+  //    Given I have confirmed that the person is not eligible
+  //    And I am on the 'person ineligible' page
+  //
+  //    When I opt to start a new application
+  //    Then I should be able to 'Find by CRN'
+  it('allows ineligible application to be abandoned and a new one started', function test() {
+    //  Given I have confirmed that the person is not eligible
+    const answered = {
+      ...this.application,
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'no' },
+        },
+      },
+    }
+    // And I am on the 'person ineligible' page
+    cy.task('stubApplicationGet', { application: answered })
+    cy.visit('applications/abc123')
+    const ineligiblePage = Page.verifyOnPage(IneligiblePage, this.application)
+
+    // When I opt to start a new application
+    ineligiblePage.startANewApplication()
+  })
 })

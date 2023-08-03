@@ -48,7 +48,9 @@ export default class ApplicationsController {
           task: 'confirm-eligibility',
           page: 'confirm-eligibility',
         })
-        return res.render('applications/ineligible', { application, panelText, changeAnswerPath })
+        const newApplicationPath = paths.applications.new({})
+
+        return res.render('applications/ineligible', { application, panelText, changeAnswerPath, newApplicationPath })
       }
 
       return res.redirect(firstPageOfBeforeYouStartSection(application))

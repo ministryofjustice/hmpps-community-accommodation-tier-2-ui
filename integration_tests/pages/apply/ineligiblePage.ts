@@ -26,4 +26,8 @@ export default class IneligiblePagePage extends Page {
   chooseToChangeAnswer(): void {
     cy.get('a').contains('Change eligibility answer').click()
   }
+
+  startANewApplication(): void {
+    cy.get('a').contains('Search for a different applicant').click()
+  }
 }
