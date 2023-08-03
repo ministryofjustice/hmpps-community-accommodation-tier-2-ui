@@ -98,6 +98,7 @@ describe('applicationsController', () => {
             task: 'confirm-eligibility',
             page: 'confirm-eligibility',
           })
+          const newApplicationPath = paths.applications.new({})
 
           applicationService.findApplication.mockResolvedValue(application)
 
@@ -108,6 +109,7 @@ describe('applicationsController', () => {
             application,
             panelText,
             changeAnswerPath,
+            newApplicationPath,
           })
         })
       })

@@ -20,6 +20,12 @@
       </p>
 
       {{ govukButton({
+           text: "Search for a different applicant",
+           classes: "govuk-!-margin-right-1",
+           href: newApplicationPath
+      }) }}
+
+      {{ govukButton({
            text: "Change eligibility answer",
            classes: "govuk-button--secondary",
            href: changeAnswerPath
