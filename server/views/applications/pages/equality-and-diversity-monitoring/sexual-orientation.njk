@@ -1,0 +1,31 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+  <h1 class="govuk-heading-l">{{ page.questions.orientation }}</h1>
+
+  {% set otherOrientation %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.otherOrientation},
+          classes: "govuk-input--width-20",
+          fieldName: "otherOrientation"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "orientation",
+        items: page.items(otherOrientation)
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
