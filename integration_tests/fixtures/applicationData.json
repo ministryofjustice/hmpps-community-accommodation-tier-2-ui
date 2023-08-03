@@ -19,6 +19,9 @@
     "sex-and-gender": {
       "sex": "female",
       "genderIdentity": "no"
+    },
+    "sexual-orientation": {
+      "orientation": "gay"
     }
   }
 }
