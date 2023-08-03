@@ -3,7 +3,7 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { ErrorsAndUserInput } from '@approved-premises/ui'
 
-import { applicationFactory } from '../../testutils/factories'
+import { applicationFactory, personFactory } from '../../testutils/factories'
 import { fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
@@ -84,12 +84,21 @@ describe('applicationsController', () => {
       describe('and the person is confirmed INELIGIBLE', () => {
         it('renders the _ineligible_ page', async () => {
           const application = applicationFactory.build({
+            person: personFactory.build({ name: 'Roger Smith' }),
             data: {
               'confirm-eligibility': {
                 'confirm-eligibility': { isEligible: 'no' },
               },
             },
           })
+
+          const panelText = `Roger Smith is not eligible for CAS-2 accommodation`
+          const changeAnswerPath = paths.applications.pages.show({
+            id: application.id,
+            task: 'confirm-eligibility',
+            page: 'confirm-eligibility',
+          })
+
           applicationService.findApplication.mockResolvedValue(application)
 
           const requestHandler = applicationsController.show()
@@ -97,6 +106,8 @@ describe('applicationsController', () => {
 
           expect(response.render).toHaveBeenCalledWith('applications/ineligible', {
             application,
+            panelText,
+            changeAnswerPath,
           })
         })
       })

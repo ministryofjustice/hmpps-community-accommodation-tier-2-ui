@@ -42,7 +42,13 @@ export default class ApplicationsController {
       }
 
       if (eligibilityIsDenied(application)) {
-        return res.render('applications/ineligible', { application })
+        const panelText = `${application.person.name} is not eligible for CAS-2 accommodation`
+        const changeAnswerPath = paths.applications.pages.show({
+          id: application.id,
+          task: 'confirm-eligibility',
+          page: 'confirm-eligibility',
+        })
+        return res.render('applications/ineligible', { application, panelText, changeAnswerPath })
       }
 
       return res.redirect(firstPageOfBeforeYouStartSection(application))

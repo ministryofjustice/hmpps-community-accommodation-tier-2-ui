@@ -32,4 +32,8 @@ export default class ConfirmEligibilityPage extends ApplyPage {
   chooseYesOption = (): void => {
     this.checkRadioByNameAndValue('isEligible', 'yes')
   }
+
+  chooseNoOption = (): void => {
+    this.checkRadioByNameAndValue('isEligible', 'no')
+  }
 }
