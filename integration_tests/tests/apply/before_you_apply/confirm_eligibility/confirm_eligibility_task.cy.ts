@@ -151,4 +151,51 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     // And I am provided with a way of changing the eligibility answer)
     ineligiblePage.hasLinkToChangeAnswer()
   })
+
+  //  Scenario: Changes eligibility answer: from NO to YES
+  //    Given I have confirmed that the person is not eligible
+  //    And I am on the 'person ineligible' page
+  //
+  //    When I choose to change my eligibility answer
+  //    I confirm that the person is eligible
+  //    And I continue to the next task
+  //    Then I see that the 'Confirm eligibility' task is complete
+  it('allows eligibility answer to be changed from NO to YES', function test() {
+    //  Given I have confirmed that the person is not eligible
+    const answered = {
+      ...this.application,
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'no' },
+        },
+      },
+    }
+    // And I am on the 'person ineligible' page
+    cy.task('stubApplicationGet', { application: answered })
+    cy.visit('applications/abc123')
+    const ineligiblePage = Page.verifyOnPage(IneligiblePage, this.application)
+
+    //  When I choose to change my eligibility answer
+    ineligiblePage.chooseToChangeAnswer()
+
+    //  I confirm that the person is eligible
+    const confirmEligibilityPage = new ConfirmEligibilityPage(this.application)
+    confirmEligibilityPage.chooseYesOption()
+
+    //  And I continue to the next task
+    const updated = {
+      ...this.application,
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': { isEligible: 'yes' },
+        },
+      },
+    }
+    cy.task('stubApplicationGet', { application: updated })
+    confirmEligibilityPage.clickSubmit()
+
+    // Then I see that the 'Confirm eligibility' task is complete
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+    taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Completed')
+  })
 })
