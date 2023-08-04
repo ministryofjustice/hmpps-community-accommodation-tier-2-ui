@@ -14,11 +14,11 @@
       "willAnswer": "yes"
     },
     "disability": {
-      "hasDisability": "yes"
+      "hasDisability": "no"
     },
     "sex-and-gender": {
       "sex": "female",
-      "genderIdentity": "no"
+      "gender": "yes"
     },
     "sexual-orientation": {
       "orientation": "gay"
