@@ -1,15 +1,16 @@
-//  Feature: Referrer completes 'Sexual orientation' question page
+//  Feature: Referrer completes 'Ethnic group' question page
 //    So that I can complete the 'Equality questions' task
 //    As a referrer
 //    I want to answer questions on the sexual orientation page
 //
-//  Scenario: submit sexual orientation answers
-//    Given I'm on the 'Sexual orientation' question page
-//    When I give valid answers to the 'Sexual orientation' questions
-//    Then I am taken to the 'Ethnic group' question
+//  Scenario: submit ethnic group answer
+//    Given I'm on the 'Ethnic group' question page
+//    When I give valid answers to the 'Ethnic group' questions
+//    Then I return to the task list page
+//    And I see that the task has been completed
 
 import Page from '../../../../pages/page'
-import SexualOrientationPage from '../../../../pages/apply/sexualOrientationPage'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 import EthnicGroupPage from '../../../../pages/apply/ethnicGroupPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -22,7 +23,7 @@ context('Visit "About the person" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['equality-and-diversity-monitoring']['sexual-orientation'] = {}
+      applicationData['equality-and-diversity-monitoring']['ethnic-group'] = {}
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -42,21 +43,25 @@ context('Visit "About the person" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the sexual orientation page
+    // And I am on the ethnic group page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/sexual-orientation')
-    Page.verifyOnPage(SexualOrientationPage, this.application)
+    cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/ethnic-group')
+    Page.verifyOnPage(EthnicGroupPage, this.application)
   })
 
-  // Scenario: select orientation
+  // Scenario: select ethnic group
   // ----------------------------
   it('continues to task list page', function test() {
     // I submit my answers
-    const page = Page.verifyOnPage(SexualOrientationPage, this.application)
-    page.selectOrientation()
+    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
+    page.selectEthnicGroup()
 
     page.clickSubmit()
 
-    Page.verifyOnPage(EthnicGroupPage, this.application)
+    // I return to the task list page
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // I see that the task has been completed
+    taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Completed')
   })
 })
