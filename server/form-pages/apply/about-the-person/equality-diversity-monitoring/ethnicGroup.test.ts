@@ -1,0 +1,85 @@
+import { itShouldHavePreviousValue } from '../../../shared-examples'
+import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
+import EthnicGroup from './ethnicGroup'
+
+describe('EthnicGroup', () => {
+  const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+
+  describe('title', () => {
+    it('personalises the page title', () => {
+      const page = new EthnicGroup({}, application)
+
+      expect(page.title).toEqual('Equality and diversity questions for Roger Smith')
+    })
+  })
+
+  itShouldHaveNextValue(new EthnicGroup({}, application), '')
+  itShouldHavePreviousValue(new EthnicGroup({}, application), 'sexual-orientation')
+
+  describe('response', () => {
+    it('Adds selected option to page response in _translated_ form', () => {
+      const page = new EthnicGroup({ ethnicGroup: 'white' }, application)
+
+      expect(page.response()).toEqual({
+        "What is Roger Smith's ethnic group?": 'White',
+      })
+    })
+
+    it('Deletes fields where there is not an answer', () => {
+      const page = new EthnicGroup({ ethnicGroup: undefined }, application)
+
+      expect(page.response()).toEqual({})
+    })
+  })
+
+  describe('items', () => {
+    it('returns the radio with the expected label text', () => {
+      const page = new EthnicGroup({ ethnicGroup: 'white' }, application)
+      expect(page.items()).toEqual([
+        {
+          checked: true,
+          text: 'White',
+          value: 'white',
+        },
+        {
+          checked: false,
+          text: 'Mixed or multiple ethnic groups',
+          value: 'mixed',
+        },
+        {
+          checked: false,
+          text: 'Asian or Asian British',
+          value: 'asian',
+        },
+        {
+          checked: false,
+          text: 'Black, African, Caribbean or Black British',
+          value: 'black',
+        },
+        {
+          checked: false,
+          text: 'Other ethnic group',
+          value: 'other',
+        },
+        {
+          divider: 'or',
+        },
+        {
+          checked: false,
+          text: 'Prefer not to say',
+          value: 'preferNotToSay',
+        },
+      ])
+    })
+  })
+
+  describe('errors', () => {
+    it('should return errors when the questions are blank', () => {
+      const page = new EthnicGroup({}, application)
+
+      expect(page.errors()).toEqual({
+        ethnicGroup: "Select an ethnic group or choose 'Prefer not to say'",
+      })
+    })
+  })
+})
