@@ -1,22 +1,16 @@
-//  Feature: Referrer completes 'Ethnic group' question page
+//  Feature: Referrer completes 'White background' question page
 //    So that I can complete the 'Equality questions' task
 //    As a referrer
-//    I want to answer questions on the sexual orientation page
+//    I want to answer questions on the white background page
 //
-//  Scenario: submit 'white' as ethnic group answer
-//    Given I'm on the 'Ethnic group' question page
-//    When I answer 'white',
-//    Then I am taken to the 'white background' page
-//
-//  Scenario: submit anything apart from white as ethnic group answer
-//    Given I'm on the 'Ethnic group' question page
-//    When I give valid answers to the 'Ethnic group' questions
+//  Scenario: submits a valid answer to white background page
+//    Given I'm on the 'White background' question page
+//    When I give a valid answer
 //    Then I return to the task list page
 //    And I see that the task has been completed
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import EthnicGroupPage from '../../../../pages/apply/ethnicGroupPage'
 import WhiteBackgroundPage from '../../../../pages/apply/whiteBackgroundPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -29,7 +23,7 @@ context('Visit "About the person" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['equality-and-diversity-monitoring']['ethnic-group'] = {}
+      applicationData['equality-and-diversity-monitoring'] = {}
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -49,23 +43,25 @@ context('Visit "About the person" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the ethnic group page
+    // And I am on the white background page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/ethnic-group')
-    Page.verifyOnPage(EthnicGroupPage, this.application)
+    cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/white-background')
+    Page.verifyOnPage(WhiteBackgroundPage, this.application)
   })
 
-  // Scenario: select ethnic group
+  // Scenario: select white background type
   // ----------------------------
   it('continues to task list page', function test() {
     // I submit my answers
-    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
-    page.selectEthnicGroup('other')
+    const page = Page.verifyOnPage(WhiteBackgroundPage, this.application)
+    page.selectWhiteBackground()
+
+    // after submission of the valid form the API will return the answered question
 
     const answered = {
       ...this.application,
     }
-    answered.data['equality-and-diversity-monitoring']['ethnic-group'] = { ethnicGroup: 'white' }
+    answered.data['equality-and-diversity-monitoring']['white-background'] = { whiteBackground: 'english' }
     cy.task('stubApplicationGet', { application: answered })
 
     page.clickSubmit()
@@ -75,18 +71,5 @@ context('Visit "About the person" section', () => {
 
     // I see that the task has been completed
     taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Completed')
-  })
-
-  // Scenario: select 'white' as ethnic group
-  // ----------------------------
-  it('continues to the white background page', function test() {
-    // I submit my answers
-    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
-    page.selectEthnicGroup('white')
-
-    page.clickSubmit()
-
-    // I am taken to the white background page
-    Page.verifyOnPage(WhiteBackgroundPage, this.application)
   })
 })

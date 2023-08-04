@@ -25,6 +25,9 @@
     },
     "ethnic-group": {
       "ethnicGroup": "white"
+    },
+    "white-background": {
+      "whiteBackground": "english"
     }
   }
 }

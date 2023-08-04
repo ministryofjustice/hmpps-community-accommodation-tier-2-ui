@@ -1,17 +1,17 @@
 import { Cas2Application as Application } from '../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from './applyPage'
 
-export default class EthnicGroupPage extends ApplyPage {
+export default class WhiteBackgroundPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `What is ${application.person.name}'s ethnic group?`,
+      `Which of the following best describes ${application.person.name}'s White background?`,
       application,
       'equality-and-diversity-monitoring',
-      'ethnic-group',
+      'white-background',
     )
   }
 
-  selectEthnicGroup(ethnicGroupValue: string): void {
-    this.checkRadioByNameAndValue('ethnicGroup', ethnicGroupValue)
+  selectWhiteBackground(): void {
+    this.checkRadioByNameAndValue('whiteBackground', 'english')
   }
 }
