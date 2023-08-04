@@ -5,7 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 
-type EthnicGroupBody = {
+export type EthnicGroupBody = {
   ethnicGroup: 'white' | 'mixed' | 'asian' | 'black' | 'other' | 'preferNotToSay'
 }
 
@@ -43,6 +43,12 @@ export default class EthnicGroup implements TaskListPage {
   }
 
   next() {
+    const ethnicGroupNext = {
+      white: 'white-background',
+    }
+    if (ethnicGroupNext[this.body.ethnicGroup]) {
+      return ethnicGroupNext[this.body.ethnicGroup]
+    }
     return ''
   }
 
