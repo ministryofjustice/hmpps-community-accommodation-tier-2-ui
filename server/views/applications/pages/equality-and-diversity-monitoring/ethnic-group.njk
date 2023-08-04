@@ -1,0 +1,18 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+  <h1 class="govuk-heading-l">{{ page.questions.ethnicGroup }}</h1>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "ethnicGroup",
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
