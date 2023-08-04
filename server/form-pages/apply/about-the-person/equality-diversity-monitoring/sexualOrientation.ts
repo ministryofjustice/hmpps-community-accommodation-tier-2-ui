@@ -45,7 +45,7 @@ export default class SexualOrientation implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'ethnic-group'
   }
 
   errors() {

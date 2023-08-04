@@ -13,7 +13,7 @@ describe('SexualOrientation', () => {
     })
   })
 
-  itShouldHaveNextValue(new SexualOrientation({}, application), '')
+  itShouldHaveNextValue(new SexualOrientation({}, application), 'ethnic-group')
   itShouldHavePreviousValue(new SexualOrientation({}, application), 'sex-and-gender')
 
   describe('response', () => {
