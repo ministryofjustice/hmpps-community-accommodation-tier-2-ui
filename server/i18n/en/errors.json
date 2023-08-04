@@ -19,5 +19,8 @@
   },
   "ethnicGroup": {
     "empty": "Select an ethnic group or choose 'Prefer not to say'"
+  },
+  "whiteBackground": {
+    "empty": "Select a background or 'Prefer not to say'"
   }
 }
