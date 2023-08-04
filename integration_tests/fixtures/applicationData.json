@@ -22,6 +22,9 @@
     },
     "sexual-orientation": {
       "orientation": "gay"
+    },
+    "ethnic-group": {
+      "ethnicGroup": "white"
     }
   }
 }
