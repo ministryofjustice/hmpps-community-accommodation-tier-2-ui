@@ -56,6 +56,7 @@ describe('getTaskStatus', () => {
       data: { 'my-task': { 'page-1': { foo: 'bar' }, 'page-2': { foo: 'bar' } } },
     })
 
+    page1Instance.next.mockReturnValue('')
     page1Instance.errors.mockReturnValue({ some: 'errors' })
 
     expect(getTaskStatus(task, application)).toEqual('in_progress')

@@ -152,7 +152,9 @@ context('Visit area and funding section', () => {
           'confirm-eligibility': { isEligible: 'yes' },
         },
         'funding-information': {
-          'funding-source': {},
+          'funding-source': {
+            fundingSource: 'benefits',
+          },
         },
       },
     }
