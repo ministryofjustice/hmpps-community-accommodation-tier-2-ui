@@ -1,6 +1,6 @@
 import { itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import EthnicGroup from './ethnicGroup'
+import EthnicGroup, { EthnicGroupBody } from './ethnicGroup'
 
 describe('EthnicGroup', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -13,7 +13,18 @@ describe('EthnicGroup', () => {
     })
   })
 
-  itShouldHaveNextValue(new EthnicGroup({}, application), '')
+  describe('next', () => {
+    const backgroundPages = [
+      [undefined, ''],
+      ['white', 'white-background'],
+    ]
+
+    it.each(backgroundPages)('it returns the right next page based on answer', (answer, pageName) => {
+      const page = new EthnicGroup({ ethnicGroup: answer } as EthnicGroupBody, application)
+      expect(page.next()).toEqual(pageName)
+    })
+  })
+
   itShouldHavePreviousValue(new EthnicGroup({}, application), 'sexual-orientation')
 
   describe('response', () => {
