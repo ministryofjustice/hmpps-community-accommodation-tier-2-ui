@@ -89,7 +89,7 @@ describe('SexualOrientation', () => {
       const page = new SexualOrientation({}, application)
 
       expect(page.errors()).toEqual({
-        orientation: 'Select an orientation, or choose Prefer not to say',
+        orientation: "Select an orientation or choose 'Prefer not to say'",
       })
     })
 

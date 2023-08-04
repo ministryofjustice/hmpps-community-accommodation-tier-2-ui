@@ -15,7 +15,7 @@
     "gender": "Choose either Yes, No or Prefer not to say"
   },
   "sexualOrientation": {
-    "orientation": "Select an orientation, or choose Prefer not to say"
+    "orientation": "Select an orientation or choose 'Prefer not to say'"
   },
   "ethnicGroup": {
     "empty": "Select an ethnic group or choose 'Prefer not to say'"
