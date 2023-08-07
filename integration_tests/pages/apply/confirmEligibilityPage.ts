@@ -13,7 +13,7 @@ export default class ConfirmEligibilityPage extends ApplyPage {
 
   hasCaption = (): void => {
     cy.get('p').contains(
-      `Check ${this.application.person.name} meets the requirements for Short-Term Accommodation (CAS-2)`,
+      `Check ${this.application.person.name} meets the requirements for Short-Term Accommodation (CAS-2).`,
     )
   }
 

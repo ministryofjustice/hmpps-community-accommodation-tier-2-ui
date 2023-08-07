@@ -43,7 +43,7 @@ export default class ConfirmEligibility implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.isEligible) {
-      errors.isEligible = 'Choose either Yes or No'
+      errors.isEligible = 'Confirm whether the applicant is eligible or not eligible'
     }
     return errors
   }
