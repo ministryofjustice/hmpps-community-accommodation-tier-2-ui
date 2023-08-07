@@ -18,6 +18,7 @@ import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import EthnicGroupPage from '../../../../pages/apply/ethnicGroupPage'
 import WhiteBackgroundPage from '../../../../pages/apply/whiteBackgroundPage'
+import MixedBackgroundPage from '../../../../pages/apply/mixedBackgroundPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
@@ -88,5 +89,18 @@ context('Visit "About the person" section', () => {
 
     // I am taken to the white background page
     Page.verifyOnPage(WhiteBackgroundPage, this.application)
+  })
+
+  // Scenario: select 'mixed etc.' as ethnic group
+  // ----------------------------
+  it('continues to the mixed background page', function test() {
+    // I submit my answers
+    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
+    page.selectEthnicGroup('mixed')
+
+    page.clickSubmit()
+
+    // I am taken to the white background page
+    Page.verifyOnPage(MixedBackgroundPage, this.application)
   })
 })
