@@ -11,9 +11,14 @@
 //
 //  Scenario: view "health needs" task status
 //    Then I see that the "health needs" task has not been started
+//
+//  Scenario: reads "health needs guidance" page
+//    When I follow the link to the first page in the "Risks and needs" section
+//    Then I see the "health needs guidance" page
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
+import HealthNeedsGuidancePage from '../../../../pages/apply/risks-and-needs/healthNeedsGuidancePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Risks and needs" section', () => {
@@ -57,5 +62,20 @@ context('Visit "Risks and needs" section', () => {
     // I see that the task has not been started
     const taskListPage = Page.verifyOnPage(TaskListPage)
     taskListPage.shouldShowTaskStatus('health-needs', 'Not started')
+  })
+
+  //  Scenario: reads "health needs guidance" page
+  //    When I follow the link to the first page in the "Risks and needs" section
+  //    Then I see the "health needs guidance" page
+  it('provides the expected guidance content', function test() {
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    //  When I follow the link to the first page in the "Risks and needs" section
+    taskListPage.visitTask('Add health needs')
+
+    //  Then I see the "health needs guidance" page
+    const page = Page.verifyOnPage(HealthNeedsGuidancePage, this.application)
+    page.hasCaption()
+    page.hasGuidance()
   })
 })

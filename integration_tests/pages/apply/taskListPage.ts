@@ -33,4 +33,8 @@ export default class TaskListPage extends Page {
       cy.get('.app-task-list__task-name').contains(taskTitle)
     })
   }
+
+  visitTask = (taskTitle: string): void => {
+    cy.get('.app-task-list__task-name').contains(taskTitle).click()
+  }
 }

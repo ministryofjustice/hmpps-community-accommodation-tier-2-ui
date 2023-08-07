@@ -6,7 +6,7 @@ import TaskListPage from '../../../taskListPage'
 type GuidanceBody = Record<string, never>
 
 @Page({
-  name: 'health-needs-guidance',
+  name: 'guidance',
   bodyProperties: [],
 })
 export default class Guidance implements TaskListPage {
