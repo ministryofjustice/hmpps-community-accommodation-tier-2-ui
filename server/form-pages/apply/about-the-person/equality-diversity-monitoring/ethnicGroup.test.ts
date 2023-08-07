@@ -19,6 +19,7 @@ describe('EthnicGroup', () => {
       ['white', 'white-background'],
       ['mixed', 'mixed-background'],
       ['asian', 'asian-background'],
+      ['black', 'black-background'],
     ]
 
     it.each(backgroundPages)('it returns the right next page based on answer', (answer, pageName) => {
