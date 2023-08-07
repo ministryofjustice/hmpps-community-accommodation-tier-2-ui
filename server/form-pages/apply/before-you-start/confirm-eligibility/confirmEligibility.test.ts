@@ -66,7 +66,7 @@ describe('ConfirmEligibility', () => {
       const page = new ConfirmEligibility({}, application)
 
       expect(page.errors()).toEqual({
-        isEligible: 'Choose either Yes or No',
+        isEligible: 'Confirm whether the applicant is eligible or not eligible',
       })
     })
   })
