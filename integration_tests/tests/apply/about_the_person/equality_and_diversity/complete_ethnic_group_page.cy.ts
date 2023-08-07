@@ -8,9 +8,29 @@
 //    When I answer 'white',
 //    Then I am taken to the 'white background' page
 //
-//  Scenario: submit anything apart from white as ethnic group answer
+//  Scenario: submit 'Mixed or multiple ethnic groups' as ethnic group answer
 //    Given I'm on the 'Ethnic group' question page
-//    When I give valid answers to the 'Ethnic group' questions
+//    When I answer 'Mixed or multiple ethnic groups',
+//    Then I am taken to the 'mixed background' page
+//
+//  Scenario: submit 'Asian or Asian British' as ethnic group answer
+//    Given I'm on the 'Ethnic group' question page
+//    When I answer 'Asian or Asian British',
+//    Then I am taken to the 'asian background' page
+//
+//  Scenario: submit 'Black, African, Caribbean or Black British' as ethnic group answer
+//    Given I'm on the 'Ethnic group' question page
+//    When I answer 'white',
+//    Then I am taken to the 'white background' page
+//
+//  Scenario: submit 'Other ethnic group' as ethnic group answer
+//    Given I'm on the 'Ethnic group' question page
+//    When I answer 'Other ethnic group',
+//    Then I am taken to the 'other background' page
+//
+//  Scenario: submit 'Prefer not to say' as ethnic group answer
+//    Given I'm on the 'Ethnic group' question page
+//    When I answer 'Prefer not to say'
 //    Then I return to the task list page
 //    And I see that the task has been completed
 
@@ -21,6 +41,7 @@ import WhiteBackgroundPage from '../../../../pages/apply/whiteBackgroundPage'
 import MixedBackgroundPage from '../../../../pages/apply/mixedBackgroundPage'
 import AsianBackgroundPage from '../../../../pages/apply/asianBackgroundPage'
 import BlackBackgroundPage from '../../../../pages/apply/blackBackgroundPage'
+import OtherBackgroundPage from '../../../../pages/apply/otherBackgroundPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
@@ -56,28 +77,6 @@ context('Visit "About the person" section', () => {
     // --------------------------------
     cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/ethnic-group')
     Page.verifyOnPage(EthnicGroupPage, this.application)
-  })
-
-  // Scenario: select ethnic group
-  // ----------------------------
-  it('continues to task list page', function test() {
-    // I submit my answers
-    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
-    page.selectEthnicGroup('other')
-
-    const answered = {
-      ...this.application,
-    }
-    answered.data['equality-and-diversity-monitoring']['ethnic-group'] = { ethnicGroup: 'white' }
-    cy.task('stubApplicationGet', { application: answered })
-
-    page.clickSubmit()
-
-    // I return to the task list page
-    const taskListPage = Page.verifyOnPage(TaskListPage)
-
-    // I see that the task has been completed
-    taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Completed')
   })
 
   // Scenario: select 'white' as ethnic group
@@ -130,5 +129,40 @@ context('Visit "About the person" section', () => {
 
     // I am taken to the black background page
     Page.verifyOnPage(BlackBackgroundPage, this.application)
+  })
+
+  // Scenario: select 'Other ethnic group' as ethnic group
+  // ----------------------------
+  it('continues to the other  background page', function test() {
+    // I submit my answers
+    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
+    page.selectEthnicGroup('other')
+
+    page.clickSubmit()
+
+    // I am taken to the other background page
+    Page.verifyOnPage(OtherBackgroundPage, this.application)
+  })
+
+  // Scenario: select 'Prefer not to say'
+  // ----------------------------
+  it('continues to task list page', function test() {
+    // I submit my answers
+    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
+    page.selectEthnicGroup('preferNotToSay')
+
+    const answered = {
+      ...this.application,
+    }
+    answered.data['equality-and-diversity-monitoring']['ethnic-group'] = { ethnicGroup: 'preferNotToSay' }
+    cy.task('stubApplicationGet', { application: answered })
+
+    page.clickSubmit()
+
+    // I return to the task list page
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // I see that the task has been completed
+    taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Completed')
   })
 })
