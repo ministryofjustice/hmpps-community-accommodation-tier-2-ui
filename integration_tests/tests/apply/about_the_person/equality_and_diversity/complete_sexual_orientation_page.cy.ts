@@ -9,8 +9,7 @@
 //    Then I am taken to the 'Ethnic group' question
 
 import Page from '../../../../pages/page'
-import SexualOrientationPage from '../../../../pages/apply/sexualOrientationPage'
-import EthnicGroupPage from '../../../../pages/apply/ethnicGroupPage'
+import { EthnicGroupPage, SexualOrientationPage } from '../../../../pages/apply/about_the_person/equality_and_diversity'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {

@@ -36,12 +36,14 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import EthnicGroupPage from '../../../../pages/apply/ethnicGroupPage'
-import WhiteBackgroundPage from '../../../../pages/apply/whiteBackgroundPage'
-import MixedBackgroundPage from '../../../../pages/apply/mixedBackgroundPage'
-import AsianBackgroundPage from '../../../../pages/apply/asianBackgroundPage'
-import BlackBackgroundPage from '../../../../pages/apply/blackBackgroundPage'
-import OtherBackgroundPage from '../../../../pages/apply/otherBackgroundPage'
+import {
+  EthnicGroupPage,
+  WhiteBackgroundPage,
+  MixedBackgroundPage,
+  AsianBackgroundPage,
+  BlackBackgroundPage,
+  OtherBackgroundPage,
+} from '../../../../pages/apply/about_the_person/equality_and_diversity'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
