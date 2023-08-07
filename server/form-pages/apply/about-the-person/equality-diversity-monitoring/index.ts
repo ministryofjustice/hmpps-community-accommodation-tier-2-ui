@@ -8,10 +8,20 @@ import SexualOrientation from './sexualOrientation'
 import EthnicGroup from './ethnicGroup'
 import WhiteBackground from './whiteBackground'
 import MixedBackground from './mixedBackground'
+import AsianBackground from './asianBackground'
 
 @Task({
   name: 'Complete equality and diversity monitoring',
   slug: 'equality-and-diversity-monitoring',
-  pages: [WillAnswer, Disability, SexAndGender, SexualOrientation, EthnicGroup, WhiteBackground, MixedBackground],
+  pages: [
+    WillAnswer,
+    Disability,
+    SexAndGender,
+    SexualOrientation,
+    EthnicGroup,
+    WhiteBackground,
+    MixedBackground,
+    AsianBackground,
+  ],
 })
 export default class EqualityAndDiversityMonitoring {}
