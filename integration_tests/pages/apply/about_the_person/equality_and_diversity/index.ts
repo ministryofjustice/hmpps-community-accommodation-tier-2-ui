@@ -4,6 +4,7 @@ import DisabilityPage from './disabilityPage'
 import EthnicGroupPage from './ethnicGroupPage'
 import MixedBackgroundPage from './mixedBackgroundPage'
 import OtherBackgroundPage from './otherBackgroundPage'
+import ReligionPage from './religionPage'
 import SexAndGenderPage from './sexAndGenderPage'
 import SexualOrientationPage from './sexualOrientationPage'
 import WhiteBackgroundPage from './whiteBackgroundPage'
@@ -16,6 +17,7 @@ export {
   EthnicGroupPage,
   MixedBackgroundPage,
   OtherBackgroundPage,
+  ReligionPage,
   SexAndGenderPage,
   SexualOrientationPage,
   WhiteBackgroundPage,
