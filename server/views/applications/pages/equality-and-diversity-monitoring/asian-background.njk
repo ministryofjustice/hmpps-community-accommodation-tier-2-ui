@@ -1,0 +1,36 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+
+  {% set optionalAsianBackground %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.optionalAsianBackground},
+          classes: "govuk-input--width-20",
+          fieldName: "optionalAsianBackground"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "asianBackground",
+        fieldset: {
+          legend: {
+            text: page.questions.asianBackground,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items(optionalAsianBackground)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
