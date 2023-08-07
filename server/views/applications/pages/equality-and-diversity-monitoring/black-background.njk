@@ -1,0 +1,36 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+
+  {% set optionalBlackBackground %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.optionalBlackBackground},
+          classes: "govuk-input--width-20",
+          fieldName: "optionalBlackBackground"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "blackBackground",
+        fieldset: {
+          legend: {
+            text: page.questions.blackBackground,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items(optionalBlackBackground)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
