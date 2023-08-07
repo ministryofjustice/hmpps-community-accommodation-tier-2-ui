@@ -1,0 +1,36 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+
+  {% set optionalMixedBackground %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.optionalMixedBackground},
+          classes: "govuk-input--width-20",
+          fieldName: "optionalMixedBackground"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "mixedBackground",
+        fieldset: {
+          legend: {
+            text: page.questions.mixedBackground,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items(optionalMixedBackground)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
