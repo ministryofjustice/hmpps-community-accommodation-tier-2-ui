@@ -1,15 +1,16 @@
-//  Feature: Referrer completes 'White background' question page
+//  Feature: Referrer completes 'religion' question page
 //    So that I can complete the 'Equality questions' task
 //    As a referrer
-//    I want to answer questions on the white background page
+//    I want to answer questions on the religion page
 //
-//  Scenario: submits a valid answer to white background page
-//    Given I'm on the 'White background' question page
+//  Scenario: submits a valid answer to religion page
+//    Given I'm on the 'religion' question page
 //    When I give a valid answer
-//    Then I am taken to the religion page
+//    Then I am taken to the task page (temporarily)
 
+import { ReligionPage } from '../../../../pages/apply/about_the_person/equality_and_diversity'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 import Page from '../../../../pages/page'
-import { ReligionPage, WhiteBackgroundPage } from '../../../../pages/apply/about_the_person/equality_and_diversity'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
@@ -41,22 +42,23 @@ context('Visit "About the person" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the white background page
+    // And I am on the religion page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/white-background')
-    Page.verifyOnPage(WhiteBackgroundPage, this.application)
+    ReligionPage.visit(this.application)
+
+    Page.verifyOnPage(ReligionPage, this.application)
   })
 
-  // Scenario: select white background type
+  // Scenario: select religion type
   // ----------------------------
-  it('continues to the religion page', function test() {
+  it('continues to the task list page', function test() {
     // I submit my answers
-    const page = Page.verifyOnPage(WhiteBackgroundPage, this.application)
-    page.selectWhiteBackground()
+    const page = Page.verifyOnPage(ReligionPage, this.application)
+    page.selectReligion()
 
     page.clickSubmit()
 
-    // I am taken to the relgion page
-    Page.verifyOnPage(ReligionPage, this.application)
+    // I am taken to the task list page (temporarily)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })
