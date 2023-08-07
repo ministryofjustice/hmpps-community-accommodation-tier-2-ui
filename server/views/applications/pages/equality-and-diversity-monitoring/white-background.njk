@@ -3,7 +3,6 @@
 {% extends "../layout.njk" %}
 {% block questions %}
   <span class="govuk-caption-l">{{ page.title }}</span>
-  <h1 class="govuk-heading-l">{{ page.questions.whiteBackground }}</h1>
 
   {% set optionalWhiteBackground %}
     {{
@@ -25,8 +24,8 @@
         fieldset: {
           legend: {
             text: page.questions.whiteBackground,
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--m"
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
           }
         },
         items: page.items(optionalWhiteBackground)
