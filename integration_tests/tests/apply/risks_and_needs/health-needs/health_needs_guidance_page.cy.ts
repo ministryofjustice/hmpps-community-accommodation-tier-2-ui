@@ -15,6 +15,10 @@
 //  Scenario: reads "health needs guidance" page
 //    When I follow the link to the first page in the "Risks and needs" section
 //    Then I see the "health needs guidance" page
+//
+//  Scenario: continues to next page in "health needs" task
+//    When I continue to the next task/page
+//    Then I should be on the task list (temporarily)
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
@@ -77,5 +81,20 @@ context('Visit "Risks and needs" section', () => {
     const page = Page.verifyOnPage(HealthNeedsGuidancePage, this.application)
     page.hasCaption()
     page.hasGuidance()
+  })
+
+  //  Scenario: continues to next page in "health needs" task
+  //    When I continue to the next task/page
+  //    Then I should be on the task list (temporarily)
+  it('links back to the task list (temporarily)', function test() {
+    const taskListPage = new TaskListPage()
+    taskListPage.visitTask('Add health needs')
+
+    // When I continue to the next task/page
+    const page = new HealthNeedsGuidancePage(this.application)
+    page.clickSubmit()
+
+    //  Then I should be on the task list (temporarily)
+    Page.verifyOnPage(TaskListPage)
   })
 })
