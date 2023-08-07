@@ -20,6 +20,7 @@ import EthnicGroupPage from '../../../../pages/apply/ethnicGroupPage'
 import WhiteBackgroundPage from '../../../../pages/apply/whiteBackgroundPage'
 import MixedBackgroundPage from '../../../../pages/apply/mixedBackgroundPage'
 import AsianBackgroundPage from '../../../../pages/apply/asianBackgroundPage'
+import BlackBackgroundPage from '../../../../pages/apply/blackBackgroundPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
@@ -116,5 +117,18 @@ context('Visit "About the person" section', () => {
 
     // I am taken to the white background page
     Page.verifyOnPage(AsianBackgroundPage, this.application)
+  })
+
+  // Scenario: select 'Black, African, Caribbean or Black British' as ethnic group
+  // ----------------------------
+  it('continues to the black background page', function test() {
+    // I submit my answers
+    const page = Page.verifyOnPage(EthnicGroupPage, this.application)
+    page.selectEthnicGroup('black')
+
+    page.clickSubmit()
+
+    // I am taken to the black background page
+    Page.verifyOnPage(BlackBackgroundPage, this.application)
   })
 })
