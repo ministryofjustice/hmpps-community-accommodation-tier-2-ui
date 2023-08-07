@@ -17,6 +17,7 @@ describe('EthnicGroup', () => {
     const backgroundPages = [
       [undefined, ''],
       ['white', 'white-background'],
+      ['mixed', 'mixed-background'],
     ]
 
     it.each(backgroundPages)('it returns the right next page based on answer', (answer, pageName) => {
