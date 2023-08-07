@@ -46,6 +46,7 @@ export default class EthnicGroup implements TaskListPage {
     const ethnicGroupNext = {
       white: 'white-background',
       mixed: 'mixed-background',
+      asian: 'asian-background',
     }
     if (ethnicGroupNext[this.body.ethnicGroup]) {
       return ethnicGroupNext[this.body.ethnicGroup]
