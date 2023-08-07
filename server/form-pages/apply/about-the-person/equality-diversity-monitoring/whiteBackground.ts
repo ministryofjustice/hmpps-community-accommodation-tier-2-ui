@@ -50,7 +50,7 @@ export default class WhiteBackground implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.whiteBackground) {
-      errors.whiteBackground = errorLookups.whiteBackground.empty
+      errors.whiteBackground = errorLookups.background.empty
     }
     return errors
   }
