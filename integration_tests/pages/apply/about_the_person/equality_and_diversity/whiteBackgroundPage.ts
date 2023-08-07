@@ -1,5 +1,5 @@
-import { Cas2Application as Application } from '../../../server/@types/shared/models/Cas2Application'
-import ApplyPage from './applyPage'
+import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
+import ApplyPage from '../../applyPage'
 
 export default class WhiteBackgroundPage extends ApplyPage {
   constructor(private readonly application: Application) {

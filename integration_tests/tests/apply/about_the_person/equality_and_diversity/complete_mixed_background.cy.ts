@@ -11,7 +11,7 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import MixedBackgroundPage from '../../../../pages/apply/mixedBackgroundPage'
+import MixedBackgroundPage from '../../../../pages/apply/about_the_person/equality_and_diversity/mixedBackgroundPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {

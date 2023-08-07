@@ -34,8 +34,10 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import WillAnswerEqualityQuestionsPage from '../../../../pages/apply/willAnswerEqualityQuestionsPage'
-import DisabilityPage from '../../../../pages/apply/disabilityPage'
+import {
+  DisabilityPage,
+  WillAnswerEqualityQuestionsPage,
+} from '../../../../pages/apply/about_the_person/equality_and_diversity'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {

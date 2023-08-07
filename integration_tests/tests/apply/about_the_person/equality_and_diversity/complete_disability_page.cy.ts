@@ -10,8 +10,7 @@
 //    And I see that the task has been completed
 
 import Page from '../../../../pages/page'
-import DisabilityPage from '../../../../pages/apply/disabilityPage'
-import SexAndGenderPage from '../../../../pages/apply/sexAndGenderPage'
+import { DisabilityPage, SexAndGenderPage } from '../../../../pages/apply/about_the_person/equality_and_diversity'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "About the person" section', () => {
