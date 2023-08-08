@@ -5,6 +5,7 @@
 
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
 import type { AssessmentDecision } from './AssessmentDecision';
+import type { BookingSummary } from './BookingSummary';
 import type { Person } from './Person';
 import type { PersonRisks } from './PersonRisks';
 import type { PlacementDates } from './PlacementDates';
@@ -26,5 +27,6 @@ export type PlacementRequest = (PlacementRequirements & PlacementDates & {
     assessor: ApprovedPremisesUser;
     isParole: boolean;
     notes?: string;
+    booking?: BookingSummary;
 });
 

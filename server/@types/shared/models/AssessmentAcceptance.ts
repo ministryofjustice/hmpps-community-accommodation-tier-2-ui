@@ -9,7 +9,7 @@ import type { PlacementRequirements } from './PlacementRequirements';
 
 export type AssessmentAcceptance = {
     document: AnyValue;
-    requirements: PlacementRequirements;
+    requirements?: PlacementRequirements;
     placementDates?: PlacementDates;
     notes?: string;
 };

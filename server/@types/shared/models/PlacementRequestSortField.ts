@@ -3,7 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type NewReallocation = {
-    userId?: string;
-};
-
+export type PlacementRequestSortField = 'duration' | 'expected_arrival' | 'created_at';
