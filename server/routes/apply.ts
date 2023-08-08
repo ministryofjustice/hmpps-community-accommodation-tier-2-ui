@@ -10,13 +10,14 @@ import { actions } from './utils'
 
 export default function applyRoutes(controllers: Controllers, router: Router, services: Services): Router {
   const { pages } = Apply
-  const { get, put } = actions(router, services.auditService)
+  const { get, post, put } = actions(router, services.auditService)
 
   const { applicationsController, pagesController } = controllers
 
   get(paths.applications.new.pattern, applicationsController.new(), { auditEvent: 'VIEW_APPLICATION_NEW' })
   get(paths.applications.index.pattern, applicationsController.index(), { auditEvent: 'VIEW_APPLICATIONS_LIST' })
   get(paths.applications.show.pattern, applicationsController.show(), { auditEvent: 'VIEW_APPLICATION_START' })
+  post(paths.applications.submission.pattern, applicationsController.submit(), { auditEvent: 'SUBMIT_APPLICATION' })
 
   Object.keys(pages).forEach((taskKey: string) => {
     Object.keys(pages[taskKey]).forEach((pageKey: string) => {
