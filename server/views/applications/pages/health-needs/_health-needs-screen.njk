@@ -1,0 +1,62 @@
+{%- from "moj/components/side-navigation/macro.njk" import mojSideNavigation -%}
+
+{% extends "../layout.njk" %}
+
+{% set columnClasses = "govuk-grid-column-full" %}
+
+{% block content %}
+  <div class="govuk-grid-row" id="{{ pageName }}">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ page.title }}</h1>
+
+      <a
+        href="{{paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'guidance' })}}"
+        class="govuk-link govuk-link--no-visited-state govuk-!-font-size-19"
+        >
+        Who do I need to contact for health care information?
+      </a>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-4">
+    <div class="govuk-grid-column-one-third">
+      {{ mojSideNavigation({
+          label: 'Health needs navigation',
+          items: [{
+            text: 'Substance misuse',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'substance-misuse' }),
+            active: (pageName === 'substance-misuse')
+          }, {
+            text: 'Physical health',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'physical-health' }),
+            active: (pageName === 'physical-health')
+          }, {
+            text: 'Mental health',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'mental-health' }),
+            active: (pageName === 'mental-health')
+          }, {
+            text: 'Communication and language needs',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'communication-and-language' }),
+            active: (pageName === 'communication-and-language')
+          }, {
+            text: 'Learning difficulties and neurodiversity',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'learning-difficulties' }),
+            active: (pageName === 'learning-difficulties')
+          }, {
+            text: 'Brain injury',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'brain-injury' }),
+            active: (pageName === 'brain-injury')
+          }, {
+            text: 'Other health',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'other-health' }),
+            active: (pageName === 'other-health')
+          }]
+        }) }}
+    </div>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-4">
+      {{ super() }}
+    </div>
+
+  </div>
+{% endblock %}
