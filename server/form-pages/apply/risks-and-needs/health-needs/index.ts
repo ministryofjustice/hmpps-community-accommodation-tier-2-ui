@@ -6,6 +6,7 @@ import CommunicationAndLanguage from './communicationAndLanguage'
 import Guidance from './guidance'
 import LearningDifficulties from './learningDifficulties'
 import MentalHealth from './mentalHealth'
+import OtherHealth from './otherHealth'
 import PhysicalHealth from './physicalHealth'
 import SubstanceMisuse from './substanceMisuse'
 
@@ -20,6 +21,7 @@ import SubstanceMisuse from './substanceMisuse'
     CommunicationAndLanguage,
     LearningDifficulties,
     BrainInjury,
+    OtherHealth,
   ],
 })
 export default class HealthNeeds {}
