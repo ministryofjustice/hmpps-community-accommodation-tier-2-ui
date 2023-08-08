@@ -15,7 +15,8 @@ describe('EthnicGroup', () => {
 
   describe('next', () => {
     const backgroundPages = [
-      [undefined, ''],
+      [undefined, 'religion'],
+      ['preferNotToSay', 'religion'],
       ['white', 'white-background'],
       ['mixed', 'mixed-background'],
       ['asian', 'asian-background'],

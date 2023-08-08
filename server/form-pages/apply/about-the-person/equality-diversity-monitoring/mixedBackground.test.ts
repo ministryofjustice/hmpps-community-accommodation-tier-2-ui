@@ -13,7 +13,7 @@ describe('MixedBackground', () => {
     })
   })
 
-  itShouldHaveNextValue(new MixedBackground({}, application), '')
+  itShouldHaveNextValue(new MixedBackground({}, application), 'religion')
   itShouldHavePreviousValue(new MixedBackground({}, application), 'ethnic-group')
 
   describe('response', () => {

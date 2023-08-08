@@ -44,7 +44,7 @@ export default class MixedBackground implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'religion'
   }
 
   errors() {

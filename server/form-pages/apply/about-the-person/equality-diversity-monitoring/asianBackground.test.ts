@@ -13,7 +13,7 @@ describe('AsianBackground', () => {
     })
   })
 
-  itShouldHaveNextValue(new AsianBackground({}, application), '')
+  itShouldHaveNextValue(new AsianBackground({}, application), 'religion')
   itShouldHavePreviousValue(new AsianBackground({}, application), 'ethnic-group')
 
   describe('response', () => {

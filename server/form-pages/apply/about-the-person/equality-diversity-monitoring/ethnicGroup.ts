@@ -53,7 +53,7 @@ export default class EthnicGroup implements TaskListPage {
     if (ethnicGroupNext[this.body.ethnicGroup]) {
       return ethnicGroupNext[this.body.ethnicGroup]
     }
-    return ''
+    return 'religion'
   }
 
   errors() {
