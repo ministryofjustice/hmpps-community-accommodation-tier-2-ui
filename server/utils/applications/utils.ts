@@ -1,4 +1,4 @@
-import type { FormPages, JourneyType } from '@approved-premises/ui'
+import type { FormPages, JourneyType, PageResponse } from '@approved-premises/ui'
 import type { Cas2Application as Application } from '@approved-premises/api'
 import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
@@ -25,3 +25,5 @@ export const eligibilityIsDenied = (application: Application): boolean => {
 const eligibilityAnswer = (application: Application): string => {
   return application.data?.['confirm-eligibility']?.['confirm-eligibility']?.isEligible
 }
+
+export type ApplicationOrAssessmentResponse = Record<string, Array<PageResponse>>
