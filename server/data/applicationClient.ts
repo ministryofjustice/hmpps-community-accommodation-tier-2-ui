@@ -1,4 +1,9 @@
-import { Cas2Application as Application, Cas2ApplicationSummary, UpdateApplication } from '@approved-premises/api'
+import {
+  Cas2Application as Application,
+  Cas2ApplicationSummary,
+  SubmitApplication,
+  UpdateApplication,
+} from '@approved-premises/api'
 import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -33,5 +38,12 @@ export default class ApplicationClient {
       path: paths.applications.update({ id: applicationId }),
       data: { ...updateData, type: 'CAS2' } as UpdateApplication,
     })) as Application
+  }
+
+  async submit(applicationId: string, submissionData: SubmitApplication): Promise<void> {
+    await this.restClient.post({
+      path: paths.applications.submission({ id: applicationId }),
+      data: { ...submissionData, type: 'CAS2' },
+    })
   }
 }

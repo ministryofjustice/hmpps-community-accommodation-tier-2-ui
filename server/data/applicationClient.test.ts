@@ -1,4 +1,4 @@
-import { UpdateApplication } from '@approved-premises/api'
+import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 import ApplicationClient from './applicationClient'
 import { applicationFactory } from '../testutils/factories'
 import paths from '../paths/api'
@@ -122,6 +122,34 @@ describeClient('ApplicationClient', provider => {
       const result = await applicationClient.update(application.id, data)
 
       expect(result).toEqual(application)
+    })
+  })
+
+  describe('submit', () => {
+    it('should submit an application', async () => {
+      const application = applicationFactory.build()
+      const data = {
+        translatedDocument: application.document,
+        type: 'CAS2',
+      } as SubmitCas2Application
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to submit an application',
+        withRequest: {
+          method: 'POST',
+          path: paths.applications.submission({ id: application.id }),
+          body: data,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+        },
+      })
+
+      await applicationClient.submit(application.id, data)
     })
   })
 })
