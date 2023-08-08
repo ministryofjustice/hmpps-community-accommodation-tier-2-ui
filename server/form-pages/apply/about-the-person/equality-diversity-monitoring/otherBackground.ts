@@ -42,7 +42,7 @@ export default class OtherBackground implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'religion'
   }
 
   errors() {

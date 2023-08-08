@@ -45,7 +45,7 @@ export default class AsianBackground implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'religion'
   }
 
   errors() {

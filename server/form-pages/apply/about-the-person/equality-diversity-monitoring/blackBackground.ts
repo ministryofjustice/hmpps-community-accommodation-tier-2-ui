@@ -43,7 +43,7 @@ export default class BlackBackground implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'religion'
   }
 
   errors() {
