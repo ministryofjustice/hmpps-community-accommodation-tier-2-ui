@@ -20,32 +20,43 @@
     {{ showErrorSummary(errorSummary) }}
 
     <div class="govuk-grid-column-two-thirds">
-      <ol class="app-task-list">
-        {% include '../partials/taskListItems.njk' %}
+      <form action="{{ paths.applications.submission({id: application.id}) }}" method="post">
+        <ol class="app-task-list">
+          {% include '../partials/taskListItems.njk' %}
 
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">
-              {{ (taskList.sections | length) + 1 }}.
-            </span>
-            Submit your application
-          </h2>
+          <li>
+            <h2 class="app-task-list__section">
+              <span class="app-task-list__section-number">
+                {{ (taskList.sections | length) + 1 }}.
+              </span>
+              Submit your application
+            </h2>
 
-          {{
-            govukCheckboxes({
-            idPrefix: "confirmation",
-            name: "confirmation",
-            errorMessage: errorObject,
-            items: [
-            {
-            value: "submit",
-            text: "I confirm the information provided is complete, accurate and up to date."
-            }
-            ]
-            })
-          }}
-        </li>
-      </ol>
+            {{
+              govukCheckboxes({
+              idPrefix: "confirmation",
+              name: "confirmation",
+              errorMessage: errorObject,
+              items: [
+              {
+              value: "submit",
+              text: "I confirm the information provided is complete, accurate and up to date."
+              }
+              ]
+              })
+            }}
+
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+            {{
+              govukButton({
+                text: "Submit application",
+                preventDoubleClick: true
+              })
+            }}
+          </li>
+        </ol>
+      </form>
     </div>
   </div>
 {% endblock %}
