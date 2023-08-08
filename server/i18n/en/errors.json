@@ -22,5 +22,8 @@
   },
   "background": {
     "empty": "Select a background or 'Prefer not to say'"
+  },
+  "religion": {
+    "empty": "Select a religion or 'Prefer not to say'"
   }
 }
