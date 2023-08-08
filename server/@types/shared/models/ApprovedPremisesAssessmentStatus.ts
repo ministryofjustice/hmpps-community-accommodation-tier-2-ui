@@ -3,7 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type NewReallocation = {
-    userId?: string;
-};
-
+export type ApprovedPremisesAssessmentStatus = 'awaiting_response' | 'completed' | 'reallocated' | 'in_progress' | 'not_started';
