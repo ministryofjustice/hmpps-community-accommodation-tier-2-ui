@@ -1,10 +1,13 @@
 import { Cas2Application as Application } from '../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../applyPage'
 import paths from '../../../../server/paths/apply'
+import { pageIsActiveInNavigation } from './utils'
 
 export default class OtherHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(`Other health needs for ${application.person.name}`, application, 'health-needs', 'other-health')
+
+    pageIsActiveInNavigation('Other health')
   }
 
   static visit(application: Application): void {
