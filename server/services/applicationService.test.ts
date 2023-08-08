@@ -1,5 +1,6 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
+import { SubmitCas2Application } from '@approved-premises/api'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
 import { DataServices, GroupedApplications, TaskListErrors } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
@@ -7,7 +8,7 @@ import ApplicationClient from '../data/applicationClient'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import { getBody, getPageName, getTaskName } from '../form-pages/utils'
 import { ValidationError } from '../utils/errors'
-import { getApplicationUpdateData } from '../utils/applications/getApplicationData'
+import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
 
 import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 
@@ -236,6 +237,22 @@ describe('ApplicationService', () => {
       await service.initializePage(Page, request, dataServices)
 
       expect(Page).toHaveBeenCalledWith(request.body, application, 'previous-page-name')
+    })
+  })
+
+  describe('submit', () => {
+    it('calls the submit method', async () => {
+      const application = applicationFactory.build()
+      const applicationData = createMock<SubmitCas2Application>()
+      const token = 'SOME_TOKEN'
+
+      applicationClient.submit.mockImplementation(() => Promise.resolve())
+      ;(getApplicationSubmissionData as jest.Mock).mockReturnValue(applicationData)
+
+      await service.submit(token, application)
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.submit).toHaveBeenCalledWith(application.id, applicationData)
     })
   })
 })
