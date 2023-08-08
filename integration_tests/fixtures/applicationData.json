@@ -28,6 +28,9 @@
     },
     "white-background": {
       "whiteBackground": "english"
+    },
+    "religion": {
+      "religion": "atheist"
     }
   }
 }
