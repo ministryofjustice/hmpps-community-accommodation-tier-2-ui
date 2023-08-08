@@ -1,24 +1,24 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import SubstanceMisuse from './substanceMisuse'
+import PhysicalHealth from './physicalHealth'
 
-describe('SubstanceMisuse', () => {
+describe('PhysicalHealth', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new SubstanceMisuse({}, application)
+      const page = new PhysicalHealth({}, application)
 
-      expect(page.title).toEqual('Health needs for Roger Smith')
+      expect(page.title).toEqual('Physical health needs for Roger Smith')
     })
   })
 
-  itShouldHaveNextValue(new SubstanceMisuse({}, application), 'physical-health')
-  itShouldHavePreviousValue(new SubstanceMisuse({}, application), 'taskList')
+  itShouldHaveNextValue(new PhysicalHealth({}, application), 'mental-health')
+  itShouldHavePreviousValue(new PhysicalHealth({}, application), 'substance-misuse')
 
   describe('response', () => {
     it('not implemented', () => {
-      const page = new SubstanceMisuse({}, application)
+      const page = new PhysicalHealth({}, application)
 
       expect(page.response()).toEqual({})
     })
@@ -26,7 +26,7 @@ describe('SubstanceMisuse', () => {
 
   describe('errors', () => {
     it('not implemented', () => {
-      const page = new SubstanceMisuse({}, application)
+      const page = new PhysicalHealth({}, application)
 
       expect(page.errors()).toEqual({})
     })
