@@ -3,8 +3,148 @@
 
 {% block questions %}
 
-  <p class="govuk-body">
-    Substance misuse page
-  </p>
+  {% set illegalSubstancesFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'substanceMisuseHistory',
+          label: {
+            text: page.questions.usesIllegalSubstances.substanceMisuseHistory.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.usesIllegalSubstances.substanceMisuseHistory.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'substanceMisuseDetail',
+          label: {
+            text: page.questions.usesIllegalSubstances.substanceMisuseDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set drugAndAlcoholFollowUp %}
+  {{
+      formPageInput(
+        {
+          fieldName: 'drugAndAlcoholServiceDetail',
+          label: {
+            text: page.questions.engagedWithDrugAndAlcoholService.drugAndAlcoholServiceDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set substituteMedicationFollowUp %}
+  {{
+      formPageInput(
+        {
+          fieldName: 'substituteMedicationDetail',
+          label: {
+            text: page.questions.substituteMedication.substituteMedicationDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "usesIllegalSubstances",
+        fieldset: {
+          legend: {
+            text: page.questions.usesIllegalSubstances.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: illegalSubstancesFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "engagedWithDrugAndAlcoholService",
+        fieldset: {
+          legend: {
+            text: page.questions.engagedWithDrugAndAlcoholService.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: drugAndAlcoholFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "requiresSubstituteMedication",
+        fieldset: {
+          legend: {
+            text: page.questions.requiresSubstituteMedication.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: substituteMedicationFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 
 {% endblock %}

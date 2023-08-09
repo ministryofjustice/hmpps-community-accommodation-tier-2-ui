@@ -19,4 +19,20 @@ export default class SubstanceMisusePage extends ApplyPage {
       }),
     )
   }
+
+  describeIllegalSubstanceUse = (): void => {
+    this.checkRadioByNameAndValue('usesIllegalSubstances', 'yes')
+    this.getTextInputByIdAndEnterDetails('substanceMisuseHistory', 'Heroin user')
+    this.getTextInputByIdAndEnterDetails('substanceMisuseDetail', 'Injects daily')
+  }
+
+  nameDrugAndAlcholService = (): void => {
+    this.checkRadioByNameAndValue('engagedWithDrugAndAlcoholService', 'yes')
+    this.getTextInputByIdAndEnterDetails('drugAndAlcoholServiceDetail', 'The Drugs Project')
+  }
+
+  provideSubsituteMedicationDetails = (): void => {
+    this.checkRadioByNameAndValue('requiresSubstituteMedication', 'yes')
+    this.getTextInputByIdAndEnterDetails('substituteMedicationDetail', 'Methadone')
+  }
 }
