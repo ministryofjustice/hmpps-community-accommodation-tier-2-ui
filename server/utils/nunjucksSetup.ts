@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* istanbul ignore file */
 
+import * as pathModule from 'path'
 import nunjucks from 'nunjucks'
 import express from 'express'
-import * as pathModule from 'path'
 
 import applicationPaths from '../paths/apply'
 import { initialiseName } from './utils'

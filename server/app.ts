@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 
+import path from 'path'
 import express from 'express'
 import flash from 'connect-flash'
 
-import path from 'path'
 import createError from 'http-errors'
 import methodOverride from 'method-override'
 
