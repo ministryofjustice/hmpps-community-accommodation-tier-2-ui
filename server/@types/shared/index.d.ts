@@ -163,6 +163,7 @@ export type { ReleaseTypeOption } from './models/ReleaseTypeOption';
 export type { RiskEnvelopeStatus } from './models/RiskEnvelopeStatus';
 export type { RiskTier } from './models/RiskTier';
 export type { RiskTierEnvelope } from './models/RiskTierEnvelope';
+export type { RiskTierLevel } from './models/RiskTierLevel';
 export type { Room } from './models/Room';
 export type { RoshRisks } from './models/RoshRisks';
 export type { RoshRisksEnvelope } from './models/RoshRisksEnvelope';
