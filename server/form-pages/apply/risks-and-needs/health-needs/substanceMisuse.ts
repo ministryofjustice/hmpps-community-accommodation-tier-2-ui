@@ -3,22 +3,22 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type GuidanceBody = Record<string, never>
+type SubstanceMisuseBody = Record<string, never>
 
 @Page({
-  name: 'guidance',
+  name: 'substance-misuse',
   bodyProperties: [],
 })
-export default class Guidance implements TaskListPage {
-  title = `Request health information for ${this.application.person.name}`
+export default class SubstanceMisuse implements TaskListPage {
+  title = `Health needs for ${this.application.person.name}`
 
-  body: GuidanceBody
+  body: SubstanceMisuseBody
 
   constructor(
-    body: Partial<GuidanceBody>,
+    body: Partial<SubstanceMisuseBody>,
     private readonly application: Application,
   ) {
-    this.body = body as GuidanceBody
+    this.body = body as SubstanceMisuseBody
   }
 
   previous() {
@@ -26,7 +26,7 @@ export default class Guidance implements TaskListPage {
   }
 
   next() {
-    return 'substance-misuse'
+    return 'physical-health'
   }
 
   errors() {

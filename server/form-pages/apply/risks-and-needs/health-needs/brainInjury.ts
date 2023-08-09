@@ -3,30 +3,30 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type GuidanceBody = Record<string, never>
+type BrainInjuryBody = Record<string, never>
 
 @Page({
-  name: 'guidance',
+  name: 'brain-injury',
   bodyProperties: [],
 })
-export default class Guidance implements TaskListPage {
-  title = `Request health information for ${this.application.person.name}`
+export default class BrainInjury implements TaskListPage {
+  title = `Brain injury needs for ${this.application.person.name}`
 
-  body: GuidanceBody
+  body: BrainInjuryBody
 
   constructor(
-    body: Partial<GuidanceBody>,
+    body: Partial<BrainInjuryBody>,
     private readonly application: Application,
   ) {
-    this.body = body as GuidanceBody
+    this.body = body as BrainInjuryBody
   }
 
   previous() {
-    return 'taskList'
+    return 'learning-difficulties'
   }
 
   next() {
-    return 'substance-misuse'
+    return 'other-health'
   }
 
   errors() {

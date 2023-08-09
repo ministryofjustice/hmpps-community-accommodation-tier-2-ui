@@ -18,8 +18,9 @@
 //
 //  Scenario: continues to next page in "health needs" task
 //    When I continue to the next task/page
-//    Then I should be on the task list (temporarily)
+//    Then I should be on the substance misuse page
 
+import SubstanceMisusePage from '../../../../pages/apply/risks-and-needs/substanceMisusePage'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import HealthNeedsGuidancePage from '../../../../pages/apply/risks-and-needs/healthNeedsGuidancePage'
@@ -85,8 +86,8 @@ context('Visit "Risks and needs" section', () => {
 
   //  Scenario: continues to next page in "health needs" task
   //    When I continue to the next task/page
-  //    Then I should be on the task list (temporarily)
-  it('links back to the task list (temporarily)', function test() {
+  //    Then I should be on the substance misuse page
+  it('links back to the substance misuse page', function test() {
     const taskListPage = new TaskListPage()
     taskListPage.visitTask('Add health needs')
 
@@ -94,7 +95,7 @@ context('Visit "Risks and needs" section', () => {
     const page = new HealthNeedsGuidancePage(this.application)
     page.clickSubmit()
 
-    //  Then I should be on the task list (temporarily)
-    Page.verifyOnPage(TaskListPage)
+    //  Then I should be on the substance misuse page
+    Page.verifyOnPage(SubstanceMisusePage, this.application)
   })
 })
