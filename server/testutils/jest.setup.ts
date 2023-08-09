@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable-next-line import/no-extraneous-dependencies */
-import { diffStringsUnified } from 'jest-diff'
 import { execSync } from 'child_process'
 import path from 'path'
+import { diffStringsUnified } from 'jest-diff'
 
 export {}
 

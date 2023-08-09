@@ -1,7 +1,6 @@
-import { ApprovedPremisesApplicationSummary as ApplicationSummary } from '@approved-premises/api'
-
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { ApprovedPremisesApplicationSummary as ApplicationSummary } from '@approved-premises/api'
 
 import { DateFormats } from '../../utils/dateUtils'
 import personFactory from './person'
