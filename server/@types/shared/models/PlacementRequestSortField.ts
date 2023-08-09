@@ -3,4 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type PlacementRequestSortField = 'duration' | 'expected_arrival' | 'created_at';
+export type PlacementRequestSortField = 'duration' | 'expected_arrival' | 'created_at' | 'application_date';
