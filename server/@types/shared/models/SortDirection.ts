@@ -3,7 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type NewReallocation = {
-    userId?: string;
-};
-
+export type SortDirection = 'asc' | 'desc';

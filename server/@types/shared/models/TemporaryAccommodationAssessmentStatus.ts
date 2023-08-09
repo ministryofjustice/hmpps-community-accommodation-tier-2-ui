@@ -3,7 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type NewReallocation = {
-    userId?: string;
-};
-
+export type TemporaryAccommodationAssessmentStatus = 'unallocated' | 'in_review' | 'ready_to_place' | 'closed' | 'rejected';
