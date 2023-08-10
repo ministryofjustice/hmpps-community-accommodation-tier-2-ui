@@ -59,10 +59,29 @@ describe('SubstanceMisuse', () => {
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    describe('when top-level questions are unanswered', () => {
       const page = new SubstanceMisuse({}, application)
 
-      expect(page.errors()).toEqual({})
+      it('includes a validation error for _usesIllegalSubstances_', () => {
+        expect(page.errors()).toHaveProperty(
+          'usesIllegalSubstances',
+          'Confirm whether they take any illegal substances',
+        )
+      })
+
+      it('includes a validation error for _engagedWithDrugAndAlcoholService_', () => {
+        expect(page.errors()).toHaveProperty(
+          'engagedWithDrugAndAlcoholService',
+          'Confirm whether they are engaged with a drug and alcohol service',
+        )
+      })
+
+      it('includes a validation error for _requiresSubstituteMedication_', () => {
+        expect(page.errors()).toHaveProperty(
+          'requiresSubstituteMedication',
+          'Confirm whether they require substitute medication',
+        )
+      })
     })
   })
 })
