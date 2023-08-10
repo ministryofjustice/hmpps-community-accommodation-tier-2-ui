@@ -83,5 +83,27 @@ describe('SubstanceMisuse', () => {
         )
       })
     })
+
+    describe('when _usesIllegalSubstances_ is YES', () => {
+      const page = new SubstanceMisuse({ usesIllegalSubstances: 'yes' }, application)
+
+      describe('and _substanceMisuseHistory_ is UNANSWERED', () => {
+        it('includes a validation error for _substanceMisuseHistory_', () => {
+          expect(page.errors()).toHaveProperty(
+            'substanceMisuseHistory',
+            'Provide details of their recent history of substance abuse',
+          )
+        })
+      })
+
+      describe('and _substanceMisuseDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _substanceMisuseDetail_', () => {
+          expect(page.errors()).toHaveProperty(
+            'substanceMisuseDetail',
+            'Provide details of how often they take these substances',
+          )
+        })
+      })
+    })
   })
 })

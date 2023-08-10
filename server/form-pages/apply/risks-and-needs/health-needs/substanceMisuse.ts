@@ -77,6 +77,14 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.usesIllegalSubstances = `Confirm whether they take any illegal substances`
     }
 
+    if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuseHistory) {
+      errors.substanceMisuseHistory = 'Provide details of their recent history of substance abuse'
+    }
+
+    if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuseDetail) {
+      errors.substanceMisuseDetail = 'Provide details of how often they take these substances'
+    }
+
     if (!this.body.engagedWithDrugAndAlcoholService) {
       errors.engagedWithDrugAndAlcoholService = `Confirm whether they are engaged with a drug and alcohol service`
     }
