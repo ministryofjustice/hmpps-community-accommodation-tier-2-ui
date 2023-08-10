@@ -3,4 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type PlacementRequestSortField = 'duration' | 'expected_arrival' | 'created_at' | 'application_date';
+export type NewReferralHistoryUserNote = {
+    message: string;
+};
+
