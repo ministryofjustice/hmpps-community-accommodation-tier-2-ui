@@ -13,6 +13,40 @@ describe('SubstanceMisuse', () => {
     })
   })
 
+  describe('Questions', () => {
+    const page = new SubstanceMisuse({}, application)
+
+    describe('usesIllegalSubstances', () => {
+      it('has a question', () => {
+        expect(page.questions.usesIllegalSubstances.question).toBeDefined()
+      })
+      it('has two follow-up questions, one with a hint', () => {
+        expect(page.questions.usesIllegalSubstances.substanceMisuseHistory.question).toBeDefined()
+        expect(page.questions.usesIllegalSubstances.substanceMisuseHistory.hint).toBeDefined()
+
+        expect(page.questions.usesIllegalSubstances.substanceMisuseDetail.question).toBeDefined()
+      })
+    })
+
+    describe('engagedWithDrugAndAlcoholService', () => {
+      it('has a question', () => {
+        expect(page.questions.engagedWithDrugAndAlcoholService.question).toBeDefined()
+      })
+      it('has a follow-up question', () => {
+        expect(page.questions.engagedWithDrugAndAlcoholService.drugAndAlcoholServiceDetail.question).toBeDefined()
+      })
+    })
+
+    describe('substituteMedication', () => {
+      it('has a question', () => {
+        expect(page.questions.requiresSubstituteMedication.question).toBeDefined()
+      })
+      it('has a follow-up question', () => {
+        expect(page.questions.requiresSubstituteMedication.substituteMedicationDetail.question).toBeDefined()
+      })
+    })
+  })
+
   itShouldHaveNextValue(new SubstanceMisuse({}, application), 'physical-health')
   itShouldHavePreviousValue(new SubstanceMisuse({}, application), 'taskList')
 
