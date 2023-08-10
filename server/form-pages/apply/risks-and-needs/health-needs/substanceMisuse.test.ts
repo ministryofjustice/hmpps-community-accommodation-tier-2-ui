@@ -105,5 +105,15 @@ describe('SubstanceMisuse', () => {
         })
       })
     })
+
+    describe('when _engagedWithDrugAndAlcoholService_ is YES', () => {
+      const page = new SubstanceMisuse({ engagedWithDrugAndAlcoholService: 'yes' }, application)
+
+      describe('and _drugAndAlcoholServiceDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _drugAndAlcoholServiceDetail_', () => {
+          expect(page.errors()).toHaveProperty('drugAndAlcoholServiceDetail', 'Provide the name of the service')
+        })
+      })
+    })
   })
 })

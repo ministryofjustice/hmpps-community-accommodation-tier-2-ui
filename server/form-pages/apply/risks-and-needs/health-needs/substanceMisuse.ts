@@ -89,6 +89,10 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.engagedWithDrugAndAlcoholService = `Confirm whether they are engaged with a drug and alcohol service`
     }
 
+    if (this.body.engagedWithDrugAndAlcoholService === 'yes' && !this.body.drugAndAlcoholServiceDetail) {
+      errors.drugAndAlcoholServiceDetail = 'Provide the name of the service'
+    }
+
     if (!this.body.requiresSubstituteMedication) {
       errors.requiresSubstituteMedication = `Confirm whether they require substitute medication`
     }
