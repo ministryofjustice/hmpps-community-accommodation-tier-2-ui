@@ -115,5 +115,18 @@ describe('SubstanceMisuse', () => {
         })
       })
     })
+
+    describe('when _requiresSubstituteMedication_ is YES', () => {
+      const page = new SubstanceMisuse({ requiresSubstituteMedication: 'yes' }, application)
+
+      describe('and _substituteMedicationDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _substituteMedicationDetail_', () => {
+          expect(page.errors()).toHaveProperty(
+            'substituteMedicationDetail',
+            'Provide details of their substitute medication',
+          )
+        })
+      })
+    })
   })
 })

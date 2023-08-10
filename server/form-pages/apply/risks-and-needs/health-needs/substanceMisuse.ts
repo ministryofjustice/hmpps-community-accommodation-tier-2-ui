@@ -97,6 +97,10 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.requiresSubstituteMedication = `Confirm whether they require substitute medication`
     }
 
+    if (this.body.requiresSubstituteMedication === 'yes' && !this.body.substituteMedicationDetail) {
+      errors.substituteMedicationDetail = 'Provide details of their substitute medication'
+    }
+
     return errors
   }
 
