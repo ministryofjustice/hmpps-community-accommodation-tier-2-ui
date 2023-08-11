@@ -12,5 +12,6 @@ export type NewBooking = {
     bedId: string;
     serviceName: ServiceName;
     enableTurnarounds?: boolean;
+    assessmentId?: string;
 };
 
