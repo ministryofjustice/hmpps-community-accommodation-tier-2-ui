@@ -26,12 +26,12 @@ export default class SubstanceMisusePage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('substanceMisuseDetail', 'Injects daily')
   }
 
-  nameDrugAndAlcholService = (): void => {
+  nameDrugAndAlcoholService = (): void => {
     this.checkRadioByNameAndValue('engagedWithDrugAndAlcoholService', 'yes')
     this.getTextInputByIdAndEnterDetails('drugAndAlcoholServiceDetail', 'The Drugs Project')
   }
 
-  provideSubsituteMedicationDetails = (): void => {
+  provideSubstituteMedicationDetails = (): void => {
     this.checkRadioByNameAndValue('requiresSubstituteMedication', 'yes')
     this.getTextInputByIdAndEnterDetails('substituteMedicationDetail', 'Methadone')
   }

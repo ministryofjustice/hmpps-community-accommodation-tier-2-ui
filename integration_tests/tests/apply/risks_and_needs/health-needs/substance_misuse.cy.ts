@@ -72,8 +72,8 @@ context('Visit "Substance misuse" page', () => {
     SubstanceMisusePage.visit(this.application)
     const page = new SubstanceMisusePage(this.application)
     page.describeIllegalSubstanceUse()
-    page.nameDrugAndAlcholService()
-    page.provideSubsituteMedicationDetails()
+    page.nameDrugAndAlcoholService()
+    page.provideSubstituteMedicationDetails()
     page.clickSubmit()
 
     Page.verifyOnPage(PhysicalHealthPage, this.application)
