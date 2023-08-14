@@ -97,5 +97,47 @@ describe('MentalHealth', () => {
         )
       })
     })
+
+    describe('when _hasMentalHealthNeeds_ is YES', () => {
+      const page = new MentalHealth({ hasMentalHealthNeeds: 'yes' }, application)
+
+      describe('and _needsDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _needsDetail_', () => {
+          expect(page.errors()).toHaveProperty('needsDetail', 'Describe mental health needs')
+        })
+      })
+    })
+
+    describe('when _isEngagedWithCommunity_ is YES', () => {
+      const page = new MentalHealth({ isEngagedWithCommunity: 'yes' }, application)
+
+      describe('and _servicesDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _servicesDetail_', () => {
+          expect(page.errors()).toHaveProperty('servicesDetail', 'State the services with which they have engaged')
+        })
+      })
+    })
+
+    describe('when _hasPrescribedMedication_ is YES', () => {
+      const page = new MentalHealth({ hasPrescribedMedication: 'yes' }, application)
+
+      describe('and _isInPossessionOfMeds_ is UNANSWERED', () => {
+        it('includes a validation error for _isInPossessionOfMeds_', () => {
+          expect(page.errors()).toHaveProperty('isInPossessionOfMeds', 'Confirm whether they have their medication')
+        })
+      })
+
+      describe('and _medicationDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _medicationDetail_', () => {
+          expect(page.errors()).toHaveProperty('medicationDetail', 'List their medication')
+        })
+      })
+
+      describe('and _medicationIssues_ is UNANSWERED', () => {
+        it('includes NO validation error for _medicationIssues_ (optional)', () => {
+          expect(page.errors()).not.toHaveProperty('medicationIssues')
+        })
+      })
+    })
   })
 })

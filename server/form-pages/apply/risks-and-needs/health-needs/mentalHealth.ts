@@ -81,13 +81,29 @@ export default class MentalHealth implements TaskListPage {
     if (!this.body.hasMentalHealthNeeds) {
       errors.hasMentalHealthNeeds = 'Confirm whether they have mental health needs'
     }
+    if (this.body.hasMentalHealthNeeds === 'yes' && !this.body.needsDetail) {
+      errors.needsDetail = 'Describe mental health needs'
+    }
 
     if (!this.body.isEngagedWithCommunity) {
       errors.isEngagedWithCommunity = 'Confirm whether they are engaged with services'
     }
+    if (this.body.isEngagedWithCommunity === 'yes' && !this.body.servicesDetail) {
+      errors.servicesDetail = 'State the services with which they have engaged'
+    }
 
     if (!this.body.hasPrescribedMedication) {
       errors.hasPrescribedMedication = 'Confirm whether they are prescribed medication'
+    }
+
+    if (this.body.hasPrescribedMedication === 'yes') {
+      if (!this.body.isInPossessionOfMeds) {
+        errors.isInPossessionOfMeds = 'Confirm whether they have their medication'
+      }
+
+      if (!this.body.medicationDetail) {
+        errors.medicationDetail = 'List their medication'
+      }
     }
 
     return errors
