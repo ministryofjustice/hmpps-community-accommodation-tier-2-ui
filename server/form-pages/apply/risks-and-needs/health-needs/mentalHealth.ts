@@ -78,6 +78,18 @@ export default class MentalHealth implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasMentalHealthNeeds) {
+      errors.hasMentalHealthNeeds = 'Confirm whether they have mental health needs'
+    }
+
+    if (!this.body.isEngagedWithCommunity) {
+      errors.isEngagedWithCommunity = 'Confirm whether they are engaged with services'
+    }
+
+    if (!this.body.hasPrescribedMedication) {
+      errors.hasPrescribedMedication = 'Confirm whether they are prescribed medication'
+    }
+
     return errors
   }
 

@@ -79,10 +79,23 @@ describe('MentalHealth', () => {
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    describe('when top-level questions are unanswered', () => {
       const page = new MentalHealth({}, application)
 
-      expect(page.errors()).toEqual({})
+      it('includes a validation error for _hasMentalHealthNeeds_', () => {
+        expect(page.errors()).toHaveProperty('hasMentalHealthNeeds', 'Confirm whether they have mental health needs')
+      })
+
+      it('includes a validation error for _isEngagedWithCommunity_', () => {
+        expect(page.errors()).toHaveProperty('isEngagedWithCommunity', 'Confirm whether they are engaged with services')
+      })
+
+      it('includes a validation error for _hasPrescribedMedication_', () => {
+        expect(page.errors()).toHaveProperty(
+          'hasPrescribedMedication',
+          'Confirm whether they are prescribed medication',
+        )
+      })
     })
   })
 })
