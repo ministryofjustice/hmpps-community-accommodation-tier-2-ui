@@ -50,10 +50,31 @@ describe('MentalHealth', () => {
   itShouldHavePreviousValue(new MentalHealth({}, application), 'physical-health')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new MentalHealth({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new MentalHealth(
+        {
+          hasMentalHealthNeeds: 'yes',
+          needsDetail: 'Has depression',
+          isEngagedWithCommunity: 'yes',
+          servicesDetail: 'Attending The Well Clinic',
+          hasPrescribedMedication: 'yes',
+          isInPossessionOfMeds: 'no',
+          medicationDetail: 'anti-epilepsy',
+          medicationIssues: 'often forget to take it',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'Do they have any mental health needs?': 'Yes',
+        'Please describe their mental health needs.': 'Has depression',
+        'Are they engaged with any community mental health services?': 'Yes',
+        'Please state which services.': 'Attending The Well Clinic',
+        'Are they prescribed any medication for their mental health?': 'Yes',
+        'Are they in possession of their medication?': 'No',
+        'Please list any medications.': 'anti-epilepsy',
+        'Please list any issues they have with taking their medication': 'often forget to take it',
+      })
     })
   })
 

@@ -1,40 +1,59 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
+import { sentenceCase } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 
-type MentalHealthBody = Record<string, never>
+type MentalHealthBody = {
+  hasMentalHealthNeeds: YesOrNo
+  needsDetail: string
+  isEngagedWithCommunity: YesOrNo
+  servicesDetail: string
+  hasPrescribedMedication: YesOrNo
+  isInPossessionOfMeds: YesOrNo
+  medicationDetail: string
+  medicationIssues: string
+}
 
 @Page({
   name: 'mental-health',
-  bodyProperties: [],
+  bodyProperties: [
+    'hasMentalHealthNeeds',
+    'needsDetail',
+    'isEngagedWithCommunity',
+    'servicesDetail',
+    'hasPrescribedMedication',
+    'isInPossessionOfMeds',
+    'medicationDetail',
+    'medicationIssues',
+  ],
 })
 export default class MentalHealth implements TaskListPage {
   title = `Mental health needs for ${this.application.person.name}`
 
   questions = {
     hasMentalHealthNeeds: {
-      question: 'Mental health needs?',
+      question: 'Do they have any mental health needs?',
       needsDetail: {
-        question: 'Details',
+        question: 'Please describe their mental health needs.',
       },
     },
     isEngagedWithCommunity: {
-      question: 'Is engaged with community services?',
+      question: 'Are they engaged with any community mental health services?',
       servicesDetail: {
-        question: 'Provide details',
+        question: 'Please state which services.',
       },
     },
     hasPrescribedMedication: {
-      question: 'Has prescribed medication?',
+      question: 'Are they prescribed any medication for their mental health?',
       isInPossessionOfMeds: {
-        question: 'Do they have their meds?',
+        question: 'Are they in possession of their medication?',
       },
       medicationDetail: {
-        question: 'List their meds',
+        question: 'Please list any medications.',
       },
       medicationIssues: {
-        question: 'Detail on issues',
+        question: 'Please list any issues they have with taking their medication',
       },
     },
   }
@@ -63,7 +82,20 @@ export default class MentalHealth implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response = {
+      [this.questions.hasMentalHealthNeeds.question]: sentenceCase(this.body.hasMentalHealthNeeds),
+      [this.questions.hasMentalHealthNeeds.needsDetail.question]: this.body.needsDetail,
+
+      [this.questions.isEngagedWithCommunity.question]: sentenceCase(this.body.isEngagedWithCommunity),
+      [this.questions.isEngagedWithCommunity.servicesDetail.question]: this.body.servicesDetail,
+
+      [this.questions.hasPrescribedMedication.question]: sentenceCase(this.body.hasPrescribedMedication),
+      [this.questions.hasPrescribedMedication.isInPossessionOfMeds.question]: sentenceCase(
+        this.body.isInPossessionOfMeds,
+      ),
+      [this.questions.hasPrescribedMedication.medicationDetail.question]: this.body.medicationDetail,
+      [this.questions.hasPrescribedMedication.medicationIssues.question]: this.body.medicationIssues,
+    }
 
     return response
   }
