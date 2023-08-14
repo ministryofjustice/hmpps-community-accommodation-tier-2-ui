@@ -180,5 +180,15 @@ describe('PhysicalHealth', () => {
         })
       })
     })
+
+    describe('when _requiresAdditionalSupport_ is YES', () => {
+      const page = new PhysicalHealth({ requiresAdditionalSupport: 'yes' }, application)
+
+      describe('and _addSupportDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _addSupportDetail_', () => {
+          expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the support required')
+        })
+      })
+    })
   })
 })

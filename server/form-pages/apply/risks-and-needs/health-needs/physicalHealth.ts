@@ -135,6 +135,10 @@ export default class PhysicalHealth implements TaskListPage {
       errors.requiresAdditionalSupport = 'Confirm whether they require additional support'
     }
 
+    if (this.body.requiresAdditionalSupport === 'yes' && !this.body.addSupportDetail) {
+      errors.addSupportDetail = 'Describe the support required'
+    }
+
     return errors
   }
 
