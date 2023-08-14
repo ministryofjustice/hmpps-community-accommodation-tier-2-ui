@@ -12,6 +12,33 @@ type MentalHealthBody = Record<string, never>
 export default class MentalHealth implements TaskListPage {
   title = `Mental health needs for ${this.application.person.name}`
 
+  questions = {
+    hasMentalHealthNeeds: {
+      question: 'Mental health needs?',
+      needsDetail: {
+        question: 'Details',
+      },
+    },
+    isEngagedWithCommunity: {
+      question: 'Is engaged with community services?',
+      servicesDetail: {
+        question: 'Provide details',
+      },
+    },
+    hasPrescribedMedication: {
+      question: 'Has prescribed medication?',
+      isInPossessionOfMeds: {
+        question: 'Do they have their meds?',
+      },
+      medicationDetail: {
+        question: 'List their meds',
+      },
+      medicationIssues: {
+        question: 'Detail on issues',
+      },
+    },
+  }
+
   body: MentalHealthBody
 
   constructor(
