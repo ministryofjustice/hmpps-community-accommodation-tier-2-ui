@@ -150,5 +150,15 @@ describe('PhysicalHealth', () => {
         })
       })
     })
+
+    describe('when _isReceivingTreatment_ is YES', () => {
+      const page = new PhysicalHealth({ isReceivingTreatment: 'yes' }, application)
+
+      describe('and _treatmentDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _treatmentDetail_', () => {
+          expect(page.errors()).toHaveProperty('treatmentDetail', 'Describe their treatment')
+        })
+      })
+    })
   })
 })

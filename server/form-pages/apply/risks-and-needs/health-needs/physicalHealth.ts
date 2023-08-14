@@ -111,6 +111,10 @@ export default class PhysicalHealth implements TaskListPage {
       errors.isReceivingTreatment = 'Confirm whether they currently receiving treatment'
     }
 
+    if (this.body.isReceivingTreatment === 'yes' && !this.body.treatmentDetail) {
+      errors.treatmentDetail = 'Describe their treatment'
+    }
+
     if (!this.body.hasPhyHealthMedication) {
       errors.hasPhyHealthMedication = 'Confirm whether they are currently receiving medication'
     }
