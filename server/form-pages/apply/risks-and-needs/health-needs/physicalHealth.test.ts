@@ -102,10 +102,37 @@ describe('PhysicalHealth', () => {
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    describe('when top-level questions are unanswered', () => {
       const page = new PhysicalHealth({}, application)
 
-      expect(page.errors()).toEqual({})
+      it('includes a validation error for _hasPhyHealthNeeds_', () => {
+        expect(page.errors()).toHaveProperty('hasPhyHealthNeeds', 'Confirm whether they have physical health needs')
+      })
+
+      it('includes a validation error for _isReceivingTreatment_', () => {
+        expect(page.errors()).toHaveProperty(
+          'isReceivingTreatment',
+          'Confirm whether they currently receiving treatment',
+        )
+      })
+
+      it('includes a validation error for _hasPhyHealthMedication_', () => {
+        expect(page.errors()).toHaveProperty(
+          'hasPhyHealthMedication',
+          'Confirm whether they are currently receiving medication',
+        )
+      })
+
+      it('includes a validation error for _canLiveIndependently_', () => {
+        expect(page.errors()).toHaveProperty('canLiveIndependently', 'Confirm whether they can live independently')
+      })
+
+      it('includes a validation error for _requiresAdditionalSupport_', () => {
+        expect(page.errors()).toHaveProperty(
+          'requiresAdditionalSupport',
+          'Confirm whether they require additional support',
+        )
+      })
     })
   })
 })

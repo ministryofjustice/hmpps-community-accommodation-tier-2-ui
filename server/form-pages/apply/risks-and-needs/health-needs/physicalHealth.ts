@@ -93,6 +93,26 @@ export default class PhysicalHealth implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasPhyHealthNeeds) {
+      errors.hasPhyHealthNeeds = 'Confirm whether they have physical health needs'
+    }
+
+    if (!this.body.isReceivingTreatment) {
+      errors.isReceivingTreatment = 'Confirm whether they currently receiving treatment'
+    }
+
+    if (!this.body.hasPhyHealthMedication) {
+      errors.hasPhyHealthMedication = 'Confirm whether they are currently receiving medication'
+    }
+
+    if (!this.body.canLiveIndependently) {
+      errors.canLiveIndependently = 'Confirm whether they can live independently'
+    }
+
+    if (!this.body.requiresAdditionalSupport) {
+      errors.requiresAdditionalSupport = 'Confirm whether they require additional support'
+    }
+
     return errors
   }
 
