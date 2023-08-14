@@ -170,5 +170,15 @@ describe('PhysicalHealth', () => {
         })
       })
     })
+
+    describe('when _canLiveIndependently_ is NO', () => {
+      const page = new PhysicalHealth({ canLiveIndependently: 'no' }, application)
+
+      describe('and _indyLivingDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _indyLivingDetail_', () => {
+          expect(page.errors()).toHaveProperty('indyLivingDetail', 'Describe why they are unable to live independently')
+        })
+      })
+    })
   })
 })

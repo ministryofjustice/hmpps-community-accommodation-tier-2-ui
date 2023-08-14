@@ -127,6 +127,10 @@ export default class PhysicalHealth implements TaskListPage {
       errors.canLiveIndependently = 'Confirm whether they can live independently'
     }
 
+    if (this.body.canLiveIndependently === 'no' && !this.body.indyLivingDetail) {
+      errors.indyLivingDetail = 'Describe why they are unable to live independently'
+    }
+
     if (!this.body.requiresAdditionalSupport) {
       errors.requiresAdditionalSupport = 'Confirm whether they require additional support'
     }
