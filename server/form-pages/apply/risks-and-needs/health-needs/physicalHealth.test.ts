@@ -134,5 +134,21 @@ describe('PhysicalHealth', () => {
         )
       })
     })
+
+    describe('when _hasPhyHealthNeeds_ is YES', () => {
+      const page = new PhysicalHealth({ hasPhyHealthNeeds: 'yes' }, application)
+
+      describe('and _needsDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _needsDetail_', () => {
+          expect(page.errors()).toHaveProperty('needsDetail', 'Describe physical health needs')
+        })
+      })
+
+      describe('and _canClimbStairs_ is UNANSWERED', () => {
+        it('includes a validation error for _canClimbStairs_', () => {
+          expect(page.errors()).toHaveProperty('canClimbStairs', 'Confirm whether they can climb stairs')
+        })
+      })
+    })
   })
 })

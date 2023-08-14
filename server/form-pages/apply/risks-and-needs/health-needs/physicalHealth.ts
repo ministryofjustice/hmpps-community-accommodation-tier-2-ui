@@ -97,6 +97,16 @@ export default class PhysicalHealth implements TaskListPage {
       errors.hasPhyHealthNeeds = 'Confirm whether they have physical health needs'
     }
 
+    if (this.body.hasPhyHealthNeeds === 'yes') {
+      if (!this.body.needsDetail) {
+        errors.needsDetail = 'Describe physical health needs'
+      }
+
+      if (!this.body.canClimbStairs) {
+        errors.canClimbStairs = 'Confirm whether they can climb stairs'
+      }
+    }
+
     if (!this.body.isReceivingTreatment) {
       errors.isReceivingTreatment = 'Confirm whether they currently receiving treatment'
     }
