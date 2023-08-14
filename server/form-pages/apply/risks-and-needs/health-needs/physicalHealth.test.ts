@@ -67,10 +67,37 @@ describe('PhysicalHealth', () => {
   })
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new PhysicalHealth({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new PhysicalHealth(
+        {
+          hasPhyHealthNeeds: 'yes',
+          needsDetail: 'Has reduced mobility',
+          canClimbStairs: 'yes',
+          isReceivingTreatment: 'yes',
+          treatmentDetail: 'Receives physiotherapy',
+          hasPhyHealthMedication: 'yes',
+          medicationDetail: 'Oral anti-inflammatories',
+          canLiveIndependently: 'no',
+          indyLivingDetail: 'Requires assistance with bathing',
+          requiresAdditionalSupport: 'yes',
+          addSupportDetail: 'Needs help with cooking and nutrition',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'Do they have any physical health needs?': 'Yes',
+        'Please describe their needs.': 'Has reduced mobility',
+        'Can they climb stairs?': 'Yes',
+        'Are they currently receiving any medical treatment for their physical health needs?': 'Yes',
+        'Please describe their treatment.': 'Receives physiotherapy',
+        'Are they currently receiving any medication for their physical health needs?': 'Yes',
+        'Please describe their medication.': 'Oral anti-inflammatories',
+        'Can they live independently?': 'No',
+        "Please describe why they can't.": 'Requires assistance with bathing',
+        'Do they require any additional support?': 'Yes',
+        'Please describe the types of support.': 'Needs help with cooking and nutrition',
+      })
     })
   })
 
