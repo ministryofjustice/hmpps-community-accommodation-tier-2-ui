@@ -160,5 +160,15 @@ describe('PhysicalHealth', () => {
         })
       })
     })
+
+    describe('when _hasPhyHealthMedication_ is YES', () => {
+      const page = new PhysicalHealth({ hasPhyHealthMedication: 'yes' }, application)
+
+      describe('and _medicationDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _medicationDetail_', () => {
+          expect(page.errors()).toHaveProperty('medicationDetail', 'Describe their medication')
+        })
+      })
+    })
   })
 })
