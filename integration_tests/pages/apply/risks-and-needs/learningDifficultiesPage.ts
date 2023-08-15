@@ -13,6 +13,7 @@ export default class LearningDifficultiesPage extends ApplyPage {
     )
 
     pageIsActiveInNavigation('Learning difficulties')
+    this.pageHasNeurodiversityGuidance()
   }
 
   static visit(application: Application): void {
@@ -23,6 +24,11 @@ export default class LearningDifficultiesPage extends ApplyPage {
         page: 'learning-difficulties',
       }),
     )
+  }
+
+  pageHasNeurodiversityGuidance = (): void => {
+    cy.get('.guidance').contains('Neurodiversity covers Autism,')
+    cy.get('.guidance').contains('This can overlap with learning difficulties')
   }
 
   describeAdditionalNeeds = (): void => {
