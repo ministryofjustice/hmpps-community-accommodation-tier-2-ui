@@ -81,17 +81,29 @@ export default class LearningDifficulties implements TaskListPage {
     if (!this.body.hasLearningNeeds) {
       errors.hasLearningNeeds = `Confirm whether they have additional needs`
     }
+    if (this.body.hasLearningNeeds === 'yes' && !this.body.needsDetail) {
+      errors.needsDetail = 'Describe their additional needs'
+    }
 
     if (!this.body.isVulnerable) {
       errors.isVulnerable = `Confirm whether they are vulnerable`
+    }
+    if (this.body.isVulnerable === 'yes' && !this.body.vulnerabilityDetail) {
+      errors.vulnerabilityDetail = 'Describe their level of vulnerability'
     }
 
     if (!this.body.hasDifficultyInteracting) {
       errors.hasDifficultyInteracting = `Confirm whether they have difficulties interacting`
     }
+    if (this.body.hasDifficultyInteracting === 'yes' && !this.body.interactionDetail) {
+      errors.interactionDetail = 'Describe their difficulties interacting'
+    }
 
     if (!this.body.requiresAdditionalSupport) {
       errors.requiresAdditionalSupport = `Confirm whether additional support is required`
+    }
+    if (this.body.requiresAdditionalSupport === 'yes' && !this.body.addSupportDetail) {
+      errors.addSupportDetail = 'Describe the type of support required'
     }
 
     return errors
