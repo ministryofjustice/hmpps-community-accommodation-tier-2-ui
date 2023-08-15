@@ -72,9 +72,18 @@ export default class OtherHealth implements TaskListPage {
     if (!this.body.hasLongTermHealthCondition) {
       errors.hasLongTermHealthCondition = `Confirm whether they have a long term health condition`
     }
+    if (this.body.hasLongTermHealthCondition === 'yes' && !this.body.healthConditionDetail) {
+      errors.healthConditionDetail = 'Provide details of their health conditions'
+    }
+    if (this.body.hasLongTermHealthCondition === 'yes' && !this.body.hasHadStroke) {
+      errors.hasHadStroke = 'Confirm whether they have had a stroke'
+    }
 
     if (!this.body.hasSeizures) {
       errors.hasSeizures = `Confirm whether they have seizures`
+    }
+    if (this.body.hasSeizures === 'yes' && !this.body.seizuresDetail) {
+      errors.seizuresDetail = 'Provide details of the seizure type and treatment'
     }
 
     if (!this.body.beingTreatedForCancer) {
