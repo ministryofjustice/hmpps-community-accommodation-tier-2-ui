@@ -3,8 +3,169 @@
 
 {% block questions %}
 
-  <p class="govuk-body">
-    Mental health page
-  </p>
+  {% set mentalHealthNeedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsDetail',
+          label: {
+            text: page.questions.hasMentalHealthNeeds.needsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set communityFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'servicesDetail',
+          label: {
+            text: page.questions.isEngagedWithCommunity.servicesDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set medicationFollowUp %}
+  {{
+      formPageRadios(
+        {
+          fieldName: 'isInPossessionOfMeds',
+          fieldset: {
+            legend: {
+              text: page.questions.hasPrescribedMedication.isInPossessionOfMeds.question,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+        },
+        fetchContext()
+      )
+      }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'medicationDetail',
+          label: {
+            text: page.questions.hasPrescribedMedication.medicationDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+      }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'medicationIssues',
+          label: {
+            text: page.questions.hasPrescribedMedication.medicationIssues.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasMentalHealthNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasMentalHealthNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: mentalHealthNeedsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isEngagedWithCommunity",
+        fieldset: {
+          legend: {
+            text: page.questions.isEngagedWithCommunity.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: communityFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasPrescribedMedication",
+        fieldset: {
+          legend: {
+            text: page.questions.hasPrescribedMedication.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: medicationFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 
 {% endblock %}
