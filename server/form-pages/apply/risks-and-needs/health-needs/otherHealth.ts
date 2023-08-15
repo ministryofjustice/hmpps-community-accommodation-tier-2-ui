@@ -69,6 +69,18 @@ export default class OtherHealth implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasLongTermHealthCondition) {
+      errors.hasLongTermHealthCondition = `Confirm whether they have a long term health condition`
+    }
+
+    if (!this.body.hasSeizures) {
+      errors.hasSeizures = `Confirm whether they have seizures`
+    }
+
+    if (!this.body.beingTreatedForCancer) {
+      errors.beingTreatedForCancer = `Confirm whether they are receiving cancer treatment`
+    }
+
     return errors
   }
 

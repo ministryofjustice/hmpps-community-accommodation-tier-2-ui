@@ -72,10 +72,26 @@ describe('OtherHealth', () => {
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    describe('when top-level questions are unanswered', () => {
       const page = new OtherHealth({}, application)
 
-      expect(page.errors()).toEqual({})
+      it('includes a validation error for _hasLongTermHealthCondition_', () => {
+        expect(page.errors()).toHaveProperty(
+          'hasLongTermHealthCondition',
+          'Confirm whether they have a long term health condition',
+        )
+      })
+
+      it('includes a validation error for _hasSeizures_', () => {
+        expect(page.errors()).toHaveProperty('hasSeizures', 'Confirm whether they have seizures')
+      })
+
+      it('includes a validation error for _beingTreatedForCancer_', () => {
+        expect(page.errors()).toHaveProperty(
+          'beingTreatedForCancer',
+          'Confirm whether they are receiving cancer treatment',
+        )
+      })
     })
   })
 })
