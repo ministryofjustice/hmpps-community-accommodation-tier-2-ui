@@ -11,8 +11,9 @@
 //  Scenario: view other health questions
 //    Then I see the "other health" page
 //
-//  Scenario: navigate to next page in health needs task
-//    When I continue to the next task / page
+//  Scenario: complete page and navigate to next page in health needs task
+//    When I complete the other health page
+//    And I continue to the next task / page
 //    Then I am returned to the task list
 
 import Page from '../../../../pages/page'
@@ -60,12 +61,18 @@ context('Visit "other health" page', () => {
     Page.verifyOnPage(OtherHealthPage, this.application)
   })
 
-  //  Scenario: navigate to next page in health needs task
-  //    When I continue to the next task / page
+  //  Scenario: complete page and navigate to next page in health needs task
+  //    When I complete the other health page
+  //    And I continue to the next task / page
   //    Then I am returned to the task list
   it('navigates to the next page (back to task list)', function test() {
     OtherHealthPage.visit(this.application)
     const page = new OtherHealthPage(this.application)
+
+    page.describeLongTermHealthConditions()
+    page.describeSeizures()
+    page.confirmCancerTreatment()
+
     page.clickSubmit()
 
     Page.verifyOnPage(TaskListPage, this.application)

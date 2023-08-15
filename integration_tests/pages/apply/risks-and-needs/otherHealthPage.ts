@@ -19,4 +19,19 @@ export default class OtherHealthPage extends ApplyPage {
       }),
     )
   }
+
+  describeLongTermHealthConditions = (): void => {
+    this.checkRadioByNameAndValue('hasLongTermHealthCondition', 'yes')
+    this.getTextInputByIdAndEnterDetails('healthConditionDetail', 'Chronic arthritis')
+    this.checkRadioByNameAndValue('hasHadStroke', 'no')
+  }
+
+  describeSeizures = (): void => {
+    this.checkRadioByNameAndValue('hasSeizures', 'yes')
+    this.getTextInputByIdAndEnterDetails('seizuresDetail', 'Epilepsy: controlled by meds')
+  }
+
+  confirmCancerTreatment = (): void => {
+    this.checkRadioByNameAndValue('beingTreatedForCancer', 'no')
+  }
 }

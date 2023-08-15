@@ -3,8 +3,142 @@
 
 {% block questions %}
 
-  <p class="govuk-body">
-    Other health page
-  </p>
+  {% set healthConditionFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'healthConditionDetail',
+          label: {
+            text: page.questions.hasLongTermHealthCondition.healthConditionDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasHadStroke",
+        fieldset: {
+          legend: {
+            text: page.questions.hasLongTermHealthCondition.hasHadStroke.question,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+  {% endset %}
+
+  {% set seizuresFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'seizuresDetail',
+          label: {
+            text: page.questions.hasSeizures.seizuresDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasLongTermHealthCondition",
+        hint: {
+            text: page.questions.hasLongTermHealthCondition.hint
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.hasLongTermHealthCondition.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: healthConditionFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasSeizures",
+        fieldset: {
+          legend: {
+            text: page.questions.hasSeizures.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: seizuresFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "beingTreatedForCancer",
+        fieldset: {
+          legend: {
+            text: page.questions.beingTreatedForCancer.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 
 {% endblock %}
