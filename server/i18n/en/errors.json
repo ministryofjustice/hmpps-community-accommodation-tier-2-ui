@@ -28,5 +28,8 @@
   },
   "isVeteran": {
     "empty": "Choose either Yes, No or I don't know"
+  },
+  "isCareLeaver": {
+    "empty": "Choose either Yes, No or I don't know"
   }
 }
