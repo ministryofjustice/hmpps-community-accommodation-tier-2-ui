@@ -31,5 +31,8 @@
   },
   "isCareLeaver": {
     "empty": "Choose either Yes, No or I don't know"
+  },
+  "hasParentalOrCarerResponsibilities": {
+    "empty": "Choose either Yes, No or I don't know"
   }
 }
