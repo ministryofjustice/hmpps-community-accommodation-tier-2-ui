@@ -12,6 +12,28 @@ type OtherHealthBody = Record<string, never>
 export default class OtherHealth implements TaskListPage {
   title = `Other health needs for ${this.application.person.name}`
 
+  questions = {
+    hasLongTermHealthCondition: {
+      question: 'Are they managing any long term health conditions?',
+      hint: 'For example, diabetes, arthritis or high blood pressure.',
+      healthConditionDetail: {
+        question: 'Please describe the long term health conditions.',
+      },
+      hasHadStroke: {
+        question: 'Have they experienced a stroke?',
+      },
+    },
+    hasSeizures: {
+      question: 'Do they experience seizures?',
+      seizuresDetail: {
+        question: 'Please describe the type and any treatment.',
+      },
+    },
+    beingTreatedForCancer: {
+      question: 'Are they currently receiving regular treatment for cancer?',
+    },
+  }
+
   body: OtherHealthBody
 
   constructor(
