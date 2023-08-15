@@ -78,6 +78,22 @@ export default class BrainInjury implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasBrainInjury) {
+      errors.hasBrainInjury = `Confirm whether they have a brain injury`
+    }
+
+    if (!this.body.isVulnerable) {
+      errors.isVulnerable = `Confirm whether they are vulnerable`
+    }
+
+    if (!this.body.hasDifficultyInteracting) {
+      errors.hasDifficultyInteracting = `Confirm whether they have difficulties interacting`
+    }
+
+    if (!this.body.requiresAdditionalSupport) {
+      errors.requiresAdditionalSupport = `Confirm whether additional support is required`
+    }
+
     return errors
   }
 

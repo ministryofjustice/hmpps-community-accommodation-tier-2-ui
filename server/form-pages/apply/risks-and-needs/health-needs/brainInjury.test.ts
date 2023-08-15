@@ -86,10 +86,30 @@ describe('BrainInjury', () => {
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    describe('when top-level questions are unanswered', () => {
       const page = new BrainInjury({}, application)
 
-      expect(page.errors()).toEqual({})
+      it('includes a validation error for _hasBrainInjury_', () => {
+        expect(page.errors()).toHaveProperty('hasBrainInjury', 'Confirm whether they have a brain injury')
+      })
+
+      it('includes a validation error for _isVulnerable_', () => {
+        expect(page.errors()).toHaveProperty('isVulnerable', 'Confirm whether they are vulnerable')
+      })
+
+      it('includes a validation error for _hasDifficultyInteracting_', () => {
+        expect(page.errors()).toHaveProperty(
+          'hasDifficultyInteracting',
+          'Confirm whether they have difficulties interacting',
+        )
+      })
+
+      it('includes a validation error for _requiresAdditionalSupport_', () => {
+        expect(page.errors()).toHaveProperty(
+          'requiresAdditionalSupport',
+          'Confirm whether additional support is required',
+        )
+      })
     })
   })
 })
