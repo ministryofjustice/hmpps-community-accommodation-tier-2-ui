@@ -19,4 +19,24 @@ export default class BrainInjuryPage extends ApplyPage {
       }),
     )
   }
+
+  describeInjuryAndNeeds = (): void => {
+    this.checkRadioByNameAndValue('hasBrainInjury', 'yes')
+    this.getTextInputByIdAndEnterDetails('injuryDetail', 'Has frontal lobe damange')
+  }
+
+  describeVulnerability = (): void => {
+    this.checkRadioByNameAndValue('isVulnerable', 'yes')
+    this.getTextInputByIdAndEnterDetails('vulnerabilityDetail', 'Medium: can put themselves in danger')
+  }
+
+  describeDifficultiesInteracting = (): void => {
+    this.checkRadioByNameAndValue('hasDifficultyInteracting', 'yes')
+    this.getTextInputByIdAndEnterDetails('interactionDetail', 'Can misunderstand situations')
+  }
+
+  describeAdditionalSupportNeeded = (): void => {
+    this.checkRadioByNameAndValue('requiresAdditionalSupport', 'yes')
+    this.getTextInputByIdAndEnterDetails('addSupportDetail', 'Requires regular support')
+  }
 }
