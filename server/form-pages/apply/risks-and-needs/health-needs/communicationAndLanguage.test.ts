@@ -13,6 +13,37 @@ describe('CommunicationAndLanguage', () => {
     })
   })
 
+  describe('questions', () => {
+    const page = new CommunicationAndLanguage({}, application)
+
+    describe('hasCommunicationNeeds', () => {
+      it('has a question', () => {
+        expect(page.questions.hasCommunicationNeeds.question).toBeDefined()
+      })
+      it('has a follow-up question', () => {
+        expect(page.questions.hasCommunicationNeeds.communicationDetail.question).toBeDefined()
+      })
+    })
+
+    describe('requiresInterpreter', () => {
+      it('has a question', () => {
+        expect(page.questions.requiresInterpreter.question).toBeDefined()
+      })
+      it('has a follow-up question', () => {
+        expect(page.questions.requiresInterpreter.interpretationDetail.question).toBeDefined()
+      })
+    })
+
+    describe('hasSupportNeeds', () => {
+      it('has a question', () => {
+        expect(page.questions.hasSupportNeeds.question).toBeDefined()
+      })
+      it('has a follow-up question', () => {
+        expect(page.questions.hasSupportNeeds.supportDetail.question).toBeDefined()
+      })
+    })
+  })
+
   itShouldHaveNextValue(new CommunicationAndLanguage({}, application), 'learning-difficulties')
   itShouldHavePreviousValue(new CommunicationAndLanguage({}, application), 'mental-health')
 

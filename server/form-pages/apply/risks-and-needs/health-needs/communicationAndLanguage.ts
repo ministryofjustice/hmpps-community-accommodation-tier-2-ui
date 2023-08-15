@@ -12,6 +12,27 @@ type CommunicationAndLanguageBody = Record<string, never>
 export default class CommunicationAndLanguage implements TaskListPage {
   title = `Communication and language needs for ${this.application.person.name}`
 
+  questions = {
+    hasCommunicationNeeds: {
+      question: 'Has communication needs?',
+      communicationDetail: {
+        question: 'Details',
+      },
+    },
+    requiresInterpreter: {
+      question: 'Needs interpreter?',
+      interpretationDetail: {
+        question: 'Details',
+      },
+    },
+    hasSupportNeeds: {
+      question: 'Has support needs?',
+      supportDetail: {
+        question: 'Details',
+      },
+    },
+  }
+
   body: CommunicationAndLanguageBody
 
   constructor(
