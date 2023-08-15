@@ -37,6 +37,9 @@
     },
     "care-leaver": {
       "isCareLeaver": "no"
+    },
+    "parental-carer-responsibilities": {
+      "hasParentalOrCarerResponsibilities": "yes"
     }
   }
 }

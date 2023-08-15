@@ -14,6 +14,7 @@ import OtherBackground from './otherBackground'
 import Religion from './religion'
 import MilitaryVeteran from './militaryVeteran'
 import CareLeaver from './careLeaver'
+import CarerResponsibilities from './parentalCarerResponsibilities'
 
 @Task({
   name: 'Complete equality and diversity monitoring',
@@ -32,6 +33,7 @@ import CareLeaver from './careLeaver'
     Religion,
     MilitaryVeteran,
     CareLeaver,
+    CarerResponsibilities,
   ],
 })
 export default class EqualityAndDiversityMonitoring {}

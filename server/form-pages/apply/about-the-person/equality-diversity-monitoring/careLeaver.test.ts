@@ -23,7 +23,7 @@ describe('CareLeaver', () => {
     })
   })
 
-  itShouldHaveNextValue(new CareLeaver({ isCareLeaver: 'yes' }, application), '')
+  itShouldHaveNextValue(new CareLeaver({ isCareLeaver: 'yes' }, application), 'parental-carer-responsibilities')
   itShouldHavePreviousValue(new CareLeaver({ isCareLeaver: 'yes' }, application), 'military-veteran')
 
   describe('response', () => {

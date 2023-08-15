@@ -1,17 +1,17 @@
-//  Feature: Referrer completes 'care leaver' question page
+//  Feature: Referrer completes 'parental or carer responsibilities' question page
 //    So that I can complete the 'Equality questions' task
 //    As a referrer
-//    I want to answer questions on the care leaver page
+//    I want to answer questions on the parental or carer responsibilities page
 //
-//  Scenario: submits a valid answer to care leaver page
-//    Given I'm on the 'care leaver' question page
+//  Scenario: submits a valid answer to parental or carer responsibilities page
+//    Given I'm on the 'parental or carer responsibilities' question page
 //    When I give a valid answer
-//    Then I am taken to the parental or carer responsibilities page
+//    Then I am taken to the task list page (temporarily)
 
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import CareLeaverPage from '../../../../pages/apply/about_the_person/equality_and_diversity/careLeaverPage'
 import ParentalCarerResponsibilitiesPage from '../../../../pages/apply/about_the_person/equality_and_diversity/parentalCarerResponsibilitiesPage'
 import Page from '../../../../pages/page'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
 context('Visit "About the person" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -22,7 +22,7 @@ context('Visit "About the person" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['equality-and-diversity-monitoring']['care-leaver'] = {}
+      applicationData['equality-and-diversity-monitoring']['parental-or-carer-responsibilities'] = {}
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -42,23 +42,23 @@ context('Visit "About the person" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the care leaver page
+    // And I am on the parental or carer responsibilities page
     // --------------------------------
-    CareLeaverPage.visit(this.application)
+    ParentalCarerResponsibilitiesPage.visit(this.application)
 
-    Page.verifyOnPage(CareLeaverPage, this.application)
+    Page.verifyOnPage(ParentalCarerResponsibilitiesPage, this.application)
   })
 
-  // Scenario: submits a valid answer to care leaver page
+  // Scenario: submits a valid answer to parental or carer responsibilities page
   // ----------------------------
   it('continues to the task list page', function test() {
-    // I submit my answers
-    const page = Page.verifyOnPage(CareLeaverPage, this.application)
-    page.selectAnswer('isCareLeaver', 'yes')
+    // I submit my answersP
+    const page = Page.verifyOnPage(ParentalCarerResponsibilitiesPage, this.application)
+    page.selectAnswer('hasParentalOrCarerResponsibilities', 'yes')
 
     page.clickSubmit()
 
-    // I am taken to the parental or carer responsibilities page
-    Page.verifyOnPage(ParentalCarerResponsibilitiesPage, this.application)
+    // I am taken to the task list page (temporarily)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })

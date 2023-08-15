@@ -38,7 +38,7 @@ export default class CareLeaver implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'parental-carer-responsibilities'
   }
 
   errors() {
