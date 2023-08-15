@@ -1,17 +1,17 @@
-//  Feature: Referrer completes 'military veteran' question page
+//  Feature: Referrer completes 'care leaver' question page
 //    So that I can complete the 'Equality questions' task
 //    As a referrer
-//    I want to answer questions on the military veteran page
+//    I want to answer questions on the care leaver page
 //
-//  Scenario: submits a valid answer to military veteran page
-//    Given I'm on the 'military veteran' question page
+//  Scenario: submits a valid answer to care leaver page
+//    Given I'm on the 'care leaver' question page
 //    When I give a valid answer
-//    Then I am taken to the care leaver page
+//    Then I am taken to the task page (temporarily)
 
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import MilitaryVeteranPage from '../../../../pages/apply/about_the_person/equality_and_diversity/militaryVeteranPage'
 import CareLeaverPage from '../../../../pages/apply/about_the_person/equality_and_diversity/careLeaverPage'
 import Page from '../../../../pages/page'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
 context('Visit "About the person" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -22,7 +22,7 @@ context('Visit "About the person" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['equality-and-diversity-monitoring']['military-veteran'] = {}
+      applicationData['equality-and-diversity-monitoring']['care-leaver'] = {}
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -42,23 +42,23 @@ context('Visit "About the person" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the military veteran page
+    // And I am on the care leaver page
     // --------------------------------
-    MilitaryVeteranPage.visit(this.application)
+    CareLeaverPage.visit(this.application)
 
-    Page.verifyOnPage(MilitaryVeteranPage, this.application)
+    Page.verifyOnPage(CareLeaverPage, this.application)
   })
 
-  // Scenario: submits a valid answer to military veteran page
+  // Scenario: submits a valid answer to care leaver page
   // ----------------------------
   it('continues to the task list page', function test() {
     // I submit my answers
-    const page = Page.verifyOnPage(MilitaryVeteranPage, this.application)
-    page.selectAnswer('isVeteran', 'no')
+    const page = Page.verifyOnPage(CareLeaverPage, this.application)
+    page.selectAnswer('isCareLeaver', 'yes')
 
     page.clickSubmit()
 
-    // I am taken to the care leaver page
-    Page.verifyOnPage(CareLeaverPage, this.application)
+    // I am taken to the task list page (temporarily)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })

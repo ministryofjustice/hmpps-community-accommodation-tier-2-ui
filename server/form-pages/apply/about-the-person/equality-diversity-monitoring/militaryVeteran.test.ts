@@ -23,7 +23,7 @@ describe('MilitaryVeteran', () => {
     })
   })
 
-  itShouldHaveNextValue(new MilitaryVeteran({ isVeteran: 'yes' }, application), '')
+  itShouldHaveNextValue(new MilitaryVeteran({ isVeteran: 'yes' }, application), 'care-leaver')
   itShouldHavePreviousValue(new MilitaryVeteran({ isVeteran: 'yes' }, application), 'religion')
 
   describe('response', () => {

@@ -38,7 +38,7 @@ export default class MilitaryVeteran implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'care-leaver'
   }
 
   errors() {
