@@ -1,40 +1,59 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
+import { sentenceCase } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type LearningDifficultiesBody = Record<string, never>
+type LearningDifficultiesBody = {
+  hasLearningNeeds: YesOrNo
+  needsDetail: string
+  isVulnerable: YesOrNo
+  vulnerabilityDetail: string
+  hasDifficultyInteracting: YesOrNo
+  interactionDetail: string
+  requiresAdditionalSupport: YesOrNo
+  addSupportDetail: string
+}
 
 @Page({
   name: 'learning-difficulties',
-  bodyProperties: [],
+  bodyProperties: [
+    'hasLearningNeeds',
+    'needsDetail',
+    'isVulnerable',
+    'vulnerabilityDetail',
+    'hasDifficultyInteracting',
+    'interactionDetail',
+    'requiresAdditionalSupport',
+    'addSupportDetail',
+  ],
 })
 export default class LearningDifficulties implements TaskListPage {
   title = `Learning difficulties and neurodiversity for ${this.application.person.name}`
 
   questions = {
     hasLearningNeeds: {
-      question: 'Has learning needs?',
+      question: 'Do they have any additional needs relating to learning difficulties or neurodiversity?',
       needsDetail: {
-        question: 'Details',
+        question: 'Please describe their additional needs.',
       },
     },
     isVulnerable: {
-      question: 'Is vulnerable?',
+      question: 'Are they vulnerable as a result of this condition?',
       vulnerabilityDetail: {
-        question: 'Details',
+        question: 'Please describe their level of vulnerability.',
       },
     },
     hasDifficultyInteracting: {
-      question: 'Has difficulty interacting?',
+      question: 'Do they have difficulties interacting with other people as a result of this condition?',
       interactionDetail: {
-        question: 'Details',
+        question: 'Please describe these difficulties.',
       },
     },
     requiresAdditionalSupport: {
-      question: 'Needs additional support?',
+      question: 'Is additional support required?',
       addSupportDetail: {
-        question: 'Details',
+        question: 'Please describe the type of support.',
       },
     },
   }
@@ -63,7 +82,19 @@ export default class LearningDifficulties implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response = {
+      [this.questions.hasLearningNeeds.question]: sentenceCase(this.body.hasLearningNeeds),
+      [this.questions.hasLearningNeeds.needsDetail.question]: this.body.needsDetail,
+
+      [this.questions.isVulnerable.question]: sentenceCase(this.body.isVulnerable),
+      [this.questions.isVulnerable.vulnerabilityDetail.question]: this.body.vulnerabilityDetail,
+
+      [this.questions.hasDifficultyInteracting.question]: sentenceCase(this.body.hasDifficultyInteracting),
+      [this.questions.hasDifficultyInteracting.interactionDetail.question]: this.body.interactionDetail,
+
+      [this.questions.requiresAdditionalSupport.question]: sentenceCase(this.body.requiresAdditionalSupport),
+      [this.questions.requiresAdditionalSupport.addSupportDetail.question]: this.body.addSupportDetail,
+    }
 
     return response
   }
