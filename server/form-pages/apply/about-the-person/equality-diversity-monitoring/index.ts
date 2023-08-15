@@ -12,6 +12,7 @@ import AsianBackground from './asianBackground'
 import BlackBackground from './blackBackground'
 import OtherBackground from './otherBackground'
 import Religion from './religion'
+import MilitaryVeteran from './militaryVeteran'
 
 @Task({
   name: 'Complete equality and diversity monitoring',
@@ -28,6 +29,7 @@ import Religion from './religion'
     BlackBackground,
     OtherBackground,
     Religion,
+    MilitaryVeteran,
   ],
 })
 export default class EqualityAndDiversityMonitoring {}

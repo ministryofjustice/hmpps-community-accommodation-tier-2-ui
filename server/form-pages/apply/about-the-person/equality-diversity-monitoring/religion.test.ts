@@ -13,7 +13,7 @@ describe('Religion', () => {
     })
   })
 
-  itShouldHaveNextValue(new Religion({}, application), '')
+  itShouldHaveNextValue(new Religion({}, application), 'military-veteran')
   itShouldHavePreviousValue(new Religion({}, application), 'ethnic-group')
 
   describe('response', () => {

@@ -61,7 +61,7 @@ export default class Religion implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'military-veteran'
   }
 
   errors() {
