@@ -3,8 +3,131 @@
 
 {% block questions %}
 
-  <p class="govuk-body">
-    Communication and language needs page
-  </p>
+  {% set communicationFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'communicationDetail',
+          label: {
+            text: page.questions.hasCommunicationNeeds.communicationDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set interpretationFollowUp %}
+  {{
+      formPageInput(
+        {
+          fieldName: 'interpretationDetail',
+          label: {
+            text: page.questions.requiresInterpreter.interpretationDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set supportFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'supportDetail',
+          label: {
+            text: page.questions.hasSupportNeeds.supportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasCommunicationNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasCommunicationNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: communicationFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+  {{
+    formPageRadios(
+      {
+        fieldName: "requiresInterpreter",
+        fieldset: {
+          legend: {
+            text: page.questions.requiresInterpreter.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: interpretationFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasSupportNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasSupportNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: supportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 
 {% endblock %}
