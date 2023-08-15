@@ -12,6 +12,33 @@ type LearningDifficultiesBody = Record<string, never>
 export default class LearningDifficulties implements TaskListPage {
   title = `Learning difficulties and neurodiversity for ${this.application.person.name}`
 
+  questions = {
+    hasLearningNeeds: {
+      question: 'Has learning needs?',
+      needsDetail: {
+        question: 'Details',
+      },
+    },
+    isVulnerable: {
+      question: 'Is vulnerable?',
+      vulnerabilityDetail: {
+        question: 'Details',
+      },
+    },
+    hasDifficultyInteracting: {
+      question: 'Has difficulty interacting?',
+      interactionDetail: {
+        question: 'Details',
+      },
+    },
+    requiresAdditionalSupport: {
+      question: 'Needs additional support?',
+      addSupportDetail: {
+        question: 'Details',
+      },
+    },
+  }
+
   body: LearningDifficultiesBody
 
   constructor(
