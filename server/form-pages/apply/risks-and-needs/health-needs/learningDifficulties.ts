@@ -78,6 +78,22 @@ export default class LearningDifficulties implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasLearningNeeds) {
+      errors.hasLearningNeeds = `Confirm whether they have additional needs`
+    }
+
+    if (!this.body.isVulnerable) {
+      errors.isVulnerable = `Confirm whether they are vulnerable`
+    }
+
+    if (!this.body.hasDifficultyInteracting) {
+      errors.hasDifficultyInteracting = `Confirm whether they have difficulties interacting`
+    }
+
+    if (!this.body.requiresAdditionalSupport) {
+      errors.requiresAdditionalSupport = `Confirm whether additional support is required`
+    }
+
     return errors
   }
 
