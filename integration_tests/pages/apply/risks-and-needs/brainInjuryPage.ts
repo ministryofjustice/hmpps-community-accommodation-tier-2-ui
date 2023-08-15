@@ -8,6 +8,7 @@ export default class BrainInjuryPage extends ApplyPage {
     super(`Brain injury needs for ${application.person.name}`, application, 'health-needs', 'brain-injury')
 
     pageIsActiveInNavigation('Brain injury')
+    this.pageHasBrainInjuryGuidance()
   }
 
   static visit(application: Application): void {
@@ -18,6 +19,10 @@ export default class BrainInjuryPage extends ApplyPage {
         page: 'brain-injury',
       }),
     )
+  }
+
+  pageHasBrainInjuryGuidance = (): void => {
+    cy.get('.guidance').contains('This could be as a result of accident')
   }
 
   describeInjuryAndNeeds = (): void => {
