@@ -1,13 +1,28 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
+import { sentenceCase } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type OtherHealthBody = Record<string, never>
+type OtherHealthBody = {
+  hasLongTermHealthCondition: YesOrNo
+  healthConditionDetail: string
+  hasHadStroke: YesOrNo
+  hasSeizures: YesOrNo
+  seizuresDetail: string
+  beingTreatedForCancer: YesOrNo
+}
 
 @Page({
   name: 'other-health',
-  bodyProperties: [],
+  bodyProperties: [
+    'hasLongTermHealthCondition',
+    'healthConditionDetail',
+    'hasHadStroke',
+    'hasSeizures',
+    'seizuresDetail',
+    'beingTreatedForCancer',
+  ],
 })
 export default class OtherHealth implements TaskListPage {
   title = `Other health needs for ${this.application.person.name}`
@@ -58,7 +73,16 @@ export default class OtherHealth implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response = {
+      [this.questions.hasLongTermHealthCondition.question]: sentenceCase(this.body.hasLongTermHealthCondition),
+      [this.questions.hasLongTermHealthCondition.healthConditionDetail.question]: this.body.healthConditionDetail,
+      [this.questions.hasLongTermHealthCondition.hasHadStroke.question]: sentenceCase(this.body.hasHadStroke),
+
+      [this.questions.hasSeizures.question]: sentenceCase(this.body.hasSeizures),
+      [this.questions.hasSeizures.seizuresDetail.question]: this.body.seizuresDetail,
+
+      [this.questions.beingTreatedForCancer.question]: sentenceCase(this.body.beingTreatedForCancer),
+    }
 
     return response
   }

@@ -47,10 +47,27 @@ describe('OtherHealth', () => {
   itShouldHavePreviousValue(new OtherHealth({}, application), 'brain-injury')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new OtherHealth({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new OtherHealth(
+        {
+          hasLongTermHealthCondition: 'yes',
+          healthConditionDetail: 'Chronic arthritis',
+          hasHadStroke: 'no',
+          hasSeizures: 'yes',
+          seizuresDetail: 'Epilepsy. Controlled by anti-epilepsy meds',
+          beingTreatedForCancer: 'no',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'Are they managing any long term health conditions?': 'Yes',
+        'Please describe the long term health conditions.': 'Chronic arthritis',
+        'Have they experienced a stroke?': 'No',
+        'Do they experience seizures?': 'Yes',
+        'Please describe the type and any treatment.': 'Epilepsy. Controlled by anti-epilepsy meds',
+        'Are they currently receiving regular treatment for cancer?': 'No',
+      })
     })
   })
 
