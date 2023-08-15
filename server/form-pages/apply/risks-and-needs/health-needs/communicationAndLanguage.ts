@@ -71,13 +71,22 @@ export default class CommunicationAndLanguage implements TaskListPage {
     if (!this.body.hasCommunicationNeeds) {
       errors.hasCommunicationNeeds = `Confirm whether they have additional communication needs`
     }
+    if (this.body.hasCommunicationNeeds === 'yes' && !this.body.communicationDetail) {
+      errors.communicationDetail = 'Provide details of their additional needs'
+    }
 
     if (!this.body.requiresInterpreter) {
       errors.requiresInterpreter = `Confirm whether they need an interpreter`
     }
+    if (this.body.requiresInterpreter === 'yes' && !this.body.interpretationDetail) {
+      errors.interpretationDetail = 'Specify the language needing interpretation'
+    }
 
     if (!this.body.hasSupportNeeds) {
       errors.hasSupportNeeds = `Confirm they they need support`
+    }
+    if (this.body.hasSupportNeeds === 'yes' && !this.body.supportDetail) {
+      errors.supportDetail = 'Provide details of the support needed'
     }
 
     return errors

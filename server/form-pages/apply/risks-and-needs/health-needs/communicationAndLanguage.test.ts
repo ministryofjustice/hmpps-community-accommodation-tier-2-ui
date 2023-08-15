@@ -93,5 +93,35 @@ describe('CommunicationAndLanguage', () => {
         expect(page.errors()).toHaveProperty('hasSupportNeeds', 'Confirm they they need support')
       })
     })
+
+    describe('when _hasCommunicationNeeds_ is YES', () => {
+      const page = new CommunicationAndLanguage({ hasCommunicationNeeds: 'yes' }, application)
+
+      describe('and _communicationDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _communicationDetail_', () => {
+          expect(page.errors()).toHaveProperty('communicationDetail', 'Provide details of their additional needs')
+        })
+      })
+    })
+
+    describe('when _requiresInterpreter_ is YES', () => {
+      const page = new CommunicationAndLanguage({ requiresInterpreter: 'yes' }, application)
+
+      describe('and _interpretationDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _interpretationDetail_', () => {
+          expect(page.errors()).toHaveProperty('interpretationDetail', 'Specify the language needing interpretation')
+        })
+      })
+    })
+
+    describe('when _hasSupportNeeds_ is YES', () => {
+      const page = new CommunicationAndLanguage({ hasSupportNeeds: 'yes' }, application)
+
+      describe('and _supportDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _supportDetail_', () => {
+          expect(page.errors()).toHaveProperty('supportDetail', 'Provide details of the support needed')
+        })
+      })
+    })
   })
 })
