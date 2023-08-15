@@ -111,5 +111,45 @@ describe('BrainInjury', () => {
         )
       })
     })
+
+    describe('when _hasBrainInjury_ is YES', () => {
+      const page = new BrainInjury({ hasBrainInjury: 'yes' }, application)
+
+      describe('and _injuryDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _injuryDetail_', () => {
+          expect(page.errors()).toHaveProperty('injuryDetail', 'Describe their injury and needs')
+        })
+      })
+    })
+
+    describe('when _isVulnerable_ is YES', () => {
+      const page = new BrainInjury({ isVulnerable: 'yes' }, application)
+
+      describe('and _vulnerabilityDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _vulnerabilityDetail_', () => {
+          expect(page.errors()).toHaveProperty('vulnerabilityDetail', 'Describe their level of vulnerability')
+        })
+      })
+    })
+
+    describe('when _hasDifficultyInteracting_ is YES', () => {
+      const page = new BrainInjury({ hasDifficultyInteracting: 'yes' }, application)
+
+      describe('and _interactionDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _interactionDetail_', () => {
+          expect(page.errors()).toHaveProperty('interactionDetail', 'Describe their difficulties interacting')
+        })
+      })
+    })
+
+    describe('when _requiresAdditionalSupport_ is YES', () => {
+      const page = new BrainInjury({ requiresAdditionalSupport: 'yes' }, application)
+
+      describe('and _addSupportDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _addSupportDetail_', () => {
+          expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe their additional needs')
+        })
+      })
+    })
   })
 })
