@@ -57,10 +57,31 @@ describe('BrainInjury', () => {
   itShouldHavePreviousValue(new BrainInjury({}, application), 'learning-difficulties')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new BrainInjury({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new BrainInjury(
+        {
+          hasBrainInjury: 'yes',
+          injuryDetail: 'Has frontal lobe damage',
+          isVulnerable: 'yes',
+          vulnerabilityDetail: 'Moderate: can put themselves in danger',
+          hasDifficultyInteracting: 'yes',
+          interactionDetail: 'Can misunderstand situations',
+          requiresAdditionalSupport: 'yes',
+          addSupportDetail: 'Regular support is needed',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'Do they have a brain injury?': 'Yes',
+        'Please describe their brain injury and needs.': 'Has frontal lobe damage',
+        'Are they vulnerable as a result of this injury?': 'Yes',
+        'Please describe their level of vulnerability.': 'Moderate: can put themselves in danger',
+        'Do they have difficulties interacting with other people as a result of this injury?': 'Yes',
+        'Please describe these difficulties.': 'Can misunderstand situations',
+        'Is additional support required?': 'Yes',
+        'Please describe the type of support.': 'Regular support is needed',
+      })
     })
   })
 

@@ -1,40 +1,59 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
+import { sentenceCase } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type BrainInjuryBody = Record<string, never>
+type BrainInjuryBody = {
+  hasBrainInjury: YesOrNo
+  injuryDetail: string
+  isVulnerable: YesOrNo
+  vulnerabilityDetail: string
+  hasDifficultyInteracting: YesOrNo
+  interactionDetail: string
+  requiresAdditionalSupport: YesOrNo
+  addSupportDetail: string
+}
 
 @Page({
   name: 'brain-injury',
-  bodyProperties: [],
+  bodyProperties: [
+    'hasBrainInjury',
+    'injuryDetail',
+    'isVulnerable',
+    'vulnerabilityDetail',
+    'hasDifficultyInteracting',
+    'interactionDetail',
+    'requiresAdditionalSupport',
+    'addSupportDetail',
+  ],
 })
 export default class BrainInjury implements TaskListPage {
   title = `Brain injury needs for ${this.application.person.name}`
 
   questions = {
     hasBrainInjury: {
-      question: 'Has brain injury?',
+      question: 'Do they have a brain injury?',
       injuryDetail: {
-        question: 'Details',
+        question: 'Please describe their brain injury and needs.',
       },
     },
     isVulnerable: {
-      question: 'Is vulnerable?',
+      question: 'Are they vulnerable as a result of this injury?',
       vulnerabilityDetail: {
-        question: 'Details',
+        question: 'Please describe their level of vulnerability.',
       },
     },
     hasDifficultyInteracting: {
-      question: 'Has difficulty interacting?',
+      question: 'Do they have difficulties interacting with other people as a result of this injury?',
       interactionDetail: {
-        question: 'Details',
+        question: 'Please describe these difficulties.',
       },
     },
     requiresAdditionalSupport: {
-      question: 'Needs additional support?',
+      question: 'Is additional support required?',
       addSupportDetail: {
-        question: 'Details',
+        question: 'Please describe the type of support.',
       },
     },
   }
@@ -63,7 +82,19 @@ export default class BrainInjury implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response = {
+      [this.questions.hasBrainInjury.question]: sentenceCase(this.body.hasBrainInjury),
+      [this.questions.hasBrainInjury.injuryDetail.question]: this.body.injuryDetail,
+
+      [this.questions.isVulnerable.question]: sentenceCase(this.body.isVulnerable),
+      [this.questions.isVulnerable.vulnerabilityDetail.question]: this.body.vulnerabilityDetail,
+
+      [this.questions.hasDifficultyInteracting.question]: sentenceCase(this.body.hasDifficultyInteracting),
+      [this.questions.hasDifficultyInteracting.interactionDetail.question]: this.body.interactionDetail,
+
+      [this.questions.requiresAdditionalSupport.question]: sentenceCase(this.body.requiresAdditionalSupport),
+      [this.questions.requiresAdditionalSupport.addSupportDetail.question]: this.body.addSupportDetail,
+    }
 
     return response
   }
