@@ -157,12 +157,56 @@ With a constructor method to define the body of the question
 A `previous` and `next` function to determine where the user is taken after the
 questions has been answered
 
-A `response` function that is called when the question is submitted, where logic
-can be added based on the answer given.
 
 An `items` function that is called by the layout to transform the json of the
 `body` into the object shape needed by the form component.
 
+A `response` function that is called when the question is submitted, where logic
+can be added based on the answer given. See next section:
+
+#### The response()
+
+The `response()` function of each page is a critical representation of the state of
+the questions and answers of that page:
+
+- the questions are captured in the current form or 'translation' as copy may be
+  tweaked from time to time and it's important to record the precise question which
+  was posed
+
+- answers should be 'translated' as needed e.g. to show 'Any other mixed or multiple
+  ethnic background' if that was the label shown against the "other" radio value.
+
+#### Used in the application submission
+
+In CAS1 the `ApplicationController.submit()` sets the read-only finalised version
+of the application (the `document`):
+
+```ts
+application.document = getResponses(application)
+```
+
+which uses the `getResponses()` utility to collate each page's `response()`:
+
+```ts
+getResponses = (formArtifact: FormArtifact): ApplicationOrAssessmentResponse => {
+  const responses = {}
+
+  const formSections = getSections(formArtifact)
+
+  formSections.forEach(section => {
+    section.tasks.forEach(task => {
+      const responsesForTask: Array<PageResponse> = []
+
+      forPagesInTask(formArtifact, task, page => responsesForTask.push(page.response()))
+      responses[task.id] = responsesForTask
+
+    })
+
+  })
+
+  return responses
+}
+```
 
 ### Form views
 

@@ -11,8 +11,9 @@
 //  Scenario: view substance misuse questions
 //    Then I see the "substance misuse" page
 //
-//  Scenario: navigate to next page in health needs task
-//    When I continue to the next task / page
+//  Scenario: complete page and navigate to next page in health needs task
+//    When I complete the substance misuse page questions
+//    And I continue to the next task / page
 //    Then I see the "physical health" page
 
 import Page from '../../../../pages/page'
@@ -63,12 +64,16 @@ context('Visit "Substance misuse" page', () => {
     Page.verifyOnPage(SubstanceMisusePage, this.application)
   })
 
-  //  Scenario: navigate to next page in health needs task
+  //  Scenario: complete page and navigate to next page in health needs task
+  //    When I complete the substance misuse page questions
   //    When I continue to the next task / page
   //    Then I see the "physical health" page
-  it('navigates to the next page (physical health)', function test() {
+  it('navigates to the next page (physical health) when complete', function test() {
     SubstanceMisusePage.visit(this.application)
     const page = new SubstanceMisusePage(this.application)
+    page.describeIllegalSubstanceUse()
+    page.nameDrugAndAlcoholService()
+    page.provideSubstituteMedicationDetails()
     page.clickSubmit()
 
     Page.verifyOnPage(PhysicalHealthPage, this.application)

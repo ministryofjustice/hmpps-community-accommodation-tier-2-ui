@@ -1,9 +1,17 @@
 import qs, { IStringifyOptions } from 'qs'
+import Case from 'case'
 
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
 
 const isBlank = (str: string): boolean => !str || /^\s*$/.test(str)
+
+/**
+ * Converts a string from any case to Sentence case
+ * @param string string to be converted.
+ * @returns name converted to sentence case.
+ */
+export const sentenceCase = (string: string) => Case.sentence(string)
 
 /**
  * Converts a name (first name, last name, middle name, etc.) to proper case equivalent, handling double-barreled names
