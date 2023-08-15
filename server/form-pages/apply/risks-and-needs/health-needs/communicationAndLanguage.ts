@@ -68,6 +68,18 @@ export default class CommunicationAndLanguage implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasCommunicationNeeds) {
+      errors.hasCommunicationNeeds = `Confirm whether they have additional communication needs`
+    }
+
+    if (!this.body.requiresInterpreter) {
+      errors.requiresInterpreter = `Confirm whether they need an interpreter`
+    }
+
+    if (!this.body.hasSupportNeeds) {
+      errors.hasSupportNeeds = `Confirm they they need support`
+    }
+
     return errors
   }
 

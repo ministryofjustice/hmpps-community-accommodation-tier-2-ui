@@ -75,10 +75,23 @@ describe('CommunicationAndLanguage', () => {
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    describe('when top-level questions are unanswered', () => {
       const page = new CommunicationAndLanguage({}, application)
 
-      expect(page.errors()).toEqual({})
+      it('includes a validation error for _hasCommunicationNeeds_', () => {
+        expect(page.errors()).toHaveProperty(
+          'hasCommunicationNeeds',
+          'Confirm whether they have additional communication needs',
+        )
+      })
+
+      it('includes a validation error for _requiresInterpreter_', () => {
+        expect(page.errors()).toHaveProperty('requiresInterpreter', 'Confirm whether they need an interpreter')
+      })
+
+      it('includes a validation error for _hasSupportNeeds_', () => {
+        expect(page.errors()).toHaveProperty('hasSupportNeeds', 'Confirm they they need support')
+      })
     })
   })
 })
