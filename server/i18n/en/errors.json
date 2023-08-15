@@ -34,5 +34,8 @@
   },
   "hasParentalOrCarerResponsibilities": {
     "empty": "Choose either Yes, No or I don't know"
+  },
+  "maritalStatus": {
+    "empty": "Select a marital status or 'Prefer not to say'"
   }
 }
