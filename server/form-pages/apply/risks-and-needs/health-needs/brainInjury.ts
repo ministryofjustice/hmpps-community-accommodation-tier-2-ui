@@ -12,6 +12,33 @@ type BrainInjuryBody = Record<string, never>
 export default class BrainInjury implements TaskListPage {
   title = `Brain injury needs for ${this.application.person.name}`
 
+  questions = {
+    hasBrainInjury: {
+      question: 'Has brain injury?',
+      injuryDetail: {
+        question: 'Details',
+      },
+    },
+    isVulnerable: {
+      question: 'Is vulnerable?',
+      vulnerabilityDetail: {
+        question: 'Details',
+      },
+    },
+    hasDifficultyInteracting: {
+      question: 'Has difficulty interacting?',
+      interactionDetail: {
+        question: 'Details',
+      },
+    },
+    requiresAdditionalSupport: {
+      question: 'Needs additional support?',
+      addSupportDetail: {
+        question: 'Details',
+      },
+    },
+  }
+
   body: BrainInjuryBody
 
   constructor(
