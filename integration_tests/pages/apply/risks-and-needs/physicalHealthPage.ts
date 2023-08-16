@@ -19,4 +19,30 @@ export default class PhysicalHealthPage extends ApplyPage {
       }),
     )
   }
+
+  describePhysicalNeeds = (): void => {
+    this.checkRadioByNameAndValue('hasPhyHealthNeeds', 'yes')
+    this.getTextInputByIdAndEnterDetails('needsDetail', 'Has mobility problems')
+    this.checkRadioByNameAndValue('canClimbStairs', 'yes')
+  }
+
+  describeTreatment = (): void => {
+    this.checkRadioByNameAndValue('isReceivingTreatment', 'yes')
+    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'Having physiotherapy')
+  }
+
+  describeMedication = (): void => {
+    this.checkRadioByNameAndValue('hasPhyHealthMedication', 'yes')
+    this.getTextInputByIdAndEnterDetails('medicationDetail', 'Is taking anti-inflammatories')
+  }
+
+  provideIndependentLivingInfo = (): void => {
+    this.checkRadioByNameAndValue('canLiveIndependently', 'no')
+    this.getTextInputByIdAndEnterDetails('indyLivingDetail', 'Needs help with bathing')
+  }
+
+  describeAdditionalSupportNeeded = (): void => {
+    this.checkRadioByNameAndValue('requiresAdditionalSupport', 'yes')
+    this.getTextInputByIdAndEnterDetails('addSupportDetail', 'Needs support with cooking and nutrition')
+  }
 }

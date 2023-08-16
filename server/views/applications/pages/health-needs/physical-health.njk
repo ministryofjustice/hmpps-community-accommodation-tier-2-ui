@@ -2,9 +2,243 @@
 {% set pageName = "physical-health" %}
 
 {% block questions %}
+  {% set phyHealthNeedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsDetail',
+          label: {
+            text: page.questions.hasPhyHealthNeeds.needsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+      formPageRadios(
+        {
+          fieldName: 'canClimbStairs',
+          fieldset: {
+            legend: {
+              text: page.questions.hasPhyHealthNeeds.canClimbStairs.question,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
 
-  <p class="govuk-body">
-    Physical health page
-  </p>
+  {% set receivingTreatmentFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'treatmentDetail',
+          label: {
+            text: page.questions.isReceivingTreatment.treatmentDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set medicationFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'medicationDetail',
+          label: {
+            text: page.questions.hasPhyHealthMedication.medicationDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set indyLivingFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'indyLivingDetail',
+          label: {
+            text: page.questions.canLiveIndependently.indyLivingDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set addSupportFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'addSupportDetail',
+          label: {
+            text: page.questions.requiresAdditionalSupport.addSupportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasPhyHealthNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasPhyHealthNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: phyHealthNeedsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isReceivingTreatment",
+        fieldset: {
+          legend: {
+            text: page.questions.isReceivingTreatment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: receivingTreatmentFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasPhyHealthMedication",
+        fieldset: {
+          legend: {
+            text: page.questions.hasPhyHealthMedication.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: medicationFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "canLiveIndependently",
+        fieldset: {
+          legend: {
+            text: page.questions.canLiveIndependently.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No",
+          conditional: {
+            html: indyLivingFollowUp
+          }
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "requiresAdditionalSupport",
+        fieldset: {
+          legend: {
+            text: page.questions.requiresAdditionalSupport.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: addSupportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 
 {% endblock %}

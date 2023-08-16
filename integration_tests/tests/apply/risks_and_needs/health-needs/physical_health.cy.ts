@@ -11,8 +11,9 @@
 //  Scenario: view physical health questions
 //    Then I see the "physical health" page
 //
-//  Scenario: navigate to next page in health needs task
-//    When I continue to the next task / page
+//  Scenario: complete page and navigate to next page in health needs task
+//    When I complete the physical health page questions
+//    And I continue to the next task / page
 //    Then I see the "mental health" page
 
 import Page from '../../../../pages/page'
@@ -60,12 +61,20 @@ context('Visit "Physical health" page', () => {
     Page.verifyOnPage(PhysicalHealthPage, this.application)
   })
 
-  //  Scenario: navigate to next page in health needs task
-  //    When I continue to the next task / page
+  //  Scenario: complete page and navigate to next page in health needs task
+  //    When I complete the physical health page questions
+  //    And I continue to the next task / page
   //    Then I see the "mental health" page
   it('navigates to the next page (mental health)', function test() {
     PhysicalHealthPage.visit(this.application)
     const page = new PhysicalHealthPage(this.application)
+
+    page.describePhysicalNeeds()
+    page.describeTreatment()
+    page.describeMedication()
+    page.provideIndependentLivingInfo()
+    page.describeAdditionalSupportNeeded()
+
     page.clickSubmit()
 
     Page.verifyOnPage(MentalHealthPage, this.application)
