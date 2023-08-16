@@ -13,6 +13,7 @@ export default class LearningDifficultiesPage extends ApplyPage {
     )
 
     pageIsActiveInNavigation('Learning difficulties')
+    this.pageHasNeurodiversityGuidance()
   }
 
   static visit(application: Application): void {
@@ -23,5 +24,30 @@ export default class LearningDifficultiesPage extends ApplyPage {
         page: 'learning-difficulties',
       }),
     )
+  }
+
+  pageHasNeurodiversityGuidance = (): void => {
+    cy.get('.guidance').contains('Neurodiversity covers Autism,')
+    cy.get('.guidance').contains('This can overlap with learning difficulties')
+  }
+
+  describeAdditionalNeeds = (): void => {
+    this.checkRadioByNameAndValue('hasLearningNeeds', 'yes')
+    this.getTextInputByIdAndEnterDetails('needsDetail', 'Has ADHD')
+  }
+
+  describeVulnerability = (): void => {
+    this.checkRadioByNameAndValue('isVulnerable', 'yes')
+    this.getTextInputByIdAndEnterDetails('vulnerabilityDetail', 'Medium: is prone to risky behaviour')
+  }
+
+  describeDifficultiesInteracting = (): void => {
+    this.checkRadioByNameAndValue('hasDifficultyInteracting', 'yes')
+    this.getTextInputByIdAndEnterDetails('interactionDetail', 'Can be withdrawn')
+  }
+
+  describeAdditionalSupportNeeded = (): void => {
+    this.checkRadioByNameAndValue('requiresAdditionalSupport', 'yes')
+    this.getTextInputByIdAndEnterDetails('addSupportDetail', 'Requires daily support')
   }
 }

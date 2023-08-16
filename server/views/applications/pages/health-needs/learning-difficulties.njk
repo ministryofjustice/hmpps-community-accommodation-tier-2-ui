@@ -3,8 +3,183 @@
 
 {% block questions %}
 
-  <p class="govuk-body">
-    Learning difficulties page
+  {% set learningNeedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsDetail',
+          label: {
+            text: page.questions.hasLearningNeeds.needsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set vulnerabilityFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'vulnerabilityDetail',
+          label: {
+            text: page.questions.isVulnerable.vulnerabilityDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set interactionFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'interactionDetail',
+          label: {
+            text: page.questions.hasDifficultyInteracting.interactionDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set addSupportFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'addSupportDetail',
+          label: {
+            text: page.questions.requiresAdditionalSupport.addSupportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  <p class="govuk-body guidance">
+    Neurodiversity covers Autism, ADHD, ADD, Dyslexia, Dyscalculia and Dyspraxia.
   </p>
 
+  <p class="govuk-body guidance">
+    This can overlap with learning difficulties. For example, they might find it hard to understand or remember information, or have persistent problems with reading, writing or maths.
+  </p>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasLearningNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasLearningNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: learningNeedsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isVulnerable",
+        fieldset: {
+          legend: {
+            text: page.questions.isVulnerable.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: vulnerabilityFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasDifficultyInteracting",
+        fieldset: {
+          legend: {
+            text: page.questions.hasDifficultyInteracting.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: interactionFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "requiresAdditionalSupport",
+        fieldset: {
+          legend: {
+            text: page.questions.requiresAdditionalSupport.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: addSupportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 {% endblock %}
