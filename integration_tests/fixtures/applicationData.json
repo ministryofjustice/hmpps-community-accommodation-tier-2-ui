@@ -32,5 +32,73 @@
     "religion": {
       "religion": "atheist"
     }
+  },
+  "health-needs": {
+    "guidance": {},
+    "substance-misuse": {
+      "usesIllegalSubstances": "no",
+      "substanceMisuseHistory": "",
+      "substanceMisuseDetail": "",
+      "engagedWithDrugAndAlcoholService": "no",
+      "drugAndAlcoholServiceDetail": "",
+      "requiresSubstituteMedication": "no",
+      "substituteMedicationDetail": ""
+    },
+    "physical-health": {
+      "hasPhyHealthNeeds": "no",
+      "needsDetail": "",
+      "isReceivingTreatment": "no",
+      "treatmentDetail": "",
+      "hasPhyHealthMedication": "no",
+      "medicationDetail": "",
+      "canLiveIndependently": "yes",
+      "indyLivingDetail": "",
+      "requiresAdditionalSupport": "no",
+      "addSupportDetail": ""
+    },
+    "mental-health": {
+      "hasMentalHealthNeeds": "no",
+      "needsDetail": "",
+      "isEngagedWithCommunity": "no",
+      "servicesDetail": "",
+      "hasPrescribedMedication": "no",
+      "medicationDetail": "",
+      "medicationIssues": ""
+    },
+    "communication-and-language": {
+      "hasCommunicationNeeds": "no",
+      "communicationDetail": "",
+      "requiresInterpreter": "no",
+      "interpretationDetail": "",
+      "hasSupportNeeds": "no",
+      "supportDetail": ""
+    },
+    "learning-difficulties": {
+      "hasLearningNeeds": "no",
+      "needsDetail": "",
+      "isVulnerable": "no",
+      "vulnerabilityDetail": "",
+      "hasDifficultyInteracting": "no",
+      "interactionDetail": "",
+      "requiresAdditionalSupport": "no",
+      "addSupportDetail": ""
+    },
+    "brain-injury": {
+      "hasBrainInjury": "no",
+      "injuryDetail": "",
+      "isVulnerable": "no",
+      "vulnerabilityDetail": "",
+      "hasDifficultyInteracting": "no",
+      "interactionDetail": "",
+      "requiresAdditionalSupport": "no",
+      "addSupportDetail": ""
+    },
+    "other-health": {
+      "hasLongTermHealthCondition": "no",
+      "healthConditionDetail": "",
+      "hasSeizures": "no",
+      "seizuresDetail": "",
+      "beingTreatedForCancer": "no"
+    }
   }
 }

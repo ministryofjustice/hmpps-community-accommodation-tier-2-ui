@@ -11,9 +11,11 @@
 //  Scenario: view other health questions
 //    Then I see the "other health" page
 //
-//  Scenario: navigate to next page in health needs task
-//    When I continue to the next task / page
+//  Scenario: complete page and navigate to next page in health needs task
+//    When I complete the other health page
+//    And I continue to the next task / page
 //    Then I am returned to the task list
+//    And I see that the health needs task is complete
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
@@ -60,14 +62,33 @@ context('Visit "other health" page', () => {
     Page.verifyOnPage(OtherHealthPage, this.application)
   })
 
-  //  Scenario: navigate to next page in health needs task
-  //    When I continue to the next task / page
+  //  Scenario: complete page and navigate to next page in health needs task
+  //    When I complete the other health page
+  //    And I continue to the next task / page
   //    Then I am returned to the task list
+  //    And I see that the health needs task is complete
   it('navigates to the next page (back to task list)', function test() {
+    // So that the status of the task will be complete we set application.data
+    // to the full set
+    cy.fixture('applicationData.json').then(applicationData => {
+      const answered = {
+        ...this.application,
+        data: applicationData,
+      }
+      cy.task('stubApplicationGet', { application: answered })
+    })
+
     OtherHealthPage.visit(this.application)
     const page = new OtherHealthPage(this.application)
+
+    page.describeLongTermHealthConditions()
+    page.describeSeizures()
+    page.confirmCancerTreatment()
+
     page.clickSubmit()
 
-    Page.verifyOnPage(TaskListPage, this.application)
+    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
+
+    taskListPage.shouldShowTaskStatus('health-needs', 'Completed')
   })
 })
