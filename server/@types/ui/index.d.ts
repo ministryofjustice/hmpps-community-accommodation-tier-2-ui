@@ -29,6 +29,8 @@ export type YesOrNo = 'yes' | 'no'
 
 export type YesOrNoOrPreferNotToSay = 'yes' | 'no' | 'preferNotToSay'
 
+export type YesNoOrIDK = YesOrNo | 'iDontKnow'
+
 export type YesOrNoWithDetail<T extends string> = {
   [K in T]: YesOrNo
 } & {
