@@ -40,6 +40,9 @@
     },
     "parental-carer-responsibilities": {
       "hasParentalOrCarerResponsibilities": "yes"
+    },
+    "marital-status": {
+      "maritalStatus": "widowed"
     }
   }
 }

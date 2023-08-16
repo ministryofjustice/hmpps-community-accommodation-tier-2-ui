@@ -25,7 +25,7 @@ describe('CarerResponsibilities', () => {
 
   itShouldHaveNextValue(
     new ParentalCarerResponsibilities({ hasParentalOrCarerResponsibilities: 'yes' }, application),
-    '',
+    'marital-status',
   )
   itShouldHavePreviousValue(
     new ParentalCarerResponsibilities({ hasParentalOrCarerResponsibilities: 'yes' }, application),

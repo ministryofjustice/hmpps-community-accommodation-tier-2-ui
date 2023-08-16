@@ -6,12 +6,12 @@
 //  Scenario: submits a valid answer to parental or carer responsibilities page
 //    Given I'm on the 'parental or carer responsibilities' question page
 //    When I give a valid answer
-//    Then I am taken to the task list page (temporarily)
+//    Then I am taken to the marital status page
 
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import ParentalCarerResponsibilitiesPage from '../../../../pages/apply/about_the_person/equality_and_diversity/parentalCarerResponsibilitiesPage'
 import Page from '../../../../pages/page'
-import TaskListPage from '../../../../pages/apply/taskListPage'
+import MaritalStatusPage from '../../../../pages/apply/about_the_person/equality_and_diversity/maritalStatusPage'
 
 context('Visit "About the person" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -58,7 +58,7 @@ context('Visit "About the person" section', () => {
 
     page.clickSubmit()
 
-    // I am taken to the task list page (temporarily)
-    Page.verifyOnPage(TaskListPage, this.application)
+    // I am taken to the marital status page
+    Page.verifyOnPage(MaritalStatusPage, this.application)
   })
 })

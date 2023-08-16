@@ -38,7 +38,7 @@ export default class ParentalCarerResponsibilities implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'marital-status'
   }
 
   errors() {

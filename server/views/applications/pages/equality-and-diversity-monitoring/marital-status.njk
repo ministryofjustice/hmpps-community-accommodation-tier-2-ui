@@ -1,0 +1,23 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <span class="govuk-caption-l">{{ page.title }}</span>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "maritalStatus",
+        fieldset: {
+          legend: {
+            text: page.questions.maritalStatus,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
