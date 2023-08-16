@@ -19,4 +19,21 @@ export default class MentalHealthPage extends ApplyPage {
       }),
     )
   }
+
+  describeNeeds = (): void => {
+    this.checkRadioByNameAndValue('hasMentalHealthNeeds', 'yes')
+    this.getTextInputByIdAndEnterDetails('needsDetail', 'Has depression')
+  }
+
+  describeEngagement = (): void => {
+    this.checkRadioByNameAndValue('isEngagedWithCommunity', 'yes')
+    this.getTextInputByIdAndEnterDetails('servicesDetail', 'Attend the The Well Clinic')
+  }
+
+  describeMedication = (): void => {
+    this.checkRadioByNameAndValue('hasPrescribedMedication', 'yes')
+    this.checkRadioByNameAndValue('isInPossessionOfMeds', 'no')
+    this.getTextInputByIdAndEnterDetails('medicationDetail', 'Amitriptyline')
+    this.getTextInputByIdAndEnterDetails('medicationIssues', 'Sometimes fails to take pills')
+  }
 }
