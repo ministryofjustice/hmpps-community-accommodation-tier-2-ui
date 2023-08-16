@@ -11,8 +11,9 @@
 //  Scenario: view communication and language questions
 //    Then I see the "communication and language" page
 //
-//  Scenario: navigate to next page in health needs task
-//    When I continue to the next task / page
+//  Scenario: complete page and navigate to next page in health needs task
+//    When I complete the communication and language page
+//    And I continue to the next task / page
 //    Then I see the "learning difficulties" page
 
 import Page from '../../../../pages/page'
@@ -60,12 +61,18 @@ context('Visit "communication and language" page', () => {
     Page.verifyOnPage(CommunicationAndLanguage, this.application)
   })
 
-  //  Scenario: navigate to next page in health needs task
-  //    When I continue to the next task / page
+  //  Scenario: complete page and navigate to next page in health needs task
+  //    When I complete the communication and language page
+  //    And I continue to the next task / page
   //    Then I see the "learning difficulties" page
   it('navigates to the next page (learning difficulties)', function test() {
     CommunicationAndLanguage.visit(this.application)
     const page = new CommunicationAndLanguage(this.application)
+
+    page.describeAdditionalNeeds()
+    page.specifyInterpretationNeeds()
+    page.describeSupportNeeded()
+
     page.clickSubmit()
 
     Page.verifyOnPage(LearningDifficultiesPage, this.application)
