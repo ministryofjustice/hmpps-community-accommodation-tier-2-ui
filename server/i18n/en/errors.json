@@ -25,5 +25,8 @@
   },
   "religion": {
     "empty": "Select a religion or 'Prefer not to say'"
+  },
+  "isVeteran": {
+    "empty": "Choose either Yes, No or I don't know"
   }
 }
