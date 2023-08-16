@@ -11,8 +11,9 @@
 //  Scenario: view brain injury questions
 //    Then I see the "brain injury" page
 //
-//  Scenario: navigate to next page in health needs task
-//    When I continue to the next task / page
+//  Scenario: complete page and navigate to next page in health needs task
+//    When I complete the brain injury page
+//    And I continue to the next task / page
 //    Then I see the "other health" page
 
 import Page from '../../../../pages/page'
@@ -60,12 +61,19 @@ context('Visit "brain injury" page', () => {
     Page.verifyOnPage(BrainInjuryPage, this.application)
   })
 
-  //  Scenario: navigate to next page in health needs task
-  //    When I continue to the next task / page
+  //  Scenario: complete page and navigate to next page in health needs task
+  //    When I complete the brain injury page
+  //    And I continue to the next task / page
   //    Then I see the "other health" page
   it('navigates to the next page (other health)', function test() {
     BrainInjuryPage.visit(this.application)
     const page = new BrainInjuryPage(this.application)
+
+    page.describeInjuryAndNeeds()
+    page.describeVulnerability()
+    page.describeDifficultiesInteracting()
+    page.describeAdditionalSupportNeeded()
+
     page.clickSubmit()
 
     Page.verifyOnPage(OtherHealthPage, this.application)
