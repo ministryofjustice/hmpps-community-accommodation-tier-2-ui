@@ -132,7 +132,7 @@ describe('MentalHealth', () => {
 
       describe('and _medicationDetail_ is UNANSWERED', () => {
         it('includes a validation error for _medicationDetail_', () => {
-          expect(page.errors()).toHaveProperty('medicationDetail', 'List their medication')
+          expect(page.errors()).toHaveProperty('medicationDetail', 'List their mental health medication')
         })
       })
 
