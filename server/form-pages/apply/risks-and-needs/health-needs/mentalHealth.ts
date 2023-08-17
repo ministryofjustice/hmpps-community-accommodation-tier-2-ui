@@ -103,7 +103,7 @@ export default class MentalHealth implements TaskListPage {
       }
 
       if (!this.body.medicationDetail) {
-        errors.medicationDetail = 'List their medication'
+        errors.medicationDetail = 'List their mental health medication'
       }
     }
 
