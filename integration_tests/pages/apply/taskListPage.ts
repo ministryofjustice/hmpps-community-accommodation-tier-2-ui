@@ -1,9 +1,17 @@
 import Page from '../page'
 import Apply from '../../../server/form-pages/apply'
+import paths from '../../../server/paths/apply'
+import { Cas2Application } from '../../../server/@types/shared/models/Cas2Application'
 
 export default class TaskListPage extends Page {
   constructor() {
     super('CAS 2: Refer for Accommodation')
+  }
+
+  static visit(application: Cas2Application): TaskListPage {
+    cy.visit(paths.applications.show({ id: application.id }))
+
+    return new TaskListPage()
   }
 
   shouldShowTasksWithinTheirSections = (): void => {

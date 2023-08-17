@@ -1,4 +1,4 @@
-import type { Cas2Application as Application } from '@approved-premises/api'
+import type { Cas2Application as Application, Cas2Application } from '@approved-premises/api'
 import { stubFor } from '../../wiremock'
 
 export default {
@@ -59,6 +59,17 @@ export default {
         }
         `,
         transformers: ['response-template'],
+      },
+    }),
+  stubApplicationSubmit: (args: { application: Cas2Application }) =>
+    stubFor({
+      request: {
+        method: 'POST',
+        url: `/applications/${args.application.id}/submission`,
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     }),
 }
