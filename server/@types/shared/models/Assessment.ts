@@ -6,6 +6,7 @@
 import type { AnyValue } from './AnyValue';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { ClarificationNote } from './ClarificationNote';
+import type { ReferralHistoryNote } from './ReferralHistoryNote';
 
 export type Assessment = {
     service: string;
@@ -19,5 +20,6 @@ export type Assessment = {
     rejectionRationale?: string;
     data?: AnyValue;
     clarificationNotes: Array<ClarificationNote>;
+    referralHistoryNotes?: Array<ReferralHistoryNote>;
 };
 
