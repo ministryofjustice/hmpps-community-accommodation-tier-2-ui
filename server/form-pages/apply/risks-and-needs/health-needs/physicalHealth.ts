@@ -50,19 +50,19 @@ export default class PhysicalHealth implements TaskListPage {
     isReceivingTreatment: {
       question: 'Are they currently receiving any medical treatment for their physical health needs?',
       treatmentDetail: {
-        question: 'Please describe their treatment.',
+        question: 'Describe the treatment they receive for physical health needs',
       },
     },
     hasPhyHealthMedication: {
       question: 'Are they currently receiving any medication for their physical health needs?',
       medicationDetail: {
-        question: 'Please describe their medication.',
+        question: 'Describe the medication they receive for physical health needs',
       },
     },
     canLiveIndependently: {
       question: 'Can they live independently?',
       indyLivingDetail: {
-        question: "Please describe why they can't.",
+        question: 'Describe why they are unable to live independently',
       },
     },
     requiresAdditionalSupport: {
