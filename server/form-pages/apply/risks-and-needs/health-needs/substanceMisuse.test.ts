@@ -20,10 +20,8 @@ describe('SubstanceMisuse', () => {
       it('has a question', () => {
         expect(page.questions.usesIllegalSubstances.question).toBeDefined()
       })
-      it('has two follow-up questions, one with a hint', () => {
+      it('has two follow-up questions', () => {
         expect(page.questions.usesIllegalSubstances.substanceMisuseHistory.question).toBeDefined()
-        expect(page.questions.usesIllegalSubstances.substanceMisuseHistory.hint).toBeDefined()
-
         expect(page.questions.usesIllegalSubstances.substanceMisuseDetail.question).toBeDefined()
       })
     })

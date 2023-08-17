@@ -34,7 +34,6 @@ export default class SubstanceMisuse implements TaskListPage {
       question: 'Do they take any illegal substances?',
       substanceMisuseHistory: {
         question: 'What substances do they take?',
-        hint: 'Please describe their recent history of substance misuse.',
       },
       substanceMisuseDetail: {
         question: 'How often do they take these substances, by what method, and how much?',
