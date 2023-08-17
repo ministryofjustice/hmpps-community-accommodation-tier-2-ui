@@ -31,6 +31,18 @@
     },
     "religion": {
       "religion": "atheist"
+    },
+    "military-veteran": {
+      "isVeteran": "yes"
+    },
+    "care-leaver": {
+      "isCareLeaver": "no"
+    },
+    "parental-carer-responsibilities": {
+      "hasParentalOrCarerResponsibilities": "yes"
+    },
+    "marital-status": {
+      "maritalStatus": "widowed"
     }
   },
   "health-needs": {
