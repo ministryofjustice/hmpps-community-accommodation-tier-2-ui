@@ -106,10 +106,7 @@ describe('SubstanceMisuse', () => {
 
       describe('and _substanceMisuseHistory_ is UNANSWERED', () => {
         it('includes a validation error for _substanceMisuseHistory_', () => {
-          expect(page.errors()).toHaveProperty(
-            'substanceMisuseHistory',
-            'Provide details of their recent history of substance abuse',
-          )
+          expect(page.errors()).toHaveProperty('substanceMisuseHistory', 'Name the illegal substances they take')
         })
       })
 
@@ -117,7 +114,7 @@ describe('SubstanceMisuse', () => {
         it('includes a validation error for _substanceMisuseDetail_', () => {
           expect(page.errors()).toHaveProperty(
             'substanceMisuseDetail',
-            'Provide details of how often they take these substances',
+            'Describe how often they take substances, by what method and how much',
           )
         })
       })
@@ -128,7 +125,10 @@ describe('SubstanceMisuse', () => {
 
       describe('and _drugAndAlcoholServiceDetail_ is UNANSWERED', () => {
         it('includes a validation error for _drugAndAlcoholServiceDetail_', () => {
-          expect(page.errors()).toHaveProperty('drugAndAlcoholServiceDetail', 'Provide the name of the service')
+          expect(page.errors()).toHaveProperty(
+            'drugAndAlcoholServiceDetail',
+            'Provide the name of the drug and alcohol service',
+          )
         })
       })
     })
