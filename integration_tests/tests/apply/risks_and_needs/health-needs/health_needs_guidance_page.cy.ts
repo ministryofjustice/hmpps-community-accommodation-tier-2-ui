@@ -82,6 +82,9 @@ context('Visit "Risks and needs" section', () => {
     const page = Page.verifyOnPage(HealthNeedsGuidancePage, this.application)
     page.hasCaption()
     page.hasGuidance()
+    page.hasIntroduceYourselfTemplate()
+    page.hasHealthQuestionsTemplate()
+    page.hasDrugAndAlcoholQuestionsTemplate()
   })
 
   //  Scenario: continues to next page in "health needs" task
