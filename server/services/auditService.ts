@@ -14,10 +14,6 @@ export default class AuditService {
   constructor(config: AuditConfig) {
     this.sqsClient = new SQSClient({
       region: config.region,
-      credentials: {
-        accessKeyId: config.accessKeyId,
-        secretAccessKey: config.secretAccessKey,
-      },
     })
 
     this.serviceName = config.serviceName
