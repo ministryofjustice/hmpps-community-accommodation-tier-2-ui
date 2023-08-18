@@ -43,6 +43,9 @@ describe('MentalHealth', () => {
         expect(page.questions.hasPrescribedMedication.medicationDetail.question).toBeDefined()
         expect(page.questions.hasPrescribedMedication.medicationIssues.question).toBeDefined()
       })
+      it('has one optional question about issues with medication', () => {
+        expect(page.questions.hasPrescribedMedication.medicationIssues.optional).toBeTruthy()
+      })
     })
   })
 

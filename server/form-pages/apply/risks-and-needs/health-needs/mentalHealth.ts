@@ -54,6 +54,7 @@ export default class MentalHealth implements TaskListPage {
       },
       medicationIssues: {
         question: 'Please list any issues they have with taking their medication',
+        optional: true,
       },
     },
   }
