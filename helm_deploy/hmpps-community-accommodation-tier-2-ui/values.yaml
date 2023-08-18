@@ -1,6 +1,7 @@
 ---
 generic-service:
   nameOverride: hmpps-community-accommodation-tier-2-ui
+  serviceAccountName: hmpps-community-accommodation-api-service-account
 
   replicaCount: 4
 
