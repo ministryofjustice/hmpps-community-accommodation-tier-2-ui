@@ -1,11 +1,28 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% macro formPageTextArea(params, context) %}
+
+  {% set labelText = params.label.text %}
+  {% if params.label.optional %}
+    {% set labelText = params.label.text + ' (optional)' %}
+  {% endif %}
+
   {{
       govukTextarea(
         mergeObjects(
           params,
-          { id: params.fieldName, name: params.fieldName, errorMessage: context.errors[params.fieldName], value: context[params.fieldName] }
+          {
+            label: mergeObjects(
+              params.label,
+              {
+                text: labelText
+              }
+            ),
+            id: params.fieldName,
+            name: params.fieldName,
+            errorMessage: context.errors[params.fieldName],
+            value: context[params.fieldName]
+          }
         )
       )
   }}
