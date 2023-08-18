@@ -1,7 +1,7 @@
 import { Cas2Application as Application } from '../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../applyPage'
 import paths from '../../../../server/paths/apply'
-import { pageIsActiveInNavigation } from './utils'
+import { pageIsActiveInNavigation, fieldIsOptional } from './utils'
 
 export default class MentalHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -34,6 +34,7 @@ export default class MentalHealthPage extends ApplyPage {
     this.checkRadioByNameAndValue('hasPrescribedMedication', 'yes')
     this.checkRadioByNameAndValue('isInPossessionOfMeds', 'no')
     this.getTextInputByIdAndEnterDetails('medicationDetail', 'Amitriptyline')
+    fieldIsOptional('medicationIssues')
     this.getTextInputByIdAndEnterDetails('medicationIssues', 'Sometimes fails to take pills')
   }
 }
