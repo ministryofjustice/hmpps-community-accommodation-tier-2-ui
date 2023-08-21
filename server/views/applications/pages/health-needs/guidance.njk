@@ -14,7 +14,7 @@
 {% include "../../../partials/email-templates/drug-alcohol-questions.njk" %}
 {% endset %}
 
-{% block questions %}
+{% block content %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
 
   <p class="govuk-body">
@@ -49,4 +49,32 @@
   html: drugAlcoholQuestionsTemplate
   }) }}
 
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function copyToClipboard(divId) {
+      const range = document.createRange()
+      range.selectNodeContents(document.getElementById(divId));
+      const selection = window.getSelection();
+      selection.removeAllRanges()
+      selection.addRange(range)
+      document.execCommand('copy');
+      selection.removeAllRanges()
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('introduce-yourself-button')
+        .addEventListener('click', () => copyToClipboard('introduce-yourself-template'));
+
+      document
+        .getElementById('health-questions-button')
+        .addEventListener('click', () => copyToClipboard('health-questions-template'));
+
+      document
+        .getElementById('drug-alcohol-questions-button')
+        .addEventListener('click', () => copyToClipboard('drug-alcohol-questions-template'));
+    });
+  </script>
 {% endblock %}
