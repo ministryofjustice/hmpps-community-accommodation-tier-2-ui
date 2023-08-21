@@ -14,6 +14,7 @@ const paths = {
       find: peoplePath.path('find'),
     },
     show: singleApplicationPath,
+    submission: singleApplicationPath.path('submission'),
     pages: {
       show: pagesPath,
       update: pagesPath,

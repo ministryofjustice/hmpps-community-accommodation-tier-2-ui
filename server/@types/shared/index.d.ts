@@ -178,6 +178,7 @@ export type { SortOrder } from './models/SortOrder';
 export type { StaffMember } from './models/StaffMember';
 export type { SubmitApplication } from './models/SubmitApplication';
 export type { SubmitApprovedPremisesApplication } from './models/SubmitApprovedPremisesApplication';
+export type { SubmitCas2Application } from './models/SubmitCas2Application';
 export type { SubmitPlacementApplication } from './models/SubmitPlacementApplication';
 export type { SubmitTemporaryAccommodationApplication } from './models/SubmitTemporaryAccommodationApplication';
 export type { SupervisingOfficer } from './models/SupervisingOfficer';

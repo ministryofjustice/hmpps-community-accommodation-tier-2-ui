@@ -1,9 +1,9 @@
 import type { Request } from 'express'
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2Application } from '@approved-premises/api'
 import type { DataServices, GroupedApplications } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
-import { getApplicationUpdateData } from '../utils/applications/getApplicationData'
+import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import { ValidationError } from '../utils/errors'
 
@@ -78,5 +78,11 @@ export default class ApplicationService {
       : new Page(body, application, request.session.previousPage)
 
     return page
+  }
+
+  async submit(token: string, application: Cas2Application) {
+    const client = this.applicationClientFactory(token)
+
+    await client.submit(application.id, getApplicationSubmissionData(application))
   }
 }

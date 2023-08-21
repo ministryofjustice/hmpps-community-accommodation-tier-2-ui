@@ -18,5 +18,6 @@ export default {
     index: applicationsPath,
     show: singleApplicationPath,
     update: singleApplicationPath,
+    submission: singleApplicationPath.path('submission'),
   },
 }

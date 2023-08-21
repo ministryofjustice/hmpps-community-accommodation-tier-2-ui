@@ -8,9 +8,11 @@ import { fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
 import paths from '../../paths/apply'
+import { getResponses } from '../../utils/applications/getResponses'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
+jest.mock('../../utils/applications/getResponses')
 
 describe('applicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -192,6 +194,21 @@ describe('applicationsController', () => {
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
       })
+    })
+  })
+
+  describe('submit', () => {
+    it('renders the application submission confirmation page', async () => {
+      const application = applicationFactory.build()
+      request.params.id = 'some-id'
+      applicationService.findApplication.mockResolvedValue(application)
+
+      const requestHandler = applicationsController.submit()
+      await requestHandler(request, response, next)
+
+      expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
+      expect(getResponses).toHaveBeenCalledWith(application)
+      expect(response.render).toHaveBeenCalledWith('applications/confirm', { pageHeading: 'Application confirmation' })
     })
   })
 })

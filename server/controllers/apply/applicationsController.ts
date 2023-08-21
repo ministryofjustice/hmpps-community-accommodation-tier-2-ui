@@ -10,6 +10,7 @@ import {
 } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
+import { getResponses } from '../../utils/applications/getResponses'
 
 export default class ApplicationsController {
   constructor(
@@ -81,6 +82,26 @@ export default class ApplicationsController {
         ...userInput,
         pageHeading: "Enter the person's CRN",
       })
+    }
+  }
+
+  submit(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+      application.document = getResponses(application)
+
+      // TODO: validate that the user has confirmed information is complete
+      // if (req.body?.confirmation !== 'submit') {
+      //   addErrorMessageToFlash(
+      //     req,
+      //     'You must confirm the information provided is complete, accurate and up to date.',
+      //     'confirmation',
+      //   )
+      //   return res.redirect(paths.applications.show({ id: application.id }))
+      // }
+
+      await this.applicationService.submit(req.user.token, application)
+      return res.render('applications/confirm', { pageHeading: 'Application confirmation' })
     }
   }
 }
