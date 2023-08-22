@@ -12,8 +12,6 @@ describe('AuditService', () => {
 
   const config = {
     region: 'some-region',
-    accessKeyId: 'some-access-key-id',
-    secretAccessKey: 'some-secret-access-key',
     queueUrl: 'some-queue-url',
     serviceName: 'some-service-name' as ServiceName,
     logErrors: false,
@@ -26,10 +24,6 @@ describe('AuditService', () => {
 
       expect(MockSqsClient).toHaveBeenCalledWith({
         region: config.region,
-        credentials: {
-          accessKeyId: config.accessKeyId,
-          secretAccessKey: config.secretAccessKey,
-        },
       })
     })
   })

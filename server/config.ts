@@ -36,8 +36,6 @@ export interface ApiConfig {
 
 export interface AuditConfig {
   region: string
-  accessKeyId: string
-  secretAccessKey: string
   queueUrl: string
   serviceName: string
   logErrors: boolean
@@ -95,8 +93,6 @@ export default {
     },
     audit: {
       region: get('AUDIT_SQS_REGION', 'eu-west-2'),
-      accessKeyId: get('AUDIT_SQS_ACCESS_KEY_ID', ''),
-      secretAccessKey: get('AUDIT_SQS_SECRET_ACCESS_KEY', ''),
       queueUrl: get('AUDIT_SQS_QUEUE_URL', ''),
       serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-ui'),
       logErrors: get('AUDIT_LOG_ERRORS', 'false') === 'true',
