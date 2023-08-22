@@ -5,5 +5,7 @@ declare namespace Cypress {
      * @example cy.signIn({ failOnStatusCode: boolean })
      */
     signIn(options?: { failOnStatusCode: boolean }): Chainable<AUTWindow>
+
+    assertValueCopiedToClipboardContains(text: string): Chainable<AUTWindow>
   }
 }
