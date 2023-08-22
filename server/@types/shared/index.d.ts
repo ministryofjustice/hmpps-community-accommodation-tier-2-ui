@@ -195,6 +195,7 @@ export type { TemporaryAccommodationAssessmentStatus } from './models/TemporaryA
 export type { TemporaryAccommodationAssessmentSummary } from './models/TemporaryAccommodationAssessmentSummary';
 export type { TemporaryAccommodationBedSearchParameters } from './models/TemporaryAccommodationBedSearchParameters';
 export type { TemporaryAccommodationBedSearchResult } from './models/TemporaryAccommodationBedSearchResult';
+export type { TemporaryAccommodationBedSearchResultOverlap } from './models/TemporaryAccommodationBedSearchResultOverlap';
 export type { TemporaryAccommodationPremises } from './models/TemporaryAccommodationPremises';
 export type { TemporaryAccommodationPremisesSummary } from './models/TemporaryAccommodationPremisesSummary';
 export type { TemporaryAccommodationUser } from './models/TemporaryAccommodationUser';
