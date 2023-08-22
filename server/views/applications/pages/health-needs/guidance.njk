@@ -52,6 +52,15 @@
   classes: 'copy-text'
   }) }}
 
+  {{ govukButton({
+  text: "Continue",
+  href: paths.applications.pages.show({
+        id: page.application.id,
+        task: 'health-needs',
+        page: 'substance-misuse'
+      })
+  }) }}
+
 {% endblock %}
 
 {% block extraScripts %}

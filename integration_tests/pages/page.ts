@@ -23,6 +23,10 @@ export default abstract class Page {
     cy.get('button').click()
   }
 
+  clickContinue(): void {
+    cy.get('a').contains('Continue').click()
+  }
+
   shouldShowErrorMessagesForFields(fields: Array<string>): void {
     fields.forEach(field => {
       const errorMessagesLookup = errorLookups[field].empty
