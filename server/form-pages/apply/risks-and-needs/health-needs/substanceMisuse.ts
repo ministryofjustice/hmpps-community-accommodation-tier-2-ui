@@ -34,7 +34,6 @@ export default class SubstanceMisuse implements TaskListPage {
       question: 'Do they take any illegal substances?',
       substanceMisuseHistory: {
         question: 'What substances do they take?',
-        hint: 'Please describe their recent history of substance misuse.',
       },
       substanceMisuseDetail: {
         question: 'How often do they take these substances, by what method, and how much?',
@@ -79,11 +78,11 @@ export default class SubstanceMisuse implements TaskListPage {
     }
 
     if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuseHistory) {
-      errors.substanceMisuseHistory = 'Provide details of their recent history of substance abuse'
+      errors.substanceMisuseHistory = 'Name the illegal substances they take'
     }
 
     if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuseDetail) {
-      errors.substanceMisuseDetail = 'Provide details of how often they take these substances'
+      errors.substanceMisuseDetail = 'Describe how often they take substances, by what method and how much'
     }
 
     if (!this.body.engagedWithDrugAndAlcoholService) {
@@ -91,7 +90,7 @@ export default class SubstanceMisuse implements TaskListPage {
     }
 
     if (this.body.engagedWithDrugAndAlcoholService === 'yes' && !this.body.drugAndAlcoholServiceDetail) {
-      errors.drugAndAlcoholServiceDetail = 'Provide the name of the service'
+      errors.drugAndAlcoholServiceDetail = 'Provide the name of the drug and alcohol service'
     }
 
     if (!this.body.requiresSubstituteMedication) {
