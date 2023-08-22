@@ -1,0 +1,22 @@
+.copy-text {
+  > div {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  &__container {
+    border: 1px solid govuk-colour('dark-grey');
+    padding: 1.25rem;
+  }
+
+  &__button {
+    color: white;
+    background: govuk-colour('blue');
+    box-shadow: 0 2px 0 govuk-colour('dark-blue');
+    margin-bottom: 0;
+
+    &:hover {
+      background: govuk-colour('dark-blue');
+    }
+  }
+}

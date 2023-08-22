@@ -36,17 +36,20 @@
 
   {{ govukDetails({
   summaryText: "Introduce yourself to a team/officer",
-  html: introduceYourselfTemplate
+  html: introduceYourselfTemplate,
+  classes: 'copy-text'
   }) }}
 
   {{ govukDetails({
   summaryText: "Ask questions about the applicant's health",
-  html: healthQuestionsTemplate
+  html: healthQuestionsTemplate,
+  classes: 'copy-text'
   }) }}
 
   {{ govukDetails({
   summaryText: "Ask questions about the applicant's drug and alcohol needs",
-  html: drugAlcoholQuestionsTemplate
+  html: drugAlcoholQuestionsTemplate,
+  classes: 'copy-text'
   }) }}
 
 {% endblock %}
