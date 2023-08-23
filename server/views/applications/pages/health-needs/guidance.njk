@@ -1,5 +1,20 @@
 {% extends "../layout.njk" %}
-{% block questions %}
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set introduceYourselfTemplate %}
+{% include "../../../partials/email-templates/introduce-yourself.njk" %}
+{% endset %}
+
+{% set healthQuestionsTemplate %}
+{% include "../../../partials/email-templates/health-questions.njk" %}
+{% endset %}
+
+{% set drugAlcoholQuestionsTemplate %}
+{% include "../../../partials/email-templates/drug-alcohol-questions.njk" %}
+{% endset %}
+
+{% block content %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
 
   <p class="govuk-body">
@@ -18,4 +33,60 @@
     <li>Adult social care</li>
     <li>Nelson Trust</li>
   </ul>
+
+  {{ govukDetails({
+  summaryText: "Introduce yourself to a team/officer",
+  html: introduceYourselfTemplate,
+  classes: 'copy-text'
+  }) }}
+
+  {{ govukDetails({
+  summaryText: "Ask questions about the applicant's health",
+  html: healthQuestionsTemplate,
+  classes: 'copy-text'
+  }) }}
+
+  {{ govukDetails({
+  summaryText: "Ask questions about the applicant's drug and alcohol needs",
+  html: drugAlcoholQuestionsTemplate,
+  classes: 'copy-text'
+  }) }}
+
+  {{ govukButton({
+  text: "Continue",
+  href: paths.applications.pages.show({
+        id: page.application.id,
+        task: 'health-needs',
+        page: 'substance-misuse'
+      })
+  }) }}
+
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function copyToClipboard(divId) {
+      const range = document.createRange()
+      range.selectNodeContents(document.getElementById(divId));
+      const selection = window.getSelection();
+      selection.removeAllRanges()
+      selection.addRange(range)
+      document.execCommand('copy');
+      selection.removeAllRanges()
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('introduce-yourself-button')
+        .addEventListener('click', () => copyToClipboard('introduce-yourself-template'));
+
+      document
+        .getElementById('health-questions-button')
+        .addEventListener('click', () => copyToClipboard('health-questions-template'));
+
+      document
+        .getElementById('drug-alcohol-questions-button')
+        .addEventListener('click', () => copyToClipboard('drug-alcohol-questions-template'));
+    });
+  </script>
 {% endblock %}

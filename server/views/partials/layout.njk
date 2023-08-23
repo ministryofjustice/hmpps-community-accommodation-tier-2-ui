@@ -12,7 +12,7 @@
   <script src="/assets/js/html5shiv-3.7.3.min.js"></script>
   <![endif]-->
 
-  <script src="/assets/js/jquery.min.js"></script> 
+  <script src="/assets/js/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
           integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
           nonce="{{ cspNonce }}"
@@ -21,14 +21,14 @@
 
 {% endblock %}
 
-{% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
+{% block pageTitle %}{{pageTitle | default(applicationName)}}
+{% endblock %}
 
 {% block header %}
   {% include "./header.njk" %}
 {% endblock %}
 
-{% block bodyStart %}
-{% endblock %}
+{% block bodyStart %}{% endblock %}
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the
@@ -36,4 +36,5 @@
   <script src="/assets/govuk/all.js"></script>
   <script src="/assets/govukFrontendInit.js"></script>
   <script src="/assets/moj/all.js"></script>
+  {% block extraScripts %}{% endblock %}
 {% endblock %}

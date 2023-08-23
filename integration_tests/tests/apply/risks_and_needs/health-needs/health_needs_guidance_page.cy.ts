@@ -82,6 +82,13 @@ context('Visit "Risks and needs" section', () => {
     const page = Page.verifyOnPage(HealthNeedsGuidancePage, this.application)
     page.hasCaption()
     page.hasGuidance()
+    page.hasIntroduceYourselfTemplate()
+    page.hasHealthQuestionsTemplate()
+    page.hasDrugAndAlcoholQuestionsTemplate()
+
+    page.copyIntroduceYourselfTemplateToClipboard()
+    page.copyHealthQuestionsTemplateToClipboard()
+    page.copyDrugAndAlcoholTemplateToClipboard()
   })
 
   //  Scenario: continues to next page in "health needs" task
@@ -93,7 +100,7 @@ context('Visit "Risks and needs" section', () => {
 
     // When I continue to the next task/page
     const page = new HealthNeedsGuidancePage(this.application)
-    page.clickSubmit()
+    page.clickContinue()
 
     //  Then I should be on the substance misuse page
     Page.verifyOnPage(SubstanceMisusePage, this.application)
