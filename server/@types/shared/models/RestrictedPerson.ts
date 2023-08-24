@@ -3,10 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { PersonType } from './PersonType';
+import type { Person } from './Person';
 
-export type Person = {
-    crn: string;
-    type: PersonType;
-};
+export type RestrictedPerson = Person;
 
