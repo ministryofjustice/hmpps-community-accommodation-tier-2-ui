@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 export type BookingSearchResultPersonSummary = {
-    name: string;
+    name?: string;
     crn: string;
 };
 
