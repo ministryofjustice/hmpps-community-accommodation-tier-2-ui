@@ -15,6 +15,19 @@ export default {
       },
     }),
 
+  stubOasysSectionsNotFound: (args: { crn: string }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: `/people/${args.crn}/oasys/sections`,
+      },
+      response: {
+        status: 404,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: { status: 404 },
+      },
+    }),
+
   stubFindPerson: (args: { person: Person }) =>
     stubFor({
       request: {

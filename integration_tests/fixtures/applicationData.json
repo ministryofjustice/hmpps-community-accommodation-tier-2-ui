@@ -112,5 +112,8 @@
       "seizuresDetail": "",
       "beingTreatedForCancer": "no"
     }
+  },
+  "risk-to-self": {
+    "guidance": {}
   }
 }
