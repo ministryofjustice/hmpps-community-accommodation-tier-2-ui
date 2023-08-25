@@ -7,7 +7,10 @@ import type { Services } from '../../services'
 
 export const controllers = (services: Services) => {
   const { applicationService, personService } = services
-  const applicationsController = new ApplicationsController(personService, applicationService)
+  const applicationsController = new ApplicationsController(personService, applicationService, {
+    personService,
+    applicationService,
+  })
   const pagesController = new PagesController(applicationService, { personService, applicationService })
 
   return {

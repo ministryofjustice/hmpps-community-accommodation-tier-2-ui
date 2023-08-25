@@ -19,7 +19,7 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import OtherHealthPage from '../../../../pages/apply/risks-and-needs/otherHealthPage'
+import OtherHealthPage from '../../../../pages/apply/risks-and-needs/health-needs/otherHealthPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "other health" page', () => {

@@ -17,9 +17,9 @@
 //    Then I see the "physical health" page
 
 import Page from '../../../../pages/page'
-import HealthNeedsGuidancePage from '../../../../pages/apply/risks-and-needs/healthNeedsGuidancePage'
-import SubstanceMisusePage from '../../../../pages/apply/risks-and-needs/substanceMisusePage'
-import PhysicalHealthPage from '../../../../pages/apply/risks-and-needs/physicalHealthPage'
+import HealthNeedsGuidancePage from '../../../../pages/apply/risks-and-needs/health-needs/healthNeedsGuidancePage'
+import SubstanceMisusePage from '../../../../pages/apply/risks-and-needs/health-needs/substanceMisusePage'
+import PhysicalHealthPage from '../../../../pages/apply/risks-and-needs/health-needs/physicalHealthPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Substance misuse" page', () => {

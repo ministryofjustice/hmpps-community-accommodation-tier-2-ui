@@ -17,8 +17,8 @@
 //    Then I see the "brain injury" page
 
 import Page from '../../../../pages/page'
-import BrainInjuryPage from '../../../../pages/apply/risks-and-needs/brainInjuryPage'
-import LearningDifficultiesPage from '../../../../pages/apply/risks-and-needs/learningDifficultiesPage'
+import BrainInjuryPage from '../../../../pages/apply/risks-and-needs/health-needs/brainInjuryPage'
+import LearningDifficultiesPage from '../../../../pages/apply/risks-and-needs/health-needs/learningDifficultiesPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "learning difficulties" page', () => {

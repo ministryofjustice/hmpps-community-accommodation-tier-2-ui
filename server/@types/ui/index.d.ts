@@ -1,3 +1,5 @@
+import { OASysSections } from '../shared/models/OASysSections'
+
 export type JourneyType = 'applications'
 
 export type UiTask = {
@@ -44,6 +46,7 @@ export type FormArtifact = Cas2Application
 export type DataServices = Partial<{
   personService: {
     findByCrn: (token: string, crn: string) => Promise<Person>
+    getOasysSections: (token: string, crn: string) => Promise<OASysSections>
   }
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2Application>

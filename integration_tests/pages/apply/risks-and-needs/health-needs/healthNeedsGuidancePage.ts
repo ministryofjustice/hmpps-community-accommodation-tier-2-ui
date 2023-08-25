@@ -1,6 +1,6 @@
-import { Cas2Application as Application } from '../../../../server/@types/shared/models/Cas2Application'
-import ApplyPage from '../applyPage'
-import paths from '../../../../server/paths/apply'
+import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
+import ApplyPage from '../../applyPage'
+import paths from '../../../../../server/paths/apply'
 
 export default class HealthNeedsGuidancePage extends ApplyPage {
   constructor(private readonly application: Application) {

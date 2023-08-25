@@ -17,8 +17,8 @@
 //    Then I see the "communication and language" page
 
 import Page from '../../../../pages/page'
-import MentalHealthPage from '../../../../pages/apply/risks-and-needs/mentalHealthPage'
-import CommunicationAndLanguagePage from '../../../../pages/apply/risks-and-needs/communicationAndLanguagePage'
+import MentalHealthPage from '../../../../pages/apply/risks-and-needs/health-needs/mentalHealthPage'
+import CommunicationAndLanguagePage from '../../../../pages/apply/risks-and-needs/health-needs/communicationAndLanguagePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "mental health" page', () => {

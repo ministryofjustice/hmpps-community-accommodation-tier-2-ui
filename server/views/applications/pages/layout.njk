@@ -35,9 +35,12 @@
         {{ showErrorSummary(errorSummary) }}
 
         {% block questions %}{% endblock %}
-        {{ govukButton({
+
+        {% block button %}
+          {{ govukButton({
             text: "Save and continue"
-        }) }}
+          }) }}
+        {% endblock %}
       </form>
     </div>
   </div>

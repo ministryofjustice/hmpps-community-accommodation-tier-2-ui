@@ -255,4 +255,30 @@ describe('ApplicationService', () => {
       expect(applicationClient.submit).toHaveBeenCalledWith(application.id, applicationData)
     })
   })
+
+  describe('saveData', () => {
+    it('updates the application data', async () => {
+      const application = applicationFactory.build({ data: null })
+      applicationClient.find.mockResolvedValue(application)
+
+      const token = 'some-token'
+      const request = createMock<Request>({
+        params: { id: application.id, task: 'some-task', page: 'some-page' },
+        user: { token },
+      })
+
+      const applicationData = createMock<UpdateCas2Application>()
+
+      const newApplicationData = { 'risk-to-self': { vulnerability: { vulnerabilityDetail: 'example' } } }
+
+      await service.saveData(newApplicationData, request)
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(getApplicationUpdateData).toHaveBeenCalledWith({
+        ...application,
+        data: newApplicationData,
+      })
+      expect(applicationClient.update).toHaveBeenCalledWith(application.id, applicationData)
+    })
+  })
 })
