@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export type WhiteBackgroundBody = {
   whiteBackground: 'english' | 'Irish' | 'Gypsy or Irish Traveller' | 'other' | 'preferNotToSay'
@@ -23,10 +24,12 @@ export const whiteBackgroundOptions = {
   bodyProperties: ['whiteBackground', 'optionalWhiteBackground'],
 })
 export default class WhiteBackground implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    whiteBackground: `Which of the following best describes ${this.application.person.name}'s White background?`,
+    whiteBackground: `Which of the following best describes ${this.personName}'s White background?`,
     optionalWhiteBackground: 'How would they describe their background? (optional)',
   }
 

@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type SexAndGenderBody = {
   sex: 'female' | 'male' | 'preferNotToSay'
@@ -28,13 +29,15 @@ const genderOptions = {
   bodyProperties: ['sex', 'gender', 'optionalGenderIdentity'],
 })
 export default class SexAndGender implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   heading = 'Sex and gender identity'
 
   questions = {
-    sex: `What is ${this.application.person.name}'s sex?`,
-    gender: `Is the gender ${this.application.person.name} identifies with the same as the sex registered at birth?`,
+    sex: `What is ${this.personName}'s sex?`,
+    gender: `Is the gender ${this.personName} identifies with the same as the sex registered at birth?`,
     optionalGenderIdentity: 'What is their gender identity? (optional)',
   }
 

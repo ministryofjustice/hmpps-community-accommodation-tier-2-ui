@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
@@ -27,7 +27,7 @@ type SubstanceMisuseBody = {
   ],
 })
 export default class SubstanceMisuse implements TaskListPage {
-  title = `Health needs for ${this.application.person.name}`
+  title = `Health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
     usesIllegalSubstances: {

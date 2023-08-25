@@ -1,7 +1,7 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
-import { sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 
 type PhysicalHealthBody = {
@@ -35,7 +35,7 @@ type PhysicalHealthBody = {
   ],
 })
 export default class PhysicalHealth implements TaskListPage {
-  title = `Physical health needs for ${this.application.person.name}`
+  title = `Physical health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
     hasPhyHealthNeeds: {

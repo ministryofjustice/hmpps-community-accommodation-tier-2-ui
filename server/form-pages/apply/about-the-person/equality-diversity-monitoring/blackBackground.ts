@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export type BlackBackgroundBody = {
   blackBackground: 'african' | 'caribbean' | 'other' | 'preferNotToSay'
@@ -22,10 +23,12 @@ export const blackBackgroundOptions = {
   bodyProperties: ['blackBackground', 'optionalBlackBackground'],
 })
 export default class BlackBackground implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    blackBackground: `Which of the following best describes ${this.application.person.name}'s Black, African, Caribbean or Black British background?`,
+    blackBackground: `Which of the following best describes ${this.personName}'s Black, African, Caribbean or Black British background?`,
     optionalBlackBackground: 'How would they describe their background? (optional)',
   }
 

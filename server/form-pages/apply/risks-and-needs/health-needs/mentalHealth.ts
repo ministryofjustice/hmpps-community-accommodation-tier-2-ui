@@ -1,7 +1,7 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
-import { sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 
 type MentalHealthBody = {
@@ -29,7 +29,7 @@ type MentalHealthBody = {
   ],
 })
 export default class MentalHealth implements TaskListPage {
-  title = `Mental health needs for ${this.application.person.name}`
+  title = `Mental health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
     hasMentalHealthNeeds: {

@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type SexualOrientationBody = {
   orientation: 'heterosexual' | 'gay' | 'lesbian' | 'bisexual' | 'other' | 'preferNotToSay'
@@ -24,10 +25,12 @@ export const orientationOptions = {
   bodyProperties: ['orientation', 'otherOrientation'],
 })
 export default class SexualOrientation implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    orientation: `Which of the following best describes ${this.application.person.name}'s sexual orientation?`,
+    orientation: `Which of the following best describes ${this.personName}'s sexual orientation?`,
     otherOrientation: 'How would they describe their sexual orientation? (optional)',
   }
 

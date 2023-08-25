@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export const options = {
   yes: 'Yes',
@@ -20,10 +21,10 @@ export type MilitaryVeteranBody = {
   bodyProperties: ['isVeteran'],
 })
 export default class MilitaryVeteran implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
-    isVeteran: `Is ${this.application.person.name} a military veteran?`,
+    isVeteran: `Is ${nameOrPlaceholderCopy(this.application.person)} a military veteran?`,
   }
 
   body: MilitaryVeteranBody

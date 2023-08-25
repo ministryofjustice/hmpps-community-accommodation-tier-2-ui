@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export type OtherBackgroundBody = {
   otherBackground: 'arab' | 'other' | 'preferNotToSay'
@@ -21,10 +22,12 @@ export const otherBackgroundOptions = {
   bodyProperties: ['otherBackground', 'optionalOtherBackground'],
 })
 export default class OtherBackground implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    otherBackground: `Which of the following best describes ${this.application.person.name}'s background?`,
+    otherBackground: `Which of the following best describes ${this.personName}'s background?`,
     optionalOtherBackground: 'How would they describe their background? (optional)',
   }
 
