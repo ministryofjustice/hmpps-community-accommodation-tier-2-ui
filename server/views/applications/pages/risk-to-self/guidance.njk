@@ -1,0 +1,84 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% extends "../layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+      {% if page.hasOasysRecord%}
+        <form action="{{ paths.applications.update({ id: applicationId }) }}?_method=PUT" method="post">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+          <input type="hidden" name="pageName" value="{{ page.name }}"/>
+          <input type="hidden" name="taskData" value="{{ page.taskData }}"/>
+          <input type="hidden" name="taskName" value="{{ page.taskName }}"/>
+
+          {{ showErrorSummary(errorSummary) }}
+
+          <p class="govuk-body">
+              There is OASys information you can import to complete this section.
+            </p>
+
+          <p class="govuk-body">
+              You can edit the information. Changes made will not affect the OASys record.
+            </p>
+
+          {{ govukWarningText({
+              text: "You can only import from OASys once. Make sure it is up to date before importing.",
+              iconFallbackText: "Warning"
+            }) }}
+
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          <div id="oasys-info">
+            <h2 class="govuk-heading-m">OASys record available for {{ page.personName }}</h2>
+            <p>Date created: <strong>{{ page.oasysStarted }}</strong>
+            </p>
+            <p>Date completed: <strong>{{ page.oasysCompleted}}</strong>
+            </p>
+            <p>OASys level: <strong>Layer 3</strong>
+            </p>
+          </div>
+
+          {% block button %}
+            {{ govukButton({
+                text: "Import and continue"
+            }) }}
+
+          {% endblock %}
+
+        </form>
+      {% else %}
+        {{ govukNotificationBanner({
+            text: page.noOasysBannerText
+            }) }}
+
+        <p class="govuk-body">
+          {{ page.noOasysDescriptiveText }}
+        </p>
+
+        <p class="govuk-body">
+            To continue, you can choose to:
+          </p>
+
+        <ul>
+          <li>update OASys before trying again (recommended)</li>
+          <li>complete the section manually</li>
+        </ul>
+
+        {{ govukButton({
+              text: "Continue",
+              href: paths.applications.show({
+                    id: page.application.id   
+                  })
+              }) 
+          }}
+
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endblock %}
