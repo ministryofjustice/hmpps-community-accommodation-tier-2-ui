@@ -1,10 +1,16 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class RiskToSelfGuidancePage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(`Import ${application.person.name}'s risk to self data from OASys`, application, 'risk-to-self', 'guidance')
+    super(
+      `Import ${nameOrPlaceholderCopy(application.person, 'The person')}'s risk to self data from OASys`,
+      application,
+      'risk-to-self',
+      'guidance',
+    )
   }
 
   static visit(application: Application): void {

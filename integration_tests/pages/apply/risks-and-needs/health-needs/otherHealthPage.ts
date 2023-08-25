@@ -2,10 +2,16 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../utils'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class OtherHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(`Other health needs for ${application.person.name}`, application, 'health-needs', 'other-health')
+    super(
+      `Other health needs for ${nameOrPlaceholderCopy(application.person)}`,
+      application,
+      'health-needs',
+      'other-health',
+    )
 
     pageIsActiveInNavigation('Other health')
   }

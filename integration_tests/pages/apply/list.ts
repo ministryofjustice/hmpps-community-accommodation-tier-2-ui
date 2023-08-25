@@ -1,6 +1,7 @@
 import Page from '../page'
 import paths from '../../../server/paths/apply'
 import { Cas2Application as Application, Cas2ApplicationSummary } from '../../../server/@types/shared'
+import { nameOrPlaceholderCopy } from '../../../server/utils/utils'
 
 export default class ListPage extends Page {
   constructor(private readonly inProgressApplications: Array<Cas2ApplicationSummary>) {
@@ -23,12 +24,13 @@ export default class ListPage extends Page {
 
   private shouldShowApplications(applications: Array<Cas2ApplicationSummary>): void {
     applications.forEach(application => {
-      cy.contains(application.person.name)
+      const personName = nameOrPlaceholderCopy(application.person)
+      cy.contains(personName)
         .should('have.attr', 'href', paths.applications.show({ id: application.id }))
         .parent()
         .parent()
         .within(() => {
-          cy.get('th').eq(0).contains(application.person.name)
+          cy.get('th').eq(0).contains(personName)
         })
     })
   }

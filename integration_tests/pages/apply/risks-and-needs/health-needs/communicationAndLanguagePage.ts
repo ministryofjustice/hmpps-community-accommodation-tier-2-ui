@@ -2,11 +2,12 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../utils'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class CommunicationAndLanguagePage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Communication and language needs for ${application.person.name}`,
+      `Communication and language needs for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'communication-and-language',

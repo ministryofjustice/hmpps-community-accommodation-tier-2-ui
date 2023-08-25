@@ -2,10 +2,16 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../utils'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class BrainInjuryPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(`Brain injury needs for ${application.person.name}`, application, 'health-needs', 'brain-injury')
+    super(
+      `Brain injury needs for ${nameOrPlaceholderCopy(application.person)}`,
+      application,
+      'health-needs',
+      'brain-injury',
+    )
 
     pageIsActiveInNavigation('Brain injury')
     this.pageHasBrainInjuryGuidance()

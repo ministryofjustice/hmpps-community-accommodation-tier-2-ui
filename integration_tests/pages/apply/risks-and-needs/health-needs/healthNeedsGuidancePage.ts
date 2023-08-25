@@ -1,10 +1,16 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class HealthNeedsGuidancePage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(`Request health information for ${application.person.name}`, application, 'health-needs', 'guidance')
+    super(
+      `Request health information for ${nameOrPlaceholderCopy(application.person)}`,
+      application,
+      'health-needs',
+      'guidance',
+    )
   }
 
   static visit(application: Application): void {

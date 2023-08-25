@@ -1,11 +1,12 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import paths from '../../../../../server/paths/apply'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import ApplyPage from '../../applyPage'
 
 export default class CareLeaverPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Is ${application.person.name} a care leaver?`,
+      `Is ${nameOrPlaceholderCopy(application.person)} a care leaver?`,
       application,
       'equality-and-diversity-monitoring',
       'care-leaver',

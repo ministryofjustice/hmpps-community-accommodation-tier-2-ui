@@ -2,10 +2,16 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation, fieldIsOptional } from '../utils'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class MentalHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(`Mental health needs for ${application.person.name}`, application, 'health-needs', 'mental-health')
+    super(
+      `Mental health needs for ${nameOrPlaceholderCopy(application.person)}`,
+      application,
+      'health-needs',
+      'mental-health',
+    )
 
     pageIsActiveInNavigation('Mental health')
   }
