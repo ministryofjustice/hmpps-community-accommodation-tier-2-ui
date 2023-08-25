@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Cas2Application as Application, Cas2Application } from '@approved-premises/api'
+import { AnyValue, Cas2Application as Application, Cas2Application } from '@approved-premises/api'
 import type { DataServices, GroupedApplications } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -62,6 +62,18 @@ export default class ApplicationService {
 
       await client.update(application.id, getApplicationUpdateData(application))
     }
+  }
+
+  async saveData(taskData: AnyValue, request: Request) {
+    const application = await this.findApplication(request.user.token, request.params.id)
+    const client = this.applicationClientFactory(request.user.token)
+
+    application.data = {
+      ...application.data,
+      ...taskData,
+    }
+
+    await client.update(application.id, getApplicationUpdateData(application))
   }
 
   async initializePage(
