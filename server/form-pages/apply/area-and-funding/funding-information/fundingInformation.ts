@@ -3,6 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export const fundingSources = {
   personalSavings: 'Personal money or savings',
@@ -22,10 +23,14 @@ type FundingSourceBody = {
   bodyProperties: ['fundingSource'],
 })
 export default class FundingSource implements TaskListPage {
-  title = `Funding information for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Funding information for ${this.personName}`
 
   questions = {
-    fundingSource: `How will ${this.application.person.name} pay for their accommodation and service charge?`,
+    fundingSource: `How will ${nameOrPlaceholderCopy(
+      this.application.person,
+    )} pay for their accommodation and service charge?`,
   }
 
   body: FundingSourceBody

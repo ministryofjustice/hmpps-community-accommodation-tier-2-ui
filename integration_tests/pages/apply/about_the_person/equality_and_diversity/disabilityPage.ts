@@ -1,10 +1,11 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import ApplyPage from '../../applyPage'
 
 export default class DisabilityPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Does ${application.person.name} have a disability?`,
+      `Does ${nameOrPlaceholderCopy(application.person)} have a disability?`,
       application,
       'equality-and-diversity-monitoring',
       'disability',

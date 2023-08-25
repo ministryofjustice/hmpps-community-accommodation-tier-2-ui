@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export const options = {
   yes: 'Yes',
@@ -20,10 +21,12 @@ export type ParentalCarerResponsibilitiesBody = {
   bodyProperties: ['hasParentalOrCarerResponsibilities'],
 })
 export default class ParentalCarerResponsibilities implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    hasParentalOrCarerResponsibilities: `Does ${this.application.person.name} have parental or carer responsibilities?`,
+    hasParentalOrCarerResponsibilities: `Does ${this.personName} have parental or carer responsibilities?`,
   }
 
   body: ParentalCarerResponsibilitiesBody

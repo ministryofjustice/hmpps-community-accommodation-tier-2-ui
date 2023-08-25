@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems, convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export const options = {
   yes: 'Yes',
@@ -33,10 +34,12 @@ export type DisabilityBody = {
   bodyProperties: ['hasDisability', 'typeOfDisability', 'otherDisability'],
 })
 export default class Disability implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    hasDisability: `Does ${this.application.person.name} have a disability?`,
+    hasDisability: `Does ${this.personName} have a disability?`,
     typeOfDisability: {
       question: `What type of disability?`,
       hint: 'Select all that apply',

@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
@@ -29,7 +29,7 @@ type BrainInjuryBody = {
   ],
 })
 export default class BrainInjury implements TaskListPage {
-  title = `Brain injury needs for ${this.application.person.name}`
+  title = `Brain injury needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
     hasBrainInjury: {

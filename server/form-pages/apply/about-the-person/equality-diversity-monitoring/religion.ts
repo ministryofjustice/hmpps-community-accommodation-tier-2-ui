@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type ReligionBody = {
   religion:
@@ -40,10 +41,10 @@ export const religionOptions = {
   bodyProperties: ['religion', 'otherReligion'],
 })
 export default class Religion implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
-    religion: `What is ${this.application.person.name}'s religion?`,
+    religion: `What is ${nameOrPlaceholderCopy(this.application.person)}'s religion?`,
     otherReligion: 'What is their religion? (optional)',
   }
 

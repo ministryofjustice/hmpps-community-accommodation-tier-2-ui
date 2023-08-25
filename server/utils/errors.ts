@@ -26,3 +26,12 @@ export class TaskListAPIError extends Error {
     this.field = field
   }
 }
+
+export class RestrictedPersonError extends Error {
+  type: 'RESTRICTED_PERSON'
+
+  constructor(crn: string) {
+    super(`CRN: ${crn} is restricted`)
+    this.type = 'RESTRICTED_PERSON'
+  }
+}

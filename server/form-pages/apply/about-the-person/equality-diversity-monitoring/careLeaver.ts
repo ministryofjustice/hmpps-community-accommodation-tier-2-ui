@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export const options = {
   yes: 'Yes',
@@ -20,10 +21,10 @@ export type CareLeaverBody = {
   bodyProperties: ['isCareLeaver'],
 })
 export default class CareLeaver implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
-    isCareLeaver: `Is ${this.application.person.name} a care leaver?`,
+    isCareLeaver: `Is ${nameOrPlaceholderCopy(this.application.person)} a care leaver?`,
   }
 
   body: CareLeaverBody

@@ -3,6 +3,7 @@ import { Cas2Application as Application, Cas2Application, OASysSections } from '
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { DateFormats } from '../../../../utils/dateUtils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type GuidanceBody = Record<string, never>
 
@@ -22,11 +23,11 @@ type RiskToSelfTaskData = {
   bodyProperties: [],
 })
 export default class RiskToSelfGuidance implements TaskListPage {
-  title = `Import ${this.application.person.name}'s risk to self data from OASys`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Import ${this.personName}'s risk to self data from OASys`
 
   body: GuidanceBody
-
-  personName = this.application.person.name
 
   oasysCompleted = ''
 

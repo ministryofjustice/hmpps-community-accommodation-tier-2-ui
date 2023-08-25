@@ -13,6 +13,7 @@ import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
 import { getResponses } from '../../utils/applications/getResponses'
 import { getPage } from '../../utils/applications/getPage'
+import { nameOrPlaceholderCopy } from '../../utils/utils'
 
 export default class ApplicationsController {
   constructor(
@@ -55,7 +56,10 @@ export default class ApplicationsController {
   }
 
   private ineligibleViewParams(application: Cas2Application): Record<string, string | Cas2Application> {
-    const panelText = `${application.person.name} is not eligible for CAS-2 accommodation`
+    const panelText = `${nameOrPlaceholderCopy(
+      application.person,
+      'The person',
+    )} is not eligible for CAS-2 accommodation`
     const changeAnswerPath = paths.applications.pages.show({
       id: application.id,
       task: 'confirm-eligibility',

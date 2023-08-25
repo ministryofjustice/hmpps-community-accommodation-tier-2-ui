@@ -2,6 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type GuidanceBody = Record<string, never>
 
@@ -10,7 +11,7 @@ type GuidanceBody = Record<string, never>
   bodyProperties: [],
 })
 export default class Guidance implements TaskListPage {
-  title = `Request health information for ${this.application.person.name}`
+  title = `Request health information for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: GuidanceBody
 

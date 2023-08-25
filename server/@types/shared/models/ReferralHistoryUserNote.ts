@@ -6,6 +6,6 @@
 import type { ReferralHistoryNote } from './ReferralHistoryNote';
 
 export type ReferralHistoryUserNote = (ReferralHistoryNote & {
-    createdByStaffMemberId: string;
+    createdByUserName: string;
 });
 

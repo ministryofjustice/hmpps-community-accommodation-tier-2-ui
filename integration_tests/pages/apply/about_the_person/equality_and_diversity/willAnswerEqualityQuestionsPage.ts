@@ -1,10 +1,11 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import ApplyPage from '../../applyPage'
 
 export default class WillAnswerEqualityQuestionsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Does ${application.person.name} want to answer the equality questions?`,
+      `Does ${nameOrPlaceholderCopy(application.person)} want to answer the equality questions?`,
       application,
       'equality-and-diversity-monitoring',
       'will-answer-equality-questions',
@@ -12,7 +13,9 @@ export default class WillAnswerEqualityQuestionsPage extends ApplyPage {
   }
 
   hasCaption = (): void => {
-    cy.get('.govuk-caption-l').contains(`Equality and diversity questions for ${this.application.person.name}`)
+    cy.get('.govuk-caption-l').contains(
+      `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`,
+    )
   }
 
   hasQuestionsAndAnswers = (): void => {

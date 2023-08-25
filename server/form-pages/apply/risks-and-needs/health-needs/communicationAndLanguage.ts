@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { sentenceCase } from '../../../../utils/utils'
+import { sentenceCase, nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
@@ -25,7 +25,7 @@ type CommunicationAndLanguageBody = {
   ],
 })
 export default class CommunicationAndLanguage implements TaskListPage {
-  title = `Communication and language needs for ${this.application.person.name}`
+  title = `Communication and language needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
     hasCommunicationNeeds: {

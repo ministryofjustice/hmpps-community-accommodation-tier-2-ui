@@ -28,10 +28,15 @@
 //    Given I'm on the enter CRN page
 //    When I enter a CRN for a person I'm not authorised to view
 //    Then I see an unathorised error message
+//
+//  Scenario: enter a CRN for a Limited Access Offender (LAO)
+//    Given I'm on the enter CRN page
+//    When I enter a CRN for a LAO
+//    Then I see an restricted error message
 
 import { Cas2Application as Application } from '@approved-premises/api'
 import ConfirmEligibilityPage from '../../pages/apply/confirmEligibilityPage'
-import { personFactory, applicationFactory } from '../../../server/testutils/factories/index'
+import { personFactory, applicationFactory, restrictedPersonFactory } from '../../../server/testutils/factories/index'
 import Page from '../../pages/page'
 import CRNPage from '../../pages/apply/crnPage'
 import ListPage from '../../pages/apply/list'
@@ -146,5 +151,23 @@ context('Find by CRN', () => {
     // I see an unathorised error message
     cy.get('.govuk-error-summary').should('contain', `You do not have permission to access this CRN`)
     cy.get(`[data-cy-error-crn]`).should('contain', `You do not have permission to access this CRN`)
+  })
+
+  //  Scenario: enter a CRN for an LAO
+  // ----------------------------------------------
+  it('renders with an unauthorised error', () => {
+    // I'm on the enter CRN page
+    const page = CRNPage.visit()
+
+    // I enter a CRN for an LAO
+    const restricedPerson = restrictedPersonFactory.build()
+    cy.task('stubFindPerson', { person: restricedPerson })
+
+    cy.get('#crn').type(restricedPerson.crn)
+    page.clickSubmit()
+
+    // I see an unathorised error message
+    cy.get('.govuk-error-summary').should('contain', `The CRN ${restricedPerson.crn} is restricted`)
+    cy.get(`[data-cy-error-crn]`).should('contain', `The CRN ${restricedPerson.crn} is restricted`)
   })
 })

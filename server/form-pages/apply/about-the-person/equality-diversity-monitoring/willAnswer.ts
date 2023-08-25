@@ -3,6 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type EqualityAndDiversityBody = {
   willAnswer: YesOrNo
@@ -18,10 +19,10 @@ export const options = {
   bodyProperties: ['willAnswer'],
 })
 export default class EqualityAndDiversity implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
-    willAnswer: `Does ${this.application.person.name} want to answer the equality questions?`,
+    willAnswer: `Does ${nameOrPlaceholderCopy(this.application.person)} want to answer the equality questions?`,
   }
 
   body: EqualityAndDiversityBody

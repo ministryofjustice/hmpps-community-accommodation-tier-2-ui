@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export type MixedBackgroundBody = {
   mixedBackground: 'whiteAndBlackCaribbean' | 'whiteAndBlackAfrican' | 'whiteAndAsian' | 'other' | 'preferNotToSay'
@@ -23,10 +24,12 @@ export const mixedBackgroundOptions = {
   bodyProperties: ['mixedBackground', 'optionalMixedBackground'],
 })
 export default class MixedBackground implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    mixedBackground: `Which of the following best describes ${this.application.person.name}'s mixed or multiple ethnic groups background?`,
+    mixedBackground: `Which of the following best describes ${this.personName}'s mixed or multiple ethnic groups background?`,
     optionalMixedBackground: 'How would they describe their background? (optional)',
   }
 

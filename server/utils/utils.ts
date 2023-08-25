@@ -1,5 +1,6 @@
 import qs, { IStringifyOptions } from 'qs'
 import Case from 'case'
+import { FullPerson, Person } from '@approved-premises/api'
 
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
@@ -37,4 +38,17 @@ export const createQueryString = (
   options: IStringifyOptions = { encode: false, indices: false },
 ): string => {
   return qs.stringify(params, options)
+}
+
+export const isFullPerson = (person: Person): person is FullPerson => {
+  return person.type === 'FullPerson'
+}
+
+/**
+ * Returns the person's name if they are a FullPerson, otherwise returns 'the person'
+ * @param {Person} person
+ * @returns 'the person' | person.name
+ */
+export const nameOrPlaceholderCopy = (person: Person, copyForRestrictedPerson = 'the person'): string => {
+  return isFullPerson(person) ? person.name : copyForRestrictedPerson
 }

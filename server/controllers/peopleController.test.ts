@@ -6,7 +6,7 @@ import PeopleController from './peopleController'
 import { errorMessage, errorSummary } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
-import personFactory from '../testutils/factories/person'
+import { fullPersonFactory, restrictedPersonFactory } from '../testutils/factories/person'
 import applicationFactory from '../testutils/factories/application'
 
 describe('peopleController', () => {
@@ -42,7 +42,7 @@ describe('peopleController', () => {
       it('redirects to the show applications path', async () => {
         const requestHandler = peopleController.find()
 
-        personService.findByCrn.mockResolvedValue(personFactory.build({}))
+        personService.findByCrn.mockResolvedValue(fullPersonFactory.build({}))
         applicationService.createApplication.mockResolvedValue(applicationFactory.build({ id: '123abc' }))
 
         await requestHandler(request, response, next)
@@ -94,6 +94,26 @@ describe('peopleController', () => {
             })
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
               errorSummary('crn', 'You do not have permission to access this CRN'),
+            ])
+            expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
+          })
+        })
+
+        describe('when there is a RestrictedPersonError', () => {
+          it('renders a restricted CRN message', async () => {
+            const requestHandler = peopleController.find()
+
+            personService.findByCrn.mockResolvedValue(restrictedPersonFactory.build())
+
+            request.body.crn = 'SOME_CRN'
+
+            await requestHandler(request, response, next)
+
+            expect(request.flash).toHaveBeenCalledWith('errors', {
+              crn: errorMessage('crn', `The CRN ${request.body.crn} is restricted`),
+            })
+            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('crn', `The CRN ${request.body.crn} is restricted`),
             ])
             expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
           })

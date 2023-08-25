@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { PersonType } from './PersonType';
-
-export type Person = {
+export type TemporaryAccommodationBedSearchResultOverlap = {
     crn: string;
-    type: PersonType;
+    days: number;
+    bookingId: string;
+    roomId: string;
 };
 

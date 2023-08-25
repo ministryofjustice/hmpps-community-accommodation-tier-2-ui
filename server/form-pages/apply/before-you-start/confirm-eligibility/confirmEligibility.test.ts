@@ -1,6 +1,7 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import ConfirmEligibility from './confirmEligibility'
-import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
+import { applicationFactory, personFactory } from '../../../../testutils/factories/index'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 describe('ConfirmEligibility', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -49,12 +50,12 @@ describe('ConfirmEligibility', () => {
       expect(page.items()).toEqual([
         {
           value: 'yes',
-          text: `Yes, I confirm ${application.person.name} is eligible`,
+          text: `Yes, I confirm ${nameOrPlaceholderCopy(application.person)} is eligible`,
           checked: true,
         },
         {
           value: 'no',
-          text: `No, ${application.person.name} is not eligible`,
+          text: `No, ${nameOrPlaceholderCopy(application.person)} is not eligible`,
           checked: false,
         },
       ])

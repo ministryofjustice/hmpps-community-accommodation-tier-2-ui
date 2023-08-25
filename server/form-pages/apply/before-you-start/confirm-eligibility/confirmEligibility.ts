@@ -3,6 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type ConfirmEligibilityBody = {
   isEligible: YesOrNo
@@ -12,15 +13,17 @@ type ConfirmEligibilityBody = {
   bodyProperties: ['isEligible'],
 })
 export default class ConfirmEligibility implements TaskListPage {
-  title = `Check ${this.application.person.name} is eligible for Short-Term Accommodation (CAS-2)`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Check ${this.personName} is eligible for Short-Term Accommodation (CAS-2)`
 
   questions = {
-    isEligible: `Is ${this.application.person.name} eligible for Short-Term Accommodation (CAS-2)?`,
+    isEligible: `Is ${this.personName} eligible for Short-Term Accommodation (CAS-2)?`,
   }
 
   options = {
-    yes: `Yes, I confirm ${this.application.person.name} is eligible`,
-    no: `No, ${this.application.person.name} is not eligible`,
+    yes: `Yes, I confirm ${this.personName} is eligible`,
+    no: `No, ${this.personName} is not eligible`,
   }
 
   body: ConfirmEligibilityBody

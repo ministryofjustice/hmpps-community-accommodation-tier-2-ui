@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export type MaritalStatusBody = {
   maritalStatus:
@@ -37,10 +38,12 @@ export const options = {
   bodyProperties: ['maritalStatus'],
 })
 export default class MaritalStatus implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Equality and diversity questions for ${this.personName}`
 
   questions = {
-    maritalStatus: `What is ${this.application.person.name}'s legal marital or registered civil partnership status?`,
+    maritalStatus: `What is ${this.personName}'s legal marital or registered civil partnership status?`,
   }
 
   body: MaritalStatusBody

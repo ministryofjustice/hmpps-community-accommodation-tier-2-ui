@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 export type EthnicGroupBody = {
   ethnicGroup: 'white' | 'mixed' | 'asian' | 'black' | 'other' | 'preferNotToSay'
@@ -23,10 +24,10 @@ export const ethnicGroupOptions = {
   bodyProperties: ['ethnicGroup'],
 })
 export default class EthnicGroup implements TaskListPage {
-  title = `Equality and diversity questions for ${this.application.person.name}`
+  title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
-    ethnicGroup: `What is ${this.application.person.name}'s ethnic group?`,
+    ethnicGroup: `What is ${nameOrPlaceholderCopy(this.application.person)}'s ethnic group?`,
   }
 
   body: EthnicGroupBody

@@ -1,11 +1,12 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import paths from '../../../../../server/paths/apply'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import ApplyPage from '../../applyPage'
 
 export default class MaritalStatusPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `What is ${application.person.name}'s legal marital or registered civil partnership status?`,
+      `What is ${nameOrPlaceholderCopy(application.person)}'s legal marital or registered civil partnership status?`,
       application,
       'equality-and-diversity-monitoring',
       'marital-status',
