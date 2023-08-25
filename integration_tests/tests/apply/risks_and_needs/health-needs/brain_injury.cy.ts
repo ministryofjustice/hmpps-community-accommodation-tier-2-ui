@@ -17,8 +17,8 @@
 //    Then I see the "other health" page
 
 import Page from '../../../../pages/page'
-import BrainInjuryPage from '../../../../pages/apply/risks-and-needs/brainInjuryPage'
-import OtherHealthPage from '../../../../pages/apply/risks-and-needs/otherHealthPage'
+import BrainInjuryPage from '../../../../pages/apply/risks-and-needs/health-needs/brainInjuryPage'
+import OtherHealthPage from '../../../../pages/apply/risks-and-needs/health-needs/otherHealthPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "brain injury" page', () => {
