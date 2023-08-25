@@ -11,7 +11,7 @@ import { TaskListPageInterface } from '../taskListPage'
 
 describe('utils', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
+    jest.restoreAllMocks()
   })
 
   describe('Decorator metadata utils', () => {

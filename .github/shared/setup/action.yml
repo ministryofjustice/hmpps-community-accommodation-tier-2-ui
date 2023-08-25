@@ -4,7 +4,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Node.js environment
-      uses: actions/setup-node@v3.8.0
+      uses: actions/setup-node@v3.8.1
       with:
         node-version-file: '.nvmrc'
 
