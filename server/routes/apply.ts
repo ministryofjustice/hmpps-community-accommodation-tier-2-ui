@@ -18,6 +18,7 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
   get(paths.applications.index.pattern, applicationsController.index(), { auditEvent: 'VIEW_APPLICATIONS_LIST' })
   get(paths.applications.show.pattern, applicationsController.show(), { auditEvent: 'VIEW_APPLICATION_START' })
   post(paths.applications.submission.pattern, applicationsController.submit(), { auditEvent: 'SUBMIT_APPLICATION' })
+  put(paths.applications.update.pattern, applicationsController.update(), { auditEvent: 'UPDATE_APPLICATION' })
 
   Object.keys(pages).forEach((taskKey: string) => {
     Object.keys(pages[taskKey]).forEach((pageKey: string) => {

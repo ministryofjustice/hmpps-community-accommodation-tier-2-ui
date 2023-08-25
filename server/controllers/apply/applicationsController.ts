@@ -1,7 +1,8 @@
 import { Request, RequestHandler, Response } from 'express'
+import { DataServices } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import PersonService from '../../services/personService'
-import { fetchErrorsAndUserInput } from '../../utils/validation'
+import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationService from '../../services/applicationService'
 import {
   eligibilityIsDenied,
@@ -11,11 +12,13 @@ import {
 import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
 import { getResponses } from '../../utils/applications/getResponses'
+import { getPage } from '../../utils/applications/getPage'
 
 export default class ApplicationsController {
   constructor(
     private readonly _personService: PersonService,
     private readonly applicationService: ApplicationService,
+    private readonly dataServices: DataServices,
   ) {}
 
   index(): RequestHandler {
@@ -102,6 +105,32 @@ export default class ApplicationsController {
 
       await this.applicationService.submit(req.user.token, application)
       return res.render('applications/confirm', { pageHeading: 'Application confirmation' })
+    }
+  }
+
+  update(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { taskData, pageName, taskName } = req.body
+      const Page = getPage(taskName, pageName, 'applications')
+      const page = await this.applicationService.initializePage(Page, req, this.dataServices)
+      const data = JSON.parse(taskData)
+
+      try {
+        await this.applicationService.saveData(data, req)
+        const next = page.next()
+        if (next) {
+          res.redirect(paths.applications.pages.show({ id: req.params.id, task: taskName, page: page.next() }))
+        } else {
+          res.redirect(paths.applications.show({ id: req.params.id }))
+        }
+      } catch (err) {
+        catchValidationErrorOrPropogate(
+          req,
+          res,
+          err,
+          paths.applications.pages.show({ id: req.params.id, task: taskName, page: pageName }),
+        )
+      }
     }
   }
 }

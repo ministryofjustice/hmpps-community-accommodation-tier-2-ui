@@ -3,8 +3,10 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { ErrorsAndUserInput } from '@approved-premises/ui'
 
+import { getPage } from '../../utils/applications/getPage'
+import TaskListPage from '../../form-pages/taskListPage'
 import { applicationFactory, personFactory } from '../../testutils/factories'
-import { fetchErrorsAndUserInput } from '../../utils/validation'
+import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
 import paths from '../../paths/apply'
@@ -13,6 +15,7 @@ import { getResponses } from '../../utils/applications/getResponses'
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getResponses')
+jest.mock('../../utils/applications/getPage')
 
 describe('applicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -31,7 +34,10 @@ describe('applicationsController', () => {
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 
   beforeEach(() => {
-    applicationsController = new ApplicationsController(personService, applicationService)
+    applicationsController = new ApplicationsController(personService, applicationService, {
+      personService,
+      applicationService,
+    })
     request = createMock<Request>({ user: { token } })
     response = createMock<Response>({})
     jest.clearAllMocks()
@@ -209,6 +215,88 @@ describe('applicationsController', () => {
       expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
       expect(getResponses).toHaveBeenCalledWith(application)
       expect(response.render).toHaveBeenCalledWith('applications/confirm', { pageHeading: 'Application confirmation' })
+    })
+  })
+
+  describe('update', () => {
+    const page = createMock<TaskListPage>({})
+
+    const taskData = `{
+      "example-task": {
+        "example-page": {
+          "exmaplePageQuestion": "example text"
+        }
+      }
+    }`
+
+    beforeEach(() => {
+      request.body = {
+        taskData,
+        pageName: 'example-page',
+        taskName: 'example-task',
+      }
+
+      request.params = {
+        id: 'abc123',
+      }
+
+      const PageConstructor = jest.fn()
+      ;(getPage as jest.Mock).mockReturnValue(PageConstructor)
+
+      applicationService.initializePage.mockResolvedValue(page)
+    })
+
+    describe('when the page has a next page', () => {
+      it('saves data and calls next function', async () => {
+        page.next.mockReturnValue('next-page')
+
+        applicationService.saveData.mockResolvedValue()
+
+        const requestHandler = applicationsController.update()
+
+        await requestHandler({ ...request }, response, next)
+
+        expect(applicationService.saveData).toHaveBeenCalledWith(JSON.parse(taskData), request)
+
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'next-page' }),
+        )
+      })
+    })
+    describe('when the page does not have a next page', () => {
+      it('redirects to the task list page', async () => {
+        page.next.mockReturnValue('')
+
+        applicationService.saveData.mockResolvedValue()
+
+        const requestHandler = applicationsController.update()
+
+        await requestHandler({ ...request }, response, next)
+
+        expect(applicationService.saveData).toHaveBeenCalledWith(JSON.parse(taskData), request)
+
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.show({ id: request.params.id }))
+      })
+    })
+
+    describe('when there are errors', () => {
+      it('passes error to error handler', async () => {
+        const err = new Error()
+        applicationService.saveData.mockImplementation(() => {
+          throw err
+        })
+
+        const requestHandler = applicationsController.update()
+
+        await requestHandler({ ...request }, response, next)
+
+        expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
+          request,
+          response,
+          err,
+          paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'example-page' }),
+        )
+      })
     })
   })
 })

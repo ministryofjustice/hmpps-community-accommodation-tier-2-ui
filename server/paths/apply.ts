@@ -19,6 +19,7 @@ const paths = {
       show: pagesPath,
       update: pagesPath,
     },
+    update: singleApplicationPath,
   },
 }
 
