@@ -1,0 +1,17 @@
+{% extends "./_risk-to-self-screen.njk" %}
+{% set pageName = "historical-risk" %}
+
+{% block questions %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'historicalRiskDetail',
+          label: {
+            text: page.questions.historicalRiskDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+  }}
+{% endblock %}
