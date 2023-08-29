@@ -20,7 +20,11 @@
 //  Scenario: import OASys data
 //    When there is OASys data
 //    When I choose to import and save the data
-//    Then we are taken to the Task List page (temporarily)
+//    Then we are taken to the Vulnerability page
+//
+//    Scenario: return to Task after importing data
+//    When I go to the task again
+//    Then we are redirected to the Vulnerability page
 //
 //  Scenario: there is no OASys data
 //    When I follow the link to the first page in the "Risks and needs" section
@@ -33,7 +37,7 @@ import TaskListPage from '../../../../pages/apply/taskListPage'
 import {
   personFactory,
   applicationFactory,
-  oasysSectionsFactory,
+  oasysRiskToSelfFactory,
 } from '../../../../../server/testutils/factories/index'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
 
@@ -45,19 +49,19 @@ context('Visit "Risks and needs" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    const oasysSections = oasysSectionsFactory.build()
+    const oasys = oasysRiskToSelfFactory.build()
 
-    cy.task('stubOasysSections', {
+    cy.task('stubOasysRiskToSelf', {
       crn: person.crn,
-      oasysSections: {
-        ...oasysSections,
+      oasysRiskToSelf: {
+        ...oasys,
         dateStarted: DateFormats.dateObjToIsoDateTime(new Date(2022, 6, 26)),
         dateCompleted: DateFormats.dateObjToIsoDateTime(new Date(2022, 6, 27)),
       },
     })
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['risk-to-self'] = {}
+      delete applicationData['risk-to-self']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -80,7 +84,6 @@ context('Visit "Risks and needs" section', () => {
     // And I am viewing the application
     // --------------------------------
     cy.visit('applications/abc123')
-    // Page.verifyOnPage(TaskListPage)
   })
 
   // Scenario: view task status
@@ -120,14 +123,35 @@ context('Visit "Risks and needs" section', () => {
     //  When I choose to import and save the data
     page.clickSubmit()
 
-    //  Then we are taken to the Task List page (temporarily)
-    Page.verifyOnPage(TaskListPage)
+    //  Then we are taken to the Vulnerability page
+    cy.get('h1').contains('vulnerability')
+  })
+
+  //  Scenario: return to Task after importing data
+  // ----------------------------------------------
+  it('redirects to the Vulnerability page', function test() {
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // When there is already imported data
+    cy.fixture('applicationData.json').then(applicationData => {
+      const answered = {
+        ...this.application,
+        data: applicationData,
+      }
+      cy.task('stubApplicationGet', { application: answered })
+    })
+
+    //  When I revisit the task
+    taskListPage.visitTask('Review risk to self information')
+
+    //  Then we are redirected to the Vulnerability page
+    cy.get('h1').contains('vulnerability')
   })
 
   //  Scenario: there is no OASys data
   // ----------------------------------------------
   it('shows a message to say that no OASys record exists', function test() {
-    cy.task('stubOasysSectionsNotFound', {
+    cy.task('stubOasysRiskToSelfNotFound', {
       crn: person.crn,
     })
 

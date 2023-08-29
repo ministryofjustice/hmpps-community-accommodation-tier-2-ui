@@ -114,6 +114,15 @@
     }
   },
   "risk-to-self": {
-    "guidance": {}
+    "guidance": {},
+    "vulnerability": {
+      "vulnerabilityDetail": "example answer vulnerability"
+    },
+    "current-risk": {
+      "currentRiskDetail": "example answer current risk"
+    },
+    "historical-risk": {
+      "historicalRiskDetail": "example answer historical risk "
+    }
   }
 }
