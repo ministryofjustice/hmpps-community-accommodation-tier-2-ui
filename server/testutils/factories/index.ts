@@ -1,5 +1,6 @@
 import oasysSectionsFactory, { roshSummaryFactory } from './oasysSections'
 import oasysSelectionFactory from './oasysSelection'
+import oasysRiskToSelfFactory from './oasysRiskToSelf'
 import { fullPersonFactory as personFactory, restrictedPersonFactory } from './person'
 import applicationFactory from './application'
 import applicationSummaryFactory from './applicationSummary'
@@ -9,6 +10,7 @@ export {
   applicationSummaryFactory,
   oasysSectionsFactory,
   oasysSelectionFactory,
+  oasysRiskToSelfFactory,
   roshSummaryFactory,
   applicationFactory,
   personFactory,
