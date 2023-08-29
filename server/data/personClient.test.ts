@@ -1,5 +1,5 @@
 import PersonClient from './personClient'
-import { oasysSectionsFactory, personFactory } from '../testutils/factories'
+import { oasysRiskToSelfFactory, oasysSectionsFactory, personFactory } from '../testutils/factories'
 import paths from '../paths/api'
 
 import describeClient from '../testutils/describeClient'
@@ -66,6 +66,34 @@ describeClient('PersonClient', provider => {
       const result = await personClient.oasysSections(crn)
 
       expect(result).toEqual(oasysSections)
+    })
+  })
+
+  describe('oasysRiskToSelf', () => {
+    it('should return the Risk to Self data', async () => {
+      const crn = 'crn'
+      const oasysRiskToSelf = oasysRiskToSelfFactory.build()
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to get the optional selected sections of OASys for a person',
+        withRequest: {
+          method: 'GET',
+          path: paths.people.oasys.riskToSelf({ crn }),
+          query: {},
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: oasysRiskToSelf,
+        },
+      })
+
+      const result = await personClient.oasysRiskToSelf(crn)
+
+      expect(result).toEqual(oasysRiskToSelf)
     })
   })
 
