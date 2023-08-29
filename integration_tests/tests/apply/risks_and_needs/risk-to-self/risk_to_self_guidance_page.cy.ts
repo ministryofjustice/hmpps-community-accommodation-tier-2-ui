@@ -32,6 +32,7 @@
 //    And I see that there is no OASys data
 
 import RiskToSelfGuidancePage from '../../../../pages/apply/risks-and-needs/risk-to-self/riskToSelfGuidancePage'
+import VulnerabilityPage from '../../../../pages/apply/risks-and-needs/risk-to-self/vulnerabilityPage'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import {
@@ -124,7 +125,7 @@ context('Visit "Risks and needs" section', () => {
     page.clickSubmit()
 
     //  Then we are taken to the Vulnerability page
-    cy.get('h1').contains('vulnerability')
+    Page.verifyOnPage(VulnerabilityPage, this.application)
   })
 
   //  Scenario: return to Task after importing data
