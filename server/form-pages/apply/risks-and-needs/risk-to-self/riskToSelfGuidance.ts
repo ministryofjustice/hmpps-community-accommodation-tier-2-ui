@@ -1,5 +1,5 @@
 import type { DataServices, TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, Cas2Application, OASysSections } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2Application, OASysRiskToSelf } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { DateFormats } from '../../../../utils/dateUtils'
@@ -8,13 +8,16 @@ import Vulnerability from './vulnerability'
 
 type GuidanceBody = Record<string, never>
 
-type RiskToSelfTaskData = {
+export type RiskToSelfTaskData = {
   'risk-to-self': {
     currentRisk: {
       currentRiskDetail: string
     }
     vulnerability: {
       vulnerabilityDetail: string
+    }
+    historicalRisk: {
+      historicalRiskDetail: string
     }
   }
 }
@@ -30,9 +33,9 @@ export default class RiskToSelfGuidance implements TaskListPage {
 
   body: GuidanceBody
 
-  oasysCompleted = ''
+  oasysCompleted: string
 
-  oasysStarted = ''
+  oasysStarted: string
 
   hasOasysRecord: boolean
 
@@ -41,22 +44,23 @@ export default class RiskToSelfGuidance implements TaskListPage {
   noOasysDescriptiveText = `No information can be imported for the risk to self section because ${this.personName} 
                             does not have a Layer 3 OASys completed in the last 6 months.`
 
-  taskData = ''
+  taskData: string
 
   taskName = 'risk-to-self'
 
   constructor(
     body: Partial<GuidanceBody>,
     private readonly application: Application,
-    oasysSections: OASysSections,
+    oasys: OASysRiskToSelf,
     taskData: string,
   ) {
     this.body = body as GuidanceBody
-    this.oasysStarted =
-      oasysSections?.dateStarted && DateFormats.isoDateToUIDate(oasysSections?.dateStarted, { format: 'medium' })
-    this.oasysCompleted =
-      oasysSections?.dateCompleted && DateFormats.isoDateToUIDate(oasysSections?.dateCompleted, { format: 'medium' })
-    this.hasOasysRecord = (oasysSections && Boolean(Object.keys(oasysSections).length)) || false
+    this.hasOasysRecord = (oasys && Boolean(Object.keys(oasys).length)) || false
+    if (oasys) {
+      this.oasysStarted = oasys.dateStarted && DateFormats.isoDateToUIDate(oasys.dateStarted, { format: 'medium' })
+      this.oasysCompleted =
+        oasys.dateCompleted && DateFormats.isoDateToUIDate(oasys.dateCompleted, { format: 'medium' })
+    }
     this.taskData = taskData
   }
 
@@ -66,33 +70,41 @@ export default class RiskToSelfGuidance implements TaskListPage {
     token: string,
     dataServices: DataServices,
   ) {
-    let oasysSections
+    let oasys
     let taskDataJson
 
-    if (!application.data['risk-to-self'] || Boolean(Object.keys(application.data['risk-to-self']).length < 1)) {
+    if (!application.data['risk-to-self']) {
       try {
-        oasysSections = await dataServices.personService.getOasysSections(token, application.person.crn)
+        oasys = await dataServices.personService.getOasysRiskToSelf(token, application.person.crn)
 
-        taskDataJson = JSON.stringify(RiskToSelfGuidance.getTaskData(oasysSections))
+        taskDataJson = JSON.stringify(RiskToSelfGuidance.getTaskData(oasys))
       } catch (e) {
         if (e.status === 404) {
-          oasysSections = null
+          oasys = null
         } else {
           throw e
         }
       }
-      return new RiskToSelfGuidance(body, application, oasysSections, taskDataJson)
+      return new RiskToSelfGuidance(body, application, oasys, taskDataJson)
     }
     return new Vulnerability(application.data['risk-to-self'].vulnerability, application)
   }
 
-  private static getTaskData(oasysSections: OASysSections): Partial<RiskToSelfTaskData> {
+  private static getTaskData(oasysSections: OASysRiskToSelf): Partial<RiskToSelfTaskData> {
     const taskData = { 'risk-to-self': {} } as Partial<RiskToSelfTaskData>
     oasysSections.riskToSelf.forEach(question => {
-      if (question.questionNumber === 'R8.1.1') {
-        taskData['risk-to-self'].currentRisk = { currentRiskDetail: question.answer }
-      } else if (question.questionNumber === 'R8.3.1') {
-        taskData['risk-to-self'].vulnerability = { vulnerabilityDetail: question.answer }
+      switch (question.questionNumber) {
+        case 'R8.1.1':
+          taskData['risk-to-self'].currentRisk = { currentRiskDetail: question.answer }
+          break
+        case 'R8.3.1':
+          taskData['risk-to-self'].vulnerability = { vulnerabilityDetail: question.answer }
+          break
+        case 'R8.1.4':
+          taskData['risk-to-self'].historicalRisk = { historicalRiskDetail: question.answer }
+          break
+        default:
+          break
       }
     })
     return taskData
