@@ -7,7 +7,7 @@ import TaskListPage from '../../../taskListPage'
 type CurrentRiskBody = { currentRiskDetail: string }
 
 @Page({
-  name: 'currentRisk',
+  name: 'current-risk',
   bodyProperties: ['currentRiskDetail'],
 })
 export default class CurrentRisk implements TaskListPage {
@@ -35,7 +35,7 @@ export default class CurrentRisk implements TaskListPage {
   }
 
   next() {
-    return 'historicalRisk'
+    return 'historical-risk'
   }
 
   errors() {

@@ -23,7 +23,7 @@ describe('CurrentRisk', () => {
     })
   })
 
-  itShouldHaveNextValue(new CurrentRisk({}, application), 'historicalRisk')
+  itShouldHaveNextValue(new CurrentRisk({}, application), 'historical-risk')
   itShouldHavePreviousValue(new CurrentRisk({}, application), 'vulnerability')
 
   describe('response', () => {
