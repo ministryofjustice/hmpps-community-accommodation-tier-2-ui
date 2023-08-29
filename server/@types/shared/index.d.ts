@@ -163,6 +163,7 @@ export type { Problem } from './models/Problem';
 export type { PropertyStatus } from './models/PropertyStatus';
 export type { Reallocation } from './models/Reallocation';
 export type { ReferralHistoryNote } from './models/ReferralHistoryNote';
+export type { ReferralHistorySystemNote } from './models/ReferralHistorySystemNote';
 export type { ReferralHistoryUserNote } from './models/ReferralHistoryUserNote';
 export type { ReleaseTypeOption } from './models/ReleaseTypeOption';
 export type { RestrictedPerson } from './models/RestrictedPerson';
