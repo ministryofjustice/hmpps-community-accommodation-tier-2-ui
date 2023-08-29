@@ -54,9 +54,9 @@ describe('RiskToSelfGuidance', () => {
 
         const taskData = {
           'risk-to-self': {
-            currentRisk: { currentRiskDetail: 'self harm answer' },
+            'current-risk': { currentRiskDetail: 'self harm answer' },
             vulnerability: { vulnerabilityDetail: 'vulnerability answer' },
-            historicalRisk: { historicalRiskDetail: 'historical answer' },
+            'historical-risk': { historicalRiskDetail: 'historical answer' },
           },
         }
 

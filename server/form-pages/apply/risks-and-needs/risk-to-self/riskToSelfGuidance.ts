@@ -10,13 +10,13 @@ type GuidanceBody = Record<string, never>
 
 export type RiskToSelfTaskData = {
   'risk-to-self': {
-    currentRisk: {
+    'current-risk': {
       currentRiskDetail: string
     }
     vulnerability: {
       vulnerabilityDetail: string
     }
-    historicalRisk: {
+    'historical-risk': {
       historicalRiskDetail: string
     }
   }
@@ -95,13 +95,13 @@ export default class RiskToSelfGuidance implements TaskListPage {
     oasysSections.riskToSelf.forEach(question => {
       switch (question.questionNumber) {
         case 'R8.1.1':
-          taskData['risk-to-self'].currentRisk = { currentRiskDetail: question.answer }
+          taskData['risk-to-self']['current-risk'] = { currentRiskDetail: question.answer }
           break
         case 'R8.3.1':
           taskData['risk-to-self'].vulnerability = { vulnerabilityDetail: question.answer }
           break
         case 'R8.1.4':
-          taskData['risk-to-self'].historicalRisk = { historicalRiskDetail: question.answer }
+          taskData['risk-to-self']['historical-risk'] = { historicalRiskDetail: question.answer }
           break
         default:
           break
