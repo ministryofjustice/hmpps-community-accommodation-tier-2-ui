@@ -1,3 +1,4 @@
+import { OASysRiskToSelf } from '../shared/models/OASysRiskToSelf'
 import { OASysSections } from '../shared/models/OASysSections'
 
 export type JourneyType = 'applications'
@@ -47,6 +48,7 @@ export type DataServices = Partial<{
   personService: {
     findByCrn: (token: string, crn: string) => Promise<Person>
     getOasysSections: (token: string, crn: string) => Promise<OASysSections>
+    getOasysRiskToSelf: (token: string, crn: string) => Promise<OASysRiskToSelf>
   }
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2Application>
