@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { DateFormats } from '../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
+import Vulnerability from './vulnerability'
 
 type GuidanceBody = Record<string, never>
 
@@ -68,18 +69,21 @@ export default class RiskToSelfGuidance implements TaskListPage {
     let oasysSections
     let taskDataJson
 
-    try {
-      oasysSections = await dataServices.personService.getOasysSections(token, application.person.crn)
+    if (!application.data['risk-to-self'] || Boolean(Object.keys(application.data['risk-to-self']).length < 1)) {
+      try {
+        oasysSections = await dataServices.personService.getOasysSections(token, application.person.crn)
 
-      taskDataJson = JSON.stringify(RiskToSelfGuidance.getTaskData(oasysSections))
-    } catch (e) {
-      if (e.status === 404) {
-        oasysSections = null
-      } else {
-        throw e
+        taskDataJson = JSON.stringify(RiskToSelfGuidance.getTaskData(oasysSections))
+      } catch (e) {
+        if (e.status === 404) {
+          oasysSections = null
+        } else {
+          throw e
+        }
       }
+      return new RiskToSelfGuidance(body, application, oasysSections, taskDataJson)
     }
-    return new RiskToSelfGuidance(body, application, oasysSections, taskDataJson)
+    return new Vulnerability(application.data['risk-to-self'].vulnerability, application)
   }
 
   private static getTaskData(oasysSections: OASysSections): Partial<RiskToSelfTaskData> {
@@ -99,7 +103,7 @@ export default class RiskToSelfGuidance implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'vulnerability'
   }
 
   errors() {
