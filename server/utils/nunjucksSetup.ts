@@ -6,10 +6,10 @@ import nunjucks from 'nunjucks'
 import express from 'express'
 
 import applicationPaths from '../paths/apply'
+import config from '../config'
 import { initialiseName } from './utils'
 import { dashboardTableRows } from './applicationUtils'
 import * as TaskListUtils from './taskListUtils'
-
 import * as OasysImportUtils from './oasysImportUtils'
 
 const production = process.env.NODE_ENV === 'production'
@@ -62,4 +62,12 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)
 
   njkEnv.addGlobal('dashboardTableRows', dashboardTableRows)
+
+  const {
+    analytics: { tagManagerId },
+  } = config
+  if (tagManagerId) {
+    njkEnv.addGlobal('tagManagerId', tagManagerId.trim())
+    njkEnv.addGlobal('tagManagerUrl', `https://www.googletagmanager.com/ns.html?id=${tagManagerId.trim()}`)
+  }
 }

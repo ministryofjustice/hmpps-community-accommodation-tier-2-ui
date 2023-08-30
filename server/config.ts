@@ -102,4 +102,7 @@ export default {
   flags: {
     oasysDisabled: process.env.OASYS_DISABLED || false,
   },
+  analytics: {
+    tagManagerId: get('TAG_MANAGER_ID', null),
+  },
 }
