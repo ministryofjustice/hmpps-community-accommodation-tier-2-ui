@@ -1,4 +1,4 @@
-import type { OASysSections, Person } from '@approved-premises/api'
+import type { OASysRiskToSelf, OASysSections, Person } from '@approved-premises/api'
 import type { PersonClient, RestClientBuilder } from '../data'
 
 export default class PersonService {
@@ -15,6 +15,13 @@ export default class PersonService {
     const personClient = this.personClientFactory(token)
 
     const oasysSections = await personClient.oasysSections(crn)
+    return oasysSections
+  }
+
+  async getOasysRiskToSelf(token: string, crn: string): Promise<OASysRiskToSelf> {
+    const personClient = this.personClientFactory(token)
+
+    const oasysSections = await personClient.oasysRiskToSelf(crn)
     return oasysSections
   }
 }

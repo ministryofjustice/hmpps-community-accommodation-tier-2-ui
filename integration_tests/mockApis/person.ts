@@ -1,25 +1,25 @@
-import type { OASysSections, Person } from '@approved-premises/api'
+import type { OASysRiskToSelf, Person } from '@approved-premises/api'
 import { stubFor } from '../../wiremock'
 
 export default {
-  stubOasysSections: (args: { crn: string; oasysSections: OASysSections }) =>
+  stubOasysRiskToSelf: (args: { crn: string; oasysRiskToSelf: OASysRiskToSelf }) =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/people/${args.crn}/oasys/sections`,
+        url: `/people/${args.crn}/oasys/risk-to-self`,
       },
       response: {
         status: 200,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        jsonBody: args.oasysSections,
+        jsonBody: args.oasysRiskToSelf,
       },
     }),
 
-  stubOasysSectionsNotFound: (args: { crn: string }) =>
+  stubOasysRiskToSelfNotFound: (args: { crn: string }) =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/people/${args.crn}/oasys/sections`,
+        url: `/people/${args.crn}/oasys/risk-to-self`,
       },
       response: {
         status: 404,

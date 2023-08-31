@@ -70,9 +70,7 @@
 
         {{ govukButton({
               text: "Continue",
-              href: paths.applications.show({
-                    id: page.application.id   
-                  })
+              href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'vulnerability' })
               }) 
           }}
 
