@@ -1,49 +1,49 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import Vulnerability from './vulnerability'
+import HistoricalRisk from './historicalRisk'
 
-describe('Vulnerability', () => {
+describe('HistoricalRisk', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new Vulnerability({}, application)
+      const page = new HistoricalRisk({}, application)
 
-      expect(page.title).toEqual("Roger Smith's vulnerability")
+      expect(page.title).toEqual("Roger Smith's historical risks")
     })
   })
 
   describe('Questions', () => {
-    const page = new Vulnerability({}, application)
+    const page = new HistoricalRisk({}, application)
 
-    describe('vulnerabilityDetail', () => {
+    describe('historicalRiskDetail', () => {
       it('has a question', () => {
-        expect(page.questions.vulnerabilityDetail.question).toBeDefined()
+        expect(page.questions.historicalRiskDetail.question).toBeDefined()
       })
     })
   })
 
-  itShouldHaveNextValue(new Vulnerability({}, application), 'current-risk')
-  itShouldHavePreviousValue(new Vulnerability({}, application), 'taskList')
+  itShouldHaveNextValue(new HistoricalRisk({}, application), 'acct')
+  itShouldHavePreviousValue(new HistoricalRisk({}, application), 'current-risk')
 
   describe('response', () => {
     it('returns the correct plain english responses for the questions', () => {
-      const page = new Vulnerability(
+      const page = new HistoricalRisk(
         {
-          vulnerabilityDetail: 'is vulnerable',
+          historicalRiskDetail: 'is at risk',
         },
         application,
       )
 
       expect(page.response()).toEqual({
-        "Describe Roger Smith's current circumstances, issues and needs related to vulnerability": 'is vulnerable',
+        "Describe Roger Smith's historical issues and needs related to self harm and suicide": 'is at risk',
       })
     })
   })
 
   describe('errors', () => {
     it('returns empty object', () => {
-      const page = new Vulnerability({}, application)
+      const page = new HistoricalRisk({}, application)
       expect(page.errors()).toEqual({})
     })
   })

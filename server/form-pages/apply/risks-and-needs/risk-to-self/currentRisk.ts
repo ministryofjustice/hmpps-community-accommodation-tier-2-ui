@@ -4,38 +4,38 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type VulnerabilityBody = { vulnerabilityDetail: string }
+type CurrentRiskBody = { currentRiskDetail: string }
 
 @Page({
-  name: 'vulnerability',
-  bodyProperties: ['vulnerabilityDetail'],
+  name: 'current-risk',
+  bodyProperties: ['currentRiskDetail'],
 })
-export default class Vulnerability implements TaskListPage {
-  title = `${nameOrPlaceholderCopy(this.application.person)}'s vulnerability`
+export default class CurrentRisk implements TaskListPage {
+  title = `${nameOrPlaceholderCopy(this.application.person)}'s current risks`
 
   questions = {
-    vulnerabilityDetail: {
+    currentRiskDetail: {
       question: `Describe ${nameOrPlaceholderCopy(
         this.application.person,
-      )}'s current circumstances, issues and needs related to vulnerability`,
+      )}'s current issues and needs related to self harm and suicide`,
     },
   }
 
-  body: VulnerabilityBody
+  body: CurrentRiskBody
 
   constructor(
-    body: Partial<VulnerabilityBody>,
+    body: Partial<CurrentRiskBody>,
     private readonly application: Application,
   ) {
-    this.body = body as VulnerabilityBody
+    this.body = body as CurrentRiskBody
   }
 
   previous() {
-    return 'taskList'
+    return 'vulnerability'
   }
 
   next() {
-    return 'current-risk'
+    return 'historical-risk'
   }
 
   errors() {
@@ -46,7 +46,7 @@ export default class Vulnerability implements TaskListPage {
 
   response() {
     const response = {
-      [this.questions.vulnerabilityDetail.question]: this.body.vulnerabilityDetail,
+      [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
     }
 
     return response

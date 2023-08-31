@@ -1,13 +1,13 @@
 {% extends "./_risk-to-self-screen.njk" %}
-{% set pageName = "vulnerability" %}
+{% set pageName = "current-risk" %}
 
 {% block questions %}
   {{
       formPageTextArea(
         {
-          fieldName: 'vulnerabilityDetail',
+          fieldName: 'currentRiskDetail',
           label: {
-            text: page.questions.vulnerabilityDetail.question,
+            text: page.questions.currentRiskDetail.question,
             classes: "govuk-label--s"
           }
         },

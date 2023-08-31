@@ -1,0 +1,46 @@
+{%- from "moj/components/side-navigation/macro.njk" import mojSideNavigation -%}
+
+{% extends "../layout.njk" %}
+
+{% set columnClasses = "govuk-grid-column-full" %}
+
+{% block content %}
+  <div class="govuk-grid-row" id="{{ pageName }}">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-4">
+    <div class="govuk-grid-column-one-third">
+      {{ mojSideNavigation({
+          items: [{
+            text: 'Vulnerability',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'vulnerability' }),
+            active: (pageName === 'vulnerability')
+          }, {
+            text: 'Current risk',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'current-risk' }),
+            active: (pageName === 'current-risk')
+          }, {
+            text: 'Historical risk',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'historical-risk' }),
+            active: (pageName === 'historical-risk')
+          }, {
+            text: 'ACCT',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct' }),
+            active: (pageName === 'acct')
+          }, {
+            text: 'Additional information',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'additional-information' }),
+            active: (pageName === 'additional-information')
+          }]
+        }) }}
+    </div>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-4">
+      {{ super() }}
+    </div>
+
+  </div>
+{% endblock %}

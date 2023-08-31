@@ -1,49 +1,49 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import Vulnerability from './vulnerability'
+import CurrentRisk from './currentRisk'
 
-describe('Vulnerability', () => {
+describe('CurrentRisk', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new Vulnerability({}, application)
+      const page = new CurrentRisk({}, application)
 
-      expect(page.title).toEqual("Roger Smith's vulnerability")
+      expect(page.title).toEqual("Roger Smith's current risks")
     })
   })
 
   describe('Questions', () => {
-    const page = new Vulnerability({}, application)
+    const page = new CurrentRisk({}, application)
 
-    describe('vulnerabilityDetail', () => {
+    describe('currentRiskDetail', () => {
       it('has a question', () => {
-        expect(page.questions.vulnerabilityDetail.question).toBeDefined()
+        expect(page.questions.currentRiskDetail.question).toBeDefined()
       })
     })
   })
 
-  itShouldHaveNextValue(new Vulnerability({}, application), 'current-risk')
-  itShouldHavePreviousValue(new Vulnerability({}, application), 'taskList')
+  itShouldHaveNextValue(new CurrentRisk({}, application), 'historical-risk')
+  itShouldHavePreviousValue(new CurrentRisk({}, application), 'vulnerability')
 
   describe('response', () => {
     it('returns the correct plain english responses for the questions', () => {
-      const page = new Vulnerability(
+      const page = new CurrentRisk(
         {
-          vulnerabilityDetail: 'is vulnerable',
+          currentRiskDetail: 'is at risk',
         },
         application,
       )
 
       expect(page.response()).toEqual({
-        "Describe Roger Smith's current circumstances, issues and needs related to vulnerability": 'is vulnerable',
+        "Describe Roger Smith's current issues and needs related to self harm and suicide": 'is at risk',
       })
     })
   })
 
   describe('errors', () => {
     it('returns empty object', () => {
-      const page = new Vulnerability({}, application)
+      const page = new CurrentRisk({}, application)
       expect(page.errors()).toEqual({})
     })
   })
