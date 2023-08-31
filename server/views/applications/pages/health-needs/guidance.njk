@@ -15,52 +15,65 @@
 {% endset %}
 
 {% block content %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
 
-  <p class="govuk-body">
-    To complete this section, you’ll need to enter health information about the applicant.
-  </p>
+      <p class="govuk-body">
+      To complete this section, you’ll need to enter health information about the applicant.
+      </p>
 
-  <p class="govuk-body">
-    Typically, this <strong>could</strong> involve speaking to the following people:
-  </p>
+      <p class="govuk-body">
+      Typically, this <strong>could</strong> involve speaking to the following people:
+      </p>
 
-  <ul class="govuk-list govuk-list--bullet">
-    <li>Healthcare team</li>
-    <li>Substance/Drugs team</li>
-    <li>Substance mis-use agency</li>
-    <li>Mental Health team</li>
-    <li>Adult social care</li>
-    <li>Nelson Trust</li>
-  </ul>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Healthcare team</li>
+        <li>Substance/Drugs team</li>
+        <li>Substance mis-use agency</li>
+        <li>Mental Health team</li>
+        <li>Adult social care</li>
+        <li>Nelson Trust</li>
+      </ul>
 
-  {{ govukDetails({
-  summaryText: "Introduce yourself to a team/officer",
-  html: introduceYourselfTemplate,
-  classes: 'copy-text'
-  }) }}
+      <h2 class="govuk-heading-m">Getting in touch</h2>
 
-  {{ govukDetails({
-  summaryText: "Ask questions about the applicant's health",
-  html: healthQuestionsTemplate,
-  classes: 'copy-text'
-  }) }}
+      <p class="govuk-body">
+      Select the following links to get supporting text that you can copy into emails or use as a script, to save yourself time. 
+      </p>
 
-  {{ govukDetails({
-  summaryText: "Ask questions about the applicant's drug and alcohol needs",
-  html: drugAlcoholQuestionsTemplate,
-  classes: 'copy-text'
-  }) }}
+      <p class="govuk-body">
+        <strong>We strongly suggest you get in touch with the relevant health teams and officers now.</strong>
+      </p>
 
-  {{ govukButton({
-  text: "Continue",
-  href: paths.applications.pages.show({
-        id: page.application.id,
-        task: 'health-needs',
-        page: 'substance-misuse'
-      })
-  }) }}
+      {{ govukDetails({
+    summaryText: "Introduce yourself to a team/officer",
+    html: introduceYourselfTemplate,
+    classes: 'copy-text'
+    }) }}
 
+      {{ govukDetails({
+    summaryText: "Ask questions about the applicant's health",
+    html: healthQuestionsTemplate,
+    classes: 'copy-text'
+    }) }}
+
+      {{ govukDetails({
+    summaryText: "Ask questions about the applicant's drug and alcohol needs",
+    html: drugAlcoholQuestionsTemplate,
+    classes: 'copy-text'
+    }) }}
+
+      {{ govukButton({
+    text: "Continue",
+    href: paths.applications.pages.show({
+          id: page.application.id,
+          task: 'health-needs',
+          page: 'substance-misuse'
+        })
+    }) }}
+    </div>
+  </div>
 {% endblock %}
 
 {% block extraScripts %}
