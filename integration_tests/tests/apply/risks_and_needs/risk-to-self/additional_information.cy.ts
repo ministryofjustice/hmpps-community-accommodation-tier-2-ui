@@ -65,9 +65,11 @@ context('Visit "Risks and needs" section', () => {
   //    When I complete the Additional Information page
   //    And I continue to the next task / page
   //    Then I see the "task list" page
-  it('navigates to the next page (additional information)', function test() {
+  it('navigates to the next page (task list)', function test() {
     AdditionalInformationPage.visit(this.application)
     const page = new AdditionalInformationPage(this.application)
+
+    page.describeAdditionalNeeds()
 
     page.clickSubmit()
 

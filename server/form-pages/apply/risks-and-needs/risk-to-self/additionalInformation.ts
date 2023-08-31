@@ -1,23 +1,26 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type AdditionalInformationBody = { additionalInformationDetail: string }
+type AdditionalInformationBody = { hasAdditionalInformation: YesOrNo; additionalInformationDetail: string }
 
 @Page({
   name: 'additional-information',
-  bodyProperties: ['additionalInformationDetail'],
+  bodyProperties: ['hasAdditionalInformation', 'additionalInformationDetail'],
 })
 export default class AdditionalInformation implements TaskListPage {
   title = 'Additional Information'
 
   questions = {
-    additionalInformationDetail: {
+    hasAdditionalInformation: {
       question: `Is there anything else to include about ${nameOrPlaceholderCopy(
         this.application.person,
       )}'s risk to self? (Optional)`,
+    },
+    additionalInformationDetail: {
+      question: 'Additional information',
     },
   }
 
@@ -41,11 +44,16 @@ export default class AdditionalInformation implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (this.body.hasAdditionalInformation === 'yes' && !this.body.additionalInformationDetail) {
+      errors.additionalInformationDetail = 'Provide additional information about their risk to self'
+    }
+
     return errors
   }
 
   response() {
     const response = {
+      [this.questions.hasAdditionalInformation.question]: this.body.hasAdditionalInformation,
       [this.questions.additionalInformationDetail.question]: this.body.additionalInformationDetail,
     }
 

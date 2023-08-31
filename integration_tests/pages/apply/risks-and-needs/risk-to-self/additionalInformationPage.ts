@@ -16,4 +16,9 @@ export default class AdditionalInformationPage extends ApplyPage {
       }),
     )
   }
+
+  describeAdditionalNeeds = (): void => {
+    this.checkRadioByNameAndValue('hasAdditionalInformation', 'yes')
+    this.getTextInputByIdAndEnterDetails('additionalInformationDetail', 'Has risks')
+  }
 }
