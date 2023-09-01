@@ -1,0 +1,27 @@
+{% extends "./_risk-to-self-screen.njk" %}
+{% set pageName = "acct" %}
+
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  <p class="govuk-body">An Assessment, Care in Custody and Teamwork (ACCT) 
+  is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
+
+  {% if page.existingAccts %}
+    <input type="hidden" name="acctData[3][acctDetails]" value="{{ page.existingAccts[0].acctDetails }}"/>
+  {% endif %}
+
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'acctData[][acctDetails]',
+          label: {
+            text: page.questions.acctDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+  }}
+  
+{% endblock %}

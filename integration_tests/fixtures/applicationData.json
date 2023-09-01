@@ -123,6 +123,11 @@
     },
     "historical-risk": {
       "historicalRiskDetail": "example answer historical risk "
-    }
+    },
+    "acct-data": [
+      {
+        "acctDetails": "some answer"
+      }
+    ]
   }
 }

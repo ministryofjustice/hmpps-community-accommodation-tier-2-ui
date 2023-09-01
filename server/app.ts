@@ -3,6 +3,7 @@
 import path from 'path'
 import express from 'express'
 import flash from 'connect-flash'
+import bodyParser from 'body-parser'
 
 import createError from 'http-errors'
 import methodOverride from 'method-override'
@@ -61,6 +62,8 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use((req, res, next) => next(createError(404, 'Not found')))
   setUpSentryErrorHandler(app)
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
+
+  app.use(bodyParser.urlencoded({ extended: true }))
 
   return app
 }

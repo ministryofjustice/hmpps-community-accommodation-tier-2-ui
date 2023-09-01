@@ -58,6 +58,7 @@ export function getBody(
     return userInput
   }
   if (Object.keys(request.body).length) {
+    console.log('request body', request.body)
     return request.body
   }
   return pageDataFromApplication(Page, application)

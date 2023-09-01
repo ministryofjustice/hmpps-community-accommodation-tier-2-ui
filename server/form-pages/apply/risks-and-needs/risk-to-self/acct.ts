@@ -18,6 +18,7 @@ export default class Acct implements TaskListPage {
     body: Partial<AcctBody>,
     private readonly application: Application,
   ) {
+    console.log(application.data['risk-to-self']['acct-data'])
     this.body = body as AcctBody
   }
 

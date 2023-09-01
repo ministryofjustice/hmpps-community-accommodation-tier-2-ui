@@ -56,6 +56,7 @@ export default class ApplicationService {
       const pageName = getPageName(page.constructor)
       const taskName = getTaskName(page.constructor)
 
+      console.log('body in service', page.body)
       application.data = application.data || {}
       application.data[taskName] = application.data[taskName] || {}
       application.data[taskName][pageName] = page.body
