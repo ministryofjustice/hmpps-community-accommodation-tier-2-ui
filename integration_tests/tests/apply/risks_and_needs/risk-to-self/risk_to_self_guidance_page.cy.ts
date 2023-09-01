@@ -146,7 +146,7 @@ context('Visit "Risks and needs" section', () => {
     taskListPage.visitTask('Review risk to self information')
 
     //  Then we are redirected to the Vulnerability page
-    Page.verifyOnPage(VulnerabilityPage)
+    Page.verifyOnPage(VulnerabilityPage, this.application)
   })
 
   //  Scenario: there is no OASys data
