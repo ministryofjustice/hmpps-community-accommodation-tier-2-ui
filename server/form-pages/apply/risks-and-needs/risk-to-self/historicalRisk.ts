@@ -3,6 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
+import { DateFormats } from '../../../../utils/dateUtils'
 
 type HistoricalRiskBody = { historicalRiskDetail: string }
 
@@ -20,6 +21,10 @@ export default class HistoricalRisk implements TaskListPage {
       )}'s historical issues and needs related to self harm and suicide`,
     },
   }
+
+  importDate = DateFormats.isoDateToUIDate(this.application.data['risk-to-self']['historical-risk'].dateOfOasysImport, {
+    format: 'medium',
+  })
 
   body: HistoricalRiskBody
 

@@ -3,6 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
+import { DateFormats } from '../../../../utils/dateUtils'
 
 type CurrentRiskBody = { currentRiskDetail: string }
 
@@ -22,6 +23,10 @@ export default class CurrentRisk implements TaskListPage {
   }
 
   body: CurrentRiskBody
+
+  importDate = DateFormats.isoDateToUIDate(this.application.data['risk-to-self']['current-risk'].dateOfOasysImport, {
+    format: 'medium',
+  })
 
   constructor(
     body: Partial<CurrentRiskBody>,

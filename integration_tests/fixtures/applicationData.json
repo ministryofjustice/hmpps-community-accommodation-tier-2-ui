@@ -116,13 +116,16 @@
   "risk-to-self": {
     "guidance": {},
     "vulnerability": {
-      "vulnerabilityDetail": "example answer vulnerability"
+      "vulnerabilityDetail": "example answer vulnerability",
+      "dateOfOasysImport": "2023-08-31"
     },
     "current-risk": {
-      "currentRiskDetail": "example answer current risk"
+      "currentRiskDetail": "example answer current risk",
+      "dateOfOasysImport": "2023-08-31"
     },
     "historical-risk": {
-      "historicalRiskDetail": "example answer historical risk "
+      "historicalRiskDetail": "example answer historical risk ",
+      "dateOfOasysImport": "2023-08-31"
     }
   }
 }

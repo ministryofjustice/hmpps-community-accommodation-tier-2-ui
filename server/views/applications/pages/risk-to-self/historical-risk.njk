@@ -1,7 +1,14 @@
 {% extends "./_risk-to-self-screen.njk" %}
+{% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
+
 {% set pageName = "historical-risk" %}
 
 {% block questions %}
+  {% if page.importDate %}
+    {% set date = page.importDate %}
+    {{dateOfOasysImport(date)}}
+  {% endif %}
+
   {{
       formPageTextArea(
         {
