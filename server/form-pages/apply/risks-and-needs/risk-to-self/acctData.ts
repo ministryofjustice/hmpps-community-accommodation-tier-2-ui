@@ -4,7 +4,11 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
 type AcctBody = {
-  acctData: { acctDetail: string }[]
+  acctData: {
+    createdDate: string[]
+    expiryDate: string[]
+    acctDetail: string
+  }[]
 }
 
 @Page({
@@ -17,6 +21,16 @@ export default class AcctData implements TaskListPage {
   body: AcctBody
 
   questions = {
+    createdDate: {
+      question: 'When was the ACCT created?',
+    },
+    expiryDate: {
+      question: 'When did the ACCT expire?',
+    },
+    referringInstitution: {
+      question: 'Referring institution',
+      hint: 'Where the applicant was based at the time the ACCT was created',
+    },
     acctDetail: {
       question: 'Details about the ACCT',
     },

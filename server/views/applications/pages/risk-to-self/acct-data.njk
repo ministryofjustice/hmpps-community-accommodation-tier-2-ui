@@ -9,19 +9,64 @@
 
   {% for acct in page.existingAccts %}
     {% set acctIndex = loop.index %}
+
+    {% for date in acct.createdDate %}
+      <input type="hidden" name="acctData[{{ acctIndex }}][createdDate][]" value="{{ date }}"/>
+    {% endfor %}
+
     {% for date in acct.expiryDate %}
       <input type="hidden" name="acctData[{{ acctIndex }}][expiryDate][]" value="{{ date }}"/>
     {% endfor %}
-    <input type="hidden" name="acctData[{{ loop.index }}][acctDetails]" value="{{ acct.acctDetails }}"/>
+
+    <input type="hidden" name="acctData[{{ acctIndex }}][referringInstitution]" value="{{ acct.referringInstitution }}"/>
+
+    <input type="hidden" name="acctData[{{ acctIndex }}][acctDetails]" value="{{ acct.acctDetails }}"/>
   {% endfor %}
 
-   {{ 
+  {{ 
+    formPageDateInput( {
+      fieldName: "acctData[0][createdDate]",
+      fieldset: {
+        legend: {
+          text: page.questions.createdDate.question,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: dateFieldValues('createdDate', errors)
+      }, 
+      fetchContext()) 
+    }}
+
+  {{ 
     formPageDateInput( {
       fieldName: "acctData[0][expiryDate]",
+      fieldset: {
+        legend: {
+          text: page.questions.expiryDate.question,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
       items: dateFieldValues('expiryDate', errors)
       }, 
       fetchContext()) 
     }}
+
+  {{
+      formPageInput(
+        {
+          label: { 
+            text: page.questions.referringInstitution.question,
+            classes: "govuk-label--m" 
+          },
+          classes: "govuk-input--width-20",
+          fieldName: "acctData[0][referringInstitution]",
+          hint: {
+            text: page.questions.referringInstitution.hint
+          }
+        },
+        fetchContext()
+      )
+  }}
 
   {{
       formPageTextArea(
@@ -29,11 +74,11 @@
           fieldName: "acctData[0][acctDetails]",
           label: {
             text: page.questions.acctDetail.question,
-            classes: "govuk-label--s"
+            classes: "govuk-label--m"
           }
         },
         fetchContext()
       )
   }}
-  
+
 {% endblock %}
