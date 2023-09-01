@@ -24,9 +24,11 @@ export default class CurrentRisk implements TaskListPage {
 
   body: CurrentRiskBody
 
-  importDate = DateFormats.isoDateToUIDate(this.application.data['risk-to-self']['current-risk'].dateOfOasysImport, {
-    format: 'medium',
-  })
+  importDate = this.application.data?.['risk-to-self']?.['current-risk'].dateOfOasysImport
+    ? DateFormats.isoDateToUIDate(this.application.data?.['risk-to-self']?.['current-risk'].dateOfOasysImport, {
+        format: 'medium',
+      })
+    : null
 
   constructor(
     body: Partial<CurrentRiskBody>,

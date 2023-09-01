@@ -59,7 +59,7 @@ context('Visit "Risks and needs" section', () => {
   it('presents historical risk page', function test() {
     const page = Page.verifyOnPage(HistoricalRiskPage, this.application)
 
-    page.shouldShowOasysImportDate(this.application.data['risk-to-self']['historical-risk'].dateOfOasysImport)
+    page.shouldShowOasysImportDate(this.application, 'risk-to-self', 'historical-risk')
   })
 
   //  Scenario: complete page and navigate to next page in health needs task

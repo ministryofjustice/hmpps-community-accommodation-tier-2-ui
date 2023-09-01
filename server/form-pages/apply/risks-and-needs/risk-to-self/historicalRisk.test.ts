@@ -13,6 +13,14 @@ describe('HistoricalRisk', () => {
     })
   })
 
+  describe('import date', () => {
+    it('sets importDate to false where application contains no OASys import date', () => {
+      const page = new HistoricalRisk({}, application)
+
+      expect(page.importDate).toEqual(null)
+    })
+  })
+
   describe('Questions', () => {
     const page = new HistoricalRisk({}, application)
 

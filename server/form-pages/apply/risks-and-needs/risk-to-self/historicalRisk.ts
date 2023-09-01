@@ -22,9 +22,11 @@ export default class HistoricalRisk implements TaskListPage {
     },
   }
 
-  importDate = DateFormats.isoDateToUIDate(this.application.data['risk-to-self']['historical-risk'].dateOfOasysImport, {
-    format: 'medium',
-  })
+  importDate = this.application.data?.['risk-to-self']?.['historical-risk'].dateOfOasysImport
+    ? DateFormats.isoDateToUIDate(this.application.data?.['risk-to-self']?.['historical-risk'].dateOfOasysImport, {
+        format: 'medium',
+      })
+    : null
 
   body: HistoricalRiskBody
 

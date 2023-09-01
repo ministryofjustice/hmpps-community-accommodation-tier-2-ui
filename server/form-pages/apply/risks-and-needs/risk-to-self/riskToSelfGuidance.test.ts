@@ -18,6 +18,17 @@ describe('RiskToSelfGuidance', () => {
 
   const dataServices = createMock<DataServices>({ personService: createMock<PersonService>({}) })
 
+  const now = new Date()
+
+  beforeAll(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(now)
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   describe('title', () => {
     it('personalises the page title', () => {
       const page = new RiskToSelfGuidance({}, application, oasys, '')
@@ -54,9 +65,9 @@ describe('RiskToSelfGuidance', () => {
 
         const taskData = {
           'risk-to-self': {
-            'current-risk': { currentRiskDetail: 'self harm answer' },
-            vulnerability: { vulnerabilityDetail: 'vulnerability answer' },
-            'historical-risk': { historicalRiskDetail: 'historical answer' },
+            'current-risk': { currentRiskDetail: 'self harm answer', dateOfOasysImport: now },
+            vulnerability: { vulnerabilityDetail: 'vulnerability answer', dateOfOasysImport: now },
+            'historical-risk': { historicalRiskDetail: 'historical answer', dateOfOasysImport: now },
           },
         }
 

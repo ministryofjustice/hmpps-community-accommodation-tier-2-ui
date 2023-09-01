@@ -1,5 +1,4 @@
 import errorLookups from '../../server/i18n/en/errors.json'
-import { DateFormats } from '../../server/utils/dateUtils'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -51,9 +50,5 @@ export default abstract class Page {
 
   checkCheckboxByLabel(option: string): void {
     cy.get(`input[value="${option}"]`).check()
-  }
-
-  shouldShowOasysImportDate(date: string): void {
-    cy.get('p').contains(`Imported from OASys on ${DateFormats.isoDateToUIDate(date, { format: 'medium' })}`)
   }
 }
