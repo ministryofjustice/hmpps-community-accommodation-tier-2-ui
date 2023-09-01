@@ -16,4 +16,11 @@ export default class AcctPage extends ApplyPage {
       }),
     )
   }
+
+  hasListOfAccts(): void {
+    cy.get('.govuk-summary-card__title').contains('HMPPS prison')
+    cy.get('.govuk-summary-list').contains('01/02/2012')
+    cy.get('.govuk-summary-list').contains('10/10/2013')
+    cy.get('.govuk-summary-list').contains('ACCT details')
+  }
 }

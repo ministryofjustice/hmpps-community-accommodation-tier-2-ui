@@ -12,6 +12,7 @@ export default class ApplyPage extends Page {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Class = Apply.pages[taskName][pageName] as any
+    console.log(application.data?.[taskName]?.[pageName])
     this.taskListPage = new Class(!!application.data?.[taskName]?.[pageName], application)
 
     // if (backLink) {

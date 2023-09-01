@@ -25,6 +25,7 @@ export default class Acct implements TaskListPage {
     private readonly application: Application,
   ) {
     if (application.data['risk-to-self'] && application.data['risk-to-self']['acct-data']) {
+      console.log('here in page', application.data['risk-to-self']['acct-data'])
       const acctData = application.data['risk-to-self']['acct-data'] as AcctDataBody
 
       this.accts = acctData.acctData.map(acct => {
@@ -35,6 +36,7 @@ export default class Acct implements TaskListPage {
           acctDetails: acct.acctDetails,
         }
       })
+      console.log('this accts', this.accts)
     }
     this.body = body as AcctBody
   }
