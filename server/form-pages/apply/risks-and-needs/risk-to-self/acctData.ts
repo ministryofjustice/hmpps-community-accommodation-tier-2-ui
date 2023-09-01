@@ -4,12 +4,12 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
 type AcctBody = {
-  acctDetail: string
+  acctData: { acctDetail: string }[]
 }
 
 @Page({
   name: 'acct-data',
-  bodyProperties: ['acctDetail'],
+  bodyProperties: ['acctData'],
 })
 export default class AcctData implements TaskListPage {
   title = 'Add an ACCT entry'
@@ -22,45 +22,21 @@ export default class AcctData implements TaskListPage {
     },
   }
 
-  taskData: string
-
-  taskName = 'risk-to-self'
+  existingAccts: { acctDetail: string }[]
 
   constructor(
     body: Partial<AcctBody>,
     private readonly application: Application,
-    taskData: string,
   ) {
     console.log('constructor', application.data['risk-to-self'])
     console.log('body in page', body)
-    this.taskData = taskData
-    this.body = body as AcctBody
-  }
-
-  static async initialize(
-    body: Partial<AcctBody>,
-    application: Cas2Application,
-    token: string,
-    dataServices: DataServices,
-  ) {
-    let oasys
-    let taskDataJson
-
-    if (!application.data['risk-to-self']) {
-      try {
-        oasys = await dataServices.personService.getOasysRiskToSelf(token, application.person.crn)
-
-        taskDataJson = JSON.stringify(RiskToSelfGuidance.getTaskData(oasys))
-      } catch (e) {
-        if (e.status === 404) {
-          oasys = null
-        } else {
-          throw e
-        }
-      }
-      return new RiskToSelfGuidance(body, application, oasys, taskDataJson)
+    let existingAccts
+    if (application.data['risk-to-self']['acct-data']) {
+      existingAccts = application.data['risk-to-self']['acct-data'].acctData
+      console.log('existing accts', existingAccts)
     }
-    return new Vulnerability(application.data['risk-to-self'].vulnerability, application)
+    this.existingAccts = existingAccts
+    this.body = body as AcctBody
   }
 
   previous() {
