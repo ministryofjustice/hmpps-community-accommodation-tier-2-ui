@@ -10,12 +10,7 @@
 
   <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-  {% if not page.accts%}
-   <p>accts are not here</p>
-  {% endif %}
-
   {% for acct in page.accts %}
-    <p>accts are here</p>
 
     {{ govukSummaryList({
       card: {
