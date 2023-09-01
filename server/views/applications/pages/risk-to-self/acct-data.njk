@@ -7,14 +7,14 @@
   <p class="govuk-body">An Assessment, Care in Custody and Teamwork (ACCT) 
   is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
 
-  {% if page.existingAccts %}
-    <input type="hidden" name="acctData[3][acctDetails]" value="{{ page.existingAccts[0].acctDetails }}"/>
-  {% endif %}
+  {% for acct in page.existingAccts %}
+    <input type="hidden" name="acctData[{{ loop.index }}][acctDetails]" value="{{ acct.acctDetails }}"/>
+  {% endfor %}
 
   {{
       formPageTextArea(
         {
-          fieldName: 'acctData[][acctDetails]',
+          fieldName: "acctData[0][acctDetails]",
           label: {
             text: page.questions.acctDetail.question,
             classes: "govuk-label--s"
