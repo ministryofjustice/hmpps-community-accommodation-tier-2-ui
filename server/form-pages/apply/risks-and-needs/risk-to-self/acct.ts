@@ -24,7 +24,7 @@ export default class Acct implements TaskListPage {
     body: Partial<AcctBody>,
     private readonly application: Application,
   ) {
-    if (application.data['risk-to-self']['acct-data']) {
+    if (application.data['risk-to-self'] && application.data['risk-to-self']['acct-data']) {
       const acctData = application.data['risk-to-self']['acct-data'] as AcctDataBody
 
       this.accts = acctData.acctData.map(acct => {

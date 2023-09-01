@@ -44,12 +44,9 @@ export default class AcctData implements TaskListPage {
     body: Partial<AcctDataBody>,
     private readonly application: Application,
   ) {
-    console.log('constructor', application.data['risk-to-self'])
-    console.log('body in page', body)
     let existingAccts
-    if (application.data['risk-to-self']['acct-data']) {
+    if (application.data['risk-to-self'] && application.data['risk-to-self']['acct-data']) {
       existingAccts = application.data['risk-to-self']['acct-data'].acctData
-      console.log('existing accts', existingAccts)
     }
     this.existingAccts = existingAccts
     this.body = body as AcctDataBody
@@ -96,14 +93,7 @@ export default class AcctData implements TaskListPage {
   }
 
   response() {
-    console.log(this.application.data['risk-to-self']['acct-data']?.acctData)
-    const response = {
-      // acctData: [
-      //   {
-      //     [this.questions.acctDetail.question]: this.body.acctDetail,
-      //   },
-      // ],
-    }
+    const response = {}
 
     return response
   }
