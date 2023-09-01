@@ -124,10 +124,11 @@
     "historical-risk": {
       "historicalRiskDetail": "example answer historical risk "
     },
-    "acct-data": [
-      {
-        "acctDetails": "some answer"
-      }
-    ]
+    "acct-data": {
+      "acctData": [
+        { "acctDetails": "222", "expiryDate": ["1", "2", "2012"] },
+        { "acctDetails": "111", "expiryDate": ["1", "12", "2012"] }
+      ]
+    }
   }
 }

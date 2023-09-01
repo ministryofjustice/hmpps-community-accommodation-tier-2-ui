@@ -8,8 +8,20 @@
   is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
 
   {% for acct in page.existingAccts %}
+    {% set acctIndex = loop.index %}
+    {% for date in acct.expiryDate %}
+      <input type="hidden" name="acctData[{{ acctIndex }}][expiryDate][]" value="{{ date }}"/>
+    {% endfor %}
     <input type="hidden" name="acctData[{{ loop.index }}][acctDetails]" value="{{ acct.acctDetails }}"/>
   {% endfor %}
+
+   {{ 
+    formPageDateInput( {
+      fieldName: "acctData[0][expiryDate]",
+      items: dateFieldValues('expiryDate', errors)
+      }, 
+      fetchContext()) 
+    }}
 
   {{
       formPageTextArea(

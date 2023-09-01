@@ -11,6 +11,7 @@ import { dashboardTableRows } from './applicationUtils'
 import * as TaskListUtils from './taskListUtils'
 
 import * as OasysImportUtils from './oasysImportUtils'
+import { dateFieldValues } from './formUtils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -62,4 +63,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)
 
   njkEnv.addGlobal('dashboardTableRows', dashboardTableRows)
+
+  njkEnv.addGlobal('dateFieldValues', dateFieldValues)
 }
