@@ -3,11 +3,12 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 
-type AcctBody = {
+export type AcctDataBody = {
   acctData: {
+    referringInstitution: string
     createdDate: string[]
     expiryDate: string[]
-    acctDetail: string
+    acctDetails: string
   }[]
 }
 
@@ -18,7 +19,7 @@ type AcctBody = {
 export default class AcctData implements TaskListPage {
   title = 'Add an ACCT entry'
 
-  body: AcctBody
+  body: AcctDataBody
 
   questions = {
     createdDate: {
@@ -39,7 +40,7 @@ export default class AcctData implements TaskListPage {
   existingAccts: { acctDetail: string }[]
 
   constructor(
-    body: Partial<AcctBody>,
+    body: Partial<AcctDataBody>,
     private readonly application: Application,
   ) {
     console.log('constructor', application.data['risk-to-self'])
@@ -50,7 +51,7 @@ export default class AcctData implements TaskListPage {
       console.log('existing accts', existingAccts)
     }
     this.existingAccts = existingAccts
-    this.body = body as AcctBody
+    this.body = body as AcctDataBody
   }
 
   previous() {

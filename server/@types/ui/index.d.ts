@@ -131,3 +131,17 @@ export type CheckboxItem =
       checked?: boolean
     }
   | Divider
+
+export interface SummaryList {
+  classes?: string
+  attributes?: HtmlAttributes
+  rows: Array<SummaryListItem>
+}
+
+export type SummaryListWithCard = SummaryList & {
+  card: {
+    title: { text: string }
+    actions?: SummaryListActions
+    attributes?: HtmlAttributes
+  }
+}
