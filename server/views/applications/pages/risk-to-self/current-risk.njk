@@ -1,3 +1,5 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% extends "./_risk-to-self-screen.njk" %}
 {% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
 
@@ -16,9 +18,16 @@
           label: {
             text: page.questions.currentRiskDetail.question,
             classes: "govuk-label--s"
+          },
+          hint: {
+            text: 'Include all current risk information and remove sensitive information, such as names and addresses.'
           }
         },
         fetchContext()
       )
   }}
+
+  {{ govukInsetText({
+    text: "If the OASys record was out of date, you should update the record in OASys too."
+  }) }}
 {% endblock %}
