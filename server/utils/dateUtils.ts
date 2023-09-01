@@ -28,11 +28,10 @@ export class DateFormats {
   static dateObjtoUIDate(date: Date, options: { format: 'short' | 'medium' | 'long' } = { format: 'long' }) {
     if (options.format === 'long') {
       return format(date, 'cccc d MMMM y')
-    } 
+    }
     if (options.format === 'medium') {
       return format(date, 'd MMMM y')
-    }
-    else {
+    } else {
       return format(date, 'dd/LL/y')
     }
   }
@@ -103,6 +102,19 @@ export class DateFormats {
    */
   static differenceInDays(date1: Date, date2: Date): DifferenceInDays {
     return { ui: formatDistanceStrict(date1, date2, { unit: 'day' }), number: differenceInDays(date1, date2) }
+  }
+
+  /**
+   * Converts input from a GDS date input https://design-system.service.gov.uk/components/date-input/
+   * into a date for the UI, 
+   * @param dateArray an array of [{day}, {month}, {year}] e.g. [1,12,2013] which comes from a `govukDateInput`.
+   * @returns the date in the to be shown in the UI: "1/12/2013".
+   */
+  static convertArrayToUIdate(dateArray: string[], options: { format: 'short' | 'long' | 'medium' } = { format: 'short' }) {
+    const year = dateArray[2]
+    const month = `0${dateArray[1]}`.slice(-2)
+    const day = `0${dateArray[0]}`.slice(-2)
+    return DateFormats.isoDateToUIDate(`${year}-${month}-${day}`, options)
   }
 }
 

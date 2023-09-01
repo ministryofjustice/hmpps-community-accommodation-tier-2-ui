@@ -30,20 +30,13 @@ export default class Acct implements TaskListPage {
       this.accts = acctData.acctData.map(acct => {
         return {
           referringInstitution: acct.referringInstitution,
-          createdDate: this.convertArrayToUIdate(acct.createdDate),
-          expiryDate: this.convertArrayToUIdate(acct.expiryDate),
+          createdDate: DateFormats.convertArrayToUIdate(acct.createdDate),
+          expiryDate: DateFormats.convertArrayToUIdate(acct.expiryDate),
           acctDetails: acct.acctDetails,
         }
       })
     }
     this.body = body as AcctBody
-  }
-
-  convertArrayToUIdate(dateArray: string[]) {
-    const year = dateArray[2]
-    const month = `0${dateArray[1]}`.slice(-2)
-    const day = `0${dateArray[0]}`.slice(-2)
-    return DateFormats.isoDateToUIDate(`${year}-${month}-${day}`, { format: 'short' })
   }
 
   previous() {

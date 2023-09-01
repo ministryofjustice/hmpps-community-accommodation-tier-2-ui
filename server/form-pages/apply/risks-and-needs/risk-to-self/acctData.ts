@@ -2,6 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
+import { DateFormats, InvalidDateStringError } from '../../../../utils/dateUtils'
 
 export type AcctDataBody = {
   acctData: {
@@ -62,8 +63,34 @@ export default class AcctData implements TaskListPage {
     return 'acct'
   }
 
+  dateIsValid(dateArray: string[]): boolean {
+    try {
+      DateFormats.convertArrayToUIdate(dateArray)
+    } catch (err) {
+      if (err instanceof InvalidDateStringError) {
+        return false
+      }
+    }
+    return true
+  }
+
   errors() {
     const errors: TaskListErrors<this> = {}
+
+    const currentAcct = this.body.acctData[0]
+
+    if (!this.dateIsValid(currentAcct.createdDate)) {
+      errors['acctData[0][createdDate]'] = 'Add a valid created date, for example 2 3 2013'
+    }
+    if (!this.dateIsValid(currentAcct.expiryDate)) {
+      errors['acctData[0][expiryDate]'] = 'Add a valid expiry date, for example 2 3 2013'
+    }
+    if (!currentAcct.referringInstitution) {
+      errors['acctData[0][referringInstitution]'] = 'Add a referring institution'
+    }
+    if (!currentAcct.acctDetails) {
+      errors['acctData[0][acctDetails]'] = 'Enter the details of the ACCT'
+    }
 
     return errors
   }
