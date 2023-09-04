@@ -4,7 +4,7 @@ export const pageIsActiveInNavigation = (linkText: string): void => {
 
 export const pageHasLinkToGuidance = (): void => {
   cy.get('a')
-    .contains('Who do I need to contact for health care information?')
+    .contains('Who to contact for health care information')
     .should('have.attr', 'href')
     .and('match', new RegExp(Cypress._.escapeRegExp('tasks/health-needs/pages/guidance')))
 }
