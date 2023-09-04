@@ -7,5 +7,7 @@ export type ReferralHistoryNote = {
     id: string;
     createdAt: string;
     message: string;
+    createdByUserName: string;
+    type: string;
 };
 
