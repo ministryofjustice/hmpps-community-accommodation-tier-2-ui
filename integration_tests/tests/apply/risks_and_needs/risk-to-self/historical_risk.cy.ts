@@ -70,6 +70,7 @@ context('Visit "Risks and needs" section', () => {
     HistoricalRiskPage.visit(this.application)
     const page = new HistoricalRiskPage(this.application)
 
+    page.clickConfirm()
     page.clickSubmit()
 
     Page.verifyOnPage(AcctPage, this.application)

@@ -31,4 +31,8 @@ export default class ApplyPage extends Page {
 
     cy.get('p').contains(`Imported from OASys on ${DateFormats.isoDateToUIDate(date, { format: 'medium' })}`)
   }
+
+  clickConfirm(): void {
+    this.checkCheckboxByLabel('confirmed')
+  }
 }

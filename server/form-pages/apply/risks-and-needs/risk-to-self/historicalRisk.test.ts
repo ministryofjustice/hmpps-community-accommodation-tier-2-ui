@@ -55,4 +55,14 @@ describe('HistoricalRisk', () => {
       expect(page.errors()).toEqual({})
     })
   })
+
+  describe('items', () => {
+    it('returns the checkbox as expected', () => {
+      const page = new HistoricalRisk({}, application)
+
+      expect(page.items()).toEqual([
+        { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
+      ])
+    })
+  })
 })
