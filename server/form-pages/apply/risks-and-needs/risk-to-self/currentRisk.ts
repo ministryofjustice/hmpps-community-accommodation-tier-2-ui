@@ -5,6 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getOasysImportDateFromApplication } from '../../../utils'
 import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
+import errorLookups from '../../../../i18n/en/errors.json'
 
 type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
 
@@ -47,6 +48,10 @@ export default class CurrentRisk implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
+
+    if (!this.body.confirmation) {
+      errors.confirmation = errorLookups.oasysConfirmation.empty
+    }
 
     return errors
   }

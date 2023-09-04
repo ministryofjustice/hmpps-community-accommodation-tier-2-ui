@@ -50,9 +50,11 @@ describe('CurrentRisk', () => {
   })
 
   describe('errors', () => {
-    it('returns empty object', () => {
+    it('returns an error when the confirmation is blank', () => {
       const page = new CurrentRisk({}, application)
-      expect(page.errors()).toEqual({})
+      expect(page.errors()).toEqual({
+        confirmation: 'Confirm that the information is relevant and up to date',
+      })
     })
   })
 

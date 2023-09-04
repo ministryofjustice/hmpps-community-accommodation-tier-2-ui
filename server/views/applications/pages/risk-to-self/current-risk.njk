@@ -35,6 +35,7 @@
   {{ govukCheckboxes({
         idPrefix: "confirmation",
         name: "confirmation",
+        errorMessage: errors.confirmation,
         items: page.items()
     }, 
     fetchContext()
