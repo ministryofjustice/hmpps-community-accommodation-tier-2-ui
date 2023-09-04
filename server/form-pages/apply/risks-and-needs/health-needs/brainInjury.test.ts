@@ -117,7 +117,7 @@ describe('BrainInjury', () => {
 
       describe('and _injuryDetail_ is UNANSWERED', () => {
         it('includes a validation error for _injuryDetail_', () => {
-          expect(page.errors()).toHaveProperty('injuryDetail', 'Describe their injury and needs')
+          expect(page.errors()).toHaveProperty('injuryDetail', 'Describe their brain injury and needs')
         })
       })
     })
@@ -137,7 +137,10 @@ describe('BrainInjury', () => {
 
       describe('and _interactionDetail_ is UNANSWERED', () => {
         it('includes a validation error for _interactionDetail_', () => {
-          expect(page.errors()).toHaveProperty('interactionDetail', 'Describe their difficulties interacting')
+          expect(page.errors()).toHaveProperty(
+            'interactionDetail',
+            'Describe their difficulties interacting with other people',
+          )
         })
       })
     })
@@ -147,7 +150,7 @@ describe('BrainInjury', () => {
 
       describe('and _addSupportDetail_ is UNANSWERED', () => {
         it('includes a validation error for _addSupportDetail_', () => {
-          expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe their additional needs')
+          expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the additional support required')
         })
       })
     })
