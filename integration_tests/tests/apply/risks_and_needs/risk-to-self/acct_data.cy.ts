@@ -61,7 +61,7 @@ context('Visit "Risks and needs" section', () => {
   //  Scenario: I fill in required information for an ACCT
   //    When I continue to the next task / page
   //    Then I see the "ACCT" page
-  it('navigates to the next page (additional information)', function test() {
+  it('navigates to the next page (ACCT page)', function test() {
     const page = new AcctDataPage(this.application)
 
     page.addACCTInformation()
