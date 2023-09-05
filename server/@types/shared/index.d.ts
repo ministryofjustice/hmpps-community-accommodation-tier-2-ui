@@ -220,5 +220,6 @@ export type { UpdateRoom } from './models/UpdateRoom';
 export type { UpdateTemporaryAccommodationApplication } from './models/UpdateTemporaryAccommodationApplication';
 export type { User } from './models/User';
 export type { UserQualification } from './models/UserQualification';
+export type { UserRolesAndQualifications } from './models/UserRolesAndQualifications';
 export type { ValidationError } from './models/ValidationError';
 export type { WithdrawalReason } from './models/WithdrawalReason';
