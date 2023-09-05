@@ -3,7 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { DateFormats } from '../../../../utils/dateUtils'
+import { getOasysImportDateFromApplication } from '../../../utils'
 
 type HistoricalRiskBody = { historicalRiskDetail: string }
 
@@ -22,11 +22,7 @@ export default class HistoricalRisk implements TaskListPage {
     },
   }
 
-  importDate = this.application.data?.['risk-to-self']?.['historical-risk'].dateOfOasysImport
-    ? DateFormats.isoDateToUIDate(this.application.data?.['risk-to-self']?.['historical-risk'].dateOfOasysImport, {
-        format: 'medium',
-      })
-    : null
+  importDate = getOasysImportDateFromApplication(this.application, 'historical-risk')
 
   body: HistoricalRiskBody
 

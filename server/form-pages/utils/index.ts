@@ -1,6 +1,8 @@
 import type { Request } from 'express'
+import { Cas2Application as Application } from '@approved-premises/api'
 import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
 import { TaskListPageInterface } from '../taskListPage'
+import { DateFormats } from '../../utils/dateUtils'
 
 export const getTask = <T>(task: T) => {
   const taskPages = {}
@@ -82,4 +84,13 @@ export function pageDataFromApplication(Page: TaskListPageInterface, application
   const taskName = getTaskName(Page)
 
   return application.data?.[taskName]?.[pageName] || {}
+}
+
+export function getOasysImportDateFromApplication(application: Application, pageName: string): string | null {
+  if (application.data?.['risk-to-self']?.[pageName]?.dateOfOasysImport) {
+    return DateFormats.isoDateToUIDate(application.data['risk-to-self'][pageName].dateOfOasysImport, {
+      format: 'medium',
+    })
+  }
+  return null
 }
