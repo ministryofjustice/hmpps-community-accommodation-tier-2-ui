@@ -2,16 +2,49 @@
 {% set pageName = "additional-information" %}
 
 {% block questions %}
+  {% set additionalInformationDetail %}
   {{
-      formPageTextArea(
-        {
-          fieldName: 'additionalInformationDetail',
-          label: {
-            text: page.questions.additionalInformationDetail.question,
-            classes: "govuk-label--s"
+        formPageTextArea(
+          {
+            fieldName: 'additionalInformationDetail',
+            label: {
+              text: page.questions.additionalInformationDetail.question,
+              classes: "govuk-label--s"
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasAdditionalInformation",
+        fieldset: {
+          legend: {
+            text: page.questions.hasAdditionalInformation.question,
+            classes: "govuk-fieldset__legend--m"
           }
         },
-        fetchContext()
-      )
+        hint: {
+          text: "Record any additional information about their risk to self."
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: additionalInformationDetail
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
   }}
 {% endblock %}

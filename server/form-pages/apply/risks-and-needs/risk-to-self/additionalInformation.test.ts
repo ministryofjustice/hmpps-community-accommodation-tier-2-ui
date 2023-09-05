@@ -30,21 +30,34 @@ describe('AdditionalInformation', () => {
     it('returns the correct plain english responses for the questions', () => {
       const page = new AdditionalInformation(
         {
+          hasAdditionalInformation: 'yes',
           additionalInformationDetail: 'is at risk',
         },
         application,
       )
 
       expect(page.response()).toEqual({
-        "Is there anything else to include about Roger Smith's risk to self? (Optional)": 'is at risk',
+        "Is there anything else to include about Roger Smith's risk to self? (Optional)": 'yes',
+        'Additional information': 'is at risk',
       })
     })
   })
 
   describe('errors', () => {
-    it('returns empty object', () => {
-      const page = new AdditionalInformation({}, application)
-      expect(page.errors()).toEqual({})
+    describe('when answer data is valid', () => {
+      it('returns empty object if valid data', () => {
+        const page = new AdditionalInformation({}, application)
+        expect(page.errors()).toEqual({})
+      })
+    })
+
+    describe('when they have answered Yes there is additional information but not provided any', () => {
+      it('returns additional information error', () => {
+        const page = new AdditionalInformation({ hasAdditionalInformation: 'yes' }, application)
+        expect(page.errors()).toEqual({
+          additionalInformationDetail: 'Provide additional information about their risk to self',
+        })
+      })
     })
   })
 })
