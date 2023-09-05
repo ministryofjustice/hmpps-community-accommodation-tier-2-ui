@@ -107,6 +107,7 @@ export default class RiskToSelfGuidance implements TaskListPage {
           break
       }
     })
+
     return taskData
   }
 
