@@ -9,6 +9,10 @@ import { ApprovedPremisesApplication } from '../../@types/shared'
 import { applicationFactory } from '../../testutils/factories'
 import { TaskListPageInterface } from '../taskListPage'
 
+import { DateFormats } from '../../utils/dateUtils'
+
+jest.mock('../../utils/dateUtils')
+
 describe('utils', () => {
   beforeEach(() => {
     jest.restoreAllMocks()
@@ -159,6 +163,26 @@ describe('utils', () => {
 
         expect(utils.pageDataFromApplication(page, application)).toEqual({})
       })
+    })
+  })
+
+  describe('getOasysImportDateFromApplication', () => {
+    it('calls date formatting function when as OASys import date exists', () => {
+      const application = applicationFactory.build({
+        data: { 'risk-to-self': { 'historical-risk': { dateOfOasysImport: 'some date' } } },
+      })
+
+      ;(DateFormats.isoDateToUIDate as jest.Mock).mockImplementation(() => null)
+
+      utils.getOasysImportDateFromApplication(application, 'historical-risk')
+
+      expect(DateFormats.isoDateToUIDate).toHaveBeenCalledWith('some date', { format: 'medium' })
+    })
+
+    it('returns null where no import date exists on application', () => {
+      const application = applicationFactory.build({ data: null })
+
+      expect(utils.getOasysImportDateFromApplication(application, 'historical-risk')).toEqual(null)
     })
   })
 })

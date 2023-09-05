@@ -1,6 +1,7 @@
 import { Cas2Application as Application } from '@approved-premises/api'
 import Page from '../page'
 import TaskListPage from '../../../server/form-pages/taskListPage'
+import { DateFormats } from '../../../server/utils/dateUtils'
 
 import Apply from '../../../server/form-pages/apply'
 
@@ -23,5 +24,11 @@ export default class ApplyPage extends Page {
 
   selectAnswer(name: string, option: string): void {
     this.checkRadioByNameAndValue(name, option)
+  }
+
+  shouldShowOasysImportDate(application: Application, task: string, page: string): void {
+    const date = application.data[task][page].dateOfOasysImport
+
+    cy.get('p').contains(`Imported from OASys on ${DateFormats.isoDateToUIDate(date, { format: 'medium' })}`)
   }
 }

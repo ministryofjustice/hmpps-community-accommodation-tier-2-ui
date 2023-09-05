@@ -30,7 +30,6 @@ context('Visit "Risks and needs" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['risk-to-self'] = {}
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -58,7 +57,9 @@ context('Visit "Risks and needs" section', () => {
   //  Scenario: view current risk questions
   //    Then I see the "current risk" page
   it('presents current risk page', function test() {
-    Page.verifyOnPage(CurrentRiskPage, this.application)
+    const page = Page.verifyOnPage(CurrentRiskPage, this.application)
+
+    page.shouldShowOasysImportDate(this.application, 'risk-to-self', 'current-risk')
   })
 
   //  Scenario: complete page and navigate to next page in health needs task

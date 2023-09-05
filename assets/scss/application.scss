@@ -11,6 +11,8 @@ $govuk-page-width: $moj-page-width;
 @import './components/task-list';
 @import './components/copy-text';
 
+@import './pages//oasys-import';
+
 @import 'assets/scss/local';
 
 .govuk-panel--fail {
