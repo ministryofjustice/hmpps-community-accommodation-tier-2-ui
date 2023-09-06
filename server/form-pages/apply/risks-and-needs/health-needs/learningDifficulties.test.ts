@@ -117,7 +117,7 @@ describe('LearningDifficulties', () => {
 
       describe('and _needsDetail_ is UNANSWERED', () => {
         it('includes a validation error for _needsDetail_', () => {
-          expect(page.errors()).toHaveProperty('needsDetail', 'Describe their additional needs')
+          expect(page.errors()).toHaveProperty('needsDetail', 'Describe the additional support required')
         })
       })
     })
@@ -137,7 +137,10 @@ describe('LearningDifficulties', () => {
 
       describe('and _interactionDetail_ is UNANSWERED', () => {
         it('includes a validation error for _interactionDetail_', () => {
-          expect(page.errors()).toHaveProperty('interactionDetail', 'Describe their difficulties interacting')
+          expect(page.errors()).toHaveProperty(
+            'interactionDetail',
+            'Describe their difficulties interacting with other people',
+          )
         })
       })
     })

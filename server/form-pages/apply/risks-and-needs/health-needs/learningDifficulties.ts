@@ -82,7 +82,7 @@ export default class LearningDifficulties implements TaskListPage {
       errors.hasLearningNeeds = `Confirm whether they have additional needs`
     }
     if (this.body.hasLearningNeeds === 'yes' && !this.body.needsDetail) {
-      errors.needsDetail = 'Describe their additional needs'
+      errors.needsDetail = 'Describe the additional support required'
     }
 
     if (!this.body.isVulnerable) {
@@ -96,7 +96,7 @@ export default class LearningDifficulties implements TaskListPage {
       errors.hasDifficultyInteracting = `Confirm whether they have difficulties interacting`
     }
     if (this.body.hasDifficultyInteracting === 'yes' && !this.body.interactionDetail) {
-      errors.interactionDetail = 'Describe their difficulties interacting'
+      errors.interactionDetail = 'Describe their difficulties interacting with other people'
     }
 
     if (!this.body.requiresAdditionalSupport) {
