@@ -1,7 +1,7 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
-import { pageIsActiveInNavigation } from '../utils'
+import { pageIsActiveInNavigation, pageHasLinkToGuidance } from '../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class CommunicationAndLanguagePage extends ApplyPage {
@@ -12,7 +12,7 @@ export default class CommunicationAndLanguagePage extends ApplyPage {
       'health-needs',
       'communication-and-language',
     )
-
+    pageHasLinkToGuidance()
     pageIsActiveInNavigation('Communication and language')
   }
 

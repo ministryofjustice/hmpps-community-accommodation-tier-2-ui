@@ -1,7 +1,7 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
-import { pageIsActiveInNavigation } from '../utils'
+import { pageIsActiveInNavigation, pageHasLinkToGuidance } from '../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class LearningDifficultiesPage extends ApplyPage {
@@ -14,6 +14,7 @@ export default class LearningDifficultiesPage extends ApplyPage {
     )
 
     pageIsActiveInNavigation('Learning difficulties')
+    pageHasLinkToGuidance()
     this.pageHasNeurodiversityGuidance()
   }
 
