@@ -82,7 +82,7 @@ export default class BrainInjury implements TaskListPage {
       errors.hasBrainInjury = `Confirm whether they have a brain injury`
     }
     if (this.body.hasBrainInjury === 'yes' && !this.body.injuryDetail) {
-      errors.injuryDetail = 'Describe their injury and needs'
+      errors.injuryDetail = 'Describe their brain injury and needs'
     }
 
     if (!this.body.isVulnerable) {
@@ -96,14 +96,14 @@ export default class BrainInjury implements TaskListPage {
       errors.hasDifficultyInteracting = `Confirm whether they have difficulties interacting`
     }
     if (this.body.hasDifficultyInteracting === 'yes' && !this.body.interactionDetail) {
-      errors.interactionDetail = 'Describe their difficulties interacting'
+      errors.interactionDetail = 'Describe their difficulties interacting with other people'
     }
 
     if (!this.body.requiresAdditionalSupport) {
       errors.requiresAdditionalSupport = `Confirm whether additional support is required`
     }
     if (this.body.requiresAdditionalSupport === 'yes' && !this.body.addSupportDetail) {
-      errors.addSupportDetail = 'Describe their additional needs'
+      errors.addSupportDetail = 'Describe the additional support required'
     }
 
     return errors
