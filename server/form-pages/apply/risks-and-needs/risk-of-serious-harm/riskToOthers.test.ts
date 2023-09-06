@@ -1,24 +1,24 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import Summary from './summary'
+import RiskToOthers from './riskToOthers'
 
-describe('Summary', () => {
+describe('RiskToOthers', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new Summary({}, application)
+      const page = new RiskToOthers({}, application)
 
-      expect(page.title).toEqual(`Risk of serious harm (RoSH) summary for Roger Smith`)
+      expect(page.title).toEqual(`Risk to others for Roger Smith`)
     })
   })
 
-  itShouldHaveNextValue(new Summary({}, application), 'risk-to-others')
-  itShouldHavePreviousValue(new Summary({}, application), 'oasys-import')
+  itShouldHaveNextValue(new RiskToOthers({}, application), '')
+  itShouldHavePreviousValue(new RiskToOthers({}, application), 'summary')
 
   describe('response', () => {
     it('not implemented', () => {
-      const page = new Summary({}, application)
+      const page = new RiskToOthers({}, application)
 
       expect(page.response()).toEqual({})
     })
@@ -26,7 +26,7 @@ describe('Summary', () => {
 
   describe('errors', () => {
     it('not implemented', () => {
-      const page = new Summary({}, application)
+      const page = new RiskToOthers({}, application)
 
       expect(page.errors()).toEqual({})
     })

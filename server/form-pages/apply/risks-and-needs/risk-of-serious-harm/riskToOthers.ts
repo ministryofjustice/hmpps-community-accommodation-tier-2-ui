@@ -4,30 +4,30 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type SummaryBody = Record<string, never>
+type RiskToOthersBody = Record<string, never>
 
 @Page({
-  name: 'summary',
+  name: 'risk-to-others',
   bodyProperties: [],
 })
-export default class Summary implements TaskListPage {
-  title = `Risk of serious harm (RoSH) summary for ${nameOrPlaceholderCopy(this.application.person)}`
+export default class RiskToOthers implements TaskListPage {
+  title = `Risk to others for ${nameOrPlaceholderCopy(this.application.person)}`
 
-  body: SummaryBody
+  body: RiskToOthersBody
 
   constructor(
-    body: Partial<SummaryBody>,
+    body: Partial<RiskToOthersBody>,
     private readonly application: Application,
   ) {
-    this.body = body as SummaryBody
+    this.body = body as RiskToOthersBody
   }
 
   previous() {
-    return 'oasys-import'
+    return 'summary'
   }
 
   next() {
-    return 'risk-to-others'
+    return ''
   }
 
   errors() {
