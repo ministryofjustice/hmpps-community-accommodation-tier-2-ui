@@ -4,12 +4,14 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getOasysImportDateFromApplication } from '../../../utils'
+import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
+import errorLookups from '../../../../i18n/en/errors.json'
 
-type CurrentRiskBody = { currentRiskDetail: string }
+type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
 
 @Page({
   name: 'current-risk',
-  bodyProperties: ['currentRiskDetail'],
+  bodyProperties: ['currentRiskDetail', 'confirmation'],
 })
 export default class CurrentRisk implements TaskListPage {
   title = `${nameOrPlaceholderCopy(this.application.person)}'s current risks`
@@ -19,6 +21,9 @@ export default class CurrentRisk implements TaskListPage {
       question: `Describe ${nameOrPlaceholderCopy(
         this.application.person,
       )}'s current issues and needs related to self harm and suicide`,
+    },
+    confirmation: {
+      question: 'I confirm this information is relevant and up to date.',
     },
   }
 
@@ -44,14 +49,25 @@ export default class CurrentRisk implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.confirmation) {
+      errors.confirmation = errorLookups.oasysConfirmation.empty
+    }
+
     return errors
   }
 
   response() {
     const response = {
       [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
+      [this.questions.confirmation.question]: this.body.confirmation,
     }
 
     return response
+  }
+
+  items() {
+    return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
+      this.body.confirmation,
+    ])
   }
 }

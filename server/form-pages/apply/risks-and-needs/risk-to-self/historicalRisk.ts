@@ -4,12 +4,14 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getOasysImportDateFromApplication } from '../../../utils'
+import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
+import errorLookups from '../../../../i18n/en/errors.json'
 
-type HistoricalRiskBody = { historicalRiskDetail: string }
+type HistoricalRiskBody = { historicalRiskDetail: string; confirmation: string }
 
 @Page({
   name: 'historical-risk',
-  bodyProperties: ['historicalRiskDetail'],
+  bodyProperties: ['historicalRiskDetail', 'confirmation'],
 })
 export default class HistoricalRisk implements TaskListPage {
   title = `${nameOrPlaceholderCopy(this.application.person)}'s historical risks`
@@ -19,6 +21,9 @@ export default class HistoricalRisk implements TaskListPage {
       question: `Describe ${nameOrPlaceholderCopy(
         this.application.person,
       )}'s historical issues and needs related to self harm and suicide`,
+    },
+    confirmation: {
+      question: 'I confirm this information is relevant and up to date.',
     },
   }
 
@@ -44,14 +49,25 @@ export default class HistoricalRisk implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.confirmation) {
+      errors.confirmation = errorLookups.oasysConfirmation.empty
+    }
+
     return errors
   }
 
   response() {
     const response = {
       [this.questions.historicalRiskDetail.question]: this.body.historicalRiskDetail,
+      [this.questions.confirmation.question]: this.body.confirmation,
     }
 
     return response
+  }
+
+  items() {
+    return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
+      this.body.confirmation,
+    ])
   }
 }

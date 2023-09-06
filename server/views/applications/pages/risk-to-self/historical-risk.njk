@@ -1,3 +1,6 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
 {% extends "./_risk-to-self-screen.njk" %}
 {% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
 
@@ -16,9 +19,26 @@
           label: {
             text: page.questions.historicalRiskDetail.question,
             classes: "govuk-label--s"
+          },
+          hint: {
+            text: 'Remove sensitive information, such as names and addresses.'
           }
         },
         fetchContext()
       )
+  }}
+
+  {{ govukInsetText({
+    text: "If the OASys record was out of date, you should update the record in OASys too."
+  }) }}
+
+  {{ govukCheckboxes({
+        idPrefix: "confirmation",
+        name: "confirmation",
+        errorMessage: errors.confirmation,
+        items: page.items()
+    }, 
+    fetchContext()
+    ) 
   }}
 {% endblock %}

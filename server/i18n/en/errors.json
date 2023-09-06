@@ -37,5 +37,8 @@
   },
   "maritalStatus": {
     "empty": "Select a marital status or 'Prefer not to say'"
+  },
+  "oasysConfirmation": {
+    "empty": "Confirm that the information is relevant and up to date"
   }
 }

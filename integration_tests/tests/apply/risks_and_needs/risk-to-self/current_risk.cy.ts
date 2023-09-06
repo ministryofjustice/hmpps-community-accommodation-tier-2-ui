@@ -11,6 +11,11 @@
 //  Scenario: view current risk questions
 //    Then I see the "current risk" page
 //
+//  Scenario: answer is enforced
+//    Given I'm on the 'current risk' task page
+//    When I try to continue without answering the question
+//    Then I see that an answer is required
+//
 //  Scenario: complete page and navigate to next page in health needs task
 //    When I complete the current risk page
 //    And I continue to the next task / page
@@ -62,6 +67,18 @@ context('Visit "Risks and needs" section', () => {
     page.shouldShowOasysImportDate(this.application, 'risk-to-self', 'current-risk')
   })
 
+  //  Scenario: answer is enforced
+  it('enforces answer', function test() {
+    //  Given I'm on the 'Vulnerability' task page
+    const page = Page.verifyOnPage(CurrentRiskPage, this.application)
+
+    //  When I try to continue without answering the question
+    page.clickSubmit()
+
+    //  Then I see that an answer is required
+    page.shouldShowErrorMessagesForFields(['confirmation'], 'oasysConfirmation')
+  })
+
   //  Scenario: complete page and navigate to next page in health needs task
   //    When I complete the current risk page
   //    And I continue to the next task / page
@@ -70,6 +87,7 @@ context('Visit "Risks and needs" section', () => {
     CurrentRiskPage.visit(this.application)
     const page = new CurrentRiskPage(this.application)
 
+    page.clickConfirm()
     page.clickSubmit()
 
     Page.verifyOnPage(HistoricalRiskPage, this.application)
