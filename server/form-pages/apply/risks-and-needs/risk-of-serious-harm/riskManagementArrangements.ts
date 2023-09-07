@@ -4,30 +4,30 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type ReducingRiskBody = Record<string, never>
+type RiskManagementArrangementsBody = Record<string, never>
 
 @Page({
-  name: 'reducing-risk',
+  name: 'risk-management-arrangements',
   bodyProperties: [],
 })
-export default class ReducingRisk implements TaskListPage {
-  title = `Reducing risk for ${nameOrPlaceholderCopy(this.application.person)}`
+export default class RiskManagementArrangements implements TaskListPage {
+  title = `Risk management arrangements for ${nameOrPlaceholderCopy(this.application.person)}`
 
-  body: ReducingRiskBody
+  body: RiskManagementArrangementsBody
 
   constructor(
-    body: Partial<ReducingRiskBody>,
+    body: Partial<RiskManagementArrangementsBody>,
     private readonly application: Application,
   ) {
-    this.body = body as ReducingRiskBody
+    this.body = body as RiskManagementArrangementsBody
   }
 
   previous() {
-    return 'risk-factors'
+    return 'reducing-risk'
   }
 
   next() {
-    return 'risk-management-arrangements'
+    return ''
   }
 
   errors() {
