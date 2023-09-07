@@ -27,7 +27,7 @@ export default class OasysImport implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'summary'
   }
 
   errors() {

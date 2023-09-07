@@ -23,6 +23,7 @@ import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/oasysImportPage'
+import RoshSummaryPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/roshSummaryPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -76,5 +77,17 @@ context('Visit "Risks and needs" section', () => {
 
     //  Then I see the 'Risk of serious harm: OASys import' page
     Page.verifyOnPage(OasysImportPage, this.application)
+  })
+
+  //  Scenario: navigate to next page in "Risk of serious harm" task
+  // ----------------------------------------------
+  it('links to the RoSH summary page', function test() {
+    //  When I continue to the next page
+    OasysImportPage.visit(this.application)
+    const page = Page.verifyOnPage(OasysImportPage, this.application)
+    page.clickSubmit()
+
+    //  Then I see the "RoSH summary" page
+    Page.verifyOnPage(RoshSummaryPage, this.application)
   })
 })
