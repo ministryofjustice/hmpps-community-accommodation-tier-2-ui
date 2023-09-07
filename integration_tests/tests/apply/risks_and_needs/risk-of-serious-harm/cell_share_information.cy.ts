@@ -1,26 +1,26 @@
-//  Feature: Referrer completes 'risk management arrangemnents' page
+//  Feature: Referrer completes 'cell share information' page
 //    So that I can complete the "Risk of serious harm" task
 //    As a referrer
-//    I want to complete the 'risk management arrangemnents' page
+//    I want to complete the 'cell share information' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I visit the 'risk management arrangemnents' page
+//    And I visit the 'cell share information' page
 //
-//  Scenario: view 'risk management arrangemnents' page
-//    Then I see the "risk management arrangemnents" page
+//  Scenario: view 'cell share information' page
+//    Then I see the "cell share information" page
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I continue to the next task / page
-//    Then I see the "cell share information" page
+//    Then I see the "behaviour notes" page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import RiskManagementArrangementsPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/riskManagementArrangementsPage'
 import CellShareInformationPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/cellShareInformationPage'
+import BehaviourNotesPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/behaviourNotesPage'
 
-context('Visit "risk management arrangemnents" page', () => {
+context('Visit "cell share information" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
@@ -49,27 +49,27 @@ context('Visit "risk management arrangemnents" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the 'risk management arrangemnents' page
+    // And I visit the 'cell share information' page
     // --------------------------------
-    RiskManagementArrangementsPage.visit(this.application)
+    CellShareInformationPage.visit(this.application)
   })
 
-  //  Scenario: view 'risk management arrangemnents' page
+  //  Scenario: view 'cell share information' page
   // ----------------------------------------------
 
-  it('presents risk management arrangemnents page', function test() {
-    //    Then I see the "risk management arrangemnents" page
-    Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
+  it('presents cell share information page', function test() {
+    //    Then I see the "cell share information" page
+    Page.verifyOnPage(CellShareInformationPage, this.application)
   })
 
   //  Scenario: navigate to next page in "Risk of serious harm" task
   // ----------------------------------------------
   it('navigates to the next page', function test() {
     //    When I continue to the next task / page
-    const page = Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
+    const page = Page.verifyOnPage(CellShareInformationPage, this.application)
     page.clickSubmit()
 
-    //    Then I see the "cell share information" page
-    Page.verifyOnPage(CellShareInformationPage, this.application)
+    //    Then I see the "behaviour notes" page
+    Page.verifyOnPage(BehaviourNotesPage, this.application)
   })
 })

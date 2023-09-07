@@ -1,24 +1,24 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import CellShareInformation from './cellShareInformation'
+import BehaviourNotes from './behaviourNotes'
 
-describe('CellShareInformation', () => {
+describe('BehaviourNotes', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new CellShareInformation({}, application)
+      const page = new BehaviourNotes({}, application)
 
-      expect(page.title).toEqual(`Cell share information for Roger Smith`)
+      expect(page.title).toEqual(`Behaviour notes for Roger Smith`)
     })
   })
 
-  itShouldHaveNextValue(new CellShareInformation({}, application), 'behaviour-notes')
-  itShouldHavePreviousValue(new CellShareInformation({}, application), 'risk-management-arrangements')
+  itShouldHaveNextValue(new BehaviourNotes({}, application), '')
+  itShouldHavePreviousValue(new BehaviourNotes({}, application), 'cell-share-information')
 
   describe('response', () => {
     it('not implemented', () => {
-      const page = new CellShareInformation({}, application)
+      const page = new BehaviourNotes({}, application)
 
       expect(page.response()).toEqual({})
     })
@@ -26,7 +26,7 @@ describe('CellShareInformation', () => {
 
   describe('errors', () => {
     it('not implemented', () => {
-      const page = new CellShareInformation({}, application)
+      const page = new BehaviourNotes({}, application)
 
       expect(page.errors()).toEqual({})
     })

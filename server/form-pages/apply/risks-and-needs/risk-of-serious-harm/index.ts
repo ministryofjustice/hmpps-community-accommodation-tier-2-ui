@@ -6,6 +6,7 @@ import RiskFactors from './riskFactors'
 import ReducingRisk from './reducingRisk'
 import RiskManagementArrangements from './riskManagementArrangements'
 import CellShareInformation from './cellShareInformation'
+import BehaviourNotes from './behaviourNotes'
 
 @Task({
   name: 'Review risk of serious harm (RoSH) information',
@@ -18,6 +19,7 @@ import CellShareInformation from './cellShareInformation'
     ReducingRisk,
     RiskManagementArrangements,
     CellShareInformation,
+    BehaviourNotes,
   ],
 })
 export default class RiskOfSeriousHarm {}

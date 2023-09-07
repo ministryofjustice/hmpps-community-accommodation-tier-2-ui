@@ -2,13 +2,13 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class CellShareInformationPage extends ApplyPage {
+export default class BehaviourNotesPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Cell share information for ${nameOrPlaceholderCopy(application.person)}`,
+      `Behaviour notes for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'risk-of-serious-harm',
-      'cell-share-information',
+      'behaviour-notes',
     )
   }
 }
