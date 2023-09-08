@@ -73,7 +73,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     //    Given I am logged in
     cy.signIn()
     //    And I have successfully found a person by CRN
-    const page = CRNPage.visit()
+    const page = CRNPage.visit(this.application.person.name)
     page.getTextInputByIdAndEnterDetails('crn', person.crn)
 
     page.clickSubmit()

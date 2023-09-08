@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 import TaskListPage from '../../../server/form-pages/taskListPage'
 import { DateFormats } from '../../../server/utils/dateUtils'
@@ -9,7 +9,9 @@ export default class ApplyPage extends Page {
   taskListPage: TaskListPage
 
   constructor(title: string, application: Application, taskName: string, pageName: string, _backLink?: string) {
-    super(title)
+    const person = application.person as FullPerson
+
+    super(title, person.name)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Class = Apply.pages[taskName][pageName] as any

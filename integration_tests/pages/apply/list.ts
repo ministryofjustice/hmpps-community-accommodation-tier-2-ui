@@ -1,17 +1,22 @@
 import Page from '../page'
 import paths from '../../../server/paths/apply'
-import { Cas2Application as Application, Cas2ApplicationSummary } from '../../../server/@types/shared'
+import { Cas2Application as Application, Cas2ApplicationSummary, FullPerson } from '../../../server/@types/shared'
 import { nameOrPlaceholderCopy } from '../../../server/utils/utils'
 
 export default class ListPage extends Page {
-  constructor(private readonly inProgressApplications: Array<Cas2ApplicationSummary>) {
-    super('Short-Term Accommodation (CAS-2) applications')
+  constructor(
+    private readonly inProgressApplications: Array<Cas2ApplicationSummary>,
+    name: string,
+  ) {
+    super('Short-Term Accommodation (CAS-2) applications', name)
   }
 
   static visit(inProgressApplications: Array<Cas2ApplicationSummary>): ListPage {
     cy.visit(paths.applications.index.pattern)
 
-    return new ListPage(inProgressApplications)
+    const person = inProgressApplications[0]?.person as FullPerson
+
+    return new ListPage(inProgressApplications, person?.name)
   }
 
   shouldShowInProgressApplications(): void {

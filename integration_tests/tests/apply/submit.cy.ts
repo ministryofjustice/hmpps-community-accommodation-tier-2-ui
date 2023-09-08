@@ -41,6 +41,6 @@ context('Applications dashboard', () => {
     page.clickSubmit()
 
     // Then I see a confirmation page
-    Page.verifyOnPage(ApplicationSubmittedPage)
+    Page.verifyOnPage(ApplicationSubmittedPage, this.application.person.name)
   })
 })

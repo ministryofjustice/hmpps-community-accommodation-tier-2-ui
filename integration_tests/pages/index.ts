@@ -1,13 +1,14 @@
 import Page, { PageElement } from './page'
 
 export default class IndexPage extends Page {
-  constructor() {
-    super('Apply for a CAS-2 placement')
+  constructor(name: string) {
+    super('Apply for a CAS-2 placement', name)
   }
 
-  static visit(): IndexPage {
+  static visit(name: string): IndexPage {
     cy.visit('/')
-    return new IndexPage()
+
+    return new IndexPage(name)
   }
 
   headerUserName = (): PageElement => cy.get('[data-qa=header-user-name]')

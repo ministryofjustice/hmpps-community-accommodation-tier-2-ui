@@ -9,7 +9,7 @@ context('Index', () => {
 
   it('displays the sign out button', () => {
     cy.signIn()
-    IndexPage.visit()
+    IndexPage.visit(undefined)
     cy.get('[data-qa="signOut"]').should('exist')
   })
 })

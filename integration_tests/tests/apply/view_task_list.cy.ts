@@ -13,6 +13,8 @@
 import { applicationFactory } from '../../../server/testutils/factories'
 import Page from '../../pages/page'
 import TaskListPage from '../../pages/apply/taskListPage'
+import { fullPersonFactory } from '../../../server/testutils/factories/person'
+import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 context('Visit task list', () => {
   const application = applicationFactory.build({
@@ -22,6 +24,7 @@ context('Visit task list', () => {
         'confirm-eligibility': { isEligible: 'yes' },
       },
     },
+    person: fullPersonFactory.build(),
   })
 
   beforeEach(function test() {
@@ -46,7 +49,9 @@ context('Visit task list', () => {
     // I visit the task list page
     // --------------------------------
     cy.visit('applications/abc123')
-    const page = Page.verifyOnPage(TaskListPage)
+    const person = application.person as FullPerson
+
+    const page = Page.verifyOnPage(TaskListPage, person.name)
 
     // I see the task listed by section
     page.shouldShowTasksWithinTheirSections()
