@@ -1,24 +1,24 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import BehaviourNotes from './behaviourNotes'
+import AdditionalRiskInformation from './additionalRiskInformation'
 
-describe('BehaviourNotes', () => {
+describe('AdditionalRiskInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new BehaviourNotes({}, application)
+      const page = new AdditionalRiskInformation({}, application)
 
-      expect(page.title).toEqual(`Behaviour notes for Roger Smith`)
+      expect(page.title).toEqual(`Additional risk information for Roger Smith`)
     })
   })
 
-  itShouldHaveNextValue(new BehaviourNotes({}, application), 'additional-risk-information')
-  itShouldHavePreviousValue(new BehaviourNotes({}, application), 'cell-share-information')
+  itShouldHaveNextValue(new AdditionalRiskInformation({}, application), '')
+  itShouldHavePreviousValue(new AdditionalRiskInformation({}, application), 'behaviour-notes')
 
   describe('response', () => {
     it('not implemented', () => {
-      const page = new BehaviourNotes({}, application)
+      const page = new AdditionalRiskInformation({}, application)
 
       expect(page.response()).toEqual({})
     })
@@ -26,7 +26,7 @@ describe('BehaviourNotes', () => {
 
   describe('errors', () => {
     it('not implemented', () => {
-      const page = new BehaviourNotes({}, application)
+      const page = new AdditionalRiskInformation({}, application)
 
       expect(page.errors()).toEqual({})
     })

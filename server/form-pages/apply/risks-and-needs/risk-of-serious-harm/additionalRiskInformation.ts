@@ -4,30 +4,30 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type BehaviourNotesBody = Record<string, never>
+type AdditionalRiskInformationBody = Record<string, never>
 
 @Page({
-  name: 'behaviour-notes',
+  name: 'additional-risk-information',
   bodyProperties: [],
 })
-export default class BehaviourNotes implements TaskListPage {
-  title = `Behaviour notes for ${nameOrPlaceholderCopy(this.application.person)}`
+export default class AdditionalRiskInformation implements TaskListPage {
+  title = `Additional risk information for ${nameOrPlaceholderCopy(this.application.person)}`
 
-  body: BehaviourNotesBody
+  body: AdditionalRiskInformationBody
 
   constructor(
-    body: Partial<BehaviourNotesBody>,
+    body: Partial<AdditionalRiskInformationBody>,
     private readonly application: Application,
   ) {
-    this.body = body as BehaviourNotesBody
+    this.body = body as AdditionalRiskInformationBody
   }
 
   previous() {
-    return 'cell-share-information'
+    return 'behaviour-notes'
   }
 
   next() {
-    return 'additional-risk-information'
+    return ''
   }
 
   errors() {

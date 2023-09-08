@@ -3,13 +3,13 @@ import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import paths from '../../../../../server/paths/apply'
 
-export default class BehaviourNotesPage extends ApplyPage {
+export default class AdditionalRiskInformationPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Behaviour notes for ${nameOrPlaceholderCopy(application.person)}`,
+      `Additional risk information for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'risk-of-serious-harm',
-      'behaviour-notes',
+      'additional-risk-information',
     )
   }
 
@@ -18,7 +18,7 @@ export default class BehaviourNotesPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'risk-of-serious-harm',
-        page: 'behaviour-notes',
+        page: 'additional-risk-information',
       }),
     )
   }
