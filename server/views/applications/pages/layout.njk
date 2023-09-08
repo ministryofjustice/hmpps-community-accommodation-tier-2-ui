@@ -11,7 +11,7 @@
 {% extends "../../partials/layout.njk" %}
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 
-{% set pageTitle = applicationName + " - " + page.title %}
+{% set pageTitle = page.title + " - " + applicationName %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block beforeContent %}
