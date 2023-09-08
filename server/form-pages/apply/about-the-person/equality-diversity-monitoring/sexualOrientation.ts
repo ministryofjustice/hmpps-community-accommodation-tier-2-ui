@@ -25,6 +25,8 @@ export const orientationOptions = {
   bodyProperties: ['orientation', 'otherOrientation'],
 })
 export default class SexualOrientation implements TaskListPage {
+  documentTitle = "Which of the following best describes the person's sexual orientation?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

@@ -41,6 +41,8 @@ export const religionOptions = {
   bodyProperties: ['religion', 'otherReligion'],
 })
 export default class Religion implements TaskListPage {
+  documentTitle = "What is the person's religion?"
+
   title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

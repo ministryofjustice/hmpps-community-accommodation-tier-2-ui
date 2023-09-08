@@ -29,6 +29,8 @@ const genderOptions = {
   bodyProperties: ['sex', 'gender', 'optionalGenderIdentity'],
 })
 export default class SexAndGender implements TaskListPage {
+  documentTitle = "What is the person's sex?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

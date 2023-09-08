@@ -22,6 +22,8 @@ export const otherBackgroundOptions = {
   bodyProperties: ['otherBackground', 'optionalOtherBackground'],
 })
 export default class OtherBackground implements TaskListPage {
+  documentTitle = "Which of the following best describes the person's background?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

@@ -14,6 +14,8 @@ type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
   bodyProperties: ['currentRiskDetail', 'confirmation'],
 })
 export default class CurrentRisk implements TaskListPage {
+  documentTitle = "The person's current risks"
+
   title = `${nameOrPlaceholderCopy(this.application.person)}'s current risks`
 
   questions = {

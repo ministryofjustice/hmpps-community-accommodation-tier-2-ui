@@ -35,6 +35,8 @@ export type RoshTaskData = {
 export default class OasysImport implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
+  documentTitle = "Import the person's risk of serious harm (RoSH) data from OASys"
+
   title = `Import ${nameOrPlaceholderCopy(this.application.person)}'s risk of serious harm (RoSH) data from OASys`
 
   body: OasysImportBody

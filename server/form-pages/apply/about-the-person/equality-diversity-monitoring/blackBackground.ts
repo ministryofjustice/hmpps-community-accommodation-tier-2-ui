@@ -23,6 +23,9 @@ export const blackBackgroundOptions = {
   bodyProperties: ['blackBackground', 'optionalBlackBackground'],
 })
 export default class BlackBackground implements TaskListPage {
+  documentTitle =
+    "Which of the following best describes the person's Black, African, Caribbean or Black British background?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

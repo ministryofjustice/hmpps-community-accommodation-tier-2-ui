@@ -18,6 +18,8 @@ type AcctUI = { referringInstitution: string; expiryDate: string; createdDate: s
 export default class Acct implements TaskListPage {
   title = 'Assessment, Care in Custody and Teamwork (ACCT)'
 
+  documentTitle = this.title
+
   body: AcctBody
 
   accts: AcctUI[]

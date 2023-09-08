@@ -14,6 +14,8 @@ type HistoricalRiskBody = { historicalRiskDetail: string; confirmation: string }
   bodyProperties: ['historicalRiskDetail', 'confirmation'],
 })
 export default class HistoricalRisk implements TaskListPage {
+  documentTitle = "The person's historical risks"
+
   title = `${nameOrPlaceholderCopy(this.application.person)}'s historical risks`
 
   questions = {

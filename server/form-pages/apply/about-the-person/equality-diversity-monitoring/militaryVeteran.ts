@@ -21,6 +21,8 @@ export type MilitaryVeteranBody = {
   bodyProperties: ['isVeteran'],
 })
 export default class MilitaryVeteran implements TaskListPage {
+  documentTitle = 'Is the person a military veteran?'
+
   title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

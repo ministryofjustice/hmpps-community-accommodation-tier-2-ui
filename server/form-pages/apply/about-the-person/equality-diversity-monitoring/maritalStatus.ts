@@ -38,6 +38,8 @@ export const options = {
   bodyProperties: ['maritalStatus'],
 })
 export default class MaritalStatus implements TaskListPage {
+  documentTitle = "What is the person's legal marital or registered civil partnership status?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

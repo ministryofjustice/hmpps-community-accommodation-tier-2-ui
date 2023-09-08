@@ -24,6 +24,8 @@ export const mixedBackgroundOptions = {
   bodyProperties: ['mixedBackground', 'optionalMixedBackground'],
 })
 export default class MixedBackground implements TaskListPage {
+  documentTitle = "Which of the following best describes the person's mixed or multiple ethnic groups background?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

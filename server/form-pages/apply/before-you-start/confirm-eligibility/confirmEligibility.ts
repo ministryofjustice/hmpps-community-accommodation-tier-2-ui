@@ -13,6 +13,8 @@ type ConfirmEligibilityBody = {
   bodyProperties: ['isEligible'],
 })
 export default class ConfirmEligibility implements TaskListPage {
+  documentTitle = 'Check the person is eligible for Short-Term Accommodation (CAS-2)'
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Check ${this.personName} is eligible for Short-Term Accommodation (CAS-2)`

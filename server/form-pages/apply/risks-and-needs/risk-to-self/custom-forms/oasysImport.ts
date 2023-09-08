@@ -30,6 +30,8 @@ export type RiskToSelfTaskData = {
   bodyProperties: [],
 })
 export default class OasysImport implements TaskListPage {
+  documentTitle = "Import the person's risk to self data from OASys"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Import ${this.personName}'s risk to self data from OASys`

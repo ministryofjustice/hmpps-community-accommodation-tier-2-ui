@@ -35,6 +35,8 @@ type PhysicalHealthBody = {
   ],
 })
 export default class PhysicalHealth implements TaskListPage {
+  documentTitle = 'Physical health needs for the person'
+
   title = `Physical health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

@@ -34,6 +34,8 @@ export type DisabilityBody = {
   bodyProperties: ['hasDisability', 'typeOfDisability', 'otherDisability'],
 })
 export default class Disability implements TaskListPage {
+  documentTitle = 'Does the person have a disability?'
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

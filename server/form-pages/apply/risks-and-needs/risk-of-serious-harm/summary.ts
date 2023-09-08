@@ -11,6 +11,8 @@ type SummaryBody = Record<string, never>
   bodyProperties: [],
 })
 export default class Summary implements TaskListPage {
+  documentTitle = 'Risk of serious harm (RoSH) summary for the person'
+
   title = `Risk of serious harm (RoSH) summary for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: SummaryBody

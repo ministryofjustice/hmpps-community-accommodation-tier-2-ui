@@ -11,6 +11,8 @@ type GuidanceBody = Record<string, never>
   bodyProperties: [],
 })
 export default class Guidance implements TaskListPage {
+  documentTitle = 'Request health information for the person'
+
   title = `Request health information for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: GuidanceBody

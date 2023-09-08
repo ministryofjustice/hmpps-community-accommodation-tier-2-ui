@@ -13,6 +13,12 @@ export interface TaskListPageInterface {
 }
 
 export default abstract class TaskListPage {
+  /** 
+   * content for the HTML document <title> element, should not contain any PII
+     (such as person's name) to avoid data leaks. 
+   */
+  abstract documentTitle: string
+
   abstract title: string
 
   abstract body: Record<string, unknown>

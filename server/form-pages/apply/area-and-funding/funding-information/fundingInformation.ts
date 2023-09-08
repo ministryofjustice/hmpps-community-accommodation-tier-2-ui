@@ -23,6 +23,8 @@ type FundingSourceBody = {
   bodyProperties: ['fundingSource'],
 })
 export default class FundingSource implements TaskListPage {
+  documentTitle = 'How will the person pay for their accommodation and service charge?'
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Funding information for ${this.personName}`
