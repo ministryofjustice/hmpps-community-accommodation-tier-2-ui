@@ -114,19 +114,22 @@
     }
   },
   "risk-to-self": {
-    "guidance": {},
     "vulnerability": {
       "vulnerabilityDetail": "example answer vulnerability",
-      "dateOfOasysImport": "2023-08-31"
+      "dateOfOasysImport": "2023-08-31",
+      "confirmation": "confirmed"
     },
     "current-risk": {
       "currentRiskDetail": "example answer current risk",
-      "dateOfOasysImport": "2023-08-31"
+      "dateOfOasysImport": "2023-08-31",
+      "confirmation": "confirmed"
     },
     "historical-risk": {
       "historicalRiskDetail": "example answer historical risk ",
-      "dateOfOasysImport": "2023-08-31"
+      "dateOfOasysImport": "2023-08-31",
+      "confirmation": "confirmed"
     },
+    "acct": {},
     "acct-data": [
       {
         "createdDate-day": "1",
@@ -138,6 +141,18 @@
         "referringInstitution": "HMPPS prison",
         "acctDetails": "ACCT details"
       }
-    ]
+    ],
+    "additional-information": {}
+  },
+  "risk-of-serious-harm": {
+    "oasys-import": {},
+    "summary": {},
+    "risk-to-others": {},
+    "risk-factors": {},
+    "reducing-risk": {},
+    "risk-management-arrangements": {},
+    "cell-share-information": {},
+    "behaviour-notes": {},
+    "additional-risk-information": {}
   }
 }
