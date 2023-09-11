@@ -21,6 +21,7 @@ const paths = {
     },
     update: singleApplicationPath,
     appendToList: singleApplicationPath.path('list'),
+    removeFromList: singleApplicationPath.path('list').path('remove'),
   },
 }
 

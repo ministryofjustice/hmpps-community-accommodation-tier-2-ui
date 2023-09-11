@@ -23,6 +23,9 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
   put(paths.applications.appendToList.pattern, applicationsController.appendToList(), {
     auditEvent: 'UPDATE_APPLICATION_LIST',
   })
+  get(paths.applications.removeFromList.pattern, applicationsController.removeFromList(), {
+    auditEvent: 'UPDATE_APPLICATION_LIST_REMOVE',
+  })
 
   Object.keys(pages).forEach((taskKey: string) => {
     Object.keys(pages[taskKey]).forEach((pageKey: string) => {
