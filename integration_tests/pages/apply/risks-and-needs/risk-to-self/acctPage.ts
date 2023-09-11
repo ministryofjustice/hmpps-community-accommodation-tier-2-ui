@@ -23,4 +23,12 @@ export default class AcctPage extends ApplyPage {
     cy.get('.govuk-summary-list').contains('10/10/2013')
     cy.get('.govuk-summary-list').contains('ACCT details')
   }
+
+  hasNoAccts(): void {
+    cy.get('.govuk-body').contains('No ACCT notes have been added.')
+  }
+
+  clickRemove(): void {
+    cy.get('a').contains('Remove').click()
+  }
 }
