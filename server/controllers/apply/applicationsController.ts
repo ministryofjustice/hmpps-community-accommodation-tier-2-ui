@@ -140,6 +140,7 @@ export default class ApplicationsController {
 
   appendToList() {
     return async (req: Request, res: Response) => {
+      const { id } = req.params
       const { pageName, taskName } = req.body
       const Page = getPage(taskName, pageName, 'applications')
       const page = await this.applicationService.initializePage(Page, req, this.dataServices)
@@ -148,18 +149,39 @@ export default class ApplicationsController {
         await this.applicationService.appendToList(page, req)
         const next = page.next()
         if (next) {
-          res.redirect(paths.applications.pages.show({ id: req.params.id, task: taskName, page: page.next() }))
+          res.redirect(paths.applications.pages.show({ id, task: taskName, page: page.next() }))
         } else {
-          res.redirect(paths.applications.show({ id: req.params.id }))
+          res.redirect(paths.applications.show({ id }))
         }
       } catch (err) {
         catchValidationErrorOrPropogate(
           req,
           res,
           err,
-          paths.applications.pages.show({ id: req.params.id, task: taskName, page: pageName }),
+          paths.applications.pages.show({ id, task: taskName, page: pageName }),
         )
       }
+    }
+  }
+
+  removeFromList() {
+    return async (req: Request, res: Response) => {
+      const { id } = req.params
+      const { taskName, pageToReturnTo } = req.query
+
+      try {
+        await this.applicationService.removeFromList(req)
+      } catch (err) {
+        catchValidationErrorOrPropogate(
+          req,
+          res,
+          err,
+          paths.applications.pages.show({ id, task: taskName as string, page: pageToReturnTo as string }),
+        )
+      }
+      return res.redirect(
+        paths.applications.pages.show({ id, task: taskName as string, page: pageToReturnTo as string }),
+      )
     }
   }
 }

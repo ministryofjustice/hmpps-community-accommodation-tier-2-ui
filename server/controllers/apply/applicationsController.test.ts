@@ -292,6 +292,63 @@ describe('applicationsController', () => {
     })
   })
 
+  describe('removeFromList', () => {
+    const page = createMock<TaskListPage>({})
+
+    beforeEach(() => {
+      request.query = {
+        itemIndex: 'example answer',
+        pageName: 'example-page',
+        taskName: 'example-task',
+        pageToReturnTo: 'return-page',
+      }
+      request.params = {
+        id: 'abc123',
+      }
+
+      const PageConstructor = jest.fn()
+      ;(getPage as jest.Mock).mockReturnValue(PageConstructor)
+
+      applicationService.initializePage.mockResolvedValue(page)
+    })
+
+    describe('when item is successfully removed', () => {
+      it('renders the page', async () => {
+        applicationService.removeFromList.mockResolvedValue()
+
+        const requestHandler = applicationsController.removeFromList()
+
+        await requestHandler({ ...request }, response)
+
+        expect(applicationService.removeFromList).toHaveBeenCalledWith(request)
+
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'return-page' }),
+        )
+      })
+    })
+
+    describe('when an error occurs', () => {
+      it('passes error to error handler', async () => {
+        const err = new Error()
+        applicationService.removeFromList.mockImplementation(() => {
+          throw err
+        })
+
+        const requestHandler = applicationsController.removeFromList()
+
+        await requestHandler({ ...request }, response)
+
+        expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
+          request,
+          response,
+          err,
+          paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'return-page' }),
+        )
+      })
+    })
+  })
+
   describe('update', () => {
     const page = createMock<TaskListPage>({})
 
