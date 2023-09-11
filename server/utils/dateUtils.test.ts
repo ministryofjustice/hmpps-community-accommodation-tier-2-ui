@@ -163,7 +163,7 @@ describe('DateFormats', () => {
     it('converts a date and time input object to a human readable date', () => {
       const dateTimeInputs = { 'key-day': '1', 'key-month': '11', 'key-year': '2022' }
 
-      expect(DateFormats.dateAndTimeInputsToUiDate(dateTimeInputs, 'key')).toEqual('01/11/2022')
+      expect(DateFormats.dateAndTimeInputsToUiDate(dateTimeInputs, 'key')).toEqual('1 November 2022')
     })
 
     it('throws an error if an object without date inputs for the key is entered', () => {
