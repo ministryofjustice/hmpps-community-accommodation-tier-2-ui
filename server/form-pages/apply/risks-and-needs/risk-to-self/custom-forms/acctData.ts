@@ -38,6 +38,7 @@ export default class AcctData implements TaskListPage {
   questions = {
     createdDate: {
       question: 'When was the ACCT created?',
+      hint: 'For example, 22 4 2003',
     },
     expiryDate: {
       question: 'When did the ACCT expire?',
