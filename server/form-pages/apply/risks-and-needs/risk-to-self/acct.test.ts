@@ -47,13 +47,20 @@ describe('Acct', () => {
 
         const page = new Acct({}, applicationWithData)
 
-        page.accts.forEach((acct, index) => {
-          expect(acct).toEqual({
+        expect(page.accts).toEqual([
+          {
             referringInstitution: 'institution',
             acctDetails: 'detail info',
-            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/${index}/removeFromList?redirectPage=acct`,
-          })
-        })
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/0/removeFromList?redirectPage=acct`,
+            title: '1 February 2012 - 10 October 2013',
+          },
+          {
+            referringInstitution: 'institution 2',
+            acctDetails: 'detail info 2',
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/1/removeFromList?redirectPage=acct`,
+            title: '2 March 2012 - Ongoing',
+          },
+        ])
       })
     })
   })

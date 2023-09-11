@@ -225,6 +225,7 @@ describe('applicationsController', () => {
       request.body = {
         exampleField: 'example answer',
       }
+      request.query = {}
       request.params = {
         id: 'abc123',
         page: 'example-page',
@@ -235,6 +236,24 @@ describe('applicationsController', () => {
       ;(getPage as jest.Mock).mockReturnValue(PageConstructor)
 
       applicationService.initializePage.mockResolvedValue(page)
+    })
+
+    describe('when there is a redirect path', () => {
+      it('redirects to that path', async () => {
+        request.query = {
+          redirectPage: 'redirect-page',
+        }
+
+        applicationService.appendToList.mockResolvedValue()
+
+        const requestHandler = applicationsController.appendToList()
+
+        await requestHandler({ ...request }, response)
+
+        expect(applicationService.appendToList).toHaveBeenCalledWith(page, request)
+
+        expect(response.redirect).toHaveBeenCalledWith('/applications/abc123/tasks/example-task/pages/redirect-page')
+      })
     })
 
     describe('when the page has a next page', () => {
