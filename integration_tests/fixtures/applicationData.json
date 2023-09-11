@@ -135,6 +135,7 @@
         "createdDate-day": "1",
         "createdDate-month": "2",
         "createdDate-year": "2012",
+        "isOngoing": "no",
         "expiryDate-day": "10",
         "expiryDate-month": "10",
         "expiryDate-year": "2013",

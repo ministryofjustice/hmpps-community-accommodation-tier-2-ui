@@ -9,7 +9,7 @@ import { createQueryString } from '../../../../utils/utils'
 
 type AcctBody = Record<string, never>
 
-type AcctUI = { referringInstitution: string; expiryDate: string; createdDate: string; acctDetails: string }
+type AcctUI = { title: string; referringInstitution: string; acctDetails: string }
 
 @Page({
   name: 'acct',
@@ -33,10 +33,13 @@ export default class Acct implements TaskListPage {
         const query = {
           redirectPage: 'acct',
         }
+        const isOngoing = acct.isOngoing === 'yes'
+        const createdDate = DateFormats.dateAndTimeInputsToUiDate(acct, 'createdDate')
+        const expiryDate = !isOngoing && DateFormats.dateAndTimeInputsToUiDate(acct, 'expiryDate')
+
         return {
+          title: `${createdDate} - ${isOngoing ? 'Ongoing' : expiryDate}`,
           referringInstitution: acct.referringInstitution,
-          createdDate: DateFormats.dateAndTimeInputsToUiDate(acct, 'createdDate'),
-          expiryDate: DateFormats.dateAndTimeInputsToUiDate(acct, 'expiryDate'),
           acctDetails: acct.acctDetails,
           removeLink: `${paths.applications.removeFromList({
             id: application.id,

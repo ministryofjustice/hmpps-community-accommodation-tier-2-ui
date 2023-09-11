@@ -14,11 +14,11 @@
 
     {% for acct in page.accts %}
 
-      {{ govukSummaryList({
-        card: {
-          title: {
-            text: acct.referringInstitution
-          },
+    {{ govukSummaryList({
+      card: {
+        title: {
+          text: acct.title
+        },
         actions: {
           items: [
             {
@@ -27,35 +27,27 @@
               visuallyHiddenText: "remove this ACCT"
             }
           ]
-        }        
-        },
-        rows: [
-          {
-            key: {
-              text: "Started:"
-            },
-            value: {
-              html: acct.createdDate
-            }
+        }  
+      },
+      rows: [
+        {
+          key: {
+            text: "Referring institution:"
           },
-          {
-            key: {
-              text: "Ended:"
-            },
-            value: {
-              html: acct.expiryDate
-            }
-          },
-          {
-            key: {
-              text: "Details"
-            },
-            value: {
-              html: acct.acctDetails
-            }
+          value: {
+            html: acct.referringInstitution
           }
-        ]
-      }) }}
+        },
+        {
+          key: {
+            text: "Details"
+          },
+          value: {
+            html: acct.acctDetails
+          }
+        }
+      ]
+    }) }}
 
     {% endfor %}
 
@@ -63,10 +55,12 @@
     <p class="govuk-body govuk-!-font-weight-bold">No ACCT notes have been added.</p>
   {% endif %}
 
-  {{ govukButton({
-    text: "Add an ACCT note",
-    classes: "govuk-button--secondary",
-    href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct-data' })
-  }) }}
+  <div>
+    {{ govukButton({
+      text: "Add an ACCT note",
+      classes: "govuk-button--secondary",
+      href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct-data' })
+    }) }}
+  </div>
 
 {% endblock %}

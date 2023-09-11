@@ -19,6 +19,7 @@ export default class AcctDataPage extends ApplyPage {
 
   addACCTInformation(): void {
     this.completeDateInputs('createdDate', '2022-07-15')
+    this.checkRadioByNameAndValue('isOngoing', 'no')
     this.completeDateInputs('expiryDate', '2023-07-15')
     this.getTextInputByIdAndEnterDetails('referringInstitution', 'HMPPS prison')
     this.getTextInputByIdAndEnterDetails('acctDetails', 'some detail')
