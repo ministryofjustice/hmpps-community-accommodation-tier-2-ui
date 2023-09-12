@@ -166,8 +166,8 @@ export default class ApplicationsController {
 
   removeFromList() {
     return async (req: Request, res: Response) => {
-      const { id } = req.params
-      const { taskName, pageToReturnTo } = req.query
+      const { id, task } = req.params
+      const { redirectPage } = req.query
 
       try {
         await this.applicationService.removeFromList(req)
@@ -176,12 +176,10 @@ export default class ApplicationsController {
           req,
           res,
           err,
-          paths.applications.pages.show({ id, task: taskName as string, page: pageToReturnTo as string }),
+          paths.applications.pages.show({ id, task, page: redirectPage as string }),
         )
       }
-      return res.redirect(
-        paths.applications.pages.show({ id, task: taskName as string, page: pageToReturnTo as string }),
-      )
+      return res.redirect(paths.applications.pages.show({ id, task, page: redirectPage as string }))
     }
   }
 }

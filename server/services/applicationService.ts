@@ -109,10 +109,10 @@ export default class ApplicationService {
     const application = await this.findApplication(request.user.token, request.params.id)
     const client = this.applicationClientFactory(request.user.token)
 
-    const { itemIndex, pageName, taskName } = request.query as { itemIndex: string; pageName: string; taskName: string }
+    const { page, task, index } = request.params
 
-    if (this.hasPageData(application, taskName, pageName)) {
-      application.data[taskName][pageName].splice(itemIndex, 1)
+    if (this.hasPageData(application, task, page)) {
+      application.data[task][page].splice(index, 1)
       await client.update(application.id, getApplicationUpdateData(application))
     }
   }

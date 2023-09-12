@@ -5,6 +5,8 @@ const singleApplicationPath = applicationsPath.path(':id')
 const pagesPath = singleApplicationPath.path('tasks/:task/pages/:page')
 const peoplePath = applicationsPath.path('people')
 
+const removeFromListPath = pagesPath.path(':index/removeFromList')
+
 const paths = {
   applications: {
     create: applicationsPath.path('create'),
@@ -21,7 +23,7 @@ const paths = {
     },
     update: singleApplicationPath,
     appendToList: singleApplicationPath.path('list'),
-    removeFromList: singleApplicationPath.path('list').path('remove'),
+    removeFromList: removeFromListPath,
   },
 }
 

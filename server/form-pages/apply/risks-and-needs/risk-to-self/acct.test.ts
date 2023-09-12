@@ -44,7 +44,7 @@ describe('Acct', () => {
             createdDate: '01/02/2012',
             expiryDate: '10/10/2013',
             acctDetails: 'detail info',
-            removeLink: `/applications/${applicationWithData.id}/list/remove?itemIndex=${index}&taskName=risk-to-self&pageName=acct-data&pageToReturnTo=acct`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/${index}/removeFromList?redirectPage=acct`,
           })
         })
       })

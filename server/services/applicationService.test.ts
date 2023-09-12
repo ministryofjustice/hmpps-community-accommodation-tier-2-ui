@@ -237,8 +237,8 @@ describe('ApplicationService', () => {
     const application = applicationFactory.build({ data: null })
     const token = 'some-token'
     const request = createMock<Request>({
-      query: { itemIndex: '1', taskName: 'some-task', pageName: 'some-page', pageToReturnTo: 'return-page' },
-      params: { id: application.id },
+      query: { redirectPage: 'return-page' },
+      params: { id: application.id, task: 'some-task', page: 'some-page', index: '1' },
       user: { token },
     })
     const applicationData = createMock<UpdateCas2Application>()

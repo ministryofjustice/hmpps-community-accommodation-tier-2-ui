@@ -297,13 +297,13 @@ describe('applicationsController', () => {
 
     beforeEach(() => {
       request.query = {
-        itemIndex: 'example answer',
-        pageName: 'example-page',
-        taskName: 'example-task',
-        pageToReturnTo: 'return-page',
+        redirectPage: 'return-page',
       }
       request.params = {
         id: 'abc123',
+        task: 'example-task',
+        page: 'example-page',
+        index: '0',
       }
 
       const PageConstructor = jest.fn()

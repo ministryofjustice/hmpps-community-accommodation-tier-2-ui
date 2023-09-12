@@ -31,17 +31,19 @@ export default class Acct implements TaskListPage {
 
       this.accts = acctData.map((acct, index) => {
         const query = {
-          itemIndex: index,
-          taskName: 'risk-to-self',
-          pageName: 'acct-data',
-          pageToReturnTo: 'acct',
+          redirectPage: 'acct',
         }
         return {
           referringInstitution: acct.referringInstitution,
           createdDate: DateFormats.dateAndTimeInputsToUiDate(acct, 'createdDate'),
           expiryDate: DateFormats.dateAndTimeInputsToUiDate(acct, 'expiryDate'),
           acctDetails: acct.acctDetails,
-          removeLink: `${paths.applications.removeFromList({ id: application.id })}?${createQueryString(query)}`,
+          removeLink: `${paths.applications.removeFromList({
+            id: application.id,
+            task: 'risk-to-self',
+            page: 'acct-data',
+            index: index.toString(),
+          })}?${createQueryString(query)}`,
         }
       })
     }
