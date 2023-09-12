@@ -132,6 +132,7 @@ export type { NonArrivalReason } from './models/NonArrivalReason';
 export type { OASysAssessmentId } from './models/OASysAssessmentId';
 export type { OASysAssessmentState } from './models/OASysAssessmentState';
 export type { OASysQuestion } from './models/OASysQuestion';
+export type { OASysRiskOfSeriousHarm } from './models/OASysRiskOfSeriousHarm';
 export type { OASysRiskToSelf } from './models/OASysRiskToSelf';
 export type { OASysSection } from './models/OASysSection';
 export type { OASysSections } from './models/OASysSections';
