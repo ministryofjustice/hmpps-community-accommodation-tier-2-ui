@@ -1,4 +1,4 @@
-import type { OASysRiskToSelf, Person } from '@approved-premises/api'
+import type { OASysRiskOfSeriousHarm, OASysRiskToSelf, Person } from '@approved-premises/api'
 import { stubFor } from '../../wiremock'
 
 export default {
@@ -20,6 +20,32 @@ export default {
       request: {
         method: 'GET',
         url: `/people/${args.crn}/oasys/risk-to-self`,
+      },
+      response: {
+        status: 404,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: { status: 404 },
+      },
+    }),
+
+  stubOasysRosh: (args: { crn: string; oasysRosh: OASysRiskOfSeriousHarm }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: `/people/${args.crn}/oasys/rosh`,
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.oasysRosh,
+      },
+    }),
+
+  stubOasysRoshNotFound: (args: { crn: string }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: `/people/${args.crn}/oasys/rosh`,
       },
       response: {
         status: 404,

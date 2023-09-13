@@ -147,9 +147,20 @@
   "risk-of-serious-harm": {
     "oasys-import": {},
     "summary": {},
-    "risk-to-others": {},
-    "risk-factors": {},
-    "reducing-risk": {},
+    "risk-to-others": {
+      "whoIsAtRisk": "a person",
+      "natureOfRisk": "a nature",
+      "dateOfOasysImport": "some date"
+    },
+    "risk-factors": {
+      "circumstancesLikelyToIncreaseRisk": "a circumstance",
+      "whenIsRiskLikelyToBeGreatest": "a time",
+      "dateOfOasysImport": "some date"
+    },
+    "reducing-risk": {
+      "factorsLikelyToReduceRisk": "a factor",
+      "dateOfOasysImport": "some date"
+    },
     "risk-management-arrangements": {},
     "cell-share-information": {},
     "behaviour-notes": {},
