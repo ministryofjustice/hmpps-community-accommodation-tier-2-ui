@@ -90,10 +90,8 @@ export default class ApplicationService {
 
       /* eslint-disable no-underscore-dangle */
       delete request.body._csrf
-      delete request.body.pageName
-      delete request.body.taskName
 
-      if (this.isAppendingToList(application, taskName, pageName)) {
+      if (this.hasPageData(application, taskName, pageName)) {
         application.data[taskName][pageName].push(request.body)
       } else {
         application.data = application.data || {}
@@ -105,7 +103,19 @@ export default class ApplicationService {
     }
   }
 
-  private isAppendingToList(application: Application, taskName: string, pageName: string) {
+  async removeFromList(request: Request) {
+    const application = await this.findApplication(request.user.token, request.params.id)
+    const client = this.applicationClientFactory(request.user.token)
+
+    const { page, task, index } = request.params
+
+    if (this.hasPageData(application, task, page)) {
+      application.data[task][page].splice(index, 1)
+      await client.update(application.id, getApplicationUpdateData(application))
+    }
+  }
+
+  private hasPageData(application: Application, taskName: string, pageName: string) {
     return application.data && application.data[taskName] && application.data[taskName][pageName]
   }
 

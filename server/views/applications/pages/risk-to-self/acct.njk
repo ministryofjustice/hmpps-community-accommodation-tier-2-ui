@@ -10,43 +10,58 @@
 
   <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-  {% for acct in page.accts %}
+  {% if page.accts | length %}
 
-    {{ govukSummaryList({
-      card: {
-        title: {
-          text: acct.referringInstitution
-        }
-      },
-      rows: [
-        {
-          key: {
-            text: "Started:"
-          },
-          value: {
-            html: acct.createdDate
-          }
-        },
-        {
-          key: {
-            text: "Ended:"
-          },
-          value: {
-            html: acct.expiryDate
-          }
-        },
-        {
-          key: {
-            text: "Details"
-          },
-          value: {
-            html: acct.acctDetails
-          }
-        }
-      ]
-    }) }}
+    {% for acct in page.accts %}
 
-  {% endfor %}
+      {{ govukSummaryList({
+        card: {
+          title: {
+            text: acct.referringInstitution
+          },
+        actions: {
+          items: [
+            {
+              href: acct.removeLink,
+              text: "Remove",
+              visuallyHiddenText: "remove this ACCT"
+            }
+          ]
+        }        
+        },
+        rows: [
+          {
+            key: {
+              text: "Started:"
+            },
+            value: {
+              html: acct.createdDate
+            }
+          },
+          {
+            key: {
+              text: "Ended:"
+            },
+            value: {
+              html: acct.expiryDate
+            }
+          },
+          {
+            key: {
+              text: "Details"
+            },
+            value: {
+              html: acct.acctDetails
+            }
+          }
+        ]
+      }) }}
+
+    {% endfor %}
+
+  {% else %}
+    <p class="govuk-body govuk-!-font-weight-bold">No ACCT notes have been added.</p>
+  {% endif %}
 
   {{ govukButton({
     text: "Add an ACCT note",

@@ -4,6 +4,8 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { AcctDataBody } from './custom-forms/acctData'
 import { DateFormats } from '../../../../utils/dateUtils'
+import paths from '../../../../paths/apply'
+import { createQueryString } from '../../../../utils/utils'
 
 type AcctBody = Record<string, never>
 
@@ -27,12 +29,21 @@ export default class Acct implements TaskListPage {
     if (application.data['risk-to-self'] && application.data['risk-to-self']['acct-data']) {
       const acctData = application.data['risk-to-self']['acct-data'] as [AcctDataBody]
 
-      this.accts = acctData.map(acct => {
+      this.accts = acctData.map((acct, index) => {
+        const query = {
+          redirectPage: 'acct',
+        }
         return {
           referringInstitution: acct.referringInstitution,
           createdDate: DateFormats.dateAndTimeInputsToUiDate(acct, 'createdDate'),
           expiryDate: DateFormats.dateAndTimeInputsToUiDate(acct, 'expiryDate'),
           acctDetails: acct.acctDetails,
+          removeLink: `${paths.applications.removeFromList({
+            id: application.id,
+            task: 'risk-to-self',
+            page: 'acct-data',
+            index: index.toString(),
+          })}?${createQueryString(query)}`,
         }
       })
     }

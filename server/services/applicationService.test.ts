@@ -233,6 +233,55 @@ describe('ApplicationService', () => {
     })
   })
 
+  describe('removeFromList', () => {
+    const application = applicationFactory.build({ data: null })
+    const token = 'some-token'
+    const request = createMock<Request>({
+      query: { redirectPage: 'return-page' },
+      params: { id: application.id, task: 'some-task', page: 'some-page', index: '1' },
+      user: { token },
+    })
+    const applicationData = createMock<UpdateCas2Application>()
+
+    beforeEach(() => {
+      applicationClient.find.mockResolvedValue(application)
+    })
+
+    describe('when there is no list to remove from ', () => {
+      it('does not update the application', async () => {
+        await service.removeFromList(request)
+
+        expect(applicationClient.update).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('when there is a list to remove from ', () => {
+      it('updates an in-progress application', async () => {
+        application.data = {
+          'some-task': {
+            'some-page': [
+              { question: 'answer to be kept' },
+              { question: 'answer to be deleted' },
+              { question: 'another answer to be kept' },
+            ],
+          },
+        }
+
+        await service.removeFromList(request)
+
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'some-task': {
+              'some-page': [{ question: 'answer to be kept' }, { question: 'another answer to be kept' }],
+            },
+          },
+        })
+        expect(applicationClient.update).toHaveBeenCalledWith(application.id, applicationData)
+      })
+    })
+  })
+
   describe('initializePage', () => {
     let request: DeepMocked<Request>
 

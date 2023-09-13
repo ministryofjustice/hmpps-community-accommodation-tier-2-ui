@@ -11,6 +11,10 @@
 //  Scenario: there are existing ACCTs in the application
 //    Then I see a list of the existing ACCTs on the "ACCT" page
 //
+//  Scenario: remove an ACCT
+//    When I remove an ACCT
+//    Then the ACCT is no longer in the list of ACCTs
+//
 //  Scenario: there are no existing ACCTs in the application
 //    Then I see the "ACCT" page
 //
@@ -83,6 +87,25 @@ context('Visit "Risks and needs" section', () => {
 
     const page = new AcctPage(this.applicationWithData)
     page.hasListOfAccts()
+  })
+
+  //  Scenario: remove an ACCT
+
+  it('removes an ACCT', function test() {
+    // When there is already imported data
+    cy.task('stubApplicationGet', { application: this.applicationWithData })
+
+    AcctPage.visit(this.applicationWithData)
+
+    const page = new AcctPage(this.applicationWithData)
+    page.hasListOfAccts()
+
+    //    When I remove an ACCT
+    // reset the application to have no data
+    cy.task('stubApplicationGet', { application: this.application })
+    page.clickRemove()
+    //  Then the ACCT is no longer in the list of ACCTs
+    page.hasNoAccts()
   })
 
   //  Scenario: complete page and navigate to next page in health needs task

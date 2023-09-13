@@ -224,11 +224,11 @@ describe('applicationsController', () => {
     beforeEach(() => {
       request.body = {
         exampleField: 'example answer',
-        pageName: 'example-page',
-        taskName: 'example-task',
       }
       request.params = {
         id: 'abc123',
+        page: 'example-page',
+        task: 'example-task',
       }
 
       const PageConstructor = jest.fn()
@@ -287,6 +287,63 @@ describe('applicationsController', () => {
           response,
           err,
           paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'example-page' }),
+        )
+      })
+    })
+  })
+
+  describe('removeFromList', () => {
+    const page = createMock<TaskListPage>({})
+
+    beforeEach(() => {
+      request.query = {
+        redirectPage: 'return-page',
+      }
+      request.params = {
+        id: 'abc123',
+        task: 'example-task',
+        page: 'example-page',
+        index: '0',
+      }
+
+      const PageConstructor = jest.fn()
+      ;(getPage as jest.Mock).mockReturnValue(PageConstructor)
+
+      applicationService.initializePage.mockResolvedValue(page)
+    })
+
+    describe('when item is successfully removed', () => {
+      it('renders the page', async () => {
+        applicationService.removeFromList.mockResolvedValue()
+
+        const requestHandler = applicationsController.removeFromList()
+
+        await requestHandler({ ...request }, response)
+
+        expect(applicationService.removeFromList).toHaveBeenCalledWith(request)
+
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'return-page' }),
+        )
+      })
+    })
+
+    describe('when an error occurs', () => {
+      it('passes error to error handler', async () => {
+        const err = new Error()
+        applicationService.removeFromList.mockImplementation(() => {
+          throw err
+        })
+
+        const requestHandler = applicationsController.removeFromList()
+
+        await requestHandler({ ...request }, response)
+
+        expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
+          request,
+          response,
+          err,
+          paths.applications.pages.show({ id: request.params.id, task: 'example-task', page: 'return-page' }),
         )
       })
     })
