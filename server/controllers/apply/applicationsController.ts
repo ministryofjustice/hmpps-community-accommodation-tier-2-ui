@@ -140,8 +140,7 @@ export default class ApplicationsController {
 
   appendToList() {
     return async (req: Request, res: Response) => {
-      const { id } = req.params
-      const { pageName, taskName } = req.body
+      const { id, page: pageName, task: taskName } = req.params
       const Page = getPage(taskName, pageName, 'applications')
       const page = await this.applicationService.initializePage(Page, req, this.dataServices)
 

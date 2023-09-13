@@ -224,11 +224,11 @@ describe('applicationsController', () => {
     beforeEach(() => {
       request.body = {
         exampleField: 'example answer',
-        pageName: 'example-page',
-        taskName: 'example-task',
       }
       request.params = {
         id: 'abc123',
+        page: 'example-page',
+        task: 'example-task',
       }
 
       const PageConstructor = jest.fn()

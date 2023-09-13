@@ -90,8 +90,6 @@ export default class ApplicationService {
 
       /* eslint-disable no-underscore-dangle */
       delete request.body._csrf
-      delete request.body.pageName
-      delete request.body.taskName
 
       if (this.hasPageData(application, taskName, pageName)) {
         application.data[taskName][pageName].push(request.body)
