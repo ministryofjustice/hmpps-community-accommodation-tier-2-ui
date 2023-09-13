@@ -24,4 +24,19 @@ export default class AcctDataPage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('referringInstitution', 'HMPPS prison')
     this.getTextInputByIdAndEnterDetails('acctDetails', 'some detail')
   }
+
+  clickSubmit(): void {
+    cy.get('button').contains('Save and add ACCT').click()
+  }
+
+  clickAddAnother(): void {
+    cy.get('button').contains('Save and add another').click()
+  }
+
+  assertFormisEmpty(): void {
+    cy.get('#createdDate-day').should('have.value', '')
+    cy.get('#isOngoing').should('not.be.checked')
+    cy.get('#referringInstitution').should('have.value', '')
+    cy.get('#acctDetails').should('have.value', '')
+  }
 }
