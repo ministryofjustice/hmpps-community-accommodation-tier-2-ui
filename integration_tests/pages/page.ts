@@ -8,12 +8,20 @@ export default abstract class Page {
     return new constructor(...args)
   }
 
-  constructor(private readonly title: string) {
+  constructor(
+    private readonly title: string,
+    private readonly name: string,
+  ) {
     this.checkOnPage()
+    this.checkNameIsNotInDocumentTitle()
   }
 
   checkOnPage(): void {
     cy.get('h1').contains(this.title)
+  }
+
+  checkNameIsNotInDocumentTitle(): void {
+    cy.title().should('not.include', this.name)
   }
 
   signOut = (): PageElement => cy.get('[data-qa=signOut]')

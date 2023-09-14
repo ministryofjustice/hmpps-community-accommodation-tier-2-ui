@@ -11,6 +11,8 @@ type RiskFactorsBody = Record<string, never>
   bodyProperties: [],
 })
 export default class RiskFactors implements TaskListPage {
+  documentTitle = 'Risk factors for the person'
+
   title = `Risk factors for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: RiskFactorsBody

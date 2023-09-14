@@ -29,6 +29,8 @@ type BrainInjuryBody = {
   ],
 })
 export default class BrainInjury implements TaskListPage {
+  documentTitle = 'Brain injury needs for the person'
+
   title = `Brain injury needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

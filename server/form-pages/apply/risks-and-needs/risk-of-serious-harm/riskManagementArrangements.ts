@@ -11,6 +11,8 @@ type RiskManagementArrangementsBody = Record<string, never>
   bodyProperties: [],
 })
 export default class RiskManagementArrangements implements TaskListPage {
+  documentTitle = 'Risk management arrangements for the person'
+
   title = `Risk management arrangements for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: RiskManagementArrangementsBody

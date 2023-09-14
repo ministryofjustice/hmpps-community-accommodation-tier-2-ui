@@ -11,6 +11,8 @@ type RiskToOthersBody = Record<string, never>
   bodyProperties: [],
 })
 export default class RiskToOthers implements TaskListPage {
+  documentTitle = 'Risk to others for the person'
+
   title = `Risk to others for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: RiskToOthersBody

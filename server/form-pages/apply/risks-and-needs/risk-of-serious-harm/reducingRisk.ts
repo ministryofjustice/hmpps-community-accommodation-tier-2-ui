@@ -11,6 +11,8 @@ type ReducingRiskBody = Record<string, never>
   bodyProperties: [],
 })
 export default class ReducingRisk implements TaskListPage {
+  documentTitle = 'Reducing risk for the person'
+
   title = `Reducing risk for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: ReducingRiskBody

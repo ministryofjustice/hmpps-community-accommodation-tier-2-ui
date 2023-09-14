@@ -33,6 +33,8 @@ export type AcctDataBody = {
 export default class AcctData implements TaskListPage {
   title = 'Add an ACCT entry'
 
+  documentTitle = this.title
+
   body: AcctDataBody
 
   questions = {

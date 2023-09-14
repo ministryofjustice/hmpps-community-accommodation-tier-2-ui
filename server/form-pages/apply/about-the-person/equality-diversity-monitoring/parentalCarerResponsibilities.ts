@@ -21,6 +21,8 @@ export type ParentalCarerResponsibilitiesBody = {
   bodyProperties: ['hasParentalOrCarerResponsibilities'],
 })
 export default class ParentalCarerResponsibilities implements TaskListPage {
+  documentTitle = 'Does the person have parental or carer responsibilities?'
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

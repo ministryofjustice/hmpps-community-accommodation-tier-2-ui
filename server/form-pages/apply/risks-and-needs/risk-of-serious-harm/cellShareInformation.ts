@@ -11,6 +11,8 @@ type CellShareInformationBody = Record<string, never>
   bodyProperties: [],
 })
 export default class CellShareInformation implements TaskListPage {
+  documentTitle = 'Cell share information for the person'
+
   title = `Cell share information for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: CellShareInformationBody

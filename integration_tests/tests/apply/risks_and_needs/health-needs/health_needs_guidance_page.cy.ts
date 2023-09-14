@@ -95,7 +95,7 @@ context('Visit "Risks and needs" section', () => {
   //    When I continue to the next task/page
   //    Then I should be on the substance misuse page
   it('links back to the substance misuse page', function test() {
-    const taskListPage = new TaskListPage()
+    const taskListPage = new TaskListPage(this.application.person.name)
     taskListPage.visitTask('Add health needs')
 
     // When I continue to the next task/page

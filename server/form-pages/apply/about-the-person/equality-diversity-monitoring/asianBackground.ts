@@ -25,6 +25,8 @@ export const asianBackgroundOptions = {
   bodyProperties: ['asianBackground', 'optionalAsianBackground'],
 })
 export default class AsianBackground implements TaskListPage {
+  documentTitle = "Which of the following best describes the person's Asian or Asian British background?"
+
   title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

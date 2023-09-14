@@ -24,6 +24,8 @@ export const whiteBackgroundOptions = {
   bodyProperties: ['whiteBackground', 'optionalWhiteBackground'],
 })
 export default class WhiteBackground implements TaskListPage {
+  documentTitle = "Which of the following best describes the person's White background?"
+
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Equality and diversity questions for ${this.personName}`

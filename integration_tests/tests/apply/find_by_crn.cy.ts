@@ -76,7 +76,7 @@ context('Find by CRN', () => {
   // ----------------------------------------------
   it('creates an application and continues to "Before you start" section (before task list)', () => {
     // I'm on the enter CRN page
-    const page = CRNPage.visit()
+    const page = CRNPage.visit(person.name)
 
     // I enter an existing CRN
     page.getTextInputByIdAndEnterDetails('crn', person.crn)
@@ -109,7 +109,7 @@ context('Find by CRN', () => {
   // ----------------------------------------------
   it('enforces an enswer', () => {
     // I'm on the enter CRN page
-    const page = CRNPage.visit()
+    const page = CRNPage.visit(person.name)
 
     // I click continue without entering a CRN
     page.clickSubmit()
@@ -123,7 +123,7 @@ context('Find by CRN', () => {
   // ----------------------------------------------
   it('renders with a CRN not found error', () => {
     // I'm on the enter CRN page
-    const page = CRNPage.visit()
+    const page = CRNPage.visit(person.name)
 
     // I enter a CRN that can't be found
     page.getTextInputByIdAndEnterDetails('crn', person.crn)
@@ -139,7 +139,7 @@ context('Find by CRN', () => {
   // ----------------------------------------------
   it('renders with an unauthorised error', () => {
     // I'm on the enter CRN page
-    const page = CRNPage.visit()
+    const page = CRNPage.visit(person.name)
 
     // I enter a CRN that can't be found
     cy.task('stubFindPersonForbidden', {
@@ -157,7 +157,7 @@ context('Find by CRN', () => {
   // ----------------------------------------------
   it('renders with an unauthorised error', () => {
     // I'm on the enter CRN page
-    const page = CRNPage.visit()
+    const page = CRNPage.visit(person.name)
 
     // I enter a CRN for an LAO
     const restricedPerson = restrictedPersonFactory.build()

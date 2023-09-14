@@ -29,6 +29,8 @@ type LearningDifficultiesBody = {
   ],
 })
 export default class LearningDifficulties implements TaskListPage {
+  documentTitle = 'Learning difficulties and neurodiversity for the person'
+
   title = `Learning difficulties and neurodiversity for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

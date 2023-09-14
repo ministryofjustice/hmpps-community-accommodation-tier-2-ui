@@ -19,6 +19,8 @@ export const options = {
   bodyProperties: ['willAnswer'],
 })
 export default class EqualityAndDiversity implements TaskListPage {
+  documentTitle = 'Does the person want to answer the equality questions?'
+
   title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

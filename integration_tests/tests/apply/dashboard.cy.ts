@@ -26,7 +26,9 @@ context('Applications dashboard', () => {
   // ----------------------------------------------
   it('shows the dashboard', () => {
     // There are applications in the database
-    const inProgressApplications = applicationSummaryFactory.buildList(5, { status: 'inProgress' })
+    const inProgressApplications = applicationSummaryFactory.buildList(5, {
+      status: 'inProgress',
+    })
 
     cy.task('stubApplications', inProgressApplications)
 

@@ -27,6 +27,8 @@ type SubstanceMisuseBody = {
   ],
 })
 export default class SubstanceMisuse implements TaskListPage {
+  documentTitle = 'Health needs for the person'
+
   title = `Health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

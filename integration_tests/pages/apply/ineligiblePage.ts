@@ -2,10 +2,15 @@ import { Cas2Application as Application } from '../../../server/@types/shared/mo
 import Page from '../page'
 import paths from '../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../server/utils/utils'
+import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 export default class IneligiblePagePage extends Page {
   constructor(private readonly application: Application) {
-    super(`${nameOrPlaceholderCopy(application.person, 'The person')} is not eligible for CAS-2 accommodation`)
+    const person = application.person as FullPerson
+    super(
+      `${nameOrPlaceholderCopy(application.person, 'The person')} is not eligible for CAS-2 accommodation`,
+      person.name,
+    )
   }
 
   hasGuidance(): void {

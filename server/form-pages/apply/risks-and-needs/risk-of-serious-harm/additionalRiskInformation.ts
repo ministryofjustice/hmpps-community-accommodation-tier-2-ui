@@ -11,6 +11,8 @@ type AdditionalRiskInformationBody = Record<string, never>
   bodyProperties: [],
 })
 export default class AdditionalRiskInformation implements TaskListPage {
+  documentTitle = 'Additional risk information for the person'
+
   title = `Additional risk information for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: AdditionalRiskInformationBody

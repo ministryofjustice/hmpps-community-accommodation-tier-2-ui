@@ -13,6 +13,8 @@ type AdditionalInformationBody = { hasAdditionalInformation: YesOrNo; additional
 export default class AdditionalInformation implements TaskListPage {
   title = 'Additional Information'
 
+  documentTitle = this.title
+
   questions = {
     hasAdditionalInformation: {
       question: `Is there anything else to include about ${nameOrPlaceholderCopy(

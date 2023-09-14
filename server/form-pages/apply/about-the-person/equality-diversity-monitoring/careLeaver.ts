@@ -21,6 +21,8 @@ export type CareLeaverBody = {
   bodyProperties: ['isCareLeaver'],
 })
 export default class CareLeaver implements TaskListPage {
+  documentTitle = 'Is the person a care leaver?'
+
   title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

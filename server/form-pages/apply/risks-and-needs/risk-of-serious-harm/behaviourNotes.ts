@@ -11,6 +11,8 @@ type BehaviourNotesBody = Record<string, never>
   bodyProperties: [],
 })
 export default class BehaviourNotes implements TaskListPage {
+  documentTitle = 'Behaviour notes for the person'
+
   title = `Behaviour notes for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: BehaviourNotesBody

@@ -25,6 +25,8 @@ type CommunicationAndLanguageBody = {
   ],
 })
 export default class CommunicationAndLanguage implements TaskListPage {
+  documentTitle = 'Communication and language needs for the person'
+
   title = `Communication and language needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

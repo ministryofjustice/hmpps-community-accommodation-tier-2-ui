@@ -29,6 +29,8 @@ type MentalHealthBody = {
   ],
 })
 export default class MentalHealth implements TaskListPage {
+  documentTitle = 'Mental health needs for the person'
+
   title = `Mental health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

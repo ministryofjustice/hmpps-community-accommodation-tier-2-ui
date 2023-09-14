@@ -24,6 +24,8 @@ export const ethnicGroupOptions = {
   bodyProperties: ['ethnicGroup'],
 })
 export default class EthnicGroup implements TaskListPage {
+  documentTitle = "What is the person's ethnic group?"
+
   title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {

@@ -25,6 +25,8 @@ type OtherHealthBody = {
   ],
 })
 export default class OtherHealth implements TaskListPage {
+  documentTitle = 'Other health needs for the person'
+
   title = `Other health needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = {
