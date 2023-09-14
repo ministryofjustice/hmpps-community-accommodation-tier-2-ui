@@ -22,8 +22,9 @@ export const roshSummaryFactory = Factory.define<OASysQuestion>(options => ({
   label: faker.helpers.arrayElement([
     'Who is at risk',
     'What is the nature of the risk',
-    'When is the risk likely to be greatest',
+    'When is the risk likely to be the greatest',
     'What circumstances are likely to increase risk',
+    'What circumstances are likely to reduce the risk',
   ]),
   answer: faker.lorem.paragraph(),
 }))

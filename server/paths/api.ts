@@ -11,6 +11,7 @@ export default {
     oasys: {
       sections: oasysPath.path('sections'),
       riskToSelf: oasysPath.path('risk-to-self'),
+      rosh: oasysPath.path('rosh'),
     },
     search: peoplePath.path('search'),
   },
