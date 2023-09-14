@@ -4,20 +4,20 @@
 
 {% extends "../layout.njk" %}
 
-{% set expiryDate %}
+{% set closedDate %}
         {{ 
           formPageDateInput( {
             hint: {
-              text: page.questions.expiryDate.hint
+              text: page.questions.closedDate.hint
             },
-            fieldName: "expiryDate",
+            fieldName: "closedDate",
             fieldset: {
               legend: {
-                text: page.questions.expiryDate.question,
+                text: page.questions.closedDate.question,
                 classes: "govuk-fieldset__legend--m"
               }
             },
-            items: dateFieldValues('expiryDate', errors)
+            items: dateFieldValues('closedDate', errors)
             }, 
             fetchContext()) 
         }}
@@ -71,7 +71,7 @@
                 value: "no",
                 text: "No",
                 conditional: {
-                  html: expiryDate
+                  html: closedDate
                 }
               }
             ]

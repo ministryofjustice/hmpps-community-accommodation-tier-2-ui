@@ -35,10 +35,10 @@ export default class Acct implements TaskListPage {
         }
         const isOngoing = acct.isOngoing === 'yes'
         const createdDate = DateFormats.dateAndTimeInputsToUiDate(acct, 'createdDate')
-        const expiryDate = !isOngoing && DateFormats.dateAndTimeInputsToUiDate(acct, 'expiryDate')
+        const closedDate = !isOngoing && DateFormats.dateAndTimeInputsToUiDate(acct, 'closedDate')
 
         return {
-          title: `${createdDate} - ${isOngoing ? 'Ongoing' : expiryDate}`,
+          title: `${createdDate} - ${isOngoing ? 'Ongoing' : closedDate}`,
           referringInstitution: acct.referringInstitution,
           acctDetails: acct.acctDetails,
           removeLink: `${paths.applications.removeFromList({

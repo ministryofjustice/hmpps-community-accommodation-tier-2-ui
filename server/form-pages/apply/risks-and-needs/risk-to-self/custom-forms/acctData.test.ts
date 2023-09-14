@@ -12,9 +12,9 @@ describe('AcctData', () => {
       'createdDate-month': '2',
       'createdDate-year': '2012',
       isOngoing: 'yes',
-      'expiryDate-day': '10',
-      'expiryDate-month': '10',
-      'expiryDate-year': '2013',
+      'closedDate-day': '10',
+      'closedDate-month': '10',
+      'closedDate-year': '2013',
       acctDetails: 'detail info',
     },
   ]
@@ -73,9 +73,9 @@ describe('AcctData', () => {
           'createdDate-day': '',
           'createdDate-month': '',
           'createdDate-year': '',
-          'expiryDate-day': '',
-          'expiryDate-month': '',
-          'expiryDate-year': '',
+          'closedDate-day': '',
+          'closedDate-month': '',
+          'closedDate-year': '',
           referringInstitution: '',
           isOngoing: undefined,
           acctDetails: '',
@@ -87,7 +87,7 @@ describe('AcctData', () => {
       expect(errors[field]).toEqual(message)
     })
 
-    describe('when an ACCT is ongoing but an expiry date has not been given', () => {
+    describe('when an ACCT is ongoing but a closed date has not been given', () => {
       it('throws an error', () => {
         const page = new AcctData(
           {
@@ -97,7 +97,7 @@ describe('AcctData', () => {
         )
         const errors = page.errors()
 
-        expect(errors.expiryDate).toEqual('Add a valid expiry date, for example 2 3 2013')
+        expect(errors.closedDate).toEqual('Add a valid closed date, for example 2 3 2013')
       })
     })
   })
