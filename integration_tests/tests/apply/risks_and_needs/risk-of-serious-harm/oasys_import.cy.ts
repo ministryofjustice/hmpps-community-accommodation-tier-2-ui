@@ -11,9 +11,24 @@
 //  Scenario: view "risk of serious harm" task status
 //    Then I see that the "risk of serious harm" task has not been started
 //
-//  Scenario: view OASys import guidance
-//    When I follow the link to the first page in the "Risk of serious harm" section
-//    Then I see the 'Risk of serious harm: OASys import' page
+//  Scenario: there is OASys data
+//    When I follow the link to the first page in the "RoSH" section
+//    Then I see the "OASys import" page
+//    And it is populated with OASys data
+//
+//  Scenario: import OASys data
+//    When there is OASys data
+//    And I choose to import and save the data
+//    Then we are taken to the RoSH summary page
+//
+//  Scenario: there is no OASys data
+//    When there is no OASys data
+//    And I choose to continue
+//    Then I am taken to the risk to others page
+//
+//  Scenario: return to Task after importing data
+//    When I go to the task again
+//    Then we are redirected to the RoSH Summary page
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I continue to the next page
@@ -21,9 +36,11 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import { personFactory, applicationFactory, oasysRoshFactory } from '../../../../../server/testutils/factories/index'
 import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/oasysImportPage'
 import RoshSummaryPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/roshSummaryPage'
+import { DateFormats } from '../../../../../server/utils/dateUtils'
+import RiskToOthersPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/riskToOthersPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -33,8 +50,19 @@ context('Visit "Risks and needs" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
+    const oasys = oasysRoshFactory.build()
+
+    cy.task('stubOasysRosh', {
+      crn: person.crn,
+      oasysRosh: {
+        ...oasys,
+        dateStarted: DateFormats.dateObjToIsoDateTime(new Date(2022, 6, 26)),
+        dateCompleted: DateFormats.dateObjToIsoDateTime(new Date(2022, 6, 27)),
+      },
+    })
+
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['risk-of-serious-harm'] = {}
+      delete applicationData['risk-of-serious-harm']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -67,7 +95,7 @@ context('Visit "Risks and needs" section', () => {
     taskListPage.shouldShowTaskStatus('risk-of-serious-harm', 'Not started')
   })
 
-  //  Scenario: view OASys import guidance
+  //  Scenario: there is OASys data
   // ----------------------------------------------
   it('presents the OASys import page', function test() {
     const taskListPage = Page.verifyOnPage(TaskListPage)
@@ -76,7 +104,62 @@ context('Visit "Risks and needs" section', () => {
     taskListPage.visitTask('Review risk of serious harm (RoSH) information')
 
     //  Then I see the 'Risk of serious harm: OASys import' page
-    Page.verifyOnPage(OasysImportPage, this.application)
+    const page = Page.verifyOnPage(OasysImportPage, this.application)
+
+    //  and it is populated with data
+    page.checkOasysInfo(this.application)
+  })
+
+  //  Scenario: import OASys data
+  // ----------------------------------------------
+  it('redirects to the expected page on save', function test() {
+    //  When there is OASys data
+    OasysImportPage.visit(this.application)
+    const page = Page.verifyOnPage(OasysImportPage, this.application)
+
+    //  And I choose to import and save the data
+    page.clickSubmit()
+
+    //  Then we are taken to the RoSH summary page
+    Page.verifyOnPage(RoshSummaryPage, this.application)
+  })
+
+  //  Scenario: there is no OASys data
+  // ----------------------------------------------
+  it('redirects to the risk to others page', function test() {
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    //    When there is no OASys data
+    cy.task('stubOasysRoshNotFound', { crn: person.crn })
+    taskListPage.visitTask('Review risk of serious harm (RoSH) information')
+
+    //    And I choose to continue
+    const page = Page.verifyOnPage(OasysImportPage, this.application)
+    page.clickContinue()
+
+    //    Then I am taken to the risk to others page
+    Page.verifyOnPage(RiskToOthersPage, this.application)
+  })
+
+  //    Scenario: return to Task after importing data
+  // ----------------------------------------------
+  it('redirects to the RoSH Summary page', function test() {
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // When there is already imported data
+    cy.fixture('applicationData.json').then(applicationData => {
+      const applicationWithOASysRosh = {
+        ...this.application,
+        data: applicationData,
+      }
+      cy.task('stubApplicationGet', { application: applicationWithOASysRosh })
+    })
+
+    //  When I revisit the task
+    taskListPage.visitTask('Review risk of serious harm (RoSH) information')
+
+    //  Then we are redirected to the RoSH summary page
+    Page.verifyOnPage(RoshSummaryPage, this.application)
   })
 
   //  Scenario: navigate to next page in "Risk of serious harm" task

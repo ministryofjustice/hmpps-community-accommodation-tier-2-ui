@@ -1,4 +1,4 @@
-import type { OASysRiskToSelf, OASysSections, Person } from '@approved-premises/api'
+import type { OASysRiskOfSeriousHarm, OASysRiskToSelf, OASysSections, Person } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -26,6 +26,14 @@ export default class PersonClient {
     const path = paths.people.oasys.riskToSelf({ crn })
 
     const response = (await this.restClient.get({ path })) as OASysRiskToSelf
+
+    return response
+  }
+
+  async oasysRosh(crn: string): Promise<OASysRiskOfSeriousHarm> {
+    const path = paths.people.oasys.rosh({ crn })
+
+    const response = (await this.restClient.get({ path })) as OASysRiskOfSeriousHarm
 
     return response
   }

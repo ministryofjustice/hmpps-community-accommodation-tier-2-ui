@@ -5,12 +5,14 @@ import { fullPersonFactory as personFactory, restrictedPersonFactory } from './p
 import applicationFactory from './application'
 import applicationSummaryFactory from './applicationSummary'
 import risksFactory from './risks'
+import oasysRoshFactory from './oasysRosh'
 
 export {
   applicationSummaryFactory,
   oasysSectionsFactory,
   oasysSelectionFactory,
   oasysRiskToSelfFactory,
+  oasysRoshFactory,
   roshSummaryFactory,
   applicationFactory,
   personFactory,

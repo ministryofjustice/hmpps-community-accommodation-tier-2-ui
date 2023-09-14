@@ -1,5 +1,5 @@
 import PersonClient from './personClient'
-import { oasysRiskToSelfFactory, oasysSectionsFactory, personFactory } from '../testutils/factories'
+import { oasysRiskToSelfFactory, oasysSectionsFactory, personFactory, oasysRoshFactory } from '../testutils/factories'
 import paths from '../paths/api'
 
 import describeClient from '../testutils/describeClient'
@@ -94,6 +94,34 @@ describeClient('PersonClient', provider => {
       const result = await personClient.oasysRiskToSelf(crn)
 
       expect(result).toEqual(oasysRiskToSelf)
+    })
+  })
+
+  describe('oasysRosh', () => {
+    it('should return the Rosh data', async () => {
+      const crn = 'crn'
+      const oasysRosh = oasysRoshFactory.build()
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to get the optional selected sections of OASys for a person',
+        withRequest: {
+          method: 'GET',
+          path: paths.people.oasys.rosh({ crn }),
+          query: {},
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: oasysRosh,
+        },
+      })
+
+      const result = await personClient.oasysRosh(crn)
+
+      expect(result).toEqual(oasysRosh)
     })
   })
 
