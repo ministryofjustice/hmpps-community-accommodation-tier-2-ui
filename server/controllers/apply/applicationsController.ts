@@ -141,13 +141,16 @@ export default class ApplicationsController {
   appendToList() {
     return async (req: Request, res: Response) => {
       const { id, page: pageName, task: taskName } = req.params
+      const { redirectPage } = req.query
       const Page = getPage(taskName, pageName, 'applications')
       const page = await this.applicationService.initializePage(Page, req, this.dataServices)
 
       try {
         await this.applicationService.appendToList(page, req)
         const next = page.next()
-        if (next) {
+        if (redirectPage) {
+          res.redirect(paths.applications.pages.show({ id, task: taskName, page: redirectPage as string }))
+        } else if (next) {
           res.redirect(paths.applications.pages.show({ id, task: taskName, page: page.next() }))
         } else {
           res.redirect(paths.applications.show({ id }))

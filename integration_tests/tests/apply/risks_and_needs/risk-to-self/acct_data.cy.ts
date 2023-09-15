@@ -9,7 +9,13 @@
 //    And I am on the "Add an ACCT" page
 //
 //  Scenario: I fill in required information for an ACCT
+//    And I save and contnue
 //    Then I am taken back to the ACCT page
+//
+//  Scenario: Add another ACCT
+//    Given I have filled in required information for an ACCT
+//    When I save and add another
+//    Then I am taken to a blank "Add an ACCT" page
 
 import AcctPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctPage'
 import AcctDataPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctDataPage'
@@ -69,5 +75,20 @@ context('Visit "Risks and needs" section', () => {
     page.clickSubmit()
 
     Page.verifyOnPage(AcctPage, this.application)
+  })
+
+  //  Scenario: Add another ACCT
+  it('returns to form when adding another', function test() {
+    const page = new AcctDataPage(this.application)
+
+    //    Given I have filled in required information for an ACCT
+    page.addACCTInformation()
+
+    //    When I save and add another
+    page.clickAddAnother()
+
+    //    Then I am taken to a blank "Add an ACCT" page
+    Page.verifyOnPage(AcctDataPage, this.application)
+    page.assertFormisEmpty()
   })
 })

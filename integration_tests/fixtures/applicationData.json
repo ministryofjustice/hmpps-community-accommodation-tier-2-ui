@@ -135,9 +135,10 @@
         "createdDate-day": "1",
         "createdDate-month": "2",
         "createdDate-year": "2012",
-        "expiryDate-day": "10",
-        "expiryDate-month": "10",
-        "expiryDate-year": "2013",
+        "isOngoing": "no",
+        "closedDate-day": "10",
+        "closedDate-month": "10",
+        "closedDate-year": "2013",
         "referringInstitution": "HMPPS prison",
         "acctDetails": "ACCT details"
       }

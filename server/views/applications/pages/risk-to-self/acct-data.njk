@@ -1,7 +1,27 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
 
 {% extends "../layout.njk" %}
+
+{% set closedDate %}
+        {{ 
+          formPageDateInput( {
+            hint: {
+              text: page.questions.closedDate.hint
+            },
+            fieldName: "closedDate",
+            fieldset: {
+              legend: {
+                text: page.questions.closedDate.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: dateFieldValues('closedDate', errors)
+            }, 
+            fetchContext()) 
+        }}
+{% endset %}
 
 {% block content %}
 
@@ -10,7 +30,7 @@
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
       <p class="govuk-body">An Assessment, Care in Custody and Teamwork (ACCT) 
           is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
-      <form action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{ showErrorSummary(errorSummary) }}
@@ -18,6 +38,9 @@
         {{ 
           formPageDateInput( {
             fieldName: "createdDate",
+            hint: {
+              text: page.questions.createdDate.hint
+            },
             fieldset: {
               legend: {
                 text: page.questions.createdDate.question,
@@ -29,19 +52,33 @@
             fetchContext()) 
           }}
 
-        {{ 
-          formPageDateInput( {
-            fieldName: "expiryDate",
-            fieldset: {
-              legend: {
-                text: page.questions.expiryDate.question,
-                classes: "govuk-fieldset__legend--m"
+        {{
+          formPageRadios(
+            {
+              fieldName: "isOngoing",
+              fieldset: {
+                legend: {
+                  text: page.questions.isOngoing.question,
+                  classes: "govuk-fieldset__legend--m"
+                }
+              },
+              items: [
+              {
+                value: "yes",
+                text: "Yes"
+              },
+              {
+                value: "no",
+                text: "No",
+                conditional: {
+                  html: closedDate
+                }
               }
+            ]
             },
-            items: dateFieldValues('expiryDate', errors)
-            }, 
-            fetchContext()) 
-          }}
+            fetchContext()
+          )
+        }}
 
         {{
             formPageInput(
@@ -73,6 +110,14 @@
             )
         }}
 
+        <div>
+          {{ govukButton({
+            id: "add-another",
+            text: "Save and add another",
+            classes: "govuk-button--secondary"
+          }) }}
+        </div>
+
         {% block button %}
 
           {{ govukButton({
@@ -84,4 +129,19 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function addRedirect(event) {
+      const form = document.getElementById('form')
+      form.action = form.action + '&redirectPage=acct-data'
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('add-another')
+        .addEventListener('click', (event) => addRedirect(event));
+    });
+  </script>
 {% endblock %}

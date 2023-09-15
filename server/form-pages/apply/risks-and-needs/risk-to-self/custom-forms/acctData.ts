@@ -10,10 +10,11 @@ export type AcctDataBody = {
   'createdDate-day': string
   'createdDate-month': string
   'createdDate-year': string
-  expiryDate: string
-  'expiryDate-day': string
-  'expiryDate-month': string
-  'expiryDate-year': string
+  isOngoing: string
+  closedDate?: string
+  'closedDate-day': string
+  'closedDate-month': string
+  'closedDate-year': string
   acctDetails: string
 }
 
@@ -24,9 +25,10 @@ export type AcctDataBody = {
     'createdDate-day',
     'createdDate-month',
     'createdDate-year',
-    'expiryDate-day',
-    'expiryDate-month',
-    'expiryDate-year',
+    'isOngoing',
+    'closedDate-day',
+    'closedDate-month',
+    'closedDate-year',
     'acctDetails',
   ],
 })
@@ -40,9 +42,14 @@ export default class AcctData implements TaskListPage {
   questions = {
     createdDate: {
       question: 'When was the ACCT created?',
+      hint: 'For example, 22 4 2003',
     },
-    expiryDate: {
-      question: 'When did the ACCT expire?',
+    isOngoing: {
+      question: 'Is the ACCT ongoing?',
+    },
+    closedDate: {
+      question: 'When was the ACCT closed?',
+      hint: 'For example, 22 4 2003',
     },
     referringInstitution: {
       question: 'Referring institution',
@@ -78,8 +85,11 @@ export default class AcctData implements TaskListPage {
     if (!dateAndTimeInputsAreValidDates(this.body, 'createdDate')) {
       errors.createdDate = 'Add a valid created date, for example 2 3 2013'
     }
-    if (!dateAndTimeInputsAreValidDates(this.body, 'expiryDate')) {
-      errors.expiryDate = 'Add a valid expiry date, for example 2 3 2013'
+    if (!this.body.isOngoing) {
+      errors.isOngoing = 'Select whether this ACCT is ongoing'
+    }
+    if (this.body.isOngoing === 'no' && !dateAndTimeInputsAreValidDates(this.body, 'closedDate')) {
+      errors.closedDate = 'Add a valid closed date, for example 2 3 2013'
     }
     if (!this.body.referringInstitution) {
       errors.referringInstitution = 'Add a referring institution'

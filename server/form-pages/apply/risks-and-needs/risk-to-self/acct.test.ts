@@ -26,10 +26,19 @@ describe('Acct', () => {
                   'createdDate-day': '1',
                   'createdDate-month': '2',
                   'createdDate-year': '2012',
-                  'expiryDate-day': '10',
-                  'expiryDate-month': '10',
-                  'expiryDate-year': '2013',
+                  isOngoing: 'no',
+                  'closedDate-day': '10',
+                  'closedDate-month': '10',
+                  'closedDate-year': '2013',
                   acctDetails: 'detail info',
+                },
+                {
+                  referringInstitution: 'institution 2',
+                  'createdDate-day': '2',
+                  'createdDate-month': '3',
+                  'createdDate-year': '2012',
+                  isOngoing: 'yes',
+                  acctDetails: 'detail info 2',
                 },
               ],
             },
@@ -38,15 +47,20 @@ describe('Acct', () => {
 
         const page = new Acct({}, applicationWithData)
 
-        page.accts.forEach((acct, index) => {
-          expect(acct).toEqual({
+        expect(page.accts).toEqual([
+          {
             referringInstitution: 'institution',
-            createdDate: '01/02/2012',
-            expiryDate: '10/10/2013',
             acctDetails: 'detail info',
-            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/${index}/removeFromList?redirectPage=acct`,
-          })
-        })
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/0/removeFromList?redirectPage=acct`,
+            title: '1 February 2012 - 10 October 2013',
+          },
+          {
+            referringInstitution: 'institution 2',
+            acctDetails: 'detail info 2',
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/1/removeFromList?redirectPage=acct`,
+            title: '2 March 2012 - Ongoing',
+          },
+        ])
       })
     })
   })
