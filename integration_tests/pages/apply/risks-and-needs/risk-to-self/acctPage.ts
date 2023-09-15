@@ -1,10 +1,16 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class AcctPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Assessment, Care in Custody and Teamwork (ACCT)', application, 'risk-to-self', 'acct')
+    super(
+      `${nameOrPlaceholderCopy(application.person, 'The person')}'s ACCT notes`,
+      application,
+      'risk-to-self',
+      'acct',
+    )
   }
 
   static visit(application: Application): void {

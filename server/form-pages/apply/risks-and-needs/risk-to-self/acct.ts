@@ -5,7 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { AcctDataBody } from './custom-forms/acctData'
 import { DateFormats } from '../../../../utils/dateUtils'
 import paths from '../../../../paths/apply'
-import { createQueryString } from '../../../../utils/utils'
+import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 
 type AcctBody = Record<string, never>
 
@@ -16,9 +16,9 @@ type AcctUI = { title: string; referringInstitution: string; acctDetails: string
   bodyProperties: ['acctDetail'],
 })
 export default class Acct implements TaskListPage {
-  title = 'Assessment, Care in Custody and Teamwork (ACCT)'
+  documentTitle = "The person's ACCT notes"
 
-  documentTitle = this.title
+  title = `${nameOrPlaceholderCopy(this.application.person)}'s ACCT notes`
 
   body: AcctBody
 

@@ -9,7 +9,7 @@ describe('Acct', () => {
     it('personalises the page title', () => {
       const page = new Acct({}, application)
 
-      expect(page.title).toEqual('Assessment, Care in Custody and Teamwork (ACCT)')
+      expect(page.title).toEqual("Roger Smith's ACCT notes")
     })
   })
 
