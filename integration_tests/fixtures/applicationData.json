@@ -165,6 +165,9 @@
     "risk-management-arrangements": {},
     "cell-share-information": {},
     "behaviour-notes": {},
-    "additional-risk-information": {}
+    "additional-risk-information": {
+      "hasAdditionalInformation": "yes",
+      "additionalInformationDetail": "some information"
+    }
   }
 }
