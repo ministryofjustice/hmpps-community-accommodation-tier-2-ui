@@ -12,7 +12,8 @@
 //    Then I see the "cell share information" page
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
-//    When I continue to the next task / page
+//    When I complete the 'cell share information' page
+//    And I continue to the next task / page
 //    Then I see the "behaviour notes" page
 
 import Page from '../../../../pages/page'
@@ -29,7 +30,7 @@ context('Visit "cell share information" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['risk-of-serious-harm'] = {}
+      delete applicationData['risk-of-serious-harm']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -65,8 +66,12 @@ context('Visit "cell share information" page', () => {
   //  Scenario: navigate to next page in "Risk of serious harm" task
   // ----------------------------------------------
   it('navigates to the next page', function test() {
-    //    When I continue to the next task / page
+    //    When I complete the "additional risk information" page
     const page = Page.verifyOnPage(CellShareInformationPage, this.application)
+    page.checkRadioByNameAndValue('hasCellShareComments', 'yes')
+    page.getTextInputByIdAndEnterDetails('cellShareInformationDetail', 'some information')
+
+    //    And I continue to the next task / page
     page.clickSubmit()
 
     //    Then I see the "behaviour notes" page

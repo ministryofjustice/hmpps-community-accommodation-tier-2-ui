@@ -17,18 +17,46 @@ describe('CellShareInformation', () => {
   itShouldHavePreviousValue(new CellShareInformation({}, application), 'risk-management-arrangements')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new CellShareInformation({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new CellShareInformation(
+        {
+          hasCellShareComments: 'yes',
+          cellShareInformationDetail: 'is at risk',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'Are there any comments to add about cell sharing?': 'yes',
+        'Cell sharing information': 'is at risk',
+      })
     })
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
-      const page = new CellShareInformation({}, application)
+    describe('when answer data is valid', () => {
+      it('returns empty object if valid data', () => {
+        const page = new CellShareInformation({ hasCellShareComments: 'no' }, application)
+        expect(page.errors()).toEqual({})
+      })
+    })
 
-      expect(page.errors()).toEqual({})
+    describe('when they have not answered the has cell share comments question', () => {
+      it('returns an error', () => {
+        const page = new CellShareInformation({}, application)
+        expect(page.errors()).toEqual({
+          hasCellShareComments: 'Select whether there are any comments about cell sharing',
+        })
+      })
+    })
+
+    describe('when they have answered Yes there is cell share comments but not provided any', () => {
+      it('returns an error', () => {
+        const page = new CellShareInformation({ hasCellShareComments: 'yes' }, application)
+        expect(page.errors()).toEqual({
+          cellShareInformationDetail: 'Enter cell sharing information',
+        })
+      })
     })
   })
 })

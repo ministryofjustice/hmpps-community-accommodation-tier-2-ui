@@ -2,10 +2,50 @@
 {% set pageName = "cell-share-information" %}
 
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+  {% set cellShareInformationDetail %}
+  {{
+        formPageTextArea(
+          {
+            fieldName: 'cellShareInformationDetail',
+            label: {
+              text: page.questions.cellShareInformationDetail.question,
+              classes: "govuk-label--s"
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
 
-  <p class="govuk-body">
-    Cell share information
-  </p>
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasCellShareComments",
+        fieldset: {
+          legend: {
+            text: page.questions.hasCellShareComments.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "This includes anything that could affect others if sharing accommodation. For example, racial alerts and history of drug supply."
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: cellShareInformationDetail
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
 
-{% endblock %}
+  {% endblock %}
