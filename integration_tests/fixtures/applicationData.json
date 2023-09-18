@@ -165,7 +165,12 @@
       "factorsLikelyToReduceRisk": "a factor",
       "dateOfOasysImport": "some date"
     },
-    "risk-management-arrangements": {},
+    "risk-management-arrangements": {
+      "arrangements": ["mappa", "marac", "iom"],
+      "mappaDetails": "mappa details", 
+      "maracDetails": "marac details", 
+      "iomDetails": "iom details" 
+    },
     "cell-share-information": {
       "hasCellShareComments": "yes",
       "cellShareInformationDetail": "some information"

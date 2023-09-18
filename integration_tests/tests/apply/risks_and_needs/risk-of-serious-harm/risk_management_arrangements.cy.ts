@@ -12,7 +12,8 @@
 //    Then I see the "risk management arrangemnents" page
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
-//    When I continue to the next task / page
+//    When I complete the questions in the task
+//    And I continue to the next task / page
 //    Then I see the "cell share information" page
 
 import Page from '../../../../pages/page'
@@ -65,8 +66,15 @@ context('Visit "risk management arrangemnents" page', () => {
   //  Scenario: navigate to next page in "Risk of serious harm" task
   // ----------------------------------------------
   it('navigates to the next page', function test() {
-    //    When I continue to the next task / page
+    //    When I complete the questions in the task
     const page = Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
+    page.checkCheckboxByLabel('mappa')
+    page.getTextInputByIdAndEnterDetails('mappaDetails', 'details of mappa')
+    page.checkCheckboxByLabel('marac')
+    page.getTextInputByIdAndEnterDetails('maracDetails', 'details of marac')
+    page.checkCheckboxByLabel('iom')
+    page.getTextInputByIdAndEnterDetails('iomDetails', 'details of iom')
+    //    And I continue to the next task / page
     page.clickSubmit()
 
     //    Then I see the "cell share information" page
