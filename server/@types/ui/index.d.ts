@@ -110,6 +110,7 @@ export type ObjectWithDateParts<K extends string | number> = { [P in `${K}-${'ye
 export type TableRow = Array<TableCell>
 
 export type Radio = {
+  attributes?: { [K: string]: string }
   text: string
   value: string
   checked?: boolean

@@ -22,4 +22,40 @@ export default class RiskManagementArrangementsPage extends ApplyPage {
       }),
     )
   }
+
+  selectAllArrangements = (page: RiskManagementArrangementsPage) => {
+    page.checkCheckboxByLabel('mappa')
+    page.checkCheckboxByLabel('marac')
+    page.checkCheckboxByLabel('iom')
+  }
+
+  completeAllArrangementDetails = (page: RiskManagementArrangementsPage) => {
+    page.getTextInputByIdAndEnterDetails('mappaDetails', 'details of mappa')
+    page.getTextInputByIdAndEnterDetails('maracDetails', 'details of marac')
+    page.getTextInputByIdAndEnterDetails('iomDetails', 'details of iom')
+  }
+
+  expectArrangementsToBeUnselected = () => {
+    cy.get(`input[value="mappa"]`).should('not.be.checked')
+    cy.get(`input[value="marac"]`).should('not.be.checked')
+    cy.get(`input[value="iom"]`).should('not.be.checked')
+  }
+
+  expectArrangementDetailsToBeEmpty = () => {
+    cy.get('#mappaDetails').should('have.value', '')
+    cy.get('#maracDetails').should('have.value', '')
+    cy.get('#iomDetails').should('have.value', '')
+  }
+
+  toggleBetweenNoAndArrangements = (page: RiskManagementArrangementsPage) => {
+    cy.get(`input[value="no"]`).should('be.checked')
+    page.checkCheckboxByLabel('mappa')
+    cy.get(`input[value="no"]`).should('not.be.checked')
+    page.checkCheckboxByLabel('no')
+    page.checkCheckboxByLabel('marac')
+    cy.get(`input[value="no"]`).should('not.be.checked')
+    page.checkCheckboxByLabel('no')
+    page.checkCheckboxByLabel('iom')
+    cy.get(`input[value="no"]`).should('not.be.checked')
+  }
 }

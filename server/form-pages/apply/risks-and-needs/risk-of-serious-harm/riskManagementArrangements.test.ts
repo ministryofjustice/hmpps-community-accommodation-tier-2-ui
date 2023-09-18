@@ -76,6 +76,9 @@ describe('RiskManagementArrangements', () => {
           conditional: {
             html: 'mappaHtml',
           },
+          attributes: {
+            'data-selector': 'arrangements',
+          },
         },
         {
           value: 'marac',
@@ -84,6 +87,9 @@ describe('RiskManagementArrangements', () => {
           conditional: {
             html: 'maracHtml',
           },
+          attributes: {
+            'data-selector': 'arrangements',
+          },
         },
         {
           value: 'iom',
@@ -91,6 +97,9 @@ describe('RiskManagementArrangements', () => {
           checked: true,
           conditional: {
             html: 'iomHtml',
+          },
+          attributes: {
+            'data-selector': 'arrangements',
           },
         },
         {

@@ -110,10 +110,13 @@ export default class RiskManagementArrangements implements TaskListPage {
 
     items.forEach(item => {
       if (item.value === 'mappa') {
+        item.attributes = { 'data-selector': 'arrangements' }
         item.conditional = { html: mappaDetailsHtml }
       } else if (item.value === 'marac') {
+        item.attributes = { 'data-selector': 'arrangements' }
         item.conditional = { html: maracDetailsHtml }
       } else if (item.value === 'iom') {
+        item.attributes = { 'data-selector': 'arrangements' }
         item.conditional = { html: iomDetailsHtml }
       }
     })

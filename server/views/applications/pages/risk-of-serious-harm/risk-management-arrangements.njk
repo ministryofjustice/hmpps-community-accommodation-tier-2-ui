@@ -4,7 +4,7 @@
 {% block questions %}
 
   {% set mappaDetails %}
-    {{
+  {{
         formPageTextArea(
           {
             label: { 
@@ -22,7 +22,7 @@
   {% endset -%}
 
   {% set maracDetails %}
-    {{
+  {{
         formPageTextArea(
           {
             label: { 
@@ -40,7 +40,7 @@
   {% endset -%}
 
   {% set iomDetails %}
-    {{
+  {{
         formPageTextArea(
           {
             label: { 
@@ -86,4 +86,40 @@
       ) 
   }}
 
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function setCheckedToFalseByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .checked = false;
+      })
+    }
+
+    function clearValueByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .value = ''
+      })
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // 'no' checkbox sets the others to unchecked
+      document
+        .getElementById('arrangements-5')
+        .addEventListener('click', () => {
+          setCheckedToFalseByIds(['arrangements', 'arrangements-2', 'arrangements-3'])
+          clearValueByIds(['mappaDetails', 'maracDetails', 'iomDetails'])
+        });
+      // clicking any arrangement checkbox sets 'no' to unchecked
+      document
+        .querySelectorAll("[data-selector='arrangements']")
+        .forEach(checkbox => {
+          checkbox.addEventListener('click', () => setCheckedToFalseByIds(['arrangements-5']));
+        })
+    });
+  </script>
 {% endblock %}
