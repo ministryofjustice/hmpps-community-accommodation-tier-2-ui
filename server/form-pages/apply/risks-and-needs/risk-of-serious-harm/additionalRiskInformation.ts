@@ -1,21 +1,34 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type AdditionalRiskInformationBody = Record<string, never>
+type AdditionalRiskInformationBody = { hasAdditionalInformation: YesOrNo; additionalInformationDetail: string }
 
 @Page({
   name: 'additional-risk-information',
-  bodyProperties: [],
+  bodyProperties: ['hasAdditionalInformation', 'additionalInformationDetail'],
 })
 export default class AdditionalRiskInformation implements TaskListPage {
   documentTitle = 'Additional risk information for the person'
 
-  title = `Additional risk information for ${nameOrPlaceholderCopy(this.application.person)}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Additional risk information for ${this.personName}`
 
   body: AdditionalRiskInformationBody
+
+  exampleField = 'something'
+
+  questions = {
+    hasAdditionalInformation: {
+      question: `Is there any other risk information for ${this.personName}?`,
+    },
+    additionalInformationDetail: {
+      question: 'Additional information',
+    },
+  }
 
   constructor(
     body: Partial<AdditionalRiskInformationBody>,
@@ -35,11 +48,21 @@ export default class AdditionalRiskInformation implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasAdditionalInformation) {
+      errors.hasAdditionalInformation = 'Select whether there is any additional risk information'
+    }
+    if (this.body.hasAdditionalInformation === 'yes' && !this.body.additionalInformationDetail) {
+      errors.additionalInformationDetail = 'Enter additional information for risk to others'
+    }
+
     return errors
   }
 
   response() {
-    const response = {}
+    const response = {
+      [this.questions.hasAdditionalInformation.question]: this.body.hasAdditionalInformation,
+      [this.questions.additionalInformationDetail.question]: this.body.additionalInformationDetail,
+    }
 
     return response
   }

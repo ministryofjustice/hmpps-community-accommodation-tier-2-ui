@@ -163,8 +163,14 @@
       "dateOfOasysImport": "some date"
     },
     "risk-management-arrangements": {},
-    "cell-share-information": {},
+    "cell-share-information": {
+      "hasCellShareComments": "yes",
+      "cellShareInformationDetail": "some information"
+    },
     "behaviour-notes": {},
-    "additional-risk-information": {}
+    "additional-risk-information": {
+      "hasAdditionalInformation": "yes",
+      "additionalInformationDetail": "some information"
+    }
   }
 }

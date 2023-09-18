@@ -1,9 +1,50 @@
-{% extends "../layout.njk" %}
+{% extends "./_risk-of-serious-harm-screen.njk" %}
+{% set pageName = "additional-risk-information" %}
+
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+  {% set additionalInformationDetail %}
+  {{
+        formPageTextArea(
+          {
+            fieldName: 'additionalInformationDetail',
+            label: {
+              text: page.questions.additionalInformationDetail.question,
+              classes: "govuk-label--s"
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
 
-  <p class="govuk-body">
-    Additional risk information
-  </p>
-
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasAdditionalInformation",
+        fieldset: {
+          legend: {
+            text: page.questions.hasAdditionalInformation.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "Record any additional information about their risk to others."
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: additionalInformationDetail
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
 {% endblock %}

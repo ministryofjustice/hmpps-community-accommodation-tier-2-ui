@@ -1,0 +1,54 @@
+{%- from "moj/components/side-navigation/macro.njk" import mojSideNavigation -%}
+
+{% extends "../layout.njk" %}
+
+{% set columnClasses = "govuk-grid-column-full" %}
+
+{% block content %}
+  <div class="govuk-grid-row" id="{{ pageName }}">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-4">
+    <div class="govuk-grid-column-one-third">
+      {{ mojSideNavigation({
+          items: [{
+            text: 'Risk to Others',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'risk-to-others' }),
+            active: (pageName === 'risk-to-others')
+          }, {
+            text: 'Risk factors',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'risk-factors' }),
+            active: (pageName === 'risk-factors')
+          }, {
+            text: 'Reducing risk',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'reducing-risk' }),
+            active: (pageName === 'reducing-risk')
+          }, {
+            text: 'Risk management arrangements',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'risk-management-arrangements' }),
+            active: (pageName === 'risk-management-arrangements')
+          }, {
+            text: 'Cell share information',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'cell-share-information' }),
+            active: (pageName === 'cell-share-information')
+          }, {
+            text: 'Behaviour notes',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'behaviour-notes' }),
+            active: (pageName === 'behaviour-notes')
+          }, {
+            text: 'Additional risk information',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'additional-risk-information' }),
+            active: (pageName === 'additional-risk-information')
+          }]
+        }) }}
+    </div>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-4">
+      {{ super() }}
+    </div>
+
+  </div>
+{% endblock %}

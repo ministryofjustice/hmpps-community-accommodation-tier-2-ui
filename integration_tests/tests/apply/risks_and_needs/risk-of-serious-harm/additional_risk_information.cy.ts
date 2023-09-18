@@ -12,8 +12,8 @@
 //    Then I see the "additional risk information" page
 //
 //  Scenario: navigate to task list on completion of task
-//    When I continue to the next task / page
-//    Then I see the "additional risk information" page
+//    When I complete the "additional risk information" page
+//    And I continue to the next task / page
 //    Then I am returned to the task list
 //    And I see that the risk of serious harm task is complete
 
@@ -31,7 +31,7 @@ context('Visit "additional risk information" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['risk-of-serious-harm'] = {}
+      delete applicationData['risk-of-serious-harm']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -77,8 +77,12 @@ context('Visit "additional risk information" page', () => {
       cy.task('stubApplicationGet', { application: answered })
     })
 
-    //    When I continue to the next task / page
+    //    When I complete the "additional risk information" page
     const page = Page.verifyOnPage(AdditionalRiskInformationPage, this.application)
+    page.checkRadioByNameAndValue('hasAdditionalInformation', 'yes')
+    page.getTextInputByIdAndEnterDetails('additionalInformationDetail', 'some information')
+
+    //    When I continue to the next task / page
     page.clickSubmit()
 
     //    Then I am returned to the task list
