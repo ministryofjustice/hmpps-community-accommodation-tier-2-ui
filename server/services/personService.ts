@@ -1,4 +1,10 @@
-import type { OASysRiskOfSeriousHarm, OASysRiskToSelf, OASysSections, Person } from '@approved-premises/api'
+import type {
+  OASysRiskOfSeriousHarm,
+  OASysRiskToSelf,
+  OASysSections,
+  Person,
+  RoshRisksEnvelope,
+} from '@approved-premises/api'
 import type { PersonClient, RestClientBuilder } from '../data'
 
 export default class PersonService {
@@ -30,5 +36,13 @@ export default class PersonService {
 
     const rosh = await personClient.oasysRosh(crn)
     return rosh
+  }
+
+  async getRoshRisks(token: string, crn: string): Promise<RoshRisksEnvelope> {
+    const personClient = this.personClientFactory(token)
+
+    const risks = await personClient.risks(crn)
+
+    return risks.roshRisks
   }
 }

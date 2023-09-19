@@ -1,6 +1,7 @@
 import { OASysRiskOfSeriousHarm } from '../shared/models/OASysRiskOfSeriousHarm'
 import { OASysRiskToSelf } from '../shared/models/OASysRiskToSelf'
 import { OASysSections } from '../shared/models/OASysSections'
+import { RoshRisksEnvelope } from '../shared/models/RoshRisksEnvelope'
 
 export type JourneyType = 'applications'
 
@@ -51,6 +52,7 @@ export type DataServices = Partial<{
     getOasysSections: (token: string, crn: string) => Promise<OASysSections>
     getOasysRiskToSelf: (token: string, crn: string) => Promise<OASysRiskToSelf>
     getOasysRosh: (token: string, crn: string) => Promise<OASysRiskOfSeriousHarm>
+    getRoshRisks: (token: string, crn: string) => Promise<RoshRisksEnvelope>
   }
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2Application>
