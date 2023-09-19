@@ -10,13 +10,13 @@ const riskEnvelopeStatuses: Array<RiskEnvelopeStatus> = ['retrieved', 'not_found
 
 export default Factory.define<PersonRisks>(() => ({
   crn: `C${faker.number.int({ min: 100000, max: 999999 })}`,
-  roshRisks: roshRisksFactory.build(),
+  roshRisks: roshRisksEnvelopeFactory.build(),
   mappa: mappaFactory.build(),
   flags: flagsFactory.build(),
   tier: tierEnvelopeFactory.build(),
 }))
 
-const roshRisksFactory = Factory.define<PersonRisks['roshRisks']>(() => ({
+export const roshRisksEnvelopeFactory = Factory.define<PersonRisks['roshRisks']>(() => ({
   status: faker.helpers.arrayElement(riskEnvelopeStatuses),
   value: {
     overallRisk: faker.helpers.arrayElement(riskLevels),

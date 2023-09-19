@@ -4,7 +4,7 @@ import oasysRiskToSelfFactory from './oasysRiskToSelf'
 import { fullPersonFactory as personFactory, restrictedPersonFactory } from './person'
 import applicationFactory from './application'
 import applicationSummaryFactory from './applicationSummary'
-import risksFactory from './risks'
+import risksFactory, { roshRisksEnvelopeFactory } from './risks'
 import oasysRoshFactory from './oasysRosh'
 
 export {
@@ -18,4 +18,5 @@ export {
   personFactory,
   restrictedPersonFactory,
   risksFactory,
+  roshRisksEnvelopeFactory,
 }
