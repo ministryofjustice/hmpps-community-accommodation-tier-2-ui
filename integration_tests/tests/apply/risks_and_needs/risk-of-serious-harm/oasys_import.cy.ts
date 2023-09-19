@@ -36,7 +36,12 @@
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import { personFactory, applicationFactory, oasysRoshFactory } from '../../../../../server/testutils/factories/index'
+import {
+  personFactory,
+  applicationFactory,
+  oasysRoshFactory,
+  risksFactory,
+} from '../../../../../server/testutils/factories/index'
 import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/oasysImportPage'
 import RoshSummaryPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/roshSummaryPage'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
@@ -51,6 +56,7 @@ context('Visit "Risks and needs" section', () => {
     cy.task('stubAuthUser')
 
     const oasys = oasysRoshFactory.build()
+    const risks = risksFactory.build()
 
     cy.task('stubOasysRosh', {
       crn: person.crn,
@@ -60,6 +66,8 @@ context('Visit "Risks and needs" section', () => {
         dateCompleted: DateFormats.dateObjToIsoDateTime(new Date(2022, 6, 27)),
       },
     })
+
+    cy.task('stubPersonRisks', { crn: person.crn, personRisks: risks })
 
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['risk-of-serious-harm']

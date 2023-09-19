@@ -147,7 +147,17 @@
   },
   "risk-of-serious-harm": {
     "oasys-import": {},
-    "summary": {},
+    "summary": {
+      "status": "retrieved",
+      "overallRisk": "High",
+      "riskToChildren": "High",
+      "riskToPublic": "Very High",
+      "riskToKnownAdult": "Medium",
+      "riskToStaff": "Low",
+      "lastUpdated": "2023-09-18",
+      "dateOfOasysImport": "2023-09-19",
+      "additionalComments": "some comments"
+    },
     "risk-to-others": {
       "whoIsAtRisk": "a person",
       "natureOfRisk": "a nature",
