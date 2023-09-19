@@ -1,5 +1,5 @@
 import type { DataServices, TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, OASysRiskOfSeriousHarm } from '@approved-premises/api'
+import { Cas2Application as Application, OASysRiskOfSeriousHarm, RoshRisksEnvelope } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
@@ -11,6 +11,9 @@ type OasysImportBody = Record<string, never>
 
 export type RoshTaskData = {
   'risk-of-serious-harm': {
+    summary: RoshRisksEnvelope & {
+      dateOfOasysImport: Date
+    }
     'risk-to-others': {
       whoIsAtRisk: string
       natureOfRisk: string
@@ -79,13 +82,15 @@ export default class OasysImport implements TaskListPage {
     dataServices: DataServices,
   ) {
     let oasys
+    let risks
     let taskDataJson
 
     if (!application.data['risk-of-serious-harm']) {
       try {
         oasys = await dataServices.personService.getOasysRosh(token, application.person.crn)
+        risks = await dataServices.personService.getRoshRisks(token, application.person.crn)
 
-        taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys))
+        taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys, risks))
       } catch (e) {
         if (e.status === 404) {
           oasys = null
@@ -113,9 +118,14 @@ export default class OasysImport implements TaskListPage {
     return false
   }
 
-  private static getTaskData(oasysSections: OASysRiskOfSeriousHarm): Partial<RoshTaskData> {
+  private static getTaskData(oasysSections: OASysRiskOfSeriousHarm, risks: RoshRisksEnvelope): Partial<RoshTaskData> {
     const taskData = { 'risk-of-serious-harm': {} } as Partial<RoshTaskData>
     const today = new Date()
+
+    taskData['risk-of-serious-harm'].summary = {
+      ...risks,
+      dateOfOasysImport: today,
+    }
 
     oasysSections.rosh.forEach(question => {
       switch (question.questionNumber) {
