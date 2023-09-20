@@ -6,7 +6,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: `/applications`,
+        url: `/cas2/applications`,
       },
       response: {
         status: 201,
@@ -18,7 +18,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/applications`,
+        url: `/cas2/applications`,
       },
       response: {
         status: 200,
@@ -30,7 +30,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/applications/${args.application.id}`,
+        url: `/cas2/applications/${args.application.id}`,
       },
       response: {
         status: 200,
@@ -42,7 +42,7 @@ export default {
     stubFor({
       request: {
         method: 'PUT',
-        url: `/applications/${args.application.id}`,
+        url: `/cas2/applications/${args.application.id}`,
       },
       response: {
         status: 201,
@@ -65,7 +65,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: `/applications/${args.application.id}/submission`,
+        url: `/cas2/applications/${args.application.id}/submission`,
       },
       response: {
         status: 200,
