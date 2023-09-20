@@ -3,7 +3,7 @@ import { path } from 'static-path'
 const peoplePath = path('/people')
 const personPath = peoplePath.path(':crn')
 const oasysPath = personPath.path('oasys')
-const applicationsPath = path('/applications')
+const applicationsPath = path('/cas2/applications')
 const singleApplicationPath = applicationsPath.path(':id')
 
 export default {
