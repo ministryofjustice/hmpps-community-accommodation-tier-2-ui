@@ -143,7 +143,10 @@
         "acctDetails": "ACCT details"
       }
     ],
-    "additional-information": {}
+    "additional-information": {
+      "hasAdditionalInformation": "yes",
+      "additionalInformationDetail": "some information"
+    }
   },
   "risk-of-serious-harm": {
     "oasys-import": {},

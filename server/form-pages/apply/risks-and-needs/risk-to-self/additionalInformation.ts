@@ -19,7 +19,7 @@ export default class AdditionalInformation implements TaskListPage {
     hasAdditionalInformation: {
       question: `Is there anything else to include about ${nameOrPlaceholderCopy(
         this.application.person,
-      )}'s risk to self? (Optional)`,
+      )}'s risk to self?`,
     },
     additionalInformationDetail: {
       question: 'Additional information',
@@ -46,6 +46,9 @@ export default class AdditionalInformation implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.hasAdditionalInformation) {
+      errors.hasAdditionalInformation = 'Confirm whether you have additional information'
+    }
     if (this.body.hasAdditionalInformation === 'yes' && !this.body.additionalInformationDetail) {
       errors.additionalInformationDetail = 'Provide additional information about their risk to self'
     }

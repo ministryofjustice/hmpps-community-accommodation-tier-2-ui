@@ -37,16 +37,23 @@ describe('AdditionalInformation', () => {
       )
 
       expect(page.response()).toEqual({
-        "Is there anything else to include about Roger Smith's risk to self? (Optional)": 'yes',
+        "Is there anything else to include about Roger Smith's risk to self?": 'yes',
         'Additional information': 'is at risk',
       })
     })
   })
 
   describe('errors', () => {
-    describe('when answer data is valid', () => {
-      it('returns empty object if valid data', () => {
+    describe('when they have not provided any answer', () => {
+      it('returns an error', () => {
         const page = new AdditionalInformation({}, application)
+        expect(page.errors()).toEqual({ hasAdditionalInformation: 'Confirm whether you have additional information' })
+      })
+    })
+
+    describe('when there is no additional data', () => {
+      it('does not return errors', () => {
+        const page = new AdditionalInformation({ hasAdditionalInformation: 'no' }, application)
         expect(page.errors()).toEqual({})
       })
     })
