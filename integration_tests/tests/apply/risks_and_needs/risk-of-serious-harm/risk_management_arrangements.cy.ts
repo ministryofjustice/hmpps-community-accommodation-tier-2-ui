@@ -12,8 +12,15 @@
 //    Then I see the "risk management arrangemnents" page
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
-//    When I continue to the next task / page
+//    When I complete the questions in the task
+//    And I continue to the next task / page
 //    Then I see the "cell share information" page
+//
+//  Scenario: Toggle between selected arrangements and no arrangements
+//    Given I have selected that there are arrangements
+//    When I select that this person does not have any arrangements
+//    And I then select an arrangement once again
+//    Then I see that only the expected arrangement is selected
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -65,11 +72,32 @@ context('Visit "risk management arrangemnents" page', () => {
   //  Scenario: navigate to next page in "Risk of serious harm" task
   // ----------------------------------------------
   it('navigates to the next page', function test() {
-    //    When I continue to the next task / page
+    //    When I complete the questions in the task
     const page = Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
+    page.selectAllArrangements(page)
+    page.completeAllArrangementDetails(page)
+
+    //    And I continue to the next task / page
     page.clickSubmit()
 
     //    Then I see the "cell share information" page
     Page.verifyOnPage(CellShareInformationPage, this.application)
+  })
+
+  //  Scenario: Toggle between selected arrangements and no arrangements
+  it('toggles between selected arrangements and no arrangements', function test() {
+    const page = Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
+    //  Given I have selected that there are arrangements
+    page.selectAllArrangements(page)
+    page.completeAllArrangementDetails(page)
+
+    //  When I select that this person does not have any arrangements
+    page.checkCheckboxByLabel('no')
+    page.expectArrangementsToBeUnselected()
+    page.expectArrangementDetailsToBeEmpty()
+
+    //    And I then select an arrangement once again
+    //    Then I see that only the expected arrangement is selected
+    page.toggleBetweenNoAndArrangements(page)
   })
 })
