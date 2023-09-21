@@ -8,6 +8,12 @@ import type { SubmitApplication } from './SubmitApplication';
 
 export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     arrivalDate: string;
+    isRegisteredSexOffender?: boolean;
+    needsAccessibleProperty?: boolean;
+    hasHistoryOfArson?: boolean;
+    isDutyToReferSubmitted?: boolean;
+    dutyToReferSubmissionDate?: string;
+    isApplicationEligible?: boolean;
     summaryData?: AnyValue;
 });
 

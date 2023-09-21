@@ -6,5 +6,6 @@
 export type UpdateRoom = {
     notes?: string;
     characteristicIds: Array<string>;
+    name?: string;
 };
 
