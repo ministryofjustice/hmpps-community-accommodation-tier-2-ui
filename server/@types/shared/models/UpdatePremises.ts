@@ -18,5 +18,6 @@ export type UpdatePremises = {
     pdu?: string;
     probationDeliveryUnitId?: string;
     turnaroundWorkingDayCount?: number;
+    name?: string;
 };
 

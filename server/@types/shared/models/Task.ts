@@ -14,7 +14,7 @@ export type Task = {
     personName: string;
     crn: string;
     dueDate: string;
-    allocatedToStaffMember: ApprovedPremisesUser;
+    allocatedToStaffMember?: ApprovedPremisesUser;
     status: TaskStatus;
 };
 
