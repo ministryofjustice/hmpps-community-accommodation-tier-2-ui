@@ -13,22 +13,54 @@ describe('RiskToOthers', () => {
     })
   })
 
+  describe('import date', () => {
+    it('sets importDate to null where application contains no OASys import date', () => {
+      const page = new RiskToOthers({}, application)
+
+      expect(page.importDate).toEqual(null)
+    })
+  })
+
   itShouldHaveNextValue(new RiskToOthers({}, application), 'risk-factors')
   itShouldHavePreviousValue(new RiskToOthers({}, application), 'summary')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new RiskToOthers({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new RiskToOthers(
+        {
+          whoIsAtRisk: 'some people',
+          natureOfRisk: 'risky',
+          confirmation: 'confirmed',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'Who is at risk?': 'some people',
+        'What is the nature of the risk?': 'risky',
+        'I confirm this information is relevant and up to date.': 'confirmed',
+      })
     })
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    it('returns an error when required fields are blank', () => {
+      const page = new RiskToOthers({}, application)
+      expect(page.errors()).toEqual({
+        confirmation: 'Confirm that the information is relevant and up to date',
+        whoIsAtRisk: 'Enter who is at risk',
+        natureOfRisk: 'Enter the nature of the risk',
+      })
+    })
+  })
+
+  describe('items', () => {
+    it('returns the checkbox as expected', () => {
       const page = new RiskToOthers({}, application)
 
-      expect(page.errors()).toEqual({})
+      expect(page.items()).toEqual([
+        { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
+      ])
     })
   })
 })
