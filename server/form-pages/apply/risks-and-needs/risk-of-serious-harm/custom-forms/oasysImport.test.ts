@@ -2,7 +2,7 @@ import { createMock } from '@golevelup/ts-jest'
 import type { DataServices } from '@approved-premises/ui'
 import { DateFormats } from '../../../../../utils/dateUtils'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../../shared-examples'
-import { personFactory, applicationFactory } from '../../../../../testutils/factories/index'
+import { personFactory, applicationFactory, roshRisksEnvelopeFactory } from '../../../../../testutils/factories/index'
 import OasysImport, { RoshTaskData } from './oasysImport'
 import PersonService from '../../../../../services/personService'
 import oasysRoshFactory from '../../../../../testutils/factories/oasysRosh'
@@ -71,8 +71,14 @@ describe('OasysImport', () => {
           },
         ]
 
+        const riskSummary = roshRisksEnvelopeFactory.build()
+
         const taskData = {
           'risk-of-serious-harm': {
+            summary: {
+              ...riskSummary,
+              dateOfOasysImport: now,
+            },
             'risk-to-others': {
               whoIsAtRisk: 'who is at risk answer',
               dateOfOasysImport: now,
@@ -91,6 +97,7 @@ describe('OasysImport', () => {
         }
 
         ;(dataServices.personService.getOasysRosh as jest.Mock).mockResolvedValue(oasys)
+        ;(dataServices.personService.getRoshRisks as jest.Mock).mockResolvedValue(riskSummary)
 
         const page = (await OasysImport.initialize({}, application, 'some-token', dataServices)) as OasysImport
 
@@ -105,6 +112,7 @@ describe('OasysImport', () => {
           const oasysIncomplete = oasysRoshFactory.build({ dateCompleted: null })
 
           ;(dataServices.personService.getOasysRosh as jest.Mock).mockResolvedValue(oasysIncomplete)
+          ;(dataServices.personService.getRoshRisks as jest.Mock).mockResolvedValue(null)
 
           const page = (await OasysImport.initialize({}, application, 'some-token', dataServices)) as OasysImport
 

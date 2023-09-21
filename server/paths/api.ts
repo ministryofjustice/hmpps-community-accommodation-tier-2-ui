@@ -14,6 +14,9 @@ export default {
       rosh: oasysPath.path('rosh'),
     },
     search: peoplePath.path('search'),
+    risks: {
+      show: personPath.path('risks'),
+    },
   },
   applications: {
     new: applicationsPath,

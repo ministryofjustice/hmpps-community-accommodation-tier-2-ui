@@ -17,10 +17,30 @@ describe('Summary', () => {
   itShouldHavePreviousValue(new Summary({}, application), 'oasys-import')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new Summary({}, application)
+    const body = {
+      status: 'retrieved' as const,
+      overallRisk: 'a risk',
+      riskToChildren: 'another risk',
+      riskToPublic: 'a third risk',
+      riskToKnownAdult: 'a fourth risk',
+      riskToStaff: 'a fifth risk',
+      lastUpdated: '2023-09-17',
+      dateOfOasysImport: '2023-09-18',
+    }
+    it('returns page body if no additional comments have been added', () => {
+      const page = new Summary(body, application)
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual(body)
+    })
+
+    it('returns page body and additional comments if a comment is added', () => {
+      const additionalBody = {
+        ...body,
+        additionalComments: 'some comment',
+      }
+      const page = new Summary(additionalBody, application)
+
+      expect(page.response()).toEqual({ ...body, 'Additional comments (optional)': 'some comment' })
     })
   })
 
