@@ -53,6 +53,7 @@ describe('HistoricalRisk', () => {
     it('returns an error when the confirmation is blank', () => {
       const page = new HistoricalRisk({}, application)
       expect(page.errors()).toEqual({
+        historicalRiskDetail: "Describe Roger Smith's historical issues and needs related to self harm and suicide",
         confirmation: 'Confirm that the information is relevant and up to date',
       })
     })

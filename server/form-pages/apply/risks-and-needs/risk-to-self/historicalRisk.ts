@@ -16,13 +16,13 @@ type HistoricalRiskBody = { historicalRiskDetail: string; confirmation: string }
 export default class HistoricalRisk implements TaskListPage {
   documentTitle = "The person's historical risks"
 
-  title = `${nameOrPlaceholderCopy(this.application.person)}'s historical risks`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `${this.personName}'s historical risks`
 
   questions = {
     historicalRiskDetail: {
-      question: `Describe ${nameOrPlaceholderCopy(
-        this.application.person,
-      )}'s historical issues and needs related to self harm and suicide`,
+      question: `Describe ${this.personName}'s historical issues and needs related to self harm and suicide`,
     },
     confirmation: {
       question: 'I confirm this information is relevant and up to date.',
@@ -51,6 +51,9 @@ export default class HistoricalRisk implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.historicalRiskDetail) {
+      errors.historicalRiskDetail = `Describe ${this.personName}'s historical issues and needs related to self harm and suicide`
+    }
     if (!this.body.confirmation) {
       errors.confirmation = errorLookups.oasysConfirmation.empty
     }

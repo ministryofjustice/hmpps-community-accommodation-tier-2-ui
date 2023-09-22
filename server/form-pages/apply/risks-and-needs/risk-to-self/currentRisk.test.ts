@@ -53,6 +53,7 @@ describe('CurrentRisk', () => {
     it('returns an error when the confirmation is blank', () => {
       const page = new CurrentRisk({}, application)
       expect(page.errors()).toEqual({
+        currentRiskDetail: "Describe Roger Smith's current issues and needs related to self harm and suicide",
         confirmation: 'Confirm that the information is relevant and up to date',
       })
     })
