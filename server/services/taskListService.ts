@@ -14,14 +14,7 @@ export default class TaskListService {
 
     this.formSections.forEach(section => {
       section.tasks.forEach(task => {
-        const previousTaskKey = Object.keys(this.taskStatuses).at(-1)
-        const previousTaskStatus = this.taskStatuses[previousTaskKey]
-
-        if (!previousTaskStatus || previousTaskStatus === 'complete') {
-          this.taskStatuses[task.id] = getTaskStatus(task, application)
-        } else {
-          this.taskStatuses[task.id] = 'cannot_start'
-        }
+        this.taskStatuses[task.id] = getTaskStatus(task, application)
       })
     })
   }

@@ -49,42 +49,20 @@ describe('taskListService', () => {
   })
 
   describe('taskStatuses', () => {
-    it('returns cannot_start for any subsequent tasks when no tasks are complete', () => {
-      ;(getTaskStatus as jest.Mock).mockReturnValue('not_started')
+    it('returns status of task', () => {
+      ;(getTaskStatus as jest.Mock).mockReturnValue('in_progress')
 
       const taskListService = new TaskListService(application)
 
       expect(taskListService.taskStatuses).toEqual({
-        'first-task': 'not_started',
-        'second-task': 'cannot_start',
-        'third-task': 'cannot_start',
-        'fourth-task': 'cannot_start',
-        'fifth-task': 'cannot_start',
-      })
-    })
-
-    it('returns a status when the previous task is complete', () => {
-      ;(getTaskStatus as jest.Mock).mockImplementation(t => {
-        if (t.id === 'first-task') {
-          return 'complete'
-        }
-        if (t.id === 'second-task') {
-          return 'in_progress'
-        }
-        return undefined
-      })
-
-      const taskListService = new TaskListService(application)
-
-      expect(taskListService.taskStatuses).toEqual({
-        'first-task': 'complete',
+        'first-task': 'in_progress',
         'second-task': 'in_progress',
-        'third-task': 'cannot_start',
-        'fourth-task': 'cannot_start',
-        'fifth-task': 'cannot_start',
+        'third-task': 'in_progress',
+        'fourth-task': 'in_progress',
+        'fifth-task': 'in_progress',
       })
 
-      expect(getTaskStatus).toHaveBeenCalledTimes(2)
+      expect(getTaskStatus).toHaveBeenCalledTimes(5)
     })
   })
 
@@ -136,7 +114,7 @@ describe('taskListService', () => {
 
   describe('sections', () => {
     it('returns the section data with the status of each task and the section number', () => {
-      ;(getTaskStatus as jest.Mock).mockReturnValue('cannot_start')
+      ;(getTaskStatus as jest.Mock).mockReturnValue('not_started')
 
       const taskListService = new TaskListService(application)
 
@@ -145,17 +123,17 @@ describe('taskListService', () => {
           sectionNumber: 1,
           title: 'First Section',
           tasks: [
-            { id: 'first-task', title: 'First task', status: 'cannot_start' },
-            { id: 'second-task', title: 'Second task', status: 'cannot_start' },
+            { id: 'first-task', title: 'First task', status: 'not_started' },
+            { id: 'second-task', title: 'Second task', status: 'not_started' },
           ],
         },
         {
           sectionNumber: 2,
           title: 'Second Section',
           tasks: [
-            { id: 'third-task', title: 'Third task', status: 'cannot_start' },
-            { id: 'fourth-task', title: 'Fourth task', status: 'cannot_start' },
-            { id: 'fifth-task', title: 'Fifth task', status: 'cannot_start' },
+            { id: 'third-task', title: 'Third task', status: 'not_started' },
+            { id: 'fourth-task', title: 'Fourth task', status: 'not_started' },
+            { id: 'fifth-task', title: 'Fifth task', status: 'not_started' },
           ],
         },
       ])
