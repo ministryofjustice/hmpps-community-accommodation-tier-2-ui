@@ -169,12 +169,12 @@ describe('utils', () => {
   describe('getOasysImportDateFromApplication', () => {
     it('calls date formatting function when as OASys import date exists', () => {
       const application = applicationFactory.build({
-        data: { 'risk-to-self': { 'historical-risk': { dateOfOasysImport: 'some date' } } },
+        data: { 'risk-to-self': { 'oasys-import': { oasysImportDate: 'some date' } } },
       })
 
       ;(DateFormats.isoDateToUIDate as jest.Mock).mockImplementation(() => null)
 
-      utils.getOasysImportDateFromApplication(application, 'historical-risk')
+      utils.getOasysImportDateFromApplication(application, 'risk-to-self')
 
       expect(DateFormats.isoDateToUIDate).toHaveBeenCalledWith('some date', { format: 'medium' })
     })
@@ -182,7 +182,7 @@ describe('utils', () => {
     it('returns null where no import date exists on application', () => {
       const application = applicationFactory.build({ data: null })
 
-      expect(utils.getOasysImportDateFromApplication(application, 'historical-risk')).toEqual(null)
+      expect(utils.getOasysImportDateFromApplication(application, 'risk-to-self')).toEqual(null)
     })
   })
 })

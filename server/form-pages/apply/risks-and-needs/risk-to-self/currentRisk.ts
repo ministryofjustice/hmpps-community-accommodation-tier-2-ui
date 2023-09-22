@@ -33,7 +33,7 @@ export default class CurrentRisk implements TaskListPage {
 
   body: CurrentRiskBody
 
-  importDate = getOasysImportDateFromApplication(this.application, 'current-risk')
+  importDate = getOasysImportDateFromApplication(this.application, 'risk-to-self')
 
   constructor(
     body: Partial<CurrentRiskBody>,
