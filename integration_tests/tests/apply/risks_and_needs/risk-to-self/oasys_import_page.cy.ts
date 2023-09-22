@@ -30,6 +30,8 @@
 //    When I follow the link to the first page in the "Risks and needs" section
 //    Then I see the "OASys import" page
 //    And I see that there is no OASys data
+//    When I choose to continue
+//    Then we are taken to the Vulnerability page
 
 import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-to-self/oasysImportPage'
 import VulnerabilityPage from '../../../../pages/apply/risks-and-needs/risk-to-self/vulnerabilityPage'
@@ -50,7 +52,25 @@ context('Visit "Risks and needs" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    const oasys = oasysRiskToSelfFactory.build()
+    const oasys = oasysRiskToSelfFactory.build({
+      riskToSelf: [
+        {
+          questionNumber: 'R8.1.1',
+          label: 'Current concerns of self harm and suicide',
+          answer: 'current answer',
+        },
+        {
+          questionNumber: 'R8.3.1',
+          label: 'Current concerns about Vulnerability',
+          answer: 'vulnerability answer',
+        },
+        {
+          questionNumber: 'R8.1.4',
+          label: 'Previous concerns of self harm and suicide',
+          answer: 'previous answer',
+        },
+      ],
+    })
 
     cy.task('stubOasysRiskToSelf', {
       crn: person.crn,
@@ -126,6 +146,15 @@ context('Visit "Risks and needs" section', () => {
 
     //  Then we are taken to the Vulnerability page
     Page.verifyOnPage(VulnerabilityPage, this.application)
+
+    cy.task('verifyApplicationUpdate', this.application.id).then(requests => {
+      expect(requests).to.have.length(1)
+
+      const body = JSON.parse(requests[0].body)
+
+      expect(body.data['risk-to-self']).to.have.keys('oasys-import', 'current-risk', 'historical-risk', 'vulnerability')
+      expect(body.data['risk-to-self']['oasys-import']).to.have.keys('oasysImportDate')
+    })
   })
 
   //  Scenario: return to Task after importing data
@@ -166,5 +195,11 @@ context('Visit "Risks and needs" section', () => {
 
     //  And I see that there is no OASys data
     page.displaysNoOASysNotificationBanner(this.application)
+
+    //  When I choose to continue
+    page.clickContinue()
+
+    //  Then we are taken to the Vulnerability page
+    Page.verifyOnPage(VulnerabilityPage, this.application)
   })
 })
