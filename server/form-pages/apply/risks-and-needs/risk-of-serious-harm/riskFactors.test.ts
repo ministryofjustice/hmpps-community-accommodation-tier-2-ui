@@ -13,22 +13,54 @@ describe('RiskFactors', () => {
     })
   })
 
+  describe('import date', () => {
+    it('sets importDate to null where application contains no OASys import date', () => {
+      const page = new RiskFactors({}, application)
+
+      expect(page.importDate).toEqual(null)
+    })
+  })
+
   itShouldHaveNextValue(new RiskFactors({}, application), 'reducing-risk')
   itShouldHavePreviousValue(new RiskFactors({}, application), 'summary')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new RiskFactors({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new RiskFactors(
+        {
+          circumstancesLikelyToIncreaseRisk: 'some people',
+          whenIsRiskLikelyToBeGreatest: 'risky',
+          confirmation: 'confirmed',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'What circumstances are likely to increase risk?': 'some people',
+        'When is the risk likely to be greatest?': 'risky',
+        'I confirm this information is relevant and up to date.': 'confirmed',
+      })
     })
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    it('returns an error when required fields are blank', () => {
+      const page = new RiskFactors({}, application)
+      expect(page.errors()).toEqual({
+        confirmation: 'Confirm that the information is relevant and up to date',
+        circumstancesLikelyToIncreaseRisk: 'Enter the circumstances that are likely to increase risk',
+        whenIsRiskLikelyToBeGreatest: 'Enter when the risk is likely to be the greatest',
+      })
+    })
+  })
+
+  describe('items', () => {
+    it('returns the checkbox as expected', () => {
       const page = new RiskFactors({}, application)
 
-      expect(page.errors()).toEqual({})
+      expect(page.items()).toEqual([
+        { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
+      ])
     })
   })
 })
