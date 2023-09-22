@@ -16,7 +16,9 @@ type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
 export default class CurrentRisk implements TaskListPage {
   documentTitle = "The person's current risks"
 
-  title = `${nameOrPlaceholderCopy(this.application.person)}'s current risks`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `${this.personName}'s current risks`
 
   questions = {
     currentRiskDetail: {
@@ -51,6 +53,9 @@ export default class CurrentRisk implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.currentRiskDetail) {
+      errors.currentRiskDetail = `Describe ${this.personName}'s current issues and needs related to self harm and suicide`
+    }
     if (!this.body.confirmation) {
       errors.confirmation = errorLookups.oasysConfirmation.empty
     }
