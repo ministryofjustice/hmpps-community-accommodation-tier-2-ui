@@ -169,7 +169,8 @@
       "confirmation": "confirmed"
     },
     "reducing-risk": {
-      "factorsLikelyToReduceRisk": "a factor"
+      "factorsLikelyToReduceRisk": "a factor",
+      "confirmation": "confirmed"
     },
     "risk-management-arrangements": {
       "arrangements": ["mappa", "marac", "iom"],
