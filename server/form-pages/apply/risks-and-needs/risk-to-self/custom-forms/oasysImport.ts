@@ -10,17 +10,17 @@ type GuidanceBody = Record<string, never>
 
 export type RiskToSelfTaskData = {
   'risk-to-self': {
+    'oasys-import': {
+      oasysImportDate: Date
+    }
     'current-risk': {
       currentRiskDetail: string
-      dateOfOasysImport: Date
     }
     vulnerability: {
       vulnerabilityDetail: string
-      dateOfOasysImport: Date
     }
     'historical-risk': {
       historicalRiskDetail: string
-      dateOfOasysImport: Date
     }
   }
 }
@@ -102,21 +102,22 @@ export default class OasysImport implements TaskListPage {
     oasysSections.riskToSelf.forEach(question => {
       switch (question.questionNumber) {
         case 'R8.1.1':
-          taskData['risk-to-self']['current-risk'] = { currentRiskDetail: question.answer, dateOfOasysImport: today }
+          taskData['risk-to-self']['current-risk'] = { currentRiskDetail: question.answer }
           break
         case 'R8.3.1':
-          taskData['risk-to-self'].vulnerability = { vulnerabilityDetail: question.answer, dateOfOasysImport: today }
+          taskData['risk-to-self'].vulnerability = { vulnerabilityDetail: question.answer }
           break
         case 'R8.1.4':
           taskData['risk-to-self']['historical-risk'] = {
             historicalRiskDetail: question.answer,
-            dateOfOasysImport: today,
           }
           break
         default:
           break
       }
     })
+
+    taskData['risk-to-self']['oasys-import'] = { oasysImportDate: today }
 
     return taskData
   }

@@ -11,22 +11,22 @@ type OasysImportBody = Record<string, never>
 
 export type RoshTaskData = {
   'risk-of-serious-harm': {
+    'oasys-import': {
+      oasysImportDate: Date
+    }
     summary: RoshRisksEnvelope & {
       dateOfOasysImport: Date
     }
     'risk-to-others': {
       whoIsAtRisk: string
       natureOfRisk: string
-      dateOfOasysImport: Date
     }
     'risk-factors': {
       circumstancesLikelyToIncreaseRisk: string
       whenIsRiskLikelyToBeGreatest: string
-      dateOfOasysImport: Date
     }
     'reducing-risk': {
       factorsLikelyToReduceRisk: string
-      dateOfOasysImport: Date
     }
   }
 }
@@ -108,11 +108,7 @@ export default class OasysImport implements TaskListPage {
 
   private static isRoshApplicationDataImportedFromOASys(application: Application): boolean {
     const rosh = application.data['risk-of-serious-harm']
-    if (
-      (rosh?.['risk-to-others'] && 'dateOfOasysImport' in rosh['risk-to-others']) ||
-      (rosh?.['risk-factors'] && 'dateOfOasysImport' in rosh['risk-factors']) ||
-      (rosh?.['reducing-risk'] && 'dateOfOasysImport' in rosh['reducing-risk'])
-    ) {
+    if (rosh?.['oasys-import']?.oasysImportDate) {
       return true
     }
     return false
@@ -133,40 +129,37 @@ export default class OasysImport implements TaskListPage {
           taskData['risk-of-serious-harm']['risk-to-others'] = {
             ...taskData['risk-of-serious-harm']['risk-to-others'],
             whoIsAtRisk: question.answer,
-            dateOfOasysImport: today,
           }
           break
         case 'R10.2':
           taskData['risk-of-serious-harm']['risk-to-others'] = {
             ...taskData['risk-of-serious-harm']['risk-to-others'],
             natureOfRisk: question.answer,
-            dateOfOasysImport: today,
           }
           break
         case 'R10.3':
           taskData['risk-of-serious-harm']['risk-factors'] = {
             ...taskData['risk-of-serious-harm']['risk-factors'],
             whenIsRiskLikelyToBeGreatest: question.answer,
-            dateOfOasysImport: today,
           }
           break
         case 'R10.4':
           taskData['risk-of-serious-harm']['risk-factors'] = {
             ...taskData['risk-of-serious-harm']['risk-factors'],
             circumstancesLikelyToIncreaseRisk: question.answer,
-            dateOfOasysImport: today,
           }
           break
         case 'R10.5':
           taskData['risk-of-serious-harm']['reducing-risk'] = {
             factorsLikelyToReduceRisk: question.answer,
-            dateOfOasysImport: today,
           }
           break
         default:
           break
       }
     })
+
+    taskData['risk-of-serious-harm']['oasys-import'] = { oasysImportDate: today }
 
     return taskData
   }
