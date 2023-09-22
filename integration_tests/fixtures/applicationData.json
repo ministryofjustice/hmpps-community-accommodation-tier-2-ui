@@ -156,7 +156,6 @@
       "riskToKnownAdult": "Medium",
       "riskToStaff": "Low",
       "lastUpdated": "2023-09-18",
-      "dateOfOasysImport": "2023-09-19",
       "additionalComments": "some comments"
     },
     "risk-to-others": {

@@ -13,6 +13,14 @@ describe('Summary', () => {
     })
   })
 
+  describe('import date', () => {
+    it('sets importDate to null where application contains no OASys import date', () => {
+      const page = new Summary({}, application)
+
+      expect(page.importDate).toEqual(null)
+    })
+  })
+
   itShouldHaveNextValue(new Summary({}, application), 'risk-to-others')
   itShouldHavePreviousValue(new Summary({}, application), 'oasys-import')
 
@@ -25,7 +33,6 @@ describe('Summary', () => {
       riskToKnownAdult: 'a fourth risk',
       riskToStaff: 'a fifth risk',
       lastUpdated: '2023-09-17',
-      dateOfOasysImport: '2023-09-18',
     }
     it('returns page body if no additional comments have been added', () => {
       const page = new Summary(body, application)
