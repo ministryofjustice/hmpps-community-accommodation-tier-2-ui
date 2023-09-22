@@ -22,7 +22,9 @@ export type ApprovedPremisesApplication = (Application & {
     data?: AnyValue;
     document?: AnyValue;
     status: ApplicationStatus;
+    assessmentId?: string;
     assessmentDecision?: AssessmentDecision;
+    assessmentDecisionDate?: string;
     submittedAt?: string;
 });
 
