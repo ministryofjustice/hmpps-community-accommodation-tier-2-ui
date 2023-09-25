@@ -1,9 +1,10 @@
 import type { Cas2Application as Application, Cas2Application } from '@approved-premises/api'
+import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from '../../wiremock'
 import paths from '../../server/paths/api'
 
 export default {
-  stubCreateApplication: (args: { application: Application }) =>
+  stubCreateApplication: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'POST',
@@ -15,7 +16,7 @@ export default {
         jsonBody: args.application,
       },
     }),
-  stubApplications: (applications: Array<Application>) =>
+  stubApplications: (applications: Array<Application>): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
@@ -27,7 +28,7 @@ export default {
         jsonBody: applications,
       },
     }),
-  stubApplicationGet: (args: { application: Application }) =>
+  stubApplicationGet: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
@@ -39,7 +40,7 @@ export default {
         jsonBody: args.application,
       },
     }),
-  stubApplicationUpdate: (args: { application: Application }) =>
+  stubApplicationUpdate: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'PUT',
@@ -48,18 +49,7 @@ export default {
       response: {
         status: 201,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        body: `
-        {
-          "id": "{{request.pathSegments.[1]}}",
-          "person": ${JSON.stringify(args.application.person)},
-          "createdByProbationOfficerId": "${args.application.createdByUserId}",
-          "schemaVersion": "${args.application.schemaVersion}",
-          "createdAt": "${args.application.createdAt}",
-          "submittedAt": "${args.application.submittedAt}",
-          "data": {{{jsonPath request.body '$.data'}}}
-        }
-        `,
-        transformers: ['response-template'],
+        jsonBody: { ...args.application, type: 'CAS2' },
       },
     }),
   verifyApplicationUpdate: async (applicationId: string) =>
@@ -69,7 +59,7 @@ export default {
         url: paths.applications.update({ id: applicationId }),
       })
     ).body.requests,
-  stubApplicationSubmit: (args: { application: Cas2Application }) =>
+  stubApplicationSubmit: (args: { application: Cas2Application }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'POST',
