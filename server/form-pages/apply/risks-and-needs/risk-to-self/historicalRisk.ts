@@ -29,7 +29,7 @@ export default class HistoricalRisk implements TaskListPage {
     },
   }
 
-  importDate = getOasysImportDateFromApplication(this.application, 'historical-risk')
+  importDate = getOasysImportDateFromApplication(this.application, 'risk-to-self')
 
   body: HistoricalRiskBody
 

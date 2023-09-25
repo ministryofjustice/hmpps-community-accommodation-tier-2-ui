@@ -28,8 +28,8 @@ export default class ApplyPage extends Page {
     this.checkRadioByNameAndValue(name, option)
   }
 
-  shouldShowOasysImportDate(application: Application, task: string, page: string): void {
-    const date = application.data[task][page].dateOfOasysImport
+  shouldShowOasysImportDate(application: Application, task: string): void {
+    const date = application.data[task]['oasys-import'].oasysImportDate
 
     cy.get('p').contains(`Imported from OASys on ${DateFormats.isoDateToUIDate(date, { format: 'medium' })}`)
   }

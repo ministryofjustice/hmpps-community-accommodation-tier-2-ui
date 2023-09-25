@@ -25,9 +25,9 @@ export default class RoshSummaryPage extends ApplyPage {
     )
   }
 
-  shouldShowRiskData = (risks: RoshRisks & { dateOfOasysImport: string }): void => {
+  shouldShowRiskData = (risks: RoshRisks, oasysImportDate: string): void => {
     cy.get('p').contains(
-      `Imported from OASys on ${DateFormats.isoDateToUIDate(risks.dateOfOasysImport, {
+      `Imported from OASys on ${DateFormats.isoDateToUIDate(oasysImportDate, {
         format: 'medium',
       })}, last updated on ${DateFormats.isoDateToUIDate(risks.lastUpdated, {
         format: 'medium',

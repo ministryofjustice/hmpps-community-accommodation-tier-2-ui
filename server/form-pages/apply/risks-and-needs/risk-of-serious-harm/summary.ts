@@ -4,10 +4,11 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { DateFormats } from '../../../../utils/dateUtils'
+import { getOasysImportDateFromApplication } from '../../../utils'
 
 type SummaryBody = RoshRisks & {
   status: RiskEnvelopeStatus
-  dateOfOasysImport: string
+  oasysImportDate: string
   additionalComments?: string
 }
 
@@ -21,7 +22,6 @@ type SummaryBody = RoshRisks & {
     'riskToKnownAdult',
     'riskToStaff',
     'lastUpdated',
-    'dateOfOasysImport',
     'additionalComments',
   ],
 })
@@ -36,6 +36,8 @@ export default class Summary implements TaskListPage {
 
   questions = { additionalComments: 'Additional comments (optional)' }
 
+  importDate = getOasysImportDateFromApplication(this.application, 'risk-of-serious-harm')
+
   constructor(
     body: Partial<SummaryBody>,
     private readonly application: Application,
@@ -44,7 +46,6 @@ export default class Summary implements TaskListPage {
     if (this.body.status === 'retrieved') {
       this.risks = {
         ...this.body,
-        dateOfOasysImport: DateFormats.isoDateToUIDate(this.body.dateOfOasysImport, { format: 'medium' }),
         lastUpdated: this.body.lastUpdated
           ? DateFormats.isoDateToUIDate(this.body.lastUpdated, { format: 'medium' })
           : null,

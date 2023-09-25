@@ -1,5 +1,6 @@
 import type { Cas2Application as Application, Cas2Application } from '@approved-premises/api'
-import { stubFor } from '../../wiremock'
+import { getMatchingRequests, stubFor } from '../../wiremock'
+import paths from '../../server/paths/api'
 
 export default {
   stubCreateApplication: (args: { application: Application }) =>
@@ -61,6 +62,13 @@ export default {
         transformers: ['response-template'],
       },
     }),
+  verifyApplicationUpdate: async (applicationId: string) =>
+    (
+      await getMatchingRequests({
+        method: 'PUT',
+        url: paths.applications.update({ id: applicationId }),
+      })
+    ).body.requests,
   stubApplicationSubmit: (args: { application: Cas2Application }) =>
     stubFor({
       request: {

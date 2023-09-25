@@ -66,9 +66,10 @@ describe('OasysImport', () => {
 
         const taskData = {
           'risk-to-self': {
-            'current-risk': { currentRiskDetail: 'self harm answer', dateOfOasysImport: now },
-            vulnerability: { vulnerabilityDetail: 'vulnerability answer', dateOfOasysImport: now },
-            'historical-risk': { historicalRiskDetail: 'historical answer', dateOfOasysImport: now },
+            'current-risk': { currentRiskDetail: 'self harm answer' },
+            vulnerability: { vulnerabilityDetail: 'vulnerability answer' },
+            'historical-risk': { historicalRiskDetail: 'historical answer' },
+            'oasys-import': { oasysImportDate: now },
           },
         }
 

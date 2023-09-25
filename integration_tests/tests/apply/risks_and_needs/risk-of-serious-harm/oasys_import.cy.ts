@@ -55,7 +55,35 @@ context('Visit "Risks and needs" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
-    const oasys = oasysRoshFactory.build()
+    const oasys = oasysRoshFactory.build({
+      rosh: [
+        {
+          questionNumber: 'R10.1',
+          label: 'Who is at risk',
+          answer: 'who answer',
+        },
+        {
+          questionNumber: 'R10.2',
+          label: 'What is the nature of the risk',
+          answer: 'what answer',
+        },
+        {
+          questionNumber: 'R10.3',
+          label: 'When is the risk likely to be the greatest',
+          answer: 'when answer',
+        },
+        {
+          questionNumber: 'R10.4',
+          label: 'What circumstances are likely to increase risk',
+          answer: 'circumstances increase answer',
+        },
+        {
+          questionNumber: 'R10.5',
+          label: 'What circumstances are likely to reduce the risk',
+          answer: 'circumstances reduce answer',
+        },
+      ],
+    })
     const risks = risksFactory.build()
 
     cy.task('stubOasysRosh', {
@@ -180,5 +208,20 @@ context('Visit "Risks and needs" section', () => {
 
     //  Then I see the "RoSH summary" page
     Page.verifyOnPage(RoshSummaryPage, this.application)
+
+    cy.task('verifyApplicationUpdate', this.application.id).then(requests => {
+      expect(requests).to.have.length(1)
+
+      const body = JSON.parse(requests[0].body)
+
+      expect(body.data['risk-of-serious-harm']['oasys-import']).to.have.keys('oasysImportDate')
+      expect(body.data['risk-of-serious-harm']).to.have.keys(
+        'summary',
+        'risk-factors',
+        'oasys-import',
+        'reducing-risk',
+        'risk-to-others',
+      )
+    })
   })
 })

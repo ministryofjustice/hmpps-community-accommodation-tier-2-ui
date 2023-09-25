@@ -98,7 +98,7 @@ context('Visit "RoSH summary" page', () => {
     const page = Page.verifyOnPage(RoshSummaryPage, this.application)
 
     //    Then I see the data presented on the page
-    page.shouldShowRiskData(riskSummary)
+    page.shouldShowRiskData(riskSummary, this.application.data['risk-of-serious-harm']['oasys-import'].oasysImportDate)
   })
 
   //  Scenario: view 'unknown RoSH' card

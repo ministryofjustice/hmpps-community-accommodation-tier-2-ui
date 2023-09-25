@@ -86,9 +86,9 @@ export function pageDataFromApplication(Page: TaskListPageInterface, application
   return application.data?.[taskName]?.[pageName] || {}
 }
 
-export function getOasysImportDateFromApplication(application: Application, pageName: string): string | null {
-  if (application.data?.['risk-to-self']?.[pageName]?.dateOfOasysImport) {
-    return DateFormats.isoDateToUIDate(application.data['risk-to-self'][pageName].dateOfOasysImport, {
+export function getOasysImportDateFromApplication(application: Application, taskName: string): string | null {
+  if (application.data?.[taskName]?.['oasys-import']?.oasysImportDate) {
+    return DateFormats.isoDateToUIDate(application.data?.[taskName]?.['oasys-import']?.oasysImportDate, {
       format: 'medium',
     })
   }
