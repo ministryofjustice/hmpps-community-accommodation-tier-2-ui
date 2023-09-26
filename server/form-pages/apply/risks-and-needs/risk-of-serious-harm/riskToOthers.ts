@@ -56,10 +56,10 @@ export default class RiskToOthers implements TaskListPage {
       errors.confirmation = errorLookups.oasysConfirmation.empty
     }
     if (!this.body.natureOfRisk) {
-      errors.natureOfRisk = 'Enter the nature of the risk'
+      errors.natureOfRisk = errorLookups.natureOfRisk.empty
     }
     if (!this.body.whoIsAtRisk) {
-      errors.whoIsAtRisk = 'Enter who is at risk'
+      errors.whoIsAtRisk = errorLookups.whoIsAtRisk.empty
     }
 
     return errors

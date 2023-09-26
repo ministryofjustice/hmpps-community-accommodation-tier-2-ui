@@ -1,6 +1,7 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import RiskFactors from './riskFactors'
+import errorLookups from '../../../../i18n/en/errors.json'
 
 describe('RiskFactors', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -47,9 +48,9 @@ describe('RiskFactors', () => {
     it('returns an error when required fields are blank', () => {
       const page = new RiskFactors({}, application)
       expect(page.errors()).toEqual({
-        confirmation: 'Confirm that the information is relevant and up to date',
-        circumstancesLikelyToIncreaseRisk: 'Enter the circumstances that are likely to increase risk',
-        whenIsRiskLikelyToBeGreatest: 'Enter when the risk is likely to be the greatest',
+        confirmation: errorLookups.oasysConfirmation.empty,
+        circumstancesLikelyToIncreaseRisk: errorLookups.circumstancesLikelyToIncreaseRisk.empty,
+        whenIsRiskLikelyToBeGreatest: errorLookups.whenIsRiskLikelyToBeGreatest.empty,
       })
     })
   })

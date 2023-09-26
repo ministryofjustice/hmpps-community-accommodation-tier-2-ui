@@ -40,5 +40,20 @@
   },
   "oasysConfirmation": {
     "empty": "Confirm that the information is relevant and up to date"
+  },
+  "circumstancesLikelyToIncreaseRisk": {
+    "empty": "Enter the circumstances that are likely to increase risk"
+  },
+  "whenIsRiskLikelyToBeGreatest": {
+    "empty": "Enter when the risk is likely to be the greatest"
+  },
+  "factorsLikelyToReduceRisk": {
+    "empty": "Enter the factors that are likely to increase risk"
+  },
+  "natureOfRisk": {
+    "empty": "Enter the nature of the risk"
+  },
+  "whoIsAtRisk": {
+    "empty": "Enter who is at risk"
   }
 }

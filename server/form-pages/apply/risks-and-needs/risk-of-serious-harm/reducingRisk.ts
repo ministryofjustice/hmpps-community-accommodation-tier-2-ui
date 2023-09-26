@@ -57,7 +57,7 @@ export default class ReducingRisk implements TaskListPage {
       errors.confirmation = errorLookups.oasysConfirmation.empty
     }
     if (!this.body.factorsLikelyToReduceRisk) {
-      errors.factorsLikelyToReduceRisk = 'Enter the factors that are likely to increase risk'
+      errors.factorsLikelyToReduceRisk = errorLookups.factorsLikelyToReduceRisk.empty
     }
 
     return errors

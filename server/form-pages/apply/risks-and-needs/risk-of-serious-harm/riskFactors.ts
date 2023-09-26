@@ -61,10 +61,10 @@ export default class RiskFactors implements TaskListPage {
       errors.confirmation = errorLookups.oasysConfirmation.empty
     }
     if (!this.body.circumstancesLikelyToIncreaseRisk) {
-      errors.circumstancesLikelyToIncreaseRisk = 'Enter the circumstances that are likely to increase risk'
+      errors.circumstancesLikelyToIncreaseRisk = errorLookups.circumstancesLikelyToIncreaseRisk.empty
     }
     if (!this.body.whenIsRiskLikelyToBeGreatest) {
-      errors.whenIsRiskLikelyToBeGreatest = 'Enter when the risk is likely to be the greatest'
+      errors.whenIsRiskLikelyToBeGreatest = errorLookups.whenIsRiskLikelyToBeGreatest.empty
     }
 
     return errors
