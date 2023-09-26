@@ -11,6 +11,11 @@
 //  Scenario: view 'risk factors' page
 //    Then I see the "risk factors" page
 //
+//  Scenario: view 'risk factors' page with auto-populated OASyS data
+//    Then I see the "risk factors" page
+//    With an OASyS import date
+//    And pre-filled questions
+//
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I continue to the next task / page
 //    Then I see the "reducing risk" page
@@ -37,6 +42,15 @@ context('Visit "risk factors" page', () => {
       })
       cy.wrap(application).as('application')
     })
+
+    cy.fixture('applicationData.json').then(applicationData => {
+      const application = applicationFactory.build({
+        id: 'abc123',
+        person,
+        data: applicationData,
+      })
+      cy.wrap(application).as('applicationWithData')
+    })
   })
 
   beforeEach(function test() {
@@ -62,11 +76,28 @@ context('Visit "risk factors" page', () => {
     Page.verifyOnPage(RiskFactorsPage, this.application)
   })
 
+  //  Scenario: view 'risk factors' page with auto-populated OASyS data
+  // ----------------------------------------------
+  it('presents auto-populated risk factors page', function test() {
+    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    RiskFactorsPage.visit(this.application)
+    //    Then I see the "risk factors" page
+    const page = Page.verifyOnPage(RiskFactorsPage, this.applicationWithData)
+    //    With an OASyS import date
+    page.shouldShowOasysImportDate(this.applicationWithData, 'risk-of-serious-harm')
+    //    And pre-filled questions
+    page.checkValueOfTextInputById('circumstancesLikelyToIncreaseRisk', 'a circumstance')
+    page.checkValueOfTextInputById('whenIsRiskLikelyToBeGreatest', 'a time')
+  })
+
   //  Scenario: navigate to next page in "Risk of serious harm" task
   // ----------------------------------------------
   it('navigates to the next page', function test() {
     //    When I continue to the next task / page
     const page = Page.verifyOnPage(RiskFactorsPage, this.application)
+    page.getTextInputByIdAndEnterDetails('circumstancesLikelyToIncreaseRisk', 'example data')
+    page.getTextInputByIdAndEnterDetails('whenIsRiskLikelyToBeGreatest', 'example data')
+    page.clickConfirm()
     page.clickSubmit()
 
     //    Then I see the "reducing risk" page

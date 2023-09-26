@@ -17,18 +17,39 @@ describe('ReducingRisk', () => {
   itShouldHavePreviousValue(new ReducingRisk({}, application), 'risk-factors')
 
   describe('response', () => {
-    it('not implemented', () => {
-      const page = new ReducingRisk({}, application)
+    it('returns the correct plain english responses for the questions', () => {
+      const page = new ReducingRisk(
+        {
+          factorsLikelyToReduceRisk: 'some factors',
+          confirmation: 'confirmed',
+        },
+        application,
+      )
 
-      expect(page.response()).toEqual({})
+      expect(page.response()).toEqual({
+        'What factors are likely to reduce risk?': 'some factors',
+        'I confirm this information is relevant and up to date.': 'confirmed',
+      })
     })
   })
 
   describe('errors', () => {
-    it('not implemented', () => {
+    it('returns an error when required fields are blank', () => {
+      const page = new ReducingRisk({}, application)
+      expect(page.errors()).toEqual({
+        confirmation: 'Confirm that the information is relevant and up to date',
+        factorsLikelyToReduceRisk: 'Enter the factors that are likely to increase risk',
+      })
+    })
+  })
+
+  describe('items', () => {
+    it('returns the checkbox as expected', () => {
       const page = new ReducingRisk({}, application)
 
-      expect(page.errors()).toEqual({})
+      expect(page.items()).toEqual([
+        { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
+      ])
     })
   })
 })

@@ -1,11 +1,42 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "./_risk-of-serious-harm-screen.njk" %}
+{% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
+
 {% set pageName = "reducing-risk" %}
 
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+  {% if page.importDate %}
+    {{dateOfOasysImport(page.importDate)}}
+  {% endif %}
 
-  <p class="govuk-body">
-    Reducing risk
-  </p>
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'factorsLikelyToReduceRisk',
+          label: {
+            text: page.questions.factorsLikelyToReduceRisk.question,
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: page.questions.factorsLikelyToReduceRisk.hint
+          }
+        },
+        fetchContext()
+      )
+  }}
+
+  {{ govukInsetText({
+    text: "If the OASys record was out of date, you should update the record in OASys too."
+  }) }}
+
+  {{ 
+      formPageCheckboxes(
+          {
+            fieldName: "confirmation",
+            items: page.items()
+          }, 
+          fetchContext()
+      ) 
+  }}
 
 {% endblock %}
