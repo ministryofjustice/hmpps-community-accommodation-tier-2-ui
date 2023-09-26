@@ -16,7 +16,6 @@ export default defineConfig({
   reporterOptions: {
     configFile: 'reporter-config.json',
   },
-  videoUploadOnPasses: false,
   taskTimeout: 70000,
   e2e: {
     setupNodeEvents(on) {
