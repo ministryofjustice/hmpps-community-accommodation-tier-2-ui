@@ -71,4 +71,8 @@ export default abstract class Page {
   checkValueOfTextInputById(id: string, expectedValue: string): void {
     cy.get(`#${id}`).should('have.value', expectedValue)
   }
+
+  clickRemove(): void {
+    cy.get('a').contains('Remove').click()
+  }
 }

@@ -17,11 +17,20 @@ export default class BehaviourNotes implements TaskListPage {
 
   body: BehaviourNotesBody
 
+  behaviourNotes: { behaviourDetail: string }
+
   constructor(
     body: Partial<BehaviourNotesBody>,
     private readonly application: Application,
   ) {
+    if (this.hasExistingNotes(application)) {
+      this.behaviourNotes = application.data['risk-of-serious-harm']['behaviour-notes-data']
+    }
     this.body = body as BehaviourNotesBody
+  }
+
+  private hasExistingNotes(application: Application) {
+    return application.data['risk-of-serious-harm'] && application.data['risk-of-serious-harm']['behaviour-notes-data']
   }
 
   previous() {

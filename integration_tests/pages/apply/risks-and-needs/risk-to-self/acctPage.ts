@@ -32,8 +32,4 @@ export default class AcctPage extends ApplyPage {
   hasNoAccts(): void {
     cy.get('.govuk-body').contains('No ACCT notes have been added.')
   }
-
-  clickRemove(): void {
-    cy.get('a').contains('Remove').click()
-  }
 }

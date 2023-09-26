@@ -1,11 +1,63 @@
 {% extends "./_risk-of-serious-harm-screen.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% set pageName = "behaviour-notes" %}
 
 {% block questions %}
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-  <p class="govuk-body">
-    Behaviour notes
-  </p>
+  <div class="govuk-body">
+    <p> Behaviour notes are positive or negative notes about an applicant's behaviour.</p>
+
+    <p> Examples of behaviour help the CAS-2 referral team consider risks and how suitable the applicant is for a placement.</p>
+
+    <p>You should share behaviour notes from the last year, or over any period of time if they show a pattern of behaviour.    </p>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  {% if page.behaviourNotes | length %}
+
+    {% for note in page.behaviourNotes %}
+
+      {{ govukSummaryList({
+      card: {
+        title: {
+          classes:  "govuk-summary-card__title-wrapper--flex-end"
+        },
+        actions: {
+          items: [
+            {
+              href: "/#",
+              text: "Remove",
+              visuallyHiddenText: "remove this note"
+            }
+          ]
+        }  
+      },
+      rows: [
+        {
+          key: {
+            text: "Details:"
+          },
+          value: {
+            html: note.behaviourDetail
+          }
+        }
+      ]
+    }) }}
+
+    {% endfor %}
+
+  {% else %}
+    <p class="govuk-body govuk-!-font-weight-bold">No behaviour notes have been added.</p>
+  {% endif %}
+
+  <div>
+    {{ govukButton({
+      text: "Add a behaviour note",
+      classes: "govuk-button--secondary",
+      href: paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'behaviour-notes-data' })
+    }) }}
+  </div>
 
 {% endblock %}
