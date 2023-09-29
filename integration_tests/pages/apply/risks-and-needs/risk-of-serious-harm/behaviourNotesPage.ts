@@ -22,4 +22,16 @@ export default class BehaviourNotesPage extends ApplyPage {
       }),
     )
   }
+
+  addABehaviourNote(): void {
+    cy.get('a').contains('Add a behaviour note').click()
+  }
+
+  hasListOfBehaviourNotes(): void {
+    cy.get('.govuk-summary-list').contains('some detail')
+  }
+
+  hasNoBehaviourNotes(): void {
+    cy.get('.govuk-body').contains('No behaviour notes have been added.')
+  }
 }
