@@ -26,6 +26,13 @@
             panel: {
               html: applicationsTable("In progress", dashboardTableRows(applications.inProgress))
               }
+          },
+          {
+            label: "Submitted",
+            id: "submitted",
+            panel: {
+              html: applicationsTable("Submitted", dashboardTableRows(applications.submitted))
+              }
           }
         ]
         })
