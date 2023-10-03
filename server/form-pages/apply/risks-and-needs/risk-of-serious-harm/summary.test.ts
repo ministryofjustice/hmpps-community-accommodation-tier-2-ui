@@ -56,7 +56,7 @@ describe('Summary', () => {
   })
 
   itShouldHaveNextValue(new Summary({}, application), 'risk-to-others')
-  itShouldHavePreviousValue(new Summary({}, application), 'oasys-import')
+  itShouldHavePreviousValue(new Summary({}, application), 'taskList')
 
   describe('response', () => {
     const body = {

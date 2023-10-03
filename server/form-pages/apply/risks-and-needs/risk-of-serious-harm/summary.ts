@@ -45,7 +45,7 @@ export default class Summary implements TaskListPage {
   }
 
   previous() {
-    return 'oasys-import'
+    return 'taskList'
   }
 
   next() {
