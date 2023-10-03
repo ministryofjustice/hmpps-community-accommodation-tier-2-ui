@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import Summary from './summary'
+import Summary, { SummaryBody } from './summary'
 
 describe('Summary', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -21,23 +21,68 @@ describe('Summary', () => {
     })
   })
 
+  describe('risks', () => {
+    describe('if there are no risk values', () => {
+      it('sets the last updated date to null', () => {
+        const body: SummaryBody = {
+          status: 'retrieved' as const,
+          oasysImportDate: '2023-09-15',
+        }
+
+        const page = new Summary(body, application)
+        expect(page.risks.lastUpdated).toBe(null)
+      })
+    })
+
+    describe('if risk values exists', () => {
+      it('sets the last updated date', () => {
+        const body: SummaryBody = {
+          status: 'retrieved' as const,
+          oasysImportDate: '2023-09-15',
+          value: {
+            overallRisk: 'a risk',
+            riskToChildren: 'another risk',
+            riskToPublic: 'a third risk',
+            riskToKnownAdult: 'a fourth risk',
+            riskToStaff: 'a fifth risk',
+            lastUpdated: '2023-09-17',
+          },
+        }
+
+        const page = new Summary(body, application)
+        expect(page.risks).toEqual({ ...body, lastUpdated: '17 September 2023' })
+      })
+    })
+  })
+
   itShouldHaveNextValue(new Summary({}, application), 'risk-to-others')
-  itShouldHavePreviousValue(new Summary({}, application), 'oasys-import')
+  itShouldHavePreviousValue(new Summary({}, application), 'taskList')
 
   describe('response', () => {
     const body = {
       status: 'retrieved' as const,
-      overallRisk: 'a risk',
-      riskToChildren: 'another risk',
-      riskToPublic: 'a third risk',
-      riskToKnownAdult: 'a fourth risk',
-      riskToStaff: 'a fifth risk',
-      lastUpdated: '2023-09-17',
+      oasysImportDate: '2023-09-15',
+      value: {
+        overallRisk: 'a risk',
+        riskToChildren: 'another risk',
+        riskToPublic: 'a third risk',
+        riskToKnownAdult: 'a fourth risk',
+        riskToStaff: 'a fifth risk',
+        lastUpdated: '2023-09-17',
+      },
+    } as SummaryBody
+
+    const expectedResponse = {
+      'Over all risk rating': body.value.overallRisk,
+      'Risk to children': body.value.riskToChildren,
+      'Risk to known adult': body.value.riskToKnownAdult,
+      'Risk to public': body.value.riskToPublic,
+      'Risk to staff': body.value.riskToStaff,
     }
     it('returns page body if no additional comments have been added', () => {
       const page = new Summary(body, application)
 
-      expect(page.response()).toEqual(body)
+      expect(page.response()).toEqual(expectedResponse)
     })
 
     it('returns page body and additional comments if a comment is added', () => {
@@ -47,7 +92,7 @@ describe('Summary', () => {
       }
       const page = new Summary(additionalBody, application)
 
-      expect(page.response()).toEqual({ ...body, 'Additional comments (optional)': 'some comment' })
+      expect(page.response()).toEqual({ ...expectedResponse, 'Additional comments (optional)': 'some comment' })
     })
   })
 
