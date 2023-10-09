@@ -58,11 +58,14 @@
         </div>
 
         {% block button %}
-
-          {{ govukButton({
-                text: "Save and add behaviour note"
-            }) }}
-
+          <div class="govuk-button-group">
+            {{ govukButton({
+                  text: "Save and add behaviour note"
+              }) }}
+            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'behaviour-notes' }) }}">
+                Cancel
+            </a>
+          </div>
         {% endblock %}
       </form>
     </div>
