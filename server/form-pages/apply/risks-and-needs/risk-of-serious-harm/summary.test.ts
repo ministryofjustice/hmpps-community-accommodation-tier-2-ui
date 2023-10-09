@@ -94,6 +94,24 @@ describe('Summary', () => {
 
       expect(page.response()).toEqual({ ...expectedResponse, 'Additional comments (optional)': 'some comment' })
     })
+
+    it('handles unknown risk ratings', () => {
+      const bodyWithoutRiskRatings = {
+        status: 'retrieved',
+        oasysImportDate: '2023-09-15',
+        value: null,
+      } as SummaryBody
+
+      const page = new Summary(bodyWithoutRiskRatings, application)
+
+      expect(page.response()).toEqual({
+        'Over all risk rating': 'Unknown',
+        'Risk to children': 'Unknown',
+        'Risk to known adult': 'Unknown',
+        'Risk to public': 'Unknown',
+        'Risk to staff': 'Unknown',
+      })
+    })
   })
 
   describe('errors', () => {

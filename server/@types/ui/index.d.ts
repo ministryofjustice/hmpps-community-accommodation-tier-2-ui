@@ -128,7 +128,9 @@ export type Divider = { divider: string }
 
 export interface GroupedApplications {
   inProgress: Array<ApplicationSummary>
+  submitted: Array<ApplicationSummary>
 }
+
 export type CheckboxItem =
   | {
       text: string

@@ -61,11 +61,11 @@ export default class Summary implements TaskListPage {
   response() {
     const riskRatings = this.body.value
     const response = {
-      'Over all risk rating': riskRatings.overallRisk,
-      'Risk to children': riskRatings.riskToChildren,
-      'Risk to known adult': riskRatings.riskToKnownAdult,
-      'Risk to public': riskRatings.riskToPublic,
-      'Risk to staff': riskRatings.riskToStaff,
+      'Over all risk rating': riskRatings?.overallRisk || 'Unknown',
+      'Risk to children': riskRatings?.riskToChildren || 'Unknown',
+      'Risk to known adult': riskRatings?.riskToKnownAdult || 'Unknown',
+      'Risk to public': riskRatings?.riskToPublic || 'Unknown',
+      'Risk to staff': riskRatings?.riskToStaff || 'Unknown',
     }
     if (this.body.additionalComments) {
       response[this.questions.additionalComments] = this.body.additionalComments
