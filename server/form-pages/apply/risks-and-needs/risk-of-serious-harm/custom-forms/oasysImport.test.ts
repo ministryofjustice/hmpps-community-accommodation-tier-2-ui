@@ -75,7 +75,7 @@ describe('OasysImport', () => {
 
         const taskData = {
           'risk-of-serious-harm': {
-            summary: {
+            'summary-data': {
               ...riskSummary,
               dateOfOasysImport: now,
             },

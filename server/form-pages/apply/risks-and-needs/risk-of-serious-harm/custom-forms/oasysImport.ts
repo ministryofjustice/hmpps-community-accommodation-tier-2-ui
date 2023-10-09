@@ -5,7 +5,7 @@ import TaskListPage from '../../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 import RiskToOthers from '../riskToOthers'
 import { DateFormats } from '../../../../../utils/dateUtils'
-import Summary from '../summary'
+import Summary, { SummaryData } from '../summary'
 
 type OasysImportBody = Record<string, never>
 
@@ -117,10 +117,10 @@ export default class OasysImport implements TaskListPage {
     const taskData = { 'risk-of-serious-harm': {} } as Partial<RoshTaskData>
     const today = new Date()
 
-    taskData['risk-of-serious-harm'].summary = {
+    taskData['risk-of-serious-harm']['summary-data'] = {
       ...risks,
       dateOfOasysImport: today,
-    }
+    } as SummaryData
 
     oasysSections.rosh.forEach(question => {
       switch (question.questionNumber) {

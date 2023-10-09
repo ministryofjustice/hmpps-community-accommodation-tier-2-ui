@@ -148,7 +148,7 @@
   },
   "risk-of-serious-harm": {
     "oasys-import": { "oasysImportDate": "2023-09-21T15:47:51.430Z" },
-    "summary": {
+    "summary-data": {
       "dateOfOasysImport": "2023-09-21T15:47:51.430Z",
       "status": "retrieved",
       "value": {
@@ -157,9 +157,11 @@
         "riskToPublic": "Very High",
         "riskToKnownAdult": "Medium",
         "riskToStaff": "Low",
-        "lastUpdated": "2023-09-18",
-        "additionalComments": "some comments"
+        "lastUpdated": "2022-11-02"
       }
+    },
+    "summary": {
+      "additionalComments": "some rosh comments"
     },
     "risk-to-others": {
       "whoIsAtRisk": "a person",

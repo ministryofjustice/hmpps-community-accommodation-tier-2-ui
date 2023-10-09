@@ -3,7 +3,7 @@ import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import paths from '../../../../../server/paths/apply'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
-import { RoshRisksEnvelope } from '../../../../../server/@types/shared/models/RoshRisksEnvelope'
+import { SummaryData } from '../../../../../server/form-pages/apply/risks-and-needs/risk-of-serious-harm/summary'
 
 export default class RoshSummaryPage extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -25,7 +25,7 @@ export default class RoshSummaryPage extends ApplyPage {
     )
   }
 
-  shouldShowRiskData = (risks: RoshRisksEnvelope, oasysImportDate: string): void => {
+  shouldShowRiskData = (risks: SummaryData, oasysImportDate: string): void => {
     cy.get('p').contains(
       `Imported from OASys on ${DateFormats.isoDateToUIDate(oasysImportDate, {
         format: 'medium',
