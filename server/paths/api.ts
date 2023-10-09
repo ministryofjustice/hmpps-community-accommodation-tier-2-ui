@@ -1,6 +1,6 @@
 import { path } from 'static-path'
 
-const peoplePath = path('/people')
+const peoplePath = path('/cas2/people')
 const personPath = peoplePath.path(':crn')
 const oasysPath = personPath.path('oasys')
 const applicationsPath = path('/cas2/applications')
