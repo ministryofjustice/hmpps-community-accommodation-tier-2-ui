@@ -78,7 +78,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/people/search`,
+          path: `/cas2/people/search`,
           query: {
             crn: 'crn',
           },
@@ -108,7 +108,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to get the risks for a person',
         withRequest: {
           method: 'GET',
-          path: `/people/${crn}/risks`,
+          path: `/cas2/people/${crn}/risks`,
           headers: {
             authorization: `Bearer ${token}`,
           },
