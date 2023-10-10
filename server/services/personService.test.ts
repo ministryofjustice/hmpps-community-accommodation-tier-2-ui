@@ -1,10 +1,4 @@
-import {
-  oasysRiskToSelfFactory,
-  oasysRoshFactory,
-  oasysSectionsFactory,
-  personFactory,
-  risksFactory,
-} from '../testutils/factories'
+import { oasysRiskToSelfFactory, oasysRoshFactory, personFactory, risksFactory } from '../testutils/factories'
 import PersonService from './personService'
 import { PersonClient } from '../data'
 
@@ -34,20 +28,6 @@ describe('Person Service', () => {
 
       expect(personClientFactory).toHaveBeenCalledWith(token)
       expect(personClient.search).toHaveBeenCalledWith('crn')
-    })
-  })
-
-  describe('getOasysSections', () => {
-    it('returns oasysSections', async () => {
-      const expectedOasysSections = oasysSectionsFactory.build()
-      personClient.oasysSections.mockResolvedValue(expectedOasysSections)
-
-      const oasysSections = await service.getOasysSections(token, 'crn')
-
-      expect(oasysSections).toEqual(expectedOasysSections)
-
-      expect(personClientFactory).toHaveBeenCalledWith(token)
-      expect(personClient.oasysSections).toHaveBeenCalledWith('crn')
     })
   })
 
