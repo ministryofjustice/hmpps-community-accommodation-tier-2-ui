@@ -28,16 +28,17 @@ expect.extend({
   },
   toMatchOpenAPISpec(pactPath) {
     const openAPIUrl =
-      'https://raw.githubusercontent.com/ministryofjustice/hmpps-approved-premises-api/ddf95a65a402ac9d3c83ab80ecd2442ed4a20b03/src/main/resources/static/api.yml'
+      'https://raw.githubusercontent.com/ministryofjustice/hmpps-approved-premises-api/4981eb92ef938eaab5b7acb2c571c59a6ea48f43/src/main/resources/static/codegen/built-cas2-api-spec.yml'
 
-    const openAPIPath = path.join(__dirname, '..', '..', 'tmp', 'api.yml')
+    const openAPIPath = path.join(__dirname, '..', '..', 'tmp', 'cas2-api.yml')
 
     try {
       execSync(`
-          if [ ! -f ${openAPIPath} ]; then
-            curl -s "${openAPIUrl}" > ${openAPIPath}
-          fi
-        `)
+        if [ ! -f ${openAPIPath} ]; then
+          curl -s "${openAPIUrl}" | sed -E 's@/application@/cas2/application@g' | sed -E 's@/people@/cas2/people@g' > ${openAPIPath}
+        fi
+      `)
+
       execSync(`npx swagger-mock-validator ${openAPIPath} ${pactPath}`)
       return {
         message: () => `Swagger mock validator for ${pactPath} did not fail`,
