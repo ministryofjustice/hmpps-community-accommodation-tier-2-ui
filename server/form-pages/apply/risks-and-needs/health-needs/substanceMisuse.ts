@@ -28,11 +28,11 @@ type SubstanceMisuseBody = {
   ],
 })
 export default class SubstanceMisuse implements TaskListPage {
-  documentTitle = 'Health needs for the person'
+  documentTitle = 'Substance misuse needs for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Health needs for ${nameOrPlaceholderCopy(this.application.person)}`
+  title = `Substance misuse needs for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = getQuestions(this.personName)['health-needs']['substance-misuse']
 
