@@ -5,10 +5,10 @@
   <span class="govuk-caption-l">{{ page.title }}</span>
 
   {% set optionalMixedBackground %}
-    {{
+  {{
       formPageInput(
         {
-          label: { text: page.questions.optionalMixedBackground},
+          label: { text: page.questions.optionalMixedBackground.question},
           classes: "govuk-input--width-20",
           fieldName: "optionalMixedBackground"
         },
@@ -23,7 +23,7 @@
         fieldName: "mixedBackground",
         fieldset: {
           legend: {
-            text: page.questions.mixedBackground,
+            text: page.questions.mixedBackground.question,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }

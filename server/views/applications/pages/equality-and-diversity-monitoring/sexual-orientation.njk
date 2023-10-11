@@ -3,13 +3,13 @@
 {% extends "../layout.njk" %}
 {% block questions %}
   <span class="govuk-caption-l">{{ page.title }}</span>
-  <h1 class="govuk-heading-l">{{ page.questions.orientation }}</h1>
+  <h1 class="govuk-heading-l">{{ page.questions.orientation.question }}</h1>
 
   {% set otherOrientation %}
-    {{
+  {{
       formPageInput(
         {
-          label: { text: page.questions.otherOrientation},
+          label: { text: page.questions.otherOrientation.question},
           classes: "govuk-input--width-20",
           fieldName: "otherOrientation"
         },

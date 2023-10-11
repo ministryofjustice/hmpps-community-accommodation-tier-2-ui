@@ -5,10 +5,10 @@
   <span class="govuk-caption-l">{{ page.title }}</span>
 
   {% set optionalBlackBackground %}
-    {{
+  {{
       formPageInput(
         {
-          label: { text: page.questions.optionalBlackBackground},
+          label: { text: page.questions.optionalBlackBackground.question},
           classes: "govuk-input--width-20",
           fieldName: "optionalBlackBackground"
         },
@@ -23,7 +23,7 @@
         fieldName: "blackBackground",
         fieldset: {
           legend: {
-            text: page.questions.blackBackground,
+            text: page.questions.blackBackground.question,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }

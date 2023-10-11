@@ -5,10 +5,10 @@
   <span class="govuk-caption-l">{{ page.title }}</span>
 
   {% set optionalReligion %}
-    {{
+  {{
       formPageInput(
         {
-          label: { text: page.questions.otherReligion},
+          label: { text: page.questions.otherReligion.question},
           classes: "govuk-input--width-20",
           fieldName: "optionalReligion"
         },
@@ -23,7 +23,7 @@
         fieldName: "religion",
         fieldset: {
           legend: {
-            text: page.questions.religion,
+            text: page.questions.religion.question,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
