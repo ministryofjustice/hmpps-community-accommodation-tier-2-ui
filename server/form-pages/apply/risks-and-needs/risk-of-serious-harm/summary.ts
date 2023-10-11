@@ -5,6 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { DateFormats } from '../../../../utils/dateUtils'
 import { getOasysImportDateFromApplication } from '../../../utils'
+import { getQuestions } from '../../../utils/questions'
 
 export type SummaryBody = {
   additionalComments?: string
@@ -19,13 +20,17 @@ export type SummaryData = RoshRisksEnvelope & { dateOfOasysImport: Date }
 export default class Summary implements TaskListPage {
   documentTitle = 'Risk of serious harm (RoSH) summary for the person'
 
-  title = `Risk of serious harm (RoSH) summary for ${nameOrPlaceholderCopy(this.application.person)}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Risk of serious harm (RoSH) summary for ${this.personName}`
 
   body: SummaryBody
 
   risks: SummaryData & { lastUpdated: string }
 
-  questions = { additionalComments: 'Additional comments (optional)' }
+  questions: {
+    additionalComments: string
+  }
 
   importDate = getOasysImportDateFromApplication(this.application, 'risk-of-serious-harm')
 
@@ -44,6 +49,11 @@ export default class Summary implements TaskListPage {
           ? DateFormats.isoDateToUIDate(summaryData.value.lastUpdated, { format: 'medium' })
           : null,
       }
+    }
+    const roshQuestions = getQuestions(this.personName)['risk-of-serious-harm']
+
+    this.questions = {
+      additionalComments: roshQuestions.summary.additionalComments.question,
     }
   }
 
