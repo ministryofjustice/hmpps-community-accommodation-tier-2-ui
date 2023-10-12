@@ -1,11 +1,5 @@
 import PersonClient from './personClient'
-import {
-  oasysRiskToSelfFactory,
-  oasysSectionsFactory,
-  personFactory,
-  oasysRoshFactory,
-  risksFactory,
-} from '../testutils/factories'
+import { oasysRiskToSelfFactory, personFactory, oasysRoshFactory, risksFactory } from '../testutils/factories'
 import paths from '../paths/api'
 
 import describeClient from '../testutils/describeClient'
@@ -17,62 +11,6 @@ describeClient('PersonClient', provider => {
 
   beforeEach(() => {
     personClient = new PersonClient(token)
-  })
-
-  describe('oasysSections', () => {
-    it('should return the sections of OASys when there is optional selected sections', async () => {
-      const crn = 'crn'
-      const optionalSections = [1, 2, 3]
-      const oasysSections = oasysSectionsFactory.build()
-
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request to get the optional selected sections of OASys for a person',
-        withRequest: {
-          method: 'GET',
-          path: paths.people.oasys.sections({ crn }),
-          query: {
-            'selected-sections': ['1', '2', '3'],
-          },
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          body: oasysSections,
-        },
-      })
-
-      const result = await personClient.oasysSections(crn, optionalSections)
-
-      expect(result).toEqual(oasysSections)
-    })
-
-    it('should return the sections of OASys with no optional selected sections', async () => {
-      const crn = 'crn'
-      const oasysSections = oasysSectionsFactory.build()
-
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request to get sections of OASys for a person',
-        withRequest: {
-          method: 'GET',
-          path: paths.people.oasys.sections({ crn }),
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          body: oasysSections,
-        },
-      })
-
-      const result = await personClient.oasysSections(crn)
-
-      expect(result).toEqual(oasysSections)
-    })
   })
 
   describe('oasysRiskToSelf', () => {
@@ -140,7 +78,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/people/search`,
+          path: `/cas2/people/search`,
           query: {
             crn: 'crn',
           },
@@ -170,7 +108,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to get the risks for a person',
         withRequest: {
           method: 'GET',
-          path: `/people/${crn}/risks`,
+          path: `/cas2/people/${crn}/risks`,
           headers: {
             authorization: `Bearer ${token}`,
           },
