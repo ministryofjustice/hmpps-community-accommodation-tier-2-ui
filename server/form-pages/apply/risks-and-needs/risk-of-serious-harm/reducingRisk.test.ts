@@ -38,7 +38,7 @@ describe('ReducingRisk', () => {
       const page = new ReducingRisk({}, application)
       expect(page.errors()).toEqual({
         confirmation: 'Confirm that the information is relevant and up to date',
-        factorsLikelyToReduceRisk: 'Enter the factors that are likely to increase risk',
+        factorsLikelyToReduceRisk: 'Enter the factors that are likely to reduce risk',
       })
     })
   })
