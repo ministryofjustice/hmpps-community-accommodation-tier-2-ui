@@ -57,14 +57,14 @@ export default class RiskFactors implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.confirmation) {
-      errors.confirmation = errorLookups.oasysConfirmation.empty
-    }
     if (!this.body.circumstancesLikelyToIncreaseRisk) {
       errors.circumstancesLikelyToIncreaseRisk = errorLookups.circumstancesLikelyToIncreaseRisk.empty
     }
     if (!this.body.whenIsRiskLikelyToBeGreatest) {
       errors.whenIsRiskLikelyToBeGreatest = errorLookups.whenIsRiskLikelyToBeGreatest.empty
+    }
+    if (!this.body.confirmation) {
+      errors.confirmation = errorLookups.oasysConfirmation.empty
     }
 
     return errors

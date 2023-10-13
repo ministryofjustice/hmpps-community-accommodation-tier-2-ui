@@ -52,14 +52,14 @@ export default class RiskToOthers implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.confirmation) {
-      errors.confirmation = errorLookups.oasysConfirmation.empty
+    if (!this.body.whoIsAtRisk) {
+      errors.whoIsAtRisk = errorLookups.whoIsAtRisk.empty
     }
     if (!this.body.natureOfRisk) {
       errors.natureOfRisk = errorLookups.natureOfRisk.empty
     }
-    if (!this.body.whoIsAtRisk) {
-      errors.whoIsAtRisk = errorLookups.whoIsAtRisk.empty
+    if (!this.body.confirmation) {
+      errors.confirmation = errorLookups.oasysConfirmation.empty
     }
 
     return errors

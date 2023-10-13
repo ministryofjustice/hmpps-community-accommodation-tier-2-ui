@@ -53,11 +53,11 @@ export default class ReducingRisk implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.confirmation) {
-      errors.confirmation = errorLookups.oasysConfirmation.empty
-    }
     if (!this.body.factorsLikelyToReduceRisk) {
       errors.factorsLikelyToReduceRisk = errorLookups.factorsLikelyToReduceRisk.empty
+    }
+    if (!this.body.confirmation) {
+      errors.confirmation = errorLookups.oasysConfirmation.empty
     }
 
     return errors
