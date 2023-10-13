@@ -1,20 +1,20 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, RiskEnvelopeStatus, RoshRisksEnvelope } from '@approved-premises/api'
+import { Cas2Application as Application, RoshRisksEnvelope } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { DateFormats } from '../../../../utils/dateUtils'
 import { getOasysImportDateFromApplication } from '../../../utils'
 
-export type SummaryBody = RoshRisksEnvelope & {
-  status: RiskEnvelopeStatus
-  oasysImportDate: string
+export type SummaryBody = {
   additionalComments?: string
 }
 
+export type SummaryData = RoshRisksEnvelope & { dateOfOasysImport: Date }
+
 @Page({
   name: 'summary',
-  bodyProperties: ['status', 'oasysImportDate', 'value', 'additionalComments'],
+  bodyProperties: ['additionalComments'],
 })
 export default class Summary implements TaskListPage {
   documentTitle = 'Risk of serious harm (RoSH) summary for the person'
@@ -23,7 +23,7 @@ export default class Summary implements TaskListPage {
 
   body: SummaryBody
 
-  risks: RoshRisksEnvelope & { lastUpdated: string }
+  risks: SummaryData & { lastUpdated: string }
 
   questions = { additionalComments: 'Additional comments (optional)' }
 
@@ -34,14 +34,21 @@ export default class Summary implements TaskListPage {
     private readonly application: Application,
   ) {
     this.body = body as SummaryBody
-    if (this.body.status === 'retrieved') {
+    this.application = application
+
+    if (this.isSummaryDataRetrieved(application)) {
+      const summaryData = application.data['risk-of-serious-harm']['summary-data'] as SummaryData
       this.risks = {
-        ...this.body,
-        lastUpdated: this.body.value?.lastUpdated
-          ? DateFormats.isoDateToUIDate(this.body.value.lastUpdated, { format: 'medium' })
+        ...summaryData,
+        lastUpdated: summaryData.value?.lastUpdated
+          ? DateFormats.isoDateToUIDate(summaryData.value.lastUpdated, { format: 'medium' })
           : null,
       }
     }
+  }
+
+  private isSummaryDataRetrieved(application: Application) {
+    return application.data['risk-of-serious-harm']?.['summary-data']?.status === 'retrieved'
   }
 
   previous() {
@@ -59,13 +66,16 @@ export default class Summary implements TaskListPage {
   }
 
   response() {
-    const riskRatings = this.body.value
-    const response = {
-      'Over all risk rating': riskRatings?.overallRisk || 'Unknown',
-      'Risk to children': riskRatings?.riskToChildren || 'Unknown',
-      'Risk to known adult': riskRatings?.riskToKnownAdult || 'Unknown',
-      'Risk to public': riskRatings?.riskToPublic || 'Unknown',
-      'Risk to staff': riskRatings?.riskToStaff || 'Unknown',
+    let response = {}
+    if (this.isSummaryDataRetrieved(this.application)) {
+      const riskRatings = this.application.data['risk-of-serious-harm']['summary-data'].value
+      response = {
+        'Over all risk rating': riskRatings.overallRisk,
+        'Risk to children': riskRatings.riskToChildren,
+        'Risk to known adult': riskRatings.riskToKnownAdult,
+        'Risk to public': riskRatings.riskToPublic,
+        'Risk to staff': riskRatings.riskToStaff,
+      }
     }
     if (this.body.additionalComments) {
       response[this.questions.additionalComments] = this.body.additionalComments

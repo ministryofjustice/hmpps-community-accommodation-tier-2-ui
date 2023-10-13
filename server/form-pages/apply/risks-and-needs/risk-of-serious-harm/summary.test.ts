@@ -1,13 +1,35 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import Summary, { SummaryBody } from './summary'
+import Summary, { SummaryData } from './summary'
 
 describe('Summary', () => {
-  const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+  const roshSummaryData = {
+    status: 'retrieved' as const,
+    dateOfOasysImport: new Date('2023-09-15'),
+    value: {
+      overallRisk: 'a risk',
+      riskToChildren: 'another risk',
+      riskToPublic: 'a third risk',
+      riskToKnownAdult: 'a fourth risk',
+      riskToStaff: 'a fifth risk',
+      lastUpdated: '2023-09-17',
+    },
+  } as SummaryData
+
+  const person = personFactory.build({ name: 'Roger Smith' })
+
+  const applicationWithSummaryData = applicationFactory.build({
+    person,
+    data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryData } },
+  })
+
+  const applicationWithoutSummaryData = applicationFactory.build({
+    person,
+  })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new Summary({}, application)
+      const page = new Summary({}, applicationWithSummaryData)
 
       expect(page.title).toEqual(`Risk of serious harm (RoSH) summary for Roger Smith`)
     })
@@ -15,108 +37,141 @@ describe('Summary', () => {
 
   describe('import date', () => {
     it('sets importDate to null where application contains no OASys import date', () => {
-      const page = new Summary({}, application)
+      const page = new Summary({}, applicationWithSummaryData)
 
       expect(page.importDate).toEqual(null)
     })
   })
 
   describe('risks', () => {
-    describe('if there are no risk values', () => {
-      it('sets the last updated date to null', () => {
-        const body: SummaryBody = {
-          status: 'retrieved' as const,
-          oasysImportDate: '2023-09-15',
-        }
+    describe('if there is a last updated date', () => {
+      it('sets the last updated date to UI friendly string', () => {
+        const page = new Summary({}, applicationWithSummaryData)
 
-        const page = new Summary(body, application)
-        expect(page.risks.lastUpdated).toBe(null)
+        expect(page.risks.lastUpdated).toBe('17 September 2023')
       })
     })
 
-    describe('if risk values exists', () => {
-      it('sets the last updated date', () => {
-        const body: SummaryBody = {
+    describe('if there is not a last updated date', () => {
+      it('sets the last updated date to null', () => {
+        const roshSummaryDataWithoutLastUpdated = {
           status: 'retrieved' as const,
-          oasysImportDate: '2023-09-15',
+          dateOfOasysImport: new Date('2023-09-15'),
           value: {
             overallRisk: 'a risk',
             riskToChildren: 'another risk',
             riskToPublic: 'a third risk',
             riskToKnownAdult: 'a fourth risk',
             riskToStaff: 'a fifth risk',
-            lastUpdated: '2023-09-17',
           },
-        }
+        } as SummaryData
 
-        const page = new Summary(body, application)
-        expect(page.risks).toEqual({ ...body, lastUpdated: '17 September 2023' })
+        const page = new Summary(
+          {},
+          {
+            ...applicationWithSummaryData,
+            data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutLastUpdated } },
+          },
+        )
+
+        expect(page.risks.lastUpdated).toBe(null)
+      })
+    })
+
+    describe('if the risks have not been found', () => {
+      it('sets the risks to undefined', () => {
+        const roshSummaryDataWithoutValue = {
+          status: 'not_found' as const,
+          dateOfOasysImport: new Date('2023-09-15'),
+        } as SummaryData
+
+        const page = new Summary(
+          {},
+          {
+            ...applicationWithSummaryData,
+            data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutValue } },
+          },
+        )
+
+        expect(page.risks).toBe(undefined)
+      })
+    })
+
+    describe('if the risks have been found but there are no values', () => {
+      it('sets the risks to undefined', () => {
+        const roshSummaryDataWithoutValue = {
+          status: 'retrieved' as const,
+          dateOfOasysImport: new Date('2023-09-15'),
+        } as SummaryData
+
+        const page = new Summary(
+          {},
+          {
+            ...applicationWithSummaryData,
+            data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutValue } },
+          },
+        )
+
+        expect(page.risks.lastUpdated).toBe(null)
+      })
+    })
+
+    describe('if risk values exists', () => {
+      it('sets the risks', () => {
+        const page = new Summary({}, applicationWithSummaryData)
+        expect(page.risks).toEqual({ ...roshSummaryData, lastUpdated: '17 September 2023' })
+      })
+    })
+
+    describe('if there is no summary data', () => {
+      it('sets the risks to undefined', () => {
+        const page = new Summary({}, applicationWithoutSummaryData)
+
+        expect(page.risks).toBe(undefined)
       })
     })
   })
 
-  itShouldHaveNextValue(new Summary({}, application), 'risk-to-others')
-  itShouldHavePreviousValue(new Summary({}, application), 'taskList')
+  itShouldHaveNextValue(new Summary({}, applicationWithSummaryData), 'risk-to-others')
+  itShouldHavePreviousValue(new Summary({}, applicationWithSummaryData), 'taskList')
 
   describe('response', () => {
     const body = {
-      status: 'retrieved' as const,
-      oasysImportDate: '2023-09-15',
-      value: {
-        overallRisk: 'a risk',
-        riskToChildren: 'another risk',
-        riskToPublic: 'a third risk',
-        riskToKnownAdult: 'a fourth risk',
-        riskToStaff: 'a fifth risk',
-        lastUpdated: '2023-09-17',
-      },
-    } as SummaryBody
+      additionalComments: 'some additional comments',
+    }
 
     const expectedResponse = {
-      'Over all risk rating': body.value.overallRisk,
-      'Risk to children': body.value.riskToChildren,
-      'Risk to known adult': body.value.riskToKnownAdult,
-      'Risk to public': body.value.riskToPublic,
-      'Risk to staff': body.value.riskToStaff,
+      'Over all risk rating': roshSummaryData.value.overallRisk,
+      'Risk to children': roshSummaryData.value.riskToChildren,
+      'Risk to known adult': roshSummaryData.value.riskToKnownAdult,
+      'Risk to public': roshSummaryData.value.riskToPublic,
+      'Risk to staff': roshSummaryData.value.riskToStaff,
     }
     it('returns page body if no additional comments have been added', () => {
-      const page = new Summary(body, application)
+      const page = new Summary({}, applicationWithSummaryData)
 
       expect(page.response()).toEqual(expectedResponse)
     })
 
     it('returns page body and additional comments if a comment is added', () => {
-      const additionalBody = {
-        ...body,
-        additionalComments: 'some comment',
-      }
-      const page = new Summary(additionalBody, application)
-
-      expect(page.response()).toEqual({ ...expectedResponse, 'Additional comments (optional)': 'some comment' })
-    })
-
-    it('handles unknown risk ratings', () => {
-      const bodyWithoutRiskRatings = {
-        status: 'retrieved',
-        oasysImportDate: '2023-09-15',
-        value: null,
-      } as SummaryBody
-
-      const page = new Summary(bodyWithoutRiskRatings, application)
+      const page = new Summary(body, applicationWithSummaryData)
 
       expect(page.response()).toEqual({
-        'Over all risk rating': 'Unknown',
-        'Risk to children': 'Unknown',
-        'Risk to known adult': 'Unknown',
-        'Risk to public': 'Unknown',
-        'Risk to staff': 'Unknown',
+        ...expectedResponse,
+        'Additional comments (optional)': 'some additional comments',
       })
+    })
+
+    it('returns nothing if there is no answer data', () => {
+      const page = new Summary({}, applicationWithoutSummaryData)
+
+      expect(page.response()).toEqual({})
     })
   })
 
   describe('errors', () => {
     it('not implemented', () => {
-      const page = new Summary({}, application)
+      const page = new Summary({}, applicationWithSummaryData)
 
       expect(page.errors()).toEqual({})
     })

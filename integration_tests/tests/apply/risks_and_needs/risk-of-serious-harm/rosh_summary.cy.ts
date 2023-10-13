@@ -28,10 +28,11 @@ import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import RoshSummaryPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/roshSummaryPage'
 import RiskToOthersPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/riskToOthersPage'
+import { SummaryData } from '../../../../../server/form-pages/apply/risks-and-needs/risk-of-serious-harm/summary'
 
 context('Visit "RoSH summary" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
-  let riskSummary
+  let riskSummaryData: SummaryData
 
   beforeEach(function test() {
     cy.task('reset')
@@ -39,7 +40,7 @@ context('Visit "RoSH summary" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      riskSummary = applicationData['risk-of-serious-harm'].summary
+      riskSummaryData = applicationData['risk-of-serious-harm']['summary-data']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -59,13 +60,13 @@ context('Visit "RoSH summary" page', () => {
     })
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['risk-of-serious-harm'].summary
+      delete applicationData['risk-of-serious-harm']['summary-data']
       const application = applicationFactory.build({
         id: 'abc1234',
         person,
         data: applicationData,
       })
-      cy.wrap(application).as('applicationWithoutSummary')
+      cy.wrap(application).as('applicationWithoutSummaryData')
     })
   })
 
@@ -98,15 +99,18 @@ context('Visit "RoSH summary" page', () => {
     const page = Page.verifyOnPage(RoshSummaryPage, this.application)
 
     //    Then I see the data presented on the page
-    page.shouldShowRiskData(riskSummary, this.application.data['risk-of-serious-harm']['oasys-import'].oasysImportDate)
+    page.shouldShowRiskData(
+      riskSummaryData,
+      this.application.data['risk-of-serious-harm']['oasys-import'].oasysImportDate,
+    )
   })
 
   //  Scenario: view 'unknown RoSH' card
   // ----------------------------------------------
   it('presents unknown risk card', function test() {
     //    Given there is no risk summary data
-    cy.task('stubApplicationGet', { application: this.applicationWithoutSummary })
-    RoshSummaryPage.visit(this.applicationWithoutSummary)
+    cy.task('stubApplicationGet', { application: this.applicationWithoutSummaryData })
+    RoshSummaryPage.visit(this.applicationWithoutSummaryData)
     const page = Page.verifyOnPage(RoshSummaryPage, this.application)
 
     //    Then I see the unknown RoSH card
