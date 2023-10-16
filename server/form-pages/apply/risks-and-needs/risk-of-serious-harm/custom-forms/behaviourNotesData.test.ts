@@ -15,7 +15,7 @@ describe('BehaviourNotesData', () => {
     it('has a page title', () => {
       const page = new BehaviourNotesData({}, application)
 
-      expect(page.title).toEqual('Add a behaviour note')
+      expect(page.title).toEqual('Add a behaviour note for Roger Smith')
     })
   })
 

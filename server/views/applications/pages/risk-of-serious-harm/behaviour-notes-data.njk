@@ -8,6 +8,7 @@
 
   <div class="govuk-grid-row">
     <div class="{{ columnClasses | default("govuk-grid-column-three-quarters") }}">
+      {{ showErrorSummary(errorSummary) }}
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
       <div class="govuk-body">
         <p>Behaviour notes are positive or negative notes about an applicant's behaviour.</p>
@@ -31,8 +32,6 @@
       <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-        {{ showErrorSummary(errorSummary) }}
-
         {{
             formPageTextArea(
               {
@@ -40,6 +39,9 @@
                 label: {
                   text: page.questions.behaviourDetail.question,
                   classes: "govuk-label--m"
+                },
+                hint: {
+                  text: page.questions.behaviourDetail.hint
                 }
               },
               fetchContext()
@@ -55,11 +57,14 @@
         </div>
 
         {% block button %}
-
-          {{ govukButton({
-                text: "Save and add behaviour note"
-            }) }}
-
+          <div class="govuk-button-group">
+            {{ govukButton({
+                  text: "Save and add behaviour note"
+              }) }}
+            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-of-serious-harm', page: 'behaviour-notes' }) }}">
+                Cancel
+            </a>
+          </div>
         {% endblock %}
       </form>
     </div>

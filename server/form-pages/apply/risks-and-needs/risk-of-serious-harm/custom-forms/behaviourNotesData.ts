@@ -2,6 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
+import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
 export type BehaviourNotesDataBody = {
   behaviourDetail: string
@@ -12,9 +13,9 @@ export type BehaviourNotesDataBody = {
   bodyProperties: ['behaviourDetail'],
 })
 export default class BehaviourNotesData implements TaskListPage {
-  title = 'Add a behaviour note'
+  documentTitle = 'Add a behaviour note'
 
-  documentTitle = this.title
+  title = `Add a behaviour note for ${nameOrPlaceholderCopy(this.application.person)}`
 
   body: BehaviourNotesDataBody
 
