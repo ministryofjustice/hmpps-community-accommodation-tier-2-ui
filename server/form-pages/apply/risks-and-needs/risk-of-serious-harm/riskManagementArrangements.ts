@@ -26,9 +26,11 @@ export type RiskManagementArrangementsBody = {
   bodyProperties: ['arrangements', 'mappaDetails', 'maracDetails', 'iomDetails'],
 })
 export default class RiskManagementArrangements implements TaskListPage {
-  documentTitle = 'Risk management arrangements for the person'
+  documentTitle = 'Risk management arrangements'
 
-  title = `Risk management arrangements for ${nameOrPlaceholderCopy(this.application.person)}`
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Risk management arrangements for ${this.personName}`
 
   body: RiskManagementArrangementsBody
 

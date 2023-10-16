@@ -48,7 +48,7 @@
     "empty": "Enter when the risk is likely to be the greatest"
   },
   "factorsLikelyToReduceRisk": {
-    "empty": "Enter the factors that are likely to increase risk"
+    "empty": "Enter the factors that are likely to reduce risk"
   },
   "natureOfRisk": {
     "empty": "Enter the nature of the risk"
