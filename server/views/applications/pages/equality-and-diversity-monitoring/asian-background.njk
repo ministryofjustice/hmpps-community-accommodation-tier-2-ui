@@ -5,10 +5,10 @@
   <span class="govuk-caption-l">{{ page.title }}</span>
 
   {% set optionalAsianBackground %}
-    {{
+  {{
       formPageInput(
         {
-          label: { text: page.questions.optionalAsianBackground},
+          label: { text: page.questions.optionalAsianBackground.question},
           classes: "govuk-input--width-20",
           fieldName: "optionalAsianBackground"
         },
@@ -23,7 +23,7 @@
         fieldName: "asianBackground",
         fieldset: {
           legend: {
-            text: page.questions.asianBackground,
+            text: page.questions.asianBackground.question,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }

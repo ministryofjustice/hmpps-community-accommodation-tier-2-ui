@@ -1,19 +1,20 @@
-import type { TaskListErrors, YesNoOrIDK } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
+import { getQuestions } from '../../../utils/questions'
 
-export const options = {
-  yes: 'Yes',
-  no: 'No',
-  dontKnow: `I don't know`,
-}
+const applicationQuestions = getQuestions('')
+
+export const options =
+  applicationQuestions['equality-and-diversity-monitoring']['parental-carer-responsibilities']
+    .hasParentalOrCarerResponsibilities.answers
 
 export type ParentalCarerResponsibilitiesBody = {
-  hasParentalOrCarerResponsibilities: YesNoOrIDK
+  hasParentalOrCarerResponsibilities: YesNoOrDontKnow
 }
 
 @Page({
@@ -27,9 +28,7 @@ export default class ParentalCarerResponsibilities implements TaskListPage {
 
   title = `Equality and diversity questions for ${this.personName}`
 
-  questions = {
-    hasParentalOrCarerResponsibilities: `Does ${this.personName} have parental or carer responsibilities?`,
-  }
+  questions = getQuestions(this.personName)['equality-and-diversity-monitoring']['parental-carer-responsibilities']
 
   body: ParentalCarerResponsibilitiesBody
 
@@ -56,7 +55,8 @@ export default class ParentalCarerResponsibilities implements TaskListPage {
 
   response() {
     return {
-      [this.questions.hasParentalOrCarerResponsibilities]: options[this.body.hasParentalOrCarerResponsibilities],
+      [this.questions.hasParentalOrCarerResponsibilities.question]:
+        options[this.body.hasParentalOrCarerResponsibilities],
     }
   }
 

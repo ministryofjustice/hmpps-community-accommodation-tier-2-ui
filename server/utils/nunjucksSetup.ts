@@ -12,6 +12,7 @@ import { inProgressApplicationTableRows, submittedApplicationTableRows } from '.
 import * as TaskListUtils from './taskListUtils'
 import * as OasysImportUtils from './oasysImportUtils'
 import { dateFieldValues } from './formUtils'
+import { checkYourAnswersSections } from './checkYourAnswersUtils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -74,4 +75,5 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   }
 
   njkEnv.addGlobal('dateFieldValues', dateFieldValues)
+  njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
 }

@@ -11,7 +11,7 @@
         fieldName: "sex",
         fieldset: {
           legend: {
-            text: page.questions.sex,
+            text: page.questions.sex.question,
             isPageHeading: false,
             classes: "govuk-fieldset__legend--m"
           }
@@ -23,10 +23,10 @@
   }}
 
   {% set optionalGenderIdentity %}
-    {{
+  {{
       formPageInput(
         {
-          label: { text: page.questions.optionalGenderIdentity},
+          label: { text: page.questions.optionalGenderIdentity.question},
           classes: "govuk-input--width-20",
           fieldName: "optionalGenderIdentity"
         },
@@ -41,7 +41,7 @@
         fieldName: "gender",
         fieldset: {
           legend: {
-            text: page.questions.gender,
+            text: page.questions.gender.question,
             isPageHeading: false,
             classes: "govuk-fieldset__legend--m"
           }

@@ -33,7 +33,7 @@ export type YesOrNo = 'yes' | 'no'
 
 export type YesOrNoOrPreferNotToSay = 'yes' | 'no' | 'preferNotToSay'
 
-export type YesNoOrIDK = YesOrNo | 'iDontKnow'
+export type YesNoOrDontKnow = YesOrNo | 'dontKnow'
 
 export type YesOrNoWithDetail<T extends string> = {
   [K in T]: YesOrNo
@@ -136,3 +136,24 @@ export type CheckboxItem =
       checked?: boolean
     }
   | Divider
+
+export interface SummaryListItem {
+  key: TextItem | HtmlItem
+  value: TextItem | HtmlItem
+  actions?: { items: Array<SummaryListActionItem> }
+}
+
+export type Task = {
+  id: string
+  title: string
+  actionText: string
+  pages: Record<string, unknown>
+}
+
+export interface TextItem {
+  text: string
+}
+
+export interface HtmlItem {
+  html: string
+}

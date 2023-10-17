@@ -1,19 +1,18 @@
-import type { TaskListErrors, YesNoOrIDK } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
+import { getQuestions } from '../../../utils/questions'
 
-export const options = {
-  yes: 'Yes',
-  no: 'No',
-  dontKnow: `I don't know`,
-}
+const applicationQuestions = getQuestions('')
+
+export const options = applicationQuestions['equality-and-diversity-monitoring']['military-veteran'].isVeteran.answers
 
 export type MilitaryVeteranBody = {
-  isVeteran: YesNoOrIDK
+  isVeteran: YesNoOrDontKnow
 }
 
 @Page({
@@ -23,11 +22,11 @@ export type MilitaryVeteranBody = {
 export default class MilitaryVeteran implements TaskListPage {
   documentTitle = 'Is the person a military veteran?'
 
-  title = `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`
+  personName = nameOrPlaceholderCopy(this.application.person)
 
-  questions = {
-    isVeteran: `Is ${nameOrPlaceholderCopy(this.application.person)} a military veteran?`,
-  }
+  title = `Equality and diversity questions for ${this.personName}`
+
+  questions = getQuestions(this.personName)['equality-and-diversity-monitoring']['military-veteran']
 
   body: MilitaryVeteranBody
 
@@ -54,7 +53,7 @@ export default class MilitaryVeteran implements TaskListPage {
 
   response() {
     return {
-      [this.questions.isVeteran]: options[this.body.isVeteran],
+      [this.questions.isVeteran.question]: options[this.body.isVeteran],
     }
   }
 
