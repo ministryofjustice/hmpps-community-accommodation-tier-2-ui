@@ -88,7 +88,10 @@ describe('LearningDifficulties', () => {
 
       describe('and _needsDetail_ is UNANSWERED', () => {
         it('includes a validation error for _needsDetail_', () => {
-          expect(page.errors()).toHaveProperty('needsDetail', 'Describe the additional support required')
+          expect(page.errors()).toHaveProperty(
+            'needsDetail',
+            'Describe their additional needs relating to learning difficulties or neurodiversity',
+          )
         })
       })
     })
