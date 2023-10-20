@@ -4,6 +4,8 @@ import * as checkYourAnswersUtils from './checkYourAnswersUtils'
 import * as getQuestionsUtil from '../form-pages/utils/questions'
 import { formatLines } from './viewUtils'
 import applicationData from '../../integration_tests/fixtures/applicationData.json'
+import Apply from '../form-pages/apply'
+import { UnknownPageError } from './errors'
 
 jest.mock('./formUtils')
 jest.mock('./viewUtils')
@@ -15,8 +17,8 @@ const {
   getAnswer,
   summaryListItemForQuestion,
   checkYourAnswersSections,
-  getAcctMetadata,
   getSectionsWithAnswers,
+  getPage,
 } = checkYourAnswersUtils
 
 const { getQuestions } = getQuestionsUtil
@@ -44,6 +46,8 @@ describe('checkYourAnswersUtils', () => {
     data: applicationData,
   })
 
+  ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
+
   describe('checkYourAnswersSections', () => {
     it('returns an array of section tiles', () => {
       const sections = [
@@ -68,7 +72,8 @@ describe('checkYourAnswersUtils', () => {
   describe('getTaskAnswersAsSummaryListItems', () => {
     it('returns an array of summary list items for a given task', () => {
       jest.spyOn(getQuestionsUtil, 'getQuestions').mockImplementationOnce(jest.fn(() => mockQuestions))
-      ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
+
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValue(jest.fn())
 
       const mockApplication = applicationFactory.build({
         data: {
@@ -85,7 +90,7 @@ describe('checkYourAnswersUtils', () => {
 
       const expected = [
         {
-          key: { text: 'A question' },
+          key: { html: 'A question' },
           value: { html: 'No' },
           actions: {
             items: [
@@ -98,7 +103,7 @@ describe('checkYourAnswersUtils', () => {
           },
         },
         {
-          key: { text: 'Another question' },
+          key: { html: 'Another question' },
           value: { html: 'some answer' },
           actions: {
             items: [
@@ -117,52 +122,74 @@ describe('checkYourAnswersUtils', () => {
   })
 
   describe('addPageAnswersToItemsArray', () => {
+    const mockApplication = applicationFactory.build({
+      data: {
+        'confirm-eligibility': {
+          page1: {
+            question1: 'no',
+            question2: 'an answer',
+          },
+        },
+      },
+    })
+
     it('adds each page answer to the items array by default', () => {
+      const mockedConfirmEligibilityQuestion = {
+        'confirm-eligibility': {
+          page1: {
+            question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+            question2: { question: 'Another question' },
+          },
+        },
+      } as unknown as Questions
+
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
       const items: Array<SummaryListItem> = []
 
       const expected = [
         {
-          key: { text: 'Is there any other risk information for Roger Smith?' },
-          value: { html: 'Yes' },
+          key: { html: 'A question' },
+          value: { html: 'No' },
           actions: {
             items: [
               {
-                href: `/applications/${application.id}/tasks/risk-of-serious-harm/pages/additional-risk-information`,
+                href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
                 text: 'Change',
-                visuallyHiddenText: 'Is there any other risk information for Roger Smith?',
+                visuallyHiddenText: 'A question',
               },
             ],
           },
         },
         {
-          key: { text: 'Additional information' },
-          value: { html: 'some information' },
+          key: { html: 'Another question' },
+          value: { html: 'an answer' },
           actions: {
             items: [
               {
-                href: `/applications/${application.id}/tasks/risk-of-serious-harm/pages/additional-risk-information`,
+                href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
                 text: 'Change',
-                visuallyHiddenText: 'Additional information',
+                visuallyHiddenText: 'Another question',
               },
             ],
           },
         },
       ]
 
-      ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
-
       addPageAnswersToItemsArray({
         items,
-        application,
-        task: 'risk-of-serious-harm',
-        pageKey: 'additional-risk-information',
-        questions,
+        application: mockApplication,
+        task: 'confirm-eligibility',
+        pageKey: 'page1',
+        questions: mockedConfirmEligibilityQuestion,
       })
 
       expect(items).toEqual(expected)
     })
 
     it(`does not add to items array if question keys don't refer to questions`, () => {
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
       const items: Array<SummaryListItem> = []
 
       addPageAnswersToItemsArray({
@@ -177,8 +204,21 @@ describe('checkYourAnswersUtils', () => {
     })
 
     it('does not add questions to the items array if there is no answer', () => {
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
+      const mockApplicationNoAnswers = applicationFactory.build({
+        data: {
+          'confirm-eligibility': {
+            page1: {
+              question1: '',
+              question2: '',
+            },
+          },
+        },
+      })
+
       const mockedQuestions = {
-        task1: {
+        'confirm-eligibility': {
           page1: {
             question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
             question2: { question: 'Another question' },
@@ -186,46 +226,62 @@ describe('checkYourAnswersUtils', () => {
         },
       }
 
-      const mockApplication = applicationFactory.build({
-        data: {
-          task1: {
-            page1: {
-              question1: 'no',
-              question2: '',
-            },
-          },
+      const items: Array<SummaryListItem> = []
+
+      addPageAnswersToItemsArray({
+        items,
+        application: mockApplicationNoAnswers,
+        task: 'confirm-eligibility',
+        pageKey: 'page1',
+        questions: mockedQuestions,
+      })
+
+      expect(items).toEqual([])
+    })
+
+    it('if there is a page response method, items are generated from its return value', () => {
+      const ApplyPage = jest.fn()
+
+      Apply.pages['confirm-eligibility'] = {
+        somePage: ApplyPage,
+      }
+
+      ApplyPage.mockReturnValueOnce({
+        response: () => {
+          return { foo: 'bar' }
         },
       })
 
-      ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
+      const items: Array<SummaryListItem> = []
+
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockImplementationOnce(jest.fn(() => ApplyPage))
+      jest.spyOn(checkYourAnswersUtils, 'getAnswer').mockImplementationOnce(jest.fn())
 
       const expected = [
         {
-          key: { text: 'A question' },
-          value: { html: 'No' },
+          key: { html: 'foo' },
+          value: { html: 'bar' },
           actions: {
             items: [
               {
-                href: `/applications/${mockApplication.id}/tasks/task1/pages/page1`,
+                href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
                 text: 'Change',
-                visuallyHiddenText: 'A question',
+                visuallyHiddenText: 'foo',
               },
             ],
           },
         },
       ]
 
-      const items: Array<SummaryListItem> = []
-
       addPageAnswersToItemsArray({
         items,
         application: mockApplication,
-        task: 'task1',
+        task: 'confirm-eligibility',
         pageKey: 'page1',
-        questions: mockedQuestions,
+        questions,
       })
-
       expect(items).toEqual(expected)
+      expect(checkYourAnswersUtils.getAnswer).toHaveBeenCalledTimes(0)
     })
   })
 
@@ -277,98 +333,23 @@ describe('checkYourAnswersUtils', () => {
 
   describe('summaryListItemForQuestion', () => {
     it('returns a summary list item for a given question', () => {
-      ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
+      const question = { question: 'a question', answer: 'an answer' }
 
       const expected = {
-        key: { text: 'Is Roger Smith eligible for Short-Term Accommodation (CAS-2)?' },
-        value: { html: 'Yes, I confirm Roger Smith is eligible' },
+        key: { html: 'a question' },
+        value: { html: 'an answer' },
         actions: {
           items: [
             {
-              href: `/applications/${application.id}/tasks/confirm-eligibility/pages/confirm-eligibility`,
+              href: `/applications/${application.id}/tasks/task1/pages/page1`,
               text: 'Change',
-              visuallyHiddenText: 'Is Roger Smith eligible for Short-Term Accommodation (CAS-2)?',
+              visuallyHiddenText: 'a question',
             },
           ],
         },
       }
 
-      expect(
-        summaryListItemForQuestion(application, questions, 'confirm-eligibility', 'confirm-eligibility', 'isEligible'),
-      ).toEqual(expected)
-    })
-
-    it('returns a summary list item for an ACCT', () => {
-      ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
-
-      const expected = {
-        key: { html: 'ACCT<br />Created: 1 February 2012<br />Expiry: 10 October 2013' },
-        value: { html: 'ACCT details' },
-        actions: {
-          items: [
-            {
-              href: `/applications/${application.id}/tasks/risk-to-self/pages/acct`,
-              text: 'Change',
-              visuallyHiddenText: 'ACCT<br />Created: 1 February 2012<br />Expiry: 10 October 2013',
-            },
-          ],
-        },
-      }
-
-      expect(summaryListItemForQuestion(application, questions, 'risk-to-self', 'acct-data', '0')).toEqual(expected)
-    })
-
-    it('returns a summary list item for a behaviour note', () => {
-      ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
-
-      const expected = {
-        key: { text: 'Behaviour note' },
-        value: { html: 'some detail' },
-        actions: {
-          items: [
-            {
-              href: `/applications/${application.id}/tasks/risk-of-serious-harm/pages/behaviour-notes`,
-              text: 'Change',
-              visuallyHiddenText: 'Behaviour note',
-            },
-          ],
-        },
-      }
-
-      expect(
-        summaryListItemForQuestion(application, questions, 'risk-of-serious-harm', 'behaviour-notes-data', '0'),
-      ).toEqual(expected)
-    })
-  })
-
-  describe('getAcctMetadata', () => {
-    it('returns a formatted key with an expiry date', () => {
-      const acct = {
-        'createdDate-day': '1',
-        'createdDate-month': '2',
-        'createdDate-year': '2012',
-        isOngoing: 'no',
-        'closedDate-day': '10',
-        'closedDate-month': '10',
-        'closedDate-year': '2013',
-        referringInstitution: 'HMPPS prison',
-        acctDetails: 'ACCT details',
-      }
-
-      expect(getAcctMetadata(acct)).toEqual('ACCT<br />Created: 1 February 2012<br />Expiry: 10 October 2013')
-    })
-
-    it('returns a formatted key without an expiry date', () => {
-      const acct = {
-        'createdDate-day': '1',
-        'createdDate-month': '2',
-        'createdDate-year': '2012',
-        isOngoing: 'yes',
-        referringInstitution: 'HMPPS prison',
-        acctDetails: 'ACCT details',
-      }
-
-      expect(getAcctMetadata(acct)).toEqual('ACCT<br />Created: 1 February 2012<br />Ongoing')
+      expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
     })
   })
 
@@ -378,5 +359,70 @@ describe('checkYourAnswersUtils', () => {
 
       expect(sections.filter(section => section.name === 'Check your answers')).toHaveLength(0)
     })
+  })
+})
+
+describe('getPage', () => {
+  const FirstApplyPage = jest.fn()
+  const SecondApplyPage = jest.fn()
+
+  const applySection1Task1 = {
+    id: 'first-apply-section-task-1',
+    title: 'First Apply section, task 1',
+    actionText: '',
+    pages: {
+      first: FirstApplyPage,
+      second: SecondApplyPage,
+    },
+  }
+  const applySection1Task2 = {
+    id: 'first-apply-section-task-2',
+    title: 'First Apply section, task 2',
+    actionText: '',
+    pages: {},
+  }
+
+  const applySection2Task1 = {
+    id: 'second-apply-section-task-1',
+    title: 'Second Apply section, task 1',
+    actionText: '',
+    pages: {},
+  }
+
+  const applySection2Task2 = {
+    id: 'second-apply-section-task-2',
+    title: 'Second Apply section, task 2',
+    actionText: '',
+    pages: {},
+  }
+
+  const applySection1 = {
+    name: 'first-apply-section',
+    title: 'First Apply section',
+    tasks: [applySection1Task1, applySection1Task2],
+  }
+
+  const applySection2 = {
+    name: 'second-apply-section',
+    title: 'Second Apply section',
+    tasks: [applySection2Task1, applySection2Task2],
+  }
+
+  Apply.sections = [applySection1, applySection2]
+
+  Apply.pages['first-apply-section-task-1'] = {
+    first: FirstApplyPage,
+    second: SecondApplyPage,
+  }
+
+  it('should return a page from Apply if it exists', () => {
+    expect(getPage('first-apply-section-task-1', 'first')).toEqual(FirstApplyPage)
+    expect(getPage('first-apply-section-task-1', 'second')).toEqual(SecondApplyPage)
+  })
+
+  it('should raise an error if the page is not found', async () => {
+    expect(() => {
+      getPage('confirm-eligibility', 'bar')
+    }).toThrow(UnknownPageError)
   })
 })

@@ -6,7 +6,8 @@ import paths from '../paths/apply'
 import { getQuestions } from '../form-pages/utils/questions'
 import { nameOrPlaceholderCopy } from './utils'
 import { formatLines } from './viewUtils'
-import { DateFormats } from './dateUtils'
+import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
+import { UnknownPageError } from './errors'
 
 export const checkYourAnswersSections = (application: Application) => {
   const sectionsWithAnswers = getSectionsWithAnswers()
@@ -53,14 +54,29 @@ export const addPageAnswersToItemsArray = (params: {
   questions: Record<string, unknown>
 }) => {
   const { items, application, task, pageKey, questions } = params
-  const questionKeys = Object.keys(application.data[task][pageKey])
-  if (containsQuestions(questionKeys)) {
-    questionKeys.forEach(questionKey => {
-      const item = summaryListItemForQuestion(application, questions, task, pageKey, questionKey)
-      if (item) {
-        items.push(item)
-      }
+  const PageClass = getPage(task, pageKey)
+
+  const page = new PageClass({}, application)
+
+  if (hasResponseMethod(page)) {
+    const response = page.response()
+    Object.keys(response).forEach(question => {
+      items.push(summaryListItemForQuestion(application, task, pageKey, { question, answer: response[question] }))
     })
+  } else {
+    const questionKeys = Object.keys(application.data[task][pageKey])
+    if (containsQuestions(questionKeys)) {
+      questionKeys.forEach(questionKey => {
+        const answer = getAnswer(application, questions, task, pageKey, questionKey)
+        if (!answer) {
+          return
+        }
+
+        const questionText = questions[task][pageKey]?.[questionKey].question
+
+        items.push(summaryListItemForQuestion(application, task, pageKey, { question: questionText, answer }))
+      })
+    }
   }
 }
 
@@ -97,58 +113,14 @@ export const arrayAnswersAsString = (
 
 export const summaryListItemForQuestion = (
   application: Application,
-  questions: Record<string, unknown>,
   task: string,
   pageKey: string,
-  questionKey: string,
+  questionAndAnswer: Record<string, string>,
 ) => {
-  const answer = getAnswer(application, questions, task, pageKey, questionKey)
-
-  if (!answer) {
-    return null
-  }
-
-  if (pageKey === 'acct-data') {
-    return {
-      key: {
-        html: getAcctMetadata(answer as Record<string, string>),
-      },
-      value: { html: formatLines(answer.acctDetails) },
-      actions: {
-        items: [
-          {
-            href: paths.applications.pages.show({ task, page: 'acct', id: application.id }),
-            text: 'Change',
-            visuallyHiddenText: getAcctMetadata(answer as Record<string, string>),
-          },
-        ],
-      },
-    }
-  }
-
-  if (pageKey === 'behaviour-notes-data') {
-    return {
-      key: {
-        text: 'Behaviour note',
-      },
-      value: { html: formatLines(answer.behaviourDetail) },
-      actions: {
-        items: [
-          {
-            href: paths.applications.pages.show({ task, page: 'behaviour-notes', id: application.id }),
-            text: 'Change',
-            visuallyHiddenText: 'Behaviour note',
-          },
-        ],
-      },
-    }
-  }
-
-  const questionText = questions[task][pageKey]?.[questionKey].question || pageKey
-
+  const { question, answer } = questionAndAnswer
   return {
     key: {
-      text: questionText,
+      html: question,
     },
     value: { html: formatLines(answer as string) },
     actions: {
@@ -156,26 +128,11 @@ export const summaryListItemForQuestion = (
         {
           href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
           text: 'Change',
-          visuallyHiddenText: questionText,
+          visuallyHiddenText: question,
         },
       ],
     },
   }
-}
-
-export const getAcctMetadata = (acct: Record<string, string>): string => {
-  const createdDate = DateFormats.dateAndTimeInputsToUiDate(acct, 'createdDate')
-
-  let key = `ACCT<br />Created: ${createdDate}`
-
-  if (acct.isOngoing === 'no') {
-    const expiryDate = DateFormats.dateAndTimeInputsToUiDate(acct, 'closedDate')
-    key += `<br />Expiry: ${expiryDate}`
-    return key
-  }
-
-  key += `<br />Ongoing`
-  return key
 }
 
 export const getSectionsWithAnswers = (): Array<FormSection> => {
@@ -185,9 +142,10 @@ export const getSectionsWithAnswers = (): Array<FormSection> => {
 }
 
 export const getPages = (application: Application, task: string) => {
+  const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct', 'behaviour-notes']
   const pagesKeys = Object.keys(application.data[task])
 
-  return pagesKeys.filter(pageKey => pageKey !== 'summary-data')
+  return pagesKeys.filter(pageKey => !pagesWithoutQuestions.includes(pageKey))
 }
 
 const containsQuestions = (questionKeys: Array<string>): boolean => {
@@ -204,4 +162,30 @@ const hasDefinedAnswers = (
   questionKey: string,
 ): boolean => {
   return questions[task][pageKey]?.[questionKey]?.answers
+}
+
+export const hasResponseMethod = (page: TaskListPage): boolean => {
+  if ('response' in page) {
+    return true
+  }
+  return false
+}
+
+export const getPage = (taskName: string, pageName: string): TaskListPageInterface => {
+  const pageList = Apply.pages[taskName]
+  let Page
+
+  if (pageName === 'acct-data') {
+    Page = pageList.acct
+  } else if (pageName === 'behaviour-notes-data') {
+    Page = pageList['behaviour-notes']
+  } else {
+    Page = pageList[pageName]
+  }
+
+  if (!Page) {
+    throw new UnknownPageError(pageName)
+  }
+
+  return Page as TaskListPageInterface
 }
