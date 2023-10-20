@@ -505,5 +505,13 @@ export const getQuestions = (name: string) => {
         additionalInformationDetail: { question: 'Additional information' },
       },
     },
+    'offending-history': {
+      'any-previous-convictions': {
+        hasAnyPreviousConvictions: {
+          question: `Does ${name} have any previous convictions?`,
+          answers: { yes: 'Yes', no: 'No, this is their first offence' },
+        },
+      },
+    },
   }
 }
