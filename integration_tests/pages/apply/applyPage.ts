@@ -37,4 +37,14 @@ export default class ApplyPage extends Page {
   clickConfirm(): void {
     this.checkCheckboxByLabel('confirmed')
   }
+
+  checkTermAndDescription(term: string, description: string): void {
+    const trimmed = description.trim()
+    cy.get('dt')
+      .contains(term)
+      .parent()
+      .within(() => {
+        cy.get('dd').contains(trimmed)
+      })
+  }
 }
