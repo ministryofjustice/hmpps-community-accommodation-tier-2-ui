@@ -16,23 +16,6 @@ describe('ReducingRisk', () => {
   itShouldHaveNextValue(new ReducingRisk({}, application), 'risk-management-arrangements')
   itShouldHavePreviousValue(new ReducingRisk({}, application), 'risk-factors')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new ReducingRisk(
-        {
-          factorsLikelyToReduceRisk: 'some factors',
-          confirmation: 'confirmed',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'What factors are likely to reduce risk?': 'some factors',
-        'I confirm this information is relevant and up to date.': 'confirmed',
-      })
-    })
-  })
-
   describe('errors', () => {
     it('returns an error when required fields are blank', () => {
       const page = new ReducingRisk({}, application)

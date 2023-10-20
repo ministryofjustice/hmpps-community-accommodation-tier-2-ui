@@ -29,22 +29,6 @@ describe('ConfirmEligibility', () => {
   itShouldHaveNextValue(new ConfirmEligibility({ isEligible: 'yes' }, application), '')
   itShouldHavePreviousValue(new ConfirmEligibility({ isEligible: 'yes' }, application), 'taskList')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new ConfirmEligibility({ isEligible: 'yes' }, application)
-
-      expect(page.response()).toEqual({
-        'Is Roger Smith eligible for Short-Term Accommodation (CAS-2)?': 'Yes, I confirm Roger Smith is eligible',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new ConfirmEligibility({ isEligible: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new ConfirmEligibility({ isEligible: 'yes' }, application)

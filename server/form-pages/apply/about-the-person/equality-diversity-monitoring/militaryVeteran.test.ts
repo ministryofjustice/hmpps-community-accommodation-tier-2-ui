@@ -16,21 +16,6 @@ describe('MilitaryVeteran', () => {
   itShouldHaveNextValue(new MilitaryVeteran({ isVeteran: 'yes' }, application), 'care-leaver')
   itShouldHavePreviousValue(new MilitaryVeteran({ isVeteran: 'yes' }, application), 'religion')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new MilitaryVeteran(
-        {
-          isVeteran: 'yes',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Is Roger Smith a military veteran?': 'Yes',
-      })
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new MilitaryVeteran(

@@ -16,14 +16,6 @@ describe('Guidance', () => {
   itShouldHaveNextValue(new Guidance({}, application), 'substance-misuse')
   itShouldHavePreviousValue(new Guidance({}, application), 'taskList')
 
-  describe('response', () => {
-    it('is blank as there are no questions on this guidance page', () => {
-      const page = new Guidance({}, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('errors', () => {
     it('returns no errors as this guidance page has no questions/answers', () => {
       const page = new Guidance({}, application)

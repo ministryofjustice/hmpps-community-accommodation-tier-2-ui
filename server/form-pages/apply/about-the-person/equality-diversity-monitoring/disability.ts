@@ -69,24 +69,6 @@ export default class Disability implements TaskListPage {
     return errors
   }
 
-  response() {
-    let response: Record<string, string | Array<string>> = {
-      [this.questions.hasDisability.question]: hasDisabilityOptions[this.body.hasDisability],
-    }
-
-    if (this.body.typeOfDisability) {
-      response = {
-        ...response,
-        [this.questions.typeOfDisability.question]: this.body.typeOfDisability.map(
-          disability => disabilityTypeOptions[disability],
-        ),
-        [this.questions.otherDisability.question]: this.body.otherDisability,
-      }
-    }
-
-    return response
-  }
-
   items(conditionalHtml: string) {
     const items = convertKeyValuePairToRadioItems(hasDisabilityOptions, this.body.hasDisability)
 

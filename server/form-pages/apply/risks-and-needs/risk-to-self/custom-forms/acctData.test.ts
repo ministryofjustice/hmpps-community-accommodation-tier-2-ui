@@ -30,28 +30,6 @@ describe('AcctData', () => {
   itShouldHaveNextValue(new AcctData({}, application), 'acct')
   itShouldHavePreviousValue(new AcctData({}, application), 'acct')
 
-  describe('response', () => {
-    describe('when there are accts on an application', () => {
-      it('returns the accts', () => {
-        const applicationWithAcctData = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
-          data: { 'risk-to-self': { 'acct-data': acctData } },
-        })
-        const page = new AcctData({}, applicationWithAcctData)
-
-        expect(page.response()).toEqual(acctData)
-      })
-    })
-
-    describe('when there are no accts on an application', () => {
-      it('returns empty array', () => {
-        const page = new AcctData({}, application)
-
-        expect(page.response()).toEqual([])
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when there are no errors', () => {
       it('returns empty object', () => {

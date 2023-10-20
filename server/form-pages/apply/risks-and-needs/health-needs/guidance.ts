@@ -37,10 +37,4 @@ export default class Guidance implements TaskListPage {
 
     return errors
   }
-
-  response() {
-    const response = {}
-
-    return response
-  }
 }

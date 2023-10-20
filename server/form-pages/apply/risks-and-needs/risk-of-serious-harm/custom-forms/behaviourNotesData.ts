@@ -50,10 +50,4 @@ export default class BehaviourNotesData implements TaskListPage {
 
     return errors
   }
-
-  response() {
-    const response = this.application.data['risk-of-serious-harm']?.['behaviour-notes-data'] || []
-
-    return response
-  }
 }

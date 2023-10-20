@@ -16,32 +16,6 @@ describe('Religion', () => {
   itShouldHaveNextValue(new Religion({}, application), 'military-veteran')
   itShouldHavePreviousValue(new Religion({}, application), 'ethnic-group')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new Religion({ religion: 'atheist' }, application)
-
-      expect(page.response()).toEqual({
-        "What is Roger Smith's religion?": 'Atheist or Humanist',
-        'What is their religion? (optional)': undefined,
-      })
-    })
-
-    it('Adds optional gender data to page response in _translated_ form', () => {
-      const page = new Religion({ religion: 'other', otherReligion: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "What is Roger Smith's religion?": 'Any other religion',
-        'What is their religion? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new Religion({ religion: undefined, otherReligion: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new Religion({ religion: 'agnostic' }, application)

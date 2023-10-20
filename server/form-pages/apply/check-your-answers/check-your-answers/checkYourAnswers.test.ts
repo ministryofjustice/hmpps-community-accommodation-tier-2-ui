@@ -28,12 +28,4 @@ describe('CheckYourAnswers', () => {
       expect(page.errors()).toEqual({})
     })
   })
-
-  describe('response', () => {
-    it('should return an empty object', () => {
-      const page = new CheckYourAnswers({}, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
 })

@@ -34,21 +34,6 @@ describe('HistoricalRisk', () => {
   itShouldHaveNextValue(new HistoricalRisk({}, application), 'acct')
   itShouldHavePreviousValue(new HistoricalRisk({}, application), 'current-risk')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new HistoricalRisk(
-        {
-          historicalRiskDetail: 'is at risk',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        "Describe Roger Smith's historical issues and needs related to self harm and suicide": 'is at risk',
-      })
-    })
-  })
-
   describe('errors', () => {
     it('returns an error when the confirmation is blank', () => {
       const page = new HistoricalRisk({}, application)

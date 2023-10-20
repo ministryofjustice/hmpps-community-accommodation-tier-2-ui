@@ -62,16 +62,6 @@ export default class SexAndGender implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.sex.question]: sexOptions[this.body.sex],
-      [this.questions.gender.question]: genderOptions[this.body.gender],
-      [this.questions.optionalGenderIdentity.question]: this.body.optionalGenderIdentity,
-    }
-
-    return response
-  }
-
   sexItems() {
     return convertKeyValuePairToRadioItems(sexOptions, this.body.sex)
   }

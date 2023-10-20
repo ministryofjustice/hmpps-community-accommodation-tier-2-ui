@@ -55,15 +55,6 @@ export default class WhiteBackground implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.whiteBackground.question]: whiteBackgroundOptions[this.body.whiteBackground],
-      [this.questions.optionalWhiteBackground.question]: this.body.optionalWhiteBackground,
-    }
-
-    return response
-  }
-
   items(optionalWhiteBackground: string) {
     const items = convertKeyValuePairToRadioItems(whiteBackgroundOptions, this.body.whiteBackground) as [Radio]
 

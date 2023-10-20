@@ -23,10 +23,6 @@ export default class CheckYourAnswers implements TaskListPage {
     return ''
   }
 
-  response() {
-    return {}
-  }
-
   errors() {
     const errors: TaskListErrors<this> = {}
 

@@ -48,33 +48,6 @@ describe('SubstanceMisuse', () => {
   itShouldHaveNextValue(new SubstanceMisuse({}, application), 'physical-health')
   itShouldHavePreviousValue(new SubstanceMisuse({}, application), 'taskList')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new SubstanceMisuse(
-        {
-          usesIllegalSubstances: 'yes',
-          substanceMisuseHistory: 'Heroin',
-          substanceMisuseDetail: 'Injects daily',
-          engagedWithDrugAndAlcoholService: 'yes',
-          drugAndAlcoholServiceDetail: 'The Drugs Project',
-          requiresSubstituteMedication: 'yes',
-          substituteMedicationDetail: 'Methadone',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Do they take any illegal substances?': 'Yes',
-        'What substances do they take?': 'Heroin',
-        'How often do they take these substances, by what method, and how much?': 'Injects daily',
-        'Are they engaged with a drug and alcohol service?': 'Yes',
-        'Name the drug and alcohol service': 'The Drugs Project',
-        'Do they require any substitute medication for misused substances?': 'Yes',
-        'What substitute medication do they take?': 'Methadone',
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
       const page = new SubstanceMisuse({}, application)

@@ -49,13 +49,4 @@ export default class CellShareInformation implements TaskListPage {
 
     return errors
   }
-
-  response() {
-    const response = {
-      [this.questions.hasCellShareComments.question]: this.body.hasCellShareComments,
-      [this.questions.cellShareInformationDetail.question]: this.body.cellShareInformationDetail,
-    }
-
-    return response
-  }
 }

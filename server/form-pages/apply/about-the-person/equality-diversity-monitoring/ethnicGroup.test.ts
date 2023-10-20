@@ -32,22 +32,6 @@ describe('EthnicGroup', () => {
 
   itShouldHavePreviousValue(new EthnicGroup({}, application), 'sexual-orientation')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new EthnicGroup({ ethnicGroup: 'white' }, application)
-
-      expect(page.response()).toEqual({
-        "What is Roger Smith's ethnic group?": 'White',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new EthnicGroup({ ethnicGroup: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new EthnicGroup({ ethnicGroup: 'white' }, application)

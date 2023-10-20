@@ -44,22 +44,6 @@ describe('FundingInformation', () => {
     })
   })
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new FundingInformation({ fundingSource: 'personalSavings' }, application)
-
-      expect(page.response()).toEqual({
-        'How will Roger Smith pay for their accommodation and service charge?': 'Personal money or savings',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new FundingInformation({ fundingSource: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     describe('when there is a radio for benefits', () => {
       it('returns the benefits hint', () => {

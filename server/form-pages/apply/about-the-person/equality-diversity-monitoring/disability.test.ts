@@ -16,38 +16,6 @@ describe('Disability', () => {
   itShouldHaveNextValue(new Disability({ hasDisability: 'yes' }, application), 'sex-and-gender')
   itShouldHavePreviousValue(new Disability({ hasDisability: 'yes' }, application), 'will-answer-equality-questions')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new Disability(
-        {
-          hasDisability: 'yes',
-          typeOfDisability: ['physicalImpairment', 'other'],
-          otherDisability: 'another disability',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Does Roger Smith have a disability?': 'Yes',
-        'What type of disability?': ['Physical impairment', 'Other'],
-        'What is the disability?': 'another disability',
-      })
-    })
-
-    it('ignores fields that are not relevant', () => {
-      const page = new Disability(
-        {
-          hasDisability: 'no',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Does Roger Smith have a disability?': 'No',
-      })
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new Disability(

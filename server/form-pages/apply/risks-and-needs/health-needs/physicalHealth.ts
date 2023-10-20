@@ -1,7 +1,7 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
-import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
@@ -111,27 +111,5 @@ export default class PhysicalHealth implements TaskListPage {
     }
 
     return errors
-  }
-
-  response() {
-    const response = {
-      [this.questions.hasPhyHealthNeeds.question]: sentenceCase(this.body.hasPhyHealthNeeds),
-      [this.questions.needsDetail.question]: this.body.needsDetail,
-      [this.questions.canClimbStairs.question]: sentenceCase(this.body.canClimbStairs),
-
-      [this.questions.isReceivingTreatment.question]: sentenceCase(this.body.isReceivingTreatment),
-      [this.questions.treatmentDetail.question]: this.body.treatmentDetail,
-
-      [this.questions.hasPhyHealthMedication.question]: sentenceCase(this.body.hasPhyHealthMedication),
-      [this.questions.medicationDetail.question]: this.body.medicationDetail,
-
-      [this.questions.canLiveIndependently.question]: sentenceCase(this.body.canLiveIndependently),
-      [this.questions.indyLivingDetail.question]: this.body.indyLivingDetail,
-
-      [this.questions.requiresAdditionalSupport.question]: sentenceCase(this.body.requiresAdditionalSupport),
-      [this.questions.addSupportDetail.question]: this.body.addSupportDetail,
-    }
-
-    return response
   }
 }

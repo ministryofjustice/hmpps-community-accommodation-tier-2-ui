@@ -16,34 +16,6 @@ describe('BlackBackground', () => {
   itShouldHaveNextValue(new BlackBackground({}, application), 'religion')
   itShouldHavePreviousValue(new BlackBackground({}, application), 'ethnic-group')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new BlackBackground({ blackBackground: 'caribbean' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's Black, African, Caribbean or Black British background?":
-          'Caribbean',
-        'How would they describe their background? (optional)': undefined,
-      })
-    })
-
-    it('Adds optional background data to page response in _translated_ form', () => {
-      const page = new BlackBackground({ blackBackground: 'other', optionalBlackBackground: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's Black, African, Caribbean or Black British background?":
-          'Any other Black, African or Caribbean background',
-        'How would they describe their background? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new BlackBackground({ blackBackground: undefined, optionalBlackBackground: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new BlackBackground({ blackBackground: 'african' }, application)

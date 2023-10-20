@@ -16,34 +16,6 @@ describe('MixedBackground', () => {
   itShouldHaveNextValue(new MixedBackground({}, application), 'religion')
   itShouldHavePreviousValue(new MixedBackground({}, application), 'ethnic-group')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new MixedBackground({ mixedBackground: 'whiteAndBlackCaribbean' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's mixed or multiple ethnic groups background?":
-          'White and Black Caribbean',
-        'How would they describe their background? (optional)': undefined,
-      })
-    })
-
-    it('Adds optional background data to page response in _translated_ form', () => {
-      const page = new MixedBackground({ mixedBackground: 'other', optionalMixedBackground: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's mixed or multiple ethnic groups background?":
-          'Any other mixed or multiple ethnic background',
-        'How would they describe their background? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new MixedBackground({ mixedBackground: undefined, optionalMixedBackground: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new MixedBackground({ mixedBackground: 'whiteAndBlackAfrican' }, application)

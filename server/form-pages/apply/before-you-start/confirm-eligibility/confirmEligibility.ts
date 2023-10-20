@@ -55,14 +55,6 @@ export default class ConfirmEligibility implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.isEligible]: this.options[this.body.isEligible],
-    }
-
-    return response
-  }
-
   items() {
     return convertKeyValuePairToRadioItems(this.options, this.body.isEligible)
   }

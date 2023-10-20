@@ -56,35 +56,6 @@ describe('LearningDifficulties', () => {
   itShouldHaveNextValue(new LearningDifficulties({}, application), 'brain-injury')
   itShouldHavePreviousValue(new LearningDifficulties({}, application), 'communication-and-language')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new LearningDifficulties(
-        {
-          hasLearningNeeds: 'yes',
-          needsDetail: 'Has ADHD',
-          isVulnerable: 'yes',
-          vulnerabilityDetail: 'Moderate: is prone to risky behaviour',
-          hasDifficultyInteracting: 'yes',
-          interactionDetail: 'Can be withdrawn',
-          requiresAdditionalSupport: 'yes',
-          addSupportDetail: 'Daily support is needed',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Do they have any additional needs relating to learning difficulties or neurodiversity?': 'Yes',
-        'Please describe their additional needs.': 'Has ADHD',
-        'Are they vulnerable as a result of this condition?': 'Yes',
-        'Please describe their level of vulnerability.': 'Moderate: is prone to risky behaviour',
-        'Do they have difficulties interacting with other people as a result of this condition?': 'Yes',
-        'Please describe these difficulties.': 'Can be withdrawn',
-        'Is additional support required?': 'Yes',
-        'Please describe the type of support.': 'Daily support is needed',
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
       const page = new LearningDifficulties({}, application)

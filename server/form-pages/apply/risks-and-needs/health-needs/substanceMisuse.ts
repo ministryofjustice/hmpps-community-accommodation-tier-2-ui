@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
@@ -85,23 +85,5 @@ export default class SubstanceMisuse implements TaskListPage {
     }
 
     return errors
-  }
-
-  response() {
-    const response = {
-      [this.questions.usesIllegalSubstances.question]: sentenceCase(this.body.usesIllegalSubstances),
-      [this.questions.substanceMisuseHistory.question]: this.body.substanceMisuseHistory,
-      [this.questions.substanceMisuseDetail.question]: this.body.substanceMisuseDetail,
-
-      [this.questions.engagedWithDrugAndAlcoholService.question]: sentenceCase(
-        this.body.engagedWithDrugAndAlcoholService,
-      ),
-      [this.questions.drugAndAlcoholServiceDetail.question]: this.body.drugAndAlcoholServiceDetail,
-
-      [this.questions.requiresSubstituteMedication.question]: sentenceCase(this.body.requiresSubstituteMedication),
-      [this.questions.substituteMedicationDetail.question]: this.body.substituteMedicationDetail,
-    }
-
-    return response
   }
 }

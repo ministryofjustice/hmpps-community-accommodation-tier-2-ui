@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
@@ -87,23 +87,5 @@ export default class LearningDifficulties implements TaskListPage {
     }
 
     return errors
-  }
-
-  response() {
-    const response = {
-      [this.questions.hasLearningNeeds.question]: sentenceCase(this.body.hasLearningNeeds),
-      [this.questions.needsDetail.question]: this.body.needsDetail,
-
-      [this.questions.isVulnerable.question]: sentenceCase(this.body.isVulnerable),
-      [this.questions.vulnerabilityDetail.question]: this.body.vulnerabilityDetail,
-
-      [this.questions.hasDifficultyInteracting.question]: sentenceCase(this.body.hasDifficultyInteracting),
-      [this.questions.interactionDetail.question]: this.body.interactionDetail,
-
-      [this.questions.requiresAdditionalSupport.question]: sentenceCase(this.body.requiresAdditionalSupport),
-      [this.questions.addSupportDetail.question]: this.body.addSupportDetail,
-    }
-
-    return response
   }
 }

@@ -54,15 +54,6 @@ export default class Religion implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.religion.question]: religionOptions[this.body.religion],
-      [this.questions.otherReligion.question]: this.body.otherReligion,
-    }
-
-    return response
-  }
-
   items(otherReligionHtml: string) {
     const items = convertKeyValuePairToRadioItems(religionOptions, this.body.religion) as [Radio]
 

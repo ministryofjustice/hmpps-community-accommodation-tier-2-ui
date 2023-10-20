@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { sentenceCase, nameOrPlaceholderCopy } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
@@ -76,20 +76,5 @@ export default class CommunicationAndLanguage implements TaskListPage {
     }
 
     return errors
-  }
-
-  response() {
-    const response = {
-      [this.questions.hasCommunicationNeeds.question]: sentenceCase(this.body.hasCommunicationNeeds),
-      [this.questions.communicationDetail.question]: this.body.communicationDetail,
-
-      [this.questions.requiresInterpreter.question]: sentenceCase(this.body.requiresInterpreter),
-      [this.questions.interpretationDetail.question]: this.body.interpretationDetail,
-
-      [this.questions.hasSupportNeeds.question]: sentenceCase(this.body.hasSupportNeeds),
-      [this.questions.supportDetail.question]: this.body.supportDetail,
-    }
-
-    return response
   }
 }

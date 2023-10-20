@@ -56,15 +56,6 @@ export default class BlackBackground implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.blackBackground.question]: blackBackgroundOptions[this.body.blackBackground],
-      [this.questions.optionalBlackBackground.question]: this.body.optionalBlackBackground,
-    }
-
-    return response
-  }
-
   items(optionalBlackBackground: string) {
     const items = convertKeyValuePairToRadioItems(blackBackgroundOptions, this.body.blackBackground) as [Radio]
 

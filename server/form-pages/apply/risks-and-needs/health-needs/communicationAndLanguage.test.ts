@@ -47,33 +47,6 @@ describe('CommunicationAndLanguage', () => {
   itShouldHaveNextValue(new CommunicationAndLanguage({}, application), 'learning-difficulties')
   itShouldHavePreviousValue(new CommunicationAndLanguage({}, application), 'mental-health')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new CommunicationAndLanguage(
-        {
-          hasCommunicationNeeds: 'yes',
-          communicationDetail: 'Is hard of hearing',
-          requiresInterpreter: 'yes',
-          interpretationDetail: 'Welsh',
-          hasSupportNeeds: 'yes',
-          supportDetail: 'Struggles with written comprehension',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Do they have any additional communication needs?': 'Yes',
-        'Please describe their communication needs.': 'Is hard of hearing',
-
-        'Do they need an interpreter?': 'Yes',
-        'What language do they need an interpreter for?': 'Welsh',
-
-        'Do they need any support to see, hear, speak, or understand?': 'Yes',
-        'Please describe their support needs.': 'Struggles with written comprehension',
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
       const page = new CommunicationAndLanguage({}, application)

@@ -16,33 +16,6 @@ describe('AsianBackground', () => {
   itShouldHaveNextValue(new AsianBackground({}, application), 'religion')
   itShouldHavePreviousValue(new AsianBackground({}, application), 'ethnic-group')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new AsianBackground({ asianBackground: 'indian' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's Asian or Asian British background?": 'Indian',
-        'How would they describe their background? (optional)': undefined,
-      })
-    })
-
-    it('Adds optional background data to page response in _translated_ form', () => {
-      const page = new AsianBackground({ asianBackground: 'other', optionalAsianBackground: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's Asian or Asian British background?":
-          'Any other Asian background',
-        'How would they describe their background? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new AsianBackground({ asianBackground: undefined, optionalAsianBackground: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new AsianBackground({ asianBackground: 'chinese' }, application)

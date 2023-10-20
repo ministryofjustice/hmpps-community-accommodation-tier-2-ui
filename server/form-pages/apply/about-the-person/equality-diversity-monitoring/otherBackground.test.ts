@@ -16,32 +16,6 @@ describe('OtherBackground', () => {
   itShouldHaveNextValue(new OtherBackground({}, application), 'religion')
   itShouldHavePreviousValue(new OtherBackground({}, application), 'ethnic-group')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new OtherBackground({ otherBackground: 'arab' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's background?": 'Arab',
-        'How would they describe their background? (optional)': undefined,
-      })
-    })
-
-    it('Adds optional background data to page response in _translated_ form', () => {
-      const page = new OtherBackground({ otherBackground: 'other', optionalOtherBackground: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's background?": 'Any other ethnic group',
-        'How would they describe their background? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new OtherBackground({ otherBackground: undefined, optionalOtherBackground: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new OtherBackground({ otherBackground: 'arab' }, application)

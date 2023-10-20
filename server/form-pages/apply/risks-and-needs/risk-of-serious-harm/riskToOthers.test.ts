@@ -24,25 +24,6 @@ describe('RiskToOthers', () => {
   itShouldHaveNextValue(new RiskToOthers({}, application), 'risk-factors')
   itShouldHavePreviousValue(new RiskToOthers({}, application), 'summary')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new RiskToOthers(
-        {
-          whoIsAtRisk: 'some people',
-          natureOfRisk: 'risky',
-          confirmation: 'confirmed',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Who is at risk?': 'some people',
-        'What is the nature of the risk?': 'risky',
-        'I confirm this information is relevant and up to date.': 'confirmed',
-      })
-    })
-  })
-
   describe('errors', () => {
     it('returns an error when required fields are blank', () => {
       const page = new RiskToOthers({}, application)

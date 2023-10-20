@@ -16,23 +16,6 @@ describe('CellShareInformation', () => {
   itShouldHaveNextValue(new CellShareInformation({}, application), 'behaviour-notes')
   itShouldHavePreviousValue(new CellShareInformation({}, application), 'risk-management-arrangements')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new CellShareInformation(
-        {
-          hasCellShareComments: 'yes',
-          cellShareInformationDetail: 'is at risk',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Are there any comments to add about cell sharing?': 'yes',
-        'Cell sharing information': 'is at risk',
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when answer data is valid', () => {
       it('returns empty object if valid data', () => {

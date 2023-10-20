@@ -82,10 +82,4 @@ export default class AcctData implements TaskListPage {
 
     return errors
   }
-
-  response() {
-    const response = this.application.data['risk-to-self']?.['acct-data'] || []
-
-    return response
-  }
 }

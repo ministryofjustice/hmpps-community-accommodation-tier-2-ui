@@ -51,12 +51,6 @@ export default class MilitaryVeteran implements TaskListPage {
     return errors
   }
 
-  response() {
-    return {
-      [this.questions.isVeteran.question]: options[this.body.isVeteran],
-    }
-  }
-
   items() {
     const items = convertKeyValuePairToRadioItems(options, this.body.isVeteran)
 
