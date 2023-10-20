@@ -9,7 +9,13 @@ import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/util
 
 type AcctBody = Record<string, never>
 
-type AcctUI = { title: string; referringInstitution: string; acctDetails: string }
+type AcctUI = {
+  title: string
+  referringInstitution: string
+  acctDetails: string
+  createdDate: string
+  closedDate?: string
+}
 
 @Page({
   name: 'acct',
@@ -43,6 +49,8 @@ export default class Acct implements TaskListPage {
           title: `${createdDate} - ${isOngoing ? 'Ongoing' : closedDate}`,
           referringInstitution: acct.referringInstitution,
           acctDetails: acct.acctDetails,
+          createdDate,
+          closedDate,
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: 'risk-to-self',
@@ -72,6 +80,23 @@ export default class Acct implements TaskListPage {
   response() {
     const response = {}
 
+    this.accts.forEach(acct => {
+      const key = getAcctMetadata(acct)
+      response[key] = acct.acctDetails
+    })
+
     return response
   }
+}
+
+const getAcctMetadata = (acct: AcctUI): string => {
+  let key = `ACCT<br />Created: ${acct.createdDate}`
+
+  if (acct.closedDate) {
+    key += `<br />Expiry: ${acct.closedDate}`
+    return key
+  }
+
+  key += `<br />Ongoing`
+  return key
 }

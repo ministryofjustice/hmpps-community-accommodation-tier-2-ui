@@ -51,12 +51,16 @@ describe('Acct', () => {
           {
             referringInstitution: 'institution',
             acctDetails: 'detail info',
+            closedDate: '10 October 2013',
+            createdDate: '1 February 2012',
             removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/0/removeFromList?redirectPage=acct`,
             title: '1 February 2012 - 10 October 2013',
           },
           {
             referringInstitution: 'institution 2',
             acctDetails: 'detail info 2',
+            closedDate: false,
+            createdDate: '2 March 2012',
             removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/1/removeFromList?redirectPage=acct`,
             title: '2 March 2012 - Ongoing',
           },
@@ -69,10 +73,29 @@ describe('Acct', () => {
   itShouldHavePreviousValue(new Acct({}, application), 'historical-risk')
 
   describe('response', () => {
-    it('returns empty object', () => {
+    it('returns formatted ACCTs', () => {
       const page = new Acct({}, application)
 
-      expect(page.response()).toEqual({})
+      page.accts = [
+        {
+          title: 'acct 1',
+          referringInstitution: 'hmp 1',
+          acctDetails: 'some details',
+          createdDate: 'created date',
+          closedDate: 'closed date',
+        },
+        {
+          title: 'acct 2',
+          referringInstitution: 'hmp 2',
+          acctDetails: 'some different details',
+          createdDate: 'created date 2',
+        },
+      ]
+
+      expect(page.response()).toEqual({
+        'ACCT<br />Created: created date<br />Expiry: closed date': 'some details',
+        'ACCT<br />Created: created date 2<br />Ongoing': 'some different details',
+      })
     })
   })
 
