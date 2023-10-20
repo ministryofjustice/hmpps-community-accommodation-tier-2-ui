@@ -54,5 +54,6 @@ context('Check your answers page', () => {
     page.shouldShowHealthNeedsAnswers()
     page.shouldShowRiskToSelfAnswers()
     page.shouldShowRoshAnswers()
+    page.shouldShowOffendingHistoryAnswers()
   })
 })
