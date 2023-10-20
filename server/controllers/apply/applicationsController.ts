@@ -11,7 +11,6 @@ import {
 } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
-import { getResponses } from '../../utils/applications/getResponses'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 
