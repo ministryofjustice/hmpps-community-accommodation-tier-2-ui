@@ -12,6 +12,7 @@ export type User = {
     deliusUsername: string;
     email?: string;
     telephoneNumber?: string;
+    isActive?: boolean;
     region: ProbationRegion;
 };
 
