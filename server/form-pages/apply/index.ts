@@ -5,6 +5,16 @@ import AreaAndFunding from './area-and-funding'
 import AboutPerson from './about-the-person'
 import RisksAndNeeds from './risks-and-needs'
 import CheckYourAnswers from './check-your-answers'
+import OffenceAndLicenceInformation from './offence-and-licence-information'
 
-@Form({ sections: [BeforeYouStart, AreaAndFunding, AboutPerson, RisksAndNeeds, CheckYourAnswers] })
+@Form({
+  sections: [
+    BeforeYouStart,
+    AreaAndFunding,
+    AboutPerson,
+    RisksAndNeeds,
+    OffenceAndLicenceInformation,
+    CheckYourAnswers,
+  ],
+})
 export default class Apply extends BaseForm {}
