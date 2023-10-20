@@ -94,7 +94,7 @@ export default class ApplicationsController {
   submit(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
-      application.document = getResponses(application)
+      // application.document = getResponses(application)
 
       // TODO: validate that the user has confirmed information is complete
       // if (req.body?.confirmation !== 'submit') {
