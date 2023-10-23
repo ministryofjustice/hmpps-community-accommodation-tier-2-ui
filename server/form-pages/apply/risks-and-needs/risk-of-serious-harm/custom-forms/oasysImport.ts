@@ -176,10 +176,4 @@ export default class OasysImport implements TaskListPage {
 
     return errors
   }
-
-  response() {
-    const response = {}
-
-    return response
-  }
 }

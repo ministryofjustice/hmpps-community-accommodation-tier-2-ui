@@ -10,11 +10,9 @@ import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
 import paths from '../../paths/apply'
-import { getResponses } from '../../utils/applications/getResponses'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
-jest.mock('../../utils/applications/getResponses')
 jest.mock('../../utils/applications/getPage')
 
 describe('applicationsController', () => {
@@ -213,7 +211,6 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
-      expect(getResponses).toHaveBeenCalledWith(application)
       expect(response.render).toHaveBeenCalledWith('applications/confirm', { pageHeading: 'Application confirmation' })
     })
   })

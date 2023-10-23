@@ -16,23 +16,6 @@ describe('AdditionalRiskInformation', () => {
   itShouldHaveNextValue(new AdditionalRiskInformation({}, application), '')
   itShouldHavePreviousValue(new AdditionalRiskInformation({}, application), 'behaviour-notes')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new AdditionalRiskInformation(
-        {
-          hasAdditionalInformation: 'yes',
-          additionalInformationDetail: 'is at risk',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Is there any other risk information for Roger Smith?': 'yes',
-        'Additional information': 'is at risk',
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when answer data is valid', () => {
       it('returns empty object if valid data', () => {

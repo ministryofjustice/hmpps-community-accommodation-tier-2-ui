@@ -16,32 +16,6 @@ describe('WhiteBackground', () => {
   itShouldHaveNextValue(new WhiteBackground({}, application), 'religion')
   itShouldHavePreviousValue(new WhiteBackground({}, application), 'ethnic-group')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new WhiteBackground({ whiteBackground: 'english' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's White background?":
-          'English, Welsh, Scottish, Northern Irish or British',
-      })
-    })
-
-    it('Adds optional background data to page response in _translated_ form', () => {
-      const page = new WhiteBackground({ whiteBackground: 'other', optionalWhiteBackground: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's White background?": 'Any other White background',
-        'How would they describe their background? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new WhiteBackground({ whiteBackground: undefined, optionalWhiteBackground: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new WhiteBackground({ whiteBackground: 'english' }, application)

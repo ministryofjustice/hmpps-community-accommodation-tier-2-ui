@@ -55,15 +55,6 @@ export default class SexualOrientation implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.orientation.question]: orientationOptions[this.body.orientation],
-      [this.questions.otherOrientation.question]: this.body.otherOrientation,
-    }
-
-    return response
-  }
-
   items(otherOrientationHtml: string) {
     const items = convertKeyValuePairToRadioItems(orientationOptions, this.body.orientation) as [Radio]
     items.forEach(item => {

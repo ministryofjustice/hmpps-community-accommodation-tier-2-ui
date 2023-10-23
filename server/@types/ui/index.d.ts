@@ -41,8 +41,6 @@ export type YesOrNoWithDetail<T extends string> = {
   [K in `${T}Detail`]: string
 }
 
-export type PageResponse = Record<string, string | Array<string> | Array<Record<string, unknown>>>
-
 export type FormArtifact = Cas2Application
 
 export type DataServices = Partial<{

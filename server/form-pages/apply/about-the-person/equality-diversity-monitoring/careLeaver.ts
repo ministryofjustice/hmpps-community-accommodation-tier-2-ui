@@ -51,12 +51,6 @@ export default class CareLeaver implements TaskListPage {
     return errors
   }
 
-  response() {
-    return {
-      [this.questions.isCareLeaver.question]: options[this.body.isCareLeaver],
-    }
-  }
-
   items() {
     const items = convertKeyValuePairToRadioItems(options, this.body.isCareLeaver)
 

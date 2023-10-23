@@ -2,6 +2,7 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import { getQuestions } from '../../../../../server/form-pages/utils/questions'
+import { getPage, hasResponseMethod } from '../../../../../server/utils/checkYourAnswersUtils'
 
 export default class CheckYourAnswersPage extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -50,49 +51,50 @@ export default class CheckYourAnswersPage extends ApplyPage {
   shouldShowQuestionsAndAnswers(task: string) {
     const pageKeys = Object.keys(this.application.data[task])
     pageKeys.forEach(pageKey => {
-      if (pageKey === 'summary-data' || pageKey === 'oasys-import') {
+      const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct', 'behaviour-notes']
+      if (pagesWithoutQuestions.includes(pageKey)) {
         return
       }
-      const questionKeys = Object.keys(this.application.data[task][pageKey])
-      const questions = getQuestions(nameOrPlaceholderCopy(this.application.person))[task][pageKey]
-      cy.get(`[data-cy-check-your-answers-section="${task}"]`).within(() => {
-        questionKeys.forEach(questionKey => {
-          if (!this.application.data[task][pageKey][questionKey]) {
-            return
-          }
-          if (!Number.isNaN(Number(questionKey))) {
-            cy.contains(
-              pageKey === 'acct-data'
-                ? this.application.data[task][pageKey][questionKey].acctDetails
-                : this.application.data[task][pageKey][questionKey].behaviourDetail,
-            )
+      const PageClass = getPage(task, pageKey)
+      const page = new PageClass({}, this.application)
+      if (hasResponseMethod(page)) {
+        const response = page.response()
+        Object.keys(response).forEach(question => {
+          if (pageKey === 'acct-data') {
+            cy.get('dd').contains(response[question])
           } else {
-            cy.get('dt')
-              .contains(questions[questionKey].question)
-              .parent()
-              .within(() => {
-                if (Array.isArray(this.application.data[task][pageKey][questionKey])) {
-                  const items = []
-                  this.application.data[task][pageKey][questionKey].forEach(answer => {
-                    items.push(questions[questionKey].answers[answer])
-                  })
-                  cy.get('dd').contains(items.toString())
-                } else if (questions[questionKey].answers) {
-                  cy.get('dd').contains(
-                    questions[questionKey].answers[this.application.data[task][pageKey][questionKey]],
-                  )
-                } else {
-                  cy.get('.govuk-summary-list__value')
-                    .invoke('text')
-                    .then(text => {
-                      const trimmed = text.trim()
-                      expect(trimmed).to.equal(this.application.data[task][pageKey][questionKey])
-                    })
-                }
-              })
+            this.checkTermAndDescription(question, response[question])
           }
         })
-      })
+      } else {
+        const pageData = this.application.data[task][pageKey]
+        const questionKeys = Object.keys(pageData)
+        const questions = getQuestions(nameOrPlaceholderCopy(this.application.person))[task][pageKey]
+        cy.get(`[data-cy-check-your-answers-section="${task}"]`).within(() => {
+          questionKeys.forEach(questionKey => {
+            if (!pageData[questionKey]) {
+              return
+            }
+            const { question } = questions[questionKey]
+            const predefinedAnswers = questions[questionKey].answers
+            let expectedAnswer = ''
+
+            if (Array.isArray(pageData[questionKey])) {
+              const items = []
+              pageData[questionKey].forEach(answerItem => {
+                items.push(predefinedAnswers[answerItem])
+              })
+              expectedAnswer = items.toString()
+            } else if (predefinedAnswers) {
+              expectedAnswer = predefinedAnswers[pageData[questionKey]]
+            } else {
+              expectedAnswer = pageData[questionKey]
+            }
+
+            this.checkTermAndDescription(question, expectedAnswer)
+          })
+        })
+      }
     })
   }
 }

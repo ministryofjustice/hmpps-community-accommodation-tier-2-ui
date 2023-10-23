@@ -73,22 +73,6 @@ export default class RiskManagementArrangements implements TaskListPage {
     return errors
   }
 
-  response() {
-    const arrangements = [...this.body.arrangements]
-
-    const response: Record<string, string | Array<string>> = {
-      [this.questions.arrangements.question]: arrangements.map(arrangement => arrangementOptions[arrangement]),
-    }
-
-    if (!this.body.arrangements.includes('no')) {
-      response[this.questions.mappaDetails.question] = this.body.mappaDetails
-      response[this.questions.maracDetails.question] = this.body.maracDetails
-      response[this.questions.iomDetails.question] = this.body.iomDetails
-    }
-
-    return response
-  }
-
   items(mappaDetailsHtml: string, maracDetailsHtml: string, iomDetailsHtml: string) {
     const items = convertKeyValuePairToCheckboxItems(arrangementOptions, this.body.arrangements) as [Radio]
 

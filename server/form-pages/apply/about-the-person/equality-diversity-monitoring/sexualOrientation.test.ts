@@ -16,32 +16,6 @@ describe('SexualOrientation', () => {
   itShouldHaveNextValue(new SexualOrientation({}, application), 'ethnic-group')
   itShouldHavePreviousValue(new SexualOrientation({}, application), 'sex-and-gender')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new SexualOrientation({ orientation: 'gay' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's sexual orientation?": 'Gay',
-        'How would they describe their sexual orientation? (optional)': undefined,
-      })
-    })
-
-    it('Adds optional gender data to page response in _translated_ form', () => {
-      const page = new SexualOrientation({ orientation: 'other', otherOrientation: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "Which of the following best describes Roger Smith's sexual orientation?": 'Other',
-        'How would they describe their sexual orientation? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new SexualOrientation({ orientation: undefined, otherOrientation: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new SexualOrientation({ orientation: 'gay' }, application)

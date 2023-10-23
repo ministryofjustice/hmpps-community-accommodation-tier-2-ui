@@ -1,6 +1,6 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
@@ -76,20 +76,5 @@ export default class OtherHealth implements TaskListPage {
     }
 
     return errors
-  }
-
-  response() {
-    const response = {
-      [this.questions.hasLongTermHealthCondition.question]: sentenceCase(this.body.hasLongTermHealthCondition),
-      [this.questions.healthConditionDetail.question]: this.body.healthConditionDetail,
-      [this.questions.hasHadStroke.question]: sentenceCase(this.body.hasHadStroke),
-
-      [this.questions.hasSeizures.question]: sentenceCase(this.body.hasSeizures),
-      [this.questions.seizuresDetail.question]: this.body.seizuresDetail,
-
-      [this.questions.beingTreatedForCancer.question]: sentenceCase(this.body.beingTreatedForCancer),
-    }
-
-    return response
   }
 }

@@ -60,14 +60,6 @@ export default class EqualityAndDiversity implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.willAnswer]: this.options[this.body.willAnswer],
-    }
-
-    return response
-  }
-
   items() {
     return convertKeyValuePairToRadioItems(this.options, this.body.willAnswer)
   }

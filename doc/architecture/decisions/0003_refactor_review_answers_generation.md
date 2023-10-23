@@ -4,7 +4,7 @@ Date: 2023-10-06
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
@@ -18,9 +18,7 @@ We will refactor the functions that generate the check your answers page, to mak
 
 We will also create a `getQuestions` function that will return the questions and answers (where answers are predefined, e.g. yes/no) for all form pages, and store text values by key for all questions and answers (where predefined). This will in most cases render the Page's `response()` method redundant. We will instead loop through the tasks, pages and questions in the Application's `data` key, and for each question, return the question and answer text (if predefined) from the `getQuestions` function. If the answer text is not predefined (e.g. in the case of a free text input), we will return it from the Application data.
 
-Whereas the CAS1/3 approach of relying on the Page's `response()` method allows all special cases in terms of data structure to be handled at the Page level, our code will by default loop through tasks, pages, questions and - where they are predefined - answers. Where a data structure is nested differently (in the case of RoSH summary, ACCT and behaviour notes), this looping pattern will break. We are for now ignoring RoSH summary, and explicitly handling ACCT and behaviour notes outside of this pattern. However, we will iterate on this approach, and to avoid brittleness, we will in complex cases such as these continue to use a `response()` method on the Page. While looping through the pages in a task, we will check for the presence of a `response` method on each `Page`. Where there is a `response` method, we will use it to return questions and answers for that class and generate a summary list item for each question.
-
-Checking for the presence of a `response` method on each `Page` will allow us to handle special cases using the without creating an instance of the class, allowing us to avoid one of the debugging challenges we faced in attempting to implement the CAS1/3 approach.
+Whereas the CAS1/3 approach of relying on the Page's `response()` method allows all special cases in terms of data structure to be handled at the Page level, our code will by default loop through tasks, pages, questions and - where they are predefined - answers. Where a data structure is nested differently (in the case of RoSH summary, ACCT and behaviour notes), this looping pattern will break. We will treat RoSH summary outside of the this looping pattern, instead rendering the widget on the side of the check your answers page. In the case of ACCT and behaviour notes we will continue to use a `response()` method on the Page. While looping through the pages in a task, we will check for the presence of a `response` method on each `Page`. Where there is a `response` method, we will use it to return questions and answers for that class and generate a summary list item for each question.
 
 ## Consequences
 

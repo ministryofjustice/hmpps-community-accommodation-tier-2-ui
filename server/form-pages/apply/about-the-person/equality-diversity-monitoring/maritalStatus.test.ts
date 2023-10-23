@@ -16,16 +16,6 @@ describe('Marital status', () => {
   itShouldHaveNextValue(new MaritalStatus({}, application), '')
   itShouldHavePreviousValue(new MaritalStatus({}, application), 'parental-carer-responsibilities')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new MaritalStatus({ maritalStatus: 'divorced' }, application)
-
-      expect(page.response()).toEqual({
-        "What is Roger Smith's legal marital or registered civil partnership status?": 'Divorced',
-      })
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new MaritalStatus({ maritalStatus: 'survivingPartnerFromCivilPartnership' }, application)

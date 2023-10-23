@@ -64,14 +64,6 @@ export default class EthnicGroup implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.ethnicGroup.question]: ethnicGroupOptions[this.body.ethnicGroup],
-    }
-
-    return response
-  }
-
   items() {
     const items = convertKeyValuePairToRadioItems(ethnicGroupOptions, this.body.ethnicGroup)
 

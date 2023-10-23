@@ -16,21 +16,6 @@ describe('CareLeaver', () => {
   itShouldHaveNextValue(new CareLeaver({ isCareLeaver: 'yes' }, application), 'parental-carer-responsibilities')
   itShouldHavePreviousValue(new CareLeaver({ isCareLeaver: 'yes' }, application), 'military-veteran')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new CareLeaver(
-        {
-          isCareLeaver: 'yes',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Is Roger Smith a care leaver?': 'Yes',
-      })
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new CareLeaver(

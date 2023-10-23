@@ -61,20 +61,6 @@ export default class FundingSource implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.fundingSource]: this.options[this.body.fundingSource],
-    }
-
-    Object.keys(response).forEach(key => {
-      if (!response[key]) {
-        delete response[key]
-      }
-    })
-
-    return response
-  }
-
   items() {
     const items = convertKeyValuePairToRadioItems(this.options, this.body.fundingSource) as [Radio]
     return items.map(radio => {

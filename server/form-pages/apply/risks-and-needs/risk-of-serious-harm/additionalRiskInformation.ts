@@ -51,13 +51,4 @@ export default class AdditionalRiskInformation implements TaskListPage {
 
     return errors
   }
-
-  response() {
-    const response = {
-      [this.questions.hasAdditionalInformation.question]: this.body.hasAdditionalInformation,
-      [this.questions.additionalInformationDetail.question]: this.body.additionalInformationDetail,
-    }
-
-    return response
-  }
 }

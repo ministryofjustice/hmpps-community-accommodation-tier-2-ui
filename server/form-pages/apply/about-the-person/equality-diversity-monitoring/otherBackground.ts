@@ -55,15 +55,6 @@ export default class OtherBackground implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.otherBackground.question]: otherBackgroundOptions[this.body.otherBackground],
-      [this.questions.optionalOtherBackground.question]: this.body.optionalOtherBackground,
-    }
-
-    return response
-  }
-
   items(optionalOtherBackground: string) {
     const items = convertKeyValuePairToRadioItems(otherBackgroundOptions, this.body.otherBackground) as [Radio]
 

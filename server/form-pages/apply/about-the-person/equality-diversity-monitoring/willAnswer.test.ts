@@ -27,23 +27,6 @@ describe('EqualityAndDiversity', () => {
   itShouldHaveNextValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), 'disability')
   itShouldHavePreviousValue(new EqualityAndDiversity({ willAnswer: 'yes' }, application), 'taskList')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
-
-      expect(page.response()).toEqual({
-        'Does Roger Smith want to answer the equality questions?':
-          'Yes, answer the equality questions (takes 2 minutes)',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new EqualityAndDiversity({ willAnswer: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)

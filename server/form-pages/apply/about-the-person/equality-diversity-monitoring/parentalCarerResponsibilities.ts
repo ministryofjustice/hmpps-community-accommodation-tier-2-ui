@@ -53,13 +53,6 @@ export default class ParentalCarerResponsibilities implements TaskListPage {
     return errors
   }
 
-  response() {
-    return {
-      [this.questions.hasParentalOrCarerResponsibilities.question]:
-        options[this.body.hasParentalOrCarerResponsibilities],
-    }
-  }
-
   items() {
     const items = convertKeyValuePairToRadioItems(options, this.body.hasParentalOrCarerResponsibilities)
 

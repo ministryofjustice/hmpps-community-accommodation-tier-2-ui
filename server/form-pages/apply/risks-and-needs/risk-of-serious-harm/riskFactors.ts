@@ -62,16 +62,6 @@ export default class RiskFactors implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.circumstancesLikelyToIncreaseRisk.question]: this.body.circumstancesLikelyToIncreaseRisk,
-      [this.questions.whenIsRiskLikelyToBeGreatest.question]: this.body.whenIsRiskLikelyToBeGreatest,
-      [this.questions.confirmation.question]: this.body.confirmation,
-    }
-
-    return response
-  }
-
   items() {
     return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
       this.body.confirmation,

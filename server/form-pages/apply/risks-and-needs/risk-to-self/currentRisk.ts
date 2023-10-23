@@ -55,15 +55,6 @@ export default class CurrentRisk implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
-      [this.questions.confirmation.question]: this.body.confirmation,
-    }
-
-    return response
-  }
-
   items() {
     return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
       this.body.confirmation,

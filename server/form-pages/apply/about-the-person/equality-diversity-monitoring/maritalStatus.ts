@@ -51,12 +51,6 @@ export default class MaritalStatus implements TaskListPage {
     return errors
   }
 
-  response() {
-    return {
-      [this.questions.maritalStatus.question]: options[this.body.maritalStatus],
-    }
-  }
-
   items() {
     const items = convertKeyValuePairToRadioItems(options, this.body.maritalStatus)
 

@@ -20,7 +20,12 @@ describe('BehaviourNotes', () => {
     it('not implemented', () => {
       const page = new BehaviourNotes({}, application)
 
-      expect(page.response()).toEqual({})
+      page.behaviourNotes = [
+        { behaviourDetail: 'detail 1', removeLink: '' },
+        { behaviourDetail: 'detail 2', removeLink: '' },
+      ]
+
+      expect(page.response()).toEqual({ 'Behaviour note 1': 'detail 1', 'Behaviour note 2': 'detail 2' })
     })
   })
 

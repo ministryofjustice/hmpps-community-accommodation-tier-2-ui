@@ -55,15 +55,6 @@ export default class MixedBackground implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.mixedBackground.question]: mixedBackgroundOptions[this.body.mixedBackground],
-      [this.questions.optionalMixedBackground.question]: this.body.optionalMixedBackground,
-    }
-
-    return response
-  }
-
   items(optionalMixedBackground: string) {
     const items = convertKeyValuePairToRadioItems(mixedBackgroundOptions, this.body.mixedBackground) as [Radio]
 

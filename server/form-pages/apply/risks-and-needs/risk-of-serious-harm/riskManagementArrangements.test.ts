@@ -16,46 +16,6 @@ describe('RiskManagementArrangements', () => {
   itShouldHaveNextValue(new RiskManagementArrangements({}, application), 'cell-share-information')
   itShouldHavePreviousValue(new RiskManagementArrangements({}, application), 'reducing-risk')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new RiskManagementArrangements(
-        {
-          arrangements: ['mappa', 'marac', 'iom'],
-          mappaDetails: 'mappa details',
-          maracDetails: 'marac details',
-          iomDetails: 'iom details',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Is Roger Smith subject to any of these multi-agency risk management arrangements upon release?': [
-          'Multi-Agency Public Protection Arrangements (MAPPA)',
-          'Multi-Agency Risk Assessment Conference (MARAC)',
-          'Integrated Offender Management (IOM)',
-        ],
-        'Provide MAPPA details': 'mappa details',
-        'Provide MARAC details': 'marac details',
-        'Provide IOM details': 'iom details',
-      })
-    })
-
-    it('ignores fields if "no arrangements" is selected', () => {
-      const page = new RiskManagementArrangements(
-        {
-          arrangements: ['no'],
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Is Roger Smith subject to any of these multi-agency risk management arrangements upon release?': [
-          'No, this person does not have risk management arrangements',
-        ],
-      })
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new RiskManagementArrangements(

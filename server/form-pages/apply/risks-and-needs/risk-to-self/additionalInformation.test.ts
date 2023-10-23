@@ -26,23 +26,6 @@ describe('AdditionalInformation', () => {
   itShouldHaveNextValue(new AdditionalInformation({}, application), '')
   itShouldHavePreviousValue(new AdditionalInformation({}, application), 'acct')
 
-  describe('response', () => {
-    it('returns the correct plain english responses for the questions', () => {
-      const page = new AdditionalInformation(
-        {
-          hasAdditionalInformation: 'yes',
-          additionalInformationDetail: 'is at risk',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        "Is there anything else to include about Roger Smith's risk to self?": 'yes',
-        'Additional information': 'is at risk',
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when they have not provided any answer', () => {
       it('returns an error', () => {

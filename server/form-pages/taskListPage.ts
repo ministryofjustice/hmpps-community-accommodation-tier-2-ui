@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import type { DataServices, FormArtifact, PageResponse, TaskListErrors } from '@approved-premises/ui'
+import type { DataServices, FormArtifact, TaskListErrors } from '@approved-premises/ui'
 
 export interface TaskListPageInterface {
   new (body: Record<string, unknown>, document?: FormArtifact, previousPage?: string): TaskListPage
@@ -29,5 +29,5 @@ export default abstract class TaskListPage {
 
   abstract errors(): TaskListErrors<this>
 
-  abstract response(): PageResponse
+  abstract response?(): Record<string, string>
 }

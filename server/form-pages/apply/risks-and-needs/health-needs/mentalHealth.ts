@@ -1,7 +1,7 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
-import { nameOrPlaceholderCopy, sentenceCase } from '../../../../utils/utils'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
@@ -87,22 +87,5 @@ export default class MentalHealth implements TaskListPage {
     }
 
     return errors
-  }
-
-  response() {
-    const response = {
-      [this.questions.hasMentalHealthNeeds.question]: sentenceCase(this.body.hasMentalHealthNeeds),
-      [this.questions.needsDetail.question]: this.body.needsDetail,
-
-      [this.questions.isEngagedWithCommunity.question]: sentenceCase(this.body.isEngagedWithCommunity),
-      [this.questions.servicesDetail.question]: this.body.servicesDetail,
-
-      [this.questions.hasPrescribedMedication.question]: sentenceCase(this.body.hasPrescribedMedication),
-      [this.questions.isInPossessionOfMeds.question]: sentenceCase(this.body.isInPossessionOfMeds),
-      [this.questions.medicationDetail.question]: this.body.medicationDetail,
-      [this.questions.medicationIssues.question]: this.body.medicationIssues,
-    }
-
-    return response
   }
 }

@@ -16,33 +16,6 @@ describe('SexAndGender', () => {
   itShouldHaveNextValue(new SexAndGender({ sex: 'female' }, application), 'sexual-orientation')
   itShouldHavePreviousValue(new SexAndGender({}, application), 'disability')
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new SexAndGender({ sex: 'female', gender: 'yes' }, application)
-
-      expect(page.response()).toEqual({
-        "What is Roger Smith's sex?": 'Female',
-        'Is the gender Roger Smith identifies with the same as the sex registered at birth?': 'Yes',
-      })
-    })
-
-    it('Adds optional gender data to page response in _translated_ form', () => {
-      const page = new SexAndGender({ sex: 'female', gender: 'no', optionalGenderIdentity: 'example' }, application)
-
-      expect(page.response()).toEqual({
-        "What is Roger Smith's sex?": 'Female',
-        'Is the gender Roger Smith identifies with the same as the sex registered at birth?': 'No',
-        'What is their gender identity? (optional)': 'example',
-      })
-    })
-
-    it('Deletes fields where there is not an answer', () => {
-      const page = new SexAndGender({ sex: undefined, gender: undefined }, application)
-
-      expect(page.response()).toEqual({})
-    })
-  })
-
   describe('sexItems', () => {
     it('returns the radio with the expected label text', () => {
       const page = new SexAndGender({ sex: 'female' }, application)

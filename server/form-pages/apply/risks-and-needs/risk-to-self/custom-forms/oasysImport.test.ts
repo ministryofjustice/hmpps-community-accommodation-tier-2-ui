@@ -180,12 +180,4 @@ describe('OasysImport', () => {
       expect(page.errors()).toEqual({})
     })
   })
-
-  describe('response', () => {
-    it('returns empty object', () => {
-      const page = new OasysImport({}, application, oasys, '')
-
-      expect(page.response()).toEqual({})
-    })
-  })
 })

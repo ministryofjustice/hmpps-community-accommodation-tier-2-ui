@@ -22,21 +22,6 @@ describe('CarerResponsibilities', () => {
     'care-leaver',
   )
 
-  describe('response', () => {
-    it('Adds selected option to page response in _translated_ form', () => {
-      const page = new ParentalCarerResponsibilities(
-        {
-          hasParentalOrCarerResponsibilities: 'yes',
-        },
-        application,
-      )
-
-      expect(page.response()).toEqual({
-        'Does Roger Smith have parental or carer responsibilities?': 'Yes',
-      })
-    })
-  })
-
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
       const page = new ParentalCarerResponsibilities(

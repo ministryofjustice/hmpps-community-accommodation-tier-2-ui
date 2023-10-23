@@ -53,15 +53,6 @@ export default class AsianBackground implements TaskListPage {
     return errors
   }
 
-  response() {
-    const response = {
-      [this.questions.asianBackground.question]: options[this.body.asianBackground],
-      [this.questions.optionalAsianBackground.question]: this.body.optionalAsianBackground,
-    }
-
-    return response
-  }
-
   items(optionalAsianBackground: string) {
     const items = convertKeyValuePairToRadioItems(options, this.body.asianBackground) as [Radio]
 
