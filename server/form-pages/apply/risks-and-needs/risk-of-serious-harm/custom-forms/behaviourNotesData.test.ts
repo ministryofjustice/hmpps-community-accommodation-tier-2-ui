@@ -37,4 +37,11 @@ describe('BehaviourNotesData', () => {
       expect(errors.behaviourDetail).toEqual("Describe the applicant's behaviour")
     })
   })
+
+  describe('response', () => {
+    it('returns empty object', () => {
+      const page = new BehaviourNotesData({}, application)
+      expect(page.response()).toEqual({})
+    })
+  })
 })

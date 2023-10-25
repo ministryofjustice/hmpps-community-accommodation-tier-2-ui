@@ -50,4 +50,8 @@ export default class BehaviourNotesData implements TaskListPage {
 
     return errors
   }
+
+  response() {
+    return {}
+  }
 }

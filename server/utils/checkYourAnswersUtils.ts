@@ -142,7 +142,7 @@ export const getSectionsWithAnswers = (): Array<FormSection> => {
 }
 
 export const getPages = (application: Application, task: string) => {
-  const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct', 'behaviour-notes']
+  const pagesWithoutQuestions = ['summary', 'summary-data']
   const pagesKeys = Object.keys(application.data[task])
 
   return pagesKeys.filter(pageKey => !pagesWithoutQuestions.includes(pageKey))
@@ -173,15 +173,8 @@ export const hasResponseMethod = (page: TaskListPage): boolean => {
 
 export const getPage = (taskName: string, pageName: string): TaskListPageInterface => {
   const pageList = Apply.pages[taskName]
-  let Page
 
-  if (pageName === 'acct-data') {
-    Page = pageList.acct
-  } else if (pageName === 'behaviour-notes-data') {
-    Page = pageList['behaviour-notes']
-  } else {
-    Page = pageList[pageName]
-  }
+  const Page = pageList[pageName]
 
   if (!Page) {
     throw new UnknownPageError(pageName)

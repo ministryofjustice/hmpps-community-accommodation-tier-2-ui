@@ -82,4 +82,8 @@ export default class AcctData implements TaskListPage {
 
     return errors
   }
+
+  response() {
+    return {}
+  }
 }
