@@ -1,4 +1,4 @@
-import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
+import { itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import AnyPreviousConvictions from './anyPreviousConvictions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
@@ -42,7 +42,26 @@ describe('hasAnyPreviousConvictions', () => {
   })
 
   itShouldHavePreviousValue(new AnyPreviousConvictions({}, application), 'taskList')
-  itShouldHaveNextValue(new AnyPreviousConvictions({}, application), '')
+  describe('next', () => {
+    describe('when there is no offence history', () => {
+      const page = new AnyPreviousConvictions({}, application)
+      expect(page.next()).toEqual('')
+    })
+    describe('when there is offence history', () => {
+      describe('when no offences have been added yet', () => {
+        const page = new AnyPreviousConvictions({ hasAnyPreviousConvictions: 'yes' }, application)
+        expect(page.next()).toEqual('offence-history-data')
+      })
+      describe('when some offences have been added', () => {
+        const applicationWithOffences = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+          data: { 'offending-history': { 'offence-history-data': [{ titleAndNumber: 'Stalking (08800)' }] } },
+        })
+        const page = new AnyPreviousConvictions({ hasAnyPreviousConvictions: 'yes' }, applicationWithOffences)
+        expect(page.next()).toEqual('offence-history')
+      })
+    })
+  })
 
   describe('errors', () => {
     describe('when they have not provided any answer', () => {

@@ -14,13 +14,12 @@
 //  Scenario: navigate to task list on completion of task
 //    When I complete the "has any previous convictions" page
 //    And I continue to the next task / page
-//    Then I am returned to the task list
-//    And I see that the risk of serious harm task is complete
+//    Then I am taken to add an offence history
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import AnyPreviousConvictionsPage from '../../../../pages/apply/offence_and_licence_information/offending-history/anyPreviousConvictionsPage'
-import TaskListPage from '../../../../pages/apply/taskListPage'
+import OffenceHistoryDataPage from '../../../../pages/apply/offence_and_licence_information/offending-history/offenceHistoryDataPage'
 
 context('Visit "has any previous convictions" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -64,19 +63,9 @@ context('Visit "has any previous convictions" page', () => {
     Page.verifyOnPage(AnyPreviousConvictionsPage, this.application)
   })
 
-  //  Scenario: navigate to task list on completion of task
+  //  Scenario: navigate to Offence History page
   // ----------------------------------------------
   it('navigates to the next page', function test() {
-    // So that the status of the task will be complete we set application.data
-    // to the full set
-    cy.fixture('applicationData.json').then(applicationData => {
-      const answered = {
-        ...this.application,
-        data: applicationData,
-      }
-      cy.task('stubApplicationGet', { application: answered })
-    })
-
     //    When I complete the "has any previous convictions" page
     const page = Page.verifyOnPage(AnyPreviousConvictionsPage, this.application)
     page.checkRadioByNameAndValue('hasAnyPreviousConvictions', 'yes')
@@ -84,10 +73,7 @@ context('Visit "has any previous convictions" page', () => {
     //    When I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I am returned to the task list
-    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
-
-    //    And I see that the offending history task is complete
-    taskListPage.shouldShowTaskStatus('offending-history', 'Completed')
+    //    Then I am taken to add an offence history
+    Page.verifyOnPage(OffenceHistoryDataPage, this.application)
   })
 })
