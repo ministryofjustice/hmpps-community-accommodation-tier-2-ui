@@ -51,4 +51,11 @@ describe('OffenceHistoryData', () => {
       expect(errors[field]).toEqual(message)
     })
   })
+
+  describe('response', () => {
+    it('returns empty object', () => {
+      const page = new OffenceHistoryData({}, application)
+      expect(page.response()).toEqual({})
+    })
+  })
 })

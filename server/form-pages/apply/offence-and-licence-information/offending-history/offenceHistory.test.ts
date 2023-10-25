@@ -5,6 +5,34 @@ import OffenceHistory from './offenceHistory'
 describe('OffenceHistory', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
+  const applicationWithData = applicationFactory.build({
+    person: personFactory.build({ name: 'Roger Smith' }),
+    data: {
+      'offending-history': {
+        'offence-history-data': [
+          {
+            titleAndNumber: 'Stalking (08000)',
+            offenceCategory: 'Stalking',
+            'offenceDate-day': '1',
+            'offenceDate-month': '2',
+            'offenceDate-year': '2023',
+            sentenceLength: '12 months',
+            summary: 'summary detail',
+          },
+          {
+            titleAndNumber: 'Arson (09000)',
+            offenceCategory: 'Arson',
+            'offenceDate-day': '5',
+            'offenceDate-month': '6',
+            'offenceDate-year': '1940',
+            sentenceLength: '3 years',
+            summary: 'second summary detail',
+          },
+        ],
+      },
+    },
+  })
+
   describe('title', () => {
     it('personalises the page title', () => {
       const page = new OffenceHistory({}, application)
@@ -16,34 +44,6 @@ describe('OffenceHistory', () => {
   describe('offence history data', () => {
     describe('when there is offence history data on the application', () => {
       it('assigns them to the offences field on the page', () => {
-        const applicationWithData = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
-          data: {
-            'offending-history': {
-              'offence-history-data': [
-                {
-                  titleAndNumber: 'Stalking (08000)',
-                  offenceCategory: 'Stalking',
-                  'offenceDate-day': '1',
-                  'offenceDate-month': '2',
-                  'offenceDate-year': '2023',
-                  sentenceLength: '12 months',
-                  summary: 'summary detail',
-                },
-                {
-                  titleAndNumber: 'Arson (09000)',
-                  offenceCategory: 'Arson',
-                  'offenceDate-day': '5',
-                  'offenceDate-month': '6',
-                  'offenceDate-year': '1940',
-                  sentenceLength: '3 years',
-                  summary: 'second summary detail',
-                },
-              ],
-            },
-          },
-        })
-
         const page = new OffenceHistory({}, applicationWithData)
 
         expect(page.offences).toEqual([
@@ -75,6 +75,16 @@ describe('OffenceHistory', () => {
     it('returns empty object', () => {
       const page = new OffenceHistory({}, application)
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('response', () => {
+    it('returns the offence information', () => {
+      const page = new OffenceHistory({}, applicationWithData)
+      expect(page.response()).toEqual({
+        'Previous offence 1': 'Stalking (08000), Stalking, 1 February 2023, 12 months, summary detail',
+        'Previous offence 2': 'Arson (09000), Arson, 5 June 1940, 3 years, second summary detail',
+      })
     })
   })
 })

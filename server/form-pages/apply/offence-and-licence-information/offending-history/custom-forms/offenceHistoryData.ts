@@ -80,4 +80,8 @@ export default class OffenceHistoryData implements TaskListPage {
 
     return errors
   }
+
+  response() {
+    return {}
+  }
 }
