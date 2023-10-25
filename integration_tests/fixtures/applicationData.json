@@ -201,5 +201,8 @@
       "hasAdditionalInformation": "yes",
       "additionalInformationDetail": "some information"
     }
+  },
+  "offending-history": {
+    "any-previous-convictions": { "hasAnyPreviousConvictions": "yes" }
   }
 }

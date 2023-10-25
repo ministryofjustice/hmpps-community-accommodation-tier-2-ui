@@ -42,6 +42,11 @@ export default class CheckYourAnswersPage extends ApplyPage {
     this.shouldShowQuestionsAndAnswers('risk-of-serious-harm')
   }
 
+  shouldShowOffendingHistoryAnswers() {
+    this.shouldShowCheckYourAnswersTitle('offending-history', 'Add offending history')
+    this.shouldShowQuestionsAndAnswers('offending-history')
+  }
+
   shouldShowCheckYourAnswersTitle(taskName: string, taskTitle: string) {
     cy.get(`[data-cy-check-your-answers-section="${taskName}"]`).within(() => {
       cy.get('.govuk-summary-card__title').should('contain', taskTitle)
