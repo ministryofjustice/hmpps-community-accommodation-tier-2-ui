@@ -17,7 +17,7 @@ describe('BehaviourNotes', () => {
   itShouldHavePreviousValue(new BehaviourNotes({}, application), 'cell-share-information')
 
   describe('response', () => {
-    it('not implemented', () => {
+    it('returns behaviour notes', () => {
       const page = new BehaviourNotes({}, application)
 
       page.behaviourNotes = [
@@ -26,6 +26,11 @@ describe('BehaviourNotes', () => {
       ]
 
       expect(page.response()).toEqual({ 'Behaviour note 1': 'detail 1', 'Behaviour note 2': 'detail 2' })
+    })
+
+    it('returns empty object when no notes', () => {
+      const page = new BehaviourNotes({}, application)
+      expect(page.response()).toEqual({})
     })
   })
 

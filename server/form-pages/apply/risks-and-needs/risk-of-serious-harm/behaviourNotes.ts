@@ -69,7 +69,7 @@ export default class BehaviourNotes implements TaskListPage {
   response() {
     const response = {}
 
-    this.behaviourNotes.forEach((behaviourNote, index) => {
+    this.behaviourNotes?.forEach((behaviourNote, index) => {
       response[`Behaviour note ${index + 1}`] = behaviourNote.behaviourDetail
     })
 
