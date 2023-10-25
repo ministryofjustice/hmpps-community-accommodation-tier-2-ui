@@ -510,6 +510,27 @@ export const getQuestions = (name: string) => {
           answers: { yes: 'Yes', no: 'No, this is their first offence' },
         },
       },
+      'offence-history-data': {
+        titleAndNumber: {
+          question: 'Offence title and number',
+          hint: "For example, 'Stalking (08000)'",
+        },
+        offenceCategory: {
+          question: 'Offence category',
+          hint: 'Select the offence category',
+        },
+        offenceDate: {
+          question: 'When did they commit the offence?',
+          hint: 'For example, 27 3 2007',
+        },
+        sentenceLength: {
+          question: 'How long were they sentenced for?',
+          hint: 'For example, 6 months',
+        },
+        summary: {
+          question: 'Provide a summary of the offence',
+        },
+      },
     },
   }
 }
