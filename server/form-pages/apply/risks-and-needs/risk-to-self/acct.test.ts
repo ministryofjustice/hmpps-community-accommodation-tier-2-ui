@@ -97,6 +97,11 @@ describe('Acct', () => {
         'ACCT<br />Created: created date 2<br />Ongoing': 'some different details',
       })
     })
+
+    it('returns empty object when no accts', () => {
+      const page = new Acct({}, application)
+      expect(page.response()).toEqual({})
+    })
   })
 
   describe('errors', () => {
