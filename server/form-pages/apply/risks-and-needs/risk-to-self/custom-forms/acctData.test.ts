@@ -79,4 +79,11 @@ describe('AcctData', () => {
       })
     })
   })
+
+  describe('response', () => {
+    it('returns empty object', () => {
+      const page = new AcctData({}, application)
+      expect(page.response()).toEqual({})
+    })
+  })
 })

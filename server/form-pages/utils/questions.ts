@@ -383,7 +383,6 @@ export const getQuestions = (name: string) => {
           answers: { confirmed: 'Confirmed' },
         },
       },
-      acct: {},
       'acct-data': {
         createdDate: {
           question: 'When was the ACCT created?',
@@ -489,7 +488,6 @@ export const getQuestions = (name: string) => {
         },
         cellShareInformationDetail: { question: 'Cell sharing information' },
       },
-      'behaviour-notes': {},
       'behaviour-notes-data': {
         behaviourDetail: {
           question: 'Describe the behaviour',
