@@ -12,7 +12,7 @@ describe('OffenceHistory', () => {
         'offence-history-data': [
           {
             titleAndNumber: 'Stalking (08000)',
-            offenceCategory: 'Stalking',
+            offenceCategory: 'stalkingOrHarassment',
             'offenceDate-day': '1',
             'offenceDate-month': '2',
             'offenceDate-year': '2023',
@@ -21,7 +21,7 @@ describe('OffenceHistory', () => {
           },
           {
             titleAndNumber: 'Arson (09000)',
-            offenceCategory: 'Arson',
+            offenceCategory: 'arson',
             'offenceDate-day': '5',
             'offenceDate-month': '6',
             'offenceDate-year': '1940',
@@ -49,7 +49,8 @@ describe('OffenceHistory', () => {
         expect(page.offences).toEqual([
           {
             titleAndNumber: 'Stalking (08000)',
-            offenceCategory: 'Stalking',
+            offenceCategoryTag: '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>',
+            offenceCategoryText: 'Stalking or Harassment',
             offenceDate: '1 February 2023',
             sentenceLength: '12 months',
             summary: 'summary detail',
@@ -57,7 +58,8 @@ describe('OffenceHistory', () => {
           },
           {
             titleAndNumber: 'Arson (09000)',
-            offenceCategory: 'Arson',
+            offenceCategoryTag: '<strong class="govuk-tag govuk-tag--orange">Arson</strong>',
+            offenceCategoryText: 'Arson',
             offenceDate: '5 June 1940',
             sentenceLength: '3 years',
             summary: 'second summary detail',
@@ -83,9 +85,27 @@ describe('OffenceHistory', () => {
       const page = new OffenceHistory({}, applicationWithData)
       expect(page.response()).toEqual({
         'Historical offence 1':
-          'Stalking (08000)\r\nStalking\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail',
+          'Stalking (08000)\r\nStalking or Harassment\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail',
         'Historical offence 2': 'Arson (09000)\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail',
       })
+    })
+  })
+
+  describe('getOffenceTagColour', () => {
+    const categories = [
+      ['stalkingOrHarassment', 'blue'],
+      ['weaponsOrFirearms', 'red'],
+      ['arson', 'orange'],
+      ['violence', 'pink'],
+      ['domesticAbuse', 'purple'],
+      ['hateCrime', 'green'],
+      ['drugs', 'yellow'],
+      ['other', 'grey'],
+      ['undefinedCategory', 'grey'],
+    ]
+    it.each(categories)('returns correct colour for category %s', (category, colour) => {
+      const page = new OffenceHistory({}, applicationWithData)
+      expect(page.getOffenceTagColour(category)).toEqual(colour)
     })
   })
 })
