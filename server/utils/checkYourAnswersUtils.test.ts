@@ -182,6 +182,44 @@ describe('checkYourAnswersUtils', () => {
         task: 'confirm-eligibility',
         pageKey: 'page1',
         questions: mockedConfirmEligibilityQuestion,
+        checkYourAnswersPage: true,
+      })
+
+      expect(items).toEqual(expected)
+    })
+
+    it('adds each question and answer to the items array if checkYourAnswersPage flag is false', () => {
+      const mockedConfirmEligibilityQuestion = {
+        'confirm-eligibility': {
+          page1: {
+            question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+            question2: { question: 'Another question' },
+          },
+        },
+      } as unknown as Questions
+
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
+      const items: Array<SummaryListItem> = []
+
+      const expected = [
+        {
+          question: 'A question',
+          answer: 'No',
+        },
+        {
+          question: 'Another question',
+          answer: 'an answer',
+        },
+      ]
+
+      addPageAnswersToItemsArray({
+        items,
+        application: mockApplication,
+        task: 'confirm-eligibility',
+        pageKey: 'page1',
+        questions: mockedConfirmEligibilityQuestion,
+        checkYourAnswersPage: false,
       })
 
       expect(items).toEqual(expected)
@@ -198,6 +236,7 @@ describe('checkYourAnswersUtils', () => {
         task: 'risk-to-self',
         pageKey: 'oasys-import',
         questions,
+        checkYourAnswersPage: true,
       })
 
       expect(items).toEqual([])
@@ -234,6 +273,7 @@ describe('checkYourAnswersUtils', () => {
         task: 'confirm-eligibility',
         pageKey: 'page1',
         questions: mockedQuestions,
+        checkYourAnswersPage: true,
       })
 
       expect(items).toEqual([])
@@ -279,6 +319,7 @@ describe('checkYourAnswersUtils', () => {
         task: 'confirm-eligibility',
         pageKey: 'page1',
         questions,
+        checkYourAnswersPage: true,
       })
       expect(items).toEqual(expected)
       expect(checkYourAnswersUtils.getAnswer).toHaveBeenCalledTimes(0)
