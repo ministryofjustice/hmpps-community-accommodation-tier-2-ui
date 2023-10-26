@@ -89,8 +89,8 @@ export default class OffenceHistory implements TaskListPage {
     const response = {}
 
     this.offences.forEach((offence, index) => {
-      const offenceString = `${offence.titleAndNumber}, ${offence.offenceCategory}, ${offence.offenceDate}, ${offence.sentenceLength}, ${offence.summary}`
-      response[`Previous offence ${index + 1}`] = offenceString
+      const offenceString = `${offence.titleAndNumber}\r\n${offence.offenceCategory}\r\n${offence.offenceDate}\r\n${offence.sentenceLength}\r\n\nSummary: ${offence.summary}`
+      response[`Historical offence ${index + 1}`] = offenceString
     })
 
     return response

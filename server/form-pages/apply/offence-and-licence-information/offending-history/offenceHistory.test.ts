@@ -82,8 +82,9 @@ describe('OffenceHistory', () => {
     it('returns the offence information', () => {
       const page = new OffenceHistory({}, applicationWithData)
       expect(page.response()).toEqual({
-        'Previous offence 1': 'Stalking (08000), Stalking, 1 February 2023, 12 months, summary detail',
-        'Previous offence 2': 'Arson (09000), Arson, 5 June 1940, 3 years, second summary detail',
+        'Historical offence 1':
+          'Stalking (08000)\r\nStalking\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail',
+        'Historical offence 2': 'Arson (09000)\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail',
       })
     })
   })
