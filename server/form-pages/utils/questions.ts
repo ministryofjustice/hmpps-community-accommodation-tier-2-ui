@@ -518,6 +518,16 @@ export const getQuestions = (name: string) => {
         offenceCategory: {
           question: 'Offence category',
           hint: 'Select the offence category',
+          answers: {
+            stalkingOrHarassment: 'Stalking or Harassment',
+            weaponsOrFirearms: 'Weapons or Firearms',
+            arson: 'Arson',
+            violence: 'Violence',
+            domesticAbuse: 'Domestic abuse',
+            hateCrime: 'Hate crime',
+            drugs: 'Drugs',
+            other: 'Other',
+          },
         },
         offenceDate: {
           question: 'When did they commit the offence?',

@@ -45,7 +45,7 @@ describe('OffenceHistoryData', () => {
     ]
 
     it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
-      const page = new OffenceHistoryData({}, application)
+      const page = new OffenceHistoryData({ offenceCategory: 'choose' }, application)
       const errors = page.errors()
 
       expect(errors[field]).toEqual(message)

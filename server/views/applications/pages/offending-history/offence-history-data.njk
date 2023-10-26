@@ -1,4 +1,5 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
 
@@ -56,21 +57,20 @@
         }}
 
         {{
-            formPageInput(
-              {
-                label: { 
-                  text: page.questions.offenceCategory.question,
-                  classes: "govuk-label--m" 
-                },
-                classes: "govuk-input--width-20",
-                fieldName: "offenceCategory",
-                hint: {
-                  text: page.questions.offenceCategory.hint
-                }
-              },
-              fetchContext()
-            )
-        }}
+            govukSelect({
+                  label: { 
+                    text: page.questions.offenceCategory.question,
+                    classes: "govuk-label--m" 
+                  },
+                  hint: {
+                    text: page.questions.offenceCategory.hint
+                  },
+                  id: "offenceCategory",
+                  name: "offenceCategory",
+                  items: page.offenceCategories,
+                  errorMessage: errors.offenceCategory
+              })
+        }}        
 
         {{ 
           formPageDateInput( {

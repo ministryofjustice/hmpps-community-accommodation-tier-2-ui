@@ -44,11 +44,37 @@ export default class OffenceHistoryData implements TaskListPage {
 
   questions = getQuestions('')['offending-history']['offence-history-data']
 
+  offenceCategories = this.getCategoriesAsItemsForSelect()
+
   constructor(
     body: Partial<OffenceHistoryDataBody>,
     private readonly application: Cas2Application,
   ) {
     this.body = body as OffenceHistoryDataBody
+  }
+
+  private getCategoriesAsItemsForSelect() {
+    const items = [
+      {
+        value: 'choose',
+        text: 'Choose category',
+        selected: true,
+      },
+    ] as [
+      {
+        value: string
+        text: string
+        selected?: boolean
+      },
+    ]
+    Object.keys(this.questions.offenceCategory.answers).forEach(value => {
+      items.push({
+        value,
+        text: this.questions.offenceCategory.answers[value] as string,
+      })
+    })
+
+    return items
   }
 
   previous() {
@@ -65,7 +91,7 @@ export default class OffenceHistoryData implements TaskListPage {
     if (!this.body.titleAndNumber) {
       errors.titleAndNumber = 'Enter offence title and number'
     }
-    if (!this.body.offenceCategory) {
+    if (this.body.offenceCategory === 'choose') {
       errors.offenceCategory = 'Select the offence category'
     }
     if (!dateAndTimeInputsAreValidDates(this.body, 'offenceDate')) {

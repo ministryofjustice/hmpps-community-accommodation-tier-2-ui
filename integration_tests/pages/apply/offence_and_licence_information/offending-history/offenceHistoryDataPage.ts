@@ -25,7 +25,7 @@ export default class OffenceHistoryDataPage extends ApplyPage {
 
   addOffenceInformation(): void {
     this.getTextInputByIdAndEnterDetails('titleAndNumber', 'Arson (01000)')
-    this.getTextInputByIdAndEnterDetails('offenceCategory', 'Arson')
+    this.getSelectInputByIdAndSelectAnEntry('offenceCategory', 'Arson')
     this.completeDateInputs('offenceDate', '2022-07-15')
     this.getTextInputByIdAndEnterDetails('sentenceLength', '6 months')
     this.getTextInputByIdAndEnterDetails('summary', 'some detail')
@@ -41,7 +41,7 @@ export default class OffenceHistoryDataPage extends ApplyPage {
 
   assertFormisEmpty(): void {
     cy.get('#titleAndNumber').should('have.value', '')
-    cy.get('#offenceCategory').should('have.value', '')
+    cy.get('#offenceCategory').should('have.value', 'choose')
     cy.get('#offenceDate-day').should('have.value', '')
     cy.get('#summary').should('have.value', '')
   }
