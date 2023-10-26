@@ -65,11 +65,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
       if (hasResponseMethod(page)) {
         const response = page.response()
         Object.keys(response).forEach(question => {
-          if (pageKey === 'acct-data') {
-            cy.get('dd').contains(response[question])
-          } else {
-            this.checkTermAndDescription(question, response[question])
-          }
+          this.checkTermAndDescription(question, response[question])
         })
       } else {
         const pageData = this.application.data[task][pageKey]

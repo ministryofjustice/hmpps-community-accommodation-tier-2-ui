@@ -39,6 +39,12 @@ export default class AnyPreviousConvictions implements TaskListPage {
   }
 
   next() {
+    if (this.body.hasAnyPreviousConvictions === 'yes') {
+      if (this.application.data['offending-history']?.['offence-history-data'].length > 0) {
+        return 'offence-history'
+      }
+      return 'offence-history-data'
+    }
     return ''
   }
 

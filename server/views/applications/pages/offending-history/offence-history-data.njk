@@ -1,0 +1,171 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+
+{% extends "../layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ showErrorSummary(errorSummary) }}
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+      <div class="govuk-body">
+        <p>You should include:
+            <ul>
+              <li>serious offences from the last 10 years</li>
+              <li>non-serious offences from the last 5 years</li>
+              <li>information related to a pattern of behaviour</li>
+            </ul>
+        <p>
+        <p>Add one offence at a time. For example, you should record 3 sexual harassment offences as 3 separate offences.</p>
+        <hr class="govuk-section-break govuk-section-break--m">
+
+        <h2 class="govuk-heading-m">Check the offence is not spent</h2>   
+        <p>
+          You should <a href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">check if a caution or conviction is spent (opens in a new tab)</a> first.
+        </p>
+
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+            It is illegal to disclose any spent cautions and convictions.
+          </strong>
+        </div>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--m">
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.titleAndNumber.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-20",
+                fieldName: "titleAndNumber",
+                hint: {
+                  text: page.questions.titleAndNumber.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            govukSelect({
+                  label: { 
+                    text: page.questions.offenceCategory.question,
+                    classes: "govuk-label--m" 
+                  },
+                  hint: {
+                    text: page.questions.offenceCategory.hint
+                  },
+                  id: "offenceCategory",
+                  name: "offenceCategory",
+                  items: page.offenceCategories,
+                  errorMessage: errors.offenceCategory
+              })
+        }}        
+
+        {{ 
+          formPageDateInput( {
+            hint: {
+              text: page.questions.offenceDate.hint
+            },
+            fieldName: "offenceDate",
+            fieldset: {
+              legend: {
+                text: page.questions.offenceDate.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: dateFieldValues('offenceDate', errors)
+            }, 
+            fetchContext()) 
+        }}
+
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.sentenceLength.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-20",
+                fieldName: "sentenceLength",
+                hint: {
+                  text: page.questions.sentenceLength.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            formPageTextArea(
+              {
+                fieldName: "summary",
+                label: {
+                  text: page.questions.summary.question,
+                  classes: "govuk-label--m"
+                },
+                hint: {
+                  html: '
+                      <div id="offence-details-hint" class="govuk-hint">
+                        <p class="govuk-hint">Include:</p>
+                        <ul class="govuk-list govuk-list--bullet govuk-hint"> 
+                        <li>where it happened (excluding addresses)</li>
+                        <li>when it happened</li>
+                        <li>damage or injury caused</li>
+                        <li>weapon type</li>
+                        <li>motivations for the offence</li>
+                        <li>if a violent offence, the relationship to the victim</li>
+                        </ul>
+                      </div>
+                      '
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        <div>
+          {{ govukButton({
+            id: "add-another",
+            text: "Save and add another",
+            classes: "govuk-button--secondary"
+          }) }}
+        </div>
+
+        {% block button %}
+
+          {{ govukButton({
+                text: "Save and continue"
+            }) }}
+
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function addRedirect(event) {
+      const form = document.getElementById('form')
+      form.action = form.action + '&redirectPage=offence-history-data'
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('add-another')
+        .addEventListener('click', (event) => addRedirect(event));
+    });
+  </script>
+{% endblock %}

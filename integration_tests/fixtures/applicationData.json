@@ -203,6 +203,27 @@
     }
   },
   "offending-history": {
-    "any-previous-convictions": { "hasAnyPreviousConvictions": "yes" }
+    "any-previous-convictions": { "hasAnyPreviousConvictions": "yes" },
+    "offence-history-data": [
+      {
+        "titleAndNumber": "Arson (09000)",
+        "offenceCategory": "Arson",
+        "offenceDate-day": "5",
+        "offenceDate-month": "6",
+        "offenceDate-year": "1940",
+        "sentenceLength": "3 years",
+        "summary": "summary detail"
+      },
+      {
+        "titleAndNumber": "Stalking (08000)",
+        "offenceCategory": "Stalking",
+        "offenceDate-day": "6",
+        "offenceDate-month": "7",
+        "offenceDate-year": "2023",
+        "sentenceLength": "2 months",
+        "summary": "more summary detail"
+      }
+    ],
+    "offence-history": {}
   }
 }

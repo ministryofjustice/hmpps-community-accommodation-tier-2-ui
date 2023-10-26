@@ -38,13 +38,18 @@ export default class ApplyPage extends Page {
     this.checkCheckboxByLabel('confirmed')
   }
 
+  removeWhiteSpaceAndLineBreaks(description: string): string {
+    return description.trim().replace(/(\r\n|\n|\r)/gm, '')
+  }
+
   checkTermAndDescription(term: string, description: string): void {
-    const trimmed = description.trim()
+    const formattedDescription = this.removeWhiteSpaceAndLineBreaks(description)
+
     cy.get('dt')
       .contains(term)
       .parent()
       .within(() => {
-        cy.get('dd').contains(trimmed)
+        cy.get('.govuk-summary-list__value').contains(formattedDescription)
       })
   }
 }
