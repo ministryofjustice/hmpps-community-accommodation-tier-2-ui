@@ -28,14 +28,14 @@ expect.extend({
   },
   toMatchOpenAPISpec(pactPath) {
     const openAPIUrl =
-      'https://raw.githubusercontent.com/ministryofjustice/hmpps-approved-premises-api/4981eb92ef938eaab5b7acb2c571c59a6ea48f43/src/main/resources/static/codegen/built-cas2-api-spec.yml'
+      'https://raw.githubusercontent.com/ministryofjustice/hmpps-approved-premises-api/1c3262819d5b9020b0a6c7619480c5691dc63d76/src/main/resources/static/codegen/built-cas2-api-spec.yml'
 
     const openAPIPath = path.join(__dirname, '..', '..', 'tmp', 'cas2-api.yml')
 
     try {
       execSync(`
         if [ ! -f ${openAPIPath} ]; then
-          curl -s "${openAPIUrl}" | sed -E 's@/application@/cas2/application@g' | sed -E 's@/people@/cas2/people@g' > ${openAPIPath}
+          curl -s "${openAPIUrl}" | sed -E 's@/application@/cas2/application@g' | sed -E 's@/submissions@/cas2/submissions@g' | sed -E 's@/people@/cas2/people@g' > ${openAPIPath}
         fi
       `)
 
