@@ -17,7 +17,7 @@ const {
   getAnswer,
   summaryListItemForQuestion,
   checkYourAnswersSections,
-  getSectionsWithAnswers,
+  getSections,
   getPage,
 } = checkYourAnswersUtils
 
@@ -55,7 +55,7 @@ describe('checkYourAnswersUtils', () => {
         { name: 'section2', tasks: [{ id: 'task2', pages: {}, title: 'Task 2' }], title: 'Section 2' },
       ]
 
-      jest.spyOn(checkYourAnswersUtils, 'getSectionsWithAnswers').mockImplementationOnce(jest.fn(() => sections))
+      jest.spyOn(checkYourAnswersUtils, 'getSections').mockImplementationOnce(jest.fn(() => sections))
       jest.spyOn(checkYourAnswersUtils, 'getTaskAnswersAsSummaryListItems').mockImplementation(jest.fn(() => []))
 
       const expected = [
@@ -353,9 +353,9 @@ describe('checkYourAnswersUtils', () => {
     })
   })
 
-  describe('getSectionsWithAnswers', () => {
+  describe('getSections', () => {
     it('returns all sections except check your answers', () => {
-      const sections = getSectionsWithAnswers()
+      const sections = getSections()
 
       expect(sections.filter(section => section.name === 'Check your answers')).toHaveLength(0)
     })

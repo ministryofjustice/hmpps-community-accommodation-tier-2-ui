@@ -10,9 +10,9 @@ import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import { UnknownPageError } from './errors'
 
 export const checkYourAnswersSections = (application: Application) => {
-  const sectionsWithAnswers = getSectionsWithAnswers()
+  const sections = getSections()
 
-  return sectionsWithAnswers.map(section => {
+  const sectionsWithAnswers = sections.map(section => {
     return {
       title: section.title,
       tasks: section.tasks.map(task => {
@@ -24,6 +24,8 @@ export const checkYourAnswersSections = (application: Application) => {
       }),
     }
   })
+
+  return sectionsWithAnswers
 }
 
 export const getTaskAnswersAsSummaryListItems = (task: string, application: Application): Array<SummaryListItem> => {
@@ -135,7 +137,7 @@ export const summaryListItemForQuestion = (
   }
 }
 
-export const getSectionsWithAnswers = (): Array<FormSection> => {
+export const getSections = (): Array<FormSection> => {
   const { sections } = Apply
 
   return sections.filter(section => section.name !== CheckYourAnswers.name)
