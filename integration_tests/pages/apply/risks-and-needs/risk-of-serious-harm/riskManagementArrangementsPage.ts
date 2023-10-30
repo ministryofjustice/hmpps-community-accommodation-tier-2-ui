@@ -24,9 +24,9 @@ export default class RiskManagementArrangementsPage extends ApplyPage {
   }
 
   selectAllArrangements = (page: RiskManagementArrangementsPage) => {
-    page.checkCheckboxByLabel('mappa')
-    page.checkCheckboxByLabel('marac')
-    page.checkCheckboxByLabel('iom')
+    page.checkCheckboxByValue('mappa')
+    page.checkCheckboxByValue('marac')
+    page.checkCheckboxByValue('iom')
   }
 
   completeAllArrangementDetails = (page: RiskManagementArrangementsPage) => {
@@ -49,13 +49,13 @@ export default class RiskManagementArrangementsPage extends ApplyPage {
 
   toggleBetweenNoAndArrangements = (page: RiskManagementArrangementsPage) => {
     cy.get(`input[value="no"]`).should('be.checked')
-    page.checkCheckboxByLabel('mappa')
+    page.checkCheckboxByValue('mappa')
     cy.get(`input[value="no"]`).should('not.be.checked')
-    page.checkCheckboxByLabel('no')
-    page.checkCheckboxByLabel('marac')
+    page.checkCheckboxByValue('no')
+    page.checkCheckboxByValue('marac')
     cy.get(`input[value="no"]`).should('not.be.checked')
-    page.checkCheckboxByLabel('no')
-    page.checkCheckboxByLabel('iom')
+    page.checkCheckboxByValue('no')
+    page.checkCheckboxByValue('iom')
     cy.get(`input[value="no"]`).should('not.be.checked')
   }
 }
