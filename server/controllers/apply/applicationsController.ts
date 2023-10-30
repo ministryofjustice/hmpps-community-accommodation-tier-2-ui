@@ -42,8 +42,10 @@ export default class ApplicationsController {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
 
       if (eligibilityIsConfirmed(application)) {
+        const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+
         const taskList = new TaskListService(application)
-        return res.render('applications/taskList', { application, taskList })
+        return res.render('applications/taskList', { application, taskList, errors, errorSummary })
       }
 
       if (eligibilityIsDenied(application)) {
@@ -94,20 +96,18 @@ export default class ApplicationsController {
   submit(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
-      // application.document = getResponses(application)
 
-      // TODO: validate that the user has confirmed information is complete
-      // if (req.body?.confirmation !== 'submit') {
-      //   addErrorMessageToFlash(
-      //     req,
-      //     'You must confirm the information provided is complete, accurate and up to date.',
-      //     'confirmation',
-      //   )
-      //   return res.redirect(paths.applications.show({ id: application.id }))
-      // }
+      try {
+        if (req.body?.confirmation !== 'submit') {
+          throw new Error('You must confirm the information provided is complete, accurate and up to date.')
+        }
 
-      await this.applicationService.submit(req.user.token, application)
-      return res.render('applications/confirm', { pageHeading: 'Application confirmation' })
+        await this.applicationService.submit(req.user.token, application)
+        res.render('applications/confirm', { pageHeading: 'Application confirmation' })
+      } catch (err) {
+        err.data = { detail: err.message }
+        catchValidationErrorOrPropogate(req, res, err, paths.applications.show({ id: application.id }))
+      }
     }
   }
 

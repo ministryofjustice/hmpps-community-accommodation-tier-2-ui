@@ -76,6 +76,9 @@ describe('applicationsController', () => {
           ;(TaskListService as jest.Mock).mockImplementation(() => {
             return stubTaskList
           })
+          ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+            return { errors: {}, errorSummary: [], userInput: {} }
+          })
 
           const requestHandler = applicationsController.show()
           await requestHandler(request, response, next)
@@ -83,6 +86,38 @@ describe('applicationsController', () => {
           expect(response.render).toHaveBeenCalledWith('applications/taskList', {
             application,
             taskList: stubTaskList,
+            errors: {},
+            errorSummary: [],
+          })
+        })
+
+        it('renders the task list view with errors', async () => {
+          const application = applicationFactory.build({
+            data: {
+              'confirm-eligibility': {
+                'confirm-eligibility': { isEligible: 'yes' },
+              },
+            },
+          })
+          const stubTaskList = jest.fn()
+          applicationService.findApplication.mockResolvedValue(application)
+          ;(TaskListService as jest.Mock).mockImplementation(() => {
+            return stubTaskList
+          })
+
+          const errorSummary = [{ text: 'Error text' }]
+          ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+            return { errors: {}, errorSummary, userInput: {} }
+          })
+
+          const requestHandler = applicationsController.show()
+          await requestHandler(request, response, next)
+
+          expect(response.render).toHaveBeenCalledWith('applications/taskList', {
+            application,
+            taskList: stubTaskList,
+            errors: {},
+            errorSummary,
           })
         })
       })
@@ -202,16 +237,48 @@ describe('applicationsController', () => {
   })
 
   describe('submit', () => {
-    it('renders the application submission confirmation page', async () => {
-      const application = applicationFactory.build()
-      request.params.id = 'some-id'
-      applicationService.findApplication.mockResolvedValue(application)
+    describe('when the confirmation checkbox is checked', () => {
+      it('renders the application submission confirmation page', async () => {
+        const application = applicationFactory.build()
 
-      const requestHandler = applicationsController.submit()
-      await requestHandler(request, response, next)
+        request.params.id = 'some-id'
+        request.body = { confirmation: 'submit' }
 
-      expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
-      expect(response.render).toHaveBeenCalledWith('applications/confirm', { pageHeading: 'Application confirmation' })
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.submit()
+        await requestHandler(request, response, next)
+
+        expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
+        expect(applicationService.submit).toHaveBeenCalledWith(request.user.token, application)
+        expect(response.render).toHaveBeenCalledWith('applications/confirm', {
+          pageHeading: 'Application confirmation',
+        })
+      })
+    })
+
+    describe('when the confirmation checkbox is not checked', () => {
+      it('renders the application submission confirmation page', async () => {
+        const application = applicationFactory.build()
+
+        request.params.id = 'some-id'
+        request.body = undefined
+
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.submit()
+        await requestHandler(request, response, next)
+
+        const error = new Error('You must confirm the information provided is complete, accurate and up to date.')
+
+        expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
+        expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
+          request,
+          response,
+          error,
+          paths.applications.show({ id: application.id }),
+        )
+      })
     })
   })
 
