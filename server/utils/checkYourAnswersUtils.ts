@@ -164,7 +164,15 @@ export const getSections = (): Array<FormSection> => {
 
 export const getPages = (application: Application, task: string) => {
   const pagesWithoutQuestions = ['summary', 'summary-data']
-  const pagesKeys = Object.keys(application.data[task])
+  const pages = application.data[task]
+
+  // TODO: Remove the early return before we go live (or feature flag for testing)
+  // Allow for incomplete applications to be submitted
+  if (!pages) {
+    return []
+  }
+
+  const pagesKeys = Object.keys(pages)
 
   return pagesKeys.filter(pageKey => !pagesWithoutQuestions.includes(pageKey))
 }
