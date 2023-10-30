@@ -10,10 +10,12 @@ import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
 import paths from '../../paths/apply'
+import { buildDocument } from '../../utils/applications/documentUtils'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getPage')
+jest.mock('../../utils/applications/documentUtils')
 
 describe('applicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -241,6 +243,8 @@ describe('applicationsController', () => {
       it('renders the application submission confirmation page', async () => {
         const application = applicationFactory.build()
 
+        ;(buildDocument as jest.Mock).mockReturnValue({})
+
         request.params.id = 'some-id'
         request.body = { confirmation: 'submit' }
 
@@ -260,6 +264,8 @@ describe('applicationsController', () => {
     describe('when the confirmation checkbox is not checked', () => {
       it('renders the application submission confirmation page', async () => {
         const application = applicationFactory.build()
+
+        ;(buildDocument as jest.Mock).mockReturnValue({})
 
         request.params.id = 'some-id'
         request.body = undefined

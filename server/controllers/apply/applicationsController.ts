@@ -13,6 +13,7 @@ import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
+import { buildDocument } from '../../utils/applications/documentUtils'
 
 export default class ApplicationsController {
   constructor(
@@ -96,6 +97,7 @@ export default class ApplicationsController {
   submit(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+      application.document = buildDocument(application)
 
       try {
         if (req.body?.confirmation !== 'submit') {
