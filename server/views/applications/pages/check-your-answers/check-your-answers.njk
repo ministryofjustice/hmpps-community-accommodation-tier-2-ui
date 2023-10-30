@@ -40,6 +40,17 @@
         {% endfor %}
       {% endfor %}
 
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        <input type="hidden" name="reviewed" value="1"/>
+
+        {{ govukButton({
+          text: "Continue",
+          preventDoubleClick: true
+        }) }}
+      </form>
+
     </div>
   </div>
 {% endblock %}
