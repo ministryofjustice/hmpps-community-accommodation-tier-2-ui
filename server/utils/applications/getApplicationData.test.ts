@@ -15,7 +15,7 @@ describe('getApplicationSubmissionData', () => {
   it('returns the submission data', () => {
     const mockApplication = applicationFactory.build()
     expect(getApplicationSubmissionData(mockApplication)).toEqual({
-      type: 'CAS2',
+      applicationId: mockApplication.id,
       translatedDocument: mockApplication.document,
     })
   })

@@ -10,6 +10,6 @@ export const getApplicationUpdateData = (application: Application): UpdateApplic
 export const getApplicationSubmissionData = (application: Application): SubmitCas2Application => {
   return {
     translatedDocument: application.document,
-    type: 'CAS2',
+    applicationId: application.id,
   }
 }

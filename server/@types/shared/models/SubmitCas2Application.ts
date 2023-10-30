@@ -3,7 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { SubmitApplication } from './SubmitApplication';
+import type { AnyValue } from './AnyValue';
 
-export type SubmitCas2Application = SubmitApplication;
+export type SubmitCas2Application = {
+    translatedDocument: AnyValue;
+    /**
+     * Id of the application being submitted
+     */
+    applicationId: string;
+};
 
