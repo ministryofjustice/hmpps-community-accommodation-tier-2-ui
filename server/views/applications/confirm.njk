@@ -15,11 +15,19 @@
                 titleText: "Application complete"
             }) }}
 
+            <p>We have sent you a confirmation email.</p>
+
+            <h2>What happens next</h2>
+
+            <p>Your CAS-2 referral has been sent to Nacro, the housing provider.</p>
+            <p>They will be in touch to confirm whether they have any suitable accommodation for your applicant, or to ask for more information.</p>
+
             {{ govukButton({
-                text: "Back to dashboard",
-                href: paths.applications.index()
+                text: "Start new application",
+                href: '/'
                 })
             }}
+
         </div>
     </div>
 {% endblock %}
