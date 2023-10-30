@@ -75,6 +75,8 @@ export type { Cancellation } from './models/Cancellation';
 export type { CancellationReason } from './models/CancellationReason';
 export type { Cas2Application } from './models/Cas2Application';
 export type { Cas2ApplicationSummary } from './models/Cas2ApplicationSummary';
+export type { Cas2SubmittedApplication } from './models/Cas2SubmittedApplication';
+export type { Cas2SubmittedApplicationSummary } from './models/Cas2SubmittedApplicationSummary';
 export type { Characteristic } from './models/Characteristic';
 export type { CharacteristicPair } from './models/CharacteristicPair';
 export type { ClarificationNote } from './models/ClarificationNote';
