@@ -51,6 +51,10 @@ export default class ApplicationService {
   async save(page: TaskListPage, request: Request) {
     const errors = page.errors()
 
+    const pageHasChangedSinceLastSave = (oldBody: Record<string, string> | undefined) => {
+      return !oldBody || !pageBodyShallowEquals(oldBody, page.body)
+    }
+
     if (Object.keys(errors).length) {
       throw new ValidationError<typeof page>(errors)
     } else {
@@ -73,7 +77,7 @@ export default class ApplicationService {
         application.data[checkYourAnswersTaskName] &&
         !(taskName === checkYourAnswersTaskName && pageName === checkYourAnswersPageName)
       ) {
-        if (!oldBody || !pageBodyShallowEquals(oldBody, page.body)) {
+        if (pageHasChangedSinceLastSave(oldBody)) {
           delete application.data[checkYourAnswersTaskName]
         }
       }
