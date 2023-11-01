@@ -36,7 +36,7 @@ export const checkYourAnswersSections = (application: Application) => {
 export const getTaskAnswersAsSummaryListItems = (
   task: string,
   application: Application,
-  checkYourAnswersPage = true,
+  outputFormat: 'checkYourAnswers' | 'document' = 'checkYourAnswers',
 ): Array<SummaryListItem | QuestionAndAnswer> => {
   const items: Array<SummaryListItem | QuestionAndAnswer> = []
 
@@ -51,7 +51,7 @@ export const getTaskAnswersAsSummaryListItems = (
       task,
       pageKey,
       questions,
-      checkYourAnswersPage,
+      outputFormat,
     })
   })
 
@@ -64,9 +64,9 @@ export const addPageAnswersToItemsArray = (params: {
   task: string
   pageKey: string
   questions: Record<string, unknown>
-  checkYourAnswersPage: boolean
+  outputFormat: 'checkYourAnswers' | 'document'
 }) => {
-  const { items, application, task, pageKey, questions, checkYourAnswersPage } = params
+  const { items, application, task, pageKey, questions, outputFormat } = params
   const PageClass = getPage(task, pageKey)
 
   const page = new PageClass({}, application)
@@ -74,7 +74,7 @@ export const addPageAnswersToItemsArray = (params: {
   if (hasResponseMethod(page)) {
     const response = page.response()
     Object.keys(response).forEach(question => {
-      if (checkYourAnswersPage) {
+      if (outputFormat === 'checkYourAnswers') {
         items.push(summaryListItemForQuestion(application, task, pageKey, { question, answer: response[question] }))
       } else {
         items.push({ question, answer: response[question] })
@@ -91,7 +91,7 @@ export const addPageAnswersToItemsArray = (params: {
 
         const questionText = questions[task][pageKey]?.[questionKey].question
 
-        if (checkYourAnswersPage) {
+        if (outputFormat === 'checkYourAnswers') {
           items.push(summaryListItemForQuestion(application, task, pageKey, { question: questionText, answer }))
         } else {
           items.push({ question: questionText, answer })

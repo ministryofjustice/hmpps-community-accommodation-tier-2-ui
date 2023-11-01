@@ -37,6 +37,10 @@ const mockQuestions = {
 } as unknown as Questions
 
 describe('checkYourAnswersUtils', () => {
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
   const person = personFactory.build({ name: 'Roger Smith' })
 
   const questions = getQuestions(person.name)
@@ -133,196 +137,233 @@ describe('checkYourAnswersUtils', () => {
       },
     })
 
-    it('adds each page answer to the items array by default', () => {
-      const mockedConfirmEligibilityQuestion = {
-        'confirm-eligibility': {
-          page1: {
-            question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
-            question2: { question: 'Another question' },
-          },
-        },
-      } as unknown as Questions
-
-      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
-
-      const items: Array<SummaryListItem> = []
-
-      const expected = [
-        {
-          key: { html: 'A question' },
-          value: { html: 'No' },
-          actions: {
-            items: [
-              {
-                href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
-                text: 'Change',
-                visuallyHiddenText: 'A question',
-              },
-            ],
-          },
-        },
-        {
-          key: { html: 'Another question' },
-          value: { html: 'an answer' },
-          actions: {
-            items: [
-              {
-                href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
-                text: 'Change',
-                visuallyHiddenText: 'Another question',
-              },
-            ],
-          },
-        },
-      ]
-
-      addPageAnswersToItemsArray({
-        items,
-        application: mockApplication,
-        task: 'confirm-eligibility',
-        pageKey: 'page1',
-        questions: mockedConfirmEligibilityQuestion,
-        checkYourAnswersPage: true,
-      })
-
-      expect(items).toEqual(expected)
-    })
-
-    it('adds each question and answer to the items array if checkYourAnswersPage flag is false', () => {
-      const mockedConfirmEligibilityQuestion = {
-        'confirm-eligibility': {
-          page1: {
-            question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
-            question2: { question: 'Another question' },
-          },
-        },
-      } as unknown as Questions
-
-      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
-
-      const items: Array<SummaryListItem> = []
-
-      const expected = [
-        {
-          question: 'A question',
-          answer: 'No',
-        },
-        {
-          question: 'Another question',
-          answer: 'an answer',
-        },
-      ]
-
-      addPageAnswersToItemsArray({
-        items,
-        application: mockApplication,
-        task: 'confirm-eligibility',
-        pageKey: 'page1',
-        questions: mockedConfirmEligibilityQuestion,
-        checkYourAnswersPage: false,
-      })
-
-      expect(items).toEqual(expected)
-    })
-
-    it(`does not add to items array if question keys don't refer to questions`, () => {
-      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
-
-      const items: Array<SummaryListItem> = []
-
-      addPageAnswersToItemsArray({
-        items,
-        application,
-        task: 'risk-to-self',
-        pageKey: 'oasys-import',
-        questions,
-        checkYourAnswersPage: true,
-      })
-
-      expect(items).toEqual([])
-    })
-
-    it('does not add questions to the items array if there is no answer', () => {
-      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
-
-      const mockApplicationNoAnswers = applicationFactory.build({
-        data: {
+    describe('when the output format is checkYourAnswers', () => {
+      it('adds each page answer to the items array by default', () => {
+        const mockedConfirmEligibilityQuestion = {
           'confirm-eligibility': {
             page1: {
-              question1: '',
-              question2: '',
+              question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+              question2: { question: 'Another question' },
             },
           },
-        },
-      })
+        } as unknown as Questions
 
-      const mockedQuestions = {
-        'confirm-eligibility': {
-          page1: {
-            question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
-            question2: { question: 'Another question' },
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
+        const items: Array<SummaryListItem> = []
+
+        const expected = [
+          {
+            key: { html: 'A question' },
+            value: { html: 'No' },
+            actions: {
+              items: [
+                {
+                  href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
+                  text: 'Change',
+                  visuallyHiddenText: 'A question',
+                },
+              ],
+            },
           },
-        },
-      }
+          {
+            key: { html: 'Another question' },
+            value: { html: 'an answer' },
+            actions: {
+              items: [
+                {
+                  href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
+                  text: 'Change',
+                  visuallyHiddenText: 'Another question',
+                },
+              ],
+            },
+          },
+        ]
 
-      const items: Array<SummaryListItem> = []
+        addPageAnswersToItemsArray({
+          items,
+          application: mockApplication,
+          task: 'confirm-eligibility',
+          pageKey: 'page1',
+          questions: mockedConfirmEligibilityQuestion,
+          outputFormat: 'checkYourAnswers',
+        })
 
-      addPageAnswersToItemsArray({
-        items,
-        application: mockApplicationNoAnswers,
-        task: 'confirm-eligibility',
-        pageKey: 'page1',
-        questions: mockedQuestions,
-        checkYourAnswersPage: true,
+        expect(items).toEqual(expected)
       })
 
-      expect(items).toEqual([])
+      it(`does not add to items array if question keys don't refer to questions`, () => {
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
+        const items: Array<SummaryListItem> = []
+
+        addPageAnswersToItemsArray({
+          items,
+          application,
+          task: 'risk-to-self',
+          pageKey: 'oasys-import',
+          questions,
+          outputFormat: 'checkYourAnswers',
+        })
+
+        expect(items).toEqual([])
+      })
+
+      it('does not add questions to the items array if there is no answer', () => {
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
+        const mockApplicationNoAnswers = applicationFactory.build({
+          data: {
+            'confirm-eligibility': {
+              page1: {
+                question1: '',
+                question2: '',
+              },
+            },
+          },
+        })
+
+        const mockedQuestions = {
+          'confirm-eligibility': {
+            page1: {
+              question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+              question2: { question: 'Another question' },
+            },
+          },
+        }
+
+        const items: Array<SummaryListItem> = []
+
+        addPageAnswersToItemsArray({
+          items,
+          application: mockApplicationNoAnswers,
+          task: 'confirm-eligibility',
+          pageKey: 'page1',
+          questions: mockedQuestions,
+          outputFormat: 'checkYourAnswers',
+        })
+
+        expect(items).toEqual([])
+      })
+
+      it('if there is a page response method, items are generated from its return value', () => {
+        const ApplyPage = jest.fn()
+
+        Apply.pages['confirm-eligibility'] = {
+          somePage: ApplyPage,
+        }
+
+        ApplyPage.mockReturnValueOnce({
+          response: () => {
+            return { foo: 'bar' }
+          },
+        })
+
+        const items: Array<SummaryListItem> = []
+
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockImplementationOnce(jest.fn(() => ApplyPage))
+        jest.spyOn(checkYourAnswersUtils, 'getAnswer').mockImplementationOnce(jest.fn())
+
+        const expected = [
+          {
+            key: { html: 'foo' },
+            value: { html: 'bar' },
+            actions: {
+              items: [
+                {
+                  href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
+                  text: 'Change',
+                  visuallyHiddenText: 'foo',
+                },
+              ],
+            },
+          },
+        ]
+
+        addPageAnswersToItemsArray({
+          items,
+          application: mockApplication,
+          task: 'confirm-eligibility',
+          pageKey: 'page1',
+          questions,
+          outputFormat: 'checkYourAnswers',
+        })
+        expect(items).toEqual(expected)
+        expect(checkYourAnswersUtils.getAnswer).toHaveBeenCalledTimes(0)
+      })
     })
 
-    it('if there is a page response method, items are generated from its return value', () => {
-      const ApplyPage = jest.fn()
-
-      Apply.pages['confirm-eligibility'] = {
-        somePage: ApplyPage,
-      }
-
-      ApplyPage.mockReturnValueOnce({
-        response: () => {
-          return { foo: 'bar' }
-        },
-      })
-
-      const items: Array<SummaryListItem> = []
-
-      jest.spyOn(checkYourAnswersUtils, 'getPage').mockImplementationOnce(jest.fn(() => ApplyPage))
-      jest.spyOn(checkYourAnswersUtils, 'getAnswer').mockImplementationOnce(jest.fn())
-
-      const expected = [
-        {
-          key: { html: 'foo' },
-          value: { html: 'bar' },
-          actions: {
-            items: [
-              {
-                href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
-                text: 'Change',
-                visuallyHiddenText: 'foo',
-              },
-            ],
+    describe('when the output format is the document', () => {
+      it('adds each question and answer to the items array', () => {
+        const mockedConfirmEligibilityQuestion = {
+          'confirm-eligibility': {
+            page1: {
+              question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+              question2: { question: 'Another question' },
+            },
           },
-        },
-      ]
+        } as unknown as Questions
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
 
-      addPageAnswersToItemsArray({
-        items,
-        application: mockApplication,
-        task: 'confirm-eligibility',
-        pageKey: 'page1',
-        questions,
-        checkYourAnswersPage: true,
+        const items: Array<SummaryListItem> = []
+        const expected = [
+          {
+            question: 'A question',
+            answer: 'No',
+          },
+          {
+            question: 'Another question',
+            answer: 'an answer',
+          },
+        ]
+        addPageAnswersToItemsArray({
+          items,
+          application: mockApplication,
+          task: 'confirm-eligibility',
+          pageKey: 'page1',
+          questions: mockedConfirmEligibilityQuestion,
+          outputFormat: 'document',
+        })
+        expect(items).toEqual(expected)
       })
-      expect(items).toEqual(expected)
-      expect(checkYourAnswersUtils.getAnswer).toHaveBeenCalledTimes(0)
+
+      it('if there is a page response method, items are generated from its return value', () => {
+        const ApplyPage = jest.fn()
+
+        Apply.pages['confirm-eligibility'] = {
+          somePage: ApplyPage,
+        }
+
+        ApplyPage.mockReturnValueOnce({
+          response: () => {
+            return { 'A question': 'An answer' }
+          },
+        })
+
+        const items: Array<SummaryListItem> = []
+
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockImplementationOnce(jest.fn(() => ApplyPage))
+        jest.spyOn(checkYourAnswersUtils, 'getAnswer').mockImplementationOnce(jest.fn())
+
+        const expected = [
+          {
+            question: 'A question',
+            answer: 'An answer',
+          },
+        ]
+
+        addPageAnswersToItemsArray({
+          items,
+          application: mockApplication,
+          task: 'confirm-eligibility',
+          pageKey: 'page1',
+          questions,
+          outputFormat: 'document',
+        })
+        expect(items).toEqual(expected)
+        expect(checkYourAnswersUtils.getAnswer).toHaveBeenCalledTimes(0)
+      })
     })
   })
 

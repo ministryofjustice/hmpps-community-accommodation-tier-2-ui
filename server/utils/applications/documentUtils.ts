@@ -9,7 +9,7 @@ export const buildDocument = (application: Application) => {
         tasks: section.tasks.map(task => {
           return {
             title: task.title,
-            questionsAndAnswers: getTaskAnswersAsSummaryListItems(task.id, application, false),
+            questionsAndAnswers: getTaskAnswersAsSummaryListItems(task.id, application, 'document'),
           }
         }),
       }
