@@ -1,10 +1,11 @@
 import type { Request } from 'express'
 import { AnyValue, Cas2Application as Application, Cas2Application } from '@approved-premises/api'
 import type { DataServices, GroupedApplications } from '@approved-premises/ui'
-import { getBody, getPageName, getTaskName } from '../form-pages/utils'
+import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
+import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 import { ValidationError } from '../utils/errors'
 
 export default class ApplicationService {
@@ -50,6 +51,10 @@ export default class ApplicationService {
   async save(page: TaskListPage, request: Request) {
     const errors = page.errors()
 
+    const pageHasChangedSinceLastSave = (oldBody: Record<string, string> | undefined) => {
+      return !oldBody || !pageBodyShallowEquals(oldBody, page.body)
+    }
+
     if (Object.keys(errors).length) {
       throw new ValidationError<typeof page>(errors)
     } else {
@@ -59,9 +64,23 @@ export default class ApplicationService {
       const pageName = getPageName(page.constructor)
       const taskName = getTaskName(page.constructor)
 
+      const oldBody = application.data?.[taskName]?.[pageName]
+
       application.data = application.data || {}
       application.data[taskName] = application.data[taskName] || {}
       application.data[taskName][pageName] = page.body
+
+      const checkYourAnswersTaskName = getTaskName(CheckYourAnswers)
+      const checkYourAnswersPageName = getPageName(CheckYourAnswers)
+
+      if (
+        application.data[checkYourAnswersTaskName] &&
+        !(taskName === checkYourAnswersTaskName && pageName === checkYourAnswersPageName)
+      ) {
+        if (pageHasChangedSinceLastSave(oldBody)) {
+          delete application.data[checkYourAnswersTaskName]
+        }
+      }
 
       await client.update(application.id, getApplicationUpdateData(application))
     }

@@ -9,10 +9,15 @@ import { formatLines } from './viewUtils'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import { UnknownPageError } from './errors'
 
-export const checkYourAnswersSections = (application: Application) => {
-  const sectionsWithAnswers = getSectionsWithAnswers()
+type QuestionAndAnswer = {
+  question: string
+  answer: string
+}
 
-  return sectionsWithAnswers.map(section => {
+export const checkYourAnswersSections = (application: Application) => {
+  const sections = getSections()
+
+  const sectionsWithAnswers = sections.map(section => {
     return {
       title: section.title,
       tasks: section.tasks.map(task => {
@@ -24,10 +29,16 @@ export const checkYourAnswersSections = (application: Application) => {
       }),
     }
   })
+
+  return sectionsWithAnswers
 }
 
-export const getTaskAnswersAsSummaryListItems = (task: string, application: Application): Array<SummaryListItem> => {
-  const items: Array<SummaryListItem> = []
+export const getTaskAnswersAsSummaryListItems = (
+  task: string,
+  application: Application,
+  outputFormat: 'checkYourAnswers' | 'document' = 'checkYourAnswers',
+): Array<SummaryListItem | QuestionAndAnswer> => {
+  const items: Array<SummaryListItem | QuestionAndAnswer> = []
 
   const questions = getQuestions(nameOrPlaceholderCopy(application.person))
 
@@ -40,6 +51,7 @@ export const getTaskAnswersAsSummaryListItems = (task: string, application: Appl
       task,
       pageKey,
       questions,
+      outputFormat,
     })
   })
 
@@ -47,13 +59,14 @@ export const getTaskAnswersAsSummaryListItems = (task: string, application: Appl
 }
 
 export const addPageAnswersToItemsArray = (params: {
-  items: Array<SummaryListItem>
+  items: Array<SummaryListItem | QuestionAndAnswer>
   application: Application
   task: string
   pageKey: string
   questions: Record<string, unknown>
+  outputFormat: 'checkYourAnswers' | 'document'
 }) => {
-  const { items, application, task, pageKey, questions } = params
+  const { items, application, task, pageKey, questions, outputFormat } = params
   const PageClass = getPage(task, pageKey)
 
   const page = new PageClass({}, application)
@@ -61,7 +74,11 @@ export const addPageAnswersToItemsArray = (params: {
   if (hasResponseMethod(page)) {
     const response = page.response()
     Object.keys(response).forEach(question => {
-      items.push(summaryListItemForQuestion(application, task, pageKey, { question, answer: response[question] }))
+      if (outputFormat === 'checkYourAnswers') {
+        items.push(summaryListItemForQuestion(application, task, pageKey, { question, answer: response[question] }))
+      } else {
+        items.push({ question, answer: response[question] })
+      }
     })
   } else {
     const questionKeys = Object.keys(application.data[task][pageKey])
@@ -74,7 +91,11 @@ export const addPageAnswersToItemsArray = (params: {
 
         const questionText = questions[task][pageKey]?.[questionKey].question
 
-        items.push(summaryListItemForQuestion(application, task, pageKey, { question: questionText, answer }))
+        if (outputFormat === 'checkYourAnswers') {
+          items.push(summaryListItemForQuestion(application, task, pageKey, { question: questionText, answer }))
+        } else {
+          items.push({ question: questionText, answer })
+        }
       })
     }
   }
@@ -135,7 +156,7 @@ export const summaryListItemForQuestion = (
   }
 }
 
-export const getSectionsWithAnswers = (): Array<FormSection> => {
+export const getSections = (): Array<FormSection> => {
   const { sections } = Apply
 
   return sections.filter(section => section.name !== CheckYourAnswers.name)
@@ -143,7 +164,15 @@ export const getSectionsWithAnswers = (): Array<FormSection> => {
 
 export const getPages = (application: Application, task: string) => {
   const pagesWithoutQuestions = ['summary', 'summary-data']
-  const pagesKeys = Object.keys(application.data[task])
+  const pages = application.data[task]
+
+  // TODO: Remove the early return before we go live (or feature flag for testing)
+  // Allow for incomplete applications to be submitted
+  if (!pages) {
+    return []
+  }
+
+  const pagesKeys = Object.keys(pages)
 
   return pagesKeys.filter(pageKey => !pagesWithoutQuestions.includes(pageKey))
 }

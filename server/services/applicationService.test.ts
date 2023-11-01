@@ -6,9 +6,10 @@ import { DataServices, GroupedApplications, TaskListErrors } from '@approved-pre
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
-import { getBody, getPageName, getTaskName } from '../form-pages/utils'
+import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import { ValidationError } from '../utils/errors'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
+import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 
 import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 
@@ -106,8 +107,13 @@ describe('ApplicationService', () => {
           },
           body: { foo: 'bar' },
         })
-        ;(getPageName as jest.Mock).mockReturnValue('some-page')
-        ;(getTaskName as jest.Mock).mockReturnValue('some-task')
+        ;(getPageName as jest.Mock).mockImplementation(pageClass =>
+          pageClass === CheckYourAnswers ? 'check-your-answers' : 'some-page',
+        )
+        ;(getTaskName as jest.Mock).mockImplementation(pageClass =>
+          pageClass === CheckYourAnswers ? 'check-your-answers' : 'some-task',
+        )
+        ;(pageBodyShallowEquals as jest.Mock).mockReturnValue(false)
       })
 
       it('does not throw an error', () => {
@@ -135,6 +141,83 @@ describe('ApplicationService', () => {
               'other-page': { question: 'answer' },
               'some-page': { foo: 'bar' },
             },
+          },
+        })
+      })
+
+      it('invalidates the check your answers task when saving a new page', async () => {
+        application.data = {
+          'some-task': { 'other-page': { question: 'answer' } },
+          'check-your-answers': { 'check-your-answers': { reviewed: '1' } },
+        }
+
+        await service.save(page, request)
+
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'some-task': { 'other-page': { question: 'answer' }, 'some-page': { foo: 'bar' } },
+          },
+        })
+      })
+
+      it('invalidates the check your answers task when changing an existing page', async () => {
+        application.data = {
+          'some-task': { 'some-page': { foo: 'baz' }, 'other-page': { question: 'answer' } },
+          'check-your-answers': { review: { reviewed: '1' } },
+        }
+
+        await service.save(page, request)
+
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'some-task': { 'other-page': { question: 'answer' }, 'some-page': { foo: 'bar' } },
+          },
+        })
+      })
+
+      it('does not invalidate the check your answers task when saving an existing page with unchanged data', async () => {
+        application.data = {
+          'some-task': { 'some-page': { foo: 'bar' } },
+          'check-your-answers': { review: { reviewed: '1' } },
+        }
+        ;(pageBodyShallowEquals as jest.Mock).mockReturnValue(true)
+
+        await service.save(page, request)
+
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'some-task': { 'some-page': { foo: 'bar' } },
+            'check-your-answers': { review: { reviewed: '1' } },
+          },
+        })
+      })
+
+      it('does not invalidate the check your answers task when saving a check your answers page', async () => {
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { reviewed: '1' },
+        })
+
+        application.data = {
+          'some-task': { 'other-page': { question: 'answer' } },
+        }
+        ;(getTaskName as jest.Mock).mockReturnValue('check-your-answers')
+        ;(getPageName as jest.Mock).mockReturnValue('check-your-answers')
+
+        await service.save(page, request)
+
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'some-task': {
+              'other-page': { question: 'answer' },
+            },
+            'check-your-answers': { 'check-your-answers': { reviewed: '1' } },
           },
         })
       })

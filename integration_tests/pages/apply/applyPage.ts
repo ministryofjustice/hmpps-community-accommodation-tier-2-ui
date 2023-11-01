@@ -35,7 +35,7 @@ export default class ApplyPage extends Page {
   }
 
   clickConfirm(): void {
-    this.checkCheckboxByLabel('confirmed')
+    this.checkCheckboxByValue('confirmed')
   }
 
   removeWhiteSpaceAndLineBreaks(description: string): string {

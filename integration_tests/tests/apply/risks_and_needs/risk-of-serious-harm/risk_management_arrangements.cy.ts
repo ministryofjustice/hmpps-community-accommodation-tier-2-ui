@@ -92,7 +92,7 @@ context('Visit "risk management arrangemnents" page', () => {
     page.completeAllArrangementDetails(page)
 
     //  When I select that this person does not have any arrangements
-    page.checkCheckboxByLabel('no')
+    page.checkCheckboxByValue('no')
     page.expectArrangementsToBeUnselected()
     page.expectArrangementDetailsToBeEmpty()
 

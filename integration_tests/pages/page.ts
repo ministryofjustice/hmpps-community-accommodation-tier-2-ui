@@ -61,7 +61,7 @@ export default abstract class Page {
     cy.get(`#${id}`).select(entry)
   }
 
-  checkCheckboxByLabel(option: string): void {
+  checkCheckboxByValue(option: string): void {
     cy.get(`input[value="${option}"]`).check()
   }
 

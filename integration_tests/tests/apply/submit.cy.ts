@@ -37,10 +37,13 @@ context('Applications dashboard', () => {
     // I visit the Task List Page
     const page = TaskListPage.visit(this.application)
 
-    // I click submit
+    // And I check the confirmation checkbox
+    page.checkCheckboxByValue('submit')
+
+    // And I click submit
     page.clickSubmit()
 
-    // Then I see a confirmation page
+    // And I see a confirmation page
     Page.verifyOnPage(ApplicationSubmittedPage, this.application.person.name)
   })
 })
