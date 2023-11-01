@@ -32,7 +32,7 @@ context('Applications dashboard', () => {
   // ----------------------------------------------
   it('shows the dashboard', function test() {
     cy.task('stubApplicationGet', { application: this.application })
-    cy.task('stubApplicationSubmit', { application: this.application })
+    cy.task('stubApplicationSubmit', {})
 
     // I visit the Task List Page
     const page = TaskListPage.visit(this.application)

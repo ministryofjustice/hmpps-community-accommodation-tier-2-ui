@@ -130,7 +130,7 @@ describeClient('ApplicationClient', provider => {
       const application = applicationFactory.build()
       const data = {
         translatedDocument: application.document,
-        type: 'CAS2',
+        applicationId: application.id,
       } as SubmitCas2Application
 
       provider.addInteraction({
@@ -138,7 +138,7 @@ describeClient('ApplicationClient', provider => {
         uponReceiving: 'A request to submit an application',
         withRequest: {
           method: 'POST',
-          path: paths.applications.submission({ id: application.id }),
+          path: paths.submissions.create.pattern,
           body: data,
           headers: {
             authorization: `Bearer ${token}`,

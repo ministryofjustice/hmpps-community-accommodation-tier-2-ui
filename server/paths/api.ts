@@ -5,6 +5,7 @@ const personPath = peoplePath.path(':crn')
 const oasysPath = personPath.path('oasys')
 const applicationsPath = path('/cas2/applications')
 const singleApplicationPath = applicationsPath.path(':id')
+const submissionsPath = path('/cas2/submissions')
 
 export default {
   people: {
@@ -18,11 +19,13 @@ export default {
       show: personPath.path('risks'),
     },
   },
+  submissions: {
+    create: submissionsPath,
+  },
   applications: {
     new: applicationsPath,
     index: applicationsPath,
     show: singleApplicationPath,
     update: singleApplicationPath,
-    submission: singleApplicationPath.path('submission'),
   },
 }

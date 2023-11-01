@@ -1,7 +1,7 @@
 import {
   Cas2Application as Application,
   Cas2ApplicationSummary,
-  SubmitApplication,
+  SubmitCas2Application,
   UpdateApplication,
 } from '@approved-premises/api'
 import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
@@ -40,10 +40,10 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async submit(applicationId: string, submissionData: SubmitApplication): Promise<void> {
+  async submit(applicationId: string, submissionData: SubmitCas2Application): Promise<void> {
     await this.restClient.post({
-      path: paths.applications.submission({ id: applicationId }),
-      data: { ...submissionData, type: 'CAS2' },
+      path: paths.submissions.create.pattern,
+      data: { ...submissionData, applicationId },
     })
   }
 }

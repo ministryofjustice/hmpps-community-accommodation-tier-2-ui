@@ -1,4 +1,4 @@
-import type { Cas2Application as Application, Cas2Application } from '@approved-premises/api'
+import type { Cas2Application as Application } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from '../../wiremock'
 import paths from '../../server/paths/api'
@@ -59,11 +59,11 @@ export default {
         url: paths.applications.update({ id: applicationId }),
       })
     ).body.requests,
-  stubApplicationSubmit: (args: { application: Cas2Application }): SuperAgentRequest =>
+  stubApplicationSubmit: (): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'POST',
-        url: `/cas2/applications/${args.application.id}/submission`,
+        url: `/cas2/submissions`,
       },
       response: {
         status: 200,
