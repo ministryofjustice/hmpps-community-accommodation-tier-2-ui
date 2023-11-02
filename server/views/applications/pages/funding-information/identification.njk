@@ -1,0 +1,76 @@
+{% extends "../layout.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% block questions %}
+
+  {{ 
+    formPageCheckboxes(
+        {
+          fieldName: "idDocuments",
+          hint: {
+            text: page.questions.hint
+          },
+          fieldset: {
+            legend: {
+              text: page.questions.question,
+              isPageHeading: true,
+              classes: "govuk-label--l"
+            }
+          },
+          items: page.items()
+        }, 
+        fetchContext()
+    ) 
+  }}
+
+  {{ govukDetails({
+    summaryText: "Why we need ID",
+    html: page.guidanceHtml
+  }) }}
+
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function setCheckedToFalseByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .checked = false;
+      })
+    }
+
+    function clearValueByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .value = ''
+      })
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // 'no' checkbox sets the others to unchecked
+      document
+        .getElementById('idDocuments-9')
+        .addEventListener('click', () => {
+          setCheckedToFalseByIds([
+            'idDocuments',
+            'idDocuments-2',
+            'idDocuments-3',
+            'idDocuments-4',
+            'idDocuments-5',
+            'idDocuments-6',
+            'idDocuments-7'
+          ])
+        });
+      // clicking any arrangement checkbox sets 'no' to unchecked
+      document
+        .querySelectorAll("[data-selector='documents']")
+        .forEach(checkbox => {
+          checkbox.addEventListener('click', () => setCheckedToFalseByIds(['idDocuments-9']));
+        })
+    });
+  </script>
+{% endblock %}
