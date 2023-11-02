@@ -53,6 +53,9 @@ export type DataServices = Partial<{
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2Application>
   }
+  submittedApplicationService: {
+    findApplication: (token: string, id: string) => Promise<Cas2SubmittedApplication>
+  }
   userService: {
     getUserById: (token: string, id: string) => Promise<User>
   }
