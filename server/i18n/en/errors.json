@@ -55,5 +55,12 @@
   },
   "whoIsAtRisk": {
     "empty": "Enter who is at risk"
+  },
+  "idDocuments": {
+    "empty": "Select an ID document or 'None of these options'"
+  },
+  "alternativeIDDocuments": {
+    "empty": "Select an ID document or 'Other type of identification'",
+    "other": "Enter the other type of ID"
   }
 }
