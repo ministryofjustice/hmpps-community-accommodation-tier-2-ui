@@ -21,3 +21,13 @@ $govuk-page-width: $moj-page-width;
   background-color: #d4351c;
   color: #ffffff;
 }
+
+.alternative-id-documents {
+  .govuk-checkboxes__divider {
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    margin-top: govuk-spacing(3);
+    margin-bottom: govuk-spacing(3);
+  }
+}
