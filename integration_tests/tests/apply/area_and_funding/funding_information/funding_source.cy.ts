@@ -27,16 +27,22 @@
 //    When I use the back button
 //    Then I'm on the task list page
 //
-//  Scenario: task completed successfully
+//  Scenario: navigate to national insurance number page
 //    Given I'm on the Funding information task page
-//    When I select an option and choose to save and continue
-//    Then I'm returned to the task list
-//    And I see that the task is now complete
+//    When I select personal savings and click save and continue
+//    Then I am redirected to the National Insurance page
+//
+//  Scenario: navigate to identification page
+//    Given I'm on the Funding information task page
+//    When I select benefits and click save and continue
+//    Then I am redirected to the identification page
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import FundingSourcePage from '../../../../pages/apply/fundingSourcePage'
+import FundingSourcePage from '../../../../pages/apply/area_and_funding/funding_information/fundingSourcePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import NationalInsurancePage from '../../../../pages/apply/area_and_funding/funding_information/nationalInsurancePage'
+import IdentificationPage from '../../../../pages/apply/area_and_funding/funding_information/identificationPage'
 
 context('Visit area and funding section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -131,41 +137,33 @@ context('Visit area and funding section', () => {
     Page.verifyOnPage(TaskListPage)
   })
 
-  // Scenario: task completed successfully
+  // Scenario: navigate to national insurance number page
   // -------------------------------------
-  it('submits the valid form', function test() {
+  it('entering personal savings redirects to national insurance number page', function test() {
     // Given I'm on the Funding information task page
     cy.get('a').contains('Add funding information').click()
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
 
-    // When I select an option and click save and continue
+    // When I select personal savings and click save and continue
     page.checkRadioByNameAndValue('fundingSource', 'personalSavings')
-
-    // after submission of the valid form the API will return the answered question
-    // -- note that the presence of the _page_ only is required in application.data
-    //    to signify that the page is complete,
-    //    apart from the eligibility question which must be answered
-    const answered = {
-      ...this.application,
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': { isEligible: 'yes' },
-        },
-        'funding-information': {
-          'funding-source': {
-            fundingSource: 'benefits',
-          },
-        },
-      },
-    }
-    cy.task('stubApplicationGet', { application: answered })
-
     page.clickSubmit()
 
-    // Then I return to the task list
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    // Then I am redirected to the National Insurance page
+    Page.verifyOnPage(NationalInsurancePage, this.application)
+  })
 
-    // And I see that the task is now complete
-    taskListPage.shouldShowTaskStatus('funding-information', 'Completed')
+  // Scenario: navigate to identification page
+  // -------------------------------------
+  it('entering benefits redirects to identification page', function test() {
+    // Given I'm on the Funding information task page
+    cy.get('a').contains('Add funding information').click()
+    const page = Page.verifyOnPage(FundingSourcePage, this.application)
+
+    // When I select benefits and click save and continue
+    page.checkRadioByNameAndValue('fundingSource', 'benefits')
+    page.clickSubmit()
+
+    // Then I am redirected to the identification page
+    Page.verifyOnPage(IdentificationPage, this.application)
   })
 })
