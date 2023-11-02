@@ -50,7 +50,10 @@ export default class FundingSource implements TaskListPage {
   }
 
   next() {
-    return ''
+    if (this.body.fundingSource === 'personalSavings') {
+      return 'national-insurance'
+    }
+    return 'identification'
   }
 
   errors() {
@@ -63,11 +66,14 @@ export default class FundingSource implements TaskListPage {
 
   items() {
     const items = convertKeyValuePairToRadioItems(this.options, this.body.fundingSource) as [Radio]
-    return items.map(radio => {
+    items.forEach(radio => {
       if (radio.value === 'benefits') {
-        return { ...radio, hint: { text: benefitsHint } }
+        radio.hint = { text: benefitsHint }
       }
-      return radio
     })
+
+    const both = items.pop()
+
+    return [...items, { divider: 'or' }, { ...both }]
   }
 }

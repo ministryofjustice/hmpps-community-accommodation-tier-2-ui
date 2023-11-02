@@ -1,22 +1,6 @@
-import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import FundingInformation from './fundingInformation'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-
-jest.mock('../../../../utils/formUtils', () => ({
-  convertKeyValuePairToRadioItems: jest.fn().mockImplementation(() => [
-    {
-      value: 'foo',
-      text: 'Foo',
-      checked: false,
-    },
-    {
-      value: 'bar',
-      text: 'Bar',
-      checked: false,
-    },
-  ]),
-}))
 
 describe('FundingInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -45,53 +29,31 @@ describe('FundingInformation', () => {
   })
 
   describe('items', () => {
-    describe('when there is a radio for benefits', () => {
-      it('returns the benefits hint', () => {
-        ;(convertKeyValuePairToRadioItems as jest.Mock).mockImplementation(() => [
-          {
-            value: 'benefits',
-            text: 'Foo',
-            checked: false,
-          },
-        ])
-        const page = new FundingInformation({ fundingSource: 'personalSavings' }, application)
+    it('returns the items as expected', () => {
+      const page = new FundingInformation({ fundingSource: 'personalSavings' }, application)
 
-        expect(page.items()).toEqual([
-          {
-            value: 'benefits',
-            text: 'Foo',
-            checked: false,
-            hint: {
-              text: 'This includes Housing Benefit and Universal Credit, Disability Living Allowance, and Employment and Support Allowance',
-            },
+      expect(page.items()).toEqual([
+        { checked: true, text: 'Personal money or savings', value: 'personalSavings' },
+        {
+          checked: false,
+          text: 'Benefits',
+          value: 'benefits',
+          hint: {
+            text: 'This includes Housing Benefit and Universal Credit, Disability Living Allowance, and Employment and Support Allowance',
           },
-        ])
-      })
-    })
-
-    describe('when there is not a radio for benefits', () => {
-      it('returns the radio without a hint', () => {
-        ;(convertKeyValuePairToRadioItems as jest.Mock).mockImplementation(() => [
-          {
-            value: 'foo',
-            text: 'Foo',
-            checked: false,
-          },
-        ])
-        const page = new FundingInformation({ fundingSource: 'personalSavings' }, application)
-
-        expect(page.items()).toEqual([
-          {
-            value: 'foo',
-            text: 'Foo',
-            checked: false,
-          },
-        ])
-      })
+        },
+        { divider: 'or' },
+        {
+          value: 'both',
+          text: 'Both',
+          checked: false,
+        },
+      ])
     })
   })
 
-  itShouldHaveNextValue(new FundingInformation({ fundingSource: 'personalSavings' }, application), '')
+  itShouldHaveNextValue(new FundingInformation({ fundingSource: 'personalSavings' }, application), 'national-insurance')
+  itShouldHaveNextValue(new FundingInformation({ fundingSource: 'benefits' }, application), 'identification')
   itShouldHavePreviousValue(new FundingInformation({ fundingSource: 'personalSavings' }, application), 'taskList')
 
   describe('errors', () => {
