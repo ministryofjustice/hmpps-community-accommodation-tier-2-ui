@@ -16,5 +16,9 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     auditEvent: 'VIEW_SUBMITTED_APPLICATION_SHOW',
   })
 
+  get(paths.submittedApplications.overview.pattern, submittedApplicationsController.overview(), {
+    auditEvent: 'VIEW_SUBMITTED_APPLICATION_OVERVIEW',
+  })
+
   return router
 }
