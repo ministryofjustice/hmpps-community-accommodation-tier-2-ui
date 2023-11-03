@@ -62,8 +62,8 @@ export default class ApplicationService {
       const oldBody = application.data?.[taskName]?.[pageName]
 
       application.data = this.addPageDataToApplicationData(application.data, taskName, pageName, page)
-      application.data = this.removeConditionalData(application.data)
-      application.data = this.removeCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
+      application.data = this.deleteOrphanedFollowOnAnswers(application.data)
+      application.data = this.deleteCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
       await client.update(application.id, getApplicationUpdateData(application))
     }
@@ -81,7 +81,7 @@ export default class ApplicationService {
     return newApplicationData
   }
 
-  private removeCheckYourAnswersIfPageChange(
+  private deleteCheckYourAnswersIfPageChange(
     applicationData: AnyValue,
     pageName: string,
     oldBody: AnyValue,
@@ -103,7 +103,7 @@ export default class ApplicationService {
     return applicationData
   }
 
-  private removeConditionalData(applicationData: AnyValue): AnyValue {
+  private deleteOrphanedFollowOnAnswers(applicationData: AnyValue): AnyValue {
     if (applicationData['funding-information']?.['funding-source']?.fundingSource === 'personalSavings') {
       delete applicationData['funding-information'].identification
       delete applicationData['funding-information']['alternative-identification']
