@@ -1,5 +1,10 @@
+import { QuestionAndAnswer } from '@approved-premises/ui'
 import { applicationFactory } from '../testutils/factories'
-import { inProgressApplicationTableRows, submittedApplicationTableRows } from './applicationUtils'
+import {
+  documentSummaryListRows,
+  inProgressApplicationTableRows,
+  submittedApplicationTableRows,
+} from './applicationUtils'
 import { fullPersonFactory } from '../testutils/factories/person'
 
 describe('inProgressApplicationTableRows', () => {
@@ -78,6 +83,26 @@ describe('submittedApplicationTableRows', () => {
           text: '11 December 2022',
         },
       ],
+    ])
+  })
+})
+
+describe('documentSummaryListRows', () => {
+  it('returns an array of summary list rows', () => {
+    const questionsAndAnswers: Array<QuestionAndAnswer> = [
+      { question: 'Question 1', answer: 'Answer 1' },
+      { question: 'Question 2', answer: 'Answer 2' },
+    ]
+    const rows = documentSummaryListRows(questionsAndAnswers)
+    expect(rows).toEqual([
+      {
+        key: { html: 'Question 1' },
+        value: { html: 'Answer 1' },
+      },
+      {
+        key: { html: 'Question 2' },
+        value: { html: 'Answer 2' },
+      },
     ])
   })
 })
