@@ -36,6 +36,11 @@
 //    Given I'm on the Funding information task page
 //    When I select benefits and click save and continue
 //    Then I am redirected to the identification page
+//
+//  Scenario: If I select personal savings, then any ID answers are deleted
+//    Given I'm on the Funding information page
+//    When I select personal savings
+//    Then any ID answers are deleted
 
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
@@ -53,13 +58,23 @@ context('Visit area and funding section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['funding-information'] = {}
+      delete applicationData['funding-information']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
         data: applicationData,
       })
       cy.wrap(application).as('application')
+      cy.wrap(application).as('applicationData')
+    })
+
+    cy.fixture('applicationData.json').then(applicationData => {
+      const application = applicationFactory.build({
+        id: 'abc123',
+        person,
+        data: applicationData,
+      })
+      cy.wrap(application).as('applicationWithData')
     })
   })
 
@@ -165,5 +180,30 @@ context('Visit area and funding section', () => {
 
     // Then I am redirected to the identification page
     Page.verifyOnPage(IdentificationPage, this.application)
+  })
+
+  // Scenario: If I select personal savings, then any ID answers are deleted
+  // -------------------------------------
+  it('entering personal savings deletes any ID answers', function test() {
+    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    // Given I'm on the Funding information task page
+    cy.get('a').contains('Add funding information').click()
+    const page = Page.verifyOnPage(FundingSourcePage, this.application)
+
+    // When I select personal savings and click save and continue
+    page.checkRadioByNameAndValue('fundingSource', 'personalSavings')
+    page.clickSubmit()
+
+    // Then any ID answers are deleted
+
+    cy.task('verifyApplicationUpdate', this.application.id).then(requests => {
+      expect(requests).to.have.length(1)
+
+      const body = JSON.parse(requests[0].body)
+
+      expect(body.data['funding-information']['funding-source'].fundingSource).to.equal('personalSavings')
+
+      expect(body.data['funding-information']).to.have.keys('funding-source', 'national-insurance')
+    })
   })
 })

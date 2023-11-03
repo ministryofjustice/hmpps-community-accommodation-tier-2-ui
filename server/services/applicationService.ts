@@ -59,10 +59,10 @@ export default class ApplicationService {
 
       const pageName = getPageName(page.constructor)
       const taskName = getTaskName(page.constructor)
+      const oldBody = application.data?.[taskName]?.[pageName]
 
       application.data = this.addPageDataToApplicationData(application.data, taskName, pageName, page)
-
-      const oldBody = application.data?.[taskName]?.[pageName]
+      application.data = this.removeConditionalData(application.data)
       application.data = this.removeCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
       await client.update(application.id, getApplicationUpdateData(application))
@@ -98,6 +98,15 @@ export default class ApplicationService {
       if (pageHasChangedSinceLastSave()) {
         delete applicationData[checkYourAnswersTaskName]
       }
+    }
+
+    return applicationData
+  }
+
+  private removeConditionalData(applicationData: AnyValue): AnyValue {
+    if (applicationData['funding-information']?.['funding-source']?.fundingSource === 'personalSavings') {
+      delete applicationData['funding-information'].identification
+      delete applicationData['funding-information']['alternative-identification']
     }
 
     return applicationData
