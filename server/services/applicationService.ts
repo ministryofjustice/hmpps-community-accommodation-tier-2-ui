@@ -51,10 +51,6 @@ export default class ApplicationService {
   async save(page: TaskListPage, request: Request) {
     const errors = page.errors()
 
-    const pageHasChangedSinceLastSave = (oldBody: Record<string, string> | undefined) => {
-      return !oldBody || !pageBodyShallowEquals(oldBody, page.body)
-    }
-
     if (Object.keys(errors).length) {
       throw new ValidationError<typeof page>(errors)
     } else {
@@ -64,26 +60,47 @@ export default class ApplicationService {
       const pageName = getPageName(page.constructor)
       const taskName = getTaskName(page.constructor)
 
+      application.data = this.addPageDataToApplicationData(application.data, taskName, pageName, page)
+
       const oldBody = application.data?.[taskName]?.[pageName]
-
-      application.data = application.data || {}
-      application.data[taskName] = application.data[taskName] || {}
-      application.data[taskName][pageName] = page.body
-
-      const checkYourAnswersTaskName = getTaskName(CheckYourAnswers)
-      const checkYourAnswersPageName = getPageName(CheckYourAnswers)
-
-      if (
-        application.data[checkYourAnswersTaskName] &&
-        !(taskName === checkYourAnswersTaskName && pageName === checkYourAnswersPageName)
-      ) {
-        if (pageHasChangedSinceLastSave(oldBody)) {
-          delete application.data[checkYourAnswersTaskName]
-        }
-      }
+      application.data = this.removeCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
       await client.update(application.id, getApplicationUpdateData(application))
     }
+  }
+
+  private addPageDataToApplicationData(
+    applicationData: AnyValue,
+    taskName: string,
+    pageName: string,
+    page: TaskListPage,
+  ): AnyValue {
+    const newApplicationData = applicationData || {}
+    newApplicationData[taskName] = newApplicationData[taskName] || {}
+    newApplicationData[taskName][pageName] = page.body
+    return newApplicationData
+  }
+
+  private removeCheckYourAnswersIfPageChange(
+    applicationData: AnyValue,
+    pageName: string,
+    oldBody: AnyValue,
+    newBody: AnyValue,
+  ) {
+    const checkYourAnswersTaskName = getTaskName(CheckYourAnswers)
+    const checkYourAnswersPageName = getPageName(CheckYourAnswers)
+
+    const pageHasChangedSinceLastSave = () => {
+      return !oldBody || !pageBodyShallowEquals(oldBody, newBody)
+    }
+
+    if (pageName !== checkYourAnswersPageName) {
+      if (pageHasChangedSinceLastSave()) {
+        delete applicationData[checkYourAnswersTaskName]
+      }
+    }
+
+    return applicationData
   }
 
   async saveData(taskData: AnyValue, request: Request) {
