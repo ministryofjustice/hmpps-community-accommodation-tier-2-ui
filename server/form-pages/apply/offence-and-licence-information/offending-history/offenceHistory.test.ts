@@ -58,7 +58,7 @@ describe('OffenceHistory', () => {
           },
           {
             titleAndNumber: 'Arson (09000)',
-            offenceCategoryTag: '<strong class="govuk-tag govuk-tag--orange">Arson</strong>',
+            offenceCategoryTag: '<strong class="govuk-tag govuk-tag--yellow">Arson</strong>',
             offenceCategoryText: 'Arson',
             offenceDate: '5 June 1940',
             sentenceLength: '3 years',
@@ -95,11 +95,11 @@ describe('OffenceHistory', () => {
     const categories = [
       ['stalkingOrHarassment', 'blue'],
       ['weaponsOrFirearms', 'red'],
-      ['arson', 'orange'],
+      ['arson', 'yellow'],
       ['violence', 'pink'],
       ['domesticAbuse', 'purple'],
       ['hateCrime', 'green'],
-      ['drugs', 'yellow'],
+      ['drugs', 'custom-brown'],
       ['other', 'grey'],
       ['undefinedCategory', 'grey'],
     ]
