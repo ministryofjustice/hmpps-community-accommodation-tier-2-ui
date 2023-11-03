@@ -117,7 +117,7 @@ export default class OffenceHistory implements TaskListPage {
       case 'weaponsOrFirearms':
         return 'red'
       case 'arson':
-        return 'orange'
+        return 'yellow'
       case 'violence':
         return 'pink'
       case 'domesticAbuse':
@@ -125,7 +125,7 @@ export default class OffenceHistory implements TaskListPage {
       case 'hateCrime':
         return 'green'
       case 'drugs':
-        return 'yellow'
+        return 'custom-brown'
       default:
         return 'grey'
     }
