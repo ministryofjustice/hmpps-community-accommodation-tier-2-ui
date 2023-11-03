@@ -1,0 +1,23 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  {{
+      formPageInput(
+        {
+          label: {
+            text: page.questions.nationalInsuranceNumber.question,
+            classes: "govuk-label--l",
+            isPageHeading: true
+          },
+          hint: {
+            text: page.questions.nationalInsuranceNumber.hint 
+          },
+          classes: "govuk-input--width-10",
+          fieldName: "nationalInsuranceNumber"
+        },
+        fetchContext()
+      )
+  }}
+
+{% endblock %}

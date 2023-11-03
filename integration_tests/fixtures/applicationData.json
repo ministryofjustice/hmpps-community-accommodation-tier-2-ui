@@ -7,6 +7,12 @@
   "funding-information": {
     "funding-source": {
       "fundingSource": "benefits"
+    },
+    "identification": {
+      "idDocuments": "passport"
+    },
+    "national-insurance": {
+      "nationalInsuranceNumber": "12345"
     }
   },
   "equality-and-diversity-monitoring": {

@@ -1,0 +1,41 @@
+{% extends "../layout.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  {% set otherID %}
+  {{  
+    formPageInput(
+      {
+        label: { text: page.questions.other.question, classes: "govuk-label--s"},
+        classes: "govuk-input",
+        fieldName: "other"
+      },
+      fetchContext()
+    )
+  }}
+  {% endset -%}
+
+  {{ 
+    formPageCheckboxes(
+        {
+          fieldName: "alternativeIDDocuments",
+          hint: {
+            text: page.questions.alternativeIDDocuments.hint
+          },
+          classes: "alternative-id-documents",
+          items: page.items(otherID)
+        }, 
+        fetchContext()
+    ) 
+  }}
+
+  {{ govukDetails({
+    summaryText: "Why we need ID",
+    html: page.guidanceHtml
+  }) }}
+
+{% endblock %}
