@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class SubstanceMisusePage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Health needs for ${nameOrPlaceholderCopy(application.person)}`,
+      `Substance misuse needs for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'substance-misuse',
