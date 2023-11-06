@@ -7,5 +7,6 @@ export default {
   submittedApplications: {
     index: assessApplicationsPath,
     show: singleApplicationPath,
+    overview: singleApplicationPath.path('overview'),
   },
 }
