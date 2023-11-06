@@ -4,6 +4,7 @@
 /* eslint-disable */
 
 import type { Bed } from './Bed';
+import type { BookingStatus } from './BookingStatus';
 import type { Person } from './Person';
 
 export type PremisesBooking = {
@@ -12,5 +13,6 @@ export type PremisesBooking = {
     departureDate?: string;
     person?: Person;
     bed?: Bed;
+    status?: BookingStatus;
 };
 

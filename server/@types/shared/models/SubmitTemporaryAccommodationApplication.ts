@@ -14,6 +14,7 @@ export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     isDutyToReferSubmitted?: boolean;
     dutyToReferSubmissionDate?: string;
     isApplicationEligible?: boolean;
+    eligibilityReason?: string;
     summaryData?: AnyValue;
 });
 
