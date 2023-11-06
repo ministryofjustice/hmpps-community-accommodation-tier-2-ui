@@ -16,5 +16,6 @@ export type FullPerson = (Person & {
     genderIdentity?: string;
     status: 'InCustody' | 'InCommunity' | 'Unknown';
     prisonName?: string;
+    isRestricted?: boolean;
 });
 
