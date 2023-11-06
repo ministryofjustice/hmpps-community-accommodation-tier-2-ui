@@ -8,6 +8,24 @@ export default class SubmittedApplicationPage extends Page {
     super('Application answers', person.name)
   }
 
+  shouldShowPrintButton(): void {
+    cy.get('button').contains('Save as PDF')
+  }
+
+  clickPrintButton(): void {
+    cy.get('button').contains('Save as PDF').click()
+  }
+
+  shouldPrint(): void {
+    cy.window().then(win => {
+      cy.stub(win, 'print').as('printStub')
+    })
+
+    this.clickPrintButton()
+
+    cy.get('@printStub').should('be.calledOnce')
+  }
+
   hasExpectedSummaryData(): void {
     const person = this.application.person as FullPerson
 

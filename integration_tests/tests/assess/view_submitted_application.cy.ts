@@ -8,6 +8,7 @@
 //    And I am logged in as a NACRO assessor
 //    When I navigate to the url of the submitted application
 //    Then I see the assessor's read-only view of the submitted application
+//    And I see a print button
 
 import { submittedApplicationFactory } from '../../../server/testutils/factories/index'
 import paths from '../../../server/paths/assess'
@@ -55,5 +56,8 @@ context('Assessor views submitted application', () => {
     const page = new SubmittedApplicationPage(this.submittedApplication)
     page.hasExpectedSummaryData()
     page.hasQuestionsAndAnswersFromDocument(this.submittedApplication.document)
+
+    //  And I see a print button
+    page.shouldShowPrintButton()
   })
 })

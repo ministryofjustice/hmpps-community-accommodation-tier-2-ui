@@ -4,6 +4,8 @@
 
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../../partials/documentSummaryList.njk" import documentSummaryList %}
+{% from "../../components/printButton/macro.njk" import printButtonScript,
+printButton %}
 
 {% extends "../../partials/layout.njk" %}
 
@@ -19,8 +21,9 @@
         Application answers
       </h1>
 
-      <p class="govuk-body-l">This page contains answers submitted as part of a CAS-2 application.</p>
+      <p class="govuk-body-l">This page contains answers submitted as part of a CAS-2 application. Alternatively, you can download a PDF version of this page.</p>
 
+      {{ printButton() }}
     </div>
 
     <div class="govuk-grid-column-full">
@@ -37,7 +40,9 @@
           <li>
             <span class="govuk-!-font-weight-bold">Prison number: </span>{{ application.person.nomsNumber }}</li>
           <li>
-            <span class="govuk-!-font-weight-bold">Submission date:</span> {{ formatDate(application.submittedAt, {format: 'medium'}) }} </li>
+            <span class="govuk-!-font-weight-bold">Submission date:</span>
+            {{ formatDate(application.submittedAt, {format: 'medium'}) }}
+          </li>
         </ul>
       </div>
 
@@ -49,4 +54,8 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block extraScripts %}
+  {{ printButtonScript(cspNonce) }}
 {% endblock %}
