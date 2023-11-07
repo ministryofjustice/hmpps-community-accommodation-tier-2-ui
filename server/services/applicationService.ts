@@ -108,7 +108,13 @@ export default class ApplicationService {
       delete applicationData['funding-information'].identification
       delete applicationData['funding-information']['alternative-identification']
     }
-
+    if (applicationData['equality-and-diversity-monitoring']?.['will-answer-equality-questions'].willAnswer === 'no') {
+      Object.keys(applicationData['equality-and-diversity-monitoring']).forEach(key => {
+        if (key !== 'will-answer-equality-questions') {
+          delete applicationData['equality-and-diversity-monitoring'][key]
+        }
+      })
+    }
     return applicationData
   }
 
