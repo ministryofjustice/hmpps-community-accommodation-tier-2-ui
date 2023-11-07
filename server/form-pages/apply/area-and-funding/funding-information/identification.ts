@@ -68,6 +68,11 @@ export default class Identification implements TaskListPage {
 
     items.forEach(item => {
       item.attributes = { 'data-selector': 'documents' }
+      if (item.value === 'wageSlip') {
+        item.hint = { text: 'With payee name and NI number' }
+      } else if (item.value === 'drivingLicence') {
+        item.hint = { text: 'Can be provisional' }
+      }
     })
 
     return [...items, { divider: 'or' }, { ...none }]
