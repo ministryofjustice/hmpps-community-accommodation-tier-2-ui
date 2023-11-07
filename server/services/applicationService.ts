@@ -104,19 +104,68 @@ export default class ApplicationService {
   }
 
   private deleteOrphanedFollowOnAnswers(applicationData: AnyValue): AnyValue {
-    if (applicationData['funding-information']?.['funding-source']?.fundingSource === 'personalSavings') {
+    const deleteOrphanedFundingInformation = () => {
       delete applicationData['funding-information'].identification
       delete applicationData['funding-information']['alternative-identification']
     }
-    if (applicationData['equality-and-diversity-monitoring']?.['will-answer-equality-questions']?.willAnswer === 'no') {
+
+    const deleteOrphanedEqualityInformation = () => {
       Object.keys(applicationData['equality-and-diversity-monitoring']).forEach(key => {
         if (key !== 'will-answer-equality-questions') {
           delete applicationData['equality-and-diversity-monitoring'][key]
         }
       })
     }
-    if (applicationData['offending-history']?.['any-previous-convictions']?.hasAnyPreviousConvictions === 'no') {
+
+    const deleteOrphanedOffendingHistoryInformation = () => {
       delete applicationData['offending-history']['offence-history-data']
+    }
+
+    const hasOrphanedInformation = ({
+      taskName,
+      pageName,
+      questionKey,
+      answerToCheck,
+    }: {
+      taskName: string
+      pageName: string
+      questionKey: string
+      answerToCheck: string
+    }) => {
+      return applicationData[taskName]?.[pageName]?.[questionKey] === answerToCheck
+    }
+
+    if (
+      hasOrphanedInformation({
+        taskName: 'funding-information',
+        pageName: 'funding-source',
+        questionKey: 'fundingSource',
+        answerToCheck: 'personalSavings',
+      })
+    ) {
+      deleteOrphanedFundingInformation()
+    }
+
+    if (
+      hasOrphanedInformation({
+        taskName: 'equality-and-diversity-monitoring',
+        pageName: 'will-answer-equality-questions',
+        questionKey: 'willAnswer',
+        answerToCheck: 'no',
+      })
+    ) {
+      deleteOrphanedEqualityInformation()
+    }
+
+    if (
+      hasOrphanedInformation({
+        taskName: 'offending-history',
+        pageName: 'any-previous-convictions',
+        questionKey: 'hasAnyPreviousConvictions',
+        answerToCheck: 'no',
+      })
+    ) {
+      deleteOrphanedOffendingHistoryInformation()
     }
     return applicationData
   }
