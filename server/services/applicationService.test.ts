@@ -221,6 +221,34 @@ describe('ApplicationService', () => {
           },
         })
       })
+
+      it('deletes conditional data if required', async () => {
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { fundingSource: 'personalSavings' },
+        })
+        ;(getPageName as jest.Mock).mockImplementation(() => 'funding-source')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'funding-information')
+
+        application.data = {
+          'funding-information': {
+            identification: { question: 'answer' },
+            'alternative-identification': { question: 'answer' },
+          },
+        }
+
+        await service.save(page, request)
+
+        expect(applicationClientFactory).toHaveBeenCalledWith(token)
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'funding-information': { 'funding-source': { fundingSource: 'personalSavings' } },
+          },
+        })
+      })
     })
 
     describe('When there validation errors', () => {

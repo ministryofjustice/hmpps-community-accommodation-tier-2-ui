@@ -23,9 +23,20 @@ describe('NationalInsurance', () => {
     },
   })
 
+  const applicationWithNoPreviousData = applicationFactory.build({
+    data: null,
+  })
+  const applicationWithNoFundingSource = applicationFactory.build({
+    data: {
+      'funding-information': {},
+    },
+  })
+
   const application = applicationFactory.build({})
 
   itShouldHaveNextValue(new NationalInsurance({}, applicationWithPersonalSavings), '')
+  itShouldHavePreviousValue(new NationalInsurance({}, applicationWithNoPreviousData), 'identification')
+  itShouldHavePreviousValue(new NationalInsurance({}, applicationWithNoFundingSource), 'identification')
   itShouldHavePreviousValue(new NationalInsurance({}, applicationWithPersonalSavings), 'funding-source')
   itShouldHavePreviousValue(new NationalInsurance({}, applicationWithAlternativeID), 'alternative-identification')
   itShouldHavePreviousValue(new NationalInsurance({}, application), 'identification')
