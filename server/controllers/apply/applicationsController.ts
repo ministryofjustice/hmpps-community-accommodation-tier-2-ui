@@ -41,7 +41,8 @@ export default class ApplicationsController {
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
-      if (application.submittedAt !== undefined) {
+
+      if (application.submittedAt) {
         return res.render('applications/show', { application })
       }
 
