@@ -143,11 +143,14 @@
         </div>
 
         {% block button %}
-
-          {{ govukButton({
-                text: "Save and continue"
-            }) }}
-
+          <div class="govuk-button-group">
+            {{ govukButton({
+                  text: "Save and continue"
+              }) }}
+            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history' }) }}">
+                Cancel
+            </a>
+          </div>
         {% endblock %}
       </form>
     </div>
