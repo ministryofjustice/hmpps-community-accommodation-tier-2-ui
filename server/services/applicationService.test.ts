@@ -285,6 +285,40 @@ describe('ApplicationService', () => {
           },
         })
       })
+
+      it('deletes conditional data if required for offence history data', async () => {
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { hasAnyPreviousConvictions: 'no' },
+        })
+        ;(getPageName as jest.Mock).mockImplementation(() => 'any-previous-convictions')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'offending-history')
+
+        application.data = {
+          'offending-history': {
+            'any-previous-convictions': {
+              hasAnyPreviousConvictions: 'no',
+            },
+            'offence-history-data': [{ example: 'example' }],
+          },
+        }
+
+        await service.save(page, request)
+
+        expect(applicationClientFactory).toHaveBeenCalledWith(token)
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'offending-history': {
+              'any-previous-convictions': {
+                hasAnyPreviousConvictions: 'no',
+              },
+            },
+          },
+        })
+      })
     })
 
     describe('When there validation errors', () => {
