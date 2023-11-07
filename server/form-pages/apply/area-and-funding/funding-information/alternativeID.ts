@@ -33,6 +33,13 @@ export default class AlternativeIdentification implements TaskListPage {
 
   guidanceHtml = `The applicant needs ID if they are applying for Universal Credit for financial support, and Housing Benefit to cover their rent.<br /><br />If they want to receive an advance payment of Universal Credit on the day of release, they will need a bank account and photo ID.`
 
+  subHeadingHtml = `<div class="govuk-checkboxes__divider-custom">Work and employment</div>`
+
+  hintHtml = `<div id="alternativeIDDocuments-hint" class="govuk-hint">
+              ${applicationQuestions.alternativeIDDocuments.hint}
+              </div>
+              ${this.subHeadingHtml}`
+
   constructor(
     body: Partial<AlternativeIdentificationBody>,
     private readonly application: Application,
@@ -118,7 +125,6 @@ export default class AlternativeIdentification implements TaskListPage {
     const other = otherItems.pop()
 
     return [
-      { divider: 'Work and employment' },
       ...convertKeyValuePairToCheckboxItems(workAndEmploymentOptions, this.body.alternativeIDDocuments),
       { divider: 'Citizenship and nationality' },
       ...convertKeyValuePairToCheckboxItems(citizenshipOptions, this.body.alternativeIDDocuments),
