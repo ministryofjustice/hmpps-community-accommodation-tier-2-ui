@@ -7,6 +7,7 @@ import submittedApplicationFactory from './submittedApplication'
 import applicationSummaryFactory from './applicationSummary'
 import risksFactory, { roshRisksEnvelopeFactory } from './risks'
 import oasysRoshFactory from './oasysRosh'
+import nomisUserFactory from './nomisUser'
 
 export {
   applicationSummaryFactory,
@@ -21,4 +22,5 @@ export {
   restrictedPersonFactory,
   risksFactory,
   roshRisksEnvelopeFactory,
+  nomisUserFactory,
 }

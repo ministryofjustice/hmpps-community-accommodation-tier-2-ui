@@ -40,9 +40,13 @@ printButton %}
           <li>
             <span class="govuk-!-font-weight-bold">Prison number: </span>{{ application.person.nomsNumber }}</li>
           <li>
-            <span class="govuk-!-font-weight-bold">Submission date:</span>
-            {{ formatDate(application.submittedAt, {format: 'medium'}) }}
-          </li>
+            <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ application.submittedBy.name }}</li>
+          {% if application.submittedBy.email %}
+            <li>
+              <span class="govuk-!-font-weight-bold">Contact email address:</span>
+              {{ application.submittedBy.email }}
+            </li>
+          {% endif %}
         </ul>
       </div>
 
