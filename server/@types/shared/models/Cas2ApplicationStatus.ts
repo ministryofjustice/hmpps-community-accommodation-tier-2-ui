@@ -3,4 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TemporaryAccommodationUserRole = 'assessor' | 'referrer' | 'reporter';
+export type Cas2ApplicationStatus = {
+    id: string;
+    name: string;
+    label: string;
+    description: string;
+};
+
