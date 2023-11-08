@@ -20,11 +20,10 @@ export default class SubmittedApplicationsController {
   overview(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
-      const person = application.person as FullPerson
 
       return res.render('assess/applications/overview', {
         application,
-        pageHeading: `Overview of application for ${person.nomsNumber}`,
+        pageHeading: 'Overview of application',
       })
     }
   }
