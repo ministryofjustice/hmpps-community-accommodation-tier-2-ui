@@ -9,5 +9,7 @@ export type TimelineEvent = {
     type?: TimelineEventType;
     id?: string;
     occurredAt?: string;
+    content?: string;
+    createdBy?: string;
 };
 
