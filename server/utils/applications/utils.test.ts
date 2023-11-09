@@ -54,6 +54,14 @@ describe('utils', () => {
 
         expect(eligibilityQuestionIsAnswered(application)).toEqual(false)
       })
+
+      it('returns false', async () => {
+        const application = applicationFactory.build({
+          data: null,
+        })
+
+        expect(eligibilityQuestionIsAnswered(application)).toEqual(false)
+      })
     })
   })
 })
