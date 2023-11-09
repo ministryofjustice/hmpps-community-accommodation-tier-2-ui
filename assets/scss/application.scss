@@ -33,3 +33,9 @@ $govuk-page-width: $moj-page-width;
     margin-bottom: govuk-spacing(3);
   }
 }
+
+@media print {
+  .print__hidden {
+     visibility: hidden;
+  }
+}
