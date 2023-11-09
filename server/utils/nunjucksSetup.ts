@@ -18,6 +18,7 @@ import * as OasysImportUtils from './oasysImportUtils'
 import { dateFieldValues } from './formUtils'
 import { checkYourAnswersSections } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
+import { getApplicationTimelineEvents } from './applications/utils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -84,4 +85,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('formatDate', DateFormats.isoDateToUIDate)
 
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
+
+  njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
 }
