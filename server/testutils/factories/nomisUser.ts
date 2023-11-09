@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker/locale/en_GB'
-import { Factory } from 'fishery'
 import { NomisUser } from '@approved-premises/api'
+import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
 
 export default Factory.define<NomisUser>(() => ({
   id: faker.string.uuid(),
