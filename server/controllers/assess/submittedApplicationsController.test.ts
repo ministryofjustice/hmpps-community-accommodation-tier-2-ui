@@ -63,23 +63,6 @@ describe('submittedApplicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
         application: submittedApplication,
         pageHeading: `Overview of application`,
-        timelineEvents: [
-          {
-            byline: {
-              text: 'POM Name',
-            },
-            datetime: {
-              date: '17 Oct 2023 at 08:42am',
-              timestamp: '2023-10-17T08:42:38+01:00',
-            },
-            description: {
-              text: 'The application was received by an assessor.',
-            },
-            label: {
-              text: 'Application submitted',
-            },
-          },
-        ],
       })
     })
   })
