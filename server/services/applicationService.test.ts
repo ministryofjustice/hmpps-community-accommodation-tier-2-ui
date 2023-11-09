@@ -222,7 +222,7 @@ describe('ApplicationService', () => {
         })
       })
 
-      it('deletes conditional data if required', async () => {
+      it('deletes conditional data if required for funding information', async () => {
         page = createMock<TaskListPage>({
           errors: () => {
             return {} as TaskListErrors<TaskListPage>
@@ -246,6 +246,76 @@ describe('ApplicationService', () => {
           ...application,
           data: {
             'funding-information': { 'funding-source': { fundingSource: 'personalSavings' } },
+          },
+        })
+      })
+
+      it('deletes conditional data if required for equality and diversity information', async () => {
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { willAnswer: 'no' },
+        })
+        ;(getPageName as jest.Mock).mockImplementation(() => 'will-answer-equality-questions')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'equality-and-diversity-monitoring')
+
+        application.data = {
+          'equality-and-diversity-monitoring': {
+            'will-answer-equality-questions': {
+              willAnswer: 'no',
+            },
+            disability: {
+              hasDisability: 'no',
+            },
+          },
+        }
+
+        await service.save(page, request)
+
+        expect(applicationClientFactory).toHaveBeenCalledWith(token)
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'equality-and-diversity-monitoring': {
+              'will-answer-equality-questions': {
+                willAnswer: 'no',
+              },
+            },
+          },
+        })
+      })
+
+      it('deletes conditional data if required for offence history data', async () => {
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { hasAnyPreviousConvictions: 'no' },
+        })
+        ;(getPageName as jest.Mock).mockImplementation(() => 'any-previous-convictions')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'offending-history')
+
+        application.data = {
+          'offending-history': {
+            'any-previous-convictions': {
+              hasAnyPreviousConvictions: 'no',
+            },
+            'offence-history-data': [{ example: 'example' }],
+          },
+        }
+
+        await service.save(page, request)
+
+        expect(applicationClientFactory).toHaveBeenCalledWith(token)
+        expect(getApplicationUpdateData).toHaveBeenCalledWith({
+          ...application,
+          data: {
+            'offending-history': {
+              'any-previous-convictions': {
+                hasAnyPreviousConvictions: 'no',
+              },
+            },
           },
         })
       })
