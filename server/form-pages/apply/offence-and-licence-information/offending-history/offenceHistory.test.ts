@@ -89,6 +89,11 @@ describe('OffenceHistory', () => {
         'Historical offence 2': 'Arson (09000)\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail',
       })
     })
+
+    it('returns empty object when there are no offences', () => {
+      const page = new OffenceHistory({}, application)
+      expect(page.response()).toEqual({})
+    })
   })
 
   describe('getOffenceTagColour', () => {
