@@ -9,11 +9,35 @@
 //    When I visit the application overview for that application
 //    Then I see the submitted application overview
 
-import { submittedApplicationFactory } from '../../../server/testutils/factories/index'
+import { faker } from '@faker-js/faker'
+import {
+  externalUserFactory,
+  statusUpdateFactory,
+  submittedApplicationFactory,
+} from '../../../server/testutils/factories/index'
+import { DateFormats } from '../../../server/utils/dateUtils'
 import SubmittedApplicationOverviewPage from '../../pages/assess/submittedApplicationOverviewPage'
 
 context('Assessor views a submitted application overview', () => {
-  const submittedApplication = submittedApplicationFactory.build()
+  const submittedApplication = submittedApplicationFactory.build({
+    statusUpdates: [
+      statusUpdateFactory.build({
+        updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+        updatedBy: externalUserFactory.build({ username: 'Anne_Assessor' }),
+        name: 'moreInfoRequested',
+        label: 'More information requested',
+        description:
+          'More information about the application has been requested from the POM (Prison Offender Manager).',
+      }),
+      statusUpdateFactory.build({
+        updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),
+        updatedBy: externalUserFactory.build({ username: 'Anne Other Assessor' }),
+        name: 'awaitingDecision',
+        label: 'Awaiting decision',
+        description: 'All information has been received and the application is awaiting assessment.',
+      }),
+    ],
+  })
 
   beforeEach(() => {
     cy.task('reset')
@@ -37,5 +61,6 @@ context('Assessor views a submitted application overview', () => {
 
     // Then I see the submitted application overview
     page.shouldShowApplicationSummaryDetails(submittedApplication)
+    page.shouldShowTimeline(submittedApplication)
   })
 })
