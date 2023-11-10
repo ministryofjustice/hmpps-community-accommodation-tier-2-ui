@@ -62,5 +62,17 @@
   "alternativeIDDocuments": {
     "empty": "Select an ID document or 'Other type of identification'",
     "other": "Enter the other type of ID"
+  },
+  "hasPreviousAddress": {
+    "empty": "Select whether applicant had an address before entering custody"
+  },
+  "addressLine1": {
+    "empty": "Enter the first line of the address"
+  },
+  "townOrCity": {
+    "empty": "Enter a town or city"
+  },
+  "postCode": {
+    "empty": "Enter a postcode"
   }
 }
