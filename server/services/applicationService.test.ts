@@ -319,6 +319,88 @@ describe('ApplicationService', () => {
           },
         })
       })
+
+      describe('when there is address history data', () => {
+        it('deletes last known address if there is now a known previous address ', async () => {
+          page = createMock<TaskListPage>({
+            errors: () => {
+              return {} as TaskListErrors<TaskListPage>
+            },
+            body: {
+              hasPreviousAddress: 'yes',
+            },
+          })
+          ;(getTaskName as jest.Mock).mockImplementation(() => 'address-history')
+          ;(getPageName as jest.Mock).mockImplementation(() => 'previous-address')
+
+          application.data = {
+            'address-history': {
+              'previous-address': {
+                hasPreviousAddress: 'no',
+                howLong: '1',
+                lastKnownAddressLine1: '1',
+                lastKnownAddressLine2: '1',
+                lastKnownTownOrCity: '1',
+                lastKnownCounty: '1',
+                lastKnownPostcode: '1',
+              },
+            },
+          }
+
+          await service.save(page, request)
+
+          expect(applicationClientFactory).toHaveBeenCalledWith(token)
+          expect(getApplicationUpdateData).toHaveBeenCalledWith({
+            ...application,
+            data: {
+              'address-history': {
+                'previous-address': {
+                  hasPreviousAddress: 'yes',
+                },
+              },
+            },
+          })
+        })
+        it('deletes previous address if they no longer have a previous address ', async () => {
+          page = createMock<TaskListPage>({
+            errors: () => {
+              return {} as TaskListErrors<TaskListPage>
+            },
+            body: {
+              hasPreviousAddress: 'no',
+            },
+          })
+          ;(getTaskName as jest.Mock).mockImplementation(() => 'address-history')
+          ;(getPageName as jest.Mock).mockImplementation(() => 'previous-address')
+
+          application.data = {
+            'address-history': {
+              'previous-address': {
+                hasPreviousAddress: 'no',
+                previousAddressLine1: '1',
+                previousAddressLine2: '1',
+                previousTownOrCity: '1',
+                previousCounty: '1',
+                previousPostcode: '1',
+              },
+            },
+          }
+
+          await service.save(page, request)
+
+          expect(applicationClientFactory).toHaveBeenCalledWith(token)
+          expect(getApplicationUpdateData).toHaveBeenCalledWith({
+            ...application,
+            data: {
+              'address-history': {
+                'previous-address': {
+                  hasPreviousAddress: 'no',
+                },
+              },
+            },
+          })
+        })
+      })
     })
 
     describe('When there validation errors', () => {

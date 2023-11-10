@@ -7,6 +7,7 @@ import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 import { ValidationError } from '../utils/errors'
+import { lastKnownKeys, previousKeys } from '../form-pages/apply/about-the-person/address-history/previousAddress'
 
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
@@ -121,6 +122,14 @@ export default class ApplicationService {
       delete applicationData['offending-history']['offence-history-data']
     }
 
+    const deleteAddressHistoryInformation = () => {
+      if (applicationData['address-history']['previous-address'].hasPreviousAddress === 'yes') {
+        lastKnownKeys.forEach(key => delete applicationData['address-history']['previous-address'][key])
+      } else if (applicationData['address-history']['previous-address'].hasPreviousAddress === 'no') {
+        previousKeys.forEach(key => delete applicationData['address-history']['previous-address'][key])
+      }
+    }
+
     const hasOrphanedInformation = ({
       taskName,
       pageName,
@@ -167,6 +176,11 @@ export default class ApplicationService {
     ) {
       deleteOrphanedOffendingHistoryInformation()
     }
+
+    if (applicationData['address-history']?.['previous-address']?.hasPreviousAddress) {
+      deleteAddressHistoryInformation()
+    }
+
     return applicationData
   }
 
