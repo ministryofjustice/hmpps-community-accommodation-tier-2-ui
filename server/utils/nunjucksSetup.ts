@@ -6,6 +6,7 @@ import nunjucks from 'nunjucks'
 import express from 'express'
 
 import applicationPaths from '../paths/apply'
+import assessPaths from '../paths/assess'
 import config from '../config'
 import { initialiseName } from './utils'
 import {
@@ -66,7 +67,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('OasysImportUtils', OasysImportUtils)
 
-  njkEnv.addGlobal('paths', { ...applicationPaths })
+  njkEnv.addGlobal('paths', { ...applicationPaths, ...assessPaths })
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)
 
   njkEnv.addGlobal('inProgressApplicationTableRows', inProgressApplicationTableRows)
