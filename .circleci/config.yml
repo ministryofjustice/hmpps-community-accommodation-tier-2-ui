@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@7.3.4
+  hmpps: ministryofjustice/hmpps@7
   slack: circleci/slack@4.12.1
   node: circleci/node@5.1.0
 
@@ -57,7 +57,8 @@ jobs:
             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
             export GIT_REF="$CIRCLE_SHA1"
             npm run record-build-info
-      - run: # Run linter after build because the integration test code depend on compiled typescript...
+      - run:
+          # Run linter after build because the integration test code depend on compiled typescript...
           name: Linter check
           command: npm run lint
       - run:
@@ -258,10 +259,10 @@ workflows:
             - build_docker
             - request-test-approval
       - request-preprod-approval:
-           type: approval
-           requires:
-             - deploy_dev
-             - e2e_environment_test
+          type: approval
+          requires:
+            - deploy_dev
+            - e2e_environment_test
       - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
@@ -269,7 +270,7 @@ workflows:
             - hmpps-common-vars
             - hmpps-community-accommodation-tier-2-ui-preprod
           requires:
-             - request-preprod-approval
+            - request-preprod-approval
       # - request-prod-approval:
       #      type: approval
       #      requires:
