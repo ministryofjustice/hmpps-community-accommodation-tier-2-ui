@@ -18,5 +18,6 @@ export type PlacementApplication = (NewPlacementApplication & {
     applicationCompletedAt: string;
     data?: AnyValue;
     document?: AnyValue;
+    canBeWithdrawn?: boolean;
 });
 
