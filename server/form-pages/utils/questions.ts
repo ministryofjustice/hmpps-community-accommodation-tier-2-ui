@@ -11,74 +11,24 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'funding-information': {
-      'funding-source': {
-        fundingSource: {
-          question: `How will ${name} pay for their accommodation and service charge?`,
+    'address-history': {
+      'previous-address': {
+        hasPreviousAddress: {
+          question: `Did ${name} have an address before entering custody?`,
           answers: {
-            personalSavings: 'Personal money or savings',
-            benefits: 'Benefits',
-            both: 'Both',
+            yes: 'Yes',
+            no: 'No fixed address',
           },
         },
-      },
-      'national-insurance': {
-        nationalInsuranceNumber: {
-          question: `What is ${name}'s National Insurance number? (Optional)`,
-          hint: 'We need this to set up a Universal Credit and Housing Benefit claim if required.',
+        knownAddress: {
+          question: 'What was the address?',
         },
-      },
-      identification: {
-        idDocuments: {
-          question: `What identification documentation (ID) does ${name} have?`,
-          hint: 'Select all that apply.',
-          answers: {
-            passport: 'Passport',
-            travelPass: 'Travel pass with photograph',
-            birthCertificate: 'Birth certificate',
-            bankOrDebitCard: 'Bank account or debit card',
-            bankStatements: 'Bank, building society or Post Office card account statements',
-            drivingLicence: 'UK photo driving licence',
-            wageSlip: 'Recent wage slip',
-            none: 'None of these options',
-          },
+        lastKnownAddress: {
+          question: 'What was their last known address?',
         },
-      },
-      'alternative-identification': {
-        alternativeIDDocuments: {
-          question: `What alternative identification documentation (ID) does ${name} have?`,
-          hint: 'Select all that apply.',
-          answers: {
-            contract: 'Employer letter/contract of employment',
-            tradeUnion: 'Trade union membership card',
-            invoice: 'Invoices (self-employed)',
-            hmrc: 'HMRC correspondence',
-            citizenCard: 'CitizenCard',
-            foreignBirthCertificate: 'Foreign birth certificate',
-            citizenCertificate: 'British citizen registration/naturalisation certificate',
-            residenceCard: 'Permanent residence card',
-            residencePermit: 'Residence permit',
-            biometricResidencePermit: 'Biometric Residence Permit',
-            laRentCard: 'Local authority rent card',
-            marriageCertificate: 'Original marriage/civil partnership certificate',
-            divorcePapers: 'Divorce or annulment papers',
-            dissolutionPapers: 'Dissolution of marriage/civil partnership papers',
-            buildingSociety: 'Building society passbook',
-            councilTax: 'Council tax documents',
-            insurance: 'Life assurance or insurance policies',
-            chequeBook: 'Personal cheque book',
-            mortgage: 'Mortgage repayment policies',
-            savingAccount: 'Saving account book',
-            studentID: 'Student ID card',
-            educationalInstitution: 'Educational institution letter (student)',
-            youngScot: 'Young Scot card',
-            deedPoll: 'Deed poll certificate',
-            vehicleRegistration: 'Vehicle registration/motor insurance documents',
-            nhsCard: 'NHS medical card',
-            other: 'Other type of identification',
-          },
+        howLong: {
+          question: 'How long did the applicant have no fixed address for?',
         },
-        other: { question: `What other ID does ${name} have?` },
       },
     },
     'equality-and-diversity-monitoring': {
@@ -276,6 +226,76 @@ export const getQuestions = (name: string) => {
             preferNotToSay: 'Prefer not to say',
           },
         },
+      },
+    },
+    'funding-information': {
+      'funding-source': {
+        fundingSource: {
+          question: `How will ${name} pay for their accommodation and service charge?`,
+          answers: {
+            personalSavings: 'Personal money or savings',
+            benefits: 'Benefits',
+            both: 'Both',
+          },
+        },
+      },
+      'national-insurance': {
+        nationalInsuranceNumber: {
+          question: `What is ${name}'s National Insurance number? (Optional)`,
+          hint: 'We need this to set up a Universal Credit and Housing Benefit claim if required.',
+        },
+      },
+      identification: {
+        idDocuments: {
+          question: `What identification documentation (ID) does ${name} have?`,
+          hint: 'Select all that apply.',
+          answers: {
+            passport: 'Passport',
+            travelPass: 'Travel pass with photograph',
+            birthCertificate: 'Birth certificate',
+            bankOrDebitCard: 'Bank account or debit card',
+            bankStatements: 'Bank, building society or Post Office card account statements',
+            drivingLicence: 'UK photo driving licence',
+            wageSlip: 'Recent wage slip',
+            none: 'None of these options',
+          },
+        },
+      },
+      'alternative-identification': {
+        alternativeIDDocuments: {
+          question: `What alternative identification documentation (ID) does ${name} have?`,
+          hint: 'Select all that apply.',
+          answers: {
+            contract: 'Employer letter/contract of employment',
+            tradeUnion: 'Trade union membership card',
+            invoice: 'Invoices (self-employed)',
+            hmrc: 'HMRC correspondence',
+            citizenCard: 'CitizenCard',
+            foreignBirthCertificate: 'Foreign birth certificate',
+            citizenCertificate: 'British citizen registration/naturalisation certificate',
+            residenceCard: 'Permanent residence card',
+            residencePermit: 'Residence permit',
+            biometricResidencePermit: 'Biometric Residence Permit',
+            laRentCard: 'Local authority rent card',
+            marriageCertificate: 'Original marriage/civil partnership certificate',
+            divorcePapers: 'Divorce or annulment papers',
+            dissolutionPapers: 'Dissolution of marriage/civil partnership papers',
+            buildingSociety: 'Building society passbook',
+            councilTax: 'Council tax documents',
+            insurance: 'Life assurance or insurance policies',
+            chequeBook: 'Personal cheque book',
+            mortgage: 'Mortgage repayment policies',
+            savingAccount: 'Saving account book',
+            studentID: 'Student ID card',
+            educationalInstitution: 'Educational institution letter (student)',
+            youngScot: 'Young Scot card',
+            deedPoll: 'Deed poll certificate',
+            vehicleRegistration: 'Vehicle registration/motor insurance documents',
+            nhsCard: 'NHS medical card',
+            other: 'Other type of identification',
+          },
+        },
+        other: { question: `What other ID does ${name} have?` },
       },
     },
     'health-needs': {

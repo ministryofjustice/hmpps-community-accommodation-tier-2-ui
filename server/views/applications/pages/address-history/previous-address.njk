@@ -1,0 +1,168 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.questions.hasPreviousAddress.question }}</h1>
+
+  {% set knownAddress %}
+      {% call govukFieldset({
+        legend: {
+          text: page.questions.knownAddress.question,
+          classes: "govuk-fieldset__legend--m"
+        }
+      }) %}
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.addressLabels.addressLine1
+                },
+                fieldName: "previousAddressLine1"
+              },
+              fetchContext()
+            )
+        }}
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:  page.addressLabels.addressLine2
+                },
+                fieldName: "previousAddressLine2"
+              },
+              fetchContext()
+            )
+        }}        
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:  page.addressLabels.townOrCity
+                },
+                fieldName: "previousTownOrCity",
+                classes: "govuk-!-width-two-thirds"
+              },
+              fetchContext()
+            )
+        }}             
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:   page.addressLabels.county
+                },
+                fieldName: "previousCounty",
+                classes: "govuk-!-width-two-thirds"
+              },
+              fetchContext()
+            )
+        }}             
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:   page.addressLabels.postcode
+                },
+                fieldName: "previousPostcode",
+                classes: "govuk-input--width-10"
+              },
+              fetchContext()
+            )
+        }}             
+
+      {% endcall %}
+  {% endset -%}
+
+  {% set lastKnownAddress %}
+      {{
+          formPageInput(
+            {
+              label: {
+                text: page.questions.howLong.question,
+                classes: "govuk-label--m"
+              },
+              fieldName: "howLong",
+              classes: "govuk-!-margin-bottom-5"
+            },
+            fetchContext()
+          )
+      }}
+
+      {% call govukFieldset({
+        legend: {
+          text: page.questions.lastKnownAddress.question,
+          classes: "govuk-fieldset__legend--m"
+        }
+      }) %}
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.addressLabels.addressLine1
+                },
+                fieldName: "lastKnownAddressLine1"
+              },
+              fetchContext()
+            )
+        }}
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:  page.addressLabels.addressLine2
+                },
+                fieldName: "lastKnownAddressLine2"
+              },
+              fetchContext()
+            )
+        }}        
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:  page.addressLabels.townOrCity
+                },
+                fieldName: "lastKnownTownOrCity",
+                classes: "govuk-!-width-two-thirds"
+              },
+              fetchContext()
+            )
+        }}             
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:   page.addressLabels.county
+                },
+                fieldName: "lastKnownCounty",
+                classes: "govuk-!-width-two-thirds"
+              },
+              fetchContext()
+            )
+        }}             
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text:   page.addressLabels.postcode
+                },
+                fieldName: "lastKnownPostcode",
+                classes: "govuk-input--width-10"
+              },
+              fetchContext()
+            )
+        }}                 
+      {% endcall %}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasPreviousAddress",
+        items: page.items(knownAddress, lastKnownAddress)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
