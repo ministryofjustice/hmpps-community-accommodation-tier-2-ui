@@ -28,17 +28,25 @@ export default class SubstanceMisusePage extends ApplyPage {
 
   describeIllegalSubstanceUse = (): void => {
     this.checkRadioByNameAndValue('usesIllegalSubstances', 'yes')
+
+    cy.get(`label[for="substanceMisuseHistory"]`).contains('What substances do they take?')
     this.getTextInputByIdAndEnterDetails('substanceMisuseHistory', 'Heroin user')
+
+    cy.get(`label[for="substanceMisuseDetail"]`).contains(
+      'How often do they take these substances, by what method, and how much?',
+    )
     this.getTextInputByIdAndEnterDetails('substanceMisuseDetail', 'Injects daily')
   }
 
   nameDrugAndAlcoholService = (): void => {
     this.checkRadioByNameAndValue('engagedWithDrugAndAlcoholService', 'yes')
+    cy.get(`label[for="drugAndAlcoholServiceDetail"]`).contains('Name the drug and alcohol service')
     this.getTextInputByIdAndEnterDetails('drugAndAlcoholServiceDetail', 'The Drugs Project')
   }
 
   provideSubstituteMedicationDetails = (): void => {
     this.checkRadioByNameAndValue('requiresSubstituteMedication', 'yes')
+    cy.get(`label[for="substituteMedicationDetail"]`).contains('What substitute medication do they take?')
     this.getTextInputByIdAndEnterDetails('substituteMedicationDetail', 'Methadone')
   }
 }
