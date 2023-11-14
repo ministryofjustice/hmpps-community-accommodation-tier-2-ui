@@ -5,6 +5,7 @@
 
 import type { AnyValue } from './AnyValue';
 import type { ApplicationStatus } from './ApplicationStatus';
+import type { Cas2StatusUpdate } from './Cas2StatusUpdate';
 import type { NomisUser } from './NomisUser';
 import type { Person } from './Person';
 
@@ -18,5 +19,6 @@ export type Cas2SubmittedApplication = {
     document?: AnyValue;
     status: ApplicationStatus;
     submittedAt?: string;
+    statusUpdates?: Array<Cas2StatusUpdate>;
 };
 
