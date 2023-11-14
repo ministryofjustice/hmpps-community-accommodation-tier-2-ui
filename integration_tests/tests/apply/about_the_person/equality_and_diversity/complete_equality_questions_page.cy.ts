@@ -92,9 +92,6 @@ context('Visit "About the person" section', () => {
     // Then I'm on the expected page
     const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
 
-    // And I see the expected caption
-    page.hasCaption()
-
     // And the page has the expected questions and answers
     page.hasQuestionsAndAnswers()
 

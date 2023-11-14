@@ -10,7 +10,7 @@ describe('EqualityAndDiversity', () => {
       const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
 
       expect(page.questions).toEqual({
-        willAnswer: 'Does Roger Smith want to answer the equality questions?',
+        willAnswer: 'Equality questions for Roger Smith',
       })
     })
   })
@@ -19,7 +19,7 @@ describe('EqualityAndDiversity', () => {
     it('personalises the page title', () => {
       const page = new EqualityAndDiversity({ willAnswer: 'yes' }, application)
 
-      expect(page.title).toEqual('Equality and diversity questions for Roger Smith')
+      expect(page.title).toEqual('Equality questions for Roger Smith')
     })
   })
 
