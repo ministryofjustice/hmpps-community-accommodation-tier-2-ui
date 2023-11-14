@@ -15,11 +15,11 @@ type EqualityAndDiversityBody = {
   bodyProperties: ['willAnswer'],
 })
 export default class EqualityAndDiversity implements TaskListPage {
-  documentTitle = 'Does the person want to answer the equality questions?'
+  documentTitle = 'Equality questions'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Equality and diversity questions for ${this.personName}`
+  title = `Equality questions for ${this.personName}`
 
   questions: Record<string, string>
 

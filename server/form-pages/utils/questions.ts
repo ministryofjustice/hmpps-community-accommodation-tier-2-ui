@@ -34,7 +34,7 @@ export const getQuestions = (name: string) => {
     'equality-and-diversity-monitoring': {
       'will-answer-equality-questions': {
         willAnswer: {
-          question: `Does ${name} want to answer the equality questions?`,
+          question: `Equality questions for ${name}`,
           answers: {
             yes: 'Yes, answer the equality questions (takes 2 minutes)',
             no: 'No, skip the equality questions',

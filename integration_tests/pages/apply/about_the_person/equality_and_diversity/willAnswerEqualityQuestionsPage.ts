@@ -5,16 +5,10 @@ import ApplyPage from '../../applyPage'
 export default class WillAnswerEqualityQuestionsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Does ${nameOrPlaceholderCopy(application.person)} want to answer the equality questions?`,
+      `Equality questions for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'equality-and-diversity-monitoring',
       'will-answer-equality-questions',
-    )
-  }
-
-  hasCaption = (): void => {
-    cy.get('.govuk-caption-l').contains(
-      `Equality and diversity questions for ${nameOrPlaceholderCopy(this.application.person)}`,
     )
   }
 
@@ -31,7 +25,6 @@ export default class WillAnswerEqualityQuestionsPage extends ApplyPage {
   hasRationale = (): void => {
     cy.get('.govuk-details').within(() => {
       cy.get('.govuk-details__summary-text').contains('Why we ask equality questions')
-      cy.get('.govuk-details__text').contains('[INSERT RATIONALE]')
     })
   }
 }
