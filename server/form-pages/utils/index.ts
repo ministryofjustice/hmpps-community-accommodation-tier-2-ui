@@ -1,6 +1,7 @@
 import type { Request } from 'express'
 import { Cas2Application as Application } from '@approved-premises/api'
 import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
+import logger from '../../../logger'
 import { TaskListPageInterface } from '../taskListPage'
 import { DateFormats } from '../../utils/dateUtils'
 
@@ -93,6 +94,11 @@ export function getOasysImportDateFromApplication(application: Application, task
     })
   }
   return null
+}
+
+export function logOasysError(e: Error, crn: string) {
+  logger.error(`Error retrieving Oasys for crn ${crn}`)
+  logger.error(e)
 }
 
 export function pageBodyShallowEquals(body1: Record<string, unknown>, body2: Record<string, unknown>) {
