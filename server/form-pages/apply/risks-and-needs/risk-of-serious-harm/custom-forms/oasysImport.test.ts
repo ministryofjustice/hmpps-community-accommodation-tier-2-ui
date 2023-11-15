@@ -120,23 +120,14 @@ describe('OasysImport', () => {
     })
 
     describe('when oasys sections are not returned', () => {
-      it('sets hasOasysRecord to false when a 404 is returned', async () => {
-        ;(dataServices.personService.getOasysRosh as jest.Mock).mockRejectedValue({ status: 404 })
+      it('sets hasOasysRecord to false when an error is returned', async () => {
+        ;(dataServices.personService.getOasysRosh as jest.Mock).mockRejectedValue(new Error())
 
         const page = (await OasysImport.initialize({}, application, 'some-token', dataServices)) as OasysImport
 
         expect(page.hasOasysRecord).toBe(false)
         expect(page.oasysCompleted).toBe(undefined)
         expect(page.oasysStarted).toBe(undefined)
-      })
-
-      it('throws error when an unexpected error is returned', async () => {
-        const error = new Error()
-        ;(dataServices.personService.getOasysRosh as jest.Mock).mockImplementation(() => {
-          throw error
-        })
-
-        expect(OasysImport.initialize({}, application, 'some-token', dataServices)).rejects.toThrow(error)
       })
     })
 

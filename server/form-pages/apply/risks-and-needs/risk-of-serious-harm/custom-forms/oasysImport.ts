@@ -6,6 +6,7 @@ import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 import RiskToOthers from '../riskToOthers'
 import { DateFormats } from '../../../../../utils/dateUtils'
 import Summary, { SummaryData } from '../summary'
+import { logOasysError } from '../../../../utils'
 
 type OasysImportBody = Record<string, never>
 
@@ -91,11 +92,8 @@ export default class OasysImport implements TaskListPage {
         risks = await dataServices.personService.getRoshRisks(token, application.person.crn)
         taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys, risks))
       } catch (e) {
-        if (e.status === 404) {
-          oasys = null
-        } else {
-          throw e
-        }
+        logOasysError(e, application.person.crn)
+        oasys = null
       }
       return new OasysImport(body, application, oasys, taskDataJson)
     }
