@@ -1,26 +1,32 @@
-import SubmittedApplicationClient from '../data/submittedApplicationClient'
 import SubmittedApplicationService from './submittedApplicationService'
 
-import { submittedApplicationFactory } from '../testutils/factories'
+import { submittedApplicationFactory, applicationStatusFactory } from '../testutils/factories'
+import { ReferenceDataClient, SubmittedApplicationClient } from '../data'
 
 jest.mock('../data/submittedApplicationClient.ts')
+jest.mock('../data/referenceDataClient')
 
 describe('SubmittedApplicationService', () => {
+  const token = 'SOME_TOKEN'
+
   const submittedApplicationClient = new SubmittedApplicationClient(null) as jest.Mocked<SubmittedApplicationClient>
   const submittedApplicationClientFactory = jest.fn()
 
-  const service = new SubmittedApplicationService(submittedApplicationClientFactory)
+  const referenceDataClient = new ReferenceDataClient(null) as jest.Mocked<ReferenceDataClient>
+  const referenceDataClientFactory = jest.fn()
+
+  const service = new SubmittedApplicationService(submittedApplicationClientFactory, referenceDataClientFactory)
+
+  const submittedApplication = submittedApplicationFactory.build()
 
   beforeEach(() => {
     jest.resetAllMocks()
     submittedApplicationClientFactory.mockReturnValue(submittedApplicationClient)
+    referenceDataClientFactory.mockReturnValue(referenceDataClient)
   })
 
   describe('findApplication', () => {
     it('calls APIs find method and returns the found application', async () => {
-      const submittedApplication = submittedApplicationFactory.build()
-      const token = 'SOME_TOKEN'
-
       submittedApplicationClient.find.mockResolvedValue(submittedApplication)
 
       const result = await service.findApplication(token, submittedApplication.id)
@@ -29,6 +35,34 @@ describe('SubmittedApplicationService', () => {
 
       expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
       expect(submittedApplicationClient.find).toHaveBeenCalledWith(submittedApplication.id)
+    })
+  })
+
+  describe('getApplicationStatuses', () => {
+    it('calls the correct client method', async () => {
+      const statuses = applicationStatusFactory.buildList(5)
+
+      referenceDataClient.getApplicationStatuses.mockResolvedValue(statuses)
+
+      const result = await service.getApplicationStatuses(token)
+
+      expect(result).toEqual(statuses)
+
+      expect(referenceDataClientFactory).toHaveBeenCalledWith(token)
+      expect(referenceDataClient.getApplicationStatuses).toHaveBeenCalled()
+    })
+  })
+
+  describe('updateApplicationStatus', () => {
+    it('calls the correct client method', async () => {
+      submittedApplicationClient.updateStatus.mockImplementation(() => Promise.resolve())
+
+      const data = { newStatus: 'onWaitingList' }
+
+      await service.updateApplicationStatus(token, submittedApplication.id, data)
+
+      expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
+      expect(submittedApplicationClient.updateStatus).toHaveBeenCalledWith(submittedApplication.id, data)
     })
   })
 })

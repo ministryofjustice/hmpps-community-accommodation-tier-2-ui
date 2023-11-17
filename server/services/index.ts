@@ -11,12 +11,13 @@ import AuditService from './auditService'
 import config from '../config'
 
 export const services = () => {
-  const { hmppsAuthClient, personClient, applicationClient, submittedApplicationClient } = dataAccess()
+  const { hmppsAuthClient, personClient, applicationClient, submittedApplicationClient, referenceDataClient } =
+    dataAccess()
 
   const userService = new UserService(hmppsAuthClient)
   const personService = new PersonService(personClient)
   const applicationService = new ApplicationService(applicationClient)
-  const submittedApplicationService = new SubmittedApplicationService(submittedApplicationClient)
+  const submittedApplicationService = new SubmittedApplicationService(submittedApplicationClient, referenceDataClient)
   const auditService = new AuditService(config.apis.audit)
 
   return {
