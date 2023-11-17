@@ -9,6 +9,7 @@ import { initialiseAppInsights, buildAppInsightsClient } from '../utils/azureApp
 import PersonClient from './personClient'
 import ApplicationClient from './applicationClient'
 import SubmittedApplicationClient from './submittedApplicationClient'
+import ReferenceDataClient from './referenceDataClient'
 
 initialiseAppInsights()
 buildAppInsightsClient()
@@ -25,8 +26,16 @@ export const dataAccess = () => ({
   applicationClient: ((token: string) => new ApplicationClient(token)) as RestClientBuilder<ApplicationClient>,
   submittedApplicationClient: ((token: string) =>
     new SubmittedApplicationClient(token)) as RestClientBuilder<SubmittedApplicationClient>,
+  referenceDataClient: ((token: string) => new ReferenceDataClient(token)) as RestClientBuilder<ReferenceDataClient>,
 })
 
 export type DataAccess = ReturnType<typeof dataAccess>
 
-export { HmppsAuthClient, PersonClient, RestClientBuilder, ApplicationClient, SubmittedApplicationClient }
+export {
+  HmppsAuthClient,
+  PersonClient,
+  RestClientBuilder,
+  ApplicationClient,
+  SubmittedApplicationClient,
+  ReferenceDataClient,
+}
