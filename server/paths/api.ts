@@ -34,4 +34,7 @@ export default {
   referenceData: {
     applicationStatuses: referenceDataPath.path('application-status'),
   },
+  applicationStatusUpdates: {
+    create: singleSubmissionPath.path('status-updates'),
+  },
 }
