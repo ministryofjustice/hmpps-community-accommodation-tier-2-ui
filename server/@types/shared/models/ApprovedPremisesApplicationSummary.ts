@@ -16,5 +16,6 @@ export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     risks?: PersonRisks;
     createdByUserId: string;
     status: ApplicationStatus;
+    tier?: string;
 });
 
