@@ -10,12 +10,10 @@ export default Factory.define<SubmittedApplication>(() => ({
   id: faker.string.uuid(),
   person: fullPersonFactory.build(),
   submittedBy: nomisUserFactory.build(),
-  createdByUserId: faker.string.uuid(),
   schemaVersion: faker.string.uuid(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   document: {},
   outdatedSchema: faker.datatype.boolean(),
-  status: 'submitted' as const,
   statusUpdates: statusUpdateFactory.buildList(2),
 }))

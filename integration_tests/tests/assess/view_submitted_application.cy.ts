@@ -33,7 +33,6 @@ context('Assessor views submitted application', () => {
       const submittedApplication = submittedApplicationFactory.build({
         id: 'abc123',
         document: applicationDocument,
-        status: 'submitted',
         submittedAt: '2022-12-10T21:47:28Z',
         person: fullPersonFactory.build({ name: 'Robert Smith' }),
       })
