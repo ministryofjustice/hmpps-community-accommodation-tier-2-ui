@@ -20,6 +20,7 @@ import { dateFieldValues } from './formUtils'
 import { checkYourAnswersSections } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { getApplicationTimelineEvents } from './applications/utils'
+import { applicationStatusRadios } from './assessUtils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -88,4 +89,5 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
 
   njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
+  njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)
 }
