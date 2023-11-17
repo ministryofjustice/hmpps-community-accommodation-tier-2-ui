@@ -65,7 +65,7 @@ export class DateFormats {
    * @returns the date in the to be shown in the UI: "Thursday, 20 December 2012".
    */
   static isoDateTimeToUIDateTime(isoDate: string) {
-    return format(DateFormats.isoToDateObj(isoDate), 'd MMM y, HH:mm')
+    return format(DateFormats.isoToDateObj(isoDate), "d MMMM y 'at' HH:mmaaa")
   }
 
   /**

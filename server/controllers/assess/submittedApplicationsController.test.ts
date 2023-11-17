@@ -18,7 +18,10 @@ describe('submittedApplicationsController', () => {
 
   let submittedApplicationsController: SubmittedApplicationsController
 
-  const submittedApplication = submittedApplicationFactory.build()
+  const submittedApplication = submittedApplicationFactory.build({
+    submittedBy: { name: 'POM Name' },
+    submittedAt: '2023-10-17T08:42:38+01:00',
+  })
 
   beforeEach(() => {
     submittedApplicationsController = new SubmittedApplicationsController(submittedApplicationService)
@@ -49,7 +52,6 @@ describe('submittedApplicationsController', () => {
   describe('overview', () => {
     it('renders the submitted application overview template', async () => {
       submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
-      const person = submittedApplication.person as FullPerson
 
       const requestHandler = submittedApplicationsController.overview()
       await requestHandler(request, response, next)
@@ -60,7 +62,7 @@ describe('submittedApplicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
         application: submittedApplication,
-        pageHeading: `Overview of application for ${person.nomsNumber}`,
+        pageHeading: `Overview of application`,
       })
     })
   })

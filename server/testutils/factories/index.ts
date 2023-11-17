@@ -8,6 +8,8 @@ import applicationSummaryFactory from './applicationSummary'
 import risksFactory, { roshRisksEnvelopeFactory } from './risks'
 import oasysRoshFactory from './oasysRosh'
 import nomisUserFactory from './nomisUser'
+import statusUpdateFactory from './statusUpdate'
+import externalUserFactory from './externalUser'
 
 export {
   applicationSummaryFactory,
@@ -23,4 +25,6 @@ export {
   risksFactory,
   roshRisksEnvelopeFactory,
   nomisUserFactory,
+  statusUpdateFactory,
+  externalUserFactory,
 }

@@ -6,6 +6,7 @@ import nunjucks from 'nunjucks'
 import express from 'express'
 
 import applicationPaths from '../paths/apply'
+import assessPaths from '../paths/assess'
 import config from '../config'
 import { initialiseName } from './utils'
 import {
@@ -18,6 +19,7 @@ import * as OasysImportUtils from './oasysImportUtils'
 import { dateFieldValues } from './formUtils'
 import { checkYourAnswersSections } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
+import { getApplicationTimelineEvents } from './applications/utils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -65,7 +67,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('OasysImportUtils', OasysImportUtils)
 
-  njkEnv.addGlobal('paths', { ...applicationPaths })
+  njkEnv.addGlobal('paths', { ...applicationPaths, ...assessPaths })
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)
 
   njkEnv.addGlobal('inProgressApplicationTableRows', inProgressApplicationTableRows)
@@ -84,4 +86,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('formatDate', DateFormats.isoDateToUIDate)
 
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
+
+  njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
 }

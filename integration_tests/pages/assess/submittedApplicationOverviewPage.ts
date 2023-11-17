@@ -18,6 +18,33 @@ export default class SubmittedApplicationOverviewPage extends Page {
     )
   }
 
+  shouldShowTimeline(application: SubmittedApplication): void {
+    const sortedTimelineEvents = application.statusUpdates.sort((a, b) => {
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    })
+
+    cy.get('.moj-timeline').within(() => {
+      cy.get('.moj-timeline__item').should('have.length', application.statusUpdates.length + 1)
+
+      cy.get('.moj-timeline__item').each(($el, index) => {
+        if (index !== application.statusUpdates.length) {
+          cy.wrap($el).within(() => {
+            cy.get('.moj-timeline__header').should('contain', sortedTimelineEvents[index].label)
+            cy.get('time').should('have.attr', { time: sortedTimelineEvents[index].updatedAt })
+            cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents[index].updatedAt))
+          })
+        } else {
+          cy.wrap($el).within(() => {
+            cy.get('.moj-timeline__header').should('contain', `Application submitted`)
+            cy.get('.moj-timeline__byline').should('contain', `by ${application.submittedBy.name}`)
+            cy.get('time').should('have.attr', { time: application.submittedAt })
+            cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(application.submittedAt))
+          })
+        }
+      })
+    })
+  }
+
   static visit(application: SubmittedApplication): SubmittedApplicationOverviewPage {
     cy.visit(`/assess/applications/${application.id}/overview`)
     return new SubmittedApplicationOverviewPage(application)

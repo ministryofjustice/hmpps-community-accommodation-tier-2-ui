@@ -170,3 +170,10 @@ export type ApplicationDocument = {
     tasks: Array<{ title: string; questionsAndAnswers: Array<QuestionAndAnswer> }>
   }>
 }
+
+export type UiTimelineEvent = {
+  label: { text: string }
+  byline: { text: string }
+  datetime: { timestamp: string; date: string }
+  description: { text: string }
+}

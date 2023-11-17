@@ -63,6 +63,19 @@ describe('applicationsController', () => {
   })
 
   describe('show', () => {
+    describe('when application is submitted', () => {
+      it('renders the submitted view', async () => {
+        const submittedApplication = applicationFactory.build({ submittedAt: new Date().toISOString() })
+        applicationService.findApplication.mockResolvedValue(submittedApplication)
+
+        const requestHandler = applicationsController.show()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/show', {
+          application: submittedApplication,
+        })
+      })
+    })
     describe('when "Confirm eligibility" task ("Before you start" section) is complete', () => {
       describe('and the person is confirmed eligible', () => {
         it('renders the task list view', async () => {
