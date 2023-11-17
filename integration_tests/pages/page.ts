@@ -113,4 +113,8 @@ export default abstract class Page {
         cy.get('dd').invoke('text').should('contain', formattedDescription)
       })
   }
+
+  clickLink(label: string): void {
+    cy.get('a').contains(label).click()
+  }
 }
