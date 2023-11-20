@@ -40,9 +40,13 @@
         {% block questions %}{% endblock %}
 
         {% block button %}
-          {{ govukButton({
+          <div class="govuk-button-group">
+            {{ govukButton({
             text: "Save and continue"
-          }) }}
+            }) }}
+
+            <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to tasklist</a>
+          </div>
         {% endblock %}
       </form>
     </div>
