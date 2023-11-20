@@ -26,7 +26,7 @@
             }
           },
           errorMessage: errors.newStatus,
-          items: applicationStatusRadios(statuses)
+          items: applicationStatusRadios(statuses, application.statusUpdates)
         }) }}
 
         {{ govukButton({
