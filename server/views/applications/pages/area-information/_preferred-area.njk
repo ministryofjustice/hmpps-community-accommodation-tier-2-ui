@@ -1,0 +1,58 @@
+{% extends "./_area-information-screen.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+
+{% set guidanceHtml %}
+  <p>An applicant has a local connection if:</p>
+
+  <ul>
+    <li>They lived in the area in 6 out of the 12 months before prison.</li>
+    <li>They lived in the area in 3 out of the last 5 years.</li>
+    <li>Their immediate family (parents, children, or siblings) have lived in the area for at least 5 years.</li>
+    <li>They have secured full or part-time work in the area.</li>
+    <li>They have a special reason to live in the area. For example, to receive specialist healthcare.</li>
+  </ul>
+{% endset %}
+
+{% block questions %}
+  <p>Accommodation staff will use this information to help match applicants to the most suitable available rooms.</p>
+  <p>An applicant can request an area because they have a local connection or it is close to their approved probation office.</p>
+
+  {{ govukDetails({
+    summaryText: "What local connection means",
+    html: guidanceHtml
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: page.questions.preferredArea.question,
+          classes: "govuk-label--m"
+        },
+        classes: "govuk-input--width-20",
+        fieldName: "preferredArea",
+        hint: { text: page.questions.preferredArea.hint }
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageTextArea(
+      {
+        fieldName: 'preferenceReason',
+        label: {
+          text: page.questions.preferenceReason.question,
+          classes: "govuk-label--m"
+        },
+        hint: { text: page.questions.preferenceReason.hint }
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
