@@ -6,9 +6,9 @@ import externalUser from './externalUser'
 
 export default Factory.define<Cas2StatusUpdate>(() => ({
   id: faker.string.uuid(),
-  name: 'Add to wait list',
-  label: 'addToWaitlist',
-  description: 'User has been added to wait list',
+  name: 'onWaitingList',
+  label: 'On waiting list',
+  description: 'No suitable place is currently available.',
   updatedBy: externalUser.build(),
   updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.recent()),
 }))
