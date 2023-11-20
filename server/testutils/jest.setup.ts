@@ -36,7 +36,7 @@ expect.extend({
       execSync(`
         if [ ! -f ${openAPIPath} ]; then
           curl -s "${openAPIUrl}" |
-          sed -E 's@/application@/cas2/application@g' |
+          sed -E 's@/applications@/cas2/applications@g' |
           sed -E 's@/submissions@/cas2/submissions@g' |
           sed -E 's@/people@/cas2/people@g' |
           sed -E 's@/reference-data/@/cas2/reference-data/@g' > ${openAPIPath}
