@@ -11,4 +11,9 @@ export default class UpdateApplicationStatusPage extends Page {
     cy.visit(`/assess/applications/${application.id}/update-status`)
     return new UpdateApplicationStatusPage(application)
   }
+
+  shouldShowCurrentApplicationStatus(): void {
+    const status = this.application.statusUpdates ? this.application.statusUpdates[0].label : 'Received'
+    cy.get('p').contains(`Current status: ${status}`)
+  }
 }
