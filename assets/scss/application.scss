@@ -15,6 +15,7 @@ $govuk-page-width: $moj-page-width;
 @import './components/tag';
 @import './components/checkboxes';
 @import './components/timeline';
+@import './components//status-box';
 
 @import './pages//oasys-import';
 
@@ -37,6 +38,6 @@ $govuk-page-width: $moj-page-width;
 
 @media print {
   .print__hidden {
-     visibility: hidden;
+    visibility: hidden;
   }
 }
