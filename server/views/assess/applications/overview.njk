@@ -26,7 +26,15 @@
       })}}
   </p>
 
-  <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
+  {% if application.statusUpdates[0] %}
+
+    <p>{{application.statusUpdates[0].description}}</p>
+
+  {% else %}
+
+    <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
+
+  {% endif %}
 
   <div class="govuk-button-group govuk-!-margin-top-5">
     {{ govukButton({

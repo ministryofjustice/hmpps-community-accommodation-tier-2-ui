@@ -12,14 +12,19 @@ export default class SubmittedApplicationOverviewPage extends Page {
     const person = application.person as FullPerson
     cy.get('h1').contains(person.name)
 
-    const status = application.statusUpdates ? application.statusUpdates[0].label : 'Received'
+    const status = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
+
     cy.get('p').contains(`Current status: ${status}`)
 
-    cy.get('p').contains(
-      `This application was submitted on ${DateFormats.isoDateToUIDate(application.submittedAt, {
-        format: 'medium',
-      })}.`,
-    )
+    if (status === 'Received') {
+      cy.get('p').contains(
+        `This application was submitted on ${DateFormats.isoDateToUIDate(application.submittedAt, {
+          format: 'medium',
+        })}.`,
+      )
+    } else {
+      cy.get('p').contains(application.statusUpdates[0].description)
+    }
   }
 
   shouldShowTimeline(application: SubmittedApplication): void {
