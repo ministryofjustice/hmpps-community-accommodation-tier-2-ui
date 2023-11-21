@@ -7,7 +7,6 @@
 //    Given I am logged in
 //    And I have successfully found a person by CRN
 //    And I'm now faced with the 'Confirm eligibility' task
-//    And I am viewing the application task list
 //
 //  Scenario: Confirms that the person is eligible for CAS-2
 //    When I confirm that the person is eligible
@@ -91,6 +90,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     confirmEligibilityPage.hasCaption()
     confirmEligibilityPage.hasQuestionsAndAnswers()
     confirmEligibilityPage.hasGuidance()
+    confirmEligibilityPage.doesNotHaveTaskListLink()
 
     // When I select the 'Yes' option and click save and continue
     confirmEligibilityPage.chooseYesOption()
