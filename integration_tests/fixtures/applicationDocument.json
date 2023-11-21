@@ -25,6 +25,19 @@
               "answer": "Benefits"
             }
           ]
+        },
+        {
+          "title": "Add exclusion zones and preferred areas",
+          "questionsAndAnswers": [
+            {
+              "question": "Preferred area",
+              "answer": "London"
+            },
+            {
+              "question": "Reason for preference",
+              "answer": "The person has family there"
+            }
+          ]
         }
       ]
     },
