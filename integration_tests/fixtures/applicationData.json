@@ -8,6 +8,10 @@
     "first-preferred-area": {
       "preferredArea": "London",
       "preferenceReason": "They have family there"
+    },
+    "second-preferred-area": {
+      "preferredArea": "Birmingham",
+      "preferenceReason": "They have a job there"
     }
   },
   "funding-information": {

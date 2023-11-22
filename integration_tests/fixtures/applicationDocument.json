@@ -30,12 +30,20 @@
           "title": "Add exclusion zones and preferred areas",
           "questionsAndAnswers": [
             {
-              "question": "Preferred area",
+              "question": " First preferred area",
               "answer": "London"
             },
             {
-              "question": "Reason for preference",
+              "question": "Reason for first preference",
               "answer": "The person has family there"
+            },
+            {
+              "question": "Second preferred area",
+              "answer": "Birmingham"
+            },
+            {
+              "question": "Reason for second preference",
+              "answer": "The person has a job there"
             }
           ]
         }
