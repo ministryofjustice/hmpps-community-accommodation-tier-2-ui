@@ -39,6 +39,6 @@ describe('FirstPreferredArea', () => {
     })
   })
 
-  itShouldHaveNextValue(new FirstPreferredArea(body, application), '')
+  itShouldHaveNextValue(new FirstPreferredArea(body, application), 'second-preferred-area')
   itShouldHavePreviousValue(new FirstPreferredArea(body, application), 'taskList')
 })

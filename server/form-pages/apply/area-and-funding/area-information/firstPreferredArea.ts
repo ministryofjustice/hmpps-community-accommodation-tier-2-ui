@@ -37,7 +37,7 @@ export default class FirstPreferredArea implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'second-preferred-area'
   }
 
   errors() {
