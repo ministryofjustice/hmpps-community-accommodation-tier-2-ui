@@ -228,6 +228,18 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'area-information': {
+      'first-preferred-area': {
+        preferredArea: {
+          question: 'Preferred area',
+          hint: 'Specify a town, city or region',
+        },
+        preferenceReason: {
+          question: 'Reason for preference',
+          hint: 'Include the type of local connection the applicant has with the area',
+        },
+      },
+    },
     'funding-information': {
       'funding-source': {
         fundingSource: {

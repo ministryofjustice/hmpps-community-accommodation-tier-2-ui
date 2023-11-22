@@ -4,6 +4,12 @@
       "isEligible": "yes"
     }
   },
+  "area-information": {
+    "first-preferred-area": {
+      "preferredArea": "London",
+      "preferenceReason": "They have family there"
+    }
+  },
   "funding-information": {
     "funding-source": {
       "fundingSource": "benefits"
