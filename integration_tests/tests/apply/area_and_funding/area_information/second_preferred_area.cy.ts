@@ -1,28 +1,28 @@
-//  Feature: Referrer completes 'First preferred area' page
+//  Feature: Referrer completes 'Second preferred area' page
 //    So that I can complete the 'Area information' task
 //    As a referrer
-//    I want to complete the 'First preferred area' page
+//    I want to complete the 'Second preferred area' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I visit the 'First preferred area' page
+//    And I visit the 'Second preferred area' page
 //
-//  Scenario: view 'First preferred area' page
-//    Then I see the "First preferred area" page
+//  Scenario: view 'Second preferred area' page
+//    Then I see the "Second preferred area" page
 //
-//  Scenario: navigates to the next task on completion of task
-//    When I complete the "First preferred area" page
+//  Scenario: navigate to task list on completion of task
+//    When I complete the "Second preferred area" page
 //    And I continue to the next task / page
-//    Then I am taken to the "Second preferred area" page
+//    Then I am returned to the task list
 //    And I see that the area information task is complete
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import FirstPreferredAreaPage from '../../../../pages/apply/area_and_funding/area_information/FirstPreferredAreaPage'
 import SecondPreferredAreaPage from '../../../../pages/apply/area_and_funding/area_information/SecondPreferredAreaPage'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
-context('Visit "First preferred area" page', () => {
+context('Visit "Second preferred area" page', () => {
   const person = personFactory.build({ name: 'Sue Smith' })
 
   beforeEach(function test() {
@@ -51,17 +51,17 @@ context('Visit "First preferred area" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the 'First preferred area' page
+    // And I visit the 'Second preferred area' page
     // --------------------------------
-    FirstPreferredAreaPage.visit(this.application)
+    SecondPreferredAreaPage.visit(this.application)
   })
 
-  // Scenario: view 'First preferred area' page
+  // Scenario: view 'Second preferred area' page
   // ----------------------------------------------
 
   it('displays the page', function test() {
-    // Then I see the "First preferred area" page
-    Page.verifyOnPage(FirstPreferredAreaPage, this.application)
+    // Then I see the "Second preferred area" page
+    Page.verifyOnPage(SecondPreferredAreaPage, this.application)
   })
 
   // Scenario: navigate to task list on completion of task
@@ -77,15 +77,18 @@ context('Visit "First preferred area" page', () => {
       cy.task('stubApplicationGet', { application: answered })
     })
 
-    //  When I complete the "First preferred area" page
-    const page = Page.verifyOnPage(FirstPreferredAreaPage, this.application)
-    page.getTextInputByIdAndEnterDetails('preferredArea', 'London')
-    page.getTextInputByIdAndEnterDetails('preferenceReason', 'They have family there')
+    //  When I complete the "Second preferred area" page
+    const page = Page.verifyOnPage(SecondPreferredAreaPage, this.application)
+    page.getTextInputByIdAndEnterDetails('preferredArea', 'Birmingham')
+    page.getTextInputByIdAndEnterDetails('preferenceReason', 'They have a job there')
 
     // When I continue to the next task / page
     page.clickSubmit()
 
-    // Then I am returned to the "Second preferred area" page
-    Page.verifyOnPage(SecondPreferredAreaPage, this.application)
+    // Then I am returned to the task list
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // And I see that the area information task is complete
+    taskListPage.shouldShowTaskStatus('area-information', 'Completed')
   })
 })
