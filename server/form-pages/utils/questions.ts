@@ -231,11 +231,21 @@ export const getQuestions = (name: string) => {
     'area-information': {
       'first-preferred-area': {
         preferredArea: {
-          question: 'Preferred area',
+          question: 'First preferred area',
           hint: 'Specify a town, city or region',
         },
         preferenceReason: {
-          question: 'Reason for preference',
+          question: 'Reason for first preference',
+          hint: 'Include the type of local connection the applicant has with the area',
+        },
+      },
+      'second-preferred-area': {
+        preferredArea: {
+          question: 'Second preferred area',
+          hint: 'Specify a town, city or region',
+        },
+        preferenceReason: {
+          question: 'Reason for second preference',
           hint: 'Include the type of local connection the applicant has with the area',
         },
       },
