@@ -5,7 +5,7 @@
 //
 //  Background:
 //    Given I am logged in
-//    And I have successfully found a person by CRN
+//    And I have successfully found a person by prison number
 //    And I'm now faced with the 'Confirm eligibility' task
 //
 //  Scenario: Confirms that the person is eligible for CAS-2
@@ -34,10 +34,10 @@
 //    And I am on the 'person ineligible' page
 //
 //    When I opt to start a new application
-//    Then I should be able to 'Find by CRN'
+//    Then I should be able to 'Find by prison number'
 
 import Page from '../../../../pages/page'
-import CRNPage from '../../../../pages/apply/crnPage'
+import FindByPrisonNumberPage from '../../../../pages/apply/findByPrisonNumberPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import ConfirmEligibilityPage from '../../../../pages/apply/confirmEligibilityPage'
 import IneligiblePage from '../../../../pages/apply/ineligiblePage'
@@ -71,9 +71,9 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     //  Background:
     //    Given I am logged in
     cy.signIn()
-    //    And I have successfully found a person by CRN
-    const page = CRNPage.visit(this.application.person.name)
-    page.getTextInputByIdAndEnterDetails('crn', person.crn)
+    //    And I have successfully found a person by prison number
+    const page = FindByPrisonNumberPage.visit(this.application.person.name)
+    page.getTextInputByIdAndEnterDetails('prisonNumber', person.nomsNumber)
 
     page.clickSubmit()
 
@@ -204,7 +204,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   //    And I am on the 'person ineligible' page
   //
   //    When I opt to start a new application
-  //    Then I should be able to 'Find by CRN'
+  //    Then I should be able to 'Find by prison number'
   it('allows ineligible application to be abandoned and a new one started', function test() {
     //  Given I have confirmed that the person is not eligible
     const answered = {
