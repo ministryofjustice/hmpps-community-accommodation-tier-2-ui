@@ -12,7 +12,7 @@ import applicationFactory from '../testutils/factories/application'
 describe('peopleController', () => {
   const flashSpy = jest.fn()
   const token = 'SOME_TOKEN'
-  const crn = '1234'
+  const prisonNumber = '1234'
 
   let request: DeepMocked<Request> = createMock<Request>({ user: { token } })
   let response: DeepMocked<Response> = createMock<Response>({})
@@ -26,7 +26,7 @@ describe('peopleController', () => {
   beforeEach(() => {
     peopleController = new PeopleController(applicationService, personService)
     request = createMock<Request>({
-      body: { crn },
+      body: { prisonNumber },
       user: { token },
       flash: flashSpy,
       headers: {
@@ -38,11 +38,11 @@ describe('peopleController', () => {
   })
 
   describe('find', () => {
-    describe('when there is a crn', () => {
+    describe('when there is a prison number', () => {
       it('redirects to the show applications path', async () => {
         const requestHandler = peopleController.find()
 
-        personService.findByCrn.mockResolvedValue(fullPersonFactory.build({}))
+        personService.findByPrisonNumber.mockResolvedValue(fullPersonFactory.build({}))
         applicationService.createApplication.mockResolvedValue(applicationFactory.build({ id: '123abc' }))
 
         await requestHandler(request, response, next)
@@ -57,19 +57,25 @@ describe('peopleController', () => {
 
             const err = { data: {}, status: 404 }
 
-            personService.findByCrn.mockImplementation(() => {
+            personService.findByPrisonNumber.mockImplementation(() => {
               throw err
             })
 
-            request.body.crn = 'SOME_CRN'
+            request.body.prisonNumber = 'SOME_NUMBER'
 
             await requestHandler(request, response, next)
 
             expect(request.flash).toHaveBeenCalledWith('errors', {
-              crn: errorMessage('crn', `No person with a CRN of '${request.body.crn}' was found`),
+              prisonNumber: errorMessage(
+                'prisonNumber',
+                `No person with a prison number of '${request.body.prisonNumber}' was found`,
+              ),
             })
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
-              errorSummary('crn', `No person with a CRN of '${request.body.crn}' was found`),
+              errorSummary(
+                'prisonNumber',
+                `No person with a prison number of '${request.body.prisonNumber}' was found`,
+              ),
             ])
             expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
           })
@@ -81,39 +87,22 @@ describe('peopleController', () => {
 
             const err = { data: {}, status: 403 }
 
-            personService.findByCrn.mockImplementation(() => {
+            personService.findByPrisonNumber.mockImplementation(() => {
               throw err
             })
 
-            request.body.crn = 'SOME_CRN'
+            request.body.prisonNumber = 'SOME_NUMBER'
 
             await requestHandler(request, response, next)
 
             expect(request.flash).toHaveBeenCalledWith('errors', {
-              crn: errorMessage('crn', 'You do not have permission to access this CRN'),
+              prisonNumber: errorMessage(
+                'prisonNumber',
+                'You do not have permission to access the prison number SOME_NUMBER',
+              ),
             })
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
-              errorSummary('crn', 'You do not have permission to access this CRN'),
-            ])
-            expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
-          })
-        })
-
-        describe('when there is a RestrictedPersonError', () => {
-          it('renders a restricted CRN message', async () => {
-            const requestHandler = peopleController.find()
-
-            personService.findByCrn.mockResolvedValue(restrictedPersonFactory.build())
-
-            request.body.crn = 'SOME_CRN'
-
-            await requestHandler(request, response, next)
-
-            expect(request.flash).toHaveBeenCalledWith('errors', {
-              crn: errorMessage('crn', `The CRN ${request.body.crn} is restricted`),
-            })
-            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
-              errorSummary('crn', `The CRN ${request.body.crn} is restricted`),
+              errorSummary('prisonNumber', 'You do not have permission to access the prison number SOME_NUMBER'),
             ])
             expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
           })
@@ -125,11 +114,11 @@ describe('peopleController', () => {
 
             const err = new Error()
 
-            personService.findByCrn.mockImplementation(() => {
+            personService.findByPrisonNumber.mockImplementation(() => {
               throw err
             })
 
-            request.body.crn = 'SOME_CRN'
+            request.body.nomsNumber = 'SOME_NUMBER'
 
             expect(async () => requestHandler(request, response, next)).rejects.toThrow(err)
           })
@@ -137,8 +126,8 @@ describe('peopleController', () => {
       })
     })
 
-    describe('when there is not a crn', () => {
-      it('sends an error to the flash if a crn has not been provided', async () => {
+    describe('when there is not a prison number', () => {
+      it('sends an error to the flash if a prison number has not been provided', async () => {
         request.body = {}
 
         const requestHandler = peopleController.find()
@@ -147,8 +136,12 @@ describe('peopleController', () => {
 
         expect(response.redirect).toHaveBeenCalledWith('some-referrer/')
 
-        expect(flashSpy).toHaveBeenCalledWith('errors', { crn: errorMessage('crn', 'You must enter a CRN') })
-        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('crn', 'You must enter a CRN')])
+        expect(flashSpy).toHaveBeenCalledWith('errors', {
+          prisonNumber: errorMessage('prisonNumber', 'You must enter a prison number'),
+        })
+        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [
+          errorSummary('prisonNumber', 'You must enter a prison number'),
+        ])
       })
     })
   })

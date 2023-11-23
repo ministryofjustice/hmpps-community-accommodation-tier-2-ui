@@ -231,7 +231,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/new', {
         errors: {},
         errorSummary: [],
-        pageHeading: "Enter the person's CRN",
+        pageHeading: "Enter the person's prison number",
       })
     })
 
@@ -243,7 +243,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/new', {
-        pageHeading: "Enter the person's CRN",
+        pageHeading: "Enter the person's prison number",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
