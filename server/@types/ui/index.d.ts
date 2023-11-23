@@ -45,7 +45,7 @@ export type FormArtifact = Cas2Application
 
 export type DataServices = Partial<{
   personService: {
-    findByCrn: (token: string, crn: string) => Promise<Person>
+    findByPrisonNumber: (token: string, prisonNumber: string) => Promise<Person>
     getOasysRiskToSelf: (token: string, crn: string) => Promise<OASysRiskToSelf>
     getOasysRosh: (token: string, crn: string) => Promise<OASysRiskOfSeriousHarm>
     getRoshRisks: (token: string, crn: string) => Promise<RoshRisksEnvelope>

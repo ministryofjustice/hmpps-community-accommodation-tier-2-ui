@@ -17,17 +17,17 @@ describe('Person Service', () => {
     personClientFactory.mockReturnValue(personClient)
   })
 
-  describe('findByCrn', () => {
-    it('on success returns the person given their CRN', async () => {
+  describe('findByPrisonNumber', () => {
+    it('on success returns the person given their prison number', async () => {
       const person = personFactory.build()
       personClient.search.mockResolvedValue(person)
 
-      const postedPerson = await service.findByCrn(token, 'crn')
+      const postedPerson = await service.findByPrisonNumber(token, 'prisonNumber')
 
       expect(postedPerson).toEqual(person)
 
       expect(personClientFactory).toHaveBeenCalledWith(token)
-      expect(personClient.search).toHaveBeenCalledWith('crn')
+      expect(personClient.search).toHaveBeenCalledWith('prisonNumber')
     })
   })
 
