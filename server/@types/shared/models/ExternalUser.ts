@@ -6,6 +6,8 @@
 export type ExternalUser = {
     id: string;
     username: string;
+    name: string;
+    email: string;
     origin?: string;
 };
 
