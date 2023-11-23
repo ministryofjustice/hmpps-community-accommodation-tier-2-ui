@@ -28,8 +28,8 @@ export default class PersonClient {
     return response
   }
 
-  async search(crn: string): Promise<Person> {
-    const query = { crn } as Record<string, string | boolean>
+  async search(nomsNumber: string): Promise<Person> {
+    const query = { nomsNumber } as Record<string, string | boolean>
 
     const path = `${paths.people.search({})}?${createQueryString(query)}`
     const response = await this.restClient.get({
