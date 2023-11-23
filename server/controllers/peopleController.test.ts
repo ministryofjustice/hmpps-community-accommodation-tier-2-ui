@@ -6,7 +6,7 @@ import PeopleController from './peopleController'
 import { errorMessage, errorSummary } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
-import { fullPersonFactory, restrictedPersonFactory } from '../testutils/factories/person'
+import { fullPersonFactory } from '../testutils/factories/person'
 import applicationFactory from '../testutils/factories/application'
 
 describe('peopleController', () => {

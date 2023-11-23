@@ -1,10 +1,8 @@
 import type { Request, RequestHandler, Response } from 'express'
 import paths from '../paths/apply'
 import { errorMessage, errorSummary } from '../utils/validation'
-import { isFullPerson } from '../utils/utils'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
-import { RestrictedPersonError } from '../utils/errors'
 
 export default class PeopleController {
   constructor(
