@@ -588,7 +588,7 @@ export const getQuestions = (name: string) => {
       'additional-risk-information': {
         hasAdditionalInformation: {
           question: `Is there any other risk information for ${name}?`,
-          hint: 'Record any additional information about their risk to others.',
+          hint: 'If known, state their incentive level, also known as Incentive and Enhanced Privileges (IEP), and any other information about their risk to others.',
           answers: { yes: 'Yes', no: 'No' },
         },
         additionalInformationDetail: { question: 'Additional information' },
