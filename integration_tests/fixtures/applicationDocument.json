@@ -96,7 +96,7 @@
               "question": "How often do they take these substances, by what method, and how much?",
               "answer": "once a month"
             },
-            { "question": "Are they engaged with a drug and alcohol service?", "answer": "Yes" },
+            { "question": "Are they engaged with a drug and alcohol service in custody?", "answer": "Yes" },
             { "question": "Name the drug and alcohol service", "answer": "Local drug and alcohol service" },
             { "question": "Do they require any substitute medication for misused substances?", "answer": "Yes" },
             { "question": "What substitute medication do they take?", "answer": "substitute meds" },
