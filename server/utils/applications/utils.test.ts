@@ -80,7 +80,7 @@ describe('utils', () => {
             statusUpdateFactory.build({
               label: 'a status update',
               description: 'the status description',
-              updatedBy: externalUserFactory.build({ username: 'ANacro' }),
+              updatedBy: externalUserFactory.build({ name: 'A Nacro' }),
               updatedAt: '2023-06-22T08:54:50',
             }),
           ],
@@ -90,7 +90,7 @@ describe('utils', () => {
         expect(getApplicationTimelineEvents(application)).toEqual([
           {
             byline: {
-              text: 'ANacro',
+              text: 'A Nacro',
             },
             datetime: {
               date: '22 June 2023 at 08:54am',
@@ -127,23 +127,23 @@ describe('utils', () => {
             statusUpdateFactory.build({
               label: 'a status update',
               description: 'the status description',
-              updatedBy: externalUserFactory.build({ username: 'ANacro' }),
+              updatedBy: externalUserFactory.build(),
               updatedAt: '2023-06-22T08:54:50',
             }),
             statusUpdateFactory.build({
               label: 'a status update',
               description: 'the status description',
-              updatedBy: externalUserFactory.build({ username: 'ANacro' }),
+              updatedBy: externalUserFactory.build(),
               updatedAt: '2023-06-20T08:54:50',
             }),
             statusUpdateFactory.build({
               label: 'a status update',
               description: 'the status description',
-              updatedBy: externalUserFactory.build({ username: 'ANacro' }),
+              updatedBy: externalUserFactory.build(),
               updatedAt: '2023-06-23T08:54:50',
             }),
           ],
-          submittedBy: nomisUserFactory.build({ name: 'Anne Nomis' }),
+          submittedBy: nomisUserFactory.build(),
           submittedAt: '2023-06-21T07:54:50',
         })
 

@@ -30,6 +30,7 @@ export default class SubmittedApplicationOverviewPage extends Page {
         if (index !== application.statusUpdates.length) {
           cy.wrap($el).within(() => {
             cy.get('.moj-timeline__header').should('contain', sortedTimelineEvents[index].label)
+            cy.get('.moj-timeline__byline').should('contain', sortedTimelineEvents[index].updatedBy.name)
             cy.get('time').should('have.attr', { time: sortedTimelineEvents[index].updatedAt })
             cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents[index].updatedAt))
           })

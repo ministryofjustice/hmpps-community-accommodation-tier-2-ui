@@ -23,7 +23,7 @@ context('Assessor views a submitted application overview', () => {
     statusUpdates: [
       statusUpdateFactory.build({
         updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
-        updatedBy: externalUserFactory.build({ username: 'Anne_Assessor' }),
+        updatedBy: externalUserFactory.build({ name: 'Anne Assessor' }),
         name: 'moreInfoRequested',
         label: 'More information requested',
         description:
@@ -31,7 +31,7 @@ context('Assessor views a submitted application overview', () => {
       }),
       statusUpdateFactory.build({
         updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),
-        updatedBy: externalUserFactory.build({ username: 'Anne Other Assessor' }),
+        updatedBy: externalUserFactory.build({ name: 'Anne Other Assessor' }),
         name: 'awaitingDecision',
         label: 'Awaiting decision',
         description: 'All information has been received and the application is awaiting assessment.',
