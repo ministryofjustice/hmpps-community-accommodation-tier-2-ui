@@ -80,7 +80,7 @@ describeClient('PersonClient', provider => {
           method: 'GET',
           path: `/cas2/people/search`,
           query: {
-            crn: 'crn',
+            nomsNumber: 'nomsNumber',
           },
           headers: {
             authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ describeClient('PersonClient', provider => {
         },
       })
 
-      const result = await personClient.search('crn')
+      const result = await personClient.search('nomsNumber')
 
       expect(result).toEqual(person)
     })

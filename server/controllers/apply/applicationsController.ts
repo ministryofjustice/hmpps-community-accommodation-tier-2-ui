@@ -93,7 +93,7 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         ...userInput,
-        pageHeading: "Enter the person's CRN",
+        pageHeading: "Enter the person's prison number",
       })
     }
   }

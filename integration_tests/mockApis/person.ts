@@ -1,4 +1,4 @@
-import type { OASysRiskOfSeriousHarm, OASysRiskToSelf, Person, PersonRisks } from '@approved-premises/api'
+import type { FullPerson, OASysRiskOfSeriousHarm, OASysRiskToSelf, PersonRisks } from '@approved-premises/api'
 import { stubFor } from '../../wiremock'
 
 export default {
@@ -54,11 +54,11 @@ export default {
       },
     }),
 
-  stubFindPerson: (args: { person: Person }) =>
+  stubFindPerson: (args: { person: FullPerson }) =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/search?crn=${args.person.crn}`,
+        url: `/cas2/people/search?nomsNumber=${args.person.nomsNumber}`,
       },
       response: {
         status: 201,
@@ -67,22 +67,22 @@ export default {
       },
     }),
 
-  stubPersonNotFound: (args: { person: Person }) =>
+  stubPersonNotFound: (args: { person: FullPerson }) =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/search?crn=${args.person.crn}`,
+        url: `/cas2/people/search?nomsNumber=${args.person.nomsNumber}`,
       },
       response: {
         status: 404,
       },
     }),
 
-  stubFindPersonForbidden: (args: { person: Person }) =>
+  stubFindPersonForbidden: (args: { person: FullPerson }) =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/search?crn=${args.person.crn}`,
+        url: `/cas2/people/search?nomsNumber=${args.person.nomsNumber}`,
       },
       response: {
         status: 403,

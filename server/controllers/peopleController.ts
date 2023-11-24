@@ -1,10 +1,8 @@
 import type { Request, RequestHandler, Response } from 'express'
 import paths from '../paths/apply'
 import { errorMessage, errorSummary } from '../utils/validation'
-import { isFullPerson } from '../utils/utils'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
-import { RestrictedPersonError } from '../utils/errors'
 
 export default class PeopleController {
   constructor(
@@ -14,24 +12,19 @@ export default class PeopleController {
 
   find(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn } = req.body
+      const { prisonNumber } = req.body
 
-      if (crn) {
+      if (prisonNumber) {
         try {
-          const person = await this.personService.findByCrn(req.user.token, crn)
+          const person = await this.personService.findByPrisonNumber(req.user.token, prisonNumber)
 
-          if (!isFullPerson(person)) {
-            throw new RestrictedPersonError(crn)
-          }
           const application = await this.applicationService.createApplication(req.user.token, person.crn)
           res.redirect(paths.applications.show({ id: application.id }))
         } catch (err) {
           if (err.status === 404) {
-            this.addErrorMessagesToFlash(req, `No person with a CRN of '${crn}' was found`)
+            this.addErrorMessagesToFlash(req, `No person with a prison number of '${prisonNumber}' was found`)
           } else if (err.status === 403) {
-            this.addErrorMessagesToFlash(req, 'You do not have permission to access this CRN')
-          } else if (err.type === 'RESTRICTED_PERSON') {
-            this.addErrorMessagesToFlash(req, `The CRN ${crn} is restricted`)
+            this.addErrorMessagesToFlash(req, `You do not have permission to access the prison number ${prisonNumber}`)
           } else {
             throw err
           }
@@ -39,7 +32,7 @@ export default class PeopleController {
           res.redirect(req.headers.referer)
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'You must enter a CRN')
+        this.addErrorMessagesToFlash(req, 'You must enter a prison number')
         res.redirect(req.headers.referer)
       }
     }
@@ -47,9 +40,9 @@ export default class PeopleController {
 
   addErrorMessagesToFlash(request: Request, message: string) {
     request.flash('errors', {
-      crn: errorMessage('crn', message),
+      prisonNumber: errorMessage('prisonNumber', message),
     })
-    request.flash('errorSummary', [errorSummary('crn', message)])
+    request.flash('errorSummary', [errorSummary('prisonNumber', message)])
     request.flash('userInput', request.body)
   }
 }

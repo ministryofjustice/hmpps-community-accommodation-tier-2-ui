@@ -11,7 +11,7 @@
 {% block content %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-three-quarters">
       <form action="{{ paths.applications.people.find() }}" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
@@ -21,16 +21,15 @@
           formPageInput(
             {
               label: {
-                text: "Enter the person's CRN",
+                text: "Enter the person's prison number",
                 classes: "govuk-label--l",
                 isPageHeading: true
               },
               hint: {
-                html: "<p>Enter the CRN for the person needing CAS-2 placement.</p><p>We'll import their details into your application.</p>
-                 <p>For example, a CRN is DO16821</p>"
+                text: "For example, DO16821"
               },
-              classes: "govuk-input--width-10",
-              fieldName: "crn"
+              classes: "govuk-input--width-10 govuk-input--extra-letter-spacing",
+              fieldName: "prisonNumber"
             },
             fetchContext()
           )
@@ -38,7 +37,7 @@
 
         {{ govukButton({
             name: 'submit',
-            text: "Save and continue"
+            text: "Search for applicant"
         }) }}
       </form>
     </div>
