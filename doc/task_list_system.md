@@ -27,7 +27,7 @@ build a list of sections, tasks and pages for a given form. See the decorators:
 ```
 server/form-pages/
 ├── baseForm.ts
-├── tasklistPage.ts
+├── taskListPage.ts
 └── utils
     ├── decorators
     │   ├── form.decorator.ts
@@ -276,7 +276,7 @@ const paths = {
 ### View templates
 
 A number of utilities are added to the nunjucks setup
-(`server/utils/nunjucksSetup.ts`) including `TasklistUtils` and
+(`server/utils/nunjucksSetup.ts`) including `TaskListUtils` and
 `mapApiPersonRisksForUi`
 
 #### Form components

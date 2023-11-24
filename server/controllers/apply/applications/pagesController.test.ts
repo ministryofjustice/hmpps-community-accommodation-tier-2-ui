@@ -5,7 +5,7 @@ import createError from 'http-errors'
 import type { DataServices, ErrorsAndUserInput, FormPages } from '@approved-premises/ui'
 import PagesController from './pagesController'
 import { ApplicationService } from '../../../services'
-import TasklistPage from '../../../form-pages/taskListPage'
+import TaskListPage from '../../../form-pages/taskListPage'
 import Apply from '../../../form-pages/apply'
 
 import {
@@ -38,7 +38,7 @@ describe('pagesController', () => {
   const dataServices = createMock<DataServices>({}) as DataServices
 
   const PageConstructor = jest.fn()
-  const page = createMock<TasklistPage>({})
+  const page = createMock<TaskListPage>({})
 
   let pagesController: PagesController
 

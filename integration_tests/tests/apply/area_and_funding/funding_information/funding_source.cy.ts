@@ -27,9 +27,9 @@
 //    When I use the back button
 //    Then I'm on the task list page
 //
-//  Scenario: return to task list using the 'Back to tasklist' link
+//  Scenario: return to task list using the 'Back to task list' link
 //    Given I'm on the Funding information task page
-//    When I use the 'Back to tasklist' link
+//    When I use the 'Back to task list' link
 //    Then I'm on the task list page
 //
 //  Scenario: navigate to national insurance number page
@@ -157,12 +157,12 @@ context('Visit area and funding section', () => {
     Page.verifyOnPage(TaskListPage)
   })
 
-  //  Scenario: return to task list using the 'Back to tasklist' link
+  //  Scenario: return to task list using the 'Back to task list' link
   it('link takes me to the task list page', function test() {
     // Given I'm on the Funding information task page
     cy.get('a').contains('Add funding information').click()
 
-    // When I use the 'Back to tasklist' link
+    // When I use the 'Back to task list' link
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
     page.clickTaskListLink()
 

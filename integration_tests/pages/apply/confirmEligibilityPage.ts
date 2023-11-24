@@ -32,7 +32,7 @@ export default class ConfirmEligibilityPage extends ApplyPage {
   }
 
   doesNotHaveTaskListLink = (): void => {
-    cy.get('a').contains('Back to tasklist').should('not.exist')
+    cy.get('a').contains('Back to task list').should('not.exist')
   }
 
   chooseYesOption = (): void => {
