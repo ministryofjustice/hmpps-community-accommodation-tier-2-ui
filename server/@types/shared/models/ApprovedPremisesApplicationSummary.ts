@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ApplicationStatus } from './ApplicationStatus';
 import type { ApplicationSummary } from './ApplicationSummary';
+import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { PersonRisks } from './PersonRisks';
 
 export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
@@ -15,7 +15,7 @@ export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     arrivalDate?: string;
     risks?: PersonRisks;
     createdByUserId: string;
-    status: ApplicationStatus;
+    status: ApprovedPremisesApplicationStatus;
     tier?: string;
 });
 
