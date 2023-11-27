@@ -1,4 +1,22 @@
 export const getQuestions = (name: string) => {
+  const offenceCategory = {
+    question: 'Offence category',
+    hint: 'Select the offence category',
+    answers: {
+      stalkingOrHarassment: 'Stalking or Harassment',
+      weaponsOrFirearms: 'Weapons or Firearms',
+      arson: 'Arson',
+      violence: 'Violence',
+      domesticAbuse: 'Domestic abuse',
+      hateCrime: 'Hate crime',
+      drugs: 'Drugs',
+      other: 'Other',
+    },
+  }
+
+  const offenceSummaryHintHtml =
+    '<div id="offence-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>where it happened (excluding addresses)</li><li>when it happened</li><li>damage or injury caused</li><li>weapon type</li><li>motivations for the offence</li><li>if a violent offence, the relationship to the victim</li></ul></div>'
+
   return {
     'confirm-eligibility': {
       'confirm-eligibility': {
@@ -610,6 +628,34 @@ export const getQuestions = (name: string) => {
         additionalInformationDetail: { question: 'Additional information' },
       },
     },
+    'current-offences': {
+      'current-offence-data': {
+        titleAndNumber: {
+          question: 'Offence title and number',
+          hint: "For example, 'Stalking (08000)'",
+        },
+        offenceCategory,
+        offenceDate: {
+          question: 'When did they commit the offence?',
+          hint: 'For example, 27 3 2007',
+        },
+        sentenceLength: {
+          question: 'How long were they sentenced for?',
+          hint: 'For example, 6 months',
+        },
+        summary: {
+          question: 'Provide a summary of the offence',
+          hint: offenceSummaryHintHtml,
+        },
+        outstandingCharges: {
+          question: `Are there any outstanding charges?`,
+          answers: { yes: 'Yes', no: 'No' },
+        },
+        outstandingChargesDetail: {
+          question: 'Details of any outstanding charges',
+        },
+      },
+    },
     'offending-history': {
       'any-previous-convictions': {
         hasAnyPreviousConvictions: {
@@ -622,20 +668,7 @@ export const getQuestions = (name: string) => {
           question: 'Offence title and number',
           hint: "For example, 'Stalking (08000)'",
         },
-        offenceCategory: {
-          question: 'Offence category',
-          hint: 'Select the offence category',
-          answers: {
-            stalkingOrHarassment: 'Stalking or Harassment',
-            weaponsOrFirearms: 'Weapons or Firearms',
-            arson: 'Arson',
-            violence: 'Violence',
-            domesticAbuse: 'Domestic abuse',
-            hateCrime: 'Hate crime',
-            drugs: 'Drugs',
-            other: 'Other',
-          },
-        },
+        offenceCategory,
         offenceDate: {
           question: 'When did they commit the offence?',
           hint: 'For example, 27 3 2007',
@@ -646,6 +679,7 @@ export const getQuestions = (name: string) => {
         },
         summary: {
           question: 'Provide a summary of the offence',
+          hint: offenceSummaryHintHtml,
         },
       },
     },
