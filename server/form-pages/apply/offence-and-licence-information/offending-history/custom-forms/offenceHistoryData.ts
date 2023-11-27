@@ -1,4 +1,4 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { SelectItem, TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
@@ -44,33 +44,29 @@ export default class OffenceHistoryData implements TaskListPage {
 
   questions = getQuestions('')['offending-history']['offence-history-data']
 
-  offenceCategories = this.getCategoriesAsItemsForSelect()
+  offenceCategories: Array<SelectItem>
 
   constructor(
     body: Partial<OffenceHistoryDataBody>,
     private readonly application: Cas2Application,
   ) {
     this.body = body as OffenceHistoryDataBody
+    this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)
   }
 
-  private getCategoriesAsItemsForSelect() {
+  private getCategoriesAsItemsForSelect(selectedItem: string) {
     const items = [
       {
         value: 'choose',
         text: 'Choose category',
-        selected: true,
-      },
-    ] as [
-      {
-        value: string
-        text: string
-        selected?: boolean
+        selected: selectedItem === '',
       },
     ]
     Object.keys(this.questions.offenceCategory.answers).forEach(value => {
       items.push({
         value,
         text: this.questions.offenceCategory.answers[value] as string,
+        selected: selectedItem === value,
       })
     })
 
