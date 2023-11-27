@@ -35,8 +35,7 @@ export const getStatusTimelineEvents = (statusUpdates: Array<Cas2StatusUpdate>):
         return {
           label: { text: statusUpdate.label },
           byline: {
-            // TODO: change this to first name/surname when that is available on external users
-            text: statusUpdate.updatedBy.username,
+            text: statusUpdate.updatedBy.name,
           },
           datetime: {
             timestamp: statusUpdate.updatedAt,
