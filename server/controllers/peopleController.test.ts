@@ -1,13 +1,13 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 
-import paths from '../paths/apply'
 import PeopleController from './peopleController'
 import { errorMessage, errorSummary } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
 import { fullPersonFactory } from '../testutils/factories/person'
 import applicationFactory from '../testutils/factories/application'
+import { DateFormats } from '../utils/dateUtils'
 
 describe('peopleController', () => {
   const flashSpy = jest.fn()
@@ -42,12 +42,19 @@ describe('peopleController', () => {
       it('redirects to the show applications path', async () => {
         const requestHandler = peopleController.find()
 
-        personService.findByPrisonNumber.mockResolvedValue(fullPersonFactory.build({}))
+        const person = fullPersonFactory.build({})
+
+        personService.findByPrisonNumber.mockResolvedValue(person)
         applicationService.createApplication.mockResolvedValue(applicationFactory.build({ id: '123abc' }))
 
         await requestHandler(request, response, next)
 
-        expect(response.redirect).toHaveBeenCalledWith(paths.applications.show({ id: '123abc' }))
+        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
+          pageHeading: `Confirm ${person.name}'s details`,
+          person,
+          date: DateFormats.dateObjtoUIDate(new Date()),
+          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+        })
       })
 
       describe('when there are errors', () => {
@@ -68,13 +75,13 @@ describe('peopleController', () => {
             expect(request.flash).toHaveBeenCalledWith('errors', {
               prisonNumber: errorMessage(
                 'prisonNumber',
-                `No person with a prison number of '${request.body.prisonNumber}' was found`,
+                `No person found for prison number ${request.body.prisonNumber}, please try another number.`,
               ),
             })
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
               errorSummary(
                 'prisonNumber',
-                `No person with a prison number of '${request.body.prisonNumber}' was found`,
+                `No person found for prison number ${request.body.prisonNumber}, please try another number.`,
               ),
             ])
             expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
@@ -98,11 +105,14 @@ describe('peopleController', () => {
             expect(request.flash).toHaveBeenCalledWith('errors', {
               prisonNumber: errorMessage(
                 'prisonNumber',
-                'You do not have permission to access the prison number SOME_NUMBER',
+                'You do not have permission to access the prison number SOME_NUMBER, please try another number.',
               ),
             })
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
-              errorSummary('prisonNumber', 'You do not have permission to access the prison number SOME_NUMBER'),
+              errorSummary(
+                'prisonNumber',
+                'You do not have permission to access the prison number SOME_NUMBER, please try another number.',
+              ),
             ])
             expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
           })
