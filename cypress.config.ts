@@ -5,6 +5,7 @@ import tokenVerification from './integration_tests/mockApis/tokenVerification'
 import person from './integration_tests/mockApis/person'
 import applications from './integration_tests/mockApis/applications'
 import submissions from './integration_tests/mockApis/submissions'
+import referenceData from './integration_tests/mockApis/referenceData'
 
 export default defineConfig({
   chromeWebSecurity: false,
@@ -27,6 +28,7 @@ export default defineConfig({
         ...tokenVerification,
         ...applications,
         ...submissions,
+        ...referenceData,
       })
     },
     baseUrl: 'http://localhost:3007',

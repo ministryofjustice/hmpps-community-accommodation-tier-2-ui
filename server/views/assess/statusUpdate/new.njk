@@ -1,0 +1,39 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../partials/layout.njk" %}
+{% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
+
+{% set pageTitle = applicationName + " - " + pageHeading %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="{{ paths.statusUpdate.create({id: application.id}) }}" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ showErrorSummary(errorSummary) }}
+
+        {{ govukRadios({
+          name: "newStatus",
+          fieldset: {
+            legend: {
+              text: questionText,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          errorMessage: errors.newStatus,
+          items: applicationStatusRadios(statuses, application.statusUpdates)
+        }) }}
+
+        {{ govukButton({
+          text: "Save and continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

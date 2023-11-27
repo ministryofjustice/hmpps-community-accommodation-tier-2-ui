@@ -10,6 +10,7 @@ import oasysRoshFactory from './oasysRosh'
 import nomisUserFactory from './nomisUser'
 import statusUpdateFactory from './statusUpdate'
 import externalUserFactory from './externalUser'
+import applicationStatusFactory from './applicationStatusFactory'
 
 export {
   applicationSummaryFactory,
@@ -27,4 +28,5 @@ export {
   nomisUserFactory,
   statusUpdateFactory,
   externalUserFactory,
+  applicationStatusFactory,
 }

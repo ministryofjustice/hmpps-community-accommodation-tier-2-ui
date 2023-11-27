@@ -1,4 +1,7 @@
-import { Cas2SubmittedApplication as SubmittedApplication } from '@approved-premises/api'
+import {
+  Cas2SubmittedApplication as SubmittedApplication,
+  Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
+} from '@approved-premises/api'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
@@ -14,5 +17,12 @@ export default class SubmittedApplicationClient {
     return (await this.restClient.get({
       path: paths.submissions.show({ id: applicationId }),
     })) as SubmittedApplication
+  }
+
+  async updateStatus(applicationId: string, newStatus: ApplicationStatusUpdate): Promise<void> {
+    await this.restClient.post({
+      path: paths.applicationStatusUpdates.create({ id: applicationId }),
+      data: newStatus,
+    })
   }
 }

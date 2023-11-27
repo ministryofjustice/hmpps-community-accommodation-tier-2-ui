@@ -37,4 +37,31 @@ describeClient('SubmittedApplicationClient', provider => {
       expect(result).toEqual(submittedApplication)
     })
   })
+
+  describe('updateStatus', () => {
+    it('should create a status update', async () => {
+      const application = submittedApplicationFactory.build()
+      const data = {
+        newStatus: 'received',
+      }
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to update the status of an application',
+        withRequest: {
+          method: 'POST',
+          path: paths.applicationStatusUpdates.create({ id: application.id }),
+          body: data,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+        },
+      })
+
+      await submittedApplicationClient.updateStatus(application.id, data)
+    })
+  })
 })

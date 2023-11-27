@@ -23,7 +23,16 @@ printButton %}
 
       <p class="govuk-body-l">This page contains answers submitted as part of a CAS-2 application. Alternatively, you can download a PDF version of this page.</p>
 
-      {{ printButton() }}
+      <div class="govuk-button-group govuk-!-margin-top-5">
+        {{ printButton() }}
+
+        {{ govukButton({
+            text: "Update application status",
+            href: paths.statusUpdate.new({id: application.id}),
+            classes: "govuk-button--secondary"
+          })
+        }}
+      </div>
     </div>
 
     <div class="govuk-grid-column-full">
