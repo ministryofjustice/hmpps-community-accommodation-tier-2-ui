@@ -147,11 +147,9 @@ describe('peopleController', () => {
         expect(response.redirect).toHaveBeenCalledWith('some-referrer/')
 
         expect(flashSpy).toHaveBeenCalledWith('errors', {
-          prisonNumber: errorMessage('prisonNumber', 'You must enter a prison number'),
+          prisonNumber: errorMessage('prisonNumber', 'Enter a prison number'),
         })
-        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [
-          errorSummary('prisonNumber', 'You must enter a prison number'),
-        ])
+        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('prisonNumber', 'Enter a prison number')])
       })
     })
   })

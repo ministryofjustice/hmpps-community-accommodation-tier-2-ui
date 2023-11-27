@@ -43,7 +43,7 @@ export default class PeopleController {
           return res.redirect(req.headers.referer)
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'You must enter a prison number')
+        this.addErrorMessagesToFlash(req, 'Enter a prison number')
         return res.redirect(req.headers.referer)
       }
     }

@@ -109,8 +109,8 @@ context('Find by prison number', () => {
     page.clickSubmit()
 
     // Then I see an error message
-    cy.get('.govuk-error-summary').should('contain', `You must enter a prison number`)
-    cy.get(`[data-cy-error-prisonNumber]`).should('contain', `You must enter a prison number`)
+    cy.get('.govuk-error-summary').should('contain', `Enter a prison number`)
+    cy.get(`[data-cy-error-prisonNumber]`).should('contain', `Enter a prison number`)
   })
 
   //  Scenario: enter a prison number that can't be found
