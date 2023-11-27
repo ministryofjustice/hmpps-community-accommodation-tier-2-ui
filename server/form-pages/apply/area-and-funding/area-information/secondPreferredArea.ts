@@ -5,50 +5,50 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type FirstPreferredAreaBody = {
+type SecondPreferredAreaBody = {
   preferredArea: string
   preferenceReason: string
 }
 
 @Page({
-  name: 'first-preferred-area',
+  name: 'second-preferred-area',
   bodyProperties: ['preferredArea', 'preferenceReason'],
 })
-export default class FirstPreferredArea implements TaskListPage {
-  documentTitle = 'First preferred area for the person'
+export default class SecondPreferredArea implements TaskListPage {
+  documentTitle = 'Second preferred area for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `First preferred area for ${nameOrPlaceholderCopy(this.application.person)}`
+  title = `Second preferred area for ${nameOrPlaceholderCopy(this.application.person)}`
 
-  questions = getQuestions(this.personName)['area-information']['first-preferred-area']
+  questions = getQuestions(this.personName)['area-information']['second-preferred-area']
 
-  body: FirstPreferredAreaBody
+  body: SecondPreferredAreaBody
 
   constructor(
-    body: Partial<FirstPreferredAreaBody>,
+    body: Partial<SecondPreferredAreaBody>,
     private readonly application: Application,
   ) {
-    this.body = body as FirstPreferredAreaBody
+    this.body = body as SecondPreferredAreaBody
   }
 
   previous() {
-    return 'taskList'
+    return 'first-preferred-area'
   }
 
   next() {
-    return 'second-preferred-area'
+    return ''
   }
 
   errors() {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.preferredArea) {
-      errors.preferredArea = 'Provide a town, city or region for the first preferred area'
+      errors.preferredArea = 'Provide a town, city or region for the second preferred area'
     }
 
     if (!this.body.preferenceReason) {
-      errors.preferenceReason = "Provide the reason for the applicant's first preferred area"
+      errors.preferenceReason = "Provide the reason for the applicant's second preferred area"
     }
 
     return errors
