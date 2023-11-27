@@ -1,4 +1,5 @@
-import { convertToTitleCase, initialiseName } from './utils'
+import { SummaryListItem } from '@approved-premises/ui'
+import { convertToTitleCase, initialiseName, removeBlankSummaryListItems } from './utils'
 
 describe('convert to title case', () => {
   it.each([
@@ -26,5 +27,84 @@ describe('initialise name', () => {
     ['Double barrelled', 'Robert-John Smith-Jones-Wilson', 'R. Smith-Jones-Wilson'],
   ])('%s initialiseName(%s, %s)', (_: string, a: string, expected: string) => {
     expect(initialiseName(a)).toEqual(expected)
+  })
+})
+
+describe('removeBlankSummaryListItems', () => {
+  it('removes all blank and undefined items', () => {
+    const items = [
+      {
+        key: {
+          text: 'Names',
+        },
+        value: {
+          text: 'Name',
+        },
+      },
+      {
+        key: {
+          text: 'CRN',
+        },
+        value: {
+          text: '',
+        },
+      },
+      {
+        key: {
+          text: 'Date of Birth',
+        },
+        value: {
+          text: undefined,
+        },
+      },
+      {
+        key: {
+          text: 'NOMS Number',
+        },
+        value: {
+          html: '<strong>Some HTML</strong>',
+        },
+      },
+      {
+        key: {
+          text: 'Nationality',
+        },
+        value: {
+          html: undefined,
+        },
+      },
+      {
+        key: {
+          text: 'Religion',
+        },
+        value: {
+          html: '',
+        },
+      },
+      {
+        value: {
+          somethingElse: '',
+        },
+      },
+    ] as Array<SummaryListItem>
+
+    expect(removeBlankSummaryListItems(items)).toEqual([
+      {
+        key: {
+          text: 'Names',
+        },
+        value: {
+          text: 'Name',
+        },
+      },
+      {
+        key: {
+          text: 'NOMS Number',
+        },
+        value: {
+          html: '<strong>Some HTML</strong>',
+        },
+      },
+    ])
   })
 })

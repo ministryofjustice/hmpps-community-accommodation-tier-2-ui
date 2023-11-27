@@ -5,10 +5,11 @@ import * as pathModule from 'path'
 import nunjucks from 'nunjucks'
 import express from 'express'
 
+import { PersonStatus } from '@approved-premises/ui'
 import applicationPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import config from '../config'
-import { initialiseName } from './utils'
+import { initialiseName, removeBlankSummaryListItems } from './utils'
 import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
@@ -21,6 +22,7 @@ import { checkYourAnswersSections } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { getApplicationTimelineEvents } from './applications/utils'
 import { applicationStatusRadios } from './assessUtils'
+import { statusTag } from './personUtils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -90,4 +92,13 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)
+
+  njkEnv.addFilter('removeBlankSummaryListItems', removeBlankSummaryListItems)
+
+  const markAsSafe = (html: string): string => {
+    const safeFilter = njkEnv.getFilter('safe')
+    return safeFilter(html)
+  }
+
+  njkEnv.addGlobal('statusTag', (status: PersonStatus) => markAsSafe(statusTag(status)))
 }
