@@ -24,8 +24,8 @@ export type FormPages = { [key in TaskNames]: Record<string, unknown> }
 export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'
 export type TaskWithStatus = UiTask & { status: TaskStatus }
 
-export type TaskListErrors<K extends TasklistPage> = Partial<Record<keyof K['body'], unknown>>
-interface TasklistPage {
+export type TaskListErrors<K extends TaskListPage> = Partial<Record<keyof K['body'], unknown>>
+interface TaskListPage {
   body: Record<string, unknown>
 }
 

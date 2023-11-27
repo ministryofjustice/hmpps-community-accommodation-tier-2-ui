@@ -13,6 +13,6 @@ export default class FundingSourcePage extends ApplyPage {
   }
 
   clickTaskListLink = (): void => {
-    cy.get('a').contains('Back to tasklist').click()
+    cy.get('a').contains('Back to task list').click()
   }
 }
