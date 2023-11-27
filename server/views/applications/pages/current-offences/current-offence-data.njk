@@ -1,0 +1,182 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+
+{% extends "../layout.njk" %}
+
+{% set outstandingChargesFollowUp %}
+{{
+      formPageTextArea(
+        {
+          fieldName: 'outstandingChargesDetail',
+          label: {
+            text: page.questions.outstandingChargesDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+{% endset %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ showErrorSummary(errorSummary) }}
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+      <div class="govuk-body">
+        <p>Add one offence at a time. For example, you should record 3 sexual harassment offences as 3 separate offences.</p>
+      </div>
+
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.titleAndNumber.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-20",
+                fieldName: "titleAndNumber",
+                hint: {
+                  text: page.questions.titleAndNumber.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            govukSelect({
+                  label: { 
+                    text: page.questions.offenceCategory.question,
+                    classes: "govuk-label--m" 
+                  },
+                  hint: {
+                    text: page.questions.offenceCategory.hint
+                  },
+                  id: "offenceCategory",
+                  name: "offenceCategory",
+                  items: page.offenceCategories,
+                  errorMessage: errors.offenceCategory
+              })
+        }}
+
+        {{ 
+          formPageDateInput( {
+            hint: {
+              text: page.questions.offenceDate.hint
+            },
+            fieldName: "offenceDate",
+            fieldset: {
+              legend: {
+                text: page.questions.offenceDate.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: dateFieldValues('offenceDate', errors)
+            }, 
+            fetchContext()) 
+        }}
+
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.sentenceLength.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-20",
+                fieldName: "sentenceLength",
+                hint: {
+                  text: page.questions.sentenceLength.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            formPageTextArea(
+              {
+                fieldName: "summary",
+                label: {
+                  text: page.questions.summary.question,
+                  classes: "govuk-label--m"
+                },
+                hint: {
+                  html: page.questions.summary.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+          formPageRadios(
+            {
+              fieldName: "outstandingCharges",
+                fieldset: {
+                  legend: {
+                    text: page.questions.outstandingCharges.question,
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+              items: [
+                      {
+                        value: "yes",
+                        text: "Yes",
+                        conditional: {
+                        html: outstandingChargesFollowUp
+                        }
+                      },
+                      {
+                        value: "no",
+                        text: "No"
+                      }
+                     ]
+            },
+            fetchContext()
+          )
+        }}
+
+        <div>
+          {{ govukButton({
+            id: "add-another",
+            text: "Save and add another",
+            classes: "govuk-button--secondary govuk-!-margin-bottom-4"
+          }) }}
+        </div>
+
+        {% block button %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+                  text: "Save and continue"
+              }) }}
+          </div>
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function addRedirect(event) {
+      const form = document.getElementById('form')
+      form.action = form.action + '&redirectPage=current-offence-data'
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('add-another')
+        .addEventListener('click', (event) => addRedirect(event));
+    });
+  </script>
+{% endblock %}
