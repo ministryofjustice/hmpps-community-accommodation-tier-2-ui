@@ -231,6 +231,32 @@
       "additionalInformationDetail": "some information"
     }
   },
+  "current-offences": {
+    "current-offence-data": [
+      {
+        "titleAndNumber": "Arson (09000)",
+        "offenceCategory": "Arson",
+        "offenceDate-day": "5",
+        "offenceDate-month": "6",
+        "offenceDate-year": "1940",
+        "sentenceLength": "3 years",
+        "summary": "summary detail",
+        "outstandingCharges": "yes",
+        "outstandingChargesDetail": "outstanding charges detail"
+      },
+      {
+        "titleAndNumber": "Stalking (08000)",
+        "offenceCategory": "Stalking",
+        "offenceDate-day": "6",
+        "offenceDate-month": "7",
+        "offenceDate-year": "2023",
+        "sentenceLength": "2 months",
+        "summary": "more summary detail",
+        "outstandingCharges": "no"
+      }
+    ],
+    "current-offences": {}
+  },
   "offending-history": {
     "any-previous-convictions": { "hasAnyPreviousConvictions": "yes" },
     "offence-history-data": [
