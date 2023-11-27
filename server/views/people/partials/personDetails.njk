@@ -1,0 +1,95 @@
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+
+{% macro personDetails(person, showTitle = true) %}
+  {% set rows = ([
+    {
+      key: {
+        text: "Full name"
+      },
+      value: {
+        text: person.name
+      }
+    }, {
+      key: {
+        text: "Date of birth"
+      },
+      value: {
+        text: formatDate(person.dateOfBirth, {format: 'short'})if person.dateOfBirth else 
+          ''
+      }
+    }, {
+      key: {
+        text: "Nationality"
+      },
+      value: {
+        text: person.nationality
+      }
+    }, {
+      key: {
+        text: "Sex"
+      },
+      value: {
+        text: person.sex
+      }
+    }, {
+      key: {
+        text: "Prison number"
+      },
+      value: {
+        text: person.nomsNumber
+      }
+    }, {
+      key: {
+        text: "Prison"
+      },
+      value: {
+        text: person.prisonName
+      }
+    }, {
+      key: {
+        text: "PNC number"
+      },
+      value: {
+        text: person.pncNumber
+      }
+    }, {
+      key: {
+        text: "NDelius CRN number"
+      },
+      value: {
+        text: person.crn
+      }
+    }, {
+      key: {
+        text: "Status"
+      },
+      value: {
+        html: statusTag(person.status)
+      }
+    }
+  ] | removeBlankSummaryListItems) %}
+
+  {% if showTitle %}
+    {{ govukSummaryList({
+      card: {
+        title: {
+          text: "Person Details",
+          headingLevel: "2",
+          classes: "govuk-heading-m"
+        },
+        attributes: {
+          'data-cy-section': "person-details"
+        }
+      },
+      rows: rows
+    }) }}
+  {% else %}
+    {{ govukSummaryList({
+      attributes: {
+        'data-cy-person-info': true
+      },
+      rows: rows
+    }) }}
+  {% endif %}
+
+{% endmacro %}
