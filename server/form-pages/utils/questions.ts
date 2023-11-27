@@ -249,6 +249,12 @@ export const getQuestions = (name: string) => {
           hint: 'Include the type of local connection the applicant has with the area',
         },
       },
+      'family-accommodation': {
+        familyProperty: {
+          question: 'Do they want to apply to live with their children in a family property?',
+          answers: { yes: 'Yes', no: 'No' },
+        },
+      },
     },
     'funding-information': {
       'funding-source': {
