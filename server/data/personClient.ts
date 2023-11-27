@@ -1,4 +1,4 @@
-import type { OASysRiskOfSeriousHarm, OASysRiskToSelf, Person, PersonRisks } from '@approved-premises/api'
+import type { FullPerson, OASysRiskOfSeriousHarm, OASysRiskToSelf, PersonRisks } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -28,7 +28,7 @@ export default class PersonClient {
     return response
   }
 
-  async search(nomsNumber: string): Promise<Person> {
+  async search(nomsNumber: string): Promise<FullPerson> {
     const query = { nomsNumber } as Record<string, string | boolean>
 
     const path = `${paths.people.search({})}?${createQueryString(query)}`
@@ -36,7 +36,7 @@ export default class PersonClient {
       path,
     })
 
-    return response as Person
+    return response as FullPerson
   }
 
   async risks(crn: string): Promise<PersonRisks> {
