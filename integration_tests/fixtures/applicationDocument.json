@@ -44,6 +44,10 @@
             {
               "question": "Reason for second preference",
               "answer": "The person has a job there"
+            },
+            {
+              "question": "Do they want to apply to live with their children in a family property?",
+              "answer": "Yes"
             }
           ]
         }
