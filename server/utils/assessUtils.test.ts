@@ -7,7 +7,7 @@ describe('applicationStatusRadios', () => {
       id: 'f5cd423b-08eb-4efb-96ff-5cc6bb073905',
       name: 'moreInfoRequested',
       label: 'More information requested',
-      description: 'More information about the application has been requested from the POM (Prison Offender Manager.',
+      description: 'More information about the application has been requested from the POM (Prison Offender Manager).',
     },
     {
       id: 'ba4d8432-250b-4ab9-81ec-7eb4b16e5dd1',
@@ -23,7 +23,7 @@ describe('applicationStatusRadios', () => {
         value: 'moreInfoRequested',
         text: 'More information requested',
         hint: {
-          text: 'More information about the application has been requested from the POM (Prison Offender Manager.',
+          text: 'More information about the application has been requested from the POM (Prison Offender Manager).',
         },
         checked: false,
       },
@@ -48,7 +48,7 @@ describe('applicationStatusRadios', () => {
         value: 'moreInfoRequested',
         text: 'More information requested',
         hint: {
-          text: 'More information about the application has been requested from the POM (Prison Offender Manager.',
+          text: 'More information about the application has been requested from the POM (Prison Offender Manager).',
         },
         checked: false,
       },
