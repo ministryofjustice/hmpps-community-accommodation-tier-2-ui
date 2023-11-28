@@ -43,6 +43,7 @@ context("Assessor updates a submitted application's status", () => {
   it('allows me to update application status', () => {
     // When I visit the update status page for that application
     const page = UpdateApplicationStatusPage.visit(submittedApplication)
+    page.shouldShowCurrentApplicationStatus()
 
     // And I choose a status update and continue
     page.checkRadioByNameAndValue('newStatus', 'moreInfoRequested')

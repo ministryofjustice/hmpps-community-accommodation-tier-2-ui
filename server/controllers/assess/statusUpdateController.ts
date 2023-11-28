@@ -13,12 +13,14 @@ export default class StatusUpdateController {
 
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
       const person = application.person as FullPerson
+      const currentStatus = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
 
       const statuses = await this.submittedApplicationService.getApplicationStatuses(req.user.token)
 
       return res.render('assess/statusUpdate/new', {
         application,
         person,
+        currentStatus,
         statuses,
         errors,
         errorSummary,

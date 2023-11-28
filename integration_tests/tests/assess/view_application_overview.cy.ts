@@ -9,6 +9,11 @@
 //    When I visit the application overview for that application
 //    Then I see the submitted application overview
 //
+//  Scenario: first visit to submitted application overview page
+//    Given a submitted application exists with no status updates
+//    When I visit the application overview for that application
+//    Then I see the application's submission date
+//
 //  Scenario: navigate to the 'update status' page
 //    Given I'm viewing the submitted application overview
 //    When I click the 'Update status' button
@@ -69,6 +74,22 @@ context('Assessor views a submitted application overview', () => {
     // Then I see the submitted application overview
     page.shouldShowApplicationSummaryDetails(submittedApplication)
     page.shouldShowTimeline(submittedApplication)
+  })
+
+  //  Scenario: first visit to submitted application overview page
+  // ----------------------------------------------
+  it('displays application submission date', () => {
+    // Given a submitted application exists with no status updates
+    const submittedApplicationWithoutStatusUpdates = submittedApplicationFactory.build({
+      statusUpdates: [],
+    })
+    cy.task('stubSubmittedApplicationGet', { application: submittedApplicationWithoutStatusUpdates })
+
+    // When I visit the application overview for that application
+    const page = SubmittedApplicationOverviewPage.visit(submittedApplicationWithoutStatusUpdates)
+
+    // Then I see the application's submission date
+    page.shouldShowApplicationSummaryDetails(submittedApplicationWithoutStatusUpdates)
   })
 
   //  Scenario: navigate to the 'update status' page

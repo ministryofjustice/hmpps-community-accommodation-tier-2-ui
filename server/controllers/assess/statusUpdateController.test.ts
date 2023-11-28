@@ -22,7 +22,7 @@ describe('statusUpdateController', () => {
 
   let statusUpdateController: StatusUpdateController
 
-  const submittedApplication = submittedApplicationFactory.build()
+  const submittedApplication = submittedApplicationFactory.build({ statusUpdates: [] })
 
   beforeEach(() => {
     statusUpdateController = new StatusUpdateController(submittedApplicationService)
@@ -52,6 +52,7 @@ describe('statusUpdateController', () => {
       expect(response.render).toHaveBeenCalledWith('assess/statusUpdate/new', {
         application: submittedApplication,
         person,
+        currentStatus: 'Received',
         statuses: applicationStatuses,
         errorSummary: [],
         errors: {},

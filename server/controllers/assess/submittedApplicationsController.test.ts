@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { FullPerson } from '@approved-premises/api'
 
-import { submittedApplicationFactory } from '../../testutils/factories'
+import { statusUpdateFactory, submittedApplicationFactory } from '../../testutils/factories'
 import SubmittedApplicationsController from './submittedApplicationsController'
 import { SubmittedApplicationService } from '../../services'
 import paths from '../../paths/assess'
@@ -18,9 +18,12 @@ describe('submittedApplicationsController', () => {
 
   let submittedApplicationsController: SubmittedApplicationsController
 
+  const statusUpdate = statusUpdateFactory.build()
+
   const submittedApplication = submittedApplicationFactory.build({
     submittedBy: { name: 'POM Name' },
     submittedAt: '2023-10-17T08:42:38+01:00',
+    statusUpdates: [statusUpdate],
   })
 
   beforeEach(() => {
@@ -62,6 +65,7 @@ describe('submittedApplicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
         application: submittedApplication,
+        status: statusUpdate.label,
         pageHeading: `Overview of application`,
       })
     })
