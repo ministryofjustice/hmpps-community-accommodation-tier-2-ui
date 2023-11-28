@@ -190,6 +190,7 @@ export type { RoshRisks } from './models/RoshRisks';
 export type { RoshRisksEnvelope } from './models/RoshRisksEnvelope';
 export type { SeedFileType } from './models/SeedFileType';
 export type { SeedRequest } from './models/SeedRequest';
+export type { SentenceTypeOption } from './models/SentenceTypeOption';
 export type { ServiceName } from './models/ServiceName';
 export type { SortDirection } from './models/SortDirection';
 export type { SortOrder } from './models/SortOrder';
