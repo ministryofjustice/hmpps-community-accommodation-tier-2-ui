@@ -12,6 +12,9 @@
     "second-preferred-area": {
       "preferredArea": "Birmingham",
       "preferenceReason": "They have a job there"
+    },
+    "family-accommodation": {
+      "familyProperty": "yes"
     }
   },
   "funding-information": {

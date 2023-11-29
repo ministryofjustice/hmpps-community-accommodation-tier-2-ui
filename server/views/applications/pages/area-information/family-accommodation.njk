@@ -1,0 +1,30 @@
+{% extends "./_area-information-screen.njk" %}
+{% set pageName = 'family-accommodation' %}
+
+{% block questions %}
+  {{
+    formPageRadios(
+      {
+        fieldName: "familyProperty",
+        fieldset: {
+          legend: {
+            text: page.questions.familyProperty.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            hint: { text: "Complete the family property form (paper) with the applicant." }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
