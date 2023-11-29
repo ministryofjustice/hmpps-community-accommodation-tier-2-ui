@@ -177,3 +177,5 @@ export type UiTimelineEvent = {
   datetime: { timestamp: string; date: string }
   description: { text: string }
 }
+
+export type PersonStatus = 'InCustody' | 'InCommunity'

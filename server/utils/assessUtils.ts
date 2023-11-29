@@ -8,7 +8,7 @@ export const applicationStatusRadios = (
     return {
       value: status.name,
       text: status.label,
-      hint: status?.description ? { text: status.description } : null,
+      hint: status.description ? { text: status.description } : null,
       checked: previousStatuses.length ? status.name === previousStatuses[0].name : false,
     }
   })

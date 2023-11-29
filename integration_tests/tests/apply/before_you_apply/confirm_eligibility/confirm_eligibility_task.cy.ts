@@ -37,7 +37,6 @@
 //    Then I should be able to 'Find by prison number'
 
 import Page from '../../../../pages/page'
-import FindByPrisonNumberPage from '../../../../pages/apply/findByPrisonNumberPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import ConfirmEligibilityPage from '../../../../pages/apply/confirmEligibilityPage'
 import IneligiblePage from '../../../../pages/apply/ineligiblePage'
@@ -64,18 +63,15 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   })
 
   beforeEach(function test() {
-    cy.task('stubCreateApplication', { application: this.application })
-    cy.task('stubApplicationGet', { application: this.application })
-    cy.task('stubApplicationUpdate', { application: this.application })
-
     //  Background:
     //    Given I am logged in
     cy.signIn()
     //    And I have successfully found a person by prison number
-    const page = FindByPrisonNumberPage.visit(this.application.person.name)
-    page.getTextInputByIdAndEnterDetails('prisonNumber', person.nomsNumber)
+    cy.task('stubCreateApplication', { application: this.application })
+    cy.task('stubApplicationGet', { application: this.application })
+    cy.task('stubApplicationUpdate', { application: this.application })
 
-    page.clickSubmit()
+    ConfirmEligibilityPage.visit(this.application)
 
     //   And I'm now faced with the 'Confirm eligibility' task
     Page.verifyOnPage(ConfirmEligibilityPage, this.application)

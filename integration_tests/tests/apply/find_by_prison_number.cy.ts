@@ -8,11 +8,11 @@
 //    And I click the link to start a new application
 //    Then I'm on the Enter prison number page
 //
-//  Scenario: enter a prison number and continue to the 'Before you start' section without seeing the task list
+//  Scenario: enter a prison number and continue to the 'Confirm applicant details' section without seeing the task list
 //    Given I'm on the enter prison number page
 //    When I enter an existing prison number
 //    And I click save and continue
-//    Then I'm on the first task of the 'Before you start' section
+//    Then I'm on the first task of the 'Confirm applicant details' section
 //
 //  Scenario: answer is enforced
 //    Given I'm on the enter prison number page
@@ -29,7 +29,7 @@
 //    When I enter a prison number for a person I'm not authorised to view
 //    Then I see an unathorised error message
 
-import ConfirmEligibilityPage from '../../pages/apply/confirmEligibilityPage'
+import ConfirmApplicantPage from '../../pages/apply/confirmApplicantPage'
 import { personFactory, applicationFactory } from '../../../server/testutils/factories/index'
 import Page from '../../pages/page'
 import FindByPrisonNumberPage from '../../pages/apply/findByPrisonNumberPage'
@@ -66,9 +66,9 @@ context('Find by prison number', () => {
     Page.verifyOnPage(FindByPrisonNumberPage)
   })
 
-  //  Scenario: enter a prison number and continue to 'Before you start' section without seeing the task list
+  //  Scenario: enter a prison number and continue to 'Confirm applicant details' section without seeing the task list
   // ----------------------------------------------
-  it('creates an application and continues to "Before you start" section (before task list)', () => {
+  it('Continues to "Confirm applicant details" section (before task list)', () => {
     // I'm on the enter prison number page
     const page = FindByPrisonNumberPage.visit(person.name)
 
@@ -95,8 +95,8 @@ context('Find by prison number', () => {
     // I click save and continue
     page.clickSubmit()
 
-    // Then I'm on the 'Confirm eligibility' page (in 'Before you start' section)
-    Page.verifyOnPage(ConfirmEligibilityPage, application)
+    // Then I'm on the 'Confirm applicant details' page
+    Page.verifyOnPage(ConfirmApplicantPage, person.name)
   })
 
   //  Scenario: answer is enforced
@@ -109,8 +109,8 @@ context('Find by prison number', () => {
     page.clickSubmit()
 
     // Then I see an error message
-    cy.get('.govuk-error-summary').should('contain', `You must enter a prison number`)
-    cy.get(`[data-cy-error-prisonNumber]`).should('contain', `You must enter a prison number`)
+    cy.get('.govuk-error-summary').should('contain', `Enter a prison number`)
+    cy.get(`[data-cy-error-prisonNumber]`).should('contain', `Enter a prison number`)
   })
 
   //  Scenario: enter a prison number that can't be found
@@ -127,11 +127,11 @@ context('Find by prison number', () => {
     // I see a not found error message
     cy.get('.govuk-error-summary').should(
       'contain',
-      `No person with a prison number of '${person.nomsNumber}' was found`,
+      `No person found for prison number ${person.nomsNumber}, please try another number.`,
     )
     cy.get(`[data-cy-error-prisonNumber]`).should(
       'contain',
-      `No person with a prison number of '${person.nomsNumber}' was found`,
+      `No person found for prison number ${person.nomsNumber}, please try another number.`,
     )
   })
 
@@ -153,11 +153,11 @@ context('Find by prison number', () => {
     // I see an unathorised error message
     cy.get('.govuk-error-summary').should(
       'contain',
-      `You do not have permission to access the prison number ${person.nomsNumber}`,
+      `You do not have permission to access the prison number ${person.nomsNumber}, please try another number.`,
     )
     cy.get(`[data-cy-error-prisonNumber]`).should(
       'contain',
-      `You do not have permission to access the prison number ${person.nomsNumber}`,
+      `You do not have permission to access the prison number ${person.nomsNumber}, please try another number.`,
     )
   })
 })

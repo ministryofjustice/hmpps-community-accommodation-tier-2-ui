@@ -1,0 +1,57 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "./partials/personDetails.njk" import personDetails %}
+
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Confirm applicant details" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: paths.applications.new()
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="{{ paths.applications.create() }}" method="post">
+
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+        <input type="hidden" name="name" value="{{ person.name }}"/>
+        <input type="hidden" name="crn" value="{{ person.crn }}"/>
+        <input type="hidden" name="prisonNumber" value="{{ person.nomsNumber }}"/>
+
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ pageHeading }}</h1>
+
+        <div class="govuk-!-margin-bottom-6">
+          <p class="govuk-caption-m govuk-!-margin-bottom-1">Imported from NDelius <strong>{{ date }}</strong>
+          </p>
+        </div>
+
+        {{ personDetails(person, false) }}
+
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+            If any of these details are missing or wrong, please update NDelius before continuing.
+          </strong>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+                text: "Confirm and continue"
+            }) }}
+
+          <a href="{{ paths.applications.new() }}"> Search for a different applicant </a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

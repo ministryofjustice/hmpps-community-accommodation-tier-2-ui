@@ -1,8 +1,9 @@
 import type { Request, RequestHandler, Response } from 'express'
-import paths from '../paths/apply'
+
 import { errorMessage, errorSummary } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
+import { DateFormats } from '../utils/dateUtils'
 
 export default class PeopleController {
   constructor(
@@ -18,22 +19,32 @@ export default class PeopleController {
         try {
           const person = await this.personService.findByPrisonNumber(req.user.token, prisonNumber)
 
-          const application = await this.applicationService.createApplication(req.user.token, person.crn)
-          res.redirect(paths.applications.show({ id: application.id }))
+          return res.render(`people/confirm-applicant-details`, {
+            pageHeading: `Confirm ${person.name}'s details`,
+            person,
+            date: DateFormats.dateObjtoUIDate(new Date()),
+            dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          })
         } catch (err) {
           if (err.status === 404) {
-            this.addErrorMessagesToFlash(req, `No person with a prison number of '${prisonNumber}' was found`)
+            this.addErrorMessagesToFlash(
+              req,
+              `No person found for prison number ${prisonNumber}, please try another number.`,
+            )
           } else if (err.status === 403) {
-            this.addErrorMessagesToFlash(req, `You do not have permission to access the prison number ${prisonNumber}`)
+            this.addErrorMessagesToFlash(
+              req,
+              `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
+            )
           } else {
             throw err
           }
 
-          res.redirect(req.headers.referer)
+          return res.redirect(req.headers.referer)
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'You must enter a prison number')
-        res.redirect(req.headers.referer)
+        this.addErrorMessagesToFlash(req, 'Enter a prison number')
+        return res.redirect(req.headers.referer)
       }
     }
   }

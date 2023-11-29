@@ -1,4 +1,5 @@
-import { Cas2Application as Application } from '../../../server/@types/shared/models/Cas2Application'
+import { Cas2Application as Application, Cas2Application } from '../../../server/@types/shared/models/Cas2Application'
+import paths from '../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../server/utils/utils'
 import ApplyPage from './applyPage'
 
@@ -13,6 +14,16 @@ export default class ConfirmEligibilityPage extends ApplyPage {
       'confirm-eligibility',
     )
     this.personName = nameOrPlaceholderCopy(application.person)
+  }
+
+  static visit = (application: Cas2Application) => {
+    cy.visit(
+      paths.applications.pages.show({
+        id: application.id,
+        task: 'confirm-eligibility',
+        page: 'confirm-eligibility',
+      }),
+    )
   }
 
   hasCaption = (): void => {

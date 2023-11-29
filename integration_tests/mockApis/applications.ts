@@ -16,6 +16,18 @@ export default {
         jsonBody: args.application,
       },
     }),
+  stubCreateApplicationServerError: (args: { application: Application }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        url: `/cas2/applications`,
+      },
+      response: {
+        status: 500,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.application,
+      },
+    }),
   stubApplications: (applications: Array<Application>): SuperAgentRequest =>
     stubFor({
       request: {

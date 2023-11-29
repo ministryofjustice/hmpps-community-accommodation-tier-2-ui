@@ -1,5 +1,6 @@
 import qs, { IStringifyOptions } from 'qs'
 import { FullPerson, Person } from '@approved-premises/api'
+import { SummaryListItem } from '@approved-premises/ui'
 
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
@@ -43,4 +44,21 @@ export const isFullPerson = (person: Person): person is FullPerson => {
  */
 export const nameOrPlaceholderCopy = (person: Person, copyForRestrictedPerson = 'the person'): string => {
   return isFullPerson(person) ? person.name : copyForRestrictedPerson
+}
+
+/**
+ * Removes any items in an array of summary list items that are blank or undefined
+ * @param items an array of summary list items
+ * @returns all items with non-blank values
+ */
+export const removeBlankSummaryListItems = (items: Array<SummaryListItem>): Array<SummaryListItem> => {
+  return items.filter(item => {
+    if ('html' in item.value) {
+      return item.value.html
+    }
+    if ('text' in item.value) {
+      return item.value.text
+    }
+    return false
+  })
 }

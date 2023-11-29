@@ -2,11 +2,17 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
+import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
 import TaskListPage from '../../form-pages/taskListPage'
 import { applicationFactory, applicationSummaryFactory, personFactory } from '../../testutils/factories'
-import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
+import {
+  catchValidationErrorOrPropogate,
+  fetchErrorsAndUserInput,
+  errorMessage,
+  errorSummary as errorSummaryMock,
+} from '../../utils/validation'
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
 import paths from '../../paths/apply'
@@ -193,7 +199,8 @@ describe('applicationsController', () => {
   describe('create', () => {
     it('redirects to the new applications page on success', async () => {
       request.body = {
-        crn: '12345',
+        crn: 'crn123',
+        prisonNumber: 'prisonNumber123',
       }
 
       applicationService.createApplication.mockResolvedValue({} as Application)
@@ -204,7 +211,65 @@ describe('applicationsController', () => {
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
     })
 
-    it('throws an error if createApplication returns error', async () => {
+    it('handles a not found error if person not found', async () => {
+      request.body = {
+        crn: 'crn123',
+        prisonNumber: 'prisonNumber123',
+      }
+
+      const requestHandler = applicationsController.create()
+
+      const err = createHttpError(404)
+
+      applicationService.createApplication.mockImplementation(() => {
+        throw err
+      })
+
+      await requestHandler(request, response, next)
+
+      expect(errorSummaryMock).toHaveBeenCalledWith(
+        'prisonNumber',
+        'No person found for prison number prisonNumber123, please try another number.',
+      )
+
+      expect(errorMessage).toHaveBeenCalledWith(
+        'prisonNumber',
+        'No person found for prison number prisonNumber123, please try another number.',
+      )
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+    })
+
+    it('handles a forbidden error if person forbidden', async () => {
+      request.body = {
+        crn: 'crn123',
+        prisonNumber: 'prisonNumber123',
+      }
+
+      const requestHandler = applicationsController.create()
+
+      const err = createHttpError(403)
+
+      applicationService.createApplication.mockImplementation(() => {
+        throw err
+      })
+
+      await requestHandler(request, response, next)
+
+      expect(errorSummaryMock).toHaveBeenCalledWith(
+        'prisonNumber',
+        'You do not have permission to access the prison number prisonNumber123, please try another number.',
+      )
+
+      expect(errorMessage).toHaveBeenCalledWith(
+        'prisonNumber',
+        'You do not have permission to access the prison number prisonNumber123, please try another number.',
+      )
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+    })
+
+    it('throws a generic error if createApplication returns server error', async () => {
       const requestHandler = applicationsController.create()
 
       const err = new Error()
@@ -213,9 +278,9 @@ describe('applicationsController', () => {
         throw err
       })
 
-      request.body.crn = '12345'
+      await requestHandler(request, response, next)
 
-      expect(async () => requestHandler(request, response, next)).rejects.toThrow(err)
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
     })
   })
 

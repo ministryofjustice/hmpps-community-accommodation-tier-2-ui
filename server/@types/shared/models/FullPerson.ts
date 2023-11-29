@@ -9,6 +9,7 @@ export type FullPerson = (Person & {
     name: string;
     dateOfBirth: string;
     nomsNumber?: string;
+    pncNumber?: string;
     ethnicity?: string;
     nationality?: string;
     religionOrBelief?: string;
