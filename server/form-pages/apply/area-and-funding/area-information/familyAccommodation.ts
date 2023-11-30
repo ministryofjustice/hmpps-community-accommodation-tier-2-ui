@@ -32,7 +32,7 @@ export default class FamilyAccommodation implements TaskListPage {
   }
 
   previous() {
-    return 'second-preferred-area'
+    return 'exclusion-zones'
   }
 
   next() {

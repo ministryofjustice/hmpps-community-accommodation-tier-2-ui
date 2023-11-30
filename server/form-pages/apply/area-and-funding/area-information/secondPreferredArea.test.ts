@@ -39,6 +39,6 @@ describe('SecondPreferredArea', () => {
     })
   })
 
-  itShouldHaveNextValue(new SecondPreferredArea(body, application), 'family-accommodation')
+  itShouldHaveNextValue(new SecondPreferredArea(body, application), 'exclusion-zones')
   itShouldHavePreviousValue(new SecondPreferredArea(body, application), 'first-preferred-area')
 })
