@@ -1,4 +1,4 @@
-import type { SelectItem, TaskListErrors } from '@approved-premises/ui'
+import type { SelectItem, TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
@@ -6,7 +6,7 @@ import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
-export type OffenceHistoryDataBody = {
+export type CurrentOffenceDataBody = {
   titleAndNumber: string
   offenceCategory: string
   offenceDate: string
@@ -15,10 +15,12 @@ export type OffenceHistoryDataBody = {
   'offenceDate-year': string
   sentenceLength: string
   summary: string
+  outstandingCharges: YesOrNo
+  outstandingChargesDetail: string
 }
 
 @Page({
-  name: 'offence-history-data',
+  name: 'current-offence-data',
   bodyProperties: [
     'titleAndNumber',
     'offenceCategory',
@@ -27,34 +29,36 @@ export type OffenceHistoryDataBody = {
     'offenceDate-year',
     'sentenceLength',
     'summary',
+    'outstandingCharges',
+    'outstandingChargesDetail',
   ],
 })
-export default class OffenceHistoryData implements TaskListPage {
+export default class CurrentOffenceData implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  documentTitle = 'Add a previous offence'
+  documentTitle = 'Add a current offence'
 
-  title = `Add a previous offence for ${this.personName}`
+  title = `Add ${this.personName}'s current offence details`
 
-  body: OffenceHistoryDataBody
+  body: CurrentOffenceDataBody
 
-  taskName = 'offending-history'
+  taskName = 'current-offences'
 
-  pageName = 'offence-history-data'
+  pageName = 'current-offence-data'
 
-  questions = getQuestions('')['offending-history']['offence-history-data']
+  questions = getQuestions('')['current-offences']['current-offence-data']
 
   offenceCategories: Array<SelectItem>
 
   constructor(
-    body: Partial<OffenceHistoryDataBody>,
+    body: Partial<CurrentOffenceDataBody>,
     private readonly application: Cas2Application,
   ) {
-    this.body = body as OffenceHistoryDataBody
+    this.body = body as CurrentOffenceDataBody
     this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)
   }
 
-  private getCategoriesAsItemsForSelect(selectedItem: string) {
+  private getCategoriesAsItemsForSelect(selectedItem: string): Array<SelectItem> {
     const items = [
       {
         value: 'choose',
@@ -74,11 +78,11 @@ export default class OffenceHistoryData implements TaskListPage {
   }
 
   previous() {
-    return 'offence-history'
+    return ''
   }
 
   next() {
-    return 'offence-history'
+    return 'current-offences'
   }
 
   errors() {
@@ -98,6 +102,14 @@ export default class OffenceHistoryData implements TaskListPage {
     }
     if (!this.body.summary) {
       errors.summary = 'Enter a summary of the offence'
+    }
+
+    if (!this.body.outstandingCharges) {
+      errors.outstandingCharges = 'Select whether there are any outstanding charges'
+    }
+
+    if (this.body.outstandingCharges === 'yes' && !this.body.outstandingChargesDetail) {
+      errors.outstandingChargesDetail = 'Enter the details of the outstanding charges'
     }
 
     return errors

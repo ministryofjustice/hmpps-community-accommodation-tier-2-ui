@@ -2,9 +2,10 @@
 
 import { Section } from '../../utils/decorators'
 import OffendingHistory from './offending-history'
+import CurrentOffences from './current-offences'
 
 @Section({
   title: 'Offence and licence information',
-  tasks: [OffendingHistory],
+  tasks: [CurrentOffences, OffendingHistory],
 })
 export default class OffenceAndLicenceInformation {}
