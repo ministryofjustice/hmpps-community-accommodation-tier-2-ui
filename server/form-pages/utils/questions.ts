@@ -267,6 +267,15 @@ export const getQuestions = (name: string) => {
           hint: 'Include the type of local connection the applicant has with the area',
         },
       },
+      'exclusion-zones': {
+        hasExclusionZones: {
+          question: `Does ${name} have any exclusion zones?`,
+          answers: { yes: 'Yes', no: 'No' },
+        },
+        exclusionZonesDetail: {
+          question: 'Provide details about the exclusion zone',
+        },
+      },
       'family-accommodation': {
         familyProperty: {
           question: 'Do they want to apply to live with their children in a family property?',
