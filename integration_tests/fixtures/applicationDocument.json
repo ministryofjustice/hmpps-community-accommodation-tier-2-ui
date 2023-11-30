@@ -46,6 +46,14 @@
               "answer": "The person has a job there"
             },
             {
+              "question": "Does Aadland Bertrand have any exclusion zones?",
+              "answer": "Yes"
+            },
+            {
+              "question": "Provide details about the exclusion zone",
+              "answer": "Avoid Liverpool"
+            },
+            {
               "question": "Do they want to apply to live with their children in a family property?",
               "answer": "Yes"
             }
