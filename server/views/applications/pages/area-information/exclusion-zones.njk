@@ -1,0 +1,84 @@
+{% extends "./_area-information-screen.njk" %}
+{% set pageName = "exclusion-zones" %}
+
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block questions %}
+  {% set exclusionZonesDetailHintHtml %}
+    <p class="govuk-hint">Include details such as:</p>
+
+    <ul class="govuk-list govuk-list--bullet govuk-hint">
+      <li>
+        the area the applicant is excluded from
+      </li>
+      <li>
+        the end date (if applicable) of the exclusion
+      </li>
+      <li>
+        the reason for the exclusion (e.g. domestic abuse)
+      </li>
+      <li>
+        the victim(s) full name so we can avoid placing the applicant near them
+      </li>
+    </ul>
+  {% endset %}
+
+  {% set exclusionZonesDetailHtml %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'exclusionZonesDetail',
+          label: {
+            text: page.questions.exclusionZonesDetail.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            html: exclusionZonesDetailHintHtml 
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  <p>Exclusion zones are specific areas a person must not enter.</p>
+
+  <p>You must include all of Terry Midhurst's exclusion zones from licence conditions, restraining orders and injunctions.</p>
+
+  <p>Check with Terry Midhurst's Community Probation Practitioner (CPP), also known as Community Offender Manager (COM), for exclusion zone details.</p>
+
+  {{ govukInsetText({
+    text: "If a map is available for an exclusion zone, email the map to referrals@nacrocas2.org.uk"
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasExclusionZones",
+        fieldset: {
+          legend: {
+            text: page.questions.hasExclusionZones.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: exclusionZonesDetailHtml
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
