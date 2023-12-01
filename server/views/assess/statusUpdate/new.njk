@@ -1,12 +1,22 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% extends "../../partials/layout.njk" %}
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 
 {% set pageTitle = applicationName + " - " + pageHeading %}
 {% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {% if previousPath %}
+    {{ govukBackLink({
+      text: "Back",
+      href: previousPath
+    }) }}
+  {% endif %}
+{% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
@@ -39,9 +49,13 @@
           items: applicationStatusRadios(statuses, application.statusUpdates)
         }) }}
 
-        {{ govukButton({
-          text: "Save and continue"
-        }) }}
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Save and continue"
+          }) }}
+
+          <a href="{{ paths.submittedApplications.overview({ id: application.id }) }}">Back to application overview</a>
+        </div>
 
       </form>
     </div>

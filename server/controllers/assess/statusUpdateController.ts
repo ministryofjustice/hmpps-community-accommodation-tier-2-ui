@@ -17,11 +17,14 @@ export default class StatusUpdateController {
 
       const statuses = await this.submittedApplicationService.getApplicationStatuses(req.user.token)
 
+      const previousPath = req.headers.referer
+
       return res.render('assess/statusUpdate/new', {
         application,
         person,
         currentStatus,
         statuses,
+        previousPath,
         errors,
         errorSummary,
         pageHeading: `What is the new status of the application?`,
