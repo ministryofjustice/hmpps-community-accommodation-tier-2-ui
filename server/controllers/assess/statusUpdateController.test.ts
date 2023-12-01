@@ -56,8 +56,8 @@ describe('statusUpdateController', () => {
         statuses: applicationStatuses,
         errorSummary: [],
         errors: {},
-        pageHeading: 'What is the status of the application?',
-        questionText: `What is the status of ${person.name}'s application?`,
+        pageHeading: 'What is the new status of the application?',
+        questionText: `What is the new status of ${person.name}'s application?`,
       })
     })
   })
