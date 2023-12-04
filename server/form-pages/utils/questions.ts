@@ -1,4 +1,6 @@
 export const getQuestions = (name: string) => {
+  const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
+
   const offenceCategory = {
     question: 'Offence category',
     hint: 'Select the offence category',
@@ -213,19 +215,19 @@ export const getQuestions = (name: string) => {
       'military-veteran': {
         isVeteran: {
           question: `Is ${name} a military veteran?`,
-          answers: { yes: 'Yes', no: 'No', dontKnow: `I don't know` },
+          answers: yesNoOrIDontKnow,
         },
       },
       'care-leaver': {
         isCareLeaver: {
           question: `Is ${name} a care leaver?`,
-          answers: { yes: 'Yes', no: 'No', dontKnow: `I don't know` },
+          answers: yesNoOrIDontKnow,
         },
       },
       'parental-carer-responsibilities': {
         hasParentalOrCarerResponsibilities: {
           question: `Does ${name} have parental or carer responsibilities?`,
-          answers: { yes: 'Yes', no: 'No', dontKnow: `I don't know` },
+          answers: yesNoOrIDontKnow,
         },
       },
       'marital-status': {
@@ -680,7 +682,7 @@ export const getQuestions = (name: string) => {
         offenceCategory,
         offenceDate: {
           question: 'When did they commit the offence?',
-          hint: 'For example, 27 3 2007',
+          hint: 'For example, 27 3 2023',
         },
         sentenceLength: {
           question: 'How long were they sentenced for?',
@@ -689,6 +691,34 @@ export const getQuestions = (name: string) => {
         summary: {
           question: 'Provide a summary of the offence',
           hint: offenceSummaryHintHtml,
+        },
+      },
+    },
+    'hdc-licence-and-cpp-details': {
+      'hdc-licence-dates': {
+        hdcEligibilityDate: {
+          question: `What is ${name}'s HDC eligibility date?`,
+          hint: 'For example, 27 3 2023',
+        },
+        conditionalReleaseDate: {
+          question: `What is ${name}'s conditional release date?`,
+          hint: 'For example, 27 3 2023',
+        },
+      },
+      'cpp-details': {
+        cppDetails: {
+          question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
+          hint: 'A Community Probation Practitioner (CPP) is also known as Community Offender Manager (COM).',
+        },
+      },
+      'non-standard-licence-conditions': {
+        nonStandardLicenceConditions: {
+          question: `Does ${name} have any non-standard licence conditions?`,
+          answers: yesNoOrIDontKnow,
+          hint: 'Check with their Community Probation Practitioner (CPP), also known as Community Offender Manager (COM). Non-standard licence conditions may also be in nDelius.',
+        },
+        nonStandardLicenceConditionsDetail: {
+          question: 'Describe the conditions',
         },
       },
     },

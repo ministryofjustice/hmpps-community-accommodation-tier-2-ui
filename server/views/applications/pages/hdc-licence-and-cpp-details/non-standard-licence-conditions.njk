@@ -1,0 +1,33 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+  <p>{{page.questions.nonStandardLicenceConditions.hint}}</p>
+
+  {% set nonStandardLicenceConditionsDetail %}
+  {{
+      formPageTextArea(
+        {
+          label: { text: page.questions.nonStandardLicenceConditionsDetail.question, classes: "govuk-label--m"},
+          fieldName: "nonStandardLicenceConditionsDetail"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "nonStandardLicenceConditions",
+        items: page.items(nonStandardLicenceConditionsDetail)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
