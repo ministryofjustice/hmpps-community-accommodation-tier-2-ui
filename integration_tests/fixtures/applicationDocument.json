@@ -54,6 +54,22 @@
               "answer": "Avoid Liverpool"
             },
             {
+              "question": "Does Aadland Bertrand have any gang affiliations?",
+              "answer": "Yes"
+            },
+            {
+              "question": "What is the name of the gang?",
+              "answer": "Gang name"
+            },
+            {
+              "question": "Where do they operate?",
+              "answer": "Derby"
+            },
+            {
+              "question": "Name any known rival gangs and where they operate (optional)",
+              "answer": "Rival gang detail"
+            },
+            {
               "question": "Do they want to apply to live with their children in a family property?",
               "answer": "Yes"
             }
