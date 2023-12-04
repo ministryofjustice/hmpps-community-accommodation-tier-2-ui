@@ -14,11 +14,24 @@
 //    When I visit the update status page
 //    And I press continue
 //    Then I see that an answer is enforced
+//
+//  Scenario: navigate to application overview
+//    When I visit the update status page
+//    And I click 'Back to application overview'
+//    Then I am sent to the application overview page
+//
+//  Scenario: navigate back to application view
+//    When I visit the application view page
+//    And I click 'Update application status'
+//    Then I am on the update application status page
+//    And I click the back button
+//    Then I am on the application view page
 
 import { submittedApplicationFactory } from '../../../server/testutils/factories/index'
 import UpdateApplicationStatusPage from '../../pages/assess/updateApplicationStatusPage'
 import SubmittedApplicationOverviewPage from '../../pages/assess/submittedApplicationOverviewPage'
 import Page from '../../pages/page'
+import SubmittedApplicationPage from '../../pages/assess/submittedApplicationPage'
 
 context("Assessor updates a submitted application's status", () => {
   const submittedApplication = submittedApplicationFactory.build()
@@ -66,5 +79,37 @@ context("Assessor updates a submitted application's status", () => {
 
     // Then I see that an answer is enforced
     page.shouldShowErrorMessagesForFields(['newStatus'])
+  })
+
+  //  Scenario: navigate to application overview
+  // ----------------------------------------------
+  it('navigate to application overview', () => {
+    // When I visit the update status page for that application
+    const page = UpdateApplicationStatusPage.visit(submittedApplication)
+
+    // And I click 'Back to application overview'
+    page.clickLink('Back to application overview')
+
+    // Then I am sent to the application overview page
+    Page.verifyOnPage(SubmittedApplicationOverviewPage, submittedApplication)
+  })
+
+  //  Scenario: navigate back to application view
+  // ----------------------------------------------
+  it('navigate back to application view', () => {
+    //    When I visit the application view page
+    const page = SubmittedApplicationPage.visit(submittedApplication)
+
+    //    And I click 'Update application status'
+    page.clickLink('Update application status')
+
+    //    Then I am on the update application status page
+    const updateStatusPage = Page.verifyOnPage(UpdateApplicationStatusPage, submittedApplication)
+
+    //    And I click the back button
+    updateStatusPage.clickBack()
+
+    //    Then I am on the application view page
+    Page.verifyOnPage(SubmittedApplicationPage, submittedApplication)
   })
 })
