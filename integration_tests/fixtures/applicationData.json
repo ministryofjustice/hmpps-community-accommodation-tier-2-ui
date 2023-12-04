@@ -13,6 +13,10 @@
       "preferredArea": "Birmingham",
       "preferenceReason": "They have a job there"
     },
+    "exclusion-zones": {
+      "hasExclusionZones": "yes",
+      "exclusionZonesDetail": "Avoid Liverpool"
+    },
     "family-accommodation": {
       "familyProperty": "yes"
     }

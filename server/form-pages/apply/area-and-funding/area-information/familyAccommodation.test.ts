@@ -32,5 +32,5 @@ describe('FamilyAccommodation', () => {
   })
 
   itShouldHaveNextValue(new FamilyAccommodation(body, application), '')
-  itShouldHavePreviousValue(new FamilyAccommodation(body, application), 'second-preferred-area')
+  itShouldHavePreviousValue(new FamilyAccommodation(body, application), 'exclusion-zones')
 })
