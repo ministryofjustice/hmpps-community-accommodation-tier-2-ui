@@ -27,4 +27,13 @@ export default class HDCLicenceDates extends ApplyPage {
     this.completeDateInputs('hdcEligibilityDate', '2022-07-15')
     this.completeDateInputs('conditionalReleaseDate', '2022-07-15')
   }
+
+  shouldShowPrepopulatedDates(): void {
+    cy.get('#hdcEligibilityDate-day').should('have.value', '28')
+    cy.get('#hdcEligibilityDate-month').should('have.value', '2')
+    cy.get('#hdcEligibilityDate-year').should('have.value', '2024')
+    cy.get('#conditionalReleaseDate-day').should('have.value', '22')
+    cy.get('#conditionalReleaseDate-month').should('have.value', '2')
+    cy.get('#conditionalReleaseDate-year').should('have.value', '2024')
+  }
 }
