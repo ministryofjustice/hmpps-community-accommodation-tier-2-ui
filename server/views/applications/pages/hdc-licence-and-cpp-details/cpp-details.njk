@@ -1,0 +1,63 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+  <p>{{page.questions.cppDetails.hint}}</p>
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Full name"
+        },
+        fieldName: "name",
+        classes: "govuk-!-width-two-thirds"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Probation region"
+        },
+        fieldName: "probationRegion",
+        classes: "govuk-!-width-two-thirds"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Contact email address"
+        },
+        fieldName: "email",
+        classes: "govuk-!-width-two-thirds"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Contact number"
+        },
+        fieldName: "telephone",
+        classes: "govuk-input--width-10"
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
