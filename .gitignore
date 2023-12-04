@@ -129,4 +129,4 @@ test_results/
 */*.iml
 **/Chart.lock
 /tmp
-.DS_Store
+**/.DS_Store
