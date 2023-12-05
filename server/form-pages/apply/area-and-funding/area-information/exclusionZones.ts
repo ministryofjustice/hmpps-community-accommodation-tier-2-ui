@@ -37,7 +37,7 @@ export default class ExclusionZones implements TaskListPage {
   }
 
   next() {
-    return 'family-accommodation'
+    return 'gang-affiliations'
   }
 
   errors() {

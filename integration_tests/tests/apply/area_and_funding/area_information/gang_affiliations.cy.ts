@@ -1,28 +1,28 @@
-//  Feature: Referrer completes 'Exclusion zones' page
+//  Feature: Referrer completes 'Gang affiliations' page
 //    So that I can complete the 'Area information' task
 //    As a referrer
-//    I want to complete the 'Exclusion zones' page
+//    I want to complete the 'Gang affiliations' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I visit the 'Exclusion zones' page
+//    And I visit the 'Gang affiliations' page
 //
-//  Scenario: view 'Exclusion zones' page
-//    Then I see the "Exclusion zones" page
+//  Scenario: view 'Gang affiliations' page
+//    Then I see the "Gang affiliations" page
 //
 //  Scenario: navigates to the next task on completion of task
-//    When I complete the "Exclusion zones" page
+//    When I complete the "Gang affiliations" page
 //    And I continue to the next task / page
-//    Then I am taken to the "Gang affiliations" page
+//    Then I am taken to the "Family accommodation" page
 //    And I see that the area information task is complete
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import ExclusionZonesPage from '../../../../pages/apply/area_and_funding/area_information/ExclusionZonesPage'
 import GangAffiliationsPage from '../../../../pages/apply/area_and_funding/area_information/GangAffiliationsPage'
+import FamilyAccommodationPage from '../../../../pages/apply/area_and_funding/area_information/FamilyAccommodationPage'
 
-context('Visit "Exclusion zones" page', () => {
+context('Visit "Gang affiliations" page', () => {
   const person = personFactory.build({ name: 'Sue Smith' })
 
   beforeEach(function test() {
@@ -51,17 +51,17 @@ context('Visit "Exclusion zones" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the 'Exclusion zones' page
+    // And I visit the 'Gang affiliations' page
     // --------------------------------
-    ExclusionZonesPage.visit(this.application)
+    GangAffiliationsPage.visit(this.application)
   })
 
-  // Scenario: view 'Exclusion zones' page
+  // Scenario: view 'Gang affiliations' page
   // ----------------------------------------------
 
   it('displays the page', function test() {
-    // Then I see the "Exclusion zones" page
-    Page.verifyOnPage(ExclusionZonesPage, this.application)
+    // Then I see the "Gang affiliations" page
+    Page.verifyOnPage(GangAffiliationsPage, this.application)
   })
 
   // Scenario: navigate to task list on completion of task
@@ -77,15 +77,14 @@ context('Visit "Exclusion zones" page', () => {
       cy.task('stubApplicationGet', { application: answered })
     })
 
-    //  When I complete the "Exclusion zones" page
-    const page = Page.verifyOnPage(ExclusionZonesPage, this.application)
-    page.checkRadioByNameAndValue('hasExclusionZones', 'yes')
-    page.getTextInputByIdAndEnterDetails('exclusionZonesDetail', 'Avoid Liverpool')
+    //  When I complete the "Gang affiliations" page
+    const page = Page.verifyOnPage(GangAffiliationsPage, this.application)
+    page.completeForm()
 
     // When I continue to the next task / page
     page.clickSubmit()
 
-    // Then I am taken to the "Gang affiliations" page
-    Page.verifyOnPage(GangAffiliationsPage, this.application)
+    // Then I am taken to the "Family accommodation" page
+    Page.verifyOnPage(FamilyAccommodationPage, this.application)
   })
 })

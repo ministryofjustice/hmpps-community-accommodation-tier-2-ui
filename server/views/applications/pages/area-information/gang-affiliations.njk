@@ -1,0 +1,74 @@
+{% extends "./_area-information-screen.njk" %}
+{% set pageName = "gang-affiliations" %}
+
+{% block questions %}
+  {% set gangAffiliationDetailHtml %}
+    {{
+      formPageInput(
+        {
+          fieldName: "gangName",
+          label: {
+            text: page.questions.gangName.question,
+            classes: "govuk-label--s"
+          },
+          classes: "govuk-input--width-20"
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+      formPageTextArea(
+        {
+          fieldName: "gangOperationArea",
+          label: {
+            text: page.questions.gangOperationArea.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+      formPageTextArea(
+        {
+          fieldName: "rivalGangDetail",
+          label: {
+            text: page.questions.rivalGangDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasGangAffiliations",
+        fieldset: {
+          legend: {
+            text: page.questions.hasGangAffiliations.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: gangAffiliationDetailHtml
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

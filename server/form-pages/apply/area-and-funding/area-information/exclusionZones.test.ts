@@ -42,6 +42,6 @@ describe('ExclusionZones', () => {
     })
   })
 
-  itShouldHaveNextValue(new ExclusionZones(body, application), 'family-accommodation')
+  itShouldHaveNextValue(new ExclusionZones(body, application), 'gang-affiliations')
   itShouldHavePreviousValue(new ExclusionZones(body, application), 'second-preferred-area')
 })

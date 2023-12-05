@@ -278,6 +278,21 @@ export const getQuestions = (name: string) => {
           question: 'Provide details about the exclusion zone',
         },
       },
+      'gang-affiliations': {
+        hasGangAffiliations: {
+          question: `Does ${name} have any gang affiliations?`,
+          answers: { yes: 'Yes', no: 'No' },
+        },
+        gangName: {
+          question: 'What is the name of the gang?',
+        },
+        gangOperationArea: {
+          question: 'Where do they operate?',
+        },
+        rivalGangDetail: {
+          question: 'Name any known rival gangs and where they operate (optional)',
+        },
+      },
       'family-accommodation': {
         familyProperty: {
           question: 'Do they want to apply to live with their children in a family property?',
