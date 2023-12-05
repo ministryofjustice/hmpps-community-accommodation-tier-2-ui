@@ -372,13 +372,16 @@ export const getQuestions = (name: string) => {
     },
     'health-needs': {
       'substance-misuse': {
-        usesIllegalSubstances: { question: 'Do they take any illegal substances?', answers: { yes: 'Yes', no: 'No' } },
+        usesIllegalSubstances: {
+          question: 'Do they take any illegal substances in custody?',
+          answers: { yes: 'Yes', no: 'No' },
+        },
         substanceMisuseHistory: { question: 'What substances do they take?' },
         substanceMisuseDetail: {
           question: 'How often do they take these substances, by what method, and how much?',
         },
         engagedWithDrugAndAlcoholService: {
-          question: 'Are they engaged with a drug and alcohol service?',
+          question: 'Are they engaged with a drug and alcohol service in custody?',
           answers: { yes: 'Yes', no: 'No' },
         },
         drugAndAlcoholServiceDetail: { question: 'Name the drug and alcohol service' },
