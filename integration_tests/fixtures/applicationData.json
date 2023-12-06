@@ -47,6 +47,13 @@
       "nationalInsuranceNumber": "12345"
     }
   },
+  "personal-information": {
+    "working-mobile-phone": {
+      "hasWorkingMobilePhone": "yes",
+      "mobilePhoneNumber": "11111111111",
+      "isSmartPhone": "yes"
+    }
+  },
   "address-history": {
     "previous-address": {
       "hasPreviousAddress": "yes",
