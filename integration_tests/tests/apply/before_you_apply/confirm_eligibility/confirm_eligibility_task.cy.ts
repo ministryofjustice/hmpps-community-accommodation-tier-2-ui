@@ -41,6 +41,7 @@ import TaskListPage from '../../../../pages/apply/taskListPage'
 import ConfirmEligibilityPage from '../../../../pages/apply/confirmEligibilityPage'
 import IneligiblePage from '../../../../pages/apply/ineligiblePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import FindByPrisonNumberPage from '../../../../pages/apply/findByPrisonNumberPage'
 
 context('Complete "Confirm eligibility" task in "Before you start" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -218,5 +219,8 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
 
     // When I opt to start a new application
     ineligiblePage.startANewApplication()
+
+    // Then I should be able to 'Find by prison number'
+    Page.verifyOnPage(FindByPrisonNumberPage)
   })
 })
