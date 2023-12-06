@@ -1,0 +1,42 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "../partials/layout.njk" %}
+
+{% block pageTitle %}
+  CAS-2: Consent refused - This person cannot apply for CAS-2 accommodation
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ govukPanel({
+        titleText: panelText,
+        classes: "govuk-!-margin-bottom-9 govuk-panel--fail"
+      }) }}
+
+      <p class="govuk-body-l">
+        {{application.person.name}} has not given their consent so you cannot apply for Short-Term Accommodation (CAS-2) on their behalf.
+      </p>
+
+      {{ govukButton({
+           text: "Search for a different applicant",
+           classes: "govuk-!-margin-right-1",
+           href: newApplicationPath
+      }) }}
+
+      {{ govukButton({
+           text: "Change consent answer",
+           classes: "govuk-button--secondary",
+           href: changeAnswerPath
+      }) }}
+
+    </div>
+  </div>
+{% endblock %}
