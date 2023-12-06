@@ -27,6 +27,21 @@ const eligibilityAnswer = (application: Application): string => {
   return application.data?.['confirm-eligibility']?.['confirm-eligibility']?.isEligible
 }
 
+export const firstPageOfConsentTask = (application: Application) => {
+  return paths.applications.pages.show({ id: application.id, task: 'confirm-consent', page: 'confirm-consent' })
+}
+
+export const consentIsConfirmed = (application: Application): boolean => {
+  return consentAnswer(application) === 'yes'
+}
+export const consentIsDenied = (application: Application): boolean => {
+  return consentAnswer(application) === 'no'
+}
+
+const consentAnswer = (application: Application): string => {
+  return application.data?.['confirm-consent']?.['confirm-consent']?.hasGivenConsent
+}
+
 export const getStatusTimelineEvents = (statusUpdates: Array<Cas2StatusUpdate>): Array<UiTimelineEvent> => {
   if (statusUpdates) {
     return statusUpdates
