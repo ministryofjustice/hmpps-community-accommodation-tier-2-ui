@@ -38,7 +38,7 @@ export default class WorkingMobilePhone implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'immigration-status'
   }
 
   errors() {

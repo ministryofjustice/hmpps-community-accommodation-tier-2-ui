@@ -44,6 +44,6 @@ describe('WorkingMobilePhone', () => {
     })
   })
 
-  itShouldHaveNextValue(new WorkingMobilePhone(body, application), '')
+  itShouldHaveNextValue(new WorkingMobilePhone(body, application), 'immigration-status')
   itShouldHavePreviousValue(new WorkingMobilePhone(body, application), 'taskList')
 })

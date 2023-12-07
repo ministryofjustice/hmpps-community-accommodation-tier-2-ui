@@ -1,27 +1,27 @@
-//  Feature: Referrer completes 'working mobile phone' page
-//    So that I can complete the "working mobile phone" task
+//  Feature: Referrer completes 'immigration status' page
+//    So that I can complete the "immigration status" task
 //    As a referrer
-//    I want to complete the 'working mobile phone' page
+//    I want to complete the 'immigration status' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I visit the 'working mobile phone' page
+//    And I visit the 'immigration status' page
 //
-//  Scenario: view 'working mobile phone' page
-//    Then I see the "working mobile phone" page
+//  Scenario: view 'immigration status' page
+//    Then I see the "immigration status" page
 //
-//  Scenario: navigate to the next page on completion of task
-//    When I complete the "working mobile phone" page
+//  Scenario: navigate to the task list on completion of task
+//    When I complete the "immigration status" page
 //    And I continue to the next task / page
-//    Then I am taken to the immigration status page
+//    Then I am taken to the task list page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import WorkingMobilePhonePage from '../../../../pages/apply/about_the_person/personal_information/workingMobilePhonePage'
 import ImmigrationStatusPage from '../../../../pages/apply/about_the_person/personal_information/immigrationStatusPage'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
-context('Visit "working mobile phone" page', () => {
+context('Visit "immigration status" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
@@ -30,7 +30,7 @@ context('Visit "working mobile phone" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['working-mobile-phone']
+      delete applicationData['immigration-status']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -50,30 +50,30 @@ context('Visit "working mobile phone" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the 'working mobile phone' page
+    // And I visit the 'immigration status' page
     // --------------------------------
-    WorkingMobilePhonePage.visit(this.application)
+    ImmigrationStatusPage.visit(this.application)
   })
 
-  //  Scenario: view 'working mobile phone' page
+  //  Scenario: view 'immigration status' page
   // ----------------------------------------------
 
-  it('presents working mobile phone page', function test() {
-    //    Then I see the "working mobile phone" page
-    Page.verifyOnPage(WorkingMobilePhonePage, this.application)
+  it('presents immigration status page', function test() {
+    //    Then I see the "immigration status" page
+    Page.verifyOnPage(ImmigrationStatusPage, this.application)
   })
 
-  //  Scenario: navigate to the next page
+  //  Scenario: navigate to the task list
   // ----------------------------------------------
-  it('navigates to the next page', function test() {
-    //    When I complete the "working mobile phone" page
-    const page = Page.verifyOnPage(WorkingMobilePhonePage, this.application)
+  it('navigates to the task list', function test() {
+    //    When I complete the "immigration status" page
+    const page = Page.verifyOnPage(ImmigrationStatusPage, this.application)
     page.completeForm()
 
     //    When I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I am taken to the immigration status next page
-    Page.verifyOnPage(ImmigrationStatusPage, this.application)
+    //    Then I am taken to the task list next page
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })
