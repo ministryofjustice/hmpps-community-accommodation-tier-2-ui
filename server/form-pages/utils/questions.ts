@@ -61,6 +61,12 @@ export const getQuestions = (name: string) => {
           question: 'Is their mobile a smart phone?',
         },
       },
+      'immigration-status': {
+        immigrationStatus: {
+          question: `What is ${name}'s immigration status?`,
+          hint: 'For example, British',
+        },
+      },
     },
     'address-history': {
       'previous-address': {
