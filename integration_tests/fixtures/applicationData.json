@@ -52,6 +52,9 @@
       "hasWorkingMobilePhone": "yes",
       "mobilePhoneNumber": "11111111111",
       "isSmartPhone": "yes"
+    },
+    "immigration-status": {
+      "immigrationStatus": "British"
     }
   },
   "address-history": {
