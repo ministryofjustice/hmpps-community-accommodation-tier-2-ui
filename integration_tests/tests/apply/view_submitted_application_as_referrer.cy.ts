@@ -5,6 +5,7 @@
 //    And I have submitted an application
 //    When I view a submitted application
 //    Then I should see the read-only version of the answers submitted
+//    And I see a print button
 
 import SubmissionPage from '../../pages/submissions/submissionPage'
 import { applicationFactory } from '../../../server/testutils/factories'
@@ -36,11 +37,16 @@ context('View submitted application', () => {
   })
 
   it('shows the submitted application', function test() {
+    //  When I view a submitted application
     cy.task('stubApplications', [this.application])
     cy.task('stubApplicationGet', { application: this.application })
 
     const submittedApplicationPage = SubmissionPage.visit(this.application)
+    //  Then I should see the read-only version of the answers submitted
     submittedApplicationPage.hasExpectedSummaryData()
     submittedApplicationPage.hasQuestionsAndAnswersFromDocument(this.application.document)
+
+    //  And I see a print button
+    submittedApplicationPage.shouldShowPrintButton()
   })
 })
