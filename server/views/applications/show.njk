@@ -2,6 +2,8 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% from "../partials/documentSummaryList.njk" import documentSummaryList %}
+{% from "../components/printButton/macro.njk" import printButtonScript,
+printButton %}
 
 {% extends "../partials/layout.njk" %}
 
@@ -13,8 +15,9 @@
         Application answers
       </h1>
 
-      <p class="govuk-body-l">This page contains answers submitted as part of a CAS-2 application.</p>
+      <p class="govuk-body-l">This page contains answers submitted as part of a CAS-2 application. Alternatively, you can download a PDF version of this page.</p>
 
+      {{ printButton() }}
     </div>
 
     <div class="govuk-grid-column-full">
@@ -47,4 +50,8 @@
 
     </div>
   </div>
+{% endblock %}
+
+{% block extraScripts %}
+  {{ printButtonScript(cspNonce) }}
 {% endblock %}
