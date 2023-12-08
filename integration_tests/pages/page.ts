@@ -117,4 +117,22 @@ export default abstract class Page {
   clickLink(label: string): void {
     cy.get('a').contains(label).click()
   }
+
+  shouldShowPrintButton(): void {
+    cy.get('button').contains('Save as PDF')
+  }
+
+  clickPrintButton(): void {
+    cy.get('button').contains('Save as PDF').click()
+  }
+
+  shouldPrint(): void {
+    cy.window().then(win => {
+      cy.stub(win, 'print').as('printStub')
+    })
+
+    this.clickPrintButton()
+
+    cy.get('@printStub').should('be.calledOnce')
+  }
 }
