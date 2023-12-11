@@ -15,6 +15,15 @@
                 titleText: "Application complete"
             }) }}
 
+            <ul class="govuk-list govuk-list--spaced">
+                <li>
+                    <span class="govuk-!-font-weight-bold">Application ID: </span>{{ application.id }}</li>
+                <li>
+                    <span class="govuk-!-font-weight-bold">Applicant name: </span>{{ application.person.name }}</li>
+                <li>
+                    <span class="govuk-!-font-weight-bold">Prison number: </span>{{ application.person.nomsNumber }}</li>
+            </ul>
+
             <h2>What happens next</h2>
 
             <p>This application has been sent to the CAS-2 team for review.</p>
