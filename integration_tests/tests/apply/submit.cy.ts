@@ -10,7 +10,7 @@
 import ApplicationSubmittedPage from '../../pages/apply/applicationSubmittedPage'
 import Page from '../../pages/page'
 import TaskListPage from '../../pages/apply/taskListPage'
-import { applicationFactory } from '../../../server/testutils/factories'
+import { applicationFactory, personFactory } from '../../../server/testutils/factories'
 
 context('Applications dashboard', () => {
   beforeEach(() => {
@@ -20,7 +20,13 @@ context('Applications dashboard', () => {
 
     // I have created an application
     cy.fixture('applicationData.json').then(applicationData => {
-      const application = applicationFactory.build({ id: 'abc123', data: applicationData, status: 'inProgress' })
+      const person = personFactory.build({})
+      const application = applicationFactory.build({
+        id: 'abc123',
+        data: applicationData,
+        status: 'inProgress',
+        person,
+      })
       cy.wrap(application).as('application')
     })
 
@@ -44,6 +50,7 @@ context('Applications dashboard', () => {
     page.clickSubmit()
 
     // And I see a confirmation page
-    Page.verifyOnPage(ApplicationSubmittedPage, this.application.person.name)
+    const applicationSubmittedPage = Page.verifyOnPage(ApplicationSubmittedPage, this.application)
+    applicationSubmittedPage.shouldShowApplicationDetails()
   })
 })
