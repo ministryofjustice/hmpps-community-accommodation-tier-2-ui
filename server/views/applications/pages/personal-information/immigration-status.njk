@@ -1,0 +1,23 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+    {{
+      formPageInput(
+        {
+          fieldName: "immigrationStatus",
+          label: {
+            text: page.questions.immigrationStatus.question,
+            isPageHeading: true,
+            classes: "govuk-label--l"
+          },
+          hint: {
+            text: page.questions.immigrationStatus.hint
+          },
+          classes: "govuk-!-width-one-third"
+        },
+        fetchContext()
+      )
+    }}
+
+{% endblock %}

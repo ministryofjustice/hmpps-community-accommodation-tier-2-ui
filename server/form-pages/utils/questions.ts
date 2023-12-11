@@ -49,6 +49,25 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'personal-information': {
+      'working-mobile-phone': {
+        hasWorkingMobilePhone: {
+          question: `Will ${name} have a working mobile phone when they are released?`,
+        },
+        mobilePhoneNumber: {
+          question: 'What is their mobile number? (Optional)',
+        },
+        isSmartPhone: {
+          question: 'Is their mobile a smart phone?',
+        },
+      },
+      'immigration-status': {
+        immigrationStatus: {
+          question: `What is ${name}'s immigration status?`,
+          hint: 'For example, British',
+        },
+      },
+    },
     'address-history': {
       'previous-address': {
         hasPreviousAddress: {

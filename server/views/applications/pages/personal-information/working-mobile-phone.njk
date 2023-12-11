@@ -1,0 +1,84 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.questions.hasWorkingMobilePhone.question }}</h1>
+
+  {% set smartphoneGuidanceHtml %}
+    <p>A smart phone is a mobile phone that allows the user to browse the Web, send and receive e-mail, view audio and video files, play games, read e-books, and access other computer applications, as well as to make phone calls.</p>
+  {% endset %}
+
+  {% set mobilePhoneDetailHtml %}
+    {{
+      formPageInput(
+        {
+          fieldName: "mobilePhoneNumber",
+          label: {
+            text: page.questions.mobilePhoneNumber.question
+          },
+          classes: "govuk-input--width-20"
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+      formPageRadios(
+        {
+          fieldName: "isSmartPhone",
+          fieldset: {
+            legend: {
+              text: page.questions.isSmartPhone.question
+            }
+          },
+          classes: "govuk-radios--inline govuk-!-margin-bottom-6",
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+      govukDetails({
+        summaryText: "What is a smart phone?",
+        html: smartphoneGuidanceHtml
+      })
+    }}
+
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasWorkingMobilePhone",
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: { html: mobilePhoneDetailHtml }
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

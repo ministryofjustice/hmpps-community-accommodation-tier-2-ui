@@ -81,6 +81,27 @@
       "title": "About the person",
       "tasks": [
         {
+          "title": "Add personal information",
+          "questionsAndAnswers": [
+            {
+              "question": "Will Aadland Bertrand have a working mobile phone when they are released?",
+              "answer": "Yes"
+            },
+            {
+              "question": "What is their mobile number? (Optional)",
+              "answer": "11111111111"
+            },
+            {
+              "question": "Is their mobile a smart phone?",
+              "answer": "Yes"
+            },
+            {
+              "question": "What is Aadland Bertrand immigration status?",
+              "answer": "British"
+            }
+          ]
+        },
+        {
           "title": "Complete equality and diversity monitoring",
           "questionsAndAnswers": [
             {
