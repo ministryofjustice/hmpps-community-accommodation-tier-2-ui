@@ -13,6 +13,9 @@ import {
   eligibilityIsDenied,
   eligibilityIsConfirmed,
   firstPageOfBeforeYouStartSection,
+  firstPageOfConsentTask,
+  consentIsConfirmed,
+  consentIsDenied,
 } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
@@ -52,10 +55,16 @@ export default class ApplicationsController {
       }
 
       if (eligibilityIsConfirmed(application)) {
-        const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+        if (consentIsConfirmed(application)) {
+          const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
-        const taskList = new TaskListService(application)
-        return res.render('applications/taskList', { application, taskList, errors, errorSummary })
+          const taskList = new TaskListService(application)
+          return res.render('applications/taskList', { application, taskList, errors, errorSummary })
+        }
+        if (consentIsDenied(application)) {
+          return res.render('applications/consent-refused', this.consentRefusedViewParams(application, req))
+        }
+        return res.redirect(firstPageOfConsentTask(application))
       }
 
       if (eligibilityIsDenied(application)) {
@@ -78,6 +87,21 @@ export default class ApplicationsController {
     })
     const newApplicationPath = paths.applications.new({})
     return { application, panelText, changeAnswerPath, newApplicationPath }
+  }
+
+  private consentRefusedViewParams(
+    application: Cas2Application,
+    req: Request,
+  ): Record<string, string | Cas2Application> {
+    const panelText = `${nameOrPlaceholderCopy(application.person, 'The person')} has not given their consent`
+    const changeAnswerPath = paths.applications.pages.show({
+      id: application.id,
+      task: 'confirm-consent',
+      page: 'confirm-consent',
+    })
+    const newApplicationPath = paths.applications.new({})
+    const backLink = req.headers.referer
+    return { application, panelText, changeAnswerPath, newApplicationPath, backLink }
   }
 
   create(): RequestHandler {

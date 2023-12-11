@@ -31,6 +31,24 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'confirm-consent': {
+      'confirm-consent': {
+        hasGivenConsent: {
+          question: `Has ${name} given their consent to apply for CAS-2?`,
+          answers: {
+            yes: `Yes, ${name} has given their consent`,
+            no: `No, ${name} has not given their consent`,
+          },
+        },
+        consentDate: {
+          question: 'When did they give consent?',
+          hint: 'For example, 27 3 2007',
+        },
+        consentRefusalDetail: {
+          question: 'Why was consent refused?',
+        },
+      },
+    },
     'address-history': {
       'previous-address': {
         hasPreviousAddress: {

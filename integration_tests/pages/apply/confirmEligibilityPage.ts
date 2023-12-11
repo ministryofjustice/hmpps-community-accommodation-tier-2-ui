@@ -8,7 +8,7 @@ export default class ConfirmEligibilityPage extends ApplyPage {
 
   constructor(private readonly application: Application) {
     super(
-      `Is ${nameOrPlaceholderCopy(application.person)} eligible for Short-Term Accommodation (CAS-2)`,
+      `Check ${nameOrPlaceholderCopy(application.person)} is eligible for Short-Term Accommodation (CAS-2)`,
       application,
       'confirm-eligibility',
       'confirm-eligibility',
@@ -36,10 +36,8 @@ export default class ConfirmEligibilityPage extends ApplyPage {
   }
 
   hasGuidance = (): void => {
-    cy.get('.govuk-inset-text').within(() => {
-      cy.get('p').contains('The applicant must:')
-      cy.get('li').contains('be 18 years old or older')
-    })
+    cy.get('p').contains('The applicant must:')
+    cy.get('li').contains('be 18 years old or older')
   }
 
   doesNotHaveTaskListLink = (): void => {

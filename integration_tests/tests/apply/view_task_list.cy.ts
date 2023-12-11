@@ -23,6 +23,15 @@ context('Visit task list', () => {
       'confirm-eligibility': {
         'confirm-eligibility': { isEligible: 'yes' },
       },
+      'confirm-consent': {
+        'confirm-consent': {
+          hasGivenConsent: 'yes',
+          consentDate: '2023-01-01',
+          'consentDate-year': '2023',
+          'consentDate-month': '1',
+          'consentDate-day': '1',
+        },
+      },
     },
     person: fullPersonFactory.build(),
   })

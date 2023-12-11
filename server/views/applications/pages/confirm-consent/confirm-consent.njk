@@ -1,0 +1,87 @@
+{% extends "../layout.njk" %}
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  <div>
+    <p class="govuk-body">You need verbal consent from {{ page.application.person.name }} to send an application for Short-Term Accommodation (CAS-2) on their behalf.</p>
+
+    <p class="govuk-body">Check that {{ page.application.person.name }} understands:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+      <li>
+        that CAS-2 provides short-term housing and weekly support
+      </li>
+      <li>
+        they are responsible for paying for CAS-2 accommodation and support
+      </li>
+      <li>
+        what will be in the application form, including legal and confidential information about address history, offences, risks to themselves and others and health needs
+      </li>
+      <li>
+        their health needs will be collected from relevant sources, such as the prison drug and alcohol provider, mental health in-reach team and healthcare team
+      </li>
+      <li>
+        their information will be used to assess their suitability and ensure their safety
+      </li>
+      <li>
+        they must leave the CAS-2 accommodation at the end of their HDC licence period, and find accommodation to move on to with their support worker's help
+      </li>
+    </ul>
+  </div>
+
+  {% set consentDateHtml %}
+  {{ 
+    formPageDateInput( {
+      hint: {
+        text: page.questions.consentDate.hint
+      },
+      fieldName: "consentDate",
+      fieldset: {
+        legend: {
+          text: page.questions.consentDate.question,
+          classes: "govuk-fieldset__legend--s"
+        }
+      },
+      items: dateFieldValues('consentDate', errors)
+      }, 
+      fetchContext()) 
+  }}
+  {% endset %}
+
+  {% set consentRefusalDetailHtml %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'consentRefusalDetail',
+          label: {
+            text: page.questions.consentRefusalDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasGivenConsent",
+        fieldset: {
+          legend: {
+            text: page.questions.hasGivenConsent.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: page.items(consentDateHtml, consentRefusalDetailHtml)
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
+
+{% block button %}
+  {{ govukButton({
+      text: "Save and continue"
+    }) }}
+{% endblock %}

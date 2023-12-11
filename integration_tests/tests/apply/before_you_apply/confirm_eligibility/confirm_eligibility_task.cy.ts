@@ -11,7 +11,7 @@
 //  Scenario: Confirms that the person is eligible for CAS-2
 //    When I confirm that the person is eligible
 //    And I continue to the next task
-//    Then I see that the 'Confirm eligibility' task is complete
+//    Then I am on the 'Confirm consent' page
 //
 //  Scenario: Confirms that the person is NOT eligible for CAS-2
 //    When I confirm that the person is NOT eligible
@@ -37,10 +37,11 @@
 //    Then I should be able to 'Find by prison number'
 
 import Page from '../../../../pages/page'
-import TaskListPage from '../../../../pages/apply/taskListPage'
 import ConfirmEligibilityPage from '../../../../pages/apply/confirmEligibilityPage'
 import IneligiblePage from '../../../../pages/apply/ineligiblePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import ConfirmConsentPage from '../../../../pages/apply/before_you_start/confirm_consent/confirmConsentPage'
+import FindByPrisonNumberPage from '../../../../pages/apply/findByPrisonNumberPage'
 
 context('Complete "Confirm eligibility" task in "Before you start" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -80,7 +81,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   //  Scenario: Confirms that the person is eligible for CAS-2
   //    When I confirm that the person is eligible
   //    And I continue to the next task
-  //    Then I see that the 'Confirm eligibility' task is complete
+  //    Then I am on the 'Confirm consent' page
   it('allows eligibility to be confirmed', function test() {
     const confirmEligibilityPage = new ConfirmEligibilityPage(this.application)
     confirmEligibilityPage.hasCaption()
@@ -106,11 +107,8 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
 
     confirmEligibilityPage.clickSubmit()
 
-    // Then I return to the task list
-    const taskListPage = Page.verifyOnPage(TaskListPage)
-
-    // And I see that the task is now complete
-    taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Completed')
+    // Then I am on the 'Confirm consent' page
+    Page.verifyOnPage(ConfirmConsentPage, this.application)
   })
 
   //  Scenario: Confirms that the person is NOT eligible for CAS-2
@@ -155,7 +153,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   //    When I choose to change my eligibility answer
   //    I confirm that the person is eligible
   //    And I continue to the next task
-  //    Then I see that the 'Confirm eligibility' task is complete
+  //    Then I am on the 'confirm consent' task
   it('allows eligibility answer to be changed from NO to YES', function test() {
     //  Given I have confirmed that the person is not eligible
     const answered = {
@@ -190,9 +188,8 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     cy.task('stubApplicationGet', { application: updated })
     confirmEligibilityPage.clickSubmit()
 
-    // Then I see that the 'Confirm eligibility' task is complete
-    const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('confirm-eligibility', 'Completed')
+    // Then I am on the 'confirm consent' task
+    Page.verifyOnPage(ConfirmConsentPage, updated)
   })
 
   //  Scenario: Abandons ineligible application and starts new one
@@ -218,5 +215,8 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
 
     // When I opt to start a new application
     ineligiblePage.startANewApplication()
+
+    // Then I should be able to 'Find by prison number'
+    Page.verifyOnPage(FindByPrisonNumberPage)
   })
 })
