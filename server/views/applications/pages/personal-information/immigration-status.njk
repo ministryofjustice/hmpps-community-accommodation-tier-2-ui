@@ -1,23 +1,29 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% extends "../layout.njk" %}
 
 {% block questions %}
 
+  {% call govukFieldset({
+    legend: {
+      text: page.questions.immigrationStatus.question,
+      classes: "govuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  })%}
+
     {{
-      formPageInput(
-        {
-          fieldName: "immigrationStatus",
-          label: {
-            text: page.questions.immigrationStatus.question,
-            isPageHeading: true,
-            classes: "govuk-label--l"
-          },
-          hint: {
-            text: page.questions.immigrationStatus.hint
-          },
-          classes: "govuk-!-width-one-third"
+      govukSelect({
+        hint: {
+          text: page.questions.immigrationStatus.hint
         },
-        fetchContext()
-      )
+        id: "immigrationStatus",
+        name: "immigrationStatus",
+        items: page.immigrationStatusSelectItems,
+        errorMessage: errors.immigrationStatus
+      })
     }}
+
+  {% endcall %}
 
 {% endblock %}
