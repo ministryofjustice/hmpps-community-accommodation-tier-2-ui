@@ -407,6 +407,7 @@ describe('applicationsController', () => {
           expect(applicationService.submit).toHaveBeenCalledWith(request.user.token, application)
           expect(response.render).toHaveBeenCalledWith('applications/confirm', {
             pageHeading: 'Application confirmation',
+            application,
           })
         })
       })
