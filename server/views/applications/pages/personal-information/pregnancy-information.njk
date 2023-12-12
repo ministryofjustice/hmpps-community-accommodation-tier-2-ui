@@ -1,0 +1,61 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  {% set pregnancyDueDateHtml %}
+
+    {{
+      formPageDateInput({
+        hint: {
+          text: page.questions.dueDate.hint
+        },
+        fieldName: "dueDate",
+        fieldset: {
+          legend: {
+            text: page.questions.dueDate.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: dateFieldValues('dueDate', errors)
+        },
+        fetchContext()
+      )
+    }}
+
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isPregnant",
+        fieldset: {
+          legend: {
+            text: page.questions.isPregnant.question,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: { html: pregnancyDueDateHtml }
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
