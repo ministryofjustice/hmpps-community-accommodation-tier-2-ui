@@ -1,8 +1,7 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% extends "../layout.njk" %}
 
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.questions.hasWorkingMobilePhone.question }}</h1>
-
   {% set smartphoneGuidanceHtml %}
     <p>A smart phone is a mobile phone that allows the user to browse the Web, send and receive e-mail, view audio and video files, play games, read e-books, and access other computer applications, as well as to make phone calls.</p>
   {% endset %}
@@ -55,30 +54,40 @@
 
   {% endset %}
 
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasWorkingMobilePhone",
-        items: [
-          {
-            value: "yes",
-            text: "Yes",
-            conditional: { html: mobilePhoneDetailHtml }
-          },
-          {
-            value: "no",
-            text: "No"
-          },
-          {
-            divider: 'or'
-          },
-          {
-            value: "dontKnow",
-            text: "I don't know"
-          }
-        ]
-      },
-      fetchContext()
-    )
-  }}
+  {% call govukFieldset({
+    legend: {
+      text: page.questions.hasWorkingMobilePhone.question,
+      classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6",
+      isPageHeading: true
+    }
+  }) %}
+
+    {{
+      formPageRadios(
+        {
+          fieldName: "hasWorkingMobilePhone",
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              conditional: { html: mobilePhoneDetailHtml }
+            },
+            {
+              value: "no",
+              text: "No"
+            },
+            {
+              divider: 'or'
+            },
+            {
+              value: "dontKnow",
+              text: "I don't know"
+            }
+          ]
+        },
+        fetchContext()
+      )
+    }}
+
+  {% endcall %}
 {% endblock %}
