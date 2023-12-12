@@ -82,6 +82,16 @@ export const getQuestions = (name: string) => {
           },
         },
       },
+      'pregnancy-information': {
+        isPregnant: {
+          question: `Is ${name} pregnant?`,
+          answers: yesNoOrIDontKnow,
+        },
+        dueDate: {
+          question: 'When is their due date?',
+          hint: `For example, ${dateExample}`,
+        },
+      },
     },
     'address-history': {
       'previous-address': {
