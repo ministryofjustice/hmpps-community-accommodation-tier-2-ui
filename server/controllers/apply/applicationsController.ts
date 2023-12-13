@@ -106,10 +106,31 @@ export default class ApplicationsController {
 
   create(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn, prisonNumber } = req.body
+      const {
+        crn,
+        nomsNumber,
+        pncNumber,
+        name,
+        dateOfBirth,
+        nationality,
+        sex,
+        prisonName,
+        personStatus,
+        prisonNumber,
+      } = req.body
 
       try {
-        const application = await this.applicationService.createApplication(req.user.token, crn)
+        const application = await this.applicationService.createApplication(req.user.token, {
+          crn,
+          nomsNumber,
+          pncNumber,
+          name,
+          dateOfBirth,
+          nationality,
+          sex,
+          prisonName,
+          personStatus,
+        })
 
         res.redirect(paths.applications.show({ id: application.id }))
       } catch (err) {
@@ -156,6 +177,7 @@ export default class ApplicationsController {
   submit(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+
       application.document = buildDocument(application)
 
       try {

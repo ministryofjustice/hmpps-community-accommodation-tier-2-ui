@@ -12,6 +12,7 @@ import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 
 import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
+import { fullPersonFactory } from '../testutils/factories/person'
 
 jest.mock('../data/applicationClient.ts')
 jest.mock('../data/personClient.ts')
@@ -31,18 +32,30 @@ describe('ApplicationService', () => {
 
   describe('createApplication', () => {
     it('calls the create method and returns an application', async () => {
-      const application = applicationFactory.build()
+      const person = fullPersonFactory.build()
+      const application = applicationFactory.build({ person })
+      const newApplication = {
+        crn: person.crn,
+        nomsNumber: person.nomsNumber,
+        pncNumber: person.pncNumber,
+        name: person.name,
+        dateOfBirth: person.dateOfBirth,
+        nationality: person.nationality,
+        sex: person.sex,
+        prisonName: person.prisonName,
+        personStatus: person.status,
+      }
 
       const token = 'SOME_TOKEN'
 
       applicationClient.create.mockResolvedValue(application)
 
-      const result = await service.createApplication(token, application.person.crn)
+      const result = await service.createApplication(token, newApplication)
 
       expect(result).toEqual(application)
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.create).toHaveBeenCalledWith(application.person.crn)
+      expect(applicationClient.create).toHaveBeenCalledWith(newApplication)
     })
   })
 

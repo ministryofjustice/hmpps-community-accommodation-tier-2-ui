@@ -273,6 +273,14 @@ describe('applicationsController', () => {
         request.body = {
           crn: 'crn123',
           prisonNumber: 'prisonNumber123',
+          nomsNumber: 'prisonNumber123',
+          pncNumber: undefined,
+          name: 'Name LastName',
+          dateOfBirth: '01/01/2022',
+          nationality: 'Not found',
+          sex: 'Male',
+          prisonName: 'Leeds',
+          personStatus: 'InCustody',
         }
 
         applicationService.createApplication.mockResolvedValue({} as Application)
