@@ -55,6 +55,12 @@
     },
     "immigration-status": {
       "immigrationStatus": "UK citizen"
+    },
+    "pregnancy-information": {
+      "isPregnant": "yes",
+      "dueDate-day": "5",
+      "dueDate-month": "6",
+      "dueDate-year": "2024"
     }
   },
   "address-history": {
