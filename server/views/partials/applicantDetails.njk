@@ -1,0 +1,20 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro applicantDetails(application) %}
+
+  <div class="main-box" data-cy-check-your-answers-section="applicant-details">
+    <div class="box-content">
+      {{
+        govukSummaryList({
+          card: {
+            title: {
+              text: "Applicant details"
+            }
+          },
+          rows: getApplicantDetails(application)
+        })
+      }}
+    </div>
+  </div>
+
+{% endmacro %}

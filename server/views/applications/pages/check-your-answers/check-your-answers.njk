@@ -2,6 +2,8 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% from "../../../partials/applicantDetails.njk" import applicantDetails %}
+
 {% extends "../layout.njk" %}
 
 {% set mainClasses = "app-container govuk-body" %}
@@ -19,6 +21,8 @@
       <h1 class="govuk-heading-xl">
         {{ page.title }}
       </h1>
+
+      {{ applicantDetails(page.application) }}
 
       {% for section in checkYourAnswersSections(page.application) %}
         <h2 class="govuk-heading-l">{{ section.title }}</h2>

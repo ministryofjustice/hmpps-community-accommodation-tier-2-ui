@@ -1,6 +1,9 @@
 import { ApplicationDocument } from '@approved-premises/ui'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
+import { Cas2Application } from '../../server/@types/shared/models/Cas2Application'
+import { Cas2SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
+import { FullPerson } from '../../server/@types/shared/models/FullPerson'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -134,5 +137,27 @@ export default abstract class Page {
     this.clickPrintButton()
 
     cy.get('@printStub').should('be.calledOnce')
+  }
+
+  hasApplicantDetails(application: Cas2Application | Cas2SubmittedApplication): void {
+    const person = application.person as FullPerson
+    cy.get(`[data-cy-check-your-answers-section="applicant-details"]`).within(() => {
+      this.checkTermAndDescription('Full name', person.name)
+      this.checkTermAndDescription(
+        'Date of birth',
+        DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+      )
+      this.checkTermAndDescription('Nationality', person.nationality)
+      this.checkTermAndDescription('Sex', person.sex)
+      this.checkTermAndDescription('Prison number', person.nomsNumber)
+      cy.get('dt')
+        .contains(/Prison $/)
+        .parent()
+        .within(() => {
+          cy.get('dd').invoke('text').should('contain', person.prisonName)
+        })
+      this.checkTermAndDescription('PNC number', person.pncNumber)
+      this.checkTermAndDescription('NDelius CRN number', person.crn)
+    })
   }
 }
