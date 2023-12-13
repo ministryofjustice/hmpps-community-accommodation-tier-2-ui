@@ -48,6 +48,7 @@ context('Check your answers page', () => {
     const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
 
     //  Then I see a list of questions and answers for the application
+    page.hasApplicantDetails(this.application)
     page.shouldShowConfirmEligibilityAnswers()
     page.shouldShowFundingInformationAnswers()
     page.shouldShowEqualityAndDiversityAnswers()
