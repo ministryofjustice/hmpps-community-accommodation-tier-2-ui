@@ -18,7 +18,7 @@ import {
 import * as TaskListUtils from './taskListUtils'
 import * as OasysImportUtils from './oasysImportUtils'
 import { dateFieldValues } from './formUtils'
-import { checkYourAnswersSections } from './checkYourAnswersUtils'
+import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { getApplicationTimelineEvents } from './applications/utils'
 import { applicationStatusRadios } from './assessUtils'
@@ -91,6 +91,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('formatDate', DateFormats.isoDateToUIDate)
 
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
+  njkEnv.addGlobal('getApplicantDetails', getApplicantDetails)
 
   njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)

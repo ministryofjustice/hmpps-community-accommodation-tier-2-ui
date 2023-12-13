@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
 import { SummaryListItem, FormSection, QuestionAndAnswer } from '@approved-premises/ui'
 import Apply from '../form-pages/apply/index'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers'
@@ -8,6 +8,7 @@ import { nameOrPlaceholderCopy } from './utils'
 import { formatLines } from './viewUtils'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import { UnknownPageError } from './errors'
+import { DateFormats } from './dateUtils'
 
 export const checkYourAnswersSections = (application: Application) => {
   const sections = getSections()
@@ -207,4 +208,76 @@ export const getPage = (taskName: string, pageName: string): TaskListPageInterfa
   }
 
   return Page as TaskListPageInterface
+}
+
+export const getApplicantDetails = (application: Application | Cas2SubmittedApplication): Array<SummaryListItem> => {
+  const { crn, nomsNumber, pncNumber, name, dateOfBirth, nationality, sex, prisonName } =
+    application.person as FullPerson
+
+  return [
+    {
+      key: {
+        text: 'Full name',
+      },
+      value: {
+        html: name,
+      },
+    },
+    {
+      key: {
+        text: 'Date of birth',
+      },
+      value: {
+        html: DateFormats.isoDateToUIDate(dateOfBirth, { format: 'short' }),
+      },
+    },
+    {
+      key: {
+        text: 'Nationality',
+      },
+      value: {
+        html: nationality,
+      },
+    },
+    {
+      key: {
+        text: 'Sex',
+      },
+      value: {
+        html: sex,
+      },
+    },
+    {
+      key: {
+        text: 'Prison number',
+      },
+      value: {
+        html: nomsNumber,
+      },
+    },
+    {
+      key: {
+        text: 'Prison',
+      },
+      value: {
+        html: prisonName,
+      },
+    },
+    {
+      key: {
+        text: 'PNC number',
+      },
+      value: {
+        html: pncNumber,
+      },
+    },
+    {
+      key: {
+        text: 'NDelius CRN number',
+      },
+      value: {
+        html: crn,
+      },
+    },
+  ]
 }
