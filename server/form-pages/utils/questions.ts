@@ -92,6 +92,16 @@ export const getQuestions = (name: string) => {
           hint: `For example, ${dateExample}`,
         },
       },
+      'support-worker-preference': {
+        hasSupportWorkerPreference: {
+          question: `Does ${name} have a gender preference for their support worker?`,
+          answers: yesNoOrIDontKnow,
+        },
+        supportWorkerPreference: {
+          question: 'What is their preference?',
+          answers: { male: 'Male', female: 'Female' },
+        },
+      },
     },
     'address-history': {
       'previous-address': {
