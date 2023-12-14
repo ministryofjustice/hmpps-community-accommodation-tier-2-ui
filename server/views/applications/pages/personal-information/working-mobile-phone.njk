@@ -33,7 +33,10 @@
           items: [
             {
               value: "yes",
-              text: "Yes"
+              text: "Yes",
+              attributes: {
+                'data-selector': 'isSmartPhone-yes'
+              }
             },
             {
               value: "no",
@@ -62,32 +65,35 @@
     }
   }) %}
 
-    {{
-      formPageRadios(
-        {
-          fieldName: "hasWorkingMobilePhone",
-          items: [
-            {
-              value: "yes",
-              text: "Yes",
-              conditional: { html: mobilePhoneDetailHtml }
-            },
-            {
-              value: "no",
-              text: "No"
-            },
-            {
-              divider: 'or'
-            },
-            {
-              value: "dontKnow",
-              text: "I don't know"
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasWorkingMobilePhone",
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: { html: mobilePhoneDetailHtml },
+            attributes: {
+              'data-selector': 'hasWorkingMobilePhone-yes'
             }
-          ]
-        },
-        fetchContext()
-      )
-    }}
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
 
   {% endcall %}
 {% endblock %}

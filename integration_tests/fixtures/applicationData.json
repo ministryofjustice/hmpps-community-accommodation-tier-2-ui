@@ -55,6 +55,16 @@
     },
     "immigration-status": {
       "immigrationStatus": "UK citizen"
+    },
+    "pregnancy-information": {
+      "isPregnant": "yes",
+      "dueDate-day": "5",
+      "dueDate-month": "6",
+      "dueDate-year": "2024"
+    },
+    "support-worker-preference": {
+      "hasSupportWorkerPreference": "yes",
+      "supportWorkerPreference": "female"
     }
   },
   "address-history": {

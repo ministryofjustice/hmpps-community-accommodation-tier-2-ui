@@ -4,6 +4,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
+import { isPersonMale } from '../../../../utils/personUtils'
 
 export type ImmigrationStatusBody = {
   immigrationStatus: string
@@ -59,7 +60,11 @@ export default class ImmigrationStatus implements TaskListPage {
   }
 
   next() {
-    return ''
+    if (isPersonMale(this.application.person)) {
+      return ''
+    }
+
+    return 'pregnancy-information'
   }
 
   errors() {
