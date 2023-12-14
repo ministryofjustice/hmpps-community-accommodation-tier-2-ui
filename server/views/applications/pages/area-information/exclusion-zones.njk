@@ -33,7 +33,7 @@
             classes: "govuk-label--s"
           },
           hint: {
-            html: exclusionZonesDetailHintHtml 
+            html: exclusionZonesDetailHintHtml
           }
         },
         fetchContext()
@@ -43,9 +43,9 @@
 
   <p>Exclusion zones are specific areas a person must not enter.</p>
 
-  <p>You must include all of Terry Midhurst's exclusion zones from licence conditions, restraining orders and injunctions.</p>
+  <p>You must include all of {{ page.personName }}'s exclusion zones from licence conditions, restraining orders and injunctions.</p>
 
-  <p>Check with Terry Midhurst's Community Probation Practitioner (CPP), also known as Community Offender Manager (COM), for exclusion zone details.</p>
+  <p>Check with {{ page.personName }}'s Community Probation Practitioner (CPP), also known as Community Offender Manager (COM), for exclusion zone details.</p>
 
   {{ govukInsetText({
     text: "If a map is available for an exclusion zone, email the map to referrals@nacrocas2.org.uk"
