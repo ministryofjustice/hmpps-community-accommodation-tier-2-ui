@@ -1,6 +1,8 @@
 export const getQuestions = (name: string) => {
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
 
+  const dateExample = '27 3 2023'
+
   const offenceCategory = {
     question: 'Offence category',
     hint: 'Select the offence category',
@@ -42,7 +44,7 @@ export const getQuestions = (name: string) => {
         },
         consentDate: {
           question: 'When did they give consent?',
-          hint: 'For example, 27 3 2007',
+          hint: `For example, ${dateExample}`,
         },
         consentRefusalDetail: {
           question: 'Why was consent refused?',
@@ -716,7 +718,7 @@ export const getQuestions = (name: string) => {
         offenceCategory,
         offenceDate: {
           question: 'When did they commit the offence?',
-          hint: 'For example, 27 3 2007',
+          hint: `For example, ${dateExample}`,
         },
         sentenceLength: {
           question: 'How long were they sentenced for?',
@@ -750,7 +752,7 @@ export const getQuestions = (name: string) => {
         offenceCategory,
         offenceDate: {
           question: 'When did they commit the offence?',
-          hint: 'For example, 27 3 2023',
+          hint: `For example, ${dateExample}`,
         },
         sentenceLength: {
           question: 'How long were they sentenced for?',
@@ -766,11 +768,11 @@ export const getQuestions = (name: string) => {
       'hdc-licence-dates': {
         hdcEligibilityDate: {
           question: `What is ${name}'s HDC eligibility date?`,
-          hint: 'For example, 27 3 2023',
+          hint: `For example, ${dateExample}`,
         },
         conditionalReleaseDate: {
           question: `What is ${name}'s conditional release date?`,
-          hint: 'For example, 27 3 2023',
+          hint: `For example, ${dateExample}`,
         },
       },
       'cpp-details': {
