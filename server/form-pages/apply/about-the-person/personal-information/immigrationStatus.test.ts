@@ -22,11 +22,11 @@ describe('ImmigrationStatus', () => {
   })
 
   describe('errors', () => {
-    it('returns an error if immigrationStatus is not set', () => {
-      const page = new ImmigrationStatus({ immigrationStatus: null }, application)
+    it('returns an error if immigrationStatus is not selected', () => {
+      const page = new ImmigrationStatus({ immigrationStatus: 'choose' }, application)
 
       expect(page.errors()).toEqual({
-        immigrationStatus: 'Enter the immigration status',
+        immigrationStatus: 'Select their immigration status',
       })
     })
   })

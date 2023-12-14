@@ -1,5 +1,5 @@
 import { Cas2Application as Application } from '@approved-premises/api'
-import { TaskListErrors } from '@approved-premises/ui'
+import { SelectItem, TaskListErrors } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
@@ -24,11 +24,34 @@ export default class ImmigrationStatus implements TaskListPage {
 
   body: ImmigrationStatusBody
 
+  immigrationStatusSelectItems: Array<SelectItem>
+
   constructor(
     body: Partial<ImmigrationStatusBody>,
     private readonly application: Application,
   ) {
     this.body = body as ImmigrationStatusBody
+    this.immigrationStatusSelectItems = this.getImmigrationStatusAsItemsForSelect(this.body.immigrationStatus)
+  }
+
+  private getImmigrationStatusAsItemsForSelect(selectedItem: string): Array<SelectItem> {
+    const items = [
+      {
+        value: 'choose',
+        text: 'Select immigration status',
+        selected: selectedItem === '',
+      },
+    ]
+
+    Object.keys(this.questions.immigrationStatus.answers).forEach(value => {
+      items.push({
+        value,
+        text: this.questions.immigrationStatus.answers[value] as string,
+        selected: selectedItem === value,
+      })
+    })
+
+    return items
   }
 
   previous() {
@@ -42,8 +65,8 @@ export default class ImmigrationStatus implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.immigrationStatus) {
-      errors.immigrationStatus = 'Enter the immigration status'
+    if (this.body.immigrationStatus === 'choose') {
+      errors.immigrationStatus = 'Select their immigration status'
     }
 
     return errors

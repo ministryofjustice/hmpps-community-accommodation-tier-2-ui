@@ -24,6 +24,6 @@ export default class ImmigrationStatusPage extends ApplyPage {
   }
 
   completeForm(): void {
-    this.getTextInputByIdAndEnterDetails('immigrationStatus', 'British')
+    this.getSelectInputByIdAndSelectAnEntry('immigrationStatus', 'UK citizen')
   }
 }

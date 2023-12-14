@@ -64,7 +64,20 @@ export const getQuestions = (name: string) => {
       'immigration-status': {
         immigrationStatus: {
           question: `What is ${name}'s immigration status?`,
-          hint: 'For example, British',
+          hint: 'Select their immigration status',
+          answers: {
+            ukCitizen: 'UK citizen',
+            leaveToRemain: 'Leave to remain',
+            indefiniteLeaveToRemain: 'Indefinite leave to remain',
+            discretionaryLeaveToRemain: 'Discretionary leave to remain',
+            eeaNational: 'EEA national',
+            refugee: 'Refugee',
+            asylumSeekerAwaitingDecision: 'Asylum seeker awaiting decision',
+            spousePartnerSponsorship: 'Spouse or partner sponsorship',
+            workVisa: 'Work visa',
+            studyVisa: 'Study visa',
+            notKnown: 'Not known',
+          },
         },
       },
     },
