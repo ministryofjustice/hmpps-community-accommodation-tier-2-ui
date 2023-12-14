@@ -1,27 +1,27 @@
-//  Feature: Referrer completes 'pregnancy information' page
-//    So that I can complete the "pregnancy information" task
+//  Feature: Referrer completes 'support worker preference' page
+//    So that I can complete the "support worker preference" task
 //    As a referrer
-//    I want to complete the 'pregnancy information' page
+//    I want to complete the 'support worker preference' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I visit the 'pregnancy information' page
+//    And I visit the 'support worker preference' page
 //
-//  Scenario: view 'pregnancy information' page
-//    Then I see the "pregnancy information" page
+//  Scenario: view 'support worker preference' page
+//    Then I see the "support worker preference" page
 //
-//  Scenario: navigate to the support worker preference page
-//    When I complete the "pregnancy information" page
+//  Scenario: navigate to the task list page
+//    When I complete the "support worker preference" page
 //    And I continue to the next task / page
-//    Then I am taken to the support worker preference page
+//    Then I am taken to the task list page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import PregnancyInformationPage from '../../../../pages/apply/about_the_person/personal_information/pregnancyInformationPage'
 import SupportWorkerPreferencePage from '../../../../pages/apply/about_the_person/personal_information/supportWorkerPreferencePage'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
-context('Visit "pregnancy information" page', () => {
+context('Visit "support worker preference" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
@@ -30,7 +30,7 @@ context('Visit "pregnancy information" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['personal-information']['pregnancy-information']
+      delete applicationData['personal-information']['support-worker-preference']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -50,30 +50,30 @@ context('Visit "pregnancy information" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the 'pregnancy information' page
+    // And I visit the 'support worker preference' page
     // --------------------------------
-    PregnancyInformationPage.visit(this.application)
+    SupportWorkerPreferencePage.visit(this.application)
   })
 
-  //  Scenario: view 'pregnancy information' page
+  //  Scenario: view 'support worker preference' page
   // ----------------------------------------------
 
-  it('presents pregnancy information page', function test() {
-    //    Then I see the "pregnancy information" page
-    Page.verifyOnPage(PregnancyInformationPage, this.application)
+  it('presents support worker preference page', function test() {
+    //    Then I see the "support worker preference" page
+    Page.verifyOnPage(SupportWorkerPreferencePage, this.application)
   })
 
-  //  Scenario: navigate to the support worker preference page
+  //  Scenario: navigate to the task list page
   // ----------------------------------------------
   it('navigates to the support worker preference page', function test() {
-    //    When I complete the "pregnancy information" page
-    const page = Page.verifyOnPage(PregnancyInformationPage, this.application)
+    //    When I complete the "support worker preference" page
+    const page = Page.verifyOnPage(SupportWorkerPreferencePage, this.application)
     page.completeForm()
 
     //    When I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I am taken to the support worker preference next page
-    Page.verifyOnPage(SupportWorkerPreferencePage, this.application)
+    //    Then I am taken to the task list page
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })
