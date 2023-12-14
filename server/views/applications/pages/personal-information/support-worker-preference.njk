@@ -1,0 +1,68 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  {% set supportWorkerPreferenceDetailHtml %}
+
+    {{
+      formPageRadios(
+        {
+          fieldName: "supportWorkerPreference",
+          fieldset: {
+            legend: {
+              text: page.questions.supportWorkerPreference.question,
+              classes: 'govuk-fieldset__legend--m'
+            }
+          },
+          classes: "govuk-radios--inline govuk-!-margin-bottom-6",
+          items: [
+            {
+              value: "male",
+              text: "Male"
+            },
+            {
+              value: "female",
+              text: "Female"
+            }
+          ]
+        },
+        fetchContext()
+      )
+    }}
+
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasSupportWorkerPreference",
+        fieldset: {
+          legend: {
+            text: page.questions.hasSupportWorkerPreference.question,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: { html: supportWorkerPreferenceDetailHtml }
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
+
