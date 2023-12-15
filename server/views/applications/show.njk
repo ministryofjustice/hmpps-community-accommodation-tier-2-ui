@@ -2,6 +2,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% from "../partials/documentSummaryList.njk" import documentSummaryList %}
+{% from "../partials/applicantDetails.njk" import applicantDetails %}
 {% from "../components/printButton/macro.njk" import printButtonScript,
 printButton %}
 
@@ -43,6 +44,8 @@ printButton %}
       </div>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      {{ applicantDetails(application) }}
 
       {% if application.document.sections | length %}
         {{ documentSummaryList(application) }}

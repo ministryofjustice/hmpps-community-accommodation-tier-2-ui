@@ -13,7 +13,7 @@ export default class ConfirmApplicantPage extends Page {
     cy.get('.govuk-error-summary').contains('There was an error creating the application, please try again')
   }
 
-  hasApplicantDetails = (applicant: FullPerson): void => {
+  hasApplicantInformation = (applicant: FullPerson): void => {
     const expectedApplicantData = [
       ['Full name', applicant.name],
       ['Date of birth', DateFormats.isoDateToUIDate(applicant.dateOfBirth, { format: 'short' })],

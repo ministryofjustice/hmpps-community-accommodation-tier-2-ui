@@ -49,7 +49,7 @@ context('Find by prison number', () => {
     prisonNumberPage.clickSubmit()
 
     const confirmationPage = Page.verifyOnPage(ConfirmApplicantPage, person.name)
-    confirmationPage.hasApplicantDetails(person)
+    confirmationPage.hasApplicantInformation(person)
 
     //  When I confirm these are the correct detaiks
 
