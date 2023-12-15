@@ -51,6 +51,21 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'referrer-details': {
+      'confirm-details': {
+        name: { question: 'Name' },
+        email: { question: 'Email address' },
+      },
+      'job-title': {
+        jobTitle: { question: 'What is your job title?', hint: 'For example, Prison Offender Manager (POM)' },
+      },
+      'contact-number': {
+        telephone: {
+          question: 'What is your contact telephone number?',
+          hint: 'This will be used for any communication from the accommodation supplier',
+        },
+      },
+    },
     'personal-information': {
       'working-mobile-phone': {
         hasWorkingMobilePhone: {

@@ -1,0 +1,24 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  {{
+      formPageInput(
+        {
+          label: {
+            text: page.questions.telephone.question,
+            classes: "govuk-label--l",
+            isPageHeading: true
+          },
+          hint: {
+            text: page.questions.telephone.hint 
+          },
+          type: "tel",
+          classes: "govuk-!-width-two-thirds",
+          fieldName: "telephone"
+        },
+        fetchContext()
+      )
+  }}
+
+{% endblock %}

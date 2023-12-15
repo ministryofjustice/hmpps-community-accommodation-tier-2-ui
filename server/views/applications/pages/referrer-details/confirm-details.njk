@@ -1,0 +1,36 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  <p class="govuk-hint">The details of the person completing the application</p>
+
+  {{ govukSummaryList({
+  rows: [
+          {
+            key: {
+              text: page.questions.name.question
+            },
+            value: {
+              text: page.referrerDetails.name
+            }
+          },
+          {
+            key: {
+              text: page.questions.email.question
+            },
+            value: {
+              text: page.referrerDetails.email
+            }
+          }
+        ]
+  }) }}
+
+  {{ govukWarningText({
+    text: "If any of these details are wrong, contact the CAS-2 team with the correct details when you submit the application.",
+    iconFallbackText: "Warning"
+  }) }}
+
+{% endblock %}
