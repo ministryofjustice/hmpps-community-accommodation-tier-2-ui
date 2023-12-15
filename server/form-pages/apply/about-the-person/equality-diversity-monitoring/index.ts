@@ -18,7 +18,7 @@ import CarerResponsibilities from './parentalCarerResponsibilities'
 import MaritalStatus from './maritalStatus'
 
 @Task({
-  name: 'Complete equality and diversity monitoring',
+  name: 'Add equality and diversity monitoring',
   slug: 'equality-and-diversity-monitoring',
   pages: [
     WillAnswer,

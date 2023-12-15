@@ -87,7 +87,7 @@ context('Visit "About the person" section', () => {
   // ----------------------------------------
   it('offers a link to the first page of the task', function test() {
     // When I follow the link within the section
-    cy.get('a').contains('Complete equality and diversity monitoring').click()
+    cy.get('a').contains('Add equality and diversity monitoring').click()
 
     // Then I'm on the expected page
     const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
@@ -106,7 +106,7 @@ context('Visit "About the person" section', () => {
   // ----------------------------
   it('enforces answer', function test() {
     // Given I'm on the 'Will answer equality questions' task page
-    cy.get('a').contains('Complete equality and diversity monitoring').click()
+    cy.get('a').contains('Add equality and diversity monitoring').click()
 
     // I try to continue without making a choice
     cy.get('button').contains('Save and continue').click()
@@ -120,7 +120,7 @@ context('Visit "About the person" section', () => {
   //----------------------------------------------------
   it('takes me back to the task list page', function test() {
     // Given I'm on the 'Equality and diversity' task page
-    cy.get('a').contains('Complete equality and diversity monitoring').click()
+    cy.get('a').contains('Add equality and diversity monitoring').click()
 
     // When I use the back button
     const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
@@ -134,7 +134,7 @@ context('Visit "About the person" section', () => {
   // -------------------------------------
   it('submits the valid form', function test() {
     // Given I'm on the 'Equality and diversity' task page
-    cy.get('a').contains('Complete equality and diversity monitoring').click()
+    cy.get('a').contains('Add equality and diversity monitoring').click()
     const page = Page.verifyOnPage(WillAnswerEqualityQuestionsPage, this.application)
 
     // When I select the 'Yes' option and click save and continue
