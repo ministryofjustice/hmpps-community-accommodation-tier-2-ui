@@ -10,7 +10,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
   }
 
   shouldShowConfirmEligibilityAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('confirm-eligibility', 'Check eligibility for CAS-2')
+    this.shouldShowCheckYourAnswersTitle('confirm-eligibility', 'Confirm eligibility')
     this.shouldShowQuestionsAndAnswers('confirm-eligibility')
   }
 
