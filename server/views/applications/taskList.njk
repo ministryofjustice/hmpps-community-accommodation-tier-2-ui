@@ -23,9 +23,15 @@
       <h1 class="govuk-heading-xl">Apply for Short-Term Accommodation (CAS-2)</h1>
 
       <div class="govuk-!-margin-bottom-4">
-        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1"><span class="govuk-!-font-weight-bold">Applicant:</span> {{ application.person.name }}</p>
-        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1"><span class="govuk-!-font-weight-bold">Prison:</span> {{ application.person.prisonName }}</p>
-        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1"><span class="govuk-!-font-weight-bold">Referrer:</span> {{ application.createdBy.name }}</p>
+        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+          <span class="govuk-!-font-weight-bold">Applicant:</span>
+          {{ application.person.name }}</p>
+        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+          <span class="govuk-!-font-weight-bold">Prison:</span>
+          {{ application.person.prisonName }}</p>
+        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+          <span class="govuk-!-font-weight-bold">Referrer:</span>
+          {{ application.createdBy.name }}</p>
       </div>
 
       <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
@@ -44,12 +50,30 @@
           <li>
             <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-            {{
-              govukButton({
-                text: "Submit application",
-                preventDoubleClick: true
-              })
-            }}
+            {% if taskList.status === 'complete' %}
+              {{
+                  govukButton({
+                    text: "Submit application",
+                    preventDoubleClick: true
+                  })
+                }}
+            {% else %}
+              <p>Complete all tasks and check answers before submitting.</p>
+              <div class="govuk-button-group">
+                {{
+                  govukButton({
+                    text: "Submit application",
+                    disabled: true
+                  })
+                }}
+              {% endif %}
+
+              {{ govukButton({
+                  text: "Return to applications dashboard",
+                  classes: "govuk-button--secondary",
+                  href: paths.applications.index()
+                  }) }}
+            </div>
           </li>
         </ol>
       </form>
