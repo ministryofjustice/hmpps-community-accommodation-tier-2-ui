@@ -6,7 +6,7 @@ import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 export default class TaskListPage extends Page {
   constructor(name: string) {
-    super('CAS 2: Refer for Accommodation', name)
+    super('Apply for Short-Term Accommodation (CAS-2)', name)
   }
 
   static visit(application: Cas2Application): TaskListPage {
