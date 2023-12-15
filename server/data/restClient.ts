@@ -3,6 +3,7 @@
 import { Readable } from 'stream'
 import superagent from 'superagent'
 import Agent, { HttpsAgent } from 'agentkeepalive'
+import type { Response } from 'express'
 
 import logger from '../../logger'
 import sanitiseError from '../sanitisedError'
@@ -32,6 +33,14 @@ interface StreamRequest {
   path?: string
   headers?: Record<string, string>
   errorLogger?: (e: UnsanitisedError) => void
+}
+
+interface PipeRequest {
+  path?: string
+  query?: string | Record<string, string>
+  headers?: Record<string, string>
+  errorLogger?: (e: UnsanitisedError) => void
+  passThroughHeaders?: Array<string>
 }
 
 export default class RestClient {
@@ -149,5 +158,43 @@ export default class RestClient {
     Object.keys(data).forEach(k => typeof data[k] !== 'boolean' && !data[k] && delete data[k])
 
     return data
+  }
+
+  async pipe(
+    { path = null, query = '', headers = {}, passThroughHeaders = [] }: PipeRequest,
+    response: Response,
+  ): Promise<void> {
+    logger.info(`Get using user credentials: calling ${this.name}: ${path}`)
+    return new Promise((resolve, reject) => {
+      const stream = superagent
+        .get(`${this.apiUrl()}${path}`)
+        .agent(this.agent)
+        .auth(this.token, { type: 'bearer' })
+        .use(restClientMetricsMiddleware)
+        .retry(2, (err, res) => {
+          if (err) logger.info(`Retry handler found API error with ${err.code} ${err.message}`)
+          return undefined // retry handler only for logging retries, not to influence retry logic
+        })
+        .query(query)
+        .timeout(this.timeoutConfig())
+        .set({ ...this.defaultHeaders, ...headers })
+
+      stream.on('end', () => {
+        resolve()
+      })
+
+      stream.on('response', res => {
+        if (res.status !== 200) {
+          logger.warn(res.error, `Error calling ${this.name}`)
+          stream.abort()
+          reject(res.error)
+        }
+        passThroughHeaders.forEach(header => {
+          response.set(header, res.headers[header])
+        })
+      })
+
+      stream.pipe(response)
+    })
   }
 }
