@@ -10,8 +10,8 @@ import OffenceAndLicenceInformation from './offence-and-licence-information'
 @Form({
   sections: [
     BeforeYouStart,
-    AreaAndFunding,
     AboutPerson,
+    AreaAndFunding,
     RisksAndNeeds,
     OffenceAndLicenceInformation,
     CheckYourAnswers,
