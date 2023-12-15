@@ -4,11 +4,12 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory, restrictedPersonFactory } from './person'
 import risksFactory from './risks'
+import nomisUserFactory from './nomisUser'
 
 export default Factory.define<Application>(() => ({
   id: faker.string.uuid(),
   person: faker.helpers.arrayElement([fullPersonFactory.build(), restrictedPersonFactory.build()]),
-  createdByUserId: faker.string.uuid(),
+  createdBy: nomisUserFactory.build({}),
   schemaVersion: faker.string.uuid(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: undefined,

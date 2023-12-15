@@ -30,7 +30,7 @@ export default class ApplicationClient {
   }
 
   async all(): Promise<Array<Cas2ApplicationSummary>> {
-    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Application>
+    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
   }
 
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
