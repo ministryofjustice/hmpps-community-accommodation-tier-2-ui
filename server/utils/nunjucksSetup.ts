@@ -8,6 +8,7 @@ import express from 'express'
 import { PersonStatus, ErrorMessages } from '@approved-premises/ui'
 import applicationPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
+import reportPaths from '../paths/report'
 import config from '../config'
 import { initialiseName, removeBlankSummaryListItems } from './utils'
 import {
@@ -70,7 +71,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('OasysImportUtils', OasysImportUtils)
 
-  njkEnv.addGlobal('paths', { ...applicationPaths, ...assessPaths })
+  njkEnv.addGlobal('paths', { ...applicationPaths, ...assessPaths, ...reportPaths })
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)
 
   njkEnv.addGlobal('inProgressApplicationTableRows', inProgressApplicationTableRows)
