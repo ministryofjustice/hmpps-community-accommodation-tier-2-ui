@@ -42,24 +42,6 @@
           {% include '../partials/taskListItems.njk' %}
 
           <li>
-            <h2 class="app-task-list__section">
-              Submit your application
-            </h2>
-
-            {{
-              govukCheckboxes({
-              idPrefix: "confirmation",
-              name: "confirmation",
-              errorMessage: errorObject,
-              items: [
-              {
-              value: "submit",
-              text: "I confirm the information provided is complete, accurate and up to date."
-              }
-              ]
-              })
-            }}
-
             <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
             {{

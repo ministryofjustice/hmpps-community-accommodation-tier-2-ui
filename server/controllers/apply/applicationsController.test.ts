@@ -391,52 +391,23 @@ describe('applicationsController', () => {
     })
 
     describe('submit', () => {
-      describe('when the confirmation checkbox is checked', () => {
-        it('renders the application submission confirmation page', async () => {
-          const application = applicationFactory.build()
+      it('renders the application submission confirmation page', async () => {
+        const application = applicationFactory.build()
 
-          ;(buildDocument as jest.Mock).mockReturnValue({})
+        ;(buildDocument as jest.Mock).mockReturnValue({})
 
-          request.params.id = 'some-id'
-          request.body = { confirmation: 'submit' }
+        request.params.id = 'some-id'
 
-          applicationService.findApplication.mockResolvedValue(application)
+        applicationService.findApplication.mockResolvedValue(application)
 
-          const requestHandler = applicationsController.submit()
-          await requestHandler(request, response, next)
+        const requestHandler = applicationsController.submit()
+        await requestHandler(request, response, next)
 
-          expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
-          expect(applicationService.submit).toHaveBeenCalledWith(request.user.token, application)
-          expect(response.render).toHaveBeenCalledWith('applications/confirm', {
-            pageHeading: 'Application confirmation',
-            application,
-          })
-        })
-      })
-
-      describe('when the confirmation checkbox is not checked', () => {
-        it('renders the application submission confirmation page', async () => {
-          const application = applicationFactory.build()
-
-          ;(buildDocument as jest.Mock).mockReturnValue({})
-
-          request.params.id = 'some-id'
-          request.body = undefined
-
-          applicationService.findApplication.mockResolvedValue(application)
-
-          const requestHandler = applicationsController.submit()
-          await requestHandler(request, response, next)
-
-          const error = new Error('You must confirm the information provided is complete, accurate and up to date.')
-
-          expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
-          expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
-            request,
-            response,
-            error,
-            paths.applications.show({ id: application.id }),
-          )
+        expect(applicationService.findApplication).toHaveBeenCalledWith(request.user.token, request.params.id)
+        expect(applicationService.submit).toHaveBeenCalledWith(request.user.token, application)
+        expect(response.render).toHaveBeenCalledWith('applications/confirm', {
+          pageHeading: 'Application confirmation',
+          application,
         })
       })
     })

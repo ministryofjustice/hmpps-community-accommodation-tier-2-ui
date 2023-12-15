@@ -160,10 +160,6 @@ export default class ApplicationsController {
       application.document = buildDocument(application)
 
       try {
-        if (req.body?.confirmation !== 'submit') {
-          throw new Error('You must confirm the information provided is complete, accurate and up to date.')
-        }
-
         await this.applicationService.submit(req.user.token, application)
         res.render('applications/confirm', { pageHeading: 'Application confirmation', application })
       } catch (err) {
