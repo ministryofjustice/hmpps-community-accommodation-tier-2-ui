@@ -58,8 +58,9 @@ export default class ApplicationsController {
         if (consentIsConfirmed(application)) {
           const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
+          const referrer = req.headers.referer
           const taskList = new TaskListService(application)
-          return res.render('applications/taskList', { application, taskList, errors, errorSummary })
+          return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
         }
         if (consentIsDenied(application)) {
           return res.render('applications/consent-refused', this.consentRefusedViewParams(application, req))

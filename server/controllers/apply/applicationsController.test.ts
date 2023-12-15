@@ -123,6 +123,7 @@ describe('applicationsController', () => {
             taskList: stubTaskList,
             errors: {},
             errorSummary: [],
+            referrer: 'some-referrer/',
           })
         })
 
@@ -146,6 +147,7 @@ describe('applicationsController', () => {
             taskList: stubTaskList,
             errors: {},
             errorSummary,
+            referrer: 'some-referrer/',
           })
         })
       })
