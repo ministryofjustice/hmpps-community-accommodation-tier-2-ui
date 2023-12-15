@@ -4,12 +4,12 @@ import CheckYourAnswersPage from './check-your-answers/checkYourAnswers'
 import { Section, Task } from '../../utils/decorators'
 
 @Task({
-  name: 'Check your answers',
+  name: 'Check application answers',
   slug: 'check-your-answers',
   pages: [CheckYourAnswersPage],
 })
 @Section({
-  title: 'Check your answers',
+  title: 'Check answers and submit',
   tasks: [CheckYourAnswers],
 })
 export default class CheckYourAnswers {}
