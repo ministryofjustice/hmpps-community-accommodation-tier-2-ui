@@ -5,7 +5,7 @@ import FundingInformation from './funding-information'
 import AreaInformation from './area-information'
 
 @Section({
-  title: 'Area and funding',
+  title: 'Area, funding and ID',
   tasks: [AreaInformation, FundingInformation],
 })
 export default class AreaAndFunding {}

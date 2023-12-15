@@ -7,7 +7,7 @@ import Identification from './identification'
 import AlternativeIdentification from './alternativeID'
 
 @Task({
-  name: 'Add funding information',
+  name: 'Confirm funding and ID',
   slug: 'funding-information',
   pages: [FundingInformationPage, NationalInsurance, Identification, AlternativeIdentification],
 })

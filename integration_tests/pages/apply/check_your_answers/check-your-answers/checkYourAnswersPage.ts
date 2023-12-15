@@ -15,7 +15,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
   }
 
   shouldShowFundingInformationAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('funding-information', 'Add funding information')
+    this.shouldShowCheckYourAnswersTitle('funding-information', 'Confirm funding and ID')
     this.shouldShowQuestionsAndAnswers('funding-information')
   }
 
