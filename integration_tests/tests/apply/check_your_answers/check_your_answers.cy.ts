@@ -17,6 +17,7 @@ context('Check your answers page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
+      delete applicationData['check-your-answers']['check-your-answers']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -56,5 +57,26 @@ context('Check your answers page', () => {
     page.shouldShowRiskToSelfAnswers()
     page.shouldShowRoshAnswers()
     page.shouldShowOffendingHistoryAnswers()
+  })
+
+  //  Scenario: check my answers
+  //  When I view the 'check your answers' page
+  //  And I confirm the information is correct
+  //  Then I am taken to the task list page
+  it('navigates to the task list page once the referrer confirms details are correct', function test() {
+    //  When I view the 'check your answers' page
+    TaskListPage.visit(this.application)
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+    taskListPage.visitTask('Check your answers')
+    const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
+
+    //  When I confirm the information is correct
+    page.checkCheckboxByValue('confirmed')
+
+    //  When I continue to the next task / page
+    page.clickSubmit()
+
+    //  Then I am taken to the task list page
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })

@@ -7,7 +7,7 @@ describe('CheckYourAnswers', () => {
   const application = applicationFactory.build({})
 
   const body = {
-    reviewed: '1',
+    checkYourAnswers: 'confirmed',
   }
 
   describe('body', () => {
@@ -22,10 +22,13 @@ describe('CheckYourAnswers', () => {
   itShouldHavePreviousValue(new CheckYourAnswers(body, application), 'dashboard')
 
   describe('errors', () => {
-    it('should return an empty object', () => {
+    it('should return an error when page has not been reviewed', () => {
       const page = new CheckYourAnswers({}, application)
 
-      expect(page.errors()).toEqual({})
+      expect(page.errors()).toEqual({
+        checkYourAnswers:
+          'You must confirm the information provided is accurate and, where required, it has been verified by all relevant prison departments.',
+      })
     })
   })
 })
