@@ -1,0 +1,50 @@
+.dashboard--index {
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-container::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+
+  .card {
+    border: 1px solid govuk-colour('mid-grey');
+    border-bottom-width: 0.5em;
+    flex-basis: 100%;
+    flex-grow: 0;
+    margin-bottom: 2em;
+  }
+
+  @include govuk-media-query($from: tablet, $until: desktop, $media-type: screen) {
+    .card {
+      flex-basis: 48%;
+
+      &:nth-child(2n-1) {
+        margin-right: 1.5%;
+      }
+
+      &:nth-child(2n-2) {
+        margin-left: 1.5%;
+      }
+    }
+  }
+
+  @include govuk-media-query($from: desktop, $media-type: screen) {
+    .card {
+      flex-basis: 31%;
+
+      &:nth-child(3n-1) {
+        margin-left: 3%;
+        margin-right: 3%;
+      }
+    }
+  }
+
+  .card-body {
+    padding: govuk-spacing(3);
+    height: 300px;
+  }
+}
