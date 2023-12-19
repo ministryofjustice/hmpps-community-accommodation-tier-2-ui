@@ -33,7 +33,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
   }
 
   shouldShowRiskToSelfAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('risk-to-self', 'Review risk to self information')
+    this.shouldShowCheckYourAnswersTitle('risk-to-self', 'Add risk to self information')
     this.shouldShowQuestionsAndAnswers('risk-to-self')
   }
 
