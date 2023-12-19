@@ -13,13 +13,9 @@ export default function routes(controllers: Controllers, services: Services): Ro
   const router = Router()
   const { get, post } = actions(router, services.auditService)
 
-  get(
-    '/',
-    (req, res, next) => {
-      res.render('pages/index')
-    },
-    { auditEvent: 'VIEW_LANDING' },
-  )
+  const { dashboardController } = controllers
+
+  get('/', dashboardController.index(), { auditEvent: 'VIEW_DASHBOARD' })
 
   const { peopleController } = controllers
 
