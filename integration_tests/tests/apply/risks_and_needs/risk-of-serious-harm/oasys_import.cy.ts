@@ -137,7 +137,7 @@ context('Visit "Risks and needs" section', () => {
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     //  When I follow the link to the first page in the "Risk of serious harm" section
-    taskListPage.visitTask('Review risk of serious harm (RoSH) information')
+    taskListPage.visitTask('Add risk of serious harm (RoSH) information')
 
     //  Then I see the 'Risk of serious harm: OASys import' page
     const page = Page.verifyOnPage(OasysImportPage, this.application)
@@ -167,7 +167,7 @@ context('Visit "Risks and needs" section', () => {
 
     //    When there is no OASys data
     cy.task('stubOasysRoshNotFound', { crn: person.crn })
-    taskListPage.visitTask('Review risk of serious harm (RoSH) information')
+    taskListPage.visitTask('Add risk of serious harm (RoSH) information')
 
     //    And I choose to continue
     const page = Page.verifyOnPage(OasysImportPage, this.application)
@@ -192,7 +192,7 @@ context('Visit "Risks and needs" section', () => {
     })
 
     //  When I revisit the task
-    taskListPage.visitTask('Review risk of serious harm (RoSH) information')
+    taskListPage.visitTask('Add risk of serious harm (RoSH) information')
 
     //  Then we are redirected to the RoSH summary page
     Page.verifyOnPage(RoshSummaryPage, this.application)

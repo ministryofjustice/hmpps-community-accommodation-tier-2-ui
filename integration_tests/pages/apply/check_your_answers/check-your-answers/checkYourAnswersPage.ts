@@ -38,7 +38,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
   }
 
   shouldShowRoshAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('risk-of-serious-harm', 'Review risk of serious harm (RoSH) information')
+    this.shouldShowCheckYourAnswersTitle('risk-of-serious-harm', 'Add risk of serious harm (RoSH) information')
     this.shouldShowQuestionsAndAnswers('risk-of-serious-harm')
   }
 
