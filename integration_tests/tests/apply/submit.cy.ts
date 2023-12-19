@@ -44,7 +44,7 @@ context('Applications dashboard', () => {
     const page = TaskListPage.visit(this.application)
 
     // And I click submit
-    page.clickSubmit()
+    page.clickSubmit('Submit application')
 
     // And I see a confirmation page
     const applicationSubmittedPage = Page.verifyOnPage(ApplicationSubmittedPage, this.application)

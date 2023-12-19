@@ -142,7 +142,7 @@ context('Visit "Risks and needs" section', () => {
     const page = Page.verifyOnPage(OasysImportPage, this.application)
 
     //  When I choose to import and save the data
-    page.clickSubmit()
+    page.clickSubmit('Import and continue')
 
     //  Then we are taken to the Vulnerability page
     Page.verifyOnPage(VulnerabilityPage, this.application)

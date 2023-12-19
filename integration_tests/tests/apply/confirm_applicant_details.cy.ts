@@ -46,14 +46,14 @@ context('Find by prison number', () => {
     const prisonNumberPage = FindByPrisonNumberPage.visit(person.name)
     cy.task('stubFindPerson', { person })
     prisonNumberPage.getTextInputByIdAndEnterDetails('prisonNumber', person.nomsNumber)
-    prisonNumberPage.clickSubmit()
+    prisonNumberPage.clickSubmit('Search for applicant')
 
     const confirmationPage = Page.verifyOnPage(ConfirmApplicantPage, person.name)
     confirmationPage.hasApplicantInformation(person)
 
     //  When I confirm these are the correct detaiks
 
-    confirmationPage.clickSubmit()
+    confirmationPage.clickSubmit('Confirm and continue')
 
     //      Then I am taken to the eligibility page
     Page.verifyOnPage(ConfirmEligibilityPage, application)
@@ -69,12 +69,12 @@ context('Find by prison number', () => {
     const prisonNumberPage = FindByPrisonNumberPage.visit(person.name)
     cy.task('stubFindPerson', { person })
     prisonNumberPage.getTextInputByIdAndEnterDetails('prisonNumber', person.nomsNumber)
-    prisonNumberPage.clickSubmit()
+    prisonNumberPage.clickSubmit('Search for applicant')
 
     const confirmationPage = Page.verifyOnPage(ConfirmApplicantPage, person.name)
     //      When I confirm these are the correct details
     cy.task('stubCreateApplicationServerError', { application })
-    confirmationPage.clickSubmit()
+    confirmationPage.clickSubmit('Confirm and continue')
 
     //      And there is a server error
     //      Then I see an error message

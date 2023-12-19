@@ -32,8 +32,8 @@ export default abstract class Page {
 
   manageDetails = (): PageElement => cy.get('[data-qa=manageDetails]')
 
-  clickSubmit(): void {
-    cy.get('button').click()
+  clickSubmit(text = 'Save and continue'): void {
+    cy.get('button').contains(text).click()
   }
 
   clickContinue(): void {

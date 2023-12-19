@@ -93,7 +93,7 @@ context('Find by prison number', () => {
     cy.task('stubApplicationGet', { application })
 
     // I click save and continue
-    page.clickSubmit()
+    page.clickSubmit('Search for applicant')
 
     // Then I'm on the 'Confirm applicant details' page
     Page.verifyOnPage(ConfirmApplicantPage, person.name)
@@ -106,7 +106,7 @@ context('Find by prison number', () => {
     const page = FindByPrisonNumberPage.visit(person.name)
 
     // I click continue without entering a prison number
-    page.clickSubmit()
+    page.clickSubmit('Search for applicant')
 
     // Then I see an error message
     cy.get('.govuk-error-summary').should('contain', `Enter a prison number`)
@@ -122,7 +122,7 @@ context('Find by prison number', () => {
     // I enter a prison number that can't be found
     page.getTextInputByIdAndEnterDetails('prisonNumber', person.nomsNumber)
     cy.task('stubPersonNotFound', { person })
-    page.clickSubmit()
+    page.clickSubmit('Search for applicant')
 
     // I see a not found error message
     cy.get('.govuk-error-summary').should(
@@ -148,7 +148,7 @@ context('Find by prison number', () => {
     // I enter a prison number that can't be found
 
     cy.get('#prisonNumber').type(person.nomsNumber)
-    page.clickSubmit()
+    page.clickSubmit('Search for applicant')
 
     // I see an unathorised error message
     cy.get('.govuk-error-summary').should(
