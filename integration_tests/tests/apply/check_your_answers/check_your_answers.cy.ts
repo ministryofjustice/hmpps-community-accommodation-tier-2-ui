@@ -45,7 +45,7 @@ context('Check your answers page', () => {
     //  When I view the 'check your answers' page
     TaskListPage.visit(this.application)
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.visitTask('Check your answers')
+    taskListPage.visitTask('Check application answers')
     const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
 
     //  Then I see a list of questions and answers for the application
@@ -67,7 +67,7 @@ context('Check your answers page', () => {
     //  When I view the 'check your answers' page
     TaskListPage.visit(this.application)
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.visitTask('Check your answers')
+    taskListPage.visitTask('Check application answers')
     const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
 
     //  When I confirm the information is correct

@@ -439,7 +439,7 @@ describe('checkYourAnswersUtils', () => {
     it('returns all sections except check your answers', () => {
       const sections = getSections()
 
-      expect(sections.filter(section => section.name === 'Check your answers')).toHaveLength(0)
+      expect(sections.filter(section => section.name === 'Check answers')).toHaveLength(0)
     })
   })
 })

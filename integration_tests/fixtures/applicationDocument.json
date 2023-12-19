@@ -1,10 +1,10 @@
 {
   "sections": [
     {
-      "title": "Before you start",
+      "title": "Before you apply",
       "tasks": [
         {
-          "title": "Check eligibility for CAS-2",
+          "title": "Confirm eligibility",
           "questionsAndAnswers": [
             {
               "question": "Is Aadland Bertrand eligible for Short-Term Accommodation (CAS-2)?",
@@ -15,10 +15,10 @@
       ]
     },
     {
-      "title": "Area and funding",
+      "title": "Area, funding and ID",
       "tasks": [
         {
-          "title": "Add funding information",
+          "title": "Confirm funding and ID",
           "questionsAndAnswers": [
             {
               "question": "How will Aadland Bertrand pay for their accommodation and service charge?",
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "title": "About the person",
+      "title": "About the applicant",
       "tasks": [
         {
           "title": "Add personal information",
@@ -118,7 +118,7 @@
           ]
         },
         {
-          "title": "Complete equality and diversity monitoring",
+          "title": "Add equality and diversity monitoring information",
           "questionsAndAnswers": [
             {
               "question": "Equality questions for Aadland Bertrand",
@@ -250,7 +250,7 @@
           ]
         },
         {
-          "title": "Review risk to self information",
+          "title": "Add risk to self information",
           "questionsAndAnswers": [
             {
               "question": "Describe Aadland Bertrand's current issues and needs related to self harm and suicide",
@@ -276,7 +276,7 @@
           ]
         },
         {
-          "title": "Review risk of serious harm (RoSH) information",
+          "title": "Add risk of serious harm (RoSH) information",
           "questionsAndAnswers": [
             {
               "question": "Who is at risk?",

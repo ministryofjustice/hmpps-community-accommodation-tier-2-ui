@@ -11,7 +11,7 @@ import BehaviourNotesData from './custom-forms/behaviourNotesData'
 import AdditionalRiskInformation from './additionalRiskInformation'
 
 @Task({
-  name: 'Review risk of serious harm (RoSH) information',
+  name: 'Add risk of serious harm (RoSH) information',
   slug: 'risk-of-serious-harm',
   pages: [
     OasysImport,

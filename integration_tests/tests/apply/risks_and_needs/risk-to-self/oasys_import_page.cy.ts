@@ -122,7 +122,7 @@ context('Visit "Risks and needs" section', () => {
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     //  When I follow the link to the first page in the "Risks and needs" section
-    taskListPage.visitTask('Review risk to self information')
+    taskListPage.visitTask('Add risk to self information')
 
     //  Then I see the "risk to self guidance" page
     const page = Page.verifyOnPage(OasysImportPage, this.application)
@@ -137,7 +137,7 @@ context('Visit "Risks and needs" section', () => {
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     //  When I follow the link to the first page in the "Risks and needs" section
-    taskListPage.visitTask('Review risk to self information')
+    taskListPage.visitTask('Add risk to self information')
     //  Then I see the "risk to self guidance" page
     const page = Page.verifyOnPage(OasysImportPage, this.application)
 
@@ -172,7 +172,7 @@ context('Visit "Risks and needs" section', () => {
     })
 
     //  When I revisit the task
-    taskListPage.visitTask('Review risk to self information')
+    taskListPage.visitTask('Add risk to self information')
 
     //  Then we are redirected to the Vulnerability page
     Page.verifyOnPage(VulnerabilityPage, this.application)
@@ -188,7 +188,7 @@ context('Visit "Risks and needs" section', () => {
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     //  When I follow the link to the first page in the "Risks and needs" section
-    taskListPage.visitTask('Review risk to self information')
+    taskListPage.visitTask('Add risk to self information')
 
     //  Then I see the "risk to self guidance" page
     const page = Page.verifyOnPage(OasysImportPage, this.application)

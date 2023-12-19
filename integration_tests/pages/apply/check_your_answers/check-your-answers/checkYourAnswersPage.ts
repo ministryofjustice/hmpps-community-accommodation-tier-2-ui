@@ -10,19 +10,19 @@ export default class CheckYourAnswersPage extends ApplyPage {
   }
 
   shouldShowConfirmEligibilityAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('confirm-eligibility', 'Check eligibility for CAS-2')
+    this.shouldShowCheckYourAnswersTitle('confirm-eligibility', 'Confirm eligibility')
     this.shouldShowQuestionsAndAnswers('confirm-eligibility')
   }
 
   shouldShowFundingInformationAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('funding-information', 'Add funding information')
+    this.shouldShowCheckYourAnswersTitle('funding-information', 'Confirm funding and ID')
     this.shouldShowQuestionsAndAnswers('funding-information')
   }
 
   shouldShowEqualityAndDiversityAnswers(): void {
     this.shouldShowCheckYourAnswersTitle(
       'equality-and-diversity-monitoring',
-      'Complete equality and diversity monitoring',
+      'Add equality and diversity monitoring information',
     )
     this.shouldShowQuestionsAndAnswers('equality-and-diversity-monitoring')
   }
@@ -33,12 +33,12 @@ export default class CheckYourAnswersPage extends ApplyPage {
   }
 
   shouldShowRiskToSelfAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('risk-to-self', 'Review risk to self information')
+    this.shouldShowCheckYourAnswersTitle('risk-to-self', 'Add risk to self information')
     this.shouldShowQuestionsAndAnswers('risk-to-self')
   }
 
   shouldShowRoshAnswers(): void {
-    this.shouldShowCheckYourAnswersTitle('risk-of-serious-harm', 'Review risk of serious harm (RoSH) information')
+    this.shouldShowCheckYourAnswersTitle('risk-of-serious-harm', 'Add risk of serious harm (RoSH) information')
     this.shouldShowQuestionsAndAnswers('risk-of-serious-harm')
   }
 

@@ -10,7 +10,7 @@ import OasysImport from './custom-forms/oasysImport'
 import Vulnerability from './vulnerability'
 
 @Task({
-  name: 'Review risk to self information',
+  name: 'Add risk to self information',
   slug: 'risk-to-self',
   pages: [OasysImport, Vulnerability, CurrentRisk, HistoricalRisk, AcctData, Acct, AdditionalInformation],
 })

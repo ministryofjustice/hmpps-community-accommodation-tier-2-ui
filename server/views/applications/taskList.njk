@@ -7,53 +7,73 @@
 {% block pageTitle %}
   CAS 2 - Task list
 {% endblock %}
+
+{% block beforeContent%}
+  {% if referrer %}
+    {{ govukBackLink({
+        text: "Back",
+        href: referrer
+    }) }}
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <div class="govuk-grid-row">
-    <div class="govuk-width-container">
-      <h1 class="govuk-heading-xl">CAS 2: Refer for Accommodation</h1>
+    <div class="govuk-grid-column-three-quarters">
+      <h1 class="govuk-heading-xl">Apply for Short-Term Accommodation (CAS-2)</h1>
 
-      <h2 class="govuk-heading-s govuk-!-margin-bottom-2" data-cy-status>Application incomplete</h2>
-      <p class="govuk-body govuk-!-margin-bottom-7">
-        You have completed {{ taskList.completeSectionCount }} of {{ (taskList.sections | length) }} sections.
-      </p>
+      <div class="govuk-!-margin-bottom-4">
+        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+          <span class="govuk-!-font-weight-bold">Applicant:</span>
+          {{ application.person.name }}</p>
+        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+          <span class="govuk-!-font-weight-bold">Prison:</span>
+          {{ application.person.prisonName }}</p>
+        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+          <span class="govuk-!-font-weight-bold">Referrer:</span>
+          {{ application.createdBy.name }}</p>
+      </div>
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        You have completed {{ taskList.completeTaskCount }} of {{ (taskList.taskCount) }} tasks.
+      </h2>
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible  govuk-!-margin-top-7">
     </div>
     {{ showErrorSummary(errorSummary) }}
 
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-three-quarters">
       <form action="{{ paths.applications.submission({id: application.id}) }}" method="post">
         <ol class="app-task-list">
           {% include '../partials/taskListItems.njk' %}
 
           <li>
-            <h2 class="app-task-list__section">
-              <span class="app-task-list__section-number">
-                {{ (taskList.sections | length) + 1 }}.
-              </span>
-              Submit your application
-            </h2>
-
-            {{
-              govukCheckboxes({
-              idPrefix: "confirmation",
-              name: "confirmation",
-              errorMessage: errorObject,
-              items: [
-              {
-              value: "submit",
-              text: "I confirm the information provided is complete, accurate and up to date."
-              }
-              ]
-              })
-            }}
-
             <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-            {{
-              govukButton({
-                text: "Submit application",
-                preventDoubleClick: true
-              })
-            }}
+            {% if taskList.status === 'complete' %}
+              {{
+                  govukButton({
+                    text: "Submit application",
+                    preventDoubleClick: true
+                  })
+                }}
+            {% else %}
+              <p>Complete all tasks and check answers before submitting.</p>
+              <div class="govuk-button-group">
+                {{
+                  govukButton({
+                    text: "Submit application",
+                    disabled: true
+                  })
+                }}
+              {% endif %}
+
+              {{ govukButton({
+                  text: "Return to applications dashboard",
+                  classes: "govuk-button--secondary",
+                  href: paths.applications.index()
+                  }) }}
+            </div>
           </li>
         </ol>
       </form>

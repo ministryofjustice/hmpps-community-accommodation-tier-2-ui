@@ -111,7 +111,7 @@ context('Visit area and funding section', () => {
   // ----------------------------------------
   it('offers a link to the first page of the task', function test() {
     // When I follow the link within the section
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
 
     // Then I'm on the expected page
     Page.verifyOnPage(FundingSourcePage, this.application)
@@ -133,7 +133,7 @@ context('Visit area and funding section', () => {
   // ----------------------------
   it('enforces answer', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
 
     // I try to continue without making a choice
     cy.get('button').contains('Save and continue').click()
@@ -147,7 +147,7 @@ context('Visit area and funding section', () => {
   //----------------------------------------------------
   it('takes me back to the task list page', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
 
     // When I use the back button
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
@@ -160,7 +160,7 @@ context('Visit area and funding section', () => {
   //  Scenario: return to task list using the 'Back to task list' link
   it('link takes me to the task list page', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
 
     // When I use the 'Back to task list' link
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
@@ -174,7 +174,7 @@ context('Visit area and funding section', () => {
   // -------------------------------------
   it('entering personal savings redirects to national insurance number page', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
 
     // When I select personal savings and click save and continue
@@ -189,7 +189,7 @@ context('Visit area and funding section', () => {
   // -------------------------------------
   it('entering benefits redirects to identification page', function test() {
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
 
     // When I select benefits and click save and continue
@@ -205,7 +205,7 @@ context('Visit area and funding section', () => {
   it('entering personal savings deletes any ID answers', function test() {
     cy.task('stubApplicationGet', { application: this.applicationWithData })
     // Given I'm on the Funding information task page
-    cy.get('a').contains('Add funding information').click()
+    cy.get('a').contains('Confirm funding and ID').click()
     const page = Page.verifyOnPage(FundingSourcePage, this.application)
 
     // When I select personal savings and click save and continue

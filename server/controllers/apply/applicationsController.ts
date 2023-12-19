@@ -58,8 +58,9 @@ export default class ApplicationsController {
         if (consentIsConfirmed(application)) {
           const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
+          const referrer = req.headers.referer
           const taskList = new TaskListService(application)
-          return res.render('applications/taskList', { application, taskList, errors, errorSummary })
+          return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
         }
         if (consentIsDenied(application)) {
           return res.render('applications/consent-refused', this.consentRefusedViewParams(application, req))
@@ -159,10 +160,6 @@ export default class ApplicationsController {
       application.document = buildDocument(application)
 
       try {
-        if (req.body?.confirmation !== 'submit') {
-          throw new Error('You must confirm the information provided is complete, accurate and up to date.')
-        }
-
         await this.applicationService.submit(req.user.token, application)
         res.render('applications/confirm', { pageHeading: 'Application confirmation', application })
       } catch (err) {

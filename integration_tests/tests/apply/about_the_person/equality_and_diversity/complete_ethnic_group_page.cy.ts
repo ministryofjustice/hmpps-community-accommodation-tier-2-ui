@@ -45,7 +45,7 @@ import {
 } from '../../../../pages/apply/about_the_person/equality_and_diversity'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
-context('Visit "About the person" section', () => {
+context('Visit "About the applicant" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {

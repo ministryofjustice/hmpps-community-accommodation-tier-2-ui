@@ -66,31 +66,31 @@ describe('taskListService', () => {
     })
   })
 
-  describe('completeSectionCount', () => {
+  describe('completeTaskCount', () => {
     it('returns zero when there are no complete sections', () => {
       ;(getTaskStatus as jest.Mock).mockReturnValue('not_started')
 
       const taskListService = new TaskListService(application)
 
-      expect(taskListService.completeSectionCount).toEqual(0)
+      expect(taskListService.completeTaskCount).toEqual(0)
     })
 
-    it('returns 1 when there one section is complete', () => {
+    it('returns 1 when there one task is complete', () => {
       ;(getTaskStatus as jest.Mock).mockImplementation(t =>
-        ['first-task', 'second-task', 'third-task'].includes(t.id) ? 'complete' : 'not_started',
+        ['first-task'].includes(t.id) ? 'complete' : 'not_started',
       )
 
       const taskListService = new TaskListService(application)
 
-      expect(taskListService.completeSectionCount).toEqual(1)
+      expect(taskListService.completeTaskCount).toEqual(1)
     })
 
-    it('returns 2 when all sections are complete', () => {
+    it('returns 5 when all tasks are complete', () => {
       ;(getTaskStatus as jest.Mock).mockReturnValue('complete')
 
       const taskListService = new TaskListService(application)
 
-      expect(taskListService.completeSectionCount).toEqual(2)
+      expect(taskListService.completeTaskCount).toEqual(5)
     })
   })
 
@@ -137,6 +137,14 @@ describe('taskListService', () => {
           ],
         },
       ])
+    })
+  })
+
+  describe('taskCount', () => {
+    it('returns the number of total tasks', () => {
+      const taskListService = new TaskListService(application)
+
+      expect(taskListService.taskCount).toEqual(5)
     })
   })
 })

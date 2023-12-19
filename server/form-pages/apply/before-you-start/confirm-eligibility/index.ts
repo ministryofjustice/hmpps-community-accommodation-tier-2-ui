@@ -4,7 +4,7 @@ import { Task } from '../../../utils/decorators'
 import ConfirmEligibilityPage from './confirmEligibility'
 
 @Task({
-  name: 'Check eligibility for CAS-2',
+  name: 'Confirm eligibility',
   slug: 'confirm-eligibility',
   pages: [ConfirmEligibilityPage],
 })
