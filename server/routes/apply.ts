@@ -14,6 +14,13 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
 
   const { applicationsController, pagesController } = controllers
 
+  get(
+    paths.applications.beforeYouStart.pattern,
+    (req, res, next) => {
+      res.render('applications/before-you-start')
+    },
+    { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
+  )
   get(paths.applications.new.pattern, applicationsController.new(), { auditEvent: 'VIEW_APPLICATION_NEW' })
   get(paths.applications.index.pattern, applicationsController.index(), { auditEvent: 'VIEW_APPLICATIONS_LIST' })
   get(paths.applications.show.pattern, applicationsController.show(), { auditEvent: 'VIEW_APPLICATION_START' })
