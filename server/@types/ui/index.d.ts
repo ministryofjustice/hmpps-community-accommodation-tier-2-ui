@@ -181,3 +181,11 @@ export type UiTimelineEvent = {
 export type PersonStatus = 'InCustody' | 'InCommunity'
 
 export type SelectItem = { value: string; text: string; selected?: boolean }
+
+export type ServiceSection = {
+  id: string
+  title: string
+  description: string
+  shortTitle: string
+  href: string
+}
