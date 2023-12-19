@@ -22,7 +22,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
   shouldShowEqualityAndDiversityAnswers(): void {
     this.shouldShowCheckYourAnswersTitle(
       'equality-and-diversity-monitoring',
-      'Add equality and diversity monitoring',
+      'Add equality and diversity monitoring information',
     )
     this.shouldShowQuestionsAndAnswers('equality-and-diversity-monitoring')
   }
