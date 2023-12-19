@@ -4,14 +4,18 @@ import { Page } from '../../../utils/decorators'
 
 import TaskListPage from '../../../taskListPage'
 
-@Page({ name: 'check-your-answers', bodyProperties: ['reviewed'] })
+type CheckYourAnswersBody = {
+  checkYourAnswers?: string
+}
+
+@Page({ name: 'check-your-answers', bodyProperties: ['checkYourAnswers'] })
 export default class CheckYourAnswers implements TaskListPage {
   documentTitle = 'Check your answers'
 
   title = 'Check your answers'
 
   constructor(
-    public body: { reviewed?: string },
+    public body: Partial<CheckYourAnswersBody>,
     readonly application: Application,
   ) {}
 
@@ -25,6 +29,11 @@ export default class CheckYourAnswers implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
+
+    if (this.body?.checkYourAnswers !== 'confirmed') {
+      errors.checkYourAnswers =
+        'You must confirm the information provided is accurate and, where required, it has been verified by all relevant prison departments.'
+    }
 
     return errors
   }

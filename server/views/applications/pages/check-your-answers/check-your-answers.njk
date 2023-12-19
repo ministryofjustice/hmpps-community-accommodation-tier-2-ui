@@ -1,8 +1,10 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
 
 {% from "../../../partials/applicantDetails.njk" import applicantDetails %}
+{% from "../../../partials/showErrorSummary.njk" import showErrorSummary %}
 
 {% extends "../layout.njk" %}
 
@@ -18,6 +20,9 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-width-container">
+
+      {{ showErrorSummary(errorSummary) }}
+
       <h1 class="govuk-heading-xl">
         {{ page.title }}
       </h1>
@@ -44,13 +49,32 @@
         {% endfor %}
       {% endfor %}
 
-      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post">
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-        <input type="hidden" name="reviewed" value="1"/>
+        {{
+          formPageCheckboxes(
+            {
+              fieldName: "checkYourAnswers",
+              fieldset: {
+                legend: {
+                  text: "Confirm your answers",
+                  classes: "govuk-fieldset__legend--l"
+                }
+              },
+              items: [
+                {
+                  value: "confirmed",
+                  text: "I confirm to the best of my knowledge, the information provided in this referral is accurate and, where required, it has been verified by all relevant prison departments."
+                }
+              ]
+            },
+            fetchContext()
+          )
+        }}
 
         {{ govukButton({
-          text: "Continue",
+          text: "Save and continue",
           preventDoubleClick: true
         }) }}
       </form>
