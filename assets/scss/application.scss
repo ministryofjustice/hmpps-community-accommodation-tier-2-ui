@@ -37,8 +37,16 @@ $govuk-page-width: $moj-page-width;
   }
 }
 
+.print__show {
+  display: none;
+}
+
 @media print {
   .print__hidden {
-    visibility: hidden;
+    display: none;
+  }
+
+  .print__show {
+    display: block;
   }
 }

@@ -15,7 +15,8 @@
 {% block beforeContent%}
   {{ govukBackLink({
       text: "Back",
-      href: paths.applications.show({ id: page.application.id })
+      href: paths.applications.show({ id: page.application.id }),
+      classes: "print__hidden"
   }) }}
 {% endblock %}
 
@@ -65,7 +66,7 @@
         {% endfor %}
       {% endfor %}
 
-      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8">
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8 print__hidden">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{
@@ -98,6 +99,10 @@
           <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
         </div>
       </form>
+
+      <div class="print__show govuk-!-margin-top-6">
+        <p>I confirm to the best of my knowledge, the information provided in this referral is accurate and, where required, it has been verified by all relevant prison departments.</p>
+      </div>
 
     </div>
   </div>
