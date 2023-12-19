@@ -2,6 +2,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+{% from "../../../components/printButton/macro.njk" import printButtonScript, printButton %}
 
 {% from "../../../partials/applicantDetails.njk" import applicantDetails %}
 {% from "../../../partials/showErrorSummary.njk" import showErrorSummary %}
@@ -23,9 +24,17 @@
 
       {{ showErrorSummary(errorSummary) }}
 
-      <h1 class="govuk-heading-l">
-        {{ page.title }}
-      </h1>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+          <h1 class="govuk-heading-l">
+            {{ page.title }}
+          </h1>
+          <p class="govuk-body-l">Read through this page and check that the information provided for each answer is accurate.</p>
+          <p class="govuk-body-l">Alternatively, you can download a PDF version of this page.</p>
+
+          {{ printButton('Download as a PDF') }}
+        </div>
+      </div>
 
       {{ applicantDetails(page.application) }}
 
@@ -85,4 +94,8 @@
 
     </div>
   </div>
+{% endblock %}
+
+{% block extraScripts %}
+  {{ printButtonScript(cspNonce) }}
 {% endblock %}

@@ -48,7 +48,9 @@ context('Check your answers page', () => {
     taskListPage.visitTask('Check application answers')
     const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
 
-    //  Then I see a list of questions and answers for the application
+    //  Then I see a download button
+    page.shouldShowPrintButton('Download as a PDF')
+    //  And I see a list of questions and answers for the application
     page.hasApplicantDetails(this.application)
     page.shouldShowConfirmEligibilityAnswers()
     page.shouldShowFundingInformationAnswers()
