@@ -73,10 +73,14 @@
           )
         }}
 
-        {{ govukButton({
+        <div class="govuk-button-group">
+          {{ govukButton({
           text: "Save and continue",
           preventDoubleClick: true
-        }) }}
+          }) }}
+
+          <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+        </div>
       </form>
 
     </div>
