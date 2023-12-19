@@ -19,14 +19,18 @@ export default class TaskListService {
     })
   }
 
-  get completeSectionCount() {
-    return this.formSections.filter(section => {
+  get completeTaskCount() {
+    let completeTaskCount = 0
+
+    this.formSections.forEach(section => {
       const taskIds = section.tasks.map(s => s.id)
       const completeTasks = Object.keys(this.taskStatuses)
         .filter(k => taskIds.includes(k))
         .filter(k => this.taskStatuses[k] === 'complete')
-      return completeTasks.length === taskIds.length
-    }).length
+      completeTaskCount += completeTasks.length
+    })
+
+    return completeTaskCount
   }
 
   get sections() {
@@ -34,6 +38,10 @@ export default class TaskListService {
       const tasks = s.tasks.map(t => this.addStatusToTask(t))
       return { sectionNumber: i + 1, title: s.title, tasks }
     })
+  }
+
+  get taskCount() {
+    return this.formSections.flatMap(s => s.tasks).length
   }
 
   get status() {
