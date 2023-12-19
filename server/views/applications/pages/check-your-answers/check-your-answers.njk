@@ -3,6 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
 {% from "../../../components/printButton/macro.njk" import printButtonScript, printButton %}
+{% from "../../../components/applicationSummary/macro.njk" import applicationSummary %}
 
 {% from "../../../partials/applicantDetails.njk" import applicantDetails %}
 {% from "../../../partials/showErrorSummary.njk" import showErrorSummary %}
@@ -35,6 +36,12 @@
           {{ printButton('Download as a PDF') }}
         </div>
       </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+
+      {{ applicationSummary(page.applicationSummary()) }}
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
       {{ applicantDetails(page.application) }}
 

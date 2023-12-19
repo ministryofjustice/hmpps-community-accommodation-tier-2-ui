@@ -50,7 +50,9 @@ context('Check your answers page', () => {
 
     //  Then I see a download button
     page.shouldShowPrintButton('Download as a PDF')
+
     //  And I see a list of questions and answers for the application
+    page.hasExpectedSummaryData()
     page.hasApplicantDetails(this.application)
     page.shouldShowConfirmEligibilityAnswers()
     page.shouldShowFundingInformationAnswers()
