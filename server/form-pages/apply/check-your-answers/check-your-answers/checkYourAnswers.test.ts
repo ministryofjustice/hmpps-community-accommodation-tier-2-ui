@@ -18,6 +18,14 @@ describe('CheckYourAnswers', () => {
     })
   })
 
+  describe('title', () => {
+    it('should set the title', () => {
+      const page = new CheckYourAnswers(body, application)
+
+      expect(page.title).toEqual('Check your answers before sending your application')
+    })
+  })
+
   itShouldHaveNextValue(new CheckYourAnswers(body, application), '')
   itShouldHavePreviousValue(new CheckYourAnswers(body, application), 'dashboard')
 

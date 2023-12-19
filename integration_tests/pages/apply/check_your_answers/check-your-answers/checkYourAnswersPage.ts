@@ -6,7 +6,7 @@ import { getPage, hasResponseMethod } from '../../../../../server/utils/checkYou
 
 export default class CheckYourAnswersPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Check your answers', application, 'check-your-answers', 'check-your-answers')
+    super('Check your answers before sending your application', application, 'check-your-answers', 'check-your-answers')
   }
 
   shouldShowConfirmEligibilityAnswers(): void {

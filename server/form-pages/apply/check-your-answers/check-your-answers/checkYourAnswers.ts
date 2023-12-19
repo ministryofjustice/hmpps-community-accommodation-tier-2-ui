@@ -10,9 +10,9 @@ type CheckYourAnswersBody = {
 
 @Page({ name: 'check-your-answers', bodyProperties: ['checkYourAnswers'] })
 export default class CheckYourAnswers implements TaskListPage {
-  documentTitle = 'Check your answers'
+  documentTitle = 'Check your answers before sending your application'
 
-  title = 'Check your answers'
+  title = 'Check your answers before sending your application'
 
   constructor(
     public body: Partial<CheckYourAnswersBody>,
