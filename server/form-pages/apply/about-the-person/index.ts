@@ -6,7 +6,7 @@ import AddressHistory from './address-history'
 import EqualityAndDiversityMonitoring from './equality-diversity-monitoring'
 
 @Section({
-  title: 'About the person',
+  title: 'About the applicant',
   tasks: [PersonalInformation, AddressHistory, EqualityAndDiversityMonitoring],
 })
 export default class AboutThePerson {}

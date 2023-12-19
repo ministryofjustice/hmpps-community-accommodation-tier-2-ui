@@ -13,7 +13,7 @@ import MilitaryVeteranPage from '../../../../pages/apply/about_the_person/equali
 import CareLeaverPage from '../../../../pages/apply/about_the_person/equality_and_diversity/careLeaverPage'
 import Page from '../../../../pages/page'
 
-context('Visit "About the person" section', () => {
+context('Visit "About the applicant" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
