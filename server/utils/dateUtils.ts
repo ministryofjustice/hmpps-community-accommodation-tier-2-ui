@@ -136,7 +136,7 @@ export const dateAndTimeInputsAreValidDates = <K extends string | number>(
   try {
     DateFormats.isoToDateObj(dateString[key])
   } catch (err) {
-    if (err instanceof InvalidDateStringError) {
+    if (err instanceof InvalidDateStringError || err instanceof TypeError) {
       return false
     }
   }
