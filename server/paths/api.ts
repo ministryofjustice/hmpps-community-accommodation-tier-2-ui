@@ -8,6 +8,7 @@ const singleApplicationPath = applicationsPath.path(':id')
 const submissionsPath = path('/cas2/submissions')
 const singleSubmissionPath = submissionsPath.path(':id')
 const referenceDataPath = path('/cas2/reference-data')
+const reportsPath = path('/cas2/reports')
 
 export default {
   people: {
@@ -36,5 +37,8 @@ export default {
   },
   applicationStatusUpdates: {
     create: singleSubmissionPath.path('status-updates'),
+  },
+  reports: {
+    exampleReport: reportsPath.path('example-report'),
   },
 }

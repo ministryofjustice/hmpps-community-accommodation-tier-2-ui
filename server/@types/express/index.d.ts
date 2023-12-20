@@ -25,3 +25,14 @@ export declare global {
     }
   }
 }
+
+declare module 'express' {
+  interface TypedRequest<T extends Query, U = Body> extends Express.Request {
+    body: U
+    params: T
+  }
+
+  interface TypedRequestHandler<T, U = Response> extends Express.RequestHandler {
+    (req: T, res: U, next: () => void): void
+  }
+}

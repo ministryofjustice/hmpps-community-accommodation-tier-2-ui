@@ -1,0 +1,20 @@
+{% extends "../partials/layout.njk" %}
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <h1 class="govuk-heading-l">Reports</h1>
+  <p>Download a report</p>
+
+  {% block button %}
+    <div class="govuk-button-group">
+      {{ govukButton({
+              text: "Download report",
+              href: paths.report.create()
+      }) }}
+    </div>
+  {% endblock %}
+</div>
+{% endblock %}
