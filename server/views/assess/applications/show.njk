@@ -7,6 +7,7 @@
 {% from "../../partials/applicantDetails.njk" import applicantDetails %}
 {% from "../../components/printButton/macro.njk" import printButtonScript,
 printButton %}
+{% from "../../components/applicationSummary/macro.njk" import applicationSummary %}
 
 {% extends "../../partials/layout.njk" %}
 
@@ -39,26 +40,13 @@ printButton %}
     <div class="govuk-grid-column-full">
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-      <div id="application-summary">
-        <h2 class="govuk-heading-l">
-          Application summary
-        </h2>
-
-        <ul class="govuk-list govuk-list--spaced">
-          <li>
-            <span class="govuk-!-font-weight-bold">Applicant name: </span>{{ application.person.name }}</li>
-          <li>
-            <span class="govuk-!-font-weight-bold">Prison number: </span>{{ application.person.nomsNumber }}</li>
-          <li>
-            <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ application.submittedBy.name }}</li>
-          {% if application.submittedBy.email %}
-            <li>
-              <span class="govuk-!-font-weight-bold">Contact email address:</span>
-              {{ application.submittedBy.email }}
-            </li>
-          {% endif %}
-        </ul>
-      </div>
+      {{ applicationSummary({
+        name: application.person.name,
+        prisonNumber: application.person.nomsNumber,
+        prisonName: application.person.prisonName,
+        referrerName: application.submittedBy.name,
+        contactEmail: application.submittedBy.email
+      })}}
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
