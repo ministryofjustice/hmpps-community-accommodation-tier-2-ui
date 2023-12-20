@@ -1,0 +1,71 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  <div>
+    <p class="govuk-body">Use this checklist to get answers from Terry Midhurst for their CAS-2 application.</p>
+
+    {{ govukInsetText({
+        text: "You do not need to include this checklist in the application. The checklist is for your reference only."
+    }) }}
+
+    <p class="govuk-body">Checklist</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>
+        Get verbal consent for Short-Term Accommodation (CAS-2) application
+      </li>
+      <li>
+        Ask for the applicant’s NI number
+      </li>
+      <li>
+        Ask which ID documents the applicant has
+      </li>
+      <li>
+        Ask how the applicant will fund their CAS-2 placement
+      </li>
+      <li>
+        Ask for the applicant’s previous address before entering custody
+      </li>
+      <li>
+        Or ask how long the applicant had no fixed address
+      </li>
+      <li>
+        Confirm applicant’s requested towns or cities for placement
+      </li>
+      <li>
+        Ask if the applicant will have a phone or smartphone?
+      </li>
+      <li>
+        If the applicant is female, ask if they have a gender preference for their support worker?
+      </li>
+      <li>
+        Diversity questions (optional)
+      </li>
+    </ul>
+  </div>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasInformationNeeded",
+        fieldset: {
+          legend: {
+            text: page.questions.hasInformationNeeded,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
+
+{% block button %}
+  {{ govukButton({
+      text: "Save and continue"
+    }) }}
+{% endblock %}
