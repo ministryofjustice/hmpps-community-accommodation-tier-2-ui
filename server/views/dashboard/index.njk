@@ -1,0 +1,26 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName %}
+{% set mainClasses = "app-container govuk-body" %}
+{% set bodyClasses = "dashboard--index" %}
+
+{% block content %}
+
+  <h1>{{ pageHeading }}</h1>
+
+  <div class="card-container">
+
+    {% for section in sections %}
+      <div class="card" data-cy-card-section="{{ section.id }}">
+        <div class="card-body">
+          <h2 class="govuk-heading-s">
+            <a class="govuk-link" href="{{ section.href }}">{{ section.title }}</a>
+          </h2>
+          <p class="govuk-body">{{ section.description }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}
