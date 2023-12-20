@@ -773,7 +773,7 @@ export const getQuestions = (name: string) => {
           hint: offenceSummaryHintHtml,
         },
         outstandingCharges: {
-          question: `Are there any outstanding charges?`,
+          question: `Are there outstanding charges committed prior to the current sentence?`,
           answers: yesOrNo,
         },
         outstandingChargesDetail: {
