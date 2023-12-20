@@ -1,0 +1,34 @@
+{% macro applicationSummary(summary) %}
+  <div id="application-summary">
+    <h2 class="govuk-heading-m">
+      Application summary
+    </h2>
+
+    <ul class="govuk-list govuk-list--spaced">
+      {% if summary.name %}
+        <li>
+          <span class="govuk-!-font-weight-bold">Applicant name: </span>{{ summary.name }}
+        </li>
+      {% endif %}
+      {% if summary.prisonNumber %}
+      <li>
+        <span class="govuk-!-font-weight-bold">Prison number: </span>{{ summary.prisonNumber }}
+      </li>
+      {% endif %}
+      {% if summary.prisonName %}
+      <li>
+        <span class="govuk-!-font-weight-bold">Prison: </span>{{ summary.prisonName }}
+      </li>
+      {% endif %}
+      <li>
+        <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ summary.referrerName }}
+      </li>
+      {% if summary.contactEmail %}
+        <li>
+          <span class="govuk-!-font-weight-bold">Contact email address:</span>
+          <a href="mailto:{{ summary.contactEmail }}">{{ summary.contactEmail }}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endmacro %}
