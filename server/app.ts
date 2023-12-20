@@ -60,7 +60,8 @@ export default function createApp(controllers: Controllers, services: Services):
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
   setUpSentryErrorHandler(app)
-  app.use(errorHandler(process.env.NODE_ENV === 'production'))
+
+  app.use(errorHandler(process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test'))
 
   return app
 }

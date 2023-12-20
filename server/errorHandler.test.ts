@@ -6,7 +6,7 @@ import request from 'supertest'
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
 
-const setupApp = (production: boolean): Express => {
+const setupApp = (isDevelopment: boolean): Express => {
   const app = express()
   app.set('view engine', 'njk')
 
@@ -16,7 +16,7 @@ const setupApp = (production: boolean): Express => {
     res.send('known')
   })
   app.use((req, res, next) => next(createError(404, 'Not found')))
-  app.use(errorHandler(production))
+  app.use(errorHandler(isDevelopment))
 
   return app
 }
@@ -27,7 +27,7 @@ afterEach(() => {
 
 describe('GET 404', () => {
   it('should render content with stack in dev mode', () => {
-    const app = setupApp(false)
+    const app = setupApp(true)
 
     return request(app)
       .get('/unknown')
@@ -40,7 +40,7 @@ describe('GET 404', () => {
   })
 
   it('should render content without stack in production mode', () => {
-    const app = setupApp(true)
+    const app = setupApp(false)
 
     return request(app)
       .get('/unknown')
