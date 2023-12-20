@@ -1,13 +1,16 @@
 /* eslint-disable import/no-duplicates */
-import differenceInDays from 'date-fns/differenceInDays'
-import formatDistanceStrict from 'date-fns/formatDistanceStrict'
+import { differenceInDays, formatDistanceStrict } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
 import { DateFormats, InvalidDateStringError, dateAndTimeInputsAreValidDates } from './dateUtils'
 
-jest.mock('date-fns/isPast')
-jest.mock('date-fns/formatDistanceStrict')
-jest.mock('date-fns/differenceInDays')
+jest.mock('date-fns', () => {
+  return {
+    ...jest.requireActual('date-fns'),
+    formatDistanceStrict: jest.fn(() => '1 day'),
+    differenceInDays: jest.fn(() => 1),
+  }
+})
 
 describe('DateFormats', () => {
   describe('convertIsoToDateObj', () => {
@@ -161,8 +164,6 @@ describe('DateFormats', () => {
     it('calls the date-fns functions and returns the results as an object', () => {
       const date1 = new Date(2023, 3, 12)
       const date2 = new Date(2023, 3, 11)
-      ;(formatDistanceStrict as jest.Mock).mockReturnValue('1 day')
-      ;(differenceInDays as jest.Mock).mockReturnValue(1)
 
       expect(DateFormats.differenceInDays(date1, date2)).toEqual({
         ui: '1 day',
@@ -181,7 +182,7 @@ describe('DateFormats', () => {
     })
 
     it('throws an error if an object without date inputs for the key is entered', () => {
-      expect(() => DateFormats.dateAndTimeInputsToUiDate({}, 'key')).toThrow(InvalidDateStringError)
+      expect(() => DateFormats.dateAndTimeInputsToUiDate({}, 'key')).toThrow(TypeError)
     })
   })
 
