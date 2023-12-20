@@ -18,6 +18,11 @@
     "job-title": { "jobTitle": "POM" },
     "contact-number": { "telephone": "1234567" }
   },
+  "information-needed-from-applicant": {
+    "information-needed-from-applicant": {
+      "hasInformationNeeded": "yes"
+    }
+  },
   "area-information": {
     "first-preferred-area": {
       "preferredArea": "London",
