@@ -1,6 +1,7 @@
 import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 import ApplicationClient from './applicationClient'
 import { applicationFactory } from '../testutils/factories'
+import { fullPersonFactory } from '../testutils/factories/person'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -40,8 +41,20 @@ describeClient('ApplicationClient', provider => {
   })
 
   describe('create', () => {
-    it('should return an application when a crn is posted', async () => {
-      const application = applicationFactory.build()
+    it('should return an application when a new application is posted', async () => {
+      const person = fullPersonFactory.build()
+      const application = applicationFactory.build({ person })
+      const newApplication = {
+        crn: person.crn,
+        nomsNumber: person.nomsNumber,
+        pncNumber: person.pncNumber,
+        name: person.name,
+        dateOfBirth: person.dateOfBirth,
+        nationality: person.nationality,
+        sex: person.sex,
+        prisonName: person.prisonName,
+        personStatus: person.status,
+      }
 
       provider.addInteraction({
         state: 'Server is healthy',
@@ -49,9 +62,7 @@ describeClient('ApplicationClient', provider => {
         withRequest: {
           method: 'POST',
           path: paths.applications.new.pattern,
-          body: {
-            crn: application.person.crn,
-          },
+          body: { ...newApplication },
           headers: {
             authorization: `Bearer ${token}`,
           },
@@ -62,7 +73,7 @@ describeClient('ApplicationClient', provider => {
         },
       })
 
-      const result = await applicationClient.create(application.person.crn)
+      const result = await applicationClient.create(newApplication)
 
       expect(result).toEqual(application)
     })

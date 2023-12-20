@@ -23,8 +23,14 @@
 
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
         <input type="hidden" name="name" value="{{ person.name }}"/>
+        <input type="hidden" name="dateOfBirth" value="{{ person.dateOfBirth }}"/>
+        <input type="hidden" name="nationality" value="{{ person.nationality }}"/>
+        <input type="hidden" name="sex" value="{{ person.sex }}"/>
+        <input type="hidden" name="nomsNumber" value="{{ person.nomsNumber }}"/>
+        <input type="hidden" name="prisonName" value="{{ person.prisonName }}"/>
+        <input type="hidden" name="pncNumber" value="{{ person.pncNumber }}"/>
         <input type="hidden" name="crn" value="{{ person.crn }}"/>
-        <input type="hidden" name="prisonNumber" value="{{ person.nomsNumber }}"/>
+        <input type="hidden" name="personStatus" value="{{ person.status }}"/>
 
         <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ pageHeading }}</h1>
 

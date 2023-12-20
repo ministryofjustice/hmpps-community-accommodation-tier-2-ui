@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { AnyValue, Cas2Application as Application, Cas2Application } from '@approved-premises/api'
+import { AnyValue, Cas2Application as Application, Cas2Application, Cas2NewApplication } from '@approved-premises/api'
 import type { DataServices, GroupedApplications } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -12,10 +12,10 @@ import deleteOrphanedFollowOnAnswers from '../utils/applications/deleteOrphanedD
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
 
-  async createApplication(token: string, crn: string): Promise<Application> {
+  async createApplication(token: string, newApplication: Cas2NewApplication): Promise<Application> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const application = await applicationClient.create(crn)
+    const application = await applicationClient.create(newApplication)
 
     return application
   }

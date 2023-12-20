@@ -1,6 +1,7 @@
 import {
   Cas2Application as Application,
   Cas2ApplicationSummary,
+  Cas2NewApplication,
   SubmitCas2Application,
   UpdateApplication,
 } from '@approved-premises/api'
@@ -22,10 +23,12 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async create(crn: string): Promise<Application> {
+  async create(newApplication: Cas2NewApplication): Promise<Application> {
     return (await this.restClient.post({
       path: paths.applications.new.pattern,
-      data: { crn: crn.trim() },
+      data: {
+        ...newApplication,
+      },
     })) as Application
   }
 
