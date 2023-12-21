@@ -1,4 +1,5 @@
 export const getQuestions = (name: string) => {
+  const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
 
   const dateExample = '27 3 2023'
@@ -63,6 +64,14 @@ export const getQuestions = (name: string) => {
         telephone: {
           question: 'What is your contact telephone number?',
           hint: 'This will be used for any communication from the accommodation supplier',
+        },
+      },
+    },
+    'information-needed-from-applicant': {
+      'information-needed-from-applicant': {
+        hasInformationNeeded: {
+          question: 'Have you got all the information you need from the applicant?',
+          answers: yesOrNo,
         },
       },
     },
@@ -359,7 +368,7 @@ export const getQuestions = (name: string) => {
       'exclusion-zones': {
         hasExclusionZones: {
           question: `Does ${name} have any exclusion zones?`,
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         exclusionZonesDetail: {
           question: 'Provide details about the exclusion zone',
@@ -368,7 +377,7 @@ export const getQuestions = (name: string) => {
       'gang-affiliations': {
         hasGangAffiliations: {
           question: `Does ${name} have any gang affiliations?`,
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         gangName: {
           question: 'What is the name of the gang?',
@@ -383,7 +392,7 @@ export const getQuestions = (name: string) => {
       'family-accommodation': {
         familyProperty: {
           question: 'Do they want to apply to live with their children in a family property?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
       },
     },
@@ -461,7 +470,7 @@ export const getQuestions = (name: string) => {
       'substance-misuse': {
         usesIllegalSubstances: {
           question: 'Do they take any illegal substances in custody?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         substanceMisuseHistory: { question: 'What substances do they take?' },
         substanceMisuseDetail: {
@@ -469,54 +478,54 @@ export const getQuestions = (name: string) => {
         },
         engagedWithDrugAndAlcoholService: {
           question: 'Are they engaged with a drug and alcohol service in custody?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         drugAndAlcoholServiceDetail: { question: 'Name the drug and alcohol service' },
         requiresSubstituteMedication: {
           question: 'Do they require any substitute medication for misused substances?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         substituteMedicationDetail: { question: 'What substitute medication do they take?' },
       },
       'physical-health': {
-        hasPhyHealthNeeds: { question: 'Do they have any physical health needs?', answers: { yes: 'Yes', no: 'No' } },
+        hasPhyHealthNeeds: { question: 'Do they have any physical health needs?', answers: yesOrNo },
         needsDetail: { question: 'Please describe their needs.' },
         canClimbStairs: {
           question: 'Can they climb stairs?',
         },
         isReceivingTreatment: {
           question: 'Are they currently receiving any medical treatment for their physical health needs?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         treatmentDetail: { question: 'Describe the treatment they receive for physical health needs' },
         hasPhyHealthMedication: {
           question: 'Are they currently receiving any medication for their physical health needs?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         medicationDetail: { question: 'Describe the medication they receive for physical health needs' },
-        canLiveIndependently: { question: 'Can they live independently?', answers: { yes: 'Yes', no: 'No' } },
+        canLiveIndependently: { question: 'Can they live independently?', answers: yesOrNo },
         indyLivingDetail: { question: 'Describe why they are unable to live independently' },
         requiresAdditionalSupport: {
           question: 'Do they require any additional support?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         addSupportDetail: { question: 'Please describe the types of support.' },
       },
       'mental-health': {
-        hasMentalHealthNeeds: { question: 'Do they have any mental health needs?', answers: { yes: 'Yes', no: 'No' } },
+        hasMentalHealthNeeds: { question: 'Do they have any mental health needs?', answers: yesOrNo },
         needsDetail: { question: 'Please describe their mental health needs.' },
         isEngagedWithCommunity: {
           question: 'Are they engaged with any community mental health services?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         servicesDetail: { question: 'Please state which services.' },
         hasPrescribedMedication: {
           question: 'Are they prescribed any medication for their mental health?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         isInPossessionOfMeds: {
           question: 'Are they in possession of their medication?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         medicationDetail: { question: 'Please list any medications.' },
         medicationIssues: { question: 'Please list any issues they have with taking their medication (optional).' },
@@ -524,72 +533,72 @@ export const getQuestions = (name: string) => {
       'communication-and-language': {
         hasCommunicationNeeds: {
           question: 'Do they have any additional communication needs?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         communicationDetail: { question: 'Please describe their communication needs.' },
-        requiresInterpreter: { question: 'Do they need an interpreter?', answers: { yes: 'Yes', no: 'No' } },
+        requiresInterpreter: { question: 'Do they need an interpreter?', answers: yesOrNo },
         interpretationDetail: { question: 'What language do they need an interpreter for?' },
         hasSupportNeeds: {
           question: 'Do they need any support to see, hear, speak, or understand?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         supportDetail: { question: 'Please describe their support needs.' },
       },
       'learning-difficulties': {
         hasLearningNeeds: {
           question: 'Do they have any additional needs relating to learning difficulties or neurodiversity?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         needsDetail: { question: 'Please describe their additional needs.' },
         isVulnerable: {
           question: 'Are they vulnerable as a result of this condition?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         vulnerabilityDetail: { question: 'Please describe their level of vulnerability.' },
         hasDifficultyInteracting: {
           question: 'Do they have difficulties interacting with other people as a result of this condition?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         interactionDetail: { question: 'Please describe these difficulties.' },
-        requiresAdditionalSupport: { question: 'Is additional support required?', answers: { yes: 'Yes', no: 'No' } },
+        requiresAdditionalSupport: { question: 'Is additional support required?', answers: yesOrNo },
         addSupportDetail: { question: 'Please describe the type of support.' },
       },
       'brain-injury': {
         hasBrainInjury: {
           question: 'Do they have a brain injury?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         injuryDetail: { question: 'Please describe their brain injury and needs.' },
         isVulnerable: {
           question: 'Are they vulnerable as a result of this injury?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         vulnerabilityDetail: { question: 'Please describe their level of vulnerability.' },
         hasDifficultyInteracting: {
           question: 'Do they have difficulties interacting with other people as a result of this injury?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         interactionDetail: { question: 'Please describe these difficulties.' },
-        requiresAdditionalSupport: { question: 'Is additional support required?', answers: { yes: 'Yes', no: 'No' } },
+        requiresAdditionalSupport: { question: 'Is additional support required?', answers: yesOrNo },
         addSupportDetail: { question: 'Please describe the type of support.' },
       },
       'other-health': {
         hasLongTermHealthCondition: {
           question: 'Are they managing any long term health conditions?',
           hint: 'For example, diabetes, arthritis or high blood pressure.',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         healthConditionDetail: {
           question: 'Please describe the long term health conditions.',
         },
-        hasHadStroke: { question: 'Have they experienced a stroke?', answers: { yes: 'Yes', no: 'No' } },
-        hasSeizures: { question: 'Do they experience seizures?', answers: { yes: 'Yes', no: 'No' } },
+        hasHadStroke: { question: 'Have they experienced a stroke?', answers: yesOrNo },
+        hasSeizures: { question: 'Do they experience seizures?', answers: yesOrNo },
         seizuresDetail: {
           question: 'Please describe the type and any treatment.',
         },
         beingTreatedForCancer: {
           question: 'Are they currently receiving regular treatment for cancer?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
       },
     },
@@ -648,7 +657,7 @@ export const getQuestions = (name: string) => {
         hasAdditionalInformation: {
           question: `Is there anything else to include about ${name}'s risk to self?`,
           hint: 'Record any additional information about their risk to self.',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         additionalInformationDetail: { question: 'Additional information' },
       },
@@ -725,7 +734,7 @@ export const getQuestions = (name: string) => {
       'cell-share-information': {
         hasCellShareComments: {
           question: 'Are there any comments to add about cell sharing?',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         cellShareInformationDetail: { question: 'Cell sharing information' },
       },
@@ -739,7 +748,7 @@ export const getQuestions = (name: string) => {
         hasAdditionalInformation: {
           question: `Is there any other risk information for ${name}?`,
           hint: 'If known, state their incentive level, also known as Incentive and Enhanced Privileges (IEP), and any other information about their risk to others.',
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         additionalInformationDetail: { question: 'Additional information' },
       },
@@ -765,7 +774,7 @@ export const getQuestions = (name: string) => {
         },
         outstandingCharges: {
           question: `Are there any outstanding charges?`,
-          answers: { yes: 'Yes', no: 'No' },
+          answers: yesOrNo,
         },
         outstandingChargesDetail: {
           question: 'Details of any outstanding charges',

@@ -13,7 +13,7 @@
 //  Scenario: navigate to task list on completion of task
 //    When I complete the "Contact number" page
 //    And I continue to the next task / page
-//    Then I am taken to the Contact number page
+//    Then I am taken back to the task list
 //    And I see that the referrer details task is complete
 
 import Page from '../../../../pages/page'
