@@ -1,4 +1,5 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
+import { FullPerson } from '../../../../../server/@types/shared/models/FullPerson'
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import { getQuestions } from '../../../../../server/form-pages/utils/questions'
@@ -6,7 +7,19 @@ import { getPage, hasResponseMethod } from '../../../../../server/utils/checkYou
 
 export default class CheckYourAnswersPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Check your answers', application, 'check-your-answers', 'check-your-answers')
+    super('Check your answers before sending your application', application, 'check-your-answers', 'check-your-answers')
+  }
+
+  hasExpectedSummaryData(): void {
+    const person = this.application.person as FullPerson
+
+    cy.get('#application-summary').within(() => {
+      cy.get('li').contains(person.name)
+      cy.get('li').contains(person.nomsNumber)
+      cy.get('li').contains(person.prisonName)
+      cy.get('li').contains(this.application.createdBy.name)
+      cy.get('li').contains(this.application.createdBy.email)
+    })
   }
 
   shouldShowConfirmEligibilityAnswers(): void {

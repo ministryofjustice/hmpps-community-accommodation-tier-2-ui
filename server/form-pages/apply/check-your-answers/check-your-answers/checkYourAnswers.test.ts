@@ -1,10 +1,10 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 
-import { applicationFactory } from '../../../../testutils/factories'
+import { applicationFactory, personFactory, restrictedPersonFactory } from '../../../../testutils/factories'
 import CheckYourAnswers from './checkYourAnswers'
 
 describe('CheckYourAnswers', () => {
-  const application = applicationFactory.build({})
+  let application = applicationFactory.build({})
 
   const body = {
     checkYourAnswers: 'confirmed',
@@ -15,6 +15,54 @@ describe('CheckYourAnswers', () => {
       const page = new CheckYourAnswers(body, application)
 
       expect(page.body).toEqual(body)
+    })
+  })
+
+  describe('title', () => {
+    it('should set the title', () => {
+      const page = new CheckYourAnswers(body, application)
+
+      expect(page.title).toEqual('Check your answers before sending your application')
+    })
+  })
+
+  describe('applicationSummary', () => {
+    it('returns data for application summary', () => {
+      const person = personFactory.build({ name: 'name', nomsNumber: '123', prisonName: 'prison-name' })
+      application = applicationFactory.build({
+        person,
+        createdBy: { email: 'createdByEmail', name: 'createdByName' },
+      })
+
+      const page = new CheckYourAnswers(body, application)
+
+      expect(page.applicationSummary()).toEqual({
+        name: person.name,
+        prisonNumber: person.nomsNumber,
+        prisonName: person.prisonName,
+        referrerName: application.createdBy.name,
+        contactEmail: application.createdBy.email,
+      })
+    })
+
+    describe('when person type is not FullPerson', () => {
+      it('returns data for the application summary', () => {
+        const person = restrictedPersonFactory.build({})
+        application = applicationFactory.build({
+          person,
+          createdBy: { email: 'createdByEmail', name: 'createdByName' },
+        })
+
+        const page = new CheckYourAnswers(body, application)
+
+        expect(page.applicationSummary()).toEqual({
+          name: null,
+          prisonNumber: null,
+          prisonName: null,
+          referrerName: application.createdBy.name,
+          contactEmail: application.createdBy.email,
+        })
+      })
     })
   })
 

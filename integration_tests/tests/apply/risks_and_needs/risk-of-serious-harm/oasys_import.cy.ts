@@ -154,7 +154,7 @@ context('Visit "Risks and needs" section', () => {
     const page = Page.verifyOnPage(OasysImportPage, this.application)
 
     //  And I choose to import and save the data
-    page.clickSubmit()
+    page.clickSubmit('Import and continue')
 
     //  Then we are taken to the RoSH summary page
     Page.verifyOnPage(RoshSummaryPage, this.application)
@@ -204,7 +204,7 @@ context('Visit "Risks and needs" section', () => {
     //  When I continue to the next page
     OasysImportPage.visit(this.application)
     const page = Page.verifyOnPage(OasysImportPage, this.application)
-    page.clickSubmit()
+    page.clickSubmit('Import and continue')
 
     //  Then I see the "RoSH summary" page
     Page.verifyOnPage(RoshSummaryPage, this.application)

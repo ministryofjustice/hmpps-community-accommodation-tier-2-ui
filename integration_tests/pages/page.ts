@@ -32,8 +32,8 @@ export default abstract class Page {
 
   manageDetails = (): PageElement => cy.get('[data-qa=manageDetails]')
 
-  clickSubmit(): void {
-    cy.get('button').click()
+  clickSubmit(text = 'Save and continue'): void {
+    cy.get('button').contains(text).click()
   }
 
   clickContinue(): void {
@@ -121,12 +121,12 @@ export default abstract class Page {
     cy.get('a').contains(label).click()
   }
 
-  shouldShowPrintButton(): void {
-    cy.get('button').contains('Save as PDF')
+  shouldShowPrintButton(text = 'Download as a PDF'): void {
+    cy.get('button').contains(text)
   }
 
   clickPrintButton(): void {
-    cy.get('button').contains('Save as PDF').click()
+    cy.get('button').contains('Download as a PDF').click()
   }
 
   shouldPrint(): void {

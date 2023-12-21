@@ -2,6 +2,8 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+{% from "../../../components/printButton/macro.njk" import printButtonScript, printButton %}
+{% from "../../../components/applicationSummary/macro.njk" import applicationSummary %}
 
 {% from "../../../partials/applicantDetails.njk" import applicantDetails %}
 {% from "../../../partials/showErrorSummary.njk" import showErrorSummary %}
@@ -13,7 +15,8 @@
 {% block beforeContent%}
   {{ govukBackLink({
       text: "Back",
-      href: paths.applications.show({ id: page.application.id })
+      href: paths.applications.show({ id: page.application.id }),
+      classes: "print__hidden"
   }) }}
 {% endblock %}
 
@@ -23,9 +26,23 @@
 
       {{ showErrorSummary(errorSummary) }}
 
-      <h1 class="govuk-heading-xl">
-        {{ page.title }}
-      </h1>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+          <h1 class="govuk-heading-l">
+            {{ page.title }}
+          </h1>
+          <p class="govuk-body-l">Read through this page and check that the information provided for each answer is accurate.</p>
+          <p class="govuk-body-l">Alternatively, you can download a PDF version of this page.</p>
+
+          {{ printButton('Download as a PDF') }}
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+
+      {{ applicationSummary(page.applicationSummary()) }}
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
       {{ applicantDetails(page.application) }}
 
@@ -49,7 +66,7 @@
         {% endfor %}
       {% endfor %}
 
-      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8">
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8 print__hidden">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{
@@ -73,12 +90,24 @@
           )
         }}
 
-        {{ govukButton({
+        <div class="govuk-button-group">
+          {{ govukButton({
           text: "Save and continue",
           preventDoubleClick: true
-        }) }}
+          }) }}
+
+          <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+        </div>
       </form>
+
+      <div class="print__show govuk-!-margin-top-6">
+        <p>I confirm to the best of my knowledge, the information provided in this referral is accurate and, where required, it has been verified by all relevant prison departments.</p>
+      </div>
 
     </div>
   </div>
+{% endblock %}
+
+{% block extraScripts %}
+  {{ printButtonScript(cspNonce) }}
 {% endblock %}
