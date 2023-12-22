@@ -57,7 +57,7 @@ context('Dashboard', () => {
     const page = Page.verifyOnPage(DashboardPage)
 
     //  Then see the correct cards
-    page.shouldShowCards(['referrals', 'new-referral'])
+    page.shouldShowCards(['referrals', 'new-referral', 'submitted-applications'])
   })
 
   //  Scenario: viewing the dashboard page as an assessor

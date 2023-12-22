@@ -12,6 +12,10 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
 
   const { submittedApplicationsController, statusUpdateController } = controllers
 
+  get(paths.submittedApplications.index.pattern, submittedApplicationsController.index(), {
+    auditEvent: 'VIEW_SUBMITTED_APPLICATIONS_LIST',
+  })
+
   get(paths.submittedApplications.show.pattern, submittedApplicationsController.show(), {
     auditEvent: 'VIEW_SUBMITTED_APPLICATION_SHOW',
   })
