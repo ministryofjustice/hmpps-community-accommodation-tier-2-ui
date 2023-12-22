@@ -179,7 +179,7 @@
     "@types/nunjucks": "^3.2.2",
     "@types/passport": "^1.0.12",
     "@types/passport-oauth2": "^1.4.12",
-    "@types/superagent": "^4.1.16",
+    "@types/superagent": "^8.0.0",
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
