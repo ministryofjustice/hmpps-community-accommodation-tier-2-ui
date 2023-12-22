@@ -12,6 +12,32 @@ describeClient('SubmittedApplicationClient', provider => {
     submittedApplicationClient = new SubmittedApplicationClient(token)
   })
 
+  describe('all', () => {
+    it('should return all submitted applications', async () => {
+      const submittedApplications = submittedApplicationFactory.buildList(2)
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request for a submitted application',
+        withRequest: {
+          method: 'GET',
+          path: paths.submissions.index.pattern,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: submittedApplications,
+        },
+      })
+
+      const result = await submittedApplicationClient.all()
+
+      expect(result).toEqual(submittedApplications)
+    })
+  })
+
   describe('find', () => {
     it('should return a submitted application', async () => {
       const submittedApplication = submittedApplicationFactory.build()
