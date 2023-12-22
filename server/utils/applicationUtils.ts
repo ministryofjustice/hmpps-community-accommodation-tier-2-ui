@@ -1,25 +1,33 @@
-import type { Cas2Application as Application } from '@approved-premises/api'
+import type { Cas2Application as Application, FullPerson } from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
-import paths from '../paths/apply'
+import applyPaths from '../paths/apply'
+import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { nameOrPlaceholderCopy } from './utils'
 import { formatLines } from './viewUtils'
 
 export const inProgressApplicationTableRows = (applications: Array<Application>): Array<TableRow> => {
   return applications.map(application => {
+    const person = application.person as FullPerson
     return [
-      nameAnchorElement(nameOrPlaceholderCopy(application.person), application.id),
-      textValue(application.person.crn),
+      nameAnchorElement(nameOrPlaceholderCopy(person), application.id),
+      textValue(person.nomsNumber),
+      textValue(person.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
     ]
   })
 }
 
-export const submittedApplicationTableRows = (applications: Array<Application>): Array<TableRow> => {
+export const submittedApplicationTableRows = (
+  applications: Array<Application>,
+  isAssessPath: boolean = false,
+): Array<TableRow> => {
   return applications.map(application => {
+    const person = application.person as FullPerson
     return [
-      nameAnchorElement(nameOrPlaceholderCopy(application.person), application.id),
-      textValue(application.person.crn),
+      nameAnchorElement(nameOrPlaceholderCopy(person), application.id, isAssessPath),
+      textValue(person.nomsNumber),
+      textValue(person.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
     ]
   })
@@ -42,9 +50,13 @@ const htmlValue = (value: string) => {
   return { html: value }
 }
 
-const nameAnchorElement = (name: string, applicationId: string) => {
+const nameAnchorElement = (name: string, applicationId: string, isAssessPath: boolean = false) => {
   return htmlValue(
-    `<a href=${paths.applications.show({ id: applicationId })} data-cy-id="${applicationId}">${name}</a>`,
+    `<a href=${
+      isAssessPath
+        ? assessPaths.submittedApplications.show({ id: applicationId })
+        : applyPaths.applications.show({ id: applicationId })
+    } data-cy-id="${applicationId}">${name}</a>`,
   )
 }
 
