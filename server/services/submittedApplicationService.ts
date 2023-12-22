@@ -2,6 +2,7 @@ import {
   Cas2SubmittedApplication as SubmittedApplication,
   Cas2ApplicationStatus as ApplicationStatus,
   Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
+  Cas2SubmittedApplicationSummary,
 } from '@approved-premises/api'
 
 import type { SubmittedApplicationClient, ReferenceDataClient, RestClientBuilder } from '../data'
@@ -11,6 +12,14 @@ export default class SubmittedApplicationService {
     private readonly submittedApplicationClientFactory: RestClientBuilder<SubmittedApplicationClient>,
     private readonly referenceDataClientFactory: RestClientBuilder<ReferenceDataClient>,
   ) {}
+
+  async getAll(token: string): Promise<Array<Cas2SubmittedApplicationSummary>> {
+    const applicationClient = this.submittedApplicationClientFactory(token)
+
+    const applications = await applicationClient.all()
+
+    return applications
+  }
 
   async findApplication(token: string, id: string): Promise<SubmittedApplication> {
     const applicationClient = this.submittedApplicationClientFactory(token)
