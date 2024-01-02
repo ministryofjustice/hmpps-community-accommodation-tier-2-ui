@@ -180,7 +180,7 @@
     "@types/passport": "^1.0.12",
     "@types/passport-oauth2": "^1.4.12",
     "@types/superagent": "^8.0.0",
-    "@types/supertest": "^2.0.12",
+    "@types/supertest": "^6.0.0",
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
