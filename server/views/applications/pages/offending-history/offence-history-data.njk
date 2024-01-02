@@ -12,34 +12,39 @@
       {{ showErrorSummary(errorSummary) }}
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
       <div class="govuk-body">
-        <p>You should include:
-            <ul>
-              <li>serious offences from the last 10 years</li>
-              <li>non-serious offences from the last 5 years</li>
-              <li>information related to a pattern of behaviour</li>
-            </ul>
-        <p>
-        <p>Add one offence at a time. For example, you should record 3 drug-related offences as 3 separate offences.</p>
-        <hr class="govuk-section-break govuk-section-break--m">
+        <p>You must include unspent offences involving:
+           <ul>
+            <li>stalking or harassment</li>
+            <li>weapons or firearms</li>
+            <li>arson</li>
+            <li>violence</li>
+            <li>domestic abuse</li>
+            <li>hate crimes</li>
+            <li>drugs</li>
+            <li>any behaviour where the applicant is a risk to themselves or others</li>
+          </ul>
+          <p>
+            <p>Add one offence at a time. For example, you should record 3 drug-related offences as 3 separate offences.</p>
+            <hr class="govuk-section-break govuk-section-break--m">
 
-        <h2 class="govuk-heading-m">Check the offence is not spent</h2>   
-        <p>
+            <h2 class="govuk-heading-m">Check the offence is not spent</h2>
+            <p>
           You should <a href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">check if a caution or conviction is spent (opens in a new tab)</a> first.
         </p>
 
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning</span>
+            <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
             Spent convictions are protected under law and should not be disclosed. If a current risk, such as a restraining order, is linked to a spent conviction, you should add it to the relevant section.
           </strong>
-        </div>
-      </div>
-      <hr class="govuk-section-break govuk-section-break--m">
-      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+            </div>
+          </div>
+          <hr class="govuk-section-break govuk-section-break--m">
+          <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-        {{
+            {{
             formPageInput(
               {
                 label: { 
@@ -56,7 +61,7 @@
             )
         }}
 
-        {{
+            {{
             govukSelect({
                   label: { 
                     text: page.questions.offenceCategory.question,
@@ -70,9 +75,9 @@
                   items: page.offenceCategories,
                   errorMessage: errors.offenceCategory
               })
-        }}        
+        }}
 
-        {{ 
+            {{ 
           formPageDateInput( {
             hint: {
               text: page.questions.offenceDate.hint
@@ -89,7 +94,7 @@
             fetchContext()) 
         }}
 
-        {{
+            {{
             formPageInput(
               {
                 label: { 
@@ -106,7 +111,7 @@
             )
         }}
 
-        {{
+            {{
             formPageTextArea(
               {
                 fieldName: "summary",
@@ -122,41 +127,41 @@
             )
         }}
 
-        <div>
-          {{ govukButton({
+            <div>
+              {{ govukButton({
             id: "add-another",
             text: "Save and add another",
             classes: "govuk-button--secondary govuk-!-margin-bottom-4"
           }) }}
-        </div>
+            </div>
 
-        {% block button %}
-          <div class="govuk-button-group">
-            {{ govukButton({
+            {% block button %}
+              <div class="govuk-button-group">
+                {{ govukButton({
                   text: "Save and continue"
               }) }}
-            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history' }) }}">
+                <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history' }) }}">
                 Cancel
             </a>
-          </div>
-        {% endblock %}
-      </form>
-    </div>
-  </div>
+              </div>
+            {% endblock %}
+          </form>
+        </div>
+      </div>
 
-{% endblock %}
+    {% endblock %}
 
-{% block extraScripts %}
-  <script type="text/javascript" nonce="{{ cspNonce }}">
-    function addRedirect(event) {
-      const form = document.getElementById('form')
-      form.action = form.action + '&redirectPage=offence-history-data'
-    }
+    {% block extraScripts %}
+      <script type="text/javascript" nonce="{{ cspNonce }}">
+        function addRedirect(event) {
+          const form = document.getElementById('form')
+          form.action = form.action + '&redirectPage=offence-history-data'
+        }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document
-        .getElementById('add-another')
-        .addEventListener('click', (event) => addRedirect(event));
-    });
-  </script>
-{% endblock %}
+        document.addEventListener('DOMContentLoaded', function () {
+          document
+            .getElementById('add-another')
+            .addEventListener('click', (event) => addRedirect(event));
+        });
+      </script>
+    {% endblock %}
