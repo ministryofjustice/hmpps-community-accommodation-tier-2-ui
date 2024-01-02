@@ -6,14 +6,14 @@ export const sections = {
   referral: {
     id: 'referrals',
     title: 'View referrals',
-    description: 'View all in progress and submitted referrals.',
+    description: 'View all in progress and submitted CAS-2 referrals.',
     shortTitle: 'Referrals',
     href: paths.applications.index({}),
   },
   newReferral: {
     id: 'new-referral',
-    title: 'New referral',
-    description: 'Make a new CAS-2 referral.',
+    title: 'Start a new referral',
+    description: 'Start a new CAS-2 referral for a HDC applicant.',
     shortTitle: 'New referral',
     href: paths.applications.beforeYouStart({}),
   },
