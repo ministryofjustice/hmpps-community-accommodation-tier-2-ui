@@ -41,7 +41,6 @@ export default {
     create: singleSubmissionPath.path('status-updates'),
   },
   reports: {
-    exampleReport: reportsPath.path('example-report'),
     show: singleReportPath,
   },
 }
