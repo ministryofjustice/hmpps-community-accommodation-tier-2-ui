@@ -29,7 +29,7 @@
               text: "Protective factors can counteract negative influences. Individual protective factors include education, employment, leisure activities, goals and ambitions. Community and family protective factors include receiving professional support and having positive (prosocial) relationships."
         }) }}
       </div>
-      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post">
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{

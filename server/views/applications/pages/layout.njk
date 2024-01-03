@@ -32,7 +32,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
-      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post">
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{ showErrorSummary(errorSummary) }}
