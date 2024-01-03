@@ -273,7 +273,7 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
     },
     {
       key: {
-        text: 'NDelius CRN number',
+        text: 'CRN from nDelius',
       },
       value: {
         html: crn,
