@@ -160,6 +160,7 @@
     "reflect-metadata": "^0.2.0",
     "static-path": "^0.0.4",
     "superagent": "^8.0.9",
+    "swagger-mock-validator": "^10.1.4",
     "url-value-parser": "^2.2.0",
     "uuid": "^9.0.0"
   },
