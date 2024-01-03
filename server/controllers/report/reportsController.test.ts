@@ -28,10 +28,6 @@ describe('reportsController', () => {
 
   describe('new', () => {
     it('renders the template', async () => {
-      const applicationId = 'some-id'
-
-      request.params.id = applicationId
-
       const requestHandler = reportsController.new()
 
       await requestHandler(request, response, next)
@@ -41,12 +37,6 @@ describe('reportsController', () => {
   })
 
   describe('create', () => {
-    const applicationId = 'some-id'
-
-    beforeEach(() => {
-      request.params.id = applicationId
-    })
-
     it('calls the service method to download the report', async () => {
       const requestHandler = reportsController.create()
 
