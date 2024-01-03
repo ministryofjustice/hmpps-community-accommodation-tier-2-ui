@@ -9,6 +9,7 @@ const submissionsPath = path('/cas2/submissions')
 const singleSubmissionPath = submissionsPath.path(':id')
 const referenceDataPath = path('/cas2/reference-data')
 const reportsPath = path('/cas2/reports')
+const singleReportPath = reportsPath.path(':name')
 
 export default {
   people: {
@@ -41,5 +42,6 @@ export default {
   },
   reports: {
     exampleReport: reportsPath.path('example-report'),
+    show: singleReportPath,
   },
 }

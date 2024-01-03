@@ -1,20 +1,21 @@
 {% extends "../partials/layout.njk" %}
 
-{% block pageTitle %}
-{% endblock %}
+{% block pageTitle %}{% endblock %}
 
 {% block content %}
-<div class="govuk-grid-row">
-  <h1 class="govuk-heading-l">Reports</h1>
-  <p>Download a report</p>
+  <div class="govuk-grid-row">
+    <h1 class="govuk-heading-l">Reports</h1>
+    <p>Download a report</p>
 
-  {% block button %}
-    <div class="govuk-button-group">
-      {{ govukButton({
-              text: "Download report",
-              href: paths.report.create()
+    {% block button %}
+      <div class="govuk-button-group">
+        {{ govukButton({
+              text: "Submitted applications",
+              href: paths.report.create({
+                      name: "submitted-applications"
+                    })
       }) }}
-    </div>
-  {% endblock %}
-</div>
+      </div>
+    {% endblock %}
+  </div>
 {% endblock %}

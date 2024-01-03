@@ -16,15 +16,15 @@ describeClient('ReportClient', provider => {
   })
 
   describe('getReport', () => {
-    it('should pipe the report from the API', async () => {
+    it('should pipe the requested report from the API', async () => {
       const response = createMock<Response>({})
 
       provider.addInteraction({
         state: 'Server is healthy',
-        uponReceiving: 'A request to get application reports ',
+        uponReceiving: 'A request to get an application report',
         withRequest: {
           method: 'GET',
-          path: paths.reports.exampleReport({}),
+          path: paths.reports.show({ name: 'report-name' }),
           query: {},
           headers: {
             authorization: `Bearer ${token}`,
@@ -35,11 +35,11 @@ describeClient('ReportClient', provider => {
         },
       })
 
-      await client.getReport(response)
+      await client.getReport('report-name', response)
 
       expect(response.set).toHaveBeenCalledWith(
         'Content-Disposition',
-        `attachment; filename="cas2-example-report.xlsx"`,
+        `attachment; filename="cas2-report-name-report.xlsx"`,
       )
     })
   })

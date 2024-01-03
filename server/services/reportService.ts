@@ -7,9 +7,9 @@ import ReportClient from '../data/reportClient'
 export default class ReportService {
   constructor(private readonly reportClientFactory: RestClientBuilder<ReportClient>) {}
 
-  async getReport(token: string, response: Response): Promise<void> {
+  async getReport(name: string, token: string, response: Response): Promise<void> {
     const client = this.reportClientFactory(token)
 
-    return client.getReport(response)
+    return client.getReport(name, response)
   }
 }
