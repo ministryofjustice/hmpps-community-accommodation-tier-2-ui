@@ -1,6 +1,7 @@
 import { ServiceSection } from '@approved-premises/ui'
 
-import paths from '../paths/apply'
+import applyPaths from '../paths/apply'
+import assessPaths from '../paths/assess'
 
 export const sections = {
   referral: {
@@ -8,19 +9,26 @@ export const sections = {
     title: 'View referrals',
     description: 'View all in progress and submitted referrals.',
     shortTitle: 'Referrals',
-    href: paths.applications.index({}),
+    href: applyPaths.applications.index({}),
   },
   newReferral: {
     id: 'new-referral',
     title: 'New referral',
     description: 'Make a new CAS-2 referral.',
     shortTitle: 'New referral',
-    href: paths.applications.beforeYouStart({}),
+    href: applyPaths.applications.beforeYouStart({}),
+  },
+  submittedApplications: {
+    id: 'submitted-applications',
+    title: 'Submitted applications',
+    description: 'View all CAS-2 submitted applications',
+    shortTitle: 'Submitted applications',
+    href: assessPaths.submittedApplications.index.pattern,
   },
 }
 
 export const hasRole = (userRoles: Array<string>, role: string): boolean => {
-  return (userRoles || []).includes(role)
+  return userRoles.includes(role)
 }
 
 export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection> => {
@@ -29,6 +37,9 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   if (hasRole(userRoles, 'ROLE_POM') || hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
     items.push(sections.referral)
     items.push(sections.newReferral)
+  }
+  if (hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
+    items.push(sections.submittedApplications)
   }
 
   return Array.from(new Set(items))

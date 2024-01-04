@@ -23,6 +23,7 @@ export default {
     },
   },
   submissions: {
+    index: submissionsPath,
     create: submissionsPath,
     show: singleSubmissionPath,
   },

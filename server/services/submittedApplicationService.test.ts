@@ -1,6 +1,7 @@
 import SubmittedApplicationService from './submittedApplicationService'
 
 import { submittedApplicationFactory, applicationStatusFactory } from '../testutils/factories'
+import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 import { ReferenceDataClient, SubmittedApplicationClient } from '../data'
 
 jest.mock('../data/submittedApplicationClient.ts')
@@ -23,6 +24,20 @@ describe('SubmittedApplicationService', () => {
     jest.resetAllMocks()
     submittedApplicationClientFactory.mockReturnValue(submittedApplicationClient)
     referenceDataClientFactory.mockReturnValue(referenceDataClient)
+  })
+
+  describe('getAll', () => {
+    it('calls APIs index method and returns all submitted applications', async () => {
+      const submittedApplicationSummaries = submittedApplicationSummary.buildList(2)
+      submittedApplicationClient.all.mockResolvedValue(submittedApplicationSummaries)
+
+      const result = await service.getAll(token)
+
+      expect(result).toEqual(submittedApplicationSummaries)
+
+      expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
+      expect(submittedApplicationClient.all).toHaveBeenCalled()
+    })
   })
 
   describe('findApplication', () => {

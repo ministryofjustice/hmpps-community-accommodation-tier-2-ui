@@ -19,6 +19,18 @@ export default {
         jsonBody: args.application,
       },
     }),
+  stubSubmittedApplicationsGet: (args: { applications: Array<SubmittedApplication> }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: `/cas2/submissions`,
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.applications,
+      },
+    }),
   stubCreateApplicationStatusUpdate: (args: {
     application: SubmittedApplication
     status: ApplicationStatusUpdate

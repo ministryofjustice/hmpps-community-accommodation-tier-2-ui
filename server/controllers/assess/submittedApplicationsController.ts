@@ -5,6 +5,17 @@ import SubmittedApplicationService from '../../services/submittedApplicationServ
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
 
+  index(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const applications = await this.submittedApplicationService.getAll(req.user.token)
+
+      return res.render('assess/applications/index', {
+        applications,
+        pageHeading: 'Submitted Applications',
+      })
+    }
+  }
+
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
