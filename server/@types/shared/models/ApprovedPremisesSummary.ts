@@ -7,7 +7,9 @@ import type { PremisesSummary } from './PremisesSummary';
 
 export type ApprovedPremisesSummary = (PremisesSummary & {
     apCode?: string;
+    probationRegion?: string;
 } & {
     apCode: string;
+    probationRegion: string;
 });
 
