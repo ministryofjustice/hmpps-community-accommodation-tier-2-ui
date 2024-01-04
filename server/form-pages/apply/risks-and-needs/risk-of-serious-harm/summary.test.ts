@@ -141,7 +141,7 @@ describe('Summary', () => {
     }
 
     const expectedResponse = {
-      'Over all risk rating': roshSummaryData.value.overallRisk,
+      'Overall risk rating': roshSummaryData.value.overallRisk,
       'Risk to children': roshSummaryData.value.riskToChildren,
       'Risk to known adult': roshSummaryData.value.riskToKnownAdult,
       'Risk to public': roshSummaryData.value.riskToPublic,

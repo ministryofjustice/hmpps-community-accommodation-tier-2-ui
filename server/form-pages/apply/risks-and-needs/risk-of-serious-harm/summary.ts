@@ -80,7 +80,7 @@ export default class Summary implements TaskListPage {
     if (this.isSummaryDataRetrieved(this.application)) {
       const riskRatings = this.application.data['risk-of-serious-harm']['summary-data'].value
       response = {
-        'Over all risk rating': riskRatings.overallRisk,
+        'Overall risk rating': riskRatings.overallRisk,
         'Risk to children': riskRatings.riskToChildren,
         'Risk to known adult': riskRatings.riskToKnownAdult,
         'Risk to public': riskRatings.riskToPublic,
