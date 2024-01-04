@@ -206,6 +206,7 @@ export type { SupervisingOfficer } from './models/SupervisingOfficer';
 export type { SupervisingProvider } from './models/SupervisingProvider';
 export type { SupervisingTeam } from './models/SupervisingTeam';
 export type { Task } from './models/Task';
+export type { TaskSortField } from './models/TaskSortField';
 export type { TaskStatus } from './models/TaskStatus';
 export type { TaskType } from './models/TaskType';
 export type { TaskWrapper } from './models/TaskWrapper';
