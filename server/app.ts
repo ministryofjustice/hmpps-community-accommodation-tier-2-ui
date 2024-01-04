@@ -38,7 +38,6 @@ export default function createApp(controllers: Controllers, services: Services):
   // Add method-override to allow us to use PUT and DELETE methods
   app.use(methodOverride('_method'))
 
-  app.use(setUpMaintenancePageRedirect())
   app.use(metricsMiddleware)
   app.use(setUpHealthChecks())
   app.use(setUpWebSecurity())
@@ -51,6 +50,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(setUpCsrf())
   app.use(setUpCurrentUser(services))
 
+  app.use(setUpMaintenancePageRedirect())
   app.use((req, res, next) => {
     res.app.locals.infoMessages = req.flash('info')
     res.app.locals.successMessages = req.flash('success')
