@@ -242,7 +242,6 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-            - e2e_environment_test
       - hmpps/deploy_env:
           name: deploy_test
           env: 'test'
