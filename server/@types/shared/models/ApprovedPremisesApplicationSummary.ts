@@ -2,11 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { ApplicationSummary } from './ApplicationSummary';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { PersonRisks } from './PersonRisks';
-
 export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;

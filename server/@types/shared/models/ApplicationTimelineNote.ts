@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 /**
  * Notes added to an application
  */
