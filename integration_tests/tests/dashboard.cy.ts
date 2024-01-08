@@ -18,6 +18,11 @@
 //      Given I am logged in as an assessor
 //      When I visit the dashboard page
 //      Then I see no cards
+//
+//  Scenario: viewing the dashboard page as an Management Info user
+//      Given I am logged in as an MI user
+//      When I visit the dashboard page
+//      Then I see the management info report downloads card
 
 import DashboardPage from '../pages/dashboardPage'
 import Page from '../pages/page'
@@ -73,5 +78,20 @@ context('Dashboard', () => {
 
     //  Then I see no cards
     page.shouldNotShowCards(['referrals', 'new-referral'])
+  })
+
+  //  Scenario: viewing the dashboard page as an Management Info user
+  it('Management info user sees reports download tile', () => {
+    // Given I am logged in as an MI user
+    cy.task('stubSignIn', ['ROLE_CAS2_MI'])
+    cy.task('stubAuthUser')
+    cy.signIn()
+
+    // When I visit the dashboard page
+    DashboardPage.visit()
+    const page = Page.verifyOnPage(DashboardPage)
+
+    // Then I see the management info report downloads card
+    page.shouldShowCards(['management-information-reports'])
   })
 })
