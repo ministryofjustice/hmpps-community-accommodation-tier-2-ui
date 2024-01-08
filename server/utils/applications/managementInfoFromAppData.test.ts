@@ -1,4 +1,4 @@
-import { preferredAreasFromAppData } from './managementInfoFromAppData'
+import { preferredAreasFromAppData, hdcEligibilityDateFromAppData } from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
 
@@ -38,6 +38,28 @@ describe('managementInfoFromAppData', () => {
         },
       })
       expect(preferredAreasFromAppData(application)).toEqual('Bradford')
+    })
+  })
+
+  describe('hdcEligibilityDateFromAppData', () => {
+    it('returns the given date', () => {
+      const application = applicationFactory.build({
+        data: {
+          'hdc-licence-and-cpp-details': {
+            'hdc-licence-dates': { hdcEligibilityDate: '2024-02-27' },
+          },
+        },
+      })
+      expect(hdcEligibilityDateFromAppData(application)).toEqual('2024-02-27')
+    })
+
+    it('returns null if no date is given', () => {
+      const application = applicationFactory.build({
+        data: {
+          'hdc-licence-and-cpp-details': null,
+        },
+      })
+      expect(hdcEligibilityDateFromAppData(application)).toEqual(null)
     })
   })
 })

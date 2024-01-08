@@ -12,4 +12,12 @@ const preferredAreasFromAppData = (application: Application): string => {
   return [firstPreference, secondPreference].filter(x => x).join(' | ')
 }
 
-export { preferredAreasFromAppData }
+const hdcEligibilityDateFromAppData = (application: Application): string => {
+  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-and-cpp-details']?.[
+    'hdc-licence-dates'
+  ]?.hdcEligibilityDate
+
+  return date || null
+}
+
+export { preferredAreasFromAppData, hdcEligibilityDateFromAppData }
