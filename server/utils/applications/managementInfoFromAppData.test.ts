@@ -1,4 +1,8 @@
-import { preferredAreasFromAppData, hdcEligibilityDateFromAppData } from './managementInfoFromAppData'
+import {
+  preferredAreasFromAppData,
+  hdcEligibilityDateFromAppData,
+  conditionalReleaseDateFromAppData,
+} from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
 
@@ -60,6 +64,28 @@ describe('managementInfoFromAppData', () => {
         },
       })
       expect(hdcEligibilityDateFromAppData(application)).toEqual(null)
+    })
+  })
+
+  describe('conditionalReleaseDateFromAppData', () => {
+    it('returns the given date', () => {
+      const application = applicationFactory.build({
+        data: {
+          'hdc-licence-and-cpp-details': {
+            'hdc-licence-dates': { conditionalReleaseDate: '2024-03-15' },
+          },
+        },
+      })
+      expect(conditionalReleaseDateFromAppData(application)).toEqual('2024-03-15')
+    })
+
+    it('returns null if no date is given', () => {
+      const application = applicationFactory.build({
+        data: {
+          'hdc-licence-and-cpp-details': null,
+        },
+      })
+      expect(conditionalReleaseDateFromAppData(application)).toEqual(null)
     })
   })
 })

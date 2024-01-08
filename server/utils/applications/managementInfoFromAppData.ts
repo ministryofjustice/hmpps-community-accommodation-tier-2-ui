@@ -20,4 +20,12 @@ const hdcEligibilityDateFromAppData = (application: Application): string => {
   return date || null
 }
 
-export { preferredAreasFromAppData, hdcEligibilityDateFromAppData }
+const conditionalReleaseDateFromAppData = (application: Application): string => {
+  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-and-cpp-details']?.[
+    'hdc-licence-dates'
+  ]?.conditionalReleaseDate
+
+  return date || null
+}
+
+export { preferredAreasFromAppData, hdcEligibilityDateFromAppData, conditionalReleaseDateFromAppData }
