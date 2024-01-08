@@ -154,6 +154,7 @@ export type { OfflineApplicationSummary } from './models/OfflineApplicationSumma
 export type { Person } from './models/Person';
 export type { PersonAcctAlert } from './models/PersonAcctAlert';
 export type { PersonRisks } from './models/PersonRisks';
+export type { PersonStatus } from './models/PersonStatus';
 export type { PersonType } from './models/PersonType';
 export type { PlacementApplication } from './models/PlacementApplication';
 export type { PlacementApplicationDecision } from './models/PlacementApplicationDecision';
