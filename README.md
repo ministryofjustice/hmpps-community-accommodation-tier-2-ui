@@ -1,4 +1,5 @@
 # Community Accommodation Service Tier-2 UI
+
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-community-accommodation-tier-2-ui)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-community-accommodation-tier-2-ui "Link to report")
 [![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-community-accommodation-tier-2-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-community-accommodation-tier-2-ui)
 
@@ -40,6 +41,7 @@ After following the set up the common commands are:
 ```bash
 ap-tools server start --local-ui --local-api
 ```
+
 (remove the `local-ui` or `local-api` flags as needed)
 
 The service should then be available at <http://localhost:3000>
@@ -57,7 +59,6 @@ tools](https://github.com/ministryofjustice/hmpps-approved-premises-tools#start-
 
 TBD
 
-
 ## Run linter
 
 `npm run lint`
@@ -71,7 +72,7 @@ TBD
 Tun tests in headless mode with:
 
 `npm run test:integration`
- 
+
 Or run tests with the cypress UI:
 
 `npm run test:integration:ui`
@@ -80,6 +81,12 @@ Or run tests with the cypress UI:
 
 End to end tests for this project can be found [in a seperate repo](https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-e2e).
 
+## Enable maintenance mode
+
+Set the environment variable `IN_MAINTENANCE_MODE` to true in the helm values of
+the intended environment and all traffic will be redirected to a static page.
+
+Users with the `CAS2_ADMIN` role are an exception to this for testing purposes.
 
 ## Manage infrastructure & view logs
 
