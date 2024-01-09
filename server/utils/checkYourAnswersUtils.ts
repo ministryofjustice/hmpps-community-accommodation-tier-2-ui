@@ -136,21 +136,27 @@ export const summaryListItemForQuestion = (
   pageKey: string,
   questionAndAnswer: Record<string, string>,
 ) => {
+  const nonEditablePages = ['summary']
+  const nonEditableQuestions = ['OASys started', 'OASys completed', 'OASys imported']
+
   const { question, answer } = questionAndAnswer
+
+  const actions = {
+    items: [
+      {
+        href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
+        text: 'Change',
+        visuallyHiddenText: question,
+      },
+    ],
+  }
+
   return {
     key: {
       html: question,
     },
     value: { html: formatLines(answer as string) },
-    actions: {
-      items: [
-        {
-          href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
-          text: 'Change',
-          visuallyHiddenText: question,
-        },
-      ],
-    },
+    ...(nonEditablePages.includes(pageKey) || nonEditableQuestions.includes(question) ? {} : { actions }),
   }
 }
 

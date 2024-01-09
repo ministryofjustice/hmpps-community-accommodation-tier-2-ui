@@ -433,6 +433,19 @@ describe('checkYourAnswersUtils', () => {
 
       expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
     })
+
+    describe('when the question is OASys imported', () => {
+      it('returns the task response as a Summary List item without the actions object', () => {
+        const question = { question: 'OASys imported', answer: 'an answer' }
+
+        const expected = {
+          key: { html: 'OASys imported' },
+          value: { html: 'an answer' },
+        }
+
+        expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
+      })
+    })
   })
 
   describe('getSections', () => {
