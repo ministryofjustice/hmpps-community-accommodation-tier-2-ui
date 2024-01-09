@@ -167,7 +167,7 @@ export const getSections = (): Array<FormSection> => {
 }
 
 export const getPages = (application: Application, task: string) => {
-  const pagesWithoutQuestions = ['summary', 'summary-data']
+  const pagesWithoutQuestions = ['summary-data', 'oasys-import']
   const pages = application.data[task]
 
   // TODO: Remove the early return before we go live (or feature flag for testing)
@@ -182,7 +182,7 @@ export const getPages = (application: Application, task: string) => {
 }
 
 const containsQuestions = (questionKeys: Array<string>): boolean => {
-  if (!questionKeys.length || (questionKeys.length === 1 && questionKeys[0] === 'oasysImportDate')) {
+  if (!questionKeys.length) {
     return false
   }
   return true
