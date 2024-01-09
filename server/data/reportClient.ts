@@ -12,13 +12,13 @@ export default class ReportClient {
     this.restClient = new RestClient('reportClient', config.apis.approvedPremises as ApiConfig, token)
   }
 
-  async getReport(response: Response): Promise<void> {
-    const filename = `cas2-example-report.xlsx`
+  async getReport(name: string, response: Response): Promise<void> {
+    const filename = `cas2-${name}-report.xlsx`
     response.set('Content-Disposition', `attachment; filename="${filename}"`)
 
     await this.restClient.pipe(
       {
-        path: paths.reports.exampleReport({}),
+        path: paths.reports.show({ name }),
       },
       response,
     )

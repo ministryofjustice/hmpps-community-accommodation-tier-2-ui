@@ -10,6 +10,7 @@ jest.mock('../../utils/validation')
 
 describe('reportsController', () => {
   const token = 'SOME_TOKEN'
+  const name = 'report-name'
 
   let request: DeepMocked<Request> = createMock<Request>({ user: { token } })
   let response: DeepMocked<Response> = createMock<Response>({})
@@ -21,17 +22,13 @@ describe('reportsController', () => {
 
   beforeEach(() => {
     reportsController = new ReportsController(reportService)
-    request = createMock<Request>({ user: { token } })
+    request = createMock<Request>({ user: { token }, params: { name } })
     response = createMock<Response>({})
     jest.clearAllMocks()
   })
 
   describe('new', () => {
     it('renders the template', async () => {
-      const applicationId = 'some-id'
-
-      request.params.id = applicationId
-
       const requestHandler = reportsController.new()
 
       await requestHandler(request, response, next)
@@ -41,18 +38,14 @@ describe('reportsController', () => {
   })
 
   describe('create', () => {
-    const applicationId = 'some-id'
-
-    beforeEach(() => {
-      request.params.id = applicationId
-    })
-
-    it('calls the service method to download the report', async () => {
+    it('calls the service method with the name of the report to download', async () => {
       const requestHandler = reportsController.create()
 
       await requestHandler(request, response, next)
 
-      expect(reportService.getReport).toHaveBeenCalledWith(token, response)
+      expect(paths.report.create({ name })).toEqual('/reports/report-name')
+
+      expect(reportService.getReport).toHaveBeenCalledWith(name, token, response)
     })
 
     it('redirects back to new if there is an error', async () => {
