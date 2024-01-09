@@ -2,9 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { CharacteristicPair } from './CharacteristicPair';
-
 export type BedSearchResultPremisesSummary = {
     id: string;
     name: string;
