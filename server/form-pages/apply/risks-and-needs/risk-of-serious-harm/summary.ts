@@ -26,7 +26,7 @@ export default class Summary implements TaskListPage {
 
   body: SummaryBody
 
-  risks: SummaryData & { lastUpdated: string }
+  risks: SummaryData
 
   questions: {
     additionalComments: string
@@ -45,9 +45,6 @@ export default class Summary implements TaskListPage {
       const summaryData = application.data['risk-of-serious-harm']['summary-data'] as SummaryData
       this.risks = {
         ...summaryData,
-        lastUpdated: summaryData.value?.lastUpdated
-          ? DateFormats.isoDateToUIDate(summaryData.value.lastUpdated, { format: 'medium' })
-          : null,
       }
     }
     const roshQuestions = getQuestions(this.personName)['risk-of-serious-harm']

@@ -670,7 +670,6 @@ export const getQuestions = (name: string) => {
         riskToPublic: { question: 'Risk to the public' },
         riskToKnownAdult: { question: 'Risk to a known adult' },
         riskToStaff: { question: 'Risk to staff' },
-        lastUpdated: { question: 'Last updated' },
         additionalComments: { question: 'Additional comments (optional)' },
       },
       'risk-to-others': {
