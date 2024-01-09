@@ -1,30 +1,30 @@
 /* eslint-disable no-param-reassign */
 /* istanbul ignore file */
 
-import * as pathModule from 'path'
-import nunjucks from 'nunjucks'
 import express from 'express'
+import nunjucks from 'nunjucks'
+import * as pathModule from 'path'
 
-import { PersonStatus, ErrorMessages } from '@approved-premises/ui'
+import { ErrorMessages, PersonStatus } from '@approved-premises/ui'
+import config from '../config'
 import applicationPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportPaths from '../paths/report'
-import config from '../config'
-import { initialiseName, removeBlankSummaryListItems } from './utils'
 import staticPaths from '../paths/static'
 import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
   submittedApplicationTableRows,
 } from './applicationUtils'
-import * as TaskListUtils from './taskListUtils'
-import * as OasysImportUtils from './oasysImportUtils'
-import { dateFieldValues } from './formUtils'
-import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
-import { DateFormats } from './dateUtils'
 import { getApplicationTimelineEvents } from './applications/utils'
 import { applicationStatusRadios } from './assessUtils'
+import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
+import { DateFormats } from './dateUtils'
+import { dateFieldValues } from './formUtils'
+import * as OasysImportUtils from './oasysImportUtils'
 import { statusTag } from './personUtils'
+import * as TaskListUtils from './taskListUtils'
+import { initialiseName, removeBlankSummaryListItems } from './utils'
 
 const production = process.env.NODE_ENV === 'production'
 
