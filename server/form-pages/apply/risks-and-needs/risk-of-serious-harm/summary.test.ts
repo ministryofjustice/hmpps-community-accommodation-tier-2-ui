@@ -49,7 +49,7 @@ describe('Summary', () => {
       it('sets the risks to undefined', () => {
         const roshSummaryDataWithoutValue = {
           status: 'not_found' as const,
-          dateOfOasysImport: new Date('2023-09-15'),
+          oasysImportedDate: new Date('2023-09-15'),
         } as SummaryData
 
         const page = new Summary(
@@ -68,7 +68,7 @@ describe('Summary', () => {
       it('sets the risks to undefined', () => {
         const roshSummaryDataWithoutValue = {
           status: 'retrieved' as const,
-          dateOfOasysImport: new Date('2023-09-15'),
+          oasysImportedDate: new Date('2023-09-15'),
         } as SummaryData
 
         const page = new Summary(

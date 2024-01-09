@@ -88,8 +88,8 @@ export function pageDataFromApplication(Page: TaskListPageInterface, application
 }
 
 export function getOasysImportDateFromApplication(application: Application, taskName: string): string | null {
-  if (application.data?.[taskName]?.['oasys-import']?.oasysImportDate) {
-    return DateFormats.isoDateToUIDate(application.data?.[taskName]?.['oasys-import']?.oasysImportDate, {
+  if (application.data?.[taskName]?.['oasys-import']?.oasysImportedDate) {
+    return DateFormats.isoDateToUIDate(application.data?.[taskName]?.['oasys-import']?.oasysImportedDate, {
       format: 'medium',
     })
   }
