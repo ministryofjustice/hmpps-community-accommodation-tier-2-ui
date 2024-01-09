@@ -7,7 +7,7 @@ export default function populateCurrentUser(userService: UserService): RequestHa
   return async (req, res, next) => {
     try {
       if (res.locals.user) {
-        const user = res.locals.user && (await userService.getUser(res.locals.user.token))
+        const user = await userService.getUser(res.locals.user.token)
         const { authorities: roles = [] } = jwtDecode(res.locals.user.token) as { authorities?: string[] }
         if (user) {
           res.locals.user = { ...user, ...res.locals.user, roles }
