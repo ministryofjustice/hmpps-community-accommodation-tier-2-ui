@@ -3,7 +3,7 @@ import Page from '../page'
 
 export default class BeforeYouStartPage extends Page {
   constructor(name: string) {
-    super('Apply for a CAS-2 placement', name)
+    super('Apply for Short-Term Accommodation (CAS-2)', name)
   }
 
   static visit(name: string): BeforeYouStartPage {
@@ -14,7 +14,7 @@ export default class BeforeYouStartPage extends Page {
 
   shouldShowApplicationGuidance(): void {
     cy.get('p').contains(
-      'Community Accommodation Service Tier 2 (CAS-2) provides housing for people who do not have a suitable address for the term of their licence or Bail Order.',
+      'Community Accommodation Service Tier 2 provides housing for people who do not have a suitable address for the term of their licence or Bail Order.',
     )
 
     cy.get('h2').contains('Before you start')
