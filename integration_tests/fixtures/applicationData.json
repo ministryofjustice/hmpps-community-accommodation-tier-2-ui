@@ -192,13 +192,17 @@
     }
   },
   "risk-to-self": {
-    "oasys-import": { "oasysImportDate": "2023-09-21T15:47:51.430Z" },
-    "vulnerability": {
-      "vulnerabilityDetail": "example answer vulnerability",
-      "confirmation": "confirmed"
+    "oasys-import": {
+      "oasysImportedDate": "2023-09-21T15:47:51.430Z",
+      "oasysStartedDate": "2023-09-10",
+      "oasysCompletedDate": "2023-09-11"
     },
     "current-risk": {
-      "currentRiskDetail": "example answer current risk",
+      "currentRiskDetail": "[R8.1.1] Review 06.10.21:\r\n\r\n        There have been numerous ACCTs opened since 2013 and every subsequent year he has been in custody.  In 2021...",
+      "confirmation": "confirmed"
+    },
+    "vulnerability": {
+      "vulnerabilityDetail": "example answer vulnerability",
       "confirmation": "confirmed"
     },
     "historical-risk": {
@@ -233,16 +237,18 @@
     }
   },
   "risk-of-serious-harm": {
-    "oasys-import": { "oasysImportDate": "2023-09-21T15:47:51.430Z" },
+    "oasys-import": { "oasysImportedDate": "2023-09-21T15:47:51.430Z" },
     "summary-data": {
-      "dateOfOasysImport": "2023-09-21T15:47:51.430Z",
+      "oasysImportedDate": "2023-09-21T15:47:51.430Z",
+      "oasysStartedDate": "2023-09-10",
+      "oasysCompletedDate": "2023-09-11",
       "status": "retrieved",
       "value": {
         "overallRisk": "High",
         "riskToChildren": "High",
         "riskToPublic": "Very High",
         "riskToKnownAdult": "Medium",
-        "riskToStaff": "Low",
+        "riskToStaff": "Low"
       }
     },
     "summary": {
