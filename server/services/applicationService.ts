@@ -58,6 +58,10 @@ export default class ApplicationService {
       const application = await this.findApplication(request.user.token, request.params.id)
       const client = this.applicationClientFactory(request.user.token)
 
+      if (typeof page.onSave === 'function') {
+        page.onSave()
+      }
+
       const pageName = getPageName(page.constructor)
       const taskName = getTaskName(page.constructor)
       const oldBody = application.data?.[taskName]?.[pageName]
