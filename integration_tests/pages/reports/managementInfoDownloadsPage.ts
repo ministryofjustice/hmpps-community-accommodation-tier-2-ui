@@ -24,5 +24,10 @@ export default class ManagementInfoDownloadsPage extends Page {
       'href',
       paths.report.create({ name: 'submitted-applications' }),
     )
+    cy.contains('Application status updates').should(
+      'have.attr',
+      'href',
+      paths.report.create({ name: 'application-status-updates' }),
+    )
   }
 }

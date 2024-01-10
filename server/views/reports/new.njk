@@ -15,6 +15,13 @@
                       name: "submitted-applications"
                     })
       }) }}
+
+        {{ govukButton({
+              text: "Application status updates",
+              href: paths.report.create({
+                      name: "application-status-updates"
+                    })
+      }) }}
       </div>
     {% endblock %}
   </div>
