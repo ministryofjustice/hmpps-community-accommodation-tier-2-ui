@@ -2,9 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { BookingStatus } from './BookingStatus';
-
 export type BookingSearchResultBookingSummary = {
     id: string;
     status: BookingStatus;

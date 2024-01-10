@@ -2,13 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { AnyValue } from './AnyValue';
 import type { Application } from './Application';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { PersonRisks } from './PersonRisks';
-
+import type { PersonStatus } from './PersonStatus';
 export type ApprovedPremisesApplication = (Application & {
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;
@@ -26,5 +25,6 @@ export type ApprovedPremisesApplication = (Application & {
     assessmentDecision?: AssessmentDecision;
     assessmentDecisionDate?: string;
     submittedAt?: string;
+    personStatusOnSubmission?: PersonStatus;
 });
 
