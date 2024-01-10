@@ -27,7 +27,7 @@ export default class SubmissionListPage extends Page {
     applications.forEach(application => {
       const personName = nameOrPlaceholderCopy(application.person)
       cy.contains(personName)
-        .should('have.attr', 'href', paths.submittedApplications.show({ id: application.id }))
+        .should('have.attr', 'href', paths.submittedApplications.overview({ id: application.id }))
         .parent()
         .parent()
         .within(() => {

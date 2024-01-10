@@ -54,7 +54,7 @@ const nameAnchorElement = (name: string, applicationId: string, isAssessPath: bo
   return htmlValue(
     `<a href=${
       isAssessPath
-        ? assessPaths.submittedApplications.show({ id: applicationId })
+        ? assessPaths.submittedApplications.overview({ id: applicationId })
         : applyPaths.applications.show({ id: applicationId })
     } data-cy-id="${applicationId}">${name}</a>`,
   )
