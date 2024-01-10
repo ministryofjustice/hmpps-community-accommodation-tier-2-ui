@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type SubstanceMisuseBody = {
+export type SubstanceMisuseBody = {
   usesIllegalSubstances: YesOrNo
   substanceMisuseHistory: string
   substanceMisuseDetail: string
@@ -85,5 +85,20 @@ export default class SubstanceMisuse implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.usesIllegalSubstances !== 'yes') {
+      delete this.body.substanceMisuseHistory
+      delete this.body.substanceMisuseDetail
+    }
+
+    if (this.body.engagedWithDrugAndAlcoholService !== 'yes') {
+      delete this.body.drugAndAlcoholServiceDetail
+    }
+
+    if (this.body.requiresSubstituteMedication !== 'yes') {
+      delete this.body.substituteMedicationDetail
+    }
   }
 }
