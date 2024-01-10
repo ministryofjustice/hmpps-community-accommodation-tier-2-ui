@@ -30,4 +30,6 @@ export default abstract class TaskListPage {
   abstract errors(): TaskListErrors<this>
 
   abstract response?(): Record<string, string>
+
+  abstract onSave?(): void
 }
