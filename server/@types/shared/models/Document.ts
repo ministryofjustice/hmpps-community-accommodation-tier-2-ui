@@ -2,9 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { DocumentLevel } from './DocumentLevel';
-
 /**
  * Meta Info about a file relating to an Offender
  */

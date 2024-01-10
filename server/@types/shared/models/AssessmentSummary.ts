@@ -2,11 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { Person } from './Person';
 import type { PersonRisks } from './PersonRisks';
-
 export type AssessmentSummary = {
     type: string;
     id: string;

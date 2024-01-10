@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { BedSearchParameters } from './BedSearchParameters';
 import type { PlacementCriteria } from './PlacementCriteria';
-
 export type ApprovedPremisesBedSearchParameters = (BedSearchParameters & {
     /**
      * The postcode district to search outwards from

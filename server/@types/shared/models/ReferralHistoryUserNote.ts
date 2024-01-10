@@ -2,8 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { ReferralHistoryNote } from './ReferralHistoryNote';
-
 export type ReferralHistoryUserNote = ReferralHistoryNote;
 
