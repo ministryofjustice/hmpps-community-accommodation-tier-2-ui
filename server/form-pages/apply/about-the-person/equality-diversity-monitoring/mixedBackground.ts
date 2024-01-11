@@ -67,4 +67,10 @@ export default class MixedBackground implements TaskListPage {
 
     return [...items, { divider: 'or' }, { ...preferNotToSay }]
   }
+
+  onSave(): void {
+    if (this.body.mixedBackground !== 'other') {
+      delete this.body.optionalMixedBackground
+    }
+  }
 }
