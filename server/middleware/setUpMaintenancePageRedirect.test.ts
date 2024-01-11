@@ -45,11 +45,22 @@ describe('setUpMaintenancePageRedirect', () => {
   })
 
   describe('when the IN_MAINTENANCE_MODE environment is set to true', () => {
-    it('should redirect to the maintenance page', async () => {
-      config.flags.maintenanceMode = 'true'
-      const app = setupApp()
-      const response = await request(app).get('/known').expect(302)
-      expect(response.text).toContain('Found. Redirecting to /maintenance')
+    describe('and the value is a string', () => {
+      it('should redirect to the maintenance page', async () => {
+        config.flags.maintenanceMode = 'true'
+        const app = setupApp()
+        const response = await request(app).get('/known').expect(302)
+        expect(response.text).toContain('Found. Redirecting to /maintenance')
+      })
+    })
+
+    describe('and the value is a boolean', () => {
+      it('should redirect to the maintenance page', async () => {
+        config.flags.maintenanceMode = true
+        const app = setupApp()
+        const response = await request(app).get('/known').expect(302)
+        expect(response.text).toContain('Found. Redirecting to /maintenance')
+      })
     })
 
     describe('and the requested page should not be redirected', () => {
