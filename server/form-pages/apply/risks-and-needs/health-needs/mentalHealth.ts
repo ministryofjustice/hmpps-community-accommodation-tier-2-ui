@@ -5,7 +5,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type MentalHealthBody = {
+export type MentalHealthBody = {
   hasMentalHealthNeeds: YesOrNo
   needsDetail: string
   isEngagedWithCommunity: YesOrNo
@@ -87,5 +87,21 @@ export default class MentalHealth implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasMentalHealthNeeds !== 'yes') {
+      delete this.body.needsDetail
+    }
+
+    if (this.body.isEngagedWithCommunity !== 'yes') {
+      delete this.body.servicesDetail
+    }
+
+    if (this.body.hasPrescribedMedication !== 'yes') {
+      delete this.body.isInPossessionOfMeds
+      delete this.body.medicationDetail
+      delete this.body.medicationIssues
+    }
   }
 }
