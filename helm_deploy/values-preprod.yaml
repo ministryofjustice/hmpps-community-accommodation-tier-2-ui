@@ -16,13 +16,13 @@ generic-service:
     TOKEN_VERIFICATION_API_URL: 'https://token-verification-api-preprod.prison.service.justice.gov.uk'
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
-    IN_MAINTENANCE_MODE: false
+    IN_MAINTENANCE_MODE: true
 
   namespace_secrets:
     sqs-hmpps-audit-secret:
       AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
       AUDIT_SQS_QUEUE_NAME: 'sqs_queue_name'
-      
+
   allowlist: null
 
 generic-prometheus-alerts:
