@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import AsianBackground from './asianBackground'
+import AsianBackground, { AsianBackgroundBody } from './asianBackground'
 
 describe('AsianBackground', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -75,6 +75,23 @@ describe('AsianBackground', () => {
       const page = new AsianBackground({ asianBackground: 'other', optionalAsianBackground: undefined }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes asian background data when the question is not set to "other"', () => {
+      const body: Partial<AsianBackgroundBody> = {
+        asianBackground: 'preferNotToSay',
+        optionalAsianBackground: 'Asian background',
+      }
+
+      const page = new AsianBackground(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        asianBackground: 'preferNotToSay',
+      })
     })
   })
 })
