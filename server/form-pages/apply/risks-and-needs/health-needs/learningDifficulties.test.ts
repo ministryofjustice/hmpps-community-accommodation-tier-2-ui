@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import LearningDifficulties from './learningDifficulties'
+import LearningDifficulties, { LearningDifficultiesBody } from './learningDifficulties'
 
 describe('LearningDifficulties', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -127,6 +127,66 @@ describe('LearningDifficulties', () => {
           expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the type of support required')
         })
       })
+    })
+  })
+
+  it('removes learning needs data when the question is set to "no"', () => {
+    const body: Partial<LearningDifficultiesBody> = {
+      hasLearningNeeds: 'no',
+      needsDetail: 'Learning needs detail',
+    }
+
+    const page = new LearningDifficulties(body, application)
+
+    page.onSave()
+
+    expect(page.body).toEqual({
+      hasLearningNeeds: 'no',
+    })
+  })
+
+  it('removes vulnerability data when the question is set to "no"', () => {
+    const body: Partial<LearningDifficultiesBody> = {
+      isVulnerable: 'no',
+      vulnerabilityDetail: 'Vulnerability detail',
+    }
+
+    const page = new LearningDifficulties(body, application)
+
+    page.onSave()
+
+    expect(page.body).toEqual({
+      isVulnerable: 'no',
+    })
+  })
+
+  it('removes interaction difficulty data when the question is set to "no"', () => {
+    const body: Partial<LearningDifficultiesBody> = {
+      hasDifficultyInteracting: 'no',
+      interactionDetail: 'Interaction detail',
+    }
+
+    const page = new LearningDifficulties(body, application)
+
+    page.onSave()
+
+    expect(page.body).toEqual({
+      hasDifficultyInteracting: 'no',
+    })
+  })
+
+  it('removes additional support data when the question is set to "no"', () => {
+    const body: Partial<LearningDifficultiesBody> = {
+      requiresAdditionalSupport: 'no',
+      addSupportDetail: 'Additional support detail',
+    }
+
+    const page = new LearningDifficulties(body, application)
+
+    page.onSave()
+
+    expect(page.body).toEqual({
+      requiresAdditionalSupport: 'no',
     })
   })
 })

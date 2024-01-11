@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type LearningDifficultiesBody = {
+export type LearningDifficultiesBody = {
   hasLearningNeeds: YesOrNo
   needsDetail: string
   isVulnerable: YesOrNo
@@ -87,5 +87,23 @@ export default class LearningDifficulties implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasLearningNeeds !== 'yes') {
+      delete this.body.needsDetail
+    }
+
+    if (this.body.isVulnerable !== 'yes') {
+      delete this.body.vulnerabilityDetail
+    }
+
+    if (this.body.hasDifficultyInteracting !== 'yes') {
+      delete this.body.interactionDetail
+    }
+
+    if (this.body.requiresAdditionalSupport !== 'yes') {
+      delete this.body.addSupportDetail
+    }
   }
 }
