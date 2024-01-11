@@ -159,4 +159,22 @@ describe('Disability', () => {
       })
     })
   })
+
+  describe('onSave', () => {
+    it('removes disability data when the question is not set to "yes"', () => {
+      const body: Partial<DisabilityBody> = {
+        hasDisability: 'preferNotToSay',
+        typeOfDisability: ['sensoryImpairment', 'other'],
+        otherDisability: 'Other disability',
+      }
+
+      const page = new Disability(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasDisability: 'preferNotToSay',
+      })
+    })
+  })
 })
