@@ -69,7 +69,11 @@ describe('OasysImport', () => {
             'current-risk': { currentRiskDetail: 'self harm answer' },
             vulnerability: { vulnerabilityDetail: 'vulnerability answer' },
             'historical-risk': { historicalRiskDetail: 'historical answer' },
-            'oasys-import': { oasysImportDate: now },
+            'oasys-import': {
+              oasysImportedDate: now,
+              oasysStartedDate: oasys.dateStarted,
+              oasysCompletedDate: oasys.dateCompleted,
+            },
           },
         }
 

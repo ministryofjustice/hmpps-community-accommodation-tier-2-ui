@@ -101,7 +101,7 @@ context('Visit "RoSH summary" page', () => {
     //    Then I see the data presented on the page
     page.shouldShowRiskData(
       riskSummaryData,
-      this.application.data['risk-of-serious-harm']['oasys-import'].oasysImportDate,
+      this.application.data['risk-of-serious-harm']['oasys-import'].oasysImportedDate,
     )
   })
 

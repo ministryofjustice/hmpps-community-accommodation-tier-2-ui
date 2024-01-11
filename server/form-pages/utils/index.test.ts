@@ -169,7 +169,7 @@ describe('utils', () => {
   describe('getOasysImportDateFromApplication', () => {
     it('calls date formatting function when as OASys import date exists', () => {
       const application = applicationFactory.build({
-        data: { 'risk-to-self': { 'oasys-import': { oasysImportDate: 'some date' } } },
+        data: { 'risk-to-self': { 'oasys-import': { oasysImportedDate: 'some date' } } },
       })
 
       ;(DateFormats.isoDateToUIDate as jest.Mock).mockImplementation(() => null)

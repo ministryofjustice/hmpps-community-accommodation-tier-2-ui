@@ -12,7 +12,9 @@ type GuidanceBody = Record<string, never>
 export type RiskToSelfTaskData = {
   'risk-to-self': {
     'oasys-import': {
-      oasysImportDate: Date
+      oasysImportedDate: Date
+      oasysStartedDate: string
+      oasysCompletedDate: string
     }
     'current-risk': {
       currentRiskDetail: string
@@ -115,7 +117,11 @@ export default class OasysImport implements TaskListPage {
       }
     })
 
-    taskData['risk-to-self']['oasys-import'] = { oasysImportDate: today }
+    taskData['risk-to-self']['oasys-import'] = {
+      oasysImportedDate: today,
+      oasysStartedDate: oasysSections.dateStarted,
+      oasysCompletedDate: oasysSections.dateCompleted,
+    }
 
     return taskData
   }

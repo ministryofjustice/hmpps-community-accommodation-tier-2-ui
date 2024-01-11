@@ -29,7 +29,7 @@ export default class ApplyPage extends Page {
   }
 
   shouldShowOasysImportDate(application: Application, task: string): void {
-    const date = application.data[task]['oasys-import'].oasysImportDate
+    const date = application.data[task]['oasys-import'].oasysImportedDate
 
     cy.get('p').contains(`Imported from OASys on ${DateFormats.isoDateToUIDate(date, { format: 'medium' })}`)
   }

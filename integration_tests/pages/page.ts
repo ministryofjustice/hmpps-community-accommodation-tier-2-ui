@@ -84,7 +84,7 @@ export default abstract class Page {
     cy.get('a').contains('Remove').click()
   }
 
-  removeWhiteSpaceAndLineBreaks(stringToReplace: string): string {
+  removeWhiteSpaceAndLineBreaks(stringToReplace: string = ''): string {
     return stringToReplace.trim().replace(/(\r\n|\n|\r)/gm, '')
   }
 
