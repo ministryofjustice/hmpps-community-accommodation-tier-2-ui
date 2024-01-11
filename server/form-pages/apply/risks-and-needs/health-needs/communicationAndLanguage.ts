@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type CommunicationAndLanguageBody = {
+export type CommunicationAndLanguageBody = {
   hasCommunicationNeeds: YesOrNo
   communicationDetail: string
   requiresInterpreter: YesOrNo
@@ -76,5 +76,19 @@ export default class CommunicationAndLanguage implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasCommunicationNeeds !== 'yes') {
+      delete this.body.communicationDetail
+    }
+
+    if (this.body.requiresInterpreter !== 'yes') {
+      delete this.body.interpretationDetail
+    }
+
+    if (this.body.hasSupportNeeds !== 'yes') {
+      delete this.body.supportDetail
+    }
   }
 }
