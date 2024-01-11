@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import BrainInjury from './brainInjury'
+import BrainInjury, { BrainInjuryBody } from './brainInjury'
 
 describe('BrainInjury', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -123,6 +123,68 @@ describe('BrainInjury', () => {
         it('includes a validation error for _addSupportDetail_', () => {
           expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the additional support required')
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes brain injury data when the question is set to "no"', () => {
+      const body: Partial<BrainInjuryBody> = {
+        hasBrainInjury: 'no',
+        injuryDetail: 'Injury detail',
+      }
+
+      const page = new BrainInjury(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasBrainInjury: 'no',
+      })
+    })
+
+    it('removes vulnerability data when the question is set to "no"', () => {
+      const body: Partial<BrainInjuryBody> = {
+        isVulnerable: 'no',
+        vulnerabilityDetail: 'Vulnerability detail',
+      }
+
+      const page = new BrainInjury(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        isVulnerable: 'no',
+      })
+    })
+
+    it('removes interaction difficulty data when the question is set to "no"', () => {
+      const body: Partial<BrainInjuryBody> = {
+        hasDifficultyInteracting: 'no',
+        interactionDetail: 'Interaction detail',
+      }
+
+      const page = new BrainInjury(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasDifficultyInteracting: 'no',
+      })
+    })
+
+    it('removes additional support data when the question is set to "no"', () => {
+      const body: Partial<BrainInjuryBody> = {
+        requiresAdditionalSupport: 'no',
+        addSupportDetail: 'Additional support detail',
+      }
+
+      const page = new BrainInjury(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        requiresAdditionalSupport: 'no',
       })
     })
   })
