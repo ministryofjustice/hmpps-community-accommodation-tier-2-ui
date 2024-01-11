@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import WhiteBackground from './whiteBackground'
+import WhiteBackground, { WhiteBackgroundBody } from './whiteBackground'
 
 describe('WhiteBackground', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -70,6 +70,23 @@ describe('WhiteBackground', () => {
       const page = new WhiteBackground({ whiteBackground: 'other', optionalWhiteBackground: undefined }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes white background data when the question is not set to "other"', () => {
+      const body: Partial<WhiteBackgroundBody> = {
+        whiteBackground: 'preferNotToSay',
+        optionalWhiteBackground: 'White background',
+      }
+
+      const page = new WhiteBackground(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        whiteBackground: 'preferNotToSay',
+      })
     })
   })
 })

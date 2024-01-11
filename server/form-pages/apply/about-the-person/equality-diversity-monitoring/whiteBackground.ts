@@ -67,4 +67,10 @@ export default class WhiteBackground implements TaskListPage {
 
     return [...items, { divider: 'or' }, { ...preferNotToSay }]
   }
+
+  onSave(): void {
+    if (this.body.whiteBackground !== 'other') {
+      delete this.body.optionalWhiteBackground
+    }
+  }
 }
