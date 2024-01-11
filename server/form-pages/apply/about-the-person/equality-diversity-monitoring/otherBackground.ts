@@ -67,4 +67,10 @@ export default class OtherBackground implements TaskListPage {
 
     return [...items, { divider: 'or' }, { ...preferNotToSay }]
   }
+
+  onSave(): void {
+    if (this.body.otherBackground !== 'other') {
+      delete this.body.optionalOtherBackground
+    }
+  }
 }
