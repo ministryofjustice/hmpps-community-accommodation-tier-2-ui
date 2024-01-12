@@ -6,7 +6,7 @@ import ContactNumberPage from './contactNumber'
 import JobTitlePage from './jobTitle'
 
 @Task({
-  name: 'Add your details',
+  name: 'Add referrer details',
   slug: 'referrer-details',
   pages: [ConfirmDetailsPage, JobTitlePage, ContactNumberPage],
 })
