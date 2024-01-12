@@ -87,3 +87,18 @@ export const getApplicationTimelineEvents = (application: Cas2SubmittedApplicati
     getSubmittedTimelineEvent(application.submittedBy.name, application.submittedAt),
   ]
 }
+
+export const generateSuccessMessage = (pageName: string): string => {
+  switch (pageName) {
+    case 'current-offence-data':
+      return 'The offence has been saved'
+    case 'offence-history-data':
+      return 'The offence has been saved'
+    case 'behaviour-notes-data':
+      return 'The behaviour note has been saved'
+    case 'acct-data':
+      return 'The ACCT has been saved'
+    default:
+      return ''
+  }
+}
