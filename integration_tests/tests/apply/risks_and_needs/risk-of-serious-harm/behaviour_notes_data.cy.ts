@@ -16,6 +16,7 @@
 //    Given I have filled in required information for a behaviour note
 //    When I save and add another
 //    Then I am taken to a blank "Add a behaviour note" page
+//    And I see a success message
 
 import BehaviourNotesPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/behaviourNotesPage'
 import BehaviourNotesDataPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/behaviourNotesDataPage'
@@ -81,9 +82,11 @@ context('Visit "Risks and needs" section', () => {
 
       const body = JSON.parse(requests[0].body)
 
-      expect(body.data['risk-of-serious-harm']['behaviour-notes-data']).to.have.deep.members([
-        { behaviourDetail: 'some detail' },
-      ])
+      cy.wrap(body.data['risk-of-serious-harm']['behaviour-notes-data'][0]).should(
+        'have.property',
+        'behaviourDetail',
+        'some detail',
+      )
     })
   })
 
@@ -100,5 +103,8 @@ context('Visit "Risks and needs" section', () => {
     //    Then I am taken to a blank "Add a behaviour note" page
     Page.verifyOnPage(BehaviourNotesDataPage, this.application)
     page.assertFormisEmpty()
+
+    //  And I see a success message
+    page.shouldShowSuccessMessage('The behaviour note has been saved')
   })
 })

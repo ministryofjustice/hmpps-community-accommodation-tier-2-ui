@@ -16,6 +16,7 @@
 //    Given I have filled in required information for an offence
 //    When I save and add another
 //    Then I am taken to a blank "Add current offence" page
+//    And I see a success message
 
 import CurrentOffenceDataPage from '../../../../pages/apply/offence_and_licence_information/current-offences/currentOffenceDataPage'
 import CurrentOffencesPage from '../../../../pages/apply/offence_and_licence_information/current-offences/currentOffencesPage'
@@ -90,5 +91,8 @@ context('Visit "Offence and licence" section', () => {
     //  Then I am taken to a blank "Add current offence" page
     Page.verifyOnPage(CurrentOffenceDataPage, this.application)
     page.assertFormisEmpty()
+
+    //  And I see a success message
+    page.shouldShowSuccessMessage('The offence has been saved')
   })
 })

@@ -37,4 +37,11 @@ export default class ApplyPage extends Page {
   clickConfirm(): void {
     this.checkCheckboxByValue('confirmed')
   }
+
+  shouldShowSuccessMessage(message: string): void {
+    cy.get('.govuk-notification-banner').within(() => {
+      cy.get('h2').contains('Success')
+      cy.get('h3').contains(message)
+    })
+  }
 }
