@@ -2,9 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { PropertyStatus } from './PropertyStatus';
-
 export type PremisesSummary = {
     service: string;
     id: string;

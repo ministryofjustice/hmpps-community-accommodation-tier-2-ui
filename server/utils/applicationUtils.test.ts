@@ -9,12 +9,15 @@ import { fullPersonFactory } from '../testutils/factories/person'
 
 describe('inProgressApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
+    const personA = fullPersonFactory.build({ name: 'A' })
+    const personB = fullPersonFactory.build({ name: 'B' })
+
     const applicationA = applicationFactory.build({
-      person: fullPersonFactory.build({ name: 'A' }),
+      person: personA,
       createdAt: '2022-11-10T21:47:28Z',
     })
     const applicationB = applicationFactory.build({
-      person: fullPersonFactory.build({ name: 'B' }),
+      person: personB,
       createdAt: '2022-11-11T21:47:28Z',
     })
 
@@ -26,7 +29,10 @@ describe('inProgressApplicationTableRows', () => {
           html: `<a href=/applications/${applicationA.id} data-cy-id="${applicationA.id}">A</a>`,
         },
         {
-          text: applicationA.person.crn,
+          text: personA.nomsNumber,
+        },
+        {
+          text: personA.crn,
         },
         {
           text: '10 November 2022',
@@ -35,6 +41,9 @@ describe('inProgressApplicationTableRows', () => {
       [
         {
           html: `<a href=/applications/${applicationB.id} data-cy-id="${applicationB.id}">B</a>`,
+        },
+        {
+          text: personB.nomsNumber,
         },
         {
           text: applicationB.person.crn,
@@ -49,12 +58,15 @@ describe('inProgressApplicationTableRows', () => {
 
 describe('submittedApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
+    const personA = fullPersonFactory.build({ name: 'A' })
+    const personB = fullPersonFactory.build({ name: 'B' })
+
     const applicationA = applicationFactory.build({
-      person: fullPersonFactory.build({ name: 'A' }),
+      person: personA,
       submittedAt: '2022-12-10T21:47:28Z',
     })
     const applicationB = applicationFactory.build({
-      person: fullPersonFactory.build({ name: 'B' }),
+      person: personB,
       submittedAt: '2022-12-11T21:47:28Z',
     })
 
@@ -66,7 +78,10 @@ describe('submittedApplicationTableRows', () => {
           html: `<a href=/applications/${applicationA.id} data-cy-id="${applicationA.id}">A</a>`,
         },
         {
-          text: applicationA.person.crn,
+          text: personA.nomsNumber,
+        },
+        {
+          text: personA.crn,
         },
         {
           text: '10 December 2022',
@@ -77,7 +92,10 @@ describe('submittedApplicationTableRows', () => {
           html: `<a href=/applications/${applicationB.id} data-cy-id="${applicationB.id}">B</a>`,
         },
         {
-          text: applicationB.person.crn,
+          text: personB.nomsNumber,
+        },
+        {
+          text: personB.crn,
         },
         {
           text: '11 December 2022',

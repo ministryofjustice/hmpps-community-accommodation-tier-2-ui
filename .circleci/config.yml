@@ -242,7 +242,6 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-            - e2e_environment_test
       - hmpps/deploy_env:
           name: deploy_test
           env: 'test'
@@ -271,23 +270,20 @@ workflows:
             - hmpps-community-accommodation-tier-2-ui-preprod
           requires:
             - request-preprod-approval
-      # - request-prod-approval:
-      #      type: approval
-      #      requires:
-      #        - deploy_preprod
-      # - hmpps/deploy_env:
-      #      name: deploy_prod
-      #      env: "prod"
-      #      jira_update: true
-      #      jira_env_type: production
-      #      slack_notification: true
-      #      slack_channel_name: << pipeline.parameters.releases-slack-channel >>
-      #      context:
-      #        - hmpps-common-vars
-      #        - hmpps-community-accommodation-tier-2-ui-prod
-      #      requires:
-      #        - request-prod-approval
-      #      helm_timeout: 5m
+      - request-prod-approval:
+           type: approval
+           requires:
+             - deploy_preprod
+      - hmpps/deploy_env:
+           name: deploy_prod
+           env: "prod"
+           slack_notification: true
+           slack_channel_name: << pipeline.parameters.releases-slack-channel >>
+           context:
+             - hmpps-common-vars
+             - hmpps-community-accommodation-tier-2-ui-prod
+           requires:
+             - request-prod-approval
 
   security:
     triggers:

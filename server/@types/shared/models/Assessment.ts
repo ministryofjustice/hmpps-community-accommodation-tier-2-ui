@@ -2,12 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { AnyValue } from './AnyValue';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { ClarificationNote } from './ClarificationNote';
 import type { ReferralHistoryNote } from './ReferralHistoryNote';
-
 export type Assessment = {
     service: string;
     id: string;

@@ -1,5 +1,11 @@
 import { Cas2Application as Application, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 
+import {
+  preferredAreasFromAppData,
+  hdcEligibilityDateFromAppData,
+  conditionalReleaseDateFromAppData,
+} from './managementInfoFromAppData'
+
 export const getApplicationUpdateData = (application: Application): UpdateApplication => {
   return {
     type: 'CAS2',
@@ -11,5 +17,8 @@ export const getApplicationSubmissionData = (application: Application): SubmitCa
   return {
     translatedDocument: application.document,
     applicationId: application.id,
+    preferredAreas: preferredAreasFromAppData(application),
+    hdcEligibilityDate: hdcEligibilityDateFromAppData(application),
+    conditionalReleaseDate: conditionalReleaseDateFromAppData(application),
   }
 }

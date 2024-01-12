@@ -154,6 +154,7 @@ export type { OfflineApplicationSummary } from './models/OfflineApplicationSumma
 export type { Person } from './models/Person';
 export type { PersonAcctAlert } from './models/PersonAcctAlert';
 export type { PersonRisks } from './models/PersonRisks';
+export type { PersonStatus } from './models/PersonStatus';
 export type { PersonType } from './models/PersonType';
 export type { PlacementApplication } from './models/PlacementApplication';
 export type { PlacementApplicationDecision } from './models/PlacementApplicationDecision';
@@ -206,6 +207,7 @@ export type { SupervisingOfficer } from './models/SupervisingOfficer';
 export type { SupervisingProvider } from './models/SupervisingProvider';
 export type { SupervisingTeam } from './models/SupervisingTeam';
 export type { Task } from './models/Task';
+export type { TaskSortField } from './models/TaskSortField';
 export type { TaskStatus } from './models/TaskStatus';
 export type { TaskType } from './models/TaskType';
 export type { TaskWrapper } from './models/TaskWrapper';

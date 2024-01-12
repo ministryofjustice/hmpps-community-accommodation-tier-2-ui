@@ -14,7 +14,7 @@ export default class ReportsController {
   create(): TypedRequestHandler<Request, Response> {
     return async (req: Request, res: Response) => {
       try {
-        return await this.reportsService.getReport(req.user.token, res)
+        return await this.reportsService.getReport(req.params.name, req.user.token, res)
       } catch (error) {
         return res.redirect(paths.report.new({}))
       }

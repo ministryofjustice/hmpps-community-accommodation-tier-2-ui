@@ -153,7 +153,11 @@ context('Visit "Risks and needs" section', () => {
       const body = JSON.parse(requests[0].body)
 
       expect(body.data['risk-to-self']).to.have.keys('oasys-import', 'current-risk', 'historical-risk', 'vulnerability')
-      expect(body.data['risk-to-self']['oasys-import']).to.have.keys('oasysImportDate')
+      expect(body.data['risk-to-self']['oasys-import']).to.have.keys(
+        'oasysImportedDate',
+        'oasysStartedDate',
+        'oasysCompletedDate',
+      )
     })
   })
 

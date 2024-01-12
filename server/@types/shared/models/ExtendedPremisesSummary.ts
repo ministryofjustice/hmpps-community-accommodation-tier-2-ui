@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { DateCapacity } from './DateCapacity';
 import type { PremisesBooking } from './PremisesBooking';
-
 export type ExtendedPremisesSummary = {
     id?: string;
     name?: string;

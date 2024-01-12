@@ -136,21 +136,27 @@ export const summaryListItemForQuestion = (
   pageKey: string,
   questionAndAnswer: Record<string, string>,
 ) => {
+  const nonEditablePages = ['summary']
+  const nonEditableQuestions = ['OASys started', 'OASys completed', 'OASys imported']
+
   const { question, answer } = questionAndAnswer
+
+  const actions = {
+    items: [
+      {
+        href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
+        text: 'Change',
+        visuallyHiddenText: question,
+      },
+    ],
+  }
+
   return {
     key: {
       html: question,
     },
     value: { html: formatLines(answer as string) },
-    actions: {
-      items: [
-        {
-          href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
-          text: 'Change',
-          visuallyHiddenText: question,
-        },
-      ],
-    },
+    ...(nonEditablePages.includes(pageKey) || nonEditableQuestions.includes(question) ? {} : { actions }),
   }
 }
 
@@ -161,7 +167,7 @@ export const getSections = (): Array<FormSection> => {
 }
 
 export const getPages = (application: Application, task: string) => {
-  const pagesWithoutQuestions = ['summary', 'summary-data']
+  const pagesWithoutQuestions = ['summary-data', 'oasys-import']
   const pages = application.data[task]
 
   // TODO: Remove the early return before we go live (or feature flag for testing)
@@ -176,7 +182,7 @@ export const getPages = (application: Application, task: string) => {
 }
 
 const containsQuestions = (questionKeys: Array<string>): boolean => {
-  if (!questionKeys.length || (questionKeys.length === 1 && questionKeys[0] === 'oasysImportDate')) {
+  if (!questionKeys.length) {
     return false
   }
   return true
@@ -273,7 +279,7 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
     },
     {
       key: {
-        text: 'NDelius CRN number',
+        text: 'CRN from nDelius',
       },
       value: {
         html: crn,

@@ -84,7 +84,7 @@ export default abstract class Page {
     cy.get('a').contains('Remove').click()
   }
 
-  removeWhiteSpaceAndLineBreaks(stringToReplace: string): string {
+  removeWhiteSpaceAndLineBreaks(stringToReplace: string = ''): string {
     return stringToReplace.trim().replace(/(\r\n|\n|\r)/gm, '')
   }
 
@@ -157,7 +157,7 @@ export default abstract class Page {
           cy.get('dd').invoke('text').should('contain', person.prisonName)
         })
       this.checkTermAndDescription('PNC number', person.pncNumber)
-      this.checkTermAndDescription('NDelius CRN number', person.crn)
+      this.checkTermAndDescription('CRN from nDelius', person.crn)
     })
   }
 }
