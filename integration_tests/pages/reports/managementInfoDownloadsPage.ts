@@ -19,10 +19,15 @@ export default class ManagementInfoDownloadsPage extends Page {
 
   shouldShowManagementInfoDownloads(): void {
     cy.contains('Download management information in spreadsheet format')
-    cy.contains('Submitted applications').should(
+    cy.contains("Download 'Submitted applications' report").should(
       'have.attr',
       'href',
       paths.report.create({ name: 'submitted-applications' }),
+    )
+    cy.contains("Download 'Application status updates' report").should(
+      'have.attr',
+      'href',
+      paths.report.create({ name: 'application-status-updates' }),
     )
   }
 }
