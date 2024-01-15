@@ -57,5 +57,19 @@ describe('PregnancyInformation', () => {
         'When is their due date?': '1 October 2023',
       })
     })
+
+    describe('and they are not pregnant', () => {
+      const bodyWithoutDueDate = {
+        isPregnant: 'no' as YesOrNo,
+      }
+
+      it("doesn't return the due date", () => {
+        const page = new PregnancyInformation(bodyWithoutDueDate, application)
+
+        expect(page.response()).toEqual({
+          'Is Sue Smith pregnant?': 'No',
+        })
+      })
+    })
   })
 })

@@ -62,7 +62,10 @@ export default class PregnancyInformation implements TaskListPage {
     const response = {}
 
     response[`${this.questions.isPregnant.question}`] = this.questions.isPregnant.answers[this.body.isPregnant]
-    response[`${this.questions.dueDate.question}`] = DateFormats.dateAndTimeInputsToUiDate(this.body, 'dueDate')
+
+    if (this.body.dueDate) {
+      response[`${this.questions.dueDate.question}`] = DateFormats.dateAndTimeInputsToUiDate(this.body, 'dueDate')
+    }
 
     return response
   }
