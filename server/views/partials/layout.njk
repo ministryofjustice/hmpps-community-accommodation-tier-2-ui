@@ -2,6 +2,7 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -51,6 +52,19 @@
 {% endblock %}
 
 {% block bodyStart %}{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "/privacy-notice",
+          text: "Privacy notice"
+        }
+      ]
+    }
+  }) }}
+{% endblock %}
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the

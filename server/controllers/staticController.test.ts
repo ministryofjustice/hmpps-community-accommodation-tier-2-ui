@@ -22,4 +22,13 @@ describe('StaticController', () => {
       expect(response.render).toHaveBeenCalledWith('static/maintenance')
     })
   })
+
+  describe('privacy notice page', () => {
+    it('should render the page', () => {
+      const requestHandler = staticController.privacyNoticePage()
+      requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('static/privacy-notice')
+    })
+  })
 })
