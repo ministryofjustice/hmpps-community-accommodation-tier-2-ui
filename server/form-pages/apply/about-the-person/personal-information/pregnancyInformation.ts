@@ -1,9 +1,9 @@
 import { Cas2Application as Application } from '@approved-premises/api'
 import { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
-import { dateAndTimeInputsAreValidDates, DateFormats } from '../../../../utils/dateUtils'
+import { DateFormats, dateAndTimeInputsAreValidDates } from '../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
-import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
+import { Page } from '../../../utils/decorators'
 import { getQuestions } from '../../../utils/questions'
 
 type PregnancyInformationBody = {

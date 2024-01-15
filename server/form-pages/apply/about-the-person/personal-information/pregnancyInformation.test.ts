@@ -1,7 +1,7 @@
 import { YesOrNo } from '@approved-premises/ui'
+import { applicationFactory, personFactory } from '../../../../testutils/factories/index'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import PregnancyInformation from './pregnancyInformation'
-import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('PregnancyInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Sue Smith' }) })
