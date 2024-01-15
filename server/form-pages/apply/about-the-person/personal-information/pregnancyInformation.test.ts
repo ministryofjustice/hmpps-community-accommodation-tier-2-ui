@@ -8,6 +8,7 @@ describe('PregnancyInformation', () => {
 
   const body = {
     isPregnant: 'yes' as YesOrNo,
+    dueDate: '2024-03-27',
     'dueDate-month': '10',
     'dueDate-year': '2023',
     'dueDate-day': '01',
@@ -51,7 +52,6 @@ describe('PregnancyInformation', () => {
   describe('response', () => {
     it('returns the pregnancy information', () => {
       const page = new PregnancyInformation(body, application)
-
       expect(page.response()).toEqual({
         'Is Sue Smith pregnant?': 'Yes',
         'When is their due date?': '1 October 2023',
@@ -61,6 +61,10 @@ describe('PregnancyInformation', () => {
     describe('and they are not pregnant', () => {
       const bodyWithoutDueDate = {
         isPregnant: 'no' as YesOrNo,
+        dueDate: '',
+        'dueDate-month': '',
+        'dueDate-year': '',
+        'dueDate-day': '',
       }
 
       it("doesn't return the due date", () => {

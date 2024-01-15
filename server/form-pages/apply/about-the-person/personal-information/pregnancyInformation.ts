@@ -16,7 +16,7 @@ type PregnancyInformationBody = {
 
 @Page({
   name: 'pregnancy-information',
-  bodyProperties: ['isPregnant', 'dueDate-month', 'dueDate-year', 'dueDate-day'],
+  bodyProperties: ['isPregnant', 'dueDate-month', 'dueDate-year', 'dueDate-day', 'dueDate'],
 })
 export default class PregnancyInformation implements TaskListPage {
   documentTitle = 'Is the person pregnant?'
