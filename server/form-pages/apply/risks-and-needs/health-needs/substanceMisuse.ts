@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -13,6 +13,7 @@ export type SubstanceMisuseBody = {
   drugAndAlcoholServiceDetail: string
   requiresSubstituteMedication: YesOrNo
   substituteMedicationDetail: string
+  releasedWithNaloxone: YesNoOrDontKnow
 }
 
 @Page({
@@ -25,6 +26,7 @@ export type SubstanceMisuseBody = {
     'drugAndAlcoholServiceDetail',
     'requiresSubstituteMedication',
     'substituteMedicationDetail',
+    'releasedWithNaloxone',
   ],
 })
 export default class SubstanceMisuse implements TaskListPage {
@@ -82,6 +84,10 @@ export default class SubstanceMisuse implements TaskListPage {
 
     if (this.body.requiresSubstituteMedication === 'yes' && !this.body.substituteMedicationDetail) {
       errors.substituteMedicationDetail = 'Provide details of their substitute medication'
+    }
+
+    if (!this.body.releasedWithNaloxone) {
+      errors.releasedWithNaloxone = "Confirm whether they will be released with naloxone or select 'I don’t know'"
     }
 
     return errors

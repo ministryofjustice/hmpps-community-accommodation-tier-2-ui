@@ -486,6 +486,10 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
         substituteMedicationDetail: { question: 'What substitute medication do they take?' },
+        releasedWithNaloxone: {
+          question: 'Are they being released with naloxone?',
+          answers: yesNoOrIDontKnow,
+        },
       },
       'physical-health': {
         hasPhyHealthNeeds: { question: 'Do they have any physical health needs?', answers: yesOrNo },
