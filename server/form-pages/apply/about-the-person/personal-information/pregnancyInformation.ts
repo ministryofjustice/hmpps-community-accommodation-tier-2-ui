@@ -1,9 +1,9 @@
 import { Cas2Application as Application } from '@approved-premises/api'
 import { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
-import { dateAndTimeInputsAreValidDates, DateFormats } from '../../../../utils/dateUtils'
+import { DateFormats, dateAndTimeInputsAreValidDates } from '../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
-import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
+import { Page } from '../../../utils/decorators'
 import { getQuestions } from '../../../utils/questions'
 
 type PregnancyInformationBody = {
@@ -16,7 +16,7 @@ type PregnancyInformationBody = {
 
 @Page({
   name: 'pregnancy-information',
-  bodyProperties: ['isPregnant', 'dueDate-month', 'dueDate-year', 'dueDate-day'],
+  bodyProperties: ['isPregnant', 'dueDate-month', 'dueDate-year', 'dueDate-day', 'dueDate'],
 })
 export default class PregnancyInformation implements TaskListPage {
   documentTitle = 'Is the person pregnant?'
@@ -62,7 +62,10 @@ export default class PregnancyInformation implements TaskListPage {
     const response = {}
 
     response[`${this.questions.isPregnant.question}`] = this.questions.isPregnant.answers[this.body.isPregnant]
-    response[`${this.questions.dueDate.question}`] = DateFormats.dateAndTimeInputsToUiDate(this.body, 'dueDate')
+
+    if (this.body.dueDate) {
+      response[`${this.questions.dueDate.question}`] = DateFormats.dateAndTimeInputsToUiDate(this.body, 'dueDate')
+    }
 
     return response
   }
