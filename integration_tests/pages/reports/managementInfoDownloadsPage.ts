@@ -29,5 +29,10 @@ export default class ManagementInfoDownloadsPage extends Page {
       'href',
       paths.report.create({ name: 'application-status-updates' }),
     )
+    cy.contains("Download 'Un-submitted applications' report").should(
+      'have.attr',
+      'href',
+      paths.report.create({ name: 'unsubmitted-applications' }),
+    )
   }
 }

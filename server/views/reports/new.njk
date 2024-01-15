@@ -110,5 +110,45 @@
                   })
     }) }}
 
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">
+    Un-submitted applications
+  </h2>
+
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+          Report details
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        Key information about applications which have not been submitted e.g.:
+        <ul class="govuk-list govuk-list govuk-!-margin-left-5 govuk-!-margin-top-5 govuk-body-s">
+        <li>
+          <code>applicationId "3fa85f64-5717-4562-b3fc-2c963f66afa6"</code>
+        </li>
+        <li>
+          <code>personCrn: "X320741"</code>
+        </li>
+        <li>
+          <code>personNoms: "A1234AI"</code>
+        </li>
+        <li>
+          <code>startedBy: "POM_USER"</code>
+        </li>
+        <li>
+          <code>startedAt: "2024-01-09T09:17:55"</code>
+        </li>
+      </ul>
+    </div>
+  </details>
+
+  {{ govukButton({
+            text: "Download 'Un-submitted applications' report",
+            classes: "govuk-button--secondary",
+            href: paths.report.create({
+                    name: "unsubmitted-applications"
+                  })
+    }) }}
+
 </div>
 {% endblock %}
