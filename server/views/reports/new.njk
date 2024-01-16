@@ -6,6 +6,11 @@
   <div class="govuk-grid-row">
     <h1 class="govuk-heading-l">Management information reports</h1>
 
+    {{ govukWarningText({
+      text: "The data in these reports is limited to the last 12 months.",
+      iconFallbackText: "Warning"
+    }) }}
+
     <p class="govuk-body">Download management information in spreadsheet format (.xlsx):</p>
 
     <h2 class="govuk-heading-m">

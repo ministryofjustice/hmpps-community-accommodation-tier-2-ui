@@ -5,6 +5,7 @@ export default class ManagementInfoDownloadsPage extends Page {
   constructor() {
     super('Management information reports', undefined)
     this.pageHasMiTitle()
+    this.pageIncludesDataLimitNotice()
   }
 
   static visit(): ManagementInfoDownloadsPage {
@@ -15,6 +16,10 @@ export default class ManagementInfoDownloadsPage extends Page {
 
   pageHasMiTitle(): void {
     cy.title().should('include', 'Download reports')
+  }
+
+  pageIncludesDataLimitNotice(): void {
+    cy.contains('The data in these reports is limited to the last 12 months.')
   }
 
   shouldShowManagementInfoDownloads(): void {
