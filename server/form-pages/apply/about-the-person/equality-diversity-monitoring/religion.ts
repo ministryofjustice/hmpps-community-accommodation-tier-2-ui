@@ -11,7 +11,7 @@ const applicationQuestions = getQuestions('')
 
 export const religionOptions = applicationQuestions['equality-and-diversity-monitoring'].religion.religion.answers
 
-type ReligionBody = {
+export type ReligionBody = {
   religion: keyof typeof religionOptions
   otherReligion: string
 }
@@ -68,5 +68,11 @@ export default class Religion implements TaskListPage {
     const preferNotToSay = items.pop()
 
     return [...items, { divider: 'or' }, { ...preferNotToSay }]
+  }
+
+  onSave(): void {
+    if (this.body.religion !== 'other') {
+      delete this.body.otherReligion
+    }
   }
 }

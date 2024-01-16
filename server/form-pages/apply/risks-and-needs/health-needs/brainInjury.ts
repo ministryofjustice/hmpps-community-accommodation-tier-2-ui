@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type BrainInjuryBody = {
+export type BrainInjuryBody = {
   hasBrainInjury: YesOrNo
   injuryDetail: string
   isVulnerable: YesOrNo
@@ -87,5 +87,23 @@ export default class BrainInjury implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasBrainInjury !== 'yes') {
+      delete this.body.injuryDetail
+    }
+
+    if (this.body.isVulnerable !== 'yes') {
+      delete this.body.vulnerabilityDetail
+    }
+
+    if (this.body.hasDifficultyInteracting !== 'yes') {
+      delete this.body.interactionDetail
+    }
+
+    if (this.body.requiresAdditionalSupport !== 'yes') {
+      delete this.body.addSupportDetail
+    }
   }
 }

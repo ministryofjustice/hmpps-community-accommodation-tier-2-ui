@@ -5,7 +5,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type PhysicalHealthBody = {
+export type PhysicalHealthBody = {
   hasPhyHealthNeeds: YesOrNo
   needsDetail: string
   canClimbStairs: YesOrNo
@@ -111,5 +111,28 @@ export default class PhysicalHealth implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasPhyHealthNeeds !== 'yes') {
+      delete this.body.needsDetail
+      delete this.body.canClimbStairs
+    }
+
+    if (this.body.isReceivingTreatment !== 'yes') {
+      delete this.body.treatmentDetail
+    }
+
+    if (this.body.hasPhyHealthMedication !== 'yes') {
+      delete this.body.medicationDetail
+    }
+
+    if (this.body.canLiveIndependently !== 'no') {
+      delete this.body.indyLivingDetail
+    }
+
+    if (this.body.requiresAdditionalSupport !== 'yes') {
+      delete this.body.addSupportDetail
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import OtherHealth from './otherHealth'
+import OtherHealth, { OtherHealthBody } from './otherHealth'
 
 describe('OtherHealth', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -92,6 +92,39 @@ describe('OtherHealth', () => {
         it('includes a validation error for _seizuresDetail_', () => {
           expect(page.errors()).toHaveProperty('seizuresDetail', 'Provide details of the seizure type and treatment')
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes long term health condition data when the question is set to "no"', () => {
+      const body: Partial<OtherHealthBody> = {
+        hasLongTermHealthCondition: 'no',
+        healthConditionDetail: 'Health condition detail',
+        hasHadStroke: 'yes',
+      }
+
+      const page = new OtherHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasLongTermHealthCondition: 'no',
+      })
+    })
+
+    it('removes seizure data when the question is set to "no"', () => {
+      const body: Partial<OtherHealthBody> = {
+        hasSeizures: 'no',
+        seizuresDetail: 'Seizures detail',
+      }
+
+      const page = new OtherHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasSeizures: 'no',
       })
     })
   })

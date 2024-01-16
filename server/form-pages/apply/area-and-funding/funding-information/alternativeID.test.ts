@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { applicationFactory } from '../../../../testutils/factories/index'
-import AlternativeIdentification from './alternativeID'
+import AlternativeIdentification, { AlternativeIdentificationBody } from './alternativeID'
 
 describe('AlternativeIdentification', () => {
   const application = applicationFactory.build({})
@@ -71,6 +71,39 @@ describe('AlternativeIdentification', () => {
       ]
 
       expect(page.items(conditional)).toEqual(expected)
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes "other" alternative ID data if "other" is not selected', () => {
+      const body: Partial<AlternativeIdentificationBody> = {
+        alternativeIDDocuments: ['citizenCard', 'insurance'],
+        other: 'Other ID document',
+      }
+
+      const page = new AlternativeIdentification(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        alternativeIDDocuments: ['citizenCard', 'insurance'],
+      })
+    })
+
+    it('does not remove "other" alternative ID data if "other" is selected', () => {
+      const body: Partial<AlternativeIdentificationBody> = {
+        alternativeIDDocuments: ['citizenCard', 'other'],
+        other: 'Other ID document',
+      }
+
+      const page = new AlternativeIdentification(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        alternativeIDDocuments: ['citizenCard', 'other'],
+        other: 'Other ID document',
+      })
     })
   })
 })

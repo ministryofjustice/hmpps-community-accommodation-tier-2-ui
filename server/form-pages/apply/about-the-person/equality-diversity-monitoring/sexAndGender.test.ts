@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import SexAndGender from './sexAndGender'
+import SexAndGender, { SexAndGenderBody } from './sexAndGender'
 
 describe('SexAndGender', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -82,6 +82,23 @@ describe('SexAndGender', () => {
       const page = new SexAndGender({ sex: 'female', gender: 'no' }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes gender identity data when the question is not set to "no"', () => {
+      const body: Partial<SexAndGenderBody> = {
+        gender: 'preferNotToSay',
+        optionalGenderIdentity: 'Gender identity',
+      }
+
+      const page = new SexAndGender(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        gender: 'preferNotToSay',
+      })
     })
   })
 })

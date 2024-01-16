@@ -129,6 +129,22 @@ describe('ApplicationService', () => {
         expect(applicationClient.update).toHaveBeenCalledWith(application.id, applicationData)
       })
 
+      it('calls "onSave" if the page has it defined', async () => {
+        const onSaveMock = jest.fn()
+
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { foo: 'bar' },
+          onSave: onSaveMock,
+        })
+
+        await service.save(page, request)
+
+        expect(onSaveMock).toHaveBeenCalled()
+      })
+
       it('updates an in-progress application', async () => {
         application.data = { 'some-task': { 'other-page': { question: 'answer' } } }
 
