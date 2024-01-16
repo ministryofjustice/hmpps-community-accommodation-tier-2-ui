@@ -57,6 +57,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
     {
       autoescape: true,
       express: app,
+      dev: true, // This is set to true to allow us to see the full stacktrace from errors in global functions, otherwise it gets swallowed and tricky to see in logs
     },
   )
 
