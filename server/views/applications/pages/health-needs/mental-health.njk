@@ -143,6 +143,31 @@
   {{
     formPageRadios(
       {
+        fieldName: "isEngagedWithServicesInCustody",
+        fieldset: {
+          legend: {
+            text: page.questions.isEngagedWithServicesInCustody.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
         fieldName: "hasPrescribedMedication",
         fieldset: {
           legend: {

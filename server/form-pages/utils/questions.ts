@@ -523,6 +523,10 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
         servicesDetail: { question: 'Please state which services.' },
+        isEngagedWithServicesInCustody: {
+          question: 'Are they engaged with any mental health services in custody?',
+          answers: yesOrNo,
+        },
         hasPrescribedMedication: {
           question: 'Are they prescribed any medication for their mental health?',
           answers: yesOrNo,
