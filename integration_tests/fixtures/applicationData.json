@@ -132,7 +132,8 @@
       "engagedWithDrugAndAlcoholService": "no",
       "drugAndAlcoholServiceDetail": "",
       "requiresSubstituteMedication": "no",
-      "substituteMedicationDetail": ""
+      "substituteMedicationDetail": "",
+      "releasedWithNaloxone": "no"
     },
     "physical-health": {
       "hasPhyHealthNeeds": "no",

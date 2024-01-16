@@ -147,4 +147,33 @@
     )
   }}
 
+  {{
+    formPageRadios(
+      {
+        fieldName: "releasedWithNaloxone",
+        fieldset: {
+          legend: {
+            text: page.questions.releasedWithNaloxone.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          value: "dontKnow",
+          text: "I don't know"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
 {% endblock %}

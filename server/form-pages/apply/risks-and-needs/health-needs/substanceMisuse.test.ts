@@ -72,6 +72,13 @@ describe('SubstanceMisuse', () => {
           'Confirm whether they require substitute medication',
         )
       })
+
+      it('includes a validation error for _releasedWithNaloxone_', () => {
+        expect(page.errors()).toHaveProperty(
+          'releasedWithNaloxone',
+          "Confirm whether they will be released with naloxone or select 'I don’t know'",
+        )
+      })
     })
 
     describe('when _usesIllegalSubstances_ is YES', () => {

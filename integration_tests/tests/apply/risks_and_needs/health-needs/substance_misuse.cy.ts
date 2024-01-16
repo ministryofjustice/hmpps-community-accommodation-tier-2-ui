@@ -74,6 +74,7 @@ context('Visit "Substance misuse" page', () => {
     page.describeIllegalSubstanceUse()
     page.nameDrugAndAlcoholService()
     page.provideSubstituteMedicationDetails()
+    page.provideNaloxoneDetails()
     page.clickSubmit()
 
     Page.verifyOnPage(PhysicalHealthPage, this.application)
