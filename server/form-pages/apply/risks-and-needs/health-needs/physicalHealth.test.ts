@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import PhysicalHealth from './physicalHealth'
+import PhysicalHealth, { PhysicalHealthBody } from './physicalHealth'
 
 describe('PhysicalHealth', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -153,6 +153,84 @@ describe('PhysicalHealth', () => {
         it('includes a validation error for _addSupportDetail_', () => {
           expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the support required')
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes physical needs data if the question is set to "no"', () => {
+      const body: Partial<PhysicalHealthBody> = {
+        hasPhyHealthNeeds: 'no',
+        needsDetail: 'Needs detail',
+        canClimbStairs: 'yes',
+      }
+
+      const page = new PhysicalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasPhyHealthNeeds: 'no',
+      })
+    })
+
+    it('removes medical treatment data if the question is set to "no"', () => {
+      const body: Partial<PhysicalHealthBody> = {
+        isReceivingTreatment: 'no',
+        treatmentDetail: 'Treatment detail',
+      }
+
+      const page = new PhysicalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        isReceivingTreatment: 'no',
+      })
+    })
+
+    it('removes medication data if the question is set to "no"', () => {
+      const body: Partial<PhysicalHealthBody> = {
+        hasPhyHealthMedication: 'no',
+        medicationDetail: 'Medication detail',
+      }
+
+      const page = new PhysicalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasPhyHealthMedication: 'no',
+      })
+    })
+
+    it('removes independent living data if the question is set to "yes"', () => {
+      const body: Partial<PhysicalHealthBody> = {
+        canLiveIndependently: 'yes',
+        indyLivingDetail: 'Independent living detail',
+      }
+
+      const page = new PhysicalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        canLiveIndependently: 'yes',
+      })
+    })
+
+    it('removes additional support data if the question is set to "no"', () => {
+      const body: Partial<PhysicalHealthBody> = {
+        requiresAdditionalSupport: 'no',
+        addSupportDetail: 'Additional support detail',
+      }
+
+      const page = new PhysicalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        requiresAdditionalSupport: 'no',
       })
     })
   })

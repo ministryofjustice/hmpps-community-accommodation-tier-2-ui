@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import MixedBackground from './mixedBackground'
+import MixedBackground, { MixedBackgroundBody } from './mixedBackground'
 
 describe('MixedBackground', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -70,6 +70,23 @@ describe('MixedBackground', () => {
       const page = new MixedBackground({ mixedBackground: 'other', optionalMixedBackground: undefined }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes mixed background data when the question is not set to "other"', () => {
+      const body: Partial<MixedBackgroundBody> = {
+        mixedBackground: 'preferNotToSay',
+        optionalMixedBackground: 'Mixed background',
+      }
+
+      const page = new MixedBackground(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        mixedBackground: 'preferNotToSay',
+      })
     })
   })
 })

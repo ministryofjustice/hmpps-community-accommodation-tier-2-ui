@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { AnyValue } from './AnyValue';
 import type { NewPlacementApplication } from './NewPlacementApplication';
-
 export type PlacementApplication = (NewPlacementApplication & {
     id: string;
     createdByUserId: string;

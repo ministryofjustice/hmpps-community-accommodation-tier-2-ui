@@ -68,4 +68,10 @@ export default class BlackBackground implements TaskListPage {
 
     return [...items, { divider: 'or' }, { ...preferNotToSay }]
   }
+
+  onSave(): void {
+    if (this.body.blackBackground !== 'other') {
+      delete this.body.optionalBlackBackground
+    }
+  }
 }

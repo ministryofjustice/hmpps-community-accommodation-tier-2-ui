@@ -1,20 +1,154 @@
 {% extends "../partials/layout.njk" %}
 
-{% block pageTitle %}
-{% endblock %}
+{% block pageTitle %}Download reports{% endblock %}
 
 {% block content %}
-<div class="govuk-grid-row">
-  <h1 class="govuk-heading-l">Reports</h1>
-  <p>Download a report</p>
+  <div class="govuk-grid-row">
+    <h1 class="govuk-heading-l">Management information reports</h1>
 
-  {% block button %}
-    <div class="govuk-button-group">
-      {{ govukButton({
-              text: "Download report",
-              href: paths.report.create()
-      }) }}
+    <p class="govuk-body">Download management information in spreadsheet format (.xlsx):</p>
+
+    <h2 class="govuk-heading-m">
+      Submitted applications
+    </h2>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Report details
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        Key information about submitted applications e.g.:
+        <ul class="govuk-list govuk-list govuk-!-margin-left-5 govuk-!-margin-top-5 govuk-body-s">
+          <li>
+            <code>eventId: 63cbe435-768e-43ab-9164-a57784926f91</code>
+          </li>
+          <li>
+            <code>applicationId: 6620721f-eba5-4a10-affb-dd3309b04f41</code>
+          </li>
+          <li>
+            <code>personCrn: X320741</code>
+          </li>
+          <li>
+            <code>personNoms: A1234AI</code>
+          </li>
+          <li>
+            <code>referringPrisonCode: LEI (Agency ID)</code>
+          </li>
+          <li>
+            <code>preferredAreas: Leeds | Bradford</code>
+          </li>
+          <li>
+            <code>hdcEligibilityDate: 2023-03-30</code>
+          </li>
+          <li>
+            <code>conditionalReleaseDate: 2023-04-29</code>
+          </li>
+          <li>
+            <code>submittedOn: 2024-01-03</code>
+          </li>
+          <li>
+            <code>submittedBy: NOMIS_USER_NAME</code>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    {{ govukButton({
+            text: "Download 'Submitted applications' report",
+            classes: "govuk-button--secondary",
+            href: paths.report.create({
+                    name: "submitted-applications"
+                  })
+    }) }}
+  </li>
+
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">
+        Application status updates
+  </h2>
+
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+          Report details
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        Key information about status updates attached to applications e.g.:
+        <ul class="govuk-list govuk-list govuk-!-margin-left-5 govuk-!-margin-top-5 govuk-body-s">
+        <li>
+          <code>eventId: "364145f9-0af8-488e-9901-b4c46cd9ba37"</code>
+        </li>
+        <li>
+          <code>applicationId "3fa85f64-5717-4562-b3fc-2c963f66afa6"</code>
+        </li>
+        <li>
+          <code>personCrn: "X320741"</code>
+        </li>
+        <li>
+          <code>personNoms: "A1234AI"</code>
+        </li>
+        <li>
+          <code>updatedBy: "CAS2_ASSESSOR_USER"</code>
+        </li>
+        <li>
+          <code>updatedAt: "2024-01-09T09:17:55"</code>
+        </li>
+        <li>
+          <code>newStatus: "moreInfoRequested"</code>
+        </li>
+      </ul>
     </div>
-  {% endblock %}
+  </details>
+
+  {{ govukButton({
+            text: "Download 'Application status updates' report",
+            classes: "govuk-button--secondary",
+            href: paths.report.create({
+                    name: "application-status-updates"
+                  })
+    }) }}
+
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">
+    Un-submitted applications
+  </h2>
+
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+          Report details
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        Key information about applications which have not been submitted e.g.:
+        <ul class="govuk-list govuk-list govuk-!-margin-left-5 govuk-!-margin-top-5 govuk-body-s">
+        <li>
+          <code>applicationId "3fa85f64-5717-4562-b3fc-2c963f66afa6"</code>
+        </li>
+        <li>
+          <code>personCrn: "X320741"</code>
+        </li>
+        <li>
+          <code>personNoms: "A1234AI"</code>
+        </li>
+        <li>
+          <code>startedBy: "POM_USER"</code>
+        </li>
+        <li>
+          <code>startedAt: "2024-01-09T09:17:55"</code>
+        </li>
+      </ul>
+    </div>
+  </details>
+
+  {{ govukButton({
+            text: "Download 'Un-submitted applications' report",
+            classes: "govuk-button--secondary",
+            href: paths.report.create({
+                    name: "unsubmitted-applications"
+                  })
+    }) }}
+
 </div>
 {% endblock %}

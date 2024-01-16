@@ -12,8 +12,13 @@ describe('userUtils', () => {
     })
 
     it('should return correct sections for an admin', () => {
-      const expected = [sections.referral, sections.newReferral, sections.submittedApplications]
+      const expected = [sections.submittedApplications]
       expect(sectionsForUser(['ROLE_CAS2_ADMIN'])).toEqual(expected)
+    })
+
+    it('should return correct sections for a management information user', () => {
+      const expected = [sections.managementInformationReports]
+      expect(sectionsForUser(['ROLE_CAS2_MI'])).toEqual(expected)
     })
   })
 })

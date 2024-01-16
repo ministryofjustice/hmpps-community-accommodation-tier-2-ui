@@ -3,7 +3,8 @@ import { personFactory, applicationFactory } from '../../../../testutils/factori
 import CurrentRisk from './currentRisk'
 
 describe('CurrentRisk', () => {
-  const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+  const person = personFactory.build({ name: 'Roger Smith' })
+  const application = applicationFactory.build({ person })
 
   describe('title', () => {
     it('personalises the page title', () => {
@@ -51,6 +52,44 @@ describe('CurrentRisk', () => {
       expect(page.items()).toEqual([
         { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
       ])
+    })
+  })
+
+  describe('response', () => {
+    const body = { currentRiskDetail: 'some detail', confirmation: 'confirmed' }
+
+    it('returns with OASys dates where they are in the application data', () => {
+      const applicationWithOasysDates = applicationFactory.build({
+        person,
+        data: {
+          'risk-to-self': {
+            'oasys-import': {
+              oasysImportedDate: '2024-01-05',
+              oasysStartedDate: '2024-01-01',
+              oasysCompletedDate: '2024-01-02',
+            },
+          },
+        },
+      })
+
+      const page = new CurrentRisk(body, applicationWithOasysDates)
+
+      expect(page.response()).toEqual({
+        'OASys started': '1 January 2024',
+        'OASys completed': '2 January 2024',
+        'OASys imported': '5 January 2024',
+        "Describe Roger Smith's current issues and needs related to self harm and suicide": 'some detail',
+        'I confirm this information is relevant and up to date.': 'Confirmed',
+      })
+    })
+
+    it('returns without OASys dates where they are not present in the application data', () => {
+      const page = new CurrentRisk(body, application)
+
+      expect(page.response()).toEqual({
+        "Describe Roger Smith's current issues and needs related to self harm and suicide": 'some detail',
+        'I confirm this information is relevant and up to date.': 'Confirmed',
+      })
     })
   })
 })

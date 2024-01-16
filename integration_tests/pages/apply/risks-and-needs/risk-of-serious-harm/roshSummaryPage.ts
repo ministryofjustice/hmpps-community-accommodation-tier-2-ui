@@ -29,8 +29,6 @@ export default class RoshSummaryPage extends ApplyPage {
     cy.get('p').contains(
       `Imported from OASys on ${DateFormats.isoDateToUIDate(oasysImportDate, {
         format: 'medium',
-      })}, last updated on ${DateFormats.isoDateToUIDate(risks.value.lastUpdated, {
-        format: 'medium',
       })}`,
     )
 

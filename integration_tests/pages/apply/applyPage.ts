@@ -29,12 +29,19 @@ export default class ApplyPage extends Page {
   }
 
   shouldShowOasysImportDate(application: Application, task: string): void {
-    const date = application.data[task]['oasys-import'].oasysImportDate
+    const date = application.data[task]['oasys-import'].oasysImportedDate
 
     cy.get('p').contains(`Imported from OASys on ${DateFormats.isoDateToUIDate(date, { format: 'medium' })}`)
   }
 
   clickConfirm(): void {
     this.checkCheckboxByValue('confirmed')
+  }
+
+  shouldShowSuccessMessage(message: string): void {
+    cy.get('.govuk-notification-banner').within(() => {
+      cy.get('h2').contains('Success')
+      cy.get('h3').contains(message)
+    })
   }
 }

@@ -2,5 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 export type SentenceTypeOption = 'standardDeterminate' | 'life' | 'ipp' | 'extendedDeterminate' | 'communityOrder' | 'bailPlacement' | 'nonStatutory';

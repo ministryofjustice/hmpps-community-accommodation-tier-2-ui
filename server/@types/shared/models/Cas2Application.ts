@@ -2,12 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { AnyValue } from './AnyValue';
 import type { Application } from './Application';
 import type { ApplicationStatus } from './ApplicationStatus';
 import type { NomisUser } from './NomisUser';
-
 export type Cas2Application = (Application & {
     createdBy: NomisUser;
     schemaVersion: string;

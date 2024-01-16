@@ -5,14 +5,15 @@ import Summary, { SummaryData } from './summary'
 describe('Summary', () => {
   const roshSummaryData = {
     status: 'retrieved' as const,
-    dateOfOasysImport: new Date('2023-09-15'),
+    oasysImportedDate: new Date('2023-09-15'),
+    oasysStartedDate: '2023-01-30',
+    oasysCompletedDate: '2023-01-31',
     value: {
       overallRisk: 'a risk',
       riskToChildren: 'another risk',
       riskToPublic: 'a third risk',
       riskToKnownAdult: 'a fourth risk',
       riskToStaff: 'a fifth risk',
-      lastUpdated: '2023-09-17',
     },
   } as SummaryData
 
@@ -44,45 +45,11 @@ describe('Summary', () => {
   })
 
   describe('risks', () => {
-    describe('if there is a last updated date', () => {
-      it('sets the last updated date to UI friendly string', () => {
-        const page = new Summary({}, applicationWithSummaryData)
-
-        expect(page.risks.lastUpdated).toBe('17 September 2023')
-      })
-    })
-
-    describe('if there is not a last updated date', () => {
-      it('sets the last updated date to null', () => {
-        const roshSummaryDataWithoutLastUpdated = {
-          status: 'retrieved' as const,
-          dateOfOasysImport: new Date('2023-09-15'),
-          value: {
-            overallRisk: 'a risk',
-            riskToChildren: 'another risk',
-            riskToPublic: 'a third risk',
-            riskToKnownAdult: 'a fourth risk',
-            riskToStaff: 'a fifth risk',
-          },
-        } as SummaryData
-
-        const page = new Summary(
-          {},
-          {
-            ...applicationWithSummaryData,
-            data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutLastUpdated } },
-          },
-        )
-
-        expect(page.risks.lastUpdated).toBe(null)
-      })
-    })
-
     describe('if the risks have not been found', () => {
       it('sets the risks to undefined', () => {
         const roshSummaryDataWithoutValue = {
           status: 'not_found' as const,
-          dateOfOasysImport: new Date('2023-09-15'),
+          oasysImportedDate: new Date('2023-09-15'),
         } as SummaryData
 
         const page = new Summary(
@@ -101,7 +68,7 @@ describe('Summary', () => {
       it('sets the risks to undefined', () => {
         const roshSummaryDataWithoutValue = {
           status: 'retrieved' as const,
-          dateOfOasysImport: new Date('2023-09-15'),
+          oasysImportedDate: new Date('2023-09-15'),
         } as SummaryData
 
         const page = new Summary(
@@ -112,14 +79,14 @@ describe('Summary', () => {
           },
         )
 
-        expect(page.risks.lastUpdated).toBe(null)
+        expect(page.risks.value).toBe(undefined)
       })
     })
 
     describe('if risk values exists', () => {
       it('sets the risks', () => {
         const page = new Summary({}, applicationWithSummaryData)
-        expect(page.risks).toEqual({ ...roshSummaryData, lastUpdated: '17 September 2023' })
+        expect(page.risks).toEqual(roshSummaryData)
       })
     })
 
@@ -141,7 +108,10 @@ describe('Summary', () => {
     }
 
     const expectedResponse = {
-      'Over all risk rating': roshSummaryData.value.overallRisk,
+      'OASys started': '30 January 2023',
+      'OASys completed': 'Unknown',
+      'OASys imported': '15 September 2023',
+      'Overall risk rating': roshSummaryData.value.overallRisk,
       'Risk to children': roshSummaryData.value.riskToChildren,
       'Risk to known adult': roshSummaryData.value.riskToKnownAdult,
       'Risk to public': roshSummaryData.value.riskToPublic,

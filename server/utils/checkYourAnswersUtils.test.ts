@@ -19,6 +19,7 @@ const {
   checkYourAnswersSections,
   getSections,
   getPage,
+  getPages,
 } = checkYourAnswersUtils
 
 const { getQuestions } = getQuestionsUtil
@@ -191,23 +192,6 @@ describe('checkYourAnswersUtils', () => {
         })
 
         expect(items).toEqual(expected)
-      })
-
-      it(`does not add to items array if question keys don't refer to questions`, () => {
-        jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
-
-        const items: Array<SummaryListItem> = []
-
-        addPageAnswersToItemsArray({
-          items,
-          application,
-          task: 'risk-to-self',
-          pageKey: 'oasys-import',
-          questions,
-          outputFormat: 'checkYourAnswers',
-        })
-
-        expect(items).toEqual([])
       })
 
       it('does not add questions to the items array if there is no answer', () => {
@@ -433,6 +417,19 @@ describe('checkYourAnswersUtils', () => {
 
       expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
     })
+
+    describe('when the question is OASys imported', () => {
+      it('returns the task response as a Summary List item without the actions object', () => {
+        const question = { question: 'OASys imported', answer: 'an answer' }
+
+        const expected = {
+          key: { html: 'OASys imported' },
+          value: { html: 'an answer' },
+        }
+
+        expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
+      })
+    })
   })
 
   describe('getSections', () => {
@@ -440,6 +437,19 @@ describe('checkYourAnswersUtils', () => {
       const sections = getSections()
 
       expect(sections.filter(section => section.name === 'Check answers')).toHaveLength(0)
+    })
+  })
+
+  describe('getPages', () => {
+    it('returns an array of page keys without oasys-import for risk to self', () => {
+      expect(getPages(application, 'risk-to-self')).toEqual([
+        'current-risk',
+        'vulnerability',
+        'historical-risk',
+        'acct',
+        'acct-data',
+        'additional-information',
+      ])
     })
   })
 })

@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import CommunicationAndLanguage from './communicationAndLanguage'
+import CommunicationAndLanguage, { CommunicationAndLanguageBody } from './communicationAndLanguage'
 
 describe('CommunicationAndLanguage', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -100,6 +100,53 @@ describe('CommunicationAndLanguage', () => {
             'Describe the support needed to see, hear, speak or understand',
           )
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes communication needs data when the question is set to "no"', () => {
+      const body: Partial<CommunicationAndLanguageBody> = {
+        hasCommunicationNeeds: 'no',
+        communicationDetail: 'Communication needs detail',
+      }
+
+      const page = new CommunicationAndLanguage(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasCommunicationNeeds: 'no',
+      })
+    })
+
+    it('removes interpreter data when the question is set to "no"', () => {
+      const body: Partial<CommunicationAndLanguageBody> = {
+        requiresInterpreter: 'no',
+        interpretationDetail: 'Interpretation detail',
+      }
+
+      const page = new CommunicationAndLanguage(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        requiresInterpreter: 'no',
+      })
+    })
+
+    it('removes support needs data when the question is set to "no"', () => {
+      const body: Partial<CommunicationAndLanguageBody> = {
+        hasSupportNeeds: 'no',
+        supportDetail: 'Support detail',
+      }
+
+      const page = new CommunicationAndLanguage(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasSupportNeeds: 'no',
       })
     })
   })

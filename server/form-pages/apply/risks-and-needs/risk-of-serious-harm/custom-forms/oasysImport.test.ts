@@ -75,9 +75,12 @@ describe('OasysImport', () => {
 
         const taskData = {
           'risk-of-serious-harm': {
+            summary: {},
             'summary-data': {
               ...riskSummary,
-              dateOfOasysImport: now,
+              oasysImportedDate: now,
+              oasysStartedDate: oasys.dateStarted,
+              oasysCompletedDate: oasys.dateCompleted,
             },
             'risk-to-others': {
               whoIsAtRisk: 'who is at risk answer',
@@ -90,7 +93,7 @@ describe('OasysImport', () => {
             'reducing-risk': {
               factorsLikelyToReduceRisk: 'circumstances likely to reduce risk answer',
             },
-            'oasys-import': { oasysImportDate: now },
+            'oasys-import': { oasysImportedDate: now },
           },
         }
 
@@ -135,7 +138,7 @@ describe('OasysImport', () => {
       it('returns the Rosh summary page', async () => {
         const roshData = {
           'risk-of-serious-harm': {
-            'oasys-import': { oasysImportDate: now },
+            'oasys-import': { oasysImportedDate: now },
             'risk-factors': { circumstancesLikelyToIncreaseRisk: 'some answer' },
           },
         } as RoshTaskData

@@ -13,7 +13,7 @@ export const sexOptions = applicationQuestions['equality-and-diversity-monitorin
 
 const genderOptions = applicationQuestions['equality-and-diversity-monitoring']['sex-and-gender'].gender.answers
 
-type SexAndGenderBody = {
+export type SexAndGenderBody = {
   sex: keyof typeof sexOptions
   gender: YesOrNoOrPreferNotToSay
   optionalGenderIdentity: string
@@ -74,5 +74,11 @@ export default class SexAndGender implements TaskListPage {
       }
     })
     return radioItems
+  }
+
+  onSave(): void {
+    if (this.body.gender !== 'no') {
+      delete this.body.optionalGenderIdentity
+    }
   }
 }

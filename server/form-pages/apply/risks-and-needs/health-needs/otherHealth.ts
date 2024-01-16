@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type OtherHealthBody = {
+export type OtherHealthBody = {
   hasLongTermHealthCondition: YesOrNo
   healthConditionDetail: string
   hasHadStroke: YesOrNo
@@ -76,5 +76,16 @@ export default class OtherHealth implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasLongTermHealthCondition !== 'yes') {
+      delete this.body.healthConditionDetail
+      delete this.body.hasHadStroke
+    }
+
+    if (this.body.hasSeizures !== 'yes') {
+      delete this.body.seizuresDetail
+    }
   }
 }

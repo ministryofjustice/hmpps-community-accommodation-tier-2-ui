@@ -18,11 +18,11 @@ describe('ReportService', () => {
   })
 
   describe('getReport', () => {
-    it('calls the getReport API client method', () => {
+    it('calls the getReport API client method with the name of the report to get', () => {
       const response = createMock<Response>({})
-      service.getReport(token, response).then(() => {
+      service.getReport('report-name', token, response).then(() => {
         expect(reportClientFactory).toHaveBeenCalledWith(token)
-        expect(reportClient.getReport).toHaveBeenCalledWith(response)
+        expect(reportClient.getReport).toHaveBeenCalledWith('report-name', response)
       })
     })
   })

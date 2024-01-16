@@ -49,4 +49,8 @@ export default class SubstanceMisusePage extends ApplyPage {
     cy.get(`label[for="substituteMedicationDetail"]`).contains('What substitute medication do they take?')
     this.getTextInputByIdAndEnterDetails('substituteMedicationDetail', 'Methadone')
   }
+
+  provideNaloxoneDetails = (): void => {
+    this.checkRadioByNameAndValue('releasedWithNaloxone', 'yes')
+  }
 }

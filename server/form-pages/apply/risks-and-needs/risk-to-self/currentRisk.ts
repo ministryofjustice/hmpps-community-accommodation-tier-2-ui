@@ -7,6 +7,7 @@ import { getOasysImportDateFromApplication } from '../../../utils'
 import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
+import { DateFormats } from '../../../../utils/dateUtils'
 
 type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
 
@@ -59,5 +60,26 @@ export default class CurrentRisk implements TaskListPage {
     return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
       this.body.confirmation,
     ])
+  }
+
+  response() {
+    const oasysData = this.application.data?.['risk-to-self']?.['oasys-import']
+
+    if (oasysData) {
+      return {
+        'OASys started': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
+        'OASys completed': oasysData.oasysCompletedDate
+          ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
+          : 'Unknown',
+        'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
+        [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
+        [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
+      }
+    }
+
+    return {
+      [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
+      [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
+    }
   }
 }

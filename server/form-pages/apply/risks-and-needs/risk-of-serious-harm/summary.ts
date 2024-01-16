@@ -11,7 +11,11 @@ export type SummaryBody = {
   additionalComments?: string
 }
 
-export type SummaryData = RoshRisksEnvelope & { dateOfOasysImport: Date }
+export type SummaryData = RoshRisksEnvelope & {
+  oasysImportedDate: Date
+  oasysStartedDate: string
+  oasysCompletedDate?: string
+}
 
 @Page({
   name: 'summary',
@@ -26,7 +30,7 @@ export default class Summary implements TaskListPage {
 
   body: SummaryBody
 
-  risks: SummaryData & { lastUpdated: string }
+  risks: SummaryData
 
   questions: {
     additionalComments: string
@@ -45,9 +49,6 @@ export default class Summary implements TaskListPage {
       const summaryData = application.data['risk-of-serious-harm']['summary-data'] as SummaryData
       this.risks = {
         ...summaryData,
-        lastUpdated: summaryData.value?.lastUpdated
-          ? DateFormats.isoDateToUIDate(summaryData.value.lastUpdated, { format: 'medium' })
-          : null,
       }
     }
     const roshQuestions = getQuestions(this.personName)['risk-of-serious-harm']
@@ -78,13 +79,18 @@ export default class Summary implements TaskListPage {
   response() {
     let response = {}
     if (this.isSummaryDataRetrieved(this.application)) {
-      const riskRatings = this.application.data['risk-of-serious-harm']['summary-data'].value
+      const oasysData = this.application.data['risk-of-serious-harm']['summary-data']
       response = {
-        'Over all risk rating': riskRatings.overallRisk,
-        'Risk to children': riskRatings.riskToChildren,
-        'Risk to known adult': riskRatings.riskToKnownAdult,
-        'Risk to public': riskRatings.riskToPublic,
-        'Risk to staff': riskRatings.riskToStaff,
+        'OASys started': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
+        'OASys completed': oasysData.dateCompleted
+          ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
+          : 'Unknown',
+        'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
+        'Overall risk rating': oasysData.value.overallRisk,
+        'Risk to children': oasysData.value.riskToChildren,
+        'Risk to known adult': oasysData.value.riskToKnownAdult,
+        'Risk to public': oasysData.value.riskToPublic,
+        'Risk to staff': oasysData.value.riskToStaff,
       }
     }
     if (this.body.additionalComments) {

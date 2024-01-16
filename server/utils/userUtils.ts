@@ -2,6 +2,7 @@ import { ServiceSection } from '@approved-premises/ui'
 
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
+import reportsPaths from '../paths/report'
 
 export const sections = {
   referral: {
@@ -25,6 +26,13 @@ export const sections = {
     shortTitle: 'Submitted applications',
     href: assessPaths.submittedApplications.index.pattern,
   },
+  managementInformationReports: {
+    id: 'management-information-reports',
+    title: 'Management information reports',
+    description: 'View all CAS-2 management information reports to download',
+    shortTitle: 'Management information reports',
+    href: reportsPaths.report.new.pattern,
+  },
 }
 
 export const hasRole = (userRoles: Array<string>, role: string): boolean => {
@@ -34,12 +42,15 @@ export const hasRole = (userRoles: Array<string>, role: string): boolean => {
 export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection> => {
   const items = []
 
-  if (hasRole(userRoles, 'ROLE_POM') || hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
+  if (hasRole(userRoles, 'ROLE_POM')) {
     items.push(sections.referral)
     items.push(sections.newReferral)
   }
   if (hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
     items.push(sections.submittedApplications)
+  }
+  if (hasRole(userRoles, 'ROLE_CAS2_MI')) {
+    items.push(sections.managementInformationReports)
   }
 
   return Array.from(new Set(items))

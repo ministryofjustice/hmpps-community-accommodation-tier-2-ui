@@ -13,10 +13,10 @@ type OasysImportBody = Record<string, never>
 export type RoshTaskData = {
   'risk-of-serious-harm': {
     'oasys-import': {
-      oasysImportDate: Date
+      oasysImportedDate: Date
     }
     summary: RoshRisksEnvelope & {
-      dateOfOasysImport: Date
+      oasysImportedDate: Date
     }
     'risk-to-others': {
       whoIsAtRisk: string
@@ -105,19 +105,22 @@ export default class OasysImport implements TaskListPage {
 
   private static isRoshApplicationDataImportedFromOASys(application: Application): boolean {
     const rosh = application.data['risk-of-serious-harm']
-    if (rosh?.['oasys-import']?.oasysImportDate) {
+    if (rosh?.['oasys-import']?.oasysImportedDate) {
       return true
     }
     return false
   }
 
   private static getTaskData(oasysSections: OASysRiskOfSeriousHarm, risks: RoshRisksEnvelope): Partial<RoshTaskData> {
-    const taskData = { 'risk-of-serious-harm': {} } as Partial<RoshTaskData>
+    const taskData = { 'risk-of-serious-harm': { summary: {} } } as Partial<RoshTaskData>
+
     const today = new Date()
 
     taskData['risk-of-serious-harm']['summary-data'] = {
       ...risks,
-      dateOfOasysImport: today,
+      oasysImportedDate: today,
+      oasysStartedDate: oasysSections.dateStarted,
+      oasysCompletedDate: oasysSections.dateCompleted,
     } as SummaryData
 
     oasysSections.rosh.forEach(question => {
@@ -156,7 +159,7 @@ export default class OasysImport implements TaskListPage {
       }
     })
 
-    taskData['risk-of-serious-harm']['oasys-import'] = { oasysImportDate: today }
+    taskData['risk-of-serious-harm']['oasys-import'] = { oasysImportedDate: today }
 
     return taskData
   }

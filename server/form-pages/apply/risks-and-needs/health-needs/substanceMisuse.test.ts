@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import SubstanceMisuse from './substanceMisuse'
+import SubstanceMisuse, { SubstanceMisuseBody } from './substanceMisuse'
 
 describe('SubstanceMisuse', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -72,6 +72,13 @@ describe('SubstanceMisuse', () => {
           'Confirm whether they require substitute medication',
         )
       })
+
+      it('includes a validation error for _releasedWithNaloxone_', () => {
+        expect(page.errors()).toHaveProperty(
+          'releasedWithNaloxone',
+          "Confirm whether they will be released with naloxone or select 'I don’t know'",
+        )
+      })
     })
 
     describe('when _usesIllegalSubstances_ is YES', () => {
@@ -116,6 +123,54 @@ describe('SubstanceMisuse', () => {
             'Provide details of their substitute medication',
           )
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes illegal substance data if answer is no', () => {
+      const body: Partial<SubstanceMisuseBody> = {
+        usesIllegalSubstances: 'no',
+        substanceMisuseHistory: 'Substance misuse history',
+        substanceMisuseDetail: 'Substance misuse detail',
+      }
+
+      const page = new SubstanceMisuse(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        usesIllegalSubstances: 'no',
+      })
+    })
+
+    it('removes drug and alcohol service data if answer is no', () => {
+      const body: Partial<SubstanceMisuseBody> = {
+        engagedWithDrugAndAlcoholService: 'no',
+        drugAndAlcoholServiceDetail: 'Drug and alcohol service detail',
+      }
+
+      const page = new SubstanceMisuse(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        engagedWithDrugAndAlcoholService: 'no',
+      })
+    })
+
+    it('removes substitute medical data if answer is no', () => {
+      const body: Partial<SubstanceMisuseBody> = {
+        requiresSubstituteMedication: 'no',
+        substituteMedicationDetail: 'Substitute medical detail',
+      }
+
+      const page = new SubstanceMisuse(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        requiresSubstituteMedication: 'no',
       })
     })
   })

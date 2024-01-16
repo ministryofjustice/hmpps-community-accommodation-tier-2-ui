@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import OtherBackground from './otherBackground'
+import OtherBackground, { OtherBackgroundBody } from './otherBackground'
 
 describe('OtherBackground', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -60,6 +60,23 @@ describe('OtherBackground', () => {
       const page = new OtherBackground({ otherBackground: 'other', optionalOtherBackground: undefined }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes background data if question is not set to "other"', () => {
+      const body: Partial<OtherBackgroundBody> = {
+        otherBackground: 'preferNotToSay',
+        optionalOtherBackground: 'Other background',
+      }
+
+      const page = new OtherBackground(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        otherBackground: 'preferNotToSay',
+      })
     })
   })
 })

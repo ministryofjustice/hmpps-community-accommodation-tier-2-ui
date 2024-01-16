@@ -65,4 +65,10 @@ export default class AsianBackground implements TaskListPage {
 
     return [...items, { divider: 'or' }, { ...preferNotToSay }]
   }
+
+  onSave(): void {
+    if (this.body.asianBackground !== 'other') {
+      delete this.body.optionalAsianBackground
+    }
+  }
 }

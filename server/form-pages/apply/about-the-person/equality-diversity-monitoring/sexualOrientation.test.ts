@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import SexualOrientation from './sexualOrientation'
+import SexualOrientation, { SexualOrientationBody } from './sexualOrientation'
 
 describe('SexualOrientation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -71,6 +71,23 @@ describe('SexualOrientation', () => {
       const page = new SexualOrientation({ orientation: 'other' }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes sexual orientation data if question is not set to "other"', () => {
+      const body: SexualOrientationBody = {
+        orientation: 'preferNotToSay',
+        otherOrientation: 'Orientation',
+      }
+
+      const page = new SexualOrientation(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        orientation: 'preferNotToSay',
+      })
     })
   })
 })

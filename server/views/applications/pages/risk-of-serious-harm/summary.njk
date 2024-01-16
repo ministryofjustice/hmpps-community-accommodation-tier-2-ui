@@ -23,15 +23,9 @@
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
   {% if page.importDate %}
-    {% if page.risks.lastUpdated%}
-      <p class="govuk-hint">
-        Imported from OASys on <strong>{{page.importDate}}</strong>, last updated on <strong>{{ page.risks.lastUpdated }}</strong>
-      </p>
-    {% else %}
-      <p class="govuk-hint">
-        Imported from OASys on <strong>{{page.importDate}}</strong>, last updated: <strong>not known</strong>
-      </p>
-    {% endif %}
+    <p class="govuk-hint">
+        Imported from OASys on <strong>{{page.importDate}}</strong>
+    </p>
   {% endif %}
 
   {{ roshWidget(page.risks) }}

@@ -13,6 +13,7 @@ export default function staticRoutes(controllers: Controllers, router: Router, s
   const { staticController } = controllers
 
   get(paths.static.maintenancePage.pattern, staticController.maintenancePage(), {})
+  get(paths.static.privacyNotice.pattern, staticController.privacyNoticePage(), {})
 
   return router
 }

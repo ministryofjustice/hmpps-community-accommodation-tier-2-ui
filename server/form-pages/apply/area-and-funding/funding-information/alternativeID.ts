@@ -140,4 +140,10 @@ export default class AlternativeIdentification implements TaskListPage {
       { ...other, conditional: { html: conditionalHtml } },
     ]
   }
+
+  onSave(): void {
+    if (!this.body.alternativeIDDocuments.includes('other')) {
+      delete this.body.other
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import MentalHealth from './mentalHealth'
+import MentalHealth, { MentalHealthBody } from './mentalHealth'
 
 describe('MentalHealth', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -108,6 +108,55 @@ describe('MentalHealth', () => {
         it('includes NO validation error for _medicationIssues_ (optional)', () => {
           expect(page.errors()).not.toHaveProperty('medicationIssues')
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes mental health data if the question is set to "no"', () => {
+      const body: Partial<MentalHealthBody> = {
+        hasMentalHealthNeeds: 'no',
+        needsDetail: 'Mental health needs detail',
+      }
+
+      const page = new MentalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasMentalHealthNeeds: 'no',
+      })
+    })
+
+    it('removes community mental health data if the question is set to "no"', () => {
+      const body: Partial<MentalHealthBody> = {
+        isEngagedWithCommunity: 'no',
+        servicesDetail: 'Services detail',
+      }
+
+      const page = new MentalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        isEngagedWithCommunity: 'no',
+      })
+    })
+
+    it('removes prescribed medication data if the question is set to "no"', () => {
+      const body: Partial<MentalHealthBody> = {
+        hasPrescribedMedication: 'no',
+        isInPossessionOfMeds: 'yes',
+        medicationDetail: 'Medication detail',
+        medicationIssues: 'Medication issues',
+      }
+
+      const page = new MentalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasPrescribedMedication: 'no',
       })
     })
   })

@@ -1,11 +1,11 @@
-import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type SubstanceMisuseBody = {
+export type SubstanceMisuseBody = {
   usesIllegalSubstances: YesOrNo
   substanceMisuseHistory: string
   substanceMisuseDetail: string
@@ -13,6 +13,7 @@ type SubstanceMisuseBody = {
   drugAndAlcoholServiceDetail: string
   requiresSubstituteMedication: YesOrNo
   substituteMedicationDetail: string
+  releasedWithNaloxone: YesNoOrDontKnow
 }
 
 @Page({
@@ -25,6 +26,7 @@ type SubstanceMisuseBody = {
     'drugAndAlcoholServiceDetail',
     'requiresSubstituteMedication',
     'substituteMedicationDetail',
+    'releasedWithNaloxone',
   ],
 })
 export default class SubstanceMisuse implements TaskListPage {
@@ -84,6 +86,25 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.substituteMedicationDetail = 'Provide details of their substitute medication'
     }
 
+    if (!this.body.releasedWithNaloxone) {
+      errors.releasedWithNaloxone = "Confirm whether they will be released with naloxone or select 'I don’t know'"
+    }
+
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.usesIllegalSubstances !== 'yes') {
+      delete this.body.substanceMisuseHistory
+      delete this.body.substanceMisuseDetail
+    }
+
+    if (this.body.engagedWithDrugAndAlcoholService !== 'yes') {
+      delete this.body.drugAndAlcoholServiceDetail
+    }
+
+    if (this.body.requiresSubstituteMedication !== 'yes') {
+      delete this.body.substituteMedicationDetail
+    }
   }
 }

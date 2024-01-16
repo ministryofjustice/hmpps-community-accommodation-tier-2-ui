@@ -12,7 +12,7 @@ const applicationQuestions = getQuestions('')
 export const orientationOptions =
   applicationQuestions['equality-and-diversity-monitoring']['sexual-orientation'].orientation.answers
 
-type SexualOrientationBody = {
+export type SexualOrientationBody = {
   orientation: keyof typeof orientationOptions
   otherOrientation: string
 }
@@ -64,5 +64,11 @@ export default class SexualOrientation implements TaskListPage {
     })
 
     return items
+  }
+
+  onSave(): void {
+    if (this.body.orientation !== 'other') {
+      delete this.body.otherOrientation
+    }
   }
 }

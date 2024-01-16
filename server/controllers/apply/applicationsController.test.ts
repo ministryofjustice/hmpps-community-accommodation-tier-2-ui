@@ -425,6 +425,7 @@ describe('applicationsController', () => {
           page: 'example-page',
           task: 'example-task',
         }
+        request.flash = jest.fn()
 
         const PageConstructor = jest.fn()
         ;(getPage as jest.Mock).mockReturnValue(PageConstructor)
@@ -445,6 +446,8 @@ describe('applicationsController', () => {
           await requestHandler({ ...request }, response)
 
           expect(applicationService.appendToList).toHaveBeenCalledWith(page, request)
+
+          expect(request.flash).toHaveBeenCalledWith('success', '')
 
           expect(response.redirect).toHaveBeenCalledWith('/applications/abc123/tasks/example-task/pages/redirect-page')
         })

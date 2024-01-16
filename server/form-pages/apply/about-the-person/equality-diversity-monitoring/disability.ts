@@ -85,4 +85,11 @@ export default class Disability implements TaskListPage {
 
     return [...items, { ...other, conditional: { html: otherDisabilityHtml } }]
   }
+
+  onSave(): void {
+    if (this.body.hasDisability !== 'yes') {
+      delete this.body.typeOfDisability
+      delete this.body.otherDisability
+    }
+  }
 }

@@ -486,6 +486,10 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
         substituteMedicationDetail: { question: 'What substitute medication do they take?' },
+        releasedWithNaloxone: {
+          question: 'Are they being released with naloxone?',
+          answers: yesNoOrIDontKnow,
+        },
       },
       'physical-health': {
         hasPhyHealthNeeds: { question: 'Do they have any physical health needs?', answers: yesOrNo },
@@ -670,7 +674,6 @@ export const getQuestions = (name: string) => {
         riskToPublic: { question: 'Risk to the public' },
         riskToKnownAdult: { question: 'Risk to a known adult' },
         riskToStaff: { question: 'Risk to staff' },
-        lastUpdated: { question: 'Last updated' },
         additionalComments: { question: 'Additional comments (optional)' },
       },
       'risk-to-others': {

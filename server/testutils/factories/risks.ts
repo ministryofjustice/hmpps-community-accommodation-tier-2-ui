@@ -24,7 +24,6 @@ export const roshRisksEnvelopeFactory = Factory.define<PersonRisks['roshRisks']>
     riskToPublic: faker.helpers.arrayElement(riskLevels),
     riskToKnownAdult: faker.helpers.arrayElement(riskLevels),
     riskToStaff: faker.helpers.arrayElement(riskLevels),
-    lastUpdated: DateFormats.dateObjToIsoDate(faker.date.past()),
   },
 }))
 

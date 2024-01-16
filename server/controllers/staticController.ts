@@ -6,4 +6,10 @@ export default class StaticController {
       res.render('static/maintenance')
     }
   }
+
+  privacyNoticePage(): RequestHandler {
+    return (_req: Request, res: Response) => {
+      res.render('static/privacy-notice')
+    }
+  }
 }
