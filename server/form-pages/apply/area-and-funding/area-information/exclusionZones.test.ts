@@ -1,6 +1,6 @@
 import { YesOrNo } from '@approved-premises/ui'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
-import ExclusionZones from './exclusionZones'
+import ExclusionZones, { ExclusionZonesBody } from './exclusionZones'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('ExclusionZones', () => {
@@ -44,4 +44,21 @@ describe('ExclusionZones', () => {
 
   itShouldHaveNextValue(new ExclusionZones(body, application), 'gang-affiliations')
   itShouldHavePreviousValue(new ExclusionZones(body, application), 'second-preferred-area')
+
+  describe('onSave', () => {
+    it('removes exclusion zones data if question is set to "no"', () => {
+      const pageBody: ExclusionZonesBody = {
+        hasExclusionZones: 'no',
+        exclusionZonesDetail: 'Exclusion zones detail',
+      }
+
+      const page = new ExclusionZones(pageBody, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasExclusionZones: 'no',
+      })
+    })
+  })
 })

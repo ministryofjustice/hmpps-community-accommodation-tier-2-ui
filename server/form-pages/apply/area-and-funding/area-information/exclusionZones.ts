@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type ExclusionZonesBody = {
+export type ExclusionZonesBody = {
   hasExclusionZones: YesOrNo
   exclusionZonesDetail: string
 }
@@ -52,5 +52,11 @@ export default class ExclusionZones implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasExclusionZones !== 'yes') {
+      delete this.body.exclusionZonesDetail
+    }
   }
 }
