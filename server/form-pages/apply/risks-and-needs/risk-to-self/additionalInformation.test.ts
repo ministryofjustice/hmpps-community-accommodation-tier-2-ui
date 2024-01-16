@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import AdditionalInformation from './additionalInformation'
+import AdditionalInformation, { AdditionalInformationBody } from './additionalInformation'
 
 describe('AdditionalInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -47,6 +47,23 @@ describe('AdditionalInformation', () => {
         expect(page.errors()).toEqual({
           additionalInformationDetail: 'Provide additional information about their risk to self',
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes additional information data if question is set to "no"', () => {
+      const body: AdditionalInformationBody = {
+        hasAdditionalInformation: 'no',
+        additionalInformationDetail: 'Additional information detail',
+      }
+
+      const page = new AdditionalInformation(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasAdditionalInformation: 'no',
       })
     })
   })
