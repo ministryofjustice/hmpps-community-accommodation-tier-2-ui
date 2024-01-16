@@ -1,13 +1,12 @@
-import { YesOrNo } from '@approved-premises/ui'
 import { applicationFactory, personFactory } from '../../../../testutils/factories/index'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
-import PregnancyInformation from './pregnancyInformation'
+import PregnancyInformation, { PregnancyInformationBody } from './pregnancyInformation'
 
 describe('PregnancyInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Sue Smith' }) })
 
-  const body = {
-    isPregnant: 'yes' as YesOrNo,
+  const body: PregnancyInformationBody = {
+    isPregnant: 'yes',
     dueDate: '2024-03-27',
     'dueDate-month': '10',
     'dueDate-year': '2023',
@@ -59,8 +58,8 @@ describe('PregnancyInformation', () => {
     })
 
     describe('and they are not pregnant', () => {
-      const bodyWithoutDueDate = {
-        isPregnant: 'no' as YesOrNo,
+      const bodyWithoutDueDate: PregnancyInformationBody = {
+        isPregnant: 'no',
         dueDate: '',
         'dueDate-month': '',
         'dueDate-year': '',
@@ -73,6 +72,26 @@ describe('PregnancyInformation', () => {
         expect(page.response()).toEqual({
           'Is Sue Smith pregnant?': 'No',
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes due date data if question is not set to "yes"', () => {
+      const pageBody: PregnancyInformationBody = {
+        isPregnant: 'dontKnow',
+        dueDate: '2024-03-27',
+        'dueDate-month': '10',
+        'dueDate-year': '2023',
+        'dueDate-day': '01',
+      }
+
+      const page = new PregnancyInformation(pageBody, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        isPregnant: 'dontKnow',
       })
     })
   })

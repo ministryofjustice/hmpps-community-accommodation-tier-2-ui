@@ -6,7 +6,7 @@ import TaskListPage from '../../../taskListPage'
 import { Page } from '../../../utils/decorators'
 import { getQuestions } from '../../../utils/questions'
 
-type PregnancyInformationBody = {
+export type PregnancyInformationBody = {
   isPregnant: YesNoOrDontKnow
   dueDate: string
   'dueDate-month': string
@@ -68,5 +68,14 @@ export default class PregnancyInformation implements TaskListPage {
     }
 
     return response
+  }
+
+  onSave(): void {
+    if (this.body.isPregnant !== 'yes') {
+      delete this.body.dueDate
+      delete this.body['dueDate-day']
+      delete this.body['dueDate-month']
+      delete this.body['dueDate-year']
+    }
   }
 }
