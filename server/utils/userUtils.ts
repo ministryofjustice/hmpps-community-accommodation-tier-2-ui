@@ -42,7 +42,7 @@ export const hasRole = (userRoles: Array<string>, role: string): boolean => {
 export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection> => {
   const items = []
 
-  if (hasRole(userRoles, 'ROLE_POM') || hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
+  if (hasRole(userRoles, 'ROLE_POM')) {
     items.push(sections.referral)
     items.push(sections.newReferral)
   }
