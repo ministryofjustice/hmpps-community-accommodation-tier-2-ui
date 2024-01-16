@@ -1,4 +1,3 @@
-import { YesNoOrDontKnow } from '@approved-premises/ui'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import WorkingMobilePhone, { WorkingMobilePhoneBody } from './workingMobilePhone'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
@@ -7,7 +6,7 @@ describe('WorkingMobilePhone', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Sue Smith' }) })
 
   const body: WorkingMobilePhoneBody = {
-    hasWorkingMobilePhone: 'yes' as YesNoOrDontKnow,
+    hasWorkingMobilePhone: 'yes',
     mobilePhoneNumber: '11111111111',
     isSmartPhone: 'yes',
   }
@@ -46,4 +45,22 @@ describe('WorkingMobilePhone', () => {
 
   itShouldHaveNextValue(new WorkingMobilePhone(body, application), 'immigration-status')
   itShouldHavePreviousValue(new WorkingMobilePhone(body, application), 'taskList')
+
+  describe('onSave', () => {
+    it('removes mobile phone data if question is not set to "yes"', () => {
+      const pageBody: WorkingMobilePhoneBody = {
+        hasWorkingMobilePhone: 'dontKnow',
+        mobilePhoneNumber: '07111111111',
+        isSmartPhone: 'yes',
+      }
+
+      const page = new WorkingMobilePhone(pageBody, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasWorkingMobilePhone: 'dontKnow',
+      })
+    })
+  })
 })
