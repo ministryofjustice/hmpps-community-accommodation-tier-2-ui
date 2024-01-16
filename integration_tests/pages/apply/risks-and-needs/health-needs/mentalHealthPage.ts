@@ -34,6 +34,7 @@ export default class MentalHealthPage extends ApplyPage {
   describeEngagement = (): void => {
     this.checkRadioByNameAndValue('isEngagedWithCommunity', 'yes')
     this.getTextInputByIdAndEnterDetails('servicesDetail', 'Attend the The Well Clinic')
+    this.checkRadioByNameAndValue('isEngagedWithServicesInCustody', 'yes')
   }
 
   describeMedication = (): void => {

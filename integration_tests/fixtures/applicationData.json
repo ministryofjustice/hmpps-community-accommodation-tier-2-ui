@@ -152,6 +152,7 @@
       "needsDetail": "",
       "isEngagedWithCommunity": "no",
       "servicesDetail": "",
+      "isEngagedWithServicesInCustody": "no",
       "hasPrescribedMedication": "no",
       "medicationDetail": "",
       "medicationIssues": ""
