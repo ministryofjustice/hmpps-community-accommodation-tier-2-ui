@@ -13,7 +13,7 @@ const arrangementOptions = {
   no: 'No, this person does not have risk management arrangements',
 }
 
-type RiskManagementArrangementsOptions = keyof typeof arrangementOptions
+export type RiskManagementArrangementsOptions = keyof typeof arrangementOptions
 
 export type RiskManagementArrangementsBody = {
   arrangements: Array<RiskManagementArrangementsOptions>
@@ -91,5 +91,19 @@ export default class RiskManagementArrangements implements TaskListPage {
     const noCheckbox = items.pop()
 
     return [...items, { divider: 'or' }, { ...noCheckbox }]
+  }
+
+  onSave(): void {
+    if (!this.body.arrangements.includes('mappa')) {
+      delete this.body.mappaDetails
+    }
+
+    if (!this.body.arrangements.includes('iom')) {
+      delete this.body.iomDetails
+    }
+
+    if (!this.body.arrangements.includes('marac')) {
+      delete this.body.maracDetails
+    }
   }
 }
