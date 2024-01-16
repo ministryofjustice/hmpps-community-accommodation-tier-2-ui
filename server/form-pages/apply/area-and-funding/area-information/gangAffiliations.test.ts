@@ -1,6 +1,6 @@
 import { YesOrNo } from '@approved-premises/ui'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
-import GangAffiliations from './gangAffiliations'
+import GangAffiliations, { GangAffiliationsBody } from './gangAffiliations'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('GangAffiliations', () => {
@@ -54,4 +54,23 @@ describe('GangAffiliations', () => {
 
   itShouldHaveNextValue(new GangAffiliations(body, application), 'family-accommodation')
   itShouldHavePreviousValue(new GangAffiliations(body, application), 'exclusion-zones')
+
+  describe('onSave', () => {
+    it('removes gang affiliation data if question is set to "no"', () => {
+      const pageBody: GangAffiliationsBody = {
+        hasGangAffiliations: 'no',
+        gangName: 'Gang name',
+        gangOperationArea: 'Gang operation area',
+        rivalGangDetail: 'Rival gang detail',
+      }
+
+      const page = new GangAffiliations(pageBody, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasGangAffiliations: 'no',
+      })
+    })
+  })
 })

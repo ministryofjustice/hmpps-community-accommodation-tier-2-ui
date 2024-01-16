@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type GangAffiliationsBody = {
+export type GangAffiliationsBody = {
   hasGangAffiliations: YesOrNo
   gangName: string
   gangOperationArea: string
@@ -58,5 +58,13 @@ export default class GangAffiliations implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasGangAffiliations !== 'yes') {
+      delete this.body.gangName
+      delete this.body.gangOperationArea
+      delete this.body.rivalGangDetail
+    }
   }
 }
