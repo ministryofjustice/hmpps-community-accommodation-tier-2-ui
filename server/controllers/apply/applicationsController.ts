@@ -16,6 +16,7 @@ import {
   firstPageOfConsentTask,
   consentIsConfirmed,
   consentIsDenied,
+  generateSuccessMessage,
 } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
@@ -204,7 +205,10 @@ export default class ApplicationsController {
 
       try {
         await this.applicationService.appendToList(page, req)
+
+        req.flash('success', generateSuccessMessage(pageName))
         const next = page.next()
+
         if (redirectPage) {
           res.redirect(paths.applications.pages.show({ id, task: taskName, page: redirectPage as string }))
         } else if (next) {

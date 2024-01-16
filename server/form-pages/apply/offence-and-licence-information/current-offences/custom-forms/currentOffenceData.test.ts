@@ -28,7 +28,7 @@ describe('CurrentOffenceData', () => {
   })
 
   itShouldHaveNextValue(new CurrentOffenceData({}, application), 'current-offences')
-  itShouldHavePreviousValue(new CurrentOffenceData({}, application), '')
+  itShouldHavePreviousValue(new CurrentOffenceData({}, application), 'current-offences')
 
   describe('errors', () => {
     describe('when there are no errors', () => {

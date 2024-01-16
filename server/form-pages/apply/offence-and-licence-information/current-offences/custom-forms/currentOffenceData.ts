@@ -78,7 +78,7 @@ export default class CurrentOffenceData implements TaskListPage {
   }
 
   previous() {
-    return ''
+    return 'current-offences'
   }
 
   next() {

@@ -16,6 +16,7 @@
 //    Given I have filled in required information for an ACCT
 //    When I save and add another
 //    Then I am taken to a blank "Add an ACCT" page
+//    And I see a success message
 
 import AcctPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctPage'
 import AcctDataPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctDataPage'
@@ -90,5 +91,8 @@ context('Visit "Risks and needs" section', () => {
     //    Then I am taken to a blank "Add an ACCT" page
     Page.verifyOnPage(AcctDataPage, this.application)
     page.assertFormisEmpty()
+
+    //  And I see a success message
+    page.shouldShowSuccessMessage('The ACCT has been saved')
   })
 })

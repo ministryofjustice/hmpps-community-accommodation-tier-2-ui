@@ -82,7 +82,7 @@ describe('CurrentOffences', () => {
   })
 
   itShouldHaveNextValue(new CurrentOffences({}, application), '')
-  itShouldHavePreviousValue(new CurrentOffences({}, application), 'current-offence-data')
+  itShouldHavePreviousValue(new CurrentOffences({}, application), 'taskList')
 
   describe('errors', () => {
     it('returns an empty object where there is current offence data', () => {
