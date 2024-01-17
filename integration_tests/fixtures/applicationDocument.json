@@ -173,6 +173,7 @@
             { "question": "Name the drug and alcohol service", "answer": "Local drug and alcohol service" },
             { "question": "Do they require any substitute medication for misused substances?", "answer": "Yes" },
             { "question": "What substitute medication do they take?", "answer": "substitute meds" },
+            { "question": "Are they being released with naloxone?", "answer": "Yes" },
             { "question": "Do they have any physical health needs?", "answer": "Yes" },
             { "question": "Please describe their needs.", "answer": "some physical needs" },
             { "question": "Can they climb stairs?", "answer": "no" },
