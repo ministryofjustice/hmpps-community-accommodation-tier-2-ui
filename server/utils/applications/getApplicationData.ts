@@ -4,6 +4,7 @@ import {
   preferredAreasFromAppData,
   hdcEligibilityDateFromAppData,
   conditionalReleaseDateFromAppData,
+  telephoneNumberFromAppData,
 } from './managementInfoFromAppData'
 
 export const getApplicationUpdateData = (application: Application): UpdateApplication => {
@@ -20,5 +21,6 @@ export const getApplicationSubmissionData = (application: Application): SubmitCa
     preferredAreas: preferredAreasFromAppData(application),
     hdcEligibilityDate: hdcEligibilityDateFromAppData(application),
     conditionalReleaseDate: conditionalReleaseDateFromAppData(application),
+    telephoneNumber: telephoneNumberFromAppData(application),
   }
 }

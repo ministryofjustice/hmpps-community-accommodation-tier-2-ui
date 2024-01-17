@@ -2,6 +2,7 @@ import {
   preferredAreasFromAppData,
   hdcEligibilityDateFromAppData,
   conditionalReleaseDateFromAppData,
+  telephoneNumberFromAppData,
 } from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
@@ -86,6 +87,37 @@ describe('managementInfoFromAppData', () => {
         },
       })
       expect(conditionalReleaseDateFromAppData(application)).toEqual(null)
+    })
+  })
+
+  describe('telephoneNumberFromAppData', () => {
+    it('returns the given contact number', () => {
+      const application = applicationFactory.build({
+        data: {
+          'referrer-details': {
+            'contact-number': { telephone: '0800 123' },
+          },
+        },
+      })
+      expect(telephoneNumberFromAppData(application)).toEqual('0800 123')
+    })
+
+    const noDateData = [
+      {
+        'referrer-details': null,
+      },
+      {
+        'referrer-details': { 'contact-number': null },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noDateData)('returns null if no contact number is given', data => {
+      const application = applicationFactory.build({
+        data,
+      })
+      expect(telephoneNumberFromAppData(application)).toEqual(null)
     })
   })
 })
