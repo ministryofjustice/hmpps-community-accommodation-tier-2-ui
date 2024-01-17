@@ -27,6 +27,7 @@ context('View submitted application', () => {
           status: 'submitted',
           submittedAt: '2022-12-10T21:47:28Z',
           person: fullPersonFactory.build({ name: 'Robert Smith' }),
+          telephoneNumber: '0800 123',
         })
         cy.wrap(application).as('application')
       })

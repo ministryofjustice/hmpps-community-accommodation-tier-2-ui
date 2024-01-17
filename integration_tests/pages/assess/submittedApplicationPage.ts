@@ -24,6 +24,7 @@ export default class SubmittedApplicationPage extends Page {
       cy.get('li').contains(person.prisonName)
       cy.get('li').contains(this.application.submittedBy.name)
       cy.get('li').contains(this.application.submittedBy.email)
+      cy.get('li').contains(this.application.telephoneNumber)
     })
   }
 }

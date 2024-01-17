@@ -27,6 +27,8 @@ export default class SubmissionPage extends Page {
       cy.get('li').contains(person.name)
       cy.get('li').contains(person.nomsNumber)
       cy.get('li').contains(DateFormats.isoDateToUIDate(this.application.submittedAt, { format: 'medium' }))
+      cy.get('li').contains(this.application.createdBy.email)
+      cy.get('li').contains(this.application.telephoneNumber)
     })
   }
 }

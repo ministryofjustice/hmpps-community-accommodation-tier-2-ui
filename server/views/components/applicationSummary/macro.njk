@@ -38,6 +38,11 @@
             {{ formatDate(summary.submissionDate, {format: 'medium'}) }}
           </li>
       {% endif %}
+      {% if summary.contactNumber %}
+        <li>
+          <span class="govuk-!-font-weight-bold">Contact number: </span>{{ summary.contactNumber }}
+        </li>
+      {% endif %}
     </ul>
   </div>
 {% endmacro %}
