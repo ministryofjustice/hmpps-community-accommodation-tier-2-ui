@@ -11,7 +11,7 @@ describe('OffenceHistory', () => {
       'offending-history': {
         'offence-history-data': [
           {
-            titleAndNumber: 'Stalking (08000)',
+            titleAndNumber: 'Stalking',
             offenceCategory: 'stalkingOrHarassment',
             'offenceDate-day': '1',
             'offenceDate-month': '2',
@@ -20,7 +20,7 @@ describe('OffenceHistory', () => {
             summary: 'summary detail',
           },
           {
-            titleAndNumber: 'Arson (09000)',
+            titleAndNumber: 'Arson',
             offenceCategory: 'arson',
             'offenceDate-day': '5',
             'offenceDate-month': '6',
@@ -48,7 +48,7 @@ describe('OffenceHistory', () => {
 
         expect(page.offences).toEqual([
           {
-            titleAndNumber: 'Stalking (08000)',
+            titleAndNumber: 'Stalking',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>',
             offenceCategoryText: 'Stalking or Harassment',
             offenceDate: '1 February 2023',
@@ -57,7 +57,7 @@ describe('OffenceHistory', () => {
             removeLink: `/applications/${applicationWithData.id}/tasks/offending-history/pages/offence-history-data/0/removeFromList?redirectPage=offence-history`,
           },
           {
-            titleAndNumber: 'Arson (09000)',
+            titleAndNumber: 'Arson',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--yellow">Arson</strong>',
             offenceCategoryText: 'Arson',
             offenceDate: '5 June 1940',
@@ -85,8 +85,8 @@ describe('OffenceHistory', () => {
       const page = new OffenceHistory({}, applicationWithData)
       expect(page.response()).toEqual({
         'Historical offence 1':
-          'Stalking (08000)\r\nStalking or Harassment\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail',
-        'Historical offence 2': 'Arson (09000)\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail',
+          'Stalking\r\nStalking or Harassment\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail',
+        'Historical offence 2': 'Arson\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail',
       })
     })
 

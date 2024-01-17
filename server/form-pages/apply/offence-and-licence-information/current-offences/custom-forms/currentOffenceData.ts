@@ -89,7 +89,7 @@ export default class CurrentOffenceData implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.titleAndNumber) {
-      errors.titleAndNumber = 'Enter offence title and number'
+      errors.titleAndNumber = 'Enter the offence title'
     }
     if (this.body.offenceCategory === 'choose') {
       errors.offenceCategory = 'Select the offence category'

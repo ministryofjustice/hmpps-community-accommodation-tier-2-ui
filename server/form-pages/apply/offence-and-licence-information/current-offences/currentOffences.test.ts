@@ -14,7 +14,7 @@ describe('CurrentOffences', () => {
       'current-offences': {
         'current-offence-data': [
           {
-            titleAndNumber: 'Stalking (08000)',
+            titleAndNumber: 'Stalking',
             offenceCategory: 'stalkingOrHarassment',
             'offenceDate-day': '1',
             'offenceDate-month': '2',
@@ -25,7 +25,7 @@ describe('CurrentOffences', () => {
             outstandingChargesDetail: 'some detail',
           },
           {
-            titleAndNumber: 'Arson (09000)',
+            titleAndNumber: 'Arson',
             offenceCategory: 'arson',
             'offenceDate-day': '5',
             'offenceDate-month': '6',
@@ -55,7 +55,7 @@ describe('CurrentOffences', () => {
 
         expect(page.offences).toEqual([
           {
-            titleAndNumber: 'Stalking (08000)',
+            titleAndNumber: 'Stalking',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>',
             offenceCategoryText: 'Stalking or Harassment',
             offenceDate: '1 February 2023',
@@ -66,7 +66,7 @@ describe('CurrentOffences', () => {
             removeLink: `/applications/${applicationWithData.id}/tasks/current-offences/pages/current-offence-data/0/removeFromList?redirectPage=current-offences`,
           },
           {
-            titleAndNumber: 'Arson (09000)',
+            titleAndNumber: 'Arson',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--yellow">Arson</strong>',
             offenceCategoryText: 'Arson',
             offenceDate: '5 June 1940',
@@ -101,9 +101,9 @@ describe('CurrentOffences', () => {
       const page = new CurrentOffences({}, applicationWithData)
       expect(page.response()).toEqual({
         'Current offence 1':
-          'Stalking (08000)\r\nStalking or Harassment\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail\r\nOutstanding charges: Yes\r\nDetails of outstanding charges: some detail',
+          'Stalking\r\nStalking or Harassment\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail\r\nOutstanding charges: Yes\r\nDetails of outstanding charges: some detail',
         'Current offence 2':
-          'Arson (09000)\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail\r\nOutstanding charges: No',
+          'Arson\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail\r\nOutstanding charges: No',
       })
     })
 

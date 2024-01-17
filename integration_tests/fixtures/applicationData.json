@@ -289,7 +289,7 @@
   "current-offences": {
     "current-offence-data": [
       {
-        "titleAndNumber": "Arson (09000)",
+        "titleAndNumber": "Arson",
         "offenceCategory": "Arson",
         "offenceDate-day": "5",
         "offenceDate-month": "6",
@@ -300,7 +300,7 @@
         "outstandingChargesDetail": "outstanding charges detail"
       },
       {
-        "titleAndNumber": "Stalking (08000)",
+        "titleAndNumber": "Stalking",
         "offenceCategory": "Stalking",
         "offenceDate-day": "6",
         "offenceDate-month": "7",
@@ -316,7 +316,7 @@
     "any-previous-convictions": { "hasAnyPreviousConvictions": "yes" },
     "offence-history-data": [
       {
-        "titleAndNumber": "Arson (09000)",
+        "titleAndNumber": "Arson",
         "offenceCategory": "Arson",
         "offenceDate-day": "5",
         "offenceDate-month": "6",
@@ -325,7 +325,7 @@
         "summary": "summary detail"
       },
       {
-        "titleAndNumber": "Stalking (08000)",
+        "titleAndNumber": "Stalking",
         "offenceCategory": "Stalking",
         "offenceDate-day": "6",
         "offenceDate-month": "7",

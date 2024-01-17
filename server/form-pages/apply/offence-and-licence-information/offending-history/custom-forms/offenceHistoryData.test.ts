@@ -7,7 +7,7 @@ describe('OffenceHistoryData', () => {
 
   const offenceHistoryData = [
     {
-      titleAndNumber: 'Stalking (08000)',
+      titleAndNumber: 'Stalking',
       offenceCategory: 'Arson',
       'offenceDate-day': '1',
       'offenceDate-month': '2',
@@ -37,7 +37,7 @@ describe('OffenceHistoryData', () => {
     })
 
     const requiredFields = [
-      ['titleAndNumber', 'Enter offence title and number'],
+      ['titleAndNumber', 'Enter the offence title'],
       ['offenceCategory', 'Select the offence category'],
       ['offenceDate', 'Enter the date the offence was committed'],
       ['sentenceLength', 'Enter the sentence length'],

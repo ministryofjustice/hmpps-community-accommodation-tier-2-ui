@@ -759,8 +759,8 @@ export const getQuestions = (name: string) => {
     'current-offences': {
       'current-offence-data': {
         titleAndNumber: {
-          question: 'Offence title and number',
-          hint: "For example, 'Stalking (08000)'",
+          question: 'Offence title',
+          hint: "For example, 'Stalking'",
         },
         offenceCategory,
         offenceDate: {
@@ -793,8 +793,8 @@ export const getQuestions = (name: string) => {
       },
       'offence-history-data': {
         titleAndNumber: {
-          question: 'Offence title and number',
-          hint: "For example, 'Stalking (08000)'",
+          question: 'Offence title',
+          hint: "For example, 'Stalking'",
         },
         offenceCategory,
         offenceDate: {

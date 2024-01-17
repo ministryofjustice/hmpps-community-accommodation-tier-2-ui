@@ -7,7 +7,7 @@ describe('CurrentOffenceData', () => {
 
   const currentOffenceData = [
     {
-      titleAndNumber: 'Stalking (08000)',
+      titleAndNumber: 'Stalking',
       offenceCategory: 'Arson',
       'offenceDate-day': '1',
       'offenceDate-month': '2',
@@ -40,7 +40,7 @@ describe('CurrentOffenceData', () => {
 
     describe('when there are errors', () => {
       const requiredFields = [
-        ['titleAndNumber', 'Enter offence title and number'],
+        ['titleAndNumber', 'Enter the offence title'],
         ['offenceCategory', 'Select the offence category'],
         ['offenceDate', 'Enter the date the offence was committed'],
         ['sentenceLength', 'Enter the sentence length'],
@@ -58,7 +58,7 @@ describe('CurrentOffenceData', () => {
       it('when outstanding charges are selected but no detail is provided', () => {
         const page = new CurrentOffenceData(
           {
-            titleAndNumber: 'Stalking (08000)',
+            titleAndNumber: 'Stalking',
             offenceCategory: 'Arson',
             'offenceDate-day': '1',
             'offenceDate-month': '2',
