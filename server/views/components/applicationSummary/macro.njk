@@ -32,6 +32,12 @@
           <a href="mailto:{{ summary.contactEmail }}">{{ summary.contactEmail }}</a>
         </li>
       {% endif %}
+      {% if summary.submissionDate %}
+          <li>
+            <span class="govuk-!-font-weight-bold">Submission date:</span>
+            {{ formatDate(summary.submissionDate, {format: 'medium'}) }}
+          </li>
+      {% endif %}
     </ul>
   </div>
 {% endmacro %}
