@@ -1,6 +1,6 @@
 import { itShouldHavePreviousValue, itShouldHaveNextValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import NonStandardLicenceConditions from './nonStandardLicenceConditions'
+import NonStandardLicenceConditions, { NonStandardLicenceConditionsBody } from './nonStandardLicenceConditions'
 
 describe('NonStandardLicenceConditions', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -64,6 +64,23 @@ describe('NonStandardLicenceConditions', () => {
         expect(page.errors()).toEqual({
           nonStandardLicenceConditionsDetail: 'Describe their non-standard licence conditions',
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes non-standard license conditions data when the question is not set to "yes"', () => {
+      const body: NonStandardLicenceConditionsBody = {
+        nonStandardLicenceConditions: 'dontKnow',
+        nonStandardLicenceConditionsDetail: 'Non-standard license condition detail',
+      }
+
+      const page = new NonStandardLicenceConditions(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        nonStandardLicenceConditions: 'dontKnow',
       })
     })
   })
