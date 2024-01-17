@@ -10,6 +10,7 @@ export type MentalHealthBody = {
   needsDetail: string
   isEngagedWithCommunity: YesOrNo
   servicesDetail: string
+  isEngagedWithServicesInCustody: YesOrNo
   hasPrescribedMedication: YesOrNo
   isInPossessionOfMeds: YesOrNo
   medicationDetail: string
@@ -23,6 +24,7 @@ export type MentalHealthBody = {
     'needsDetail',
     'isEngagedWithCommunity',
     'servicesDetail',
+    'isEngagedWithServicesInCustody',
     'hasPrescribedMedication',
     'isInPossessionOfMeds',
     'medicationDetail',
@@ -70,6 +72,10 @@ export default class MentalHealth implements TaskListPage {
     }
     if (this.body.isEngagedWithCommunity === 'yes' && !this.body.servicesDetail) {
       errors.servicesDetail = 'State the services with which they have engaged'
+    }
+
+    if (!this.body.isEngagedWithServicesInCustody) {
+      errors.isEngagedWithServicesInCustody = 'Confirm whether they are engaged with mental health services in custody'
     }
 
     if (!this.body.hasPrescribedMedication) {

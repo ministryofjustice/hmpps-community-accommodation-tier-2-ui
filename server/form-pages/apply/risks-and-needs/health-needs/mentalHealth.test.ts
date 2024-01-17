@@ -67,6 +67,13 @@ describe('MentalHealth', () => {
           'Confirm whether they are prescribed medication',
         )
       })
+
+      it('includes a validation error for _isEngagedWithServicesInCustody_', () => {
+        expect(page.errors()).toHaveProperty(
+          'isEngagedWithServicesInCustody',
+          'Confirm whether they are engaged with mental health services in custody',
+        )
+      })
     })
 
     describe('when _hasMentalHealthNeeds_ is YES', () => {
