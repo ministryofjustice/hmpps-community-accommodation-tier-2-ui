@@ -410,6 +410,33 @@ describe('applicationsController', () => {
           application,
         })
       })
+
+      describe('when an error occurs', () => {
+        it('passes error to error handler', async () => {
+          const err = new Error()
+          applicationService.submit.mockImplementation(() => {
+            throw err
+          })
+
+          const application = applicationFactory.build()
+
+          ;(buildDocument as jest.Mock).mockReturnValue({})
+
+          request.params.id = 'some-id'
+
+          applicationService.findApplication.mockResolvedValue(application)
+
+          const requestHandler = applicationsController.submit()
+          await requestHandler(request, response, next)
+
+          expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
+            request,
+            response,
+            err,
+            paths.applications.show({ id: application.id }),
+          )
+        })
+      })
     })
 
     describe('appendToList', () => {
