@@ -16,5 +16,6 @@ export type Cas2SubmittedApplication = {
     document?: AnyValue;
     submittedAt?: string;
     statusUpdates?: Array<Cas2StatusUpdate>;
+    telephoneNumber?: string;
 };
 

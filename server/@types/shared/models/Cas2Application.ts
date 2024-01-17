@@ -14,5 +14,6 @@ export type Cas2Application = (Application & {
     document?: AnyValue;
     status: ApplicationStatus;
     submittedAt?: string;
+    telephoneNumber?: string;
 });
 
