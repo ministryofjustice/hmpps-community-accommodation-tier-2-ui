@@ -10,6 +10,7 @@ export type SubstanceMisuseBody = {
   substanceMisuseHistory: string
   substanceMisuseDetail: string
   engagedWithDrugAndAlcoholService: YesOrNo
+  intentToReferToServiceOnRelease: YesOrNo
   drugAndAlcoholServiceDetail: string
   requiresSubstituteMedication: YesOrNo
   substituteMedicationDetail: string
@@ -23,6 +24,7 @@ export type SubstanceMisuseBody = {
     'substanceMisuseHistory',
     'substanceMisuseDetail',
     'engagedWithDrugAndAlcoholService',
+    'intentToReferToServiceOnRelease',
     'drugAndAlcoholServiceDetail',
     'requiresSubstituteMedication',
     'substituteMedicationDetail',
@@ -74,8 +76,9 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.engagedWithDrugAndAlcoholService = `Confirm whether they are engaged with a drug and alcohol service`
     }
 
-    if (this.body.engagedWithDrugAndAlcoholService === 'yes' && !this.body.drugAndAlcoholServiceDetail) {
-      errors.drugAndAlcoholServiceDetail = 'Provide the name of the drug and alcohol service'
+    if (!this.body.intentToReferToServiceOnRelease) {
+      errors.intentToReferToServiceOnRelease =
+        'Confirm whether they will be referred to a drug and alcohol service after release'
     }
 
     if (!this.body.requiresSubstituteMedication) {
@@ -99,7 +102,7 @@ export default class SubstanceMisuse implements TaskListPage {
       delete this.body.substanceMisuseDetail
     }
 
-    if (this.body.engagedWithDrugAndAlcoholService !== 'yes') {
+    if (this.body.intentToReferToServiceOnRelease !== 'yes') {
       delete this.body.drugAndAlcoholServiceDetail
     }
 
