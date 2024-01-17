@@ -40,6 +40,7 @@ export default class SubstanceMisusePage extends ApplyPage {
 
   nameDrugAndAlcoholService = (): void => {
     this.checkRadioByNameAndValue('engagedWithDrugAndAlcoholService', 'yes')
+    this.checkRadioByNameAndValue('intentToReferToServiceOnRelease', 'yes')
     cy.get(`label[for="drugAndAlcoholServiceDetail"]`).contains('Name the drug and alcohol service')
     this.getTextInputByIdAndEnterDetails('drugAndAlcoholServiceDetail', 'The Drugs Project')
   }

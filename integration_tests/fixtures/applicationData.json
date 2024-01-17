@@ -130,6 +130,7 @@
       "substanceMisuseHistory": "",
       "substanceMisuseDetail": "",
       "engagedWithDrugAndAlcoholService": "no",
+      "intentToReferToServiceOnRelease": "no",
       "drugAndAlcoholServiceDetail": "",
       "requiresSubstituteMedication": "no",
       "substituteMedicationDetail": "",

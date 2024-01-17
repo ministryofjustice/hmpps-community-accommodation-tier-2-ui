@@ -170,6 +170,10 @@
               "answer": "once a month"
             },
             { "question": "Are they engaged with a drug and alcohol service in custody?", "answer": "Yes" },
+            {
+              "question": "Is there an intention to refer them to a drug and alcohol service when they are released?",
+              "answer": "Yes"
+            },
             { "question": "Name the drug and alcohol service", "answer": "Local drug and alcohol service" },
             { "question": "Do they require any substitute medication for misused substances?", "answer": "Yes" },
             { "question": "What substitute medication do they take?", "answer": "substitute meds" },
