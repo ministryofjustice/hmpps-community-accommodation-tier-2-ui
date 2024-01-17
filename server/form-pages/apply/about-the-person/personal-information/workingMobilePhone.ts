@@ -54,4 +54,11 @@ export default class WorkingMobilePhone implements TaskListPage {
 
     return errors
   }
+
+  onSave(): void {
+    if (this.body.hasWorkingMobilePhone !== 'yes') {
+      delete this.body.mobilePhoneNumber
+      delete this.body.isSmartPhone
+    }
+  }
 }

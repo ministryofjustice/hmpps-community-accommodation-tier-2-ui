@@ -6,7 +6,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
-type NonStandardLicenceConditionsBody = {
+export type NonStandardLicenceConditionsBody = {
   nonStandardLicenceConditions: YesNoOrDontKnow
   nonStandardLicenceConditionsDetail: string
 }
@@ -68,5 +68,11 @@ export default class NonStandardLicenceConditions implements TaskListPage {
       errors.nonStandardLicenceConditionsDetail = 'Describe their non-standard licence conditions'
     }
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.nonStandardLicenceConditions !== 'yes') {
+      delete this.body.nonStandardLicenceConditionsDetail
+    }
   }
 }

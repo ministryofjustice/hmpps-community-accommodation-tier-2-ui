@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-type AdditionalInformationBody = { hasAdditionalInformation: YesOrNo; additionalInformationDetail: string }
+export type AdditionalInformationBody = { hasAdditionalInformation: YesOrNo; additionalInformationDetail: string }
 
 @Page({
   name: 'additional-information',
@@ -46,5 +46,11 @@ export default class AdditionalInformation implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasAdditionalInformation !== 'yes') {
+      delete this.body.additionalInformationDetail
+    }
   }
 }

@@ -53,4 +53,10 @@ export default class SupportWorkerPreference implements TaskListPage {
 
     return errors
   }
+
+  onSave(): void {
+    if (this.body.hasSupportWorkerPreference !== 'yes') {
+      delete this.body.supportWorkerPreference
+    }
+  }
 }

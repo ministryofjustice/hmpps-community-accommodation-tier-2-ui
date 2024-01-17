@@ -128,4 +128,51 @@ describe('RiskManagementArrangements', () => {
       expect(page.errors()).toEqual({ iomDetails: 'Provide IOM details' })
     })
   })
+
+  describe('onSave', () => {
+    it('removes MAPPA data if option is not selected', () => {
+      const body: RiskManagementArrangementsBody = {
+        arrangements: ['no'],
+        mappaDetails: 'MAPPA details',
+      }
+
+      const page = new RiskManagementArrangements(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        arrangements: ['no'],
+      })
+    })
+
+    it('removes IOM data if option is not selected', () => {
+      const body: RiskManagementArrangementsBody = {
+        arrangements: ['no'],
+        iomDetails: 'IOM details',
+      }
+
+      const page = new RiskManagementArrangements(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        arrangements: ['no'],
+      })
+    })
+
+    it('removes MARAC data if option is not selected', () => {
+      const body: RiskManagementArrangementsBody = {
+        arrangements: ['no'],
+        maracDetails: 'MARAC details',
+      }
+
+      const page = new RiskManagementArrangements(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        arrangements: ['no'],
+      })
+    })
+  })
 })

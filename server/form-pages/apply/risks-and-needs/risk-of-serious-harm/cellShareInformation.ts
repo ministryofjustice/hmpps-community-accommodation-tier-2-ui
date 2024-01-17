@@ -5,7 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 
-type CellShareInformationBody = { hasCellShareComments: YesOrNo; cellShareInformationDetail: string }
+export type CellShareInformationBody = { hasCellShareComments: YesOrNo; cellShareInformationDetail: string }
 
 @Page({
   name: 'cell-share-information',
@@ -48,5 +48,11 @@ export default class CellShareInformation implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasCellShareComments !== 'yes') {
+      delete this.body.cellShareInformationDetail
+    }
   }
 }

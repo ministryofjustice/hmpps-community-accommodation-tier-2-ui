@@ -44,4 +44,21 @@ describe('SupportWorkerPreference', () => {
 
   itShouldHaveNextValue(new SupportWorkerPreference(body, application), '')
   itShouldHavePreviousValue(new SupportWorkerPreference(body, application), 'pregnancy-information')
+
+  describe('onSave', () => {
+    it('removes support worker data if question is not set to "yes"', () => {
+      const pageBody: SupportWorkerPreferenceBody = {
+        hasSupportWorkerPreference: 'dontKnow',
+        supportWorkerPreference: 'female',
+      }
+
+      const page = new SupportWorkerPreference(pageBody, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasSupportWorkerPreference: 'dontKnow',
+      })
+    })
+  })
 })
