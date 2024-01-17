@@ -5,7 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 
-type AdditionalRiskInformationBody = { hasAdditionalInformation: YesOrNo; additionalInformationDetail: string }
+export type AdditionalRiskInformationBody = { hasAdditionalInformation: YesOrNo; additionalInformationDetail: string }
 
 @Page({
   name: 'additional-risk-information',
@@ -50,5 +50,11 @@ export default class AdditionalRiskInformation implements TaskListPage {
     }
 
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.hasAdditionalInformation !== 'yes') {
+      delete this.body.additionalInformationDetail
+    }
   }
 }
