@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import CellShareInformation from './cellShareInformation'
+import CellShareInformation, { CellShareInformationBody } from './cellShareInformation'
 
 describe('CellShareInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -39,6 +39,23 @@ describe('CellShareInformation', () => {
         expect(page.errors()).toEqual({
           cellShareInformationDetail: 'Enter cell sharing information',
         })
+      })
+    })
+  })
+
+  describe('onSave', () => {
+    it('removes cell share data when the question is set to "no"', () => {
+      const body: CellShareInformationBody = {
+        hasCellShareComments: 'no',
+        cellShareInformationDetail: 'Cell share information',
+      }
+
+      const page = new CellShareInformation(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasCellShareComments: 'no',
       })
     })
   })
