@@ -41,6 +41,7 @@ printButton %}
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
       {{ applicationSummary({
+        id: application.id,
         name: application.person.name,
         prisonNumber: application.person.nomsNumber,
         prisonName: application.person.prisonName,

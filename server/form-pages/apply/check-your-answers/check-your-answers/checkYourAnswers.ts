@@ -10,6 +10,7 @@ type CheckYourAnswersBody = {
 }
 
 type ApplicationSummary = {
+  id: string
   name?: string
   prisonNumber?: string
   prisonName?: string
@@ -38,6 +39,7 @@ export default class CheckYourAnswers implements TaskListPage {
 
   applicationSummary(): ApplicationSummary {
     return {
+      id: this.application.id,
       name: isFullPerson(this.application.person) ? this.application.person.name : null,
       prisonNumber: isFullPerson(this.application.person) ? this.application.person.nomsNumber : null,
       prisonName: isFullPerson(this.application.person) ? this.application.person.prisonName : null,
