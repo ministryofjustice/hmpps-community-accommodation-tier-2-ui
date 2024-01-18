@@ -23,8 +23,6 @@ import { fullPersonFactory } from '../../../server/testutils/factories/person'
 import UpdateApplicationStatusPage from '../../pages/assess/updateApplicationStatusPage'
 
 context('Assessor views submitted application', () => {
-  // const submittedApplication = submittedApplicationFactory.build()s
-
   beforeEach(() => {
     cy.task('reset')
     cy.task('stubSignIn')
@@ -41,6 +39,7 @@ context('Assessor views submitted application', () => {
         document: applicationDocument,
         submittedAt: '2022-12-10T21:47:28Z',
         person: fullPersonFactory.build({ name: 'Robert Smith' }),
+        telephoneNumber: '0800 123',
       })
       cy.wrap(submittedApplication).as('submittedApplication')
       cy.task('stubSubmittedApplicationGet', { application: submittedApplication })

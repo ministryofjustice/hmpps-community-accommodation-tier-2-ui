@@ -16,4 +16,5 @@ export default Factory.define<SubmittedApplication>(() => ({
   document: {},
   outdatedSchema: faker.datatype.boolean(),
   statusUpdates: statusUpdateFactory.buildList(2),
+  telephoneNumber: faker.string.numeric({ length: 8 }),
 }))

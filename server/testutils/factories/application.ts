@@ -19,4 +19,5 @@ export default Factory.define<Application>(() => ({
   risks: risksFactory.build(),
   status: 'inProgress' as const,
   type: 'CAS2',
+  telephoneNumber: null,
 }))

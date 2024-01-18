@@ -18,11 +18,13 @@ export default class SubmittedApplicationPage extends Page {
     const person = this.application.person as FullPerson
 
     cy.get('#application-summary').within(() => {
+      cy.get('li').contains(this.application.id)
       cy.get('li').contains(person.name)
       cy.get('li').contains(person.nomsNumber)
       cy.get('li').contains(person.prisonName)
       cy.get('li').contains(this.application.submittedBy.name)
       cy.get('li').contains(this.application.submittedBy.email)
+      cy.get('li').contains(this.application.telephoneNumber)
     })
   }
 }

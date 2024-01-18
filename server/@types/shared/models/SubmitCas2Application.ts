@@ -15,5 +15,6 @@ export type SubmitCas2Application = {
     preferredAreas?: string;
     hdcEligibilityDate?: string;
     conditionalReleaseDate?: string;
+    telephoneNumber: string;
 };
 

@@ -28,4 +28,17 @@ const conditionalReleaseDateFromAppData = (application: Application): string => 
   return date || null
 }
 
-export { preferredAreasFromAppData, hdcEligibilityDateFromAppData, conditionalReleaseDateFromAppData }
+const telephoneNumberFromAppData = (application: Application): string | null => {
+  const telephoneNumber: string = (application.data as Record<string, unknown>)?.['referrer-details']?.[
+    'contact-number'
+  ]?.telephone
+
+  return telephoneNumber || null
+}
+
+export {
+  preferredAreasFromAppData,
+  hdcEligibilityDateFromAppData,
+  conditionalReleaseDateFromAppData,
+  telephoneNumberFromAppData,
+}

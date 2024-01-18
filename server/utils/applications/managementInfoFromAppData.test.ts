@@ -2,6 +2,7 @@ import {
   preferredAreasFromAppData,
   hdcEligibilityDateFromAppData,
   conditionalReleaseDateFromAppData,
+  telephoneNumberFromAppData,
 } from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
@@ -20,14 +21,29 @@ describe('managementInfoFromAppData', () => {
       expect(preferredAreasFromAppData(application)).toEqual('Bradford | Leeds')
     })
 
-    it('returns an empty string when no areas are specified', () => {
-      const application = applicationFactory.build({
-        data: {
-          'area-information': {
-            'first-preferred-area': { preferredArea: '' },
-            'second-preferred-area': { preferredArea: '' },
-          },
+    const noAreasData = [
+      {
+        'area-information': null,
+      },
+      {
+        'area-information': {
+          'first-preferred-area': null,
+          'second-preferred-area': null,
         },
+      },
+      {
+        'area-information': {
+          'first-preferred-area': { preferredArea: '' },
+          'second-preferred-area': { preferredArea: '' },
+        },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noAreasData)('returns an empty string when no areas are specified', data => {
+      const application = applicationFactory.build({
+        data,
       })
       expect(preferredAreasFromAppData(application)).toEqual('')
     })
@@ -57,11 +73,20 @@ describe('managementInfoFromAppData', () => {
       expect(hdcEligibilityDateFromAppData(application)).toEqual('2024-02-27')
     })
 
-    it('returns null if no date is given', () => {
+    const noDateData = [
+      {
+        'hdc-licence-and-cpp-details': null,
+      },
+      {
+        'hdc-licence-and-cpp-details': { 'hdc-licence-dates': null },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noDateData)('returns null if no date is given', data => {
       const application = applicationFactory.build({
-        data: {
-          'hdc-licence-and-cpp-details': null,
-        },
+        data,
       })
       expect(hdcEligibilityDateFromAppData(application)).toEqual(null)
     })
@@ -79,13 +104,53 @@ describe('managementInfoFromAppData', () => {
       expect(conditionalReleaseDateFromAppData(application)).toEqual('2024-03-15')
     })
 
-    it('returns null if no date is given', () => {
+    const noDateData = [
+      {
+        'hdc-licence-and-cpp-details': null,
+      },
+      {
+        'hdc-licence-and-cpp-details': { 'hdc-licence-dates': null },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noDateData)('returns null if no date is given', data => {
       const application = applicationFactory.build({
-        data: {
-          'hdc-licence-and-cpp-details': null,
-        },
+        data,
       })
       expect(conditionalReleaseDateFromAppData(application)).toEqual(null)
+    })
+  })
+
+  describe('telephoneNumberFromAppData', () => {
+    it('returns the given contact number', () => {
+      const application = applicationFactory.build({
+        data: {
+          'referrer-details': {
+            'contact-number': { telephone: '0800 123' },
+          },
+        },
+      })
+      expect(telephoneNumberFromAppData(application)).toEqual('0800 123')
+    })
+
+    const noDateData = [
+      {
+        'referrer-details': null,
+      },
+      {
+        'referrer-details': { 'contact-number': null },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noDateData)('returns null if no contact number is given', data => {
+      const application = applicationFactory.build({
+        data,
+      })
+      expect(telephoneNumberFromAppData(application)).toEqual(null)
     })
   })
 })

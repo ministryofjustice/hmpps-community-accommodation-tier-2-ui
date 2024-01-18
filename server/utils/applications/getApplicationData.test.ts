@@ -22,6 +22,7 @@ describe('getApplicationSubmissionData', () => {
       preferredAreas: 'London | Birmingham',
       hdcEligibilityDate: '2024-02-28',
       conditionalReleaseDate: '2024-02-22',
+      telephoneNumber: '1234567',
     })
   })
 })

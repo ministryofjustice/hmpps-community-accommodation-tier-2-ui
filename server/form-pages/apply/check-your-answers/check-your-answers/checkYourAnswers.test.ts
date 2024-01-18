@@ -37,6 +37,7 @@ describe('CheckYourAnswers', () => {
       const page = new CheckYourAnswers(body, application)
 
       expect(page.applicationSummary()).toEqual({
+        id: application.id,
         name: person.name,
         prisonNumber: person.nomsNumber,
         prisonName: person.prisonName,
@@ -56,6 +57,7 @@ describe('CheckYourAnswers', () => {
         const page = new CheckYourAnswers(body, application)
 
         expect(page.applicationSummary()).toEqual({
+          id: application.id,
           name: null,
           prisonNumber: null,
           prisonName: null,

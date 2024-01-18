@@ -14,6 +14,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
     const person = this.application.person as FullPerson
 
     cy.get('#application-summary').within(() => {
+      cy.get('li').contains(this.application.id)
       cy.get('li').contains(person.name)
       cy.get('li').contains(person.nomsNumber)
       cy.get('li').contains(person.prisonName)

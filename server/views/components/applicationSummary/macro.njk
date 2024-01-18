@@ -5,6 +5,9 @@
     </h2>
 
     <ul class="govuk-list govuk-list--spaced">
+        <li>
+          <span class="govuk-!-font-weight-bold">Application ID: </span>{{ summary.id }}
+        </li>
       {% if summary.name %}
         <li>
           <span class="govuk-!-font-weight-bold">Applicant name: </span>{{ summary.name }}
@@ -27,6 +30,17 @@
         <li>
           <span class="govuk-!-font-weight-bold">Contact email address:</span>
           <a href="mailto:{{ summary.contactEmail }}">{{ summary.contactEmail }}</a>
+        </li>
+      {% endif %}
+      {% if summary.submissionDate %}
+          <li>
+            <span class="govuk-!-font-weight-bold">Submission date:</span>
+            {{ formatDate(summary.submissionDate, {format: 'medium'}) }}
+          </li>
+      {% endif %}
+      {% if summary.contactNumber %}
+        <li>
+          <span class="govuk-!-font-weight-bold">Contact number: </span>{{ summary.contactNumber }}
         </li>
       {% endif %}
     </ul>
