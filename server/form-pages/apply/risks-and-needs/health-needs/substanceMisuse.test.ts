@@ -66,6 +66,13 @@ describe('SubstanceMisuse', () => {
         )
       })
 
+      it('includes a validation error for _intentToReferToServiceOnRelease_', () => {
+        expect(page.errors()).toHaveProperty(
+          'intentToReferToServiceOnRelease',
+          'Confirm whether they will be referred to a drug and alcohol service after release',
+        )
+      })
+
       it('includes a validation error for _requiresSubstituteMedication_', () => {
         expect(page.errors()).toHaveProperty(
           'requiresSubstituteMedication',
@@ -95,19 +102,6 @@ describe('SubstanceMisuse', () => {
           expect(page.errors()).toHaveProperty(
             'substanceMisuseDetail',
             'Describe how often they take substances, by what method and how much',
-          )
-        })
-      })
-    })
-
-    describe('when _engagedWithDrugAndAlcoholService_ is YES', () => {
-      const page = new SubstanceMisuse({ engagedWithDrugAndAlcoholService: 'yes' }, application)
-
-      describe('and _drugAndAlcoholServiceDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _drugAndAlcoholServiceDetail_', () => {
-          expect(page.errors()).toHaveProperty(
-            'drugAndAlcoholServiceDetail',
-            'Provide the name of the drug and alcohol service',
           )
         })
       })
@@ -146,7 +140,7 @@ describe('SubstanceMisuse', () => {
 
     it('removes drug and alcohol service data if answer is no', () => {
       const body: Partial<SubstanceMisuseBody> = {
-        engagedWithDrugAndAlcoholService: 'no',
+        intentToReferToServiceOnRelease: 'no',
         drugAndAlcoholServiceDetail: 'Drug and alcohol service detail',
       }
 
@@ -155,7 +149,7 @@ describe('SubstanceMisuse', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        engagedWithDrugAndAlcoholService: 'no',
+        intentToReferToServiceOnRelease: 'no',
       })
     })
 

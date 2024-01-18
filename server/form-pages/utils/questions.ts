@@ -480,7 +480,11 @@ export const getQuestions = (name: string) => {
           question: 'Are they engaged with a drug and alcohol service in custody?',
           answers: yesOrNo,
         },
-        drugAndAlcoholServiceDetail: { question: 'Name the drug and alcohol service' },
+        intentToReferToServiceOnRelease: {
+          question: 'Is there an intention to refer them to a drug and alcohol service when they are released?',
+          answers: yesOrNo,
+        },
+        drugAndAlcoholServiceDetail: { question: 'Name the drug and alcohol service (optional)' },
         requiresSubstituteMedication: {
           question: 'Do they require any substitute medication for misused substances?',
           answers: yesOrNo,
@@ -763,8 +767,8 @@ export const getQuestions = (name: string) => {
     'current-offences': {
       'current-offence-data': {
         titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
+          question: 'Offence title and number',
+          hint: "For example, 'Stalking (08000)'",
         },
         offenceCategory,
         offenceDate: {
@@ -797,8 +801,8 @@ export const getQuestions = (name: string) => {
       },
       'offence-history-data': {
         titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
+          question: 'Offence title and number',
+          hint: "For example, 'Stalking (08000)'",
         },
         offenceCategory,
         offenceDate: {

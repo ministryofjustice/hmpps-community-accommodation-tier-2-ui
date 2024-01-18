@@ -104,6 +104,31 @@
         items: [
         {
           value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "intentToReferToServiceOnRelease",
+        fieldset: {
+          legend: {
+            text: page.questions.intentToReferToServiceOnRelease.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
           text: "Yes",
           conditional: {
             html: drugAndAlcoholFollowUp
