@@ -108,7 +108,7 @@ describe('Summary', () => {
     }
 
     const expectedResponse = {
-      'OASys started': '30 January 2023',
+      'OASys created': '30 January 2023',
       'OASys completed': 'Unknown',
       'OASys imported': '15 September 2023',
       'Overall risk rating': roshSummaryData.value.overallRisk,

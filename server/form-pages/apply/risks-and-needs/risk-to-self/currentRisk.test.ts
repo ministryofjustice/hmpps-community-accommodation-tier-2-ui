@@ -75,7 +75,7 @@ describe('CurrentRisk', () => {
       const page = new CurrentRisk(body, applicationWithOasysDates)
 
       expect(page.response()).toEqual({
-        'OASys started': '1 January 2024',
+        'OASys created': '1 January 2024',
         'OASys completed': '2 January 2024',
         'OASys imported': '5 January 2024',
         "Describe Roger Smith's current issues and needs related to self harm and suicide": 'some detail',
