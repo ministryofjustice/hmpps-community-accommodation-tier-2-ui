@@ -28,17 +28,17 @@ describe('MentalHealth', () => {
         expect(page.errors()).toHaveProperty('isEngagedWithCommunity', 'Confirm whether they are engaged with services')
       })
 
-      it('includes a validation error for _hasPrescribedMedication_', () => {
-        expect(page.errors()).toHaveProperty(
-          'hasPrescribedMedication',
-          'Confirm whether they are prescribed medication',
-        )
-      })
-
       it('includes a validation error for _isEngagedWithServicesInCustody_', () => {
         expect(page.errors()).toHaveProperty(
           'isEngagedWithServicesInCustody',
           'Confirm whether they are engaged with mental health services in custody',
+        )
+      })
+
+      it('includes a validation error for _canManageMedication_', () => {
+        expect(page.errors()).toHaveProperty(
+          'canManageMedication',
+          "Confirm whether they can manage their own mental health medication on release, or select 'They are not prescribed medication for their mental health'",
         )
       })
     })
@@ -63,24 +63,31 @@ describe('MentalHealth', () => {
       })
     })
 
-    describe('when _hasPrescribedMedication_ is YES', () => {
-      const page = new MentalHealth({ hasPrescribedMedication: 'yes' }, application)
+    describe('when _canManageMedication_ is YES', () => {
+      const page = new MentalHealth({ canManageMedication: 'yes' }, application)
 
-      describe('and _isInPossessionOfMeds_ is UNANSWERED', () => {
-        it('includes a validation error for _isInPossessionOfMeds_', () => {
-          expect(page.errors()).toHaveProperty('isInPossessionOfMeds', 'Confirm whether they have their medication')
+      describe('and _canManageMedicationNotes_ is UNANSWERED', () => {
+        it('includes NO validation error for _canManageMedicationNotes_ (optional)', () => {
+          expect(page.errors()).not.toHaveProperty('canManageMedicationNotes')
         })
       })
+    })
 
-      describe('and _medicationDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _medicationDetail_', () => {
-          expect(page.errors()).toHaveProperty('medicationDetail', 'List their mental health medication')
-        })
-      })
+    describe('when _canManageMedication_ is NO', () => {
+      const page = new MentalHealth({ canManageMedication: 'no' }, application)
 
       describe('and _medicationIssues_ is UNANSWERED', () => {
-        it('includes NO validation error for _medicationIssues_ (optional)', () => {
-          expect(page.errors()).not.toHaveProperty('medicationIssues')
+        it('includes a validation error for _medicationIssues_', () => {
+          expect(page.errors()).toHaveProperty(
+            'medicationIssues',
+            "Describe the applicant's issues with taking their mental health medication",
+          )
+        })
+      })
+
+      describe('and _cantManageMedicationNotes_ is UNANSWERED', () => {
+        it('includes NO validation error for _cantManageMedicationNotes_ (optional)', () => {
+          expect(page.errors()).not.toHaveProperty('cantManageMedicationNotes')
         })
       })
     })
@@ -117,12 +124,11 @@ describe('MentalHealth', () => {
       })
     })
 
-    it('removes prescribed medication data if the question is set to "no"', () => {
+    it("removes can't manage own medication data if the question is not set to 'no'", () => {
       const body: Partial<MentalHealthBody> = {
-        hasPrescribedMedication: 'no',
-        isInPossessionOfMeds: 'yes',
-        medicationDetail: 'Medication detail',
-        medicationIssues: 'Medication issues',
+        canManageMedication: 'notPrescribedMedication',
+        cantManageMedicationNotes: 'some notes',
+        medicationIssues: 'some issues',
       }
 
       const page = new MentalHealth(body, application)
@@ -130,7 +136,22 @@ describe('MentalHealth', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        hasPrescribedMedication: 'no',
+        canManageMedication: 'notPrescribedMedication',
+      })
+    })
+
+    it('removes can manage own medication notes if the question is not set to "yes"', () => {
+      const body: Partial<MentalHealthBody> = {
+        canManageMedication: 'no',
+        canManageMedicationNotes: 'some notes',
+      }
+
+      const page = new MentalHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        canManageMedication: 'no',
       })
     })
   })
