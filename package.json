@@ -124,7 +124,7 @@
     "@aws-sdk/client-sqs": "^3.350.0",
     "@faker-js/faker": "^8.0.0",
     "@golevelup/ts-jest": "^0.4.0",
-    "@ministryofjustice/frontend": "^1.6.6",
+    "@ministryofjustice/frontend": "^2.1.0",
     "@sentry/node": "^7.57.0",
     "@types/jsonpath": "^0.2.0",
     "@types/method-override": "^0.0.35",
