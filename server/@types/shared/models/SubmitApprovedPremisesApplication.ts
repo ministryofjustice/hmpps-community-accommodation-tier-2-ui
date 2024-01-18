@@ -16,5 +16,6 @@ export type SubmitApprovedPremisesApplication = (SubmitApplication & {
     sentenceType: SentenceTypeOption;
     situation?: SituationOption;
     arrivalDate?: string;
+    probationRegionId?: string;
 });
 
