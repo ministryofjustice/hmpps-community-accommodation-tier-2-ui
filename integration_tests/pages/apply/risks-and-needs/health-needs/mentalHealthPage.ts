@@ -38,10 +38,9 @@ export default class MentalHealthPage extends ApplyPage {
   }
 
   describeMedication = (): void => {
-    this.checkRadioByNameAndValue('hasPrescribedMedication', 'yes')
-    this.checkRadioByNameAndValue('isInPossessionOfMeds', 'no')
-    this.getTextInputByIdAndEnterDetails('medicationDetail', 'Amitriptyline')
-    fieldIsOptional('medicationIssues')
+    this.checkRadioByNameAndValue('canManageMedication', 'no')
     this.getTextInputByIdAndEnterDetails('medicationIssues', 'Sometimes fails to take pills')
+    fieldIsOptional('cantManageMedicationNotes')
+    this.getTextInputByIdAndEnterDetails('cantManageMedicationNotes', 'struggles because x, y and z')
   }
 }
