@@ -58,6 +58,13 @@ describe('SubstanceMisuse', () => {
         )
       })
 
+      it('includes a validation error for _pastSubstanceMisuse_', () => {
+        expect(page.errors()).toHaveProperty(
+          'pastSubstanceMisuse',
+          'Confirm whether they had past issues with substance misuse',
+        )
+      })
+
       it('includes a validation error for _engagedWithDrugAndAlcoholService_', () => {
         expect(page.errors()).toHaveProperty(
           'engagedWithDrugAndAlcoholService',
@@ -97,6 +104,19 @@ describe('SubstanceMisuse', () => {
       })
     })
 
+    describe('when _pastSubstanceMisuse_ is YES', () => {
+      const page = new SubstanceMisuse({ pastSubstanceMisuse: 'yes' }, application)
+
+      describe('and _pastSubstanceMisuseDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _pastSubstanceMisuseDetail_', () => {
+          expect(page.errors()).toHaveProperty(
+            'pastSubstanceMisuseDetail',
+            'Provide details of their past issues with substance misuse',
+          )
+        })
+      })
+    })
+
     describe('when _requiresSubstituteMedication_ is YES', () => {
       const page = new SubstanceMisuse({ requiresSubstituteMedication: 'yes' }, application)
 
@@ -115,7 +135,7 @@ describe('SubstanceMisuse', () => {
     it('removes illegal substance data if answer is no', () => {
       const body: Partial<SubstanceMisuseBody> = {
         usesIllegalSubstances: 'no',
-        substanceMisuse: 'Substance misuse history',
+        substanceMisuse: 'Substance misuse',
       }
 
       const page = new SubstanceMisuse(body, application)
@@ -124,6 +144,21 @@ describe('SubstanceMisuse', () => {
 
       expect(page.body).toEqual({
         usesIllegalSubstances: 'no',
+      })
+    })
+
+    it('removes past substance misuse data if answer is no', () => {
+      const body: Partial<SubstanceMisuseBody> = {
+        pastSubstanceMisuse: 'no',
+        pastSubstanceMisuseDetail: 'Substance misuse history',
+      }
+
+      const page = new SubstanceMisuse(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        pastSubstanceMisuse: 'no',
       })
     })
 
