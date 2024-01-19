@@ -165,10 +165,6 @@
           "questionsAndAnswers": [
             { "question": "Do they take any illegal substances in custody?", "answer": "Yes" },
             { "question": "What substances do they take?", "answer": "substances taken illegally" },
-            {
-              "question": "How often do they take these substances, by what method, and how much?",
-              "answer": "once a month"
-            },
             { "question": "Are they engaged with a drug and alcohol service in custody?", "answer": "Yes" },
             {
               "question": "Is there an intention to refer them to a drug and alcohol service when they are released?",
