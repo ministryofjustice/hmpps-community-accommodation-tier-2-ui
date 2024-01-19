@@ -165,6 +165,8 @@
           "questionsAndAnswers": [
             { "question": "Do they take any illegal substances in custody?", "answer": "Yes" },
             { "question": "What substances do they take?", "answer": "substances taken illegally" },
+            { "question": "Did they have any past issues with substance misuse before custody?", "answer": "Yes" },
+            { "question": "Describe their previous substance misuse", "answer": "misuse of various substances" },
             { "question": "Are they engaged with a drug and alcohol service in custody?", "answer": "Yes" },
             {
               "question": "Is there an intention to refer them to a drug and alcohol service when they are released?",

@@ -33,6 +33,13 @@ export default class SubstanceMisusePage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('substanceMisuse', 'Heroin user')
   }
 
+  describeSubstanceMisuseHistory = (): void => {
+    this.checkRadioByNameAndValue('pastSubstanceMisuse', 'yes')
+
+    cy.get(`label[for="pastSubstanceMisuseDetail"]`).contains('Describe their previous substance misuse')
+    this.getTextInputByIdAndEnterDetails('pastSubstanceMisuseDetail', 'Regular heroin use')
+  }
+
   nameDrugAndAlcoholService = (): void => {
     this.checkRadioByNameAndValue('engagedWithDrugAndAlcoholService', 'yes')
     this.checkRadioByNameAndValue('intentToReferToServiceOnRelease', 'yes')

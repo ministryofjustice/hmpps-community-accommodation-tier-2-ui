@@ -72,6 +72,7 @@ context('Visit "Substance misuse" page', () => {
     SubstanceMisusePage.visit(this.application)
     const page = new SubstanceMisusePage(this.application)
     page.describeIllegalSubstanceUse()
+    page.describeSubstanceMisuseHistory()
     page.nameDrugAndAlcoholService()
     page.provideSubstituteMedicationDetails()
     page.provideNaloxoneDetails()
