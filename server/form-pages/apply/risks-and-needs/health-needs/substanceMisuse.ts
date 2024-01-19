@@ -7,7 +7,7 @@ import { getQuestions } from '../../../utils/questions'
 
 export type SubstanceMisuseBody = {
   usesIllegalSubstances: YesOrNo
-  substanceMisuseHistory: string
+  substanceMisuse: string
   engagedWithDrugAndAlcoholService: YesOrNo
   intentToReferToServiceOnRelease: YesOrNo
   drugAndAlcoholServiceDetail: string
@@ -20,7 +20,7 @@ export type SubstanceMisuseBody = {
   name: 'substance-misuse',
   bodyProperties: [
     'usesIllegalSubstances',
-    'substanceMisuseHistory',
+    'substanceMisuse',
     'engagedWithDrugAndAlcoholService',
     'intentToReferToServiceOnRelease',
     'drugAndAlcoholServiceDetail',
@@ -62,8 +62,8 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.usesIllegalSubstances = `Confirm whether they take any illegal substances`
     }
 
-    if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuseHistory) {
-      errors.substanceMisuseHistory = 'Name the illegal substances they take'
+    if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuse) {
+      errors.substanceMisuse = 'Name the illegal substances they take'
     }
 
     if (!this.body.engagedWithDrugAndAlcoholService) {
@@ -92,7 +92,7 @@ export default class SubstanceMisuse implements TaskListPage {
 
   onSave(): void {
     if (this.body.usesIllegalSubstances !== 'yes') {
-      delete this.body.substanceMisuseHistory
+      delete this.body.substanceMisuse
     }
 
     if (this.body.intentToReferToServiceOnRelease !== 'yes') {

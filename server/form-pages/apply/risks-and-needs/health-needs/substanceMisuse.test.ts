@@ -21,7 +21,7 @@ describe('SubstanceMisuse', () => {
         expect(page.questions.usesIllegalSubstances.question).toBeDefined()
       })
       it('has two follow-up questions', () => {
-        expect(page.questions.substanceMisuseHistory.question).toBeDefined()
+        expect(page.questions.substanceMisuse.question).toBeDefined()
       })
     })
 
@@ -90,9 +90,9 @@ describe('SubstanceMisuse', () => {
     describe('when _usesIllegalSubstances_ is YES', () => {
       const page = new SubstanceMisuse({ usesIllegalSubstances: 'yes' }, application)
 
-      describe('and _substanceMisuseHistory_ is UNANSWERED', () => {
-        it('includes a validation error for _substanceMisuseHistory_', () => {
-          expect(page.errors()).toHaveProperty('substanceMisuseHistory', 'Name the illegal substances they take')
+      describe('and _substanceMisuse_ is UNANSWERED', () => {
+        it('includes a validation error for _substanceMisuse_', () => {
+          expect(page.errors()).toHaveProperty('substanceMisuse', 'Name the illegal substances they take')
         })
       })
     })
@@ -115,7 +115,7 @@ describe('SubstanceMisuse', () => {
     it('removes illegal substance data if answer is no', () => {
       const body: Partial<SubstanceMisuseBody> = {
         usesIllegalSubstances: 'no',
-        substanceMisuseHistory: 'Substance misuse history',
+        substanceMisuse: 'Substance misuse history',
       }
 
       const page = new SubstanceMisuse(body, application)

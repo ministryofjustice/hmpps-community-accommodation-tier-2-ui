@@ -472,7 +472,7 @@ export const getQuestions = (name: string) => {
           question: 'Do they take any illegal substances in custody?',
           answers: yesOrNo,
         },
-        substanceMisuseHistory: { question: 'What substances do they take?' },
+        substanceMisuse: { question: 'What substances do they take?' },
         engagedWithDrugAndAlcoholService: {
           question: 'Are they engaged with a drug and alcohol service in custody?',
           answers: yesOrNo,
