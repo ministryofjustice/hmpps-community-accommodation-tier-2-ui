@@ -472,7 +472,15 @@ export const getQuestions = (name: string) => {
           question: 'Do they take any illegal substances in custody?',
           answers: yesOrNo,
         },
-        substanceMisuseHistory: { question: 'What substances do they take?' },
+        substanceMisuse: { question: 'What substances do they take?' },
+        pastSubstanceMisuse: {
+          question: 'Did they have any past issues with substance misuse before custody?',
+          answers: yesOrNo,
+        },
+        pastSubstanceMisuseDetail: {
+          question: 'Describe their previous substance misuse',
+          hint: 'Include previous substance misuse that support would be needed for or that could lead to potential issues in a CAS-2 placement. For example, relapse prevention support, substitute medication or risk of overdose',
+        },
         engagedWithDrugAndAlcoholService: {
           question: 'Are they engaged with a drug and alcohol service in custody?',
           answers: yesOrNo,

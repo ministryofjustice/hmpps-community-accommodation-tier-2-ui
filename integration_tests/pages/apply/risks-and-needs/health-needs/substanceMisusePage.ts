@@ -29,8 +29,15 @@ export default class SubstanceMisusePage extends ApplyPage {
   describeIllegalSubstanceUse = (): void => {
     this.checkRadioByNameAndValue('usesIllegalSubstances', 'yes')
 
-    cy.get(`label[for="substanceMisuseHistory"]`).contains('What substances do they take?')
-    this.getTextInputByIdAndEnterDetails('substanceMisuseHistory', 'Heroin user')
+    cy.get(`label[for="substanceMisuse"]`).contains('What substances do they take?')
+    this.getTextInputByIdAndEnterDetails('substanceMisuse', 'Heroin user')
+  }
+
+  describeSubstanceMisuseHistory = (): void => {
+    this.checkRadioByNameAndValue('pastSubstanceMisuse', 'yes')
+
+    cy.get(`label[for="pastSubstanceMisuseDetail"]`).contains('Describe their previous substance misuse')
+    this.getTextInputByIdAndEnterDetails('pastSubstanceMisuseDetail', 'Regular heroin use')
   }
 
   nameDrugAndAlcoholService = (): void => {

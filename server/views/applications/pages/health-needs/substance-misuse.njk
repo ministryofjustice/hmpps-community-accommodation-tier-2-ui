@@ -7,13 +7,31 @@
   {{
       formPageTextArea(
         {
-          fieldName: 'substanceMisuseHistory',
+          fieldName: 'substanceMisuse',
           label: {
-            text: page.questions.substanceMisuseHistory.question,
+            text: page.questions.substanceMisuse.question,
             classes: "govuk-label--s"
           },
           hint: {
-            text: page.questions.substanceMisuseHistory.hint
+            text: page.questions.substanceMisuse.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set pastSubstanceMisuseFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'pastSubstanceMisuseDetail',
+          label: {
+            text: page.questions.pastSubstanceMisuseDetail.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.pastSubstanceMisuseDetail.hint
           }
         },
         fetchContext()
@@ -67,6 +85,34 @@
           text: "Yes",
           conditional: {
             html: illegalSubstancesFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "pastSubstanceMisuse",
+        fieldset: {
+          legend: {
+            text: page.questions.pastSubstanceMisuse.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: pastSubstanceMisuseFollowUp
           }
         },
         {

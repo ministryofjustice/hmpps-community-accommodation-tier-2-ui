@@ -7,7 +7,9 @@ import { getQuestions } from '../../../utils/questions'
 
 export type SubstanceMisuseBody = {
   usesIllegalSubstances: YesOrNo
-  substanceMisuseHistory: string
+  substanceMisuse: string
+  pastSubstanceMisuse: YesOrNo
+  pastSubstanceMisuseDetail: string
   engagedWithDrugAndAlcoholService: YesOrNo
   intentToReferToServiceOnRelease: YesOrNo
   drugAndAlcoholServiceDetail: string
@@ -20,7 +22,9 @@ export type SubstanceMisuseBody = {
   name: 'substance-misuse',
   bodyProperties: [
     'usesIllegalSubstances',
-    'substanceMisuseHistory',
+    'substanceMisuse',
+    'pastSubstanceMisuse',
+    'pastSubstanceMisuseDetail',
     'engagedWithDrugAndAlcoholService',
     'intentToReferToServiceOnRelease',
     'drugAndAlcoholServiceDetail',
@@ -62,8 +66,16 @@ export default class SubstanceMisuse implements TaskListPage {
       errors.usesIllegalSubstances = `Confirm whether they take any illegal substances`
     }
 
-    if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuseHistory) {
-      errors.substanceMisuseHistory = 'Name the illegal substances they take'
+    if (this.body.usesIllegalSubstances === 'yes' && !this.body.substanceMisuse) {
+      errors.substanceMisuse = 'Name the illegal substances they take'
+    }
+
+    if (!this.body.pastSubstanceMisuse) {
+      errors.pastSubstanceMisuse = 'Confirm whether they had past issues with substance misuse'
+    }
+
+    if (this.body.pastSubstanceMisuse === 'yes' && !this.body.pastSubstanceMisuseDetail) {
+      errors.pastSubstanceMisuseDetail = 'Provide details of their past issues with substance misuse'
     }
 
     if (!this.body.engagedWithDrugAndAlcoholService) {
@@ -92,7 +104,11 @@ export default class SubstanceMisuse implements TaskListPage {
 
   onSave(): void {
     if (this.body.usesIllegalSubstances !== 'yes') {
-      delete this.body.substanceMisuseHistory
+      delete this.body.substanceMisuse
+    }
+
+    if (this.body.pastSubstanceMisuse !== 'yes') {
+      delete this.body.pastSubstanceMisuseDetail
     }
 
     if (this.body.intentToReferToServiceOnRelease !== 'yes') {

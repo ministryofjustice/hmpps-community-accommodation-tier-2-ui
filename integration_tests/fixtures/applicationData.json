@@ -127,7 +127,9 @@
     "guidance": {},
     "substance-misuse": {
       "usesIllegalSubstances": "no",
-      "substanceMisuseHistory": "",
+      "substanceMisuse": "",
+      "pastSubstanceMisuse": "no",
+      "pastSubstanceMisuseDetail": "",
       "engagedWithDrugAndAlcoholService": "no",
       "intentToReferToServiceOnRelease": "no",
       "drugAndAlcoholServiceDetail": "",
