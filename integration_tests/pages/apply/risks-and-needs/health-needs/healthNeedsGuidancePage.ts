@@ -34,13 +34,13 @@ export default class HealthNeedsGuidancePage extends ApplyPage {
 
   hasIntroduceYourselfTemplate = (): void => {
     cy.get('span').contains('Introduce yourself to a team/officer')
-    cy.get('p').contains('My name is {Name}, a {Role} working at the {Location}.')
+    cy.get('p').contains('My name is {Name}, a {Role} working at HMP {prison name}.')
   }
 
   copyIntroduceYourselfTemplateToClipboard = (): void => {
     cy.get('span').contains('Introduce yourself to a team/officer').click()
     cy.get('#introduce-yourself-button').click()
-    cy.assertValueCopiedToClipboardContains('My name is {Name}, a {Role} working at the {Location}.')
+    cy.assertValueCopiedToClipboardContains('My name is {Name}, a {Role} working at HMP {prison name}.')
   }
 
   hasHealthQuestionsTemplate = (): void => {
