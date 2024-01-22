@@ -155,9 +155,10 @@
       "isEngagedWithCommunity": "no",
       "servicesDetail": "",
       "isEngagedWithServicesInCustody": "no",
-      "hasPrescribedMedication": "no",
-      "medicationDetail": "",
-      "medicationIssues": ""
+      "canManageMedication": "notPrescribedMedication",
+      "canManageMedicationNotes": "",
+      "medicationIssues": "",
+      "cantManageMedicationNotes": ""
     },
     "communication-and-language": {
       "hasCommunicationNeeds": "no",

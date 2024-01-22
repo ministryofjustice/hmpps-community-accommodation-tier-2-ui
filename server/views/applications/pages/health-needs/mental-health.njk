@@ -33,43 +33,25 @@
     }}
   {% endset %}
 
-  {% set medicationFollowUp %}
-  {{
-      formPageRadios(
-        {
-          fieldName: 'isInPossessionOfMeds',
-          fieldset: {
-            legend: {
-              text: page.questions.isInPossessionOfMeds.question,
-              classes: "govuk-fieldset__legend--s"
-            }
-          },
-          items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-        },
-        fetchContext()
-      )
-      }}
+  {% set canManageMedsFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'medicationDetail',
+          fieldName: 'canManageMedicationNotes',
           label: {
-            text: page.questions.medicationDetail.question,
+            text: page.questions.canManageMedicationNotes.question,
             classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.canManageMedicationNotes.hint
           }
         },
         fetchContext()
       )
-      }}
+    }}
+  {% endset %}
+
+  {% set cantManageMedsFollowUp %}
   {{
       formPageTextArea(
         {
@@ -77,6 +59,21 @@
           label: {
             text: page.questions.medicationIssues.question,
             classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'cantManageMedicationNotes',
+          label: {
+            text: page.questions.cantManageMedicationNotes.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.cantManageMedicationNotes.hint
           }
         },
         fetchContext()
@@ -168,10 +165,10 @@
   {{
     formPageRadios(
       {
-        fieldName: "hasPrescribedMedication",
+        fieldName: "canManageMedication",
         fieldset: {
           legend: {
-            text: page.questions.hasPrescribedMedication.question,
+            text: page.questions.canManageMedication.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
@@ -180,12 +177,22 @@
           value: "yes",
           text: "Yes",
           conditional: {
-            html: medicationFollowUp
+            html: canManageMedsFollowUp
           }
         },
         {
           value: "no",
-          text: "No"
+          text: "No",
+          conditional: {
+            html: cantManageMedsFollowUp
+          }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: "notPrescribedMedication",
+          text: "They are not prescribed medication for their mental health"
         }
       ]
       },
