@@ -31,11 +31,6 @@ export default class SubstanceMisusePage extends ApplyPage {
 
     cy.get(`label[for="substanceMisuseHistory"]`).contains('What substances do they take?')
     this.getTextInputByIdAndEnterDetails('substanceMisuseHistory', 'Heroin user')
-
-    cy.get(`label[for="substanceMisuseDetail"]`).contains(
-      'How often do they take these substances, by what method, and how much?',
-    )
-    this.getTextInputByIdAndEnterDetails('substanceMisuseDetail', 'Injects daily')
   }
 
   nameDrugAndAlcoholService = (): void => {

@@ -473,9 +473,6 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
         substanceMisuseHistory: { question: 'What substances do they take?' },
-        substanceMisuseDetail: {
-          question: 'How often do they take these substances, by what method, and how much?',
-        },
         engagedWithDrugAndAlcoholService: {
           question: 'Are they engaged with a drug and alcohol service in custody?',
           answers: yesOrNo,
