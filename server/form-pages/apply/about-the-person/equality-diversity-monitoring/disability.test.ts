@@ -176,5 +176,22 @@ describe('Disability', () => {
         hasDisability: 'preferNotToSay',
       })
     })
+
+    it('removes other disability data when it is not listed as the type of disability', () => {
+      const body: Partial<DisabilityBody> = {
+        hasDisability: 'yes',
+        typeOfDisability: ['sensoryImpairment'],
+        otherDisability: 'Other disability',
+      }
+
+      const page = new Disability(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasDisability: 'yes',
+        typeOfDisability: ['sensoryImpairment'],
+      })
+    })
   })
 })
