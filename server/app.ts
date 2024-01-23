@@ -26,6 +26,7 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import { Controllers } from './controllers'
 import routes from './routes'
 import type { Services } from './services'
+import setUpProductInfo from './middleware/setUpProductInfo'
 
 export default function createApp(controllers: Controllers, services: Services): express.Application {
   const app = express()
@@ -40,6 +41,7 @@ export default function createApp(controllers: Controllers, services: Services):
 
   app.use(metricsMiddleware)
   app.use(setUpHealthChecks())
+  app.use(setUpProductInfo())
   app.use(setUpWebSecurity())
   app.use(setUpWebSession())
   app.use(setUpWebRequestParsing())
