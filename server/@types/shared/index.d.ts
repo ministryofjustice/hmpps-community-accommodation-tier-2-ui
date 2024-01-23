@@ -113,6 +113,7 @@ export type { MigrationJobRequest } from './models/MigrationJobRequest';
 export type { MigrationJobType } from './models/MigrationJobType';
 export type { MoveOnCategory } from './models/MoveOnCategory';
 export type { NewApplication } from './models/NewApplication';
+export type { NewApplicationTimelineNote } from './models/NewApplicationTimelineNote';
 export type { NewArrival } from './models/NewArrival';
 export type { NewBedMove } from './models/NewBedMove';
 export type { NewBooking } from './models/NewBooking';

@@ -11,10 +11,10 @@ export type MentalHealthBody = {
   isEngagedWithCommunity: YesOrNo
   servicesDetail: string
   isEngagedWithServicesInCustody: YesOrNo
-  hasPrescribedMedication: YesOrNo
-  isInPossessionOfMeds: YesOrNo
-  medicationDetail: string
+  canManageMedication: YesOrNo | 'notPrescribedMedication'
+  canManageMedicationNotes: string
   medicationIssues: string
+  cantManageMedicationNotes: string
 }
 
 @Page({
@@ -25,10 +25,10 @@ export type MentalHealthBody = {
     'isEngagedWithCommunity',
     'servicesDetail',
     'isEngagedWithServicesInCustody',
-    'hasPrescribedMedication',
-    'isInPossessionOfMeds',
-    'medicationDetail',
+    'canManageMedication',
+    'canManageMedicationNotes',
     'medicationIssues',
+    'cantManageMedicationNotes',
   ],
 })
 export default class MentalHealth implements TaskListPage {
@@ -78,18 +78,13 @@ export default class MentalHealth implements TaskListPage {
       errors.isEngagedWithServicesInCustody = 'Confirm whether they are engaged with mental health services in custody'
     }
 
-    if (!this.body.hasPrescribedMedication) {
-      errors.hasPrescribedMedication = 'Confirm whether they are prescribed medication'
+    if (!this.body.canManageMedication) {
+      errors.canManageMedication =
+        "Confirm whether they can manage their own mental health medication on release, or select 'They are not prescribed medication for their mental health'"
     }
 
-    if (this.body.hasPrescribedMedication === 'yes') {
-      if (!this.body.isInPossessionOfMeds) {
-        errors.isInPossessionOfMeds = 'Confirm whether they have their medication'
-      }
-
-      if (!this.body.medicationDetail) {
-        errors.medicationDetail = 'List their mental health medication'
-      }
+    if (this.body.canManageMedication === 'no' && !this.body.medicationIssues) {
+      errors.medicationIssues = "Describe the applicant's issues with taking their mental health medication"
     }
 
     return errors
@@ -104,10 +99,13 @@ export default class MentalHealth implements TaskListPage {
       delete this.body.servicesDetail
     }
 
-    if (this.body.hasPrescribedMedication !== 'yes') {
-      delete this.body.isInPossessionOfMeds
-      delete this.body.medicationDetail
+    if (this.body.canManageMedication !== 'yes') {
+      delete this.body.canManageMedicationNotes
+    }
+
+    if (this.body.canManageMedication !== 'no') {
       delete this.body.medicationIssues
+      delete this.body.cantManageMedicationNotes
     }
   }
 }

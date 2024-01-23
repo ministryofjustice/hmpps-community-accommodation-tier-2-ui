@@ -536,16 +536,25 @@ export const getQuestions = (name: string) => {
           question: 'Are they engaged with any mental health services in custody?',
           answers: yesOrNo,
         },
-        hasPrescribedMedication: {
-          question: 'Are they prescribed any medication for their mental health?',
-          answers: yesOrNo,
+        canManageMedication: {
+          question: 'Can they manage their own mental health medication on release?',
+          answers: {
+            yes: 'Yes',
+            no: 'No',
+            notPrescribedMedication: 'They are not prescribed medication for their mental health',
+          },
         },
-        isInPossessionOfMeds: {
-          question: 'Are they in possession of their medication?',
-          answers: yesOrNo,
+        canManageMedicationNotes: {
+          question: 'Provide any relevant medication notes (optional)',
+          hint: 'For example, storage requirements',
         },
-        medicationDetail: { question: 'Please list any medications.' },
-        medicationIssues: { question: 'Please list any issues they have with taking their medication (optional).' },
+        medicationIssues: {
+          question: 'Describe the issues they have with taking their medication',
+        },
+        cantManageMedicationNotes: {
+          question: 'Provide any relevant medication notes (optional)',
+          hint: 'For example, storage requirements',
+        },
       },
       'communication-and-language': {
         hasCommunicationNeeds: {
