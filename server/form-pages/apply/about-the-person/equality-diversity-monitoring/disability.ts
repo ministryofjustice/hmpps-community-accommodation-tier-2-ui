@@ -91,5 +91,9 @@ export default class Disability implements TaskListPage {
       delete this.body.typeOfDisability
       delete this.body.otherDisability
     }
+
+    if (this.body.hasDisability === 'yes' && !this.body.typeOfDisability?.includes('other')) {
+      delete this.body.otherDisability
+    }
   }
 }
