@@ -5,13 +5,13 @@ import applyPaths from '../paths/apply'
 export const statusTag = (task: TaskWithStatus): string => {
   switch (task.status) {
     case 'complete':
-      return `<strong class="govuk-tag" id="${task.id}-status">Completed</strong>`
+      return `<span id="${task.id}-status">Completed</span>`
     case 'in_progress':
-      return `<strong class="govuk-tag govuk-tag--blue" id="${task.id}-status">In progress</strong>`
+      return `<strong class="govuk-tag govuk-tag--light-blue" id="${task.id}-status">In progress</strong>`
     case 'not_started':
-      return `<strong class="govuk-tag govuk-tag--grey" id="${task.id}-status">Not started</strong>`
+      return `<strong class="govuk-tag govuk-tag--blue" id="${task.id}-status">Not yet started</strong>`
     default:
-      return `<strong class="govuk-tag govuk-tag--grey" id="${task.id}-status">Cannot start yet</strong>`
+      return `<span id="${task.id}-status">Cannot start yet</span>`
   }
 }
 

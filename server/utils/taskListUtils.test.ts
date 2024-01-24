@@ -42,38 +42,28 @@ describe('taskListUtils', () => {
       task.status = 'in_progress'
 
       expect(statusTag(task)).toEqual(
-        '<strong class="govuk-tag govuk-tag--blue" id="second-task-status">In progress</strong>',
+        '<strong class="govuk-tag govuk-tag--light-blue" id="second-task-status">In progress</strong>',
       )
     })
 
-    it('returns an in progress tag when the task is has not been started', () => {
-      task.status = 'in_progress'
-
-      expect(statusTag(task)).toEqual(
-        '<strong class="govuk-tag govuk-tag--blue" id="second-task-status">In progress</strong>',
-      )
-    })
-
-    it('returns a not started tag when the task is has not been started', () => {
+    it('returns a not started tag when the task has not been started', () => {
       task.status = 'not_started'
 
       expect(statusTag(task)).toEqual(
-        '<strong class="govuk-tag govuk-tag--grey" id="second-task-status">Not started</strong>',
+        '<strong class="govuk-tag govuk-tag--blue" id="second-task-status">Not yet started</strong>',
       )
     })
 
     it('returns a cannot start tag when the task cannot be started', () => {
       task.status = 'cannot_start'
 
-      expect(statusTag(task)).toEqual(
-        '<strong class="govuk-tag govuk-tag--grey" id="second-task-status">Cannot start yet</strong>',
-      )
+      expect(statusTag(task)).toEqual('<span id="second-task-status">Cannot start yet</span>')
     })
 
     it('returns a completed tag when the task cannot be started', () => {
       task.status = 'complete'
 
-      expect(statusTag(task)).toEqual('<strong class="govuk-tag" id="second-task-status">Completed</strong>')
+      expect(statusTag(task)).toEqual('<span id="second-task-status">Completed</span>')
     })
   })
 })
