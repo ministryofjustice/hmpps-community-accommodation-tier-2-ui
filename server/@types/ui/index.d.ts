@@ -189,3 +189,8 @@ export type ServiceSection = {
   shortTitle: string
   href: string
 }
+
+export type SideNavItem = {
+  text: string
+  href: string
+}
