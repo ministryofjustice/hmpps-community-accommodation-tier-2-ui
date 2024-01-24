@@ -14,14 +14,12 @@ export default class BeforeYouStartPage extends Page {
 
   shouldShowApplicationGuidance(): void {
     cy.get('p').contains(
-      'Community Accommodation Service Tier 2 provides housing for people who do not have a suitable address for the term of their licence or Bail Order.',
+      'Use this service to apply for accommodation and support on behalf of someone on Home Detention Curfew (HDC) licence.',
     )
 
     cy.get('h2').contains('Before you start')
-    cy.get('h3').contains('Who is this for?')
+    cy.get('h3').contains('You need:')
 
-    cy.get('li').contains('people without suitable accommodation in the community')
-    cy.get('li').contains('people on Bail Order')
-    cy.get('li').contains('people on a Home Detention Curfew (HDC) licence')
+    cy.get('li').contains('consent from the applicant')
   }
 }
