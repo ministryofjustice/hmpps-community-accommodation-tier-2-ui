@@ -13,3 +13,6 @@ echo "==> Installing application dependencies..."
 
 nodenv install --skip-existing
 npm install
+
+echo "==> Installing E2E testing dependencies..."
+npx playwright install
