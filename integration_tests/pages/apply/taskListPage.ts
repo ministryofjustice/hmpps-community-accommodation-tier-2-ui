@@ -21,11 +21,11 @@ export default class TaskListPage extends Page {
     Apply.sections.forEach(section => {
       cy.get(`[data-section_name="${section.title}"]`).within(() => {
         // And I see the expected SECTION
-        cy.get('.app-task-list__section').contains(section.title)
+        cy.get('[data-cy-section-title]').contains(section.title)
 
         // And I see each expected TASK
         section.tasks.forEach(task => {
-          cy.get('.app-task-list__task-name').contains(task.title)
+          cy.get('[data-cy-task-name]').contains(task.title)
         })
       })
     })
@@ -35,17 +35,7 @@ export default class TaskListPage extends Page {
     cy.get(`#${task}-status`).should('contain', status)
   }
 
-  shouldShowTaskWithinSection = (taskTitle: string, sectionTitle: string): void => {
-    cy.get(`[data-section_name="${sectionTitle}"]`).within(() => {
-      // And I see the expected SECTION title
-      cy.get('.app-task-list__section').contains(sectionTitle)
-
-      // And I see each expected TASK title
-      cy.get('.app-task-list__task-name').contains(taskTitle)
-    })
-  }
-
   visitTask = (taskTitle: string): void => {
-    cy.get('.app-task-list__task-name').contains(taskTitle).click()
+    cy.get('[data-cy-task-name]').contains(taskTitle).click()
   }
 }
