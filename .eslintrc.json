@@ -25,7 +25,7 @@
     {
       "plugins": ["@typescript-eslint"],
       "parser": "@typescript-eslint/parser",
-      "files": ["**/*.ts"],
+      "files": ["**/*.ts", "e2e-tests/**/*.ts"],
       "excludedFiles": "*.js",
       "extends": [
         "plugin:@typescript-eslint/eslint-recommended",
@@ -58,6 +58,12 @@
           }
         ]
       }
+    },
+    {
+      "files": ["e2e-tests/**/*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ],
 
@@ -88,7 +94,14 @@
     "comma-dangle": ["error", "always-multiline"],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["**/*.test.js", "**/*.test.ts", "**/testutils/**", "cypress.config.ts"] }
+      {
+        "devDependencies": [
+          "**/*.test.js",
+          "**/*.test.ts",
+          "**/testutils/**",
+          "cypress.config.ts"
+        ]
+      }
     ],
     "no-only-tests/no-only-tests": "error",
     "prettier/prettier": [
