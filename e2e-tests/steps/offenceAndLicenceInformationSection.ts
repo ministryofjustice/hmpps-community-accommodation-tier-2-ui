@@ -1,6 +1,7 @@
+import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeCurrentOffencesTask = async (page, name) => {
+export const completeCurrentOffencesTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add current offences')
 
@@ -8,7 +9,7 @@ export const completeCurrentOffencesTask = async (page, name) => {
   await completeCurrentOffencesPage(page, name)
 }
 
-async function completeCurrentOffenceDetailsPage(page, name) {
+async function completeCurrentOffenceDetailsPage(page: Page, name: string) {
   const currentOffenceDetailsPage = await ApplyPage.initialize(page, `Add ${name}'s current offence details`)
   await currentOffenceDetailsPage.fillField('Offence title', 'Stalking')
   await currentOffenceDetailsPage.chooseSelectItem('Offence category', 'Stalking or Harassment')
@@ -23,25 +24,25 @@ async function completeCurrentOffenceDetailsPage(page, name) {
   await currentOffenceDetailsPage.clickButton('Save and continue')
 }
 
-async function completeCurrentOffencesPage(page, name) {
+async function completeCurrentOffencesPage(page: Page, name: string) {
   const currentOffenceDetailsPage = await ApplyPage.initialize(page, `Current offences for ${name}`)
   await currentOffenceDetailsPage.clickButton('Save and continue')
 }
 
-export const completeOffenceHistoryTask = async (page, name) => {
+export const completeOffenceHistoryTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add offending history')
 
   await completeAnyPreviousConvictionsPage(page, name)
 }
 
-async function completeAnyPreviousConvictionsPage(page, name) {
+async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
   const anyPreviousConvictionsPage = await ApplyPage.initialize(page, `Does ${name} have any previous convictions?`)
   await anyPreviousConvictionsPage.checkRadio('No')
   await anyPreviousConvictionsPage.clickSave()
 }
 
-export const completeHDCLicenceAndCPPDetailsTask = async (page, name) => {
+export const completeHDCLicenceAndCPPDetailsTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add HDC licence and CPP details')
 
@@ -50,7 +51,7 @@ export const completeHDCLicenceAndCPPDetailsTask = async (page, name) => {
   await completeNonStandardLicenceConditionsPage(page, name)
 }
 
-async function completeHDCLicenceDatesPage(page, name) {
+async function completeHDCLicenceDatesPage(page: Page, name: string) {
   const hdcLicenceDatesPage = await ApplyPage.initialize(page, `${name}'s Home Detention Curfew (HDC) licence dates`)
   await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s HDC eligibility date?`, {
     year: '2022',
@@ -65,7 +66,7 @@ async function completeHDCLicenceDatesPage(page, name) {
   await hdcLicenceDatesPage.clickSave()
 }
 
-async function completeCPPDetailsPage(page, name) {
+async function completeCPPDetailsPage(page: Page, name: string) {
   const cppDetailsPage = await ApplyPage.initialize(page, `Who is ${name}'s Community Probation Practitioner (CPP)?`)
   await cppDetailsPage.fillField('Full name', 'A. CPP')
   await cppDetailsPage.fillField('Probation region', 'south')
@@ -74,7 +75,7 @@ async function completeCPPDetailsPage(page, name) {
   await cppDetailsPage.clickSave()
 }
 
-async function completeNonStandardLicenceConditionsPage(page, name) {
+async function completeNonStandardLicenceConditionsPage(page: Page, name: string) {
   const nonStandardLicenceConditionsPage = await ApplyPage.initialize(
     page,
     `Does ${name} have any non-standard licence conditions?`,

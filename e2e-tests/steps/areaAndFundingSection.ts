@@ -42,7 +42,7 @@ async function completeFirstAreaInformationPage(page: Page, name: string) {
   await firstAreaInformationPage.clickSave()
 }
 
-async function completeSecondAreaInformationPage(page, name) {
+async function completeSecondAreaInformationPage(page: Page, name: string) {
   const secondAreaInformationPage = await ApplyPage.initialize(page, `Second preferred area for ${name}`)
 
   await secondAreaInformationPage.fillField('Second preferred area', 'Birmingham')
@@ -51,7 +51,7 @@ async function completeSecondAreaInformationPage(page, name) {
   await secondAreaInformationPage.clickSave()
 }
 
-async function completeExclusionZonesPage(page, name) {
+async function completeExclusionZonesPage(page: Page, name: string) {
   const exclusionZonesPage = await ApplyPage.initialize(page, `Exclusion zones for ${name}`)
 
   await exclusionZonesPage.checkRadio('Yes')
@@ -60,7 +60,7 @@ async function completeExclusionZonesPage(page, name) {
   await exclusionZonesPage.clickSave()
 }
 
-async function completeGangAffiliations(page, name) {
+async function completeGangAffiliations(page: Page, name: string) {
   const exclusionZonesPage = await ApplyPage.initialize(page, `Does ${name} have any gang affiliations?`)
 
   await exclusionZonesPage.checkRadio('Yes')
@@ -74,7 +74,7 @@ async function completeGangAffiliations(page, name) {
   await exclusionZonesPage.clickSave()
 }
 
-async function completeFamilyAccommodationPage(page, name) {
+async function completeFamilyAccommodationPage(page: Page, name: string) {
   const familyAccommodationPage = await ApplyPage.initialize(page, `Family accommodation for ${name}`)
 
   await familyAccommodationPage.checkRadio('Yes')

@@ -15,12 +15,12 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
   await completeOtherHealthPage(page, name)
 }
 
-async function reviewGuidancePage(page: Page, name) {
+async function reviewGuidancePage(page: Page, name: string) {
   const guidancePage = await ApplyPage.initialize(page, `Request health information for ${name}`)
   await guidancePage.clickContinue()
 }
 
-async function completeSubstanceMisusePage(page: Page, name) {
+async function completeSubstanceMisusePage(page: Page, name: string) {
   const substanceMisusePage = await ApplyPage.initialize(page, `Substance misuse needs for ${name}`)
 
   await substanceMisusePage.checkRadioInGroup('take any illegal substances', 'No')
@@ -33,7 +33,7 @@ async function completeSubstanceMisusePage(page: Page, name) {
   await substanceMisusePage.clickSave()
 }
 
-async function completePhysicalHealthPage(page: Page, name) {
+async function completePhysicalHealthPage(page: Page, name: string) {
   const physicalHealthPage = await ApplyPage.initialize(page, `Physical health needs for ${name}`)
 
   // we can't use the normal checkRadioInGroup() helper due to follow-on yes/no radios
@@ -47,7 +47,7 @@ async function completePhysicalHealthPage(page: Page, name) {
   await physicalHealthPage.clickSave()
 }
 
-async function completeMentalHealthPage(page: Page, name) {
+async function completeMentalHealthPage(page: Page, name: string) {
   const mentalHealthPage = await ApplyPage.initialize(page, `Mental health needs for ${name}`)
 
   await mentalHealthPage.checkRadioInGroup('any mental health needs', 'No')
@@ -61,7 +61,7 @@ async function completeMentalHealthPage(page: Page, name) {
   await mentalHealthPage.clickSave()
 }
 
-async function completeCommunicationAndLanguagePage(page: Page, name) {
+async function completeCommunicationAndLanguagePage(page: Page, name: string) {
   const communicationPage = await ApplyPage.initialize(page, `Communication and language needs for ${name}`)
 
   await communicationPage.checkRadioInGroup('additional communication needs', 'No')
@@ -71,7 +71,7 @@ async function completeCommunicationAndLanguagePage(page: Page, name) {
   await communicationPage.clickSave()
 }
 
-async function completeLearningDifficultiesPage(page: Page, name) {
+async function completeLearningDifficultiesPage(page: Page, name: string) {
   const learningPage = await ApplyPage.initialize(page, `Learning difficulties and neurodiversity for ${name}`)
 
   await learningPage.checkRadioInGroup('additional needs', 'No')
@@ -82,7 +82,7 @@ async function completeLearningDifficultiesPage(page: Page, name) {
   await learningPage.clickSave()
 }
 
-async function completeBrainInjuryPage(page: Page, name) {
+async function completeBrainInjuryPage(page: Page, name: string) {
   const brainInjuryPage = await ApplyPage.initialize(page, `Brain injury needs for ${name}`)
 
   await brainInjuryPage.checkRadioInGroup('brain injury?', 'No')
@@ -93,7 +93,7 @@ async function completeBrainInjuryPage(page: Page, name) {
   await brainInjuryPage.clickSave()
 }
 
-async function completeOtherHealthPage(page: Page, name) {
+async function completeOtherHealthPage(page: Page, name: string) {
   const otherHealthPage = await ApplyPage.initialize(page, `Other health needs for ${name}`)
 
   // we can't use the normal checkRadioInGroup() helper due to follow-on yes/no radios
@@ -118,17 +118,17 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
   await completeAdditionalInformationPage(page)
 }
 
-async function reviewOasysImportPage(page: Page, name) {
+async function reviewOasysImportPage(page: Page, name: string) {
   const guidancePage = await ApplyPage.initialize(page, `Import ${name}'s risk to self data from OASys`)
   await guidancePage.clickContinue()
 }
 
-async function confirmAndSave(page) {
+async function confirmAndSave(page: TaskListPage | ApplyPage) {
   await page.checkCheckboxes(['I confirm this information is relevant and up to date.'])
   await page.clickSave()
 }
 
-async function completeVulnerabilityPage(page, name) {
+async function completeVulnerabilityPage(page: Page, name: string) {
   const vulnerabilityPage = await ApplyPage.initialize(page, `${name}'s vulnerability`)
 
   await vulnerabilityPage.fillField(
@@ -138,7 +138,7 @@ async function completeVulnerabilityPage(page, name) {
   await confirmAndSave(vulnerabilityPage)
 }
 
-async function completeCurrentRisksPage(page, name) {
+async function completeCurrentRisksPage(page: Page, name: string) {
   const currentRisksPage = await ApplyPage.initialize(page, `${name}'s current risks`)
 
   await currentRisksPage.fillField(
@@ -148,19 +148,19 @@ async function completeCurrentRisksPage(page, name) {
   await confirmAndSave(currentRisksPage)
 }
 
-async function completeHistoricalRisksPage(page, name) {
+async function completeHistoricalRisksPage(page: Page, name: string) {
   const historicalRisksPage = await ApplyPage.initialize(page, `${name}'s historical risks`)
   await confirmAndSave(historicalRisksPage)
 }
 
-async function addAnAcct(page) {
+async function addAnAcct(page: Page) {
   const acctsPage = await ApplyPage.initialize(page, undefined)
   await acctsPage.clickButton('Add an Acct note')
   await completeAcctDataPage(page)
   await acctsPage.clickSave()
 }
 
-async function completeAcctDataPage(page) {
+async function completeAcctDataPage(page: Page) {
   const acctDataPage = await ApplyPage.initialize(page, 'Add an ACCT entry')
   await acctDataPage.fillDateFieldInGroup('When was the ACCT created?', { year: '2022', month: '3', day: '1' })
   await acctDataPage.checkRadio('Yes')
@@ -169,7 +169,7 @@ async function completeAcctDataPage(page) {
   await acctDataPage.clickButton('Save and add ACCT')
 }
 
-async function completeAdditionalInformationPage(page) {
+async function completeAdditionalInformationPage(page: Page) {
   const additionalInformationPage = await ApplyPage.initialize(page, 'Additional Information')
   await additionalInformationPage.checkRadio('No')
   await additionalInformationPage.clickSave()
@@ -190,49 +190,49 @@ export const completeRoshTask = async (page: Page, name: string) => {
   await completeAdditionalRiskPage(page, name)
 }
 
-async function reviewRoshOasysImportPage(page: Page, name) {
+async function reviewRoshOasysImportPage(page: Page, name: string) {
   const guidancePage = await ApplyPage.initialize(page, `Import ${name}'s risk of serious harm (RoSH) data from OASys`)
   await guidancePage.clickContinue()
 }
 
-async function completeRoshSummaryPage(page, name) {
+async function completeRoshSummaryPage(page: Page, name: string) {
   const summaryPage = await ApplyPage.initialize(page, `Risk of serious harm (RoSH) summary for ${name}`)
   await summaryPage.clickSave()
 }
 
-async function completeRiskToOthersPage(page) {
+async function completeRiskToOthersPage(page: Page) {
   const riskToOthersPage = new TaskListPage(page)
   await confirmAndSave(riskToOthersPage)
 }
 
-async function completeRiskFactorsPage(page) {
+async function completeRiskFactorsPage(page: Page) {
   const riskFactorsPage = new TaskListPage(page)
   await confirmAndSave(riskFactorsPage)
 }
 
-async function completeReducingRiskPage(page) {
+async function completeReducingRiskPage(page: Page) {
   const reducingRiskPage = new TaskListPage(page)
   await confirmAndSave(reducingRiskPage)
 }
 
-async function completeRiskManagementArrangementsPage(page, name) {
+async function completeRiskManagementArrangementsPage(page: Page, name: string) {
   const riskManagementPage = await ApplyPage.initialize(page, `Risk management arrangements for ${name}`)
   await riskManagementPage.checkCheckboxes(['No, this person does not have risk management arrangements'])
   await riskManagementPage.clickSave()
 }
 
-async function completeCellShareInformationPage(page, name) {
+async function completeCellShareInformationPage(page: Page, name: string) {
   const riskManagementPage = await ApplyPage.initialize(page, `Cell share information for ${name}`)
   await riskManagementPage.checkRadio('No')
   await riskManagementPage.clickSave()
 }
 
-async function completeBehaviourNotesPage(page) {
+async function completeBehaviourNotesPage(page: Page) {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickSave()
 }
 
-async function completeAdditionalRiskPage(page, name) {
+async function completeAdditionalRiskPage(page: Page, name: string) {
   const riskManagementPage = await ApplyPage.initialize(page, `Additional risk information for ${name}`)
   await riskManagementPage.checkRadio('No')
   await riskManagementPage.clickSave()

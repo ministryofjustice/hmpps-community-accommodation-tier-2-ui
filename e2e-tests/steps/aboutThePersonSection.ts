@@ -28,7 +28,7 @@ export const completeEqualityAndDiversityTask = async (page: Page, name: string)
   await completeMaritalStatusPage(page, name)
 }
 
-async function completeMaritalStatusPage(page: Page, name) {
+async function completeMaritalStatusPage(page: Page, name: string) {
   const maritalStatusPage = await ApplyPage.initialize(
     page,
     `What is ${name}'s legal marital or registered civil partnership status?`,
@@ -37,7 +37,7 @@ async function completeMaritalStatusPage(page: Page, name) {
   await maritalStatusPage.clickSave()
 }
 
-async function completeParentalOrCarerResponsibilitiesPage(page: Page, name) {
+async function completeParentalOrCarerResponsibilitiesPage(page: Page, name: string) {
   const parentalOrCarerResponsibilitiesPage = await ApplyPage.initialize(
     page,
     `Does ${name} have parental or carer responsibilities?`,
@@ -46,25 +46,25 @@ async function completeParentalOrCarerResponsibilitiesPage(page: Page, name) {
   await parentalOrCarerResponsibilitiesPage.clickSave()
 }
 
-async function completeCareLeaverPage(page: Page, name) {
+async function completeCareLeaverPage(page: Page, name: string) {
   const careLeaverPage = await ApplyPage.initialize(page, `Is ${name} a care leaver?`)
   await careLeaverPage.checkRadio('Yes', true)
   await careLeaverPage.clickSave()
 }
 
-async function completeMilitaryVeteranPage(page: Page, name) {
+async function completeMilitaryVeteranPage(page: Page, name: string) {
   const militaryVeteranPage = await ApplyPage.initialize(page, `Is ${name} a military veteran?`)
   await militaryVeteranPage.checkRadio('Yes', true)
   await militaryVeteranPage.clickSave()
 }
 
-async function completeReligionPage(page: Page, name) {
+async function completeReligionPage(page: Page, name: string) {
   const religionPage = await ApplyPage.initialize(page, `What is ${name}'s religion?`)
   await religionPage.checkRadio('Agnostic', true)
   await religionPage.clickSave()
 }
 
-async function completeWhiteBackgroundPage(page: Page, name) {
+async function completeWhiteBackgroundPage(page: Page, name: string) {
   const whiteBackgroundPage = await ApplyPage.initialize(
     page,
     `Which of the following best describes ${name}'s White background?`,
@@ -73,13 +73,13 @@ async function completeWhiteBackgroundPage(page: Page, name) {
   await whiteBackgroundPage.clickSave()
 }
 
-async function completeEthnicGroupPage(page: Page, name) {
+async function completeEthnicGroupPage(page: Page, name: string) {
   const ethnicGroupPage = await ApplyPage.initialize(page, `What is ${name}'s ethnic group?`)
   await ethnicGroupPage.checkRadio('White', true)
   await ethnicGroupPage.clickSave()
 }
 
-async function completeSexualOrientationPage(page: Page, name) {
+async function completeSexualOrientationPage(page: Page, name: string) {
   const sexualOrientationPage = await ApplyPage.initialize(
     page,
     `Which of the following best describes ${name}'s sexual orientation?`,
