@@ -170,8 +170,7 @@ export const getPages = (application: Application, task: string) => {
   const pagesWithoutQuestions = ['summary-data', 'oasys-import']
   const pages = application.data[task]
 
-  // TODO: Remove the early return before we go live (or feature flag for testing)
-  // Allow for incomplete applications to be submitted
+  // Allow viewing of the CYA page with incomplete tasks
   if (!pages) {
     return []
   }
