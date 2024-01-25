@@ -86,12 +86,20 @@ npm install
 npx playwright install
 ```
 
-Test with and without UI
+Test against local environments with and without UI:
 
 ```bash
 npm run test:e2e:local:ui
 # or
 npm run test:e2e:local
+```
+
+Test against the real dev environments with and without UI:
+
+```bash
+npm run test:e2e:ui
+# or
+npm run test:e2e
 ```
 
 ## Enable maintenance mode
