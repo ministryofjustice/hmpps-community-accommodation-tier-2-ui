@@ -4,6 +4,7 @@ import { TestOptions } from './e2e-tests/testOptions'
 
 export default defineConfig<TestOptions>({
   testDir: './e2e-tests/tests',
+  outputDir: './e2e-tests/test_results',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
