@@ -27,23 +27,16 @@ describe('applicationStatusRadios', () => {
       {
         value: 'moreInfoRequested',
         text: 'More information requested',
-        hint: {
-          text: 'More information about the application has been requested from the POM (Prison Offender Manager).',
-        },
         checked: false,
       },
       {
         value: 'awaitingDecision',
         text: 'Awaiting decision',
-        hint: {
-          text: 'All information has been received and the application is awaiting assessment.',
-        },
         checked: true,
       },
       {
         value: 'example',
         text: 'Example',
-        hint: null,
         checked: false,
       },
     ]
@@ -58,23 +51,16 @@ describe('applicationStatusRadios', () => {
       {
         value: 'moreInfoRequested',
         text: 'More information requested',
-        hint: {
-          text: 'More information about the application has been requested from the POM (Prison Offender Manager).',
-        },
         checked: false,
       },
       {
         value: 'awaitingDecision',
         text: 'Awaiting decision',
-        hint: {
-          text: 'All information has been received and the application is awaiting assessment.',
-        },
         checked: false,
       },
       {
         value: 'example',
         text: 'Example',
-        hint: null,
         checked: false,
       },
     ]
