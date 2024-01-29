@@ -50,7 +50,7 @@ export default class CurrentOffenceData implements TaskListPage {
 
   offenceCategories: Array<SelectItem>
 
-  areCurrentOffencesSaved: boolean
+  hasPreviouslySavedACurrentOffence: boolean
 
   constructor(
     body: Partial<CurrentOffenceDataBody>,
@@ -58,7 +58,7 @@ export default class CurrentOffenceData implements TaskListPage {
   ) {
     this.body = body as CurrentOffenceDataBody
     this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)
-    this.areCurrentOffencesSaved = Boolean(application.data['current-offences']?.['current-offence-data'])
+    this.hasPreviouslySavedACurrentOffence = Boolean(application.data['current-offences']?.['current-offence-data'])
   }
 
   private getCategoriesAsItemsForSelect(selectedItem: string): Array<SelectItem> {
