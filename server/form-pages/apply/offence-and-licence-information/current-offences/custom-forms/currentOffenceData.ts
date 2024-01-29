@@ -50,12 +50,15 @@ export default class CurrentOffenceData implements TaskListPage {
 
   offenceCategories: Array<SelectItem>
 
+  areCurrentOffencesSaved: boolean
+
   constructor(
     body: Partial<CurrentOffenceDataBody>,
     private readonly application: Cas2Application,
   ) {
     this.body = body as CurrentOffenceDataBody
     this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)
+    this.areCurrentOffencesSaved = Boolean(application.data['current-offences']?.['current-offence-data'])
   }
 
   private getCategoriesAsItemsForSelect(selectedItem: string): Array<SelectItem> {

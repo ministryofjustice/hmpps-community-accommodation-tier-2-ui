@@ -197,6 +197,12 @@
             {{ govukButton({
                   text: "Save and continue"
               }) }}
+
+            {%if page.areCurrentOffencesSaved %}
+              <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'current-offences', page: 'current-offences' }) }}">
+                Cancel
+              </a>
+            {% endif %}
           </div>
         {% endblock %}
       </form>
