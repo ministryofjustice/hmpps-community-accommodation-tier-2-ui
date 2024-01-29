@@ -165,13 +165,13 @@ jobs:
       - store_artifacts:
           path: integration_tests/screenshots
 
-  e2e_environment_test:
+  e2e_environment_test_via_old_repo:
     docker:
       - image: mcr.microsoft.com/playwright:v1.40.0-focal
     circleci_ip_ranges: true # opt-in to jobs running on a restricted set of IPs
     steps:
       - run:
-          name: Clone E2E repo
+          name: Clone E2E tests
           command: |
             git clone https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-e2e.git .
       - run:
@@ -230,7 +230,7 @@ workflows:
             - helm_lint
             - build_docker
           helm_timeout: 5m
-      - e2e_environment_test:
+      - e2e_environment_test_via_old_repo:
           context: hmpps-common-vars
           filters:
             branches:
@@ -261,7 +261,7 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-            - e2e_environment_test
+            - e2e_environment_test_via_old_repo
       - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
