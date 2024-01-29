@@ -128,11 +128,15 @@
         </div>
 
         {% block button %}
-
-          {{ govukButton({
+          <div class="govuk-button-group">
+            {{ govukButton({
                 text: "Save and add ACCT"
             }) }}
 
+            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct' }) }}">
+                Cancel
+            </a>
+          </div>
         {% endblock %}
       </form>
     </div>
