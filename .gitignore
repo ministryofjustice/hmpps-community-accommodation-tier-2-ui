@@ -130,3 +130,9 @@ test_results/
 **/Chart.lock
 /tmp
 .DS_Store
+
+# E2E tests
+e2e-tests/test_results/
+e2e-tests/playwright-report/
+e2e-tests/playwright/
+e2e-tests/.DS_Store

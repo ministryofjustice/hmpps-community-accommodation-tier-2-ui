@@ -79,7 +79,31 @@ Or run tests with the cypress UI:
 
 ## Running e2e tests
 
-End to end tests for this project can be found [in a seperate repo](https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-e2e).
+Install Playwright
+
+```bash
+npm install
+npx playwright install
+```
+
+When using the Playwright UI for the first time you will need to [filter by
+projects](https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-ui/pull/482/files#diff-f679bf1e58e8dddfc6cff0fa37c8e755c8d2cfc9e6b5dc5520a5800beba59a92R19) by enabling them in the top right.
+
+Test against local environments with and without UI:
+
+```bash
+npm run test:e2e:local:ui
+# or
+npm run test:e2e:local
+```
+
+Test against the real dev environments with and without UI:
+
+```bash
+npm run test:e2e:ui
+# or
+npm run test:e2e
+```
 
 ## Enable maintenance mode
 
