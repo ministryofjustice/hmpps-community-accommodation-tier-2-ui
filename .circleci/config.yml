@@ -193,6 +193,34 @@ jobs:
           channel: << pipeline.parameters.alerts-slack-channel >>
           template: basic_fail_1
 
+  e2e_environment_test:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.40.0-focal
+    circleci_ip_ranges: true # opt-in to jobs running on a restricted set of IPs
+    steps:
+      - run:
+          name: Clone E2E tests
+          command: |
+            git clone https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-ui.git .
+      - run:
+          name: Update npm
+          command: 'npm install -g npm@latest'
+      - node/install-packages
+      - run:
+          name: E2E Check
+          command: |
+            npm run test:e2e
+      - store_artifacts:
+          path: playwright-report
+          destination: playwright-report
+      - store_artifacts:
+          path: test-results
+          destination: test-results
+      - slack/notify:
+          event: fail
+          channel: << pipeline.parameters.alerts-slack-channel >>
+          template: basic_fail_1
+
 workflows:
   build-test-and-deploy:
     jobs:
@@ -238,6 +266,14 @@ workflows:
                 - main
           requires:
             - deploy_dev
+      - e2e_environment_test:
+          context: hmpps-common-vars
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - deploy_dev
       - request-test-approval:
           type: approval
           requires:
@@ -262,6 +298,7 @@ workflows:
           requires:
             - deploy_dev
             - e2e_environment_test_via_old_repo
+            # - e2e_environment_test
       - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
