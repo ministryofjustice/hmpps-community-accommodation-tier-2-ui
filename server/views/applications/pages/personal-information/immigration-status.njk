@@ -4,29 +4,24 @@
 
 {% block questions %}
 
-  {% call govukFieldset({
-    legend: {
-      text: page.questions.immigrationStatus.question,
-      classes: "govuk-fieldset__legend--l",
-      isPageHeading: true
-    }
-  })%}
-
-    {{
-      govukSelect({
-        hint: {
-          text: page.questions.immigrationStatus.hint
-        },
-        attributes: {
-          'data-testid': 'immigrationStatus'
-        },
-        id: "immigrationStatus",
-        name: "immigrationStatus",
-        items: page.immigrationStatusSelectItems,
-        errorMessage: errors.immigrationStatus
-      })
-    }}
-
-  {% endcall %}
+  {{
+    govukSelect({
+      label: {
+        text: page.questions.immigrationStatus.question,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      hint: {
+        text: page.questions.immigrationStatus.hint
+      },
+      attributes: {
+        'data-testid': 'immigrationStatus'
+      },
+      id: "immigrationStatus",
+      name: "immigrationStatus",
+      items: page.immigrationStatusSelectItems,
+      errorMessage: errors.immigrationStatus
+    })
+  }}
 
 {% endblock %}
