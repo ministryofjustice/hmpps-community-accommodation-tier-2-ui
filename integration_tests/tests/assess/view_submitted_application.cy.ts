@@ -59,6 +59,7 @@ context('Assessor views submitted application', () => {
     Page.verifyOnPage(SubmittedApplicationPage, this.submittedApplication)
     const page = new SubmittedApplicationPage(this.submittedApplication)
     page.hasExpectedSummaryData()
+    page.hasUpdateStatusButton()
     page.hasApplicantDetails(this.submittedApplication)
     page.hasSideNavBar(this.submittedApplication)
     page.hasQuestionsAndAnswersFromDocument(this.submittedApplication.document)

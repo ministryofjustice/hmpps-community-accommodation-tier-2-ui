@@ -7,19 +7,19 @@ import { getPage, getSections, hasResponseMethod } from '../../../../../server/u
 
 export default class CheckYourAnswersPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Check your answers before sending your application', application, 'check-your-answers', 'check-your-answers')
+    const person = application.person as FullPerson
+    super(`Check ${person.name}'s application`, application, 'check-your-answers', 'check-your-answers')
   }
 
   hasExpectedSummaryData(): void {
     const person = this.application.person as FullPerson
 
     cy.get('#application-summary').within(() => {
-      cy.get('li').contains(this.application.id)
-      cy.get('li').contains(person.name)
-      cy.get('li').contains(person.nomsNumber)
-      cy.get('li').contains(person.prisonName)
+      cy.get('span').contains(person.nomsNumber)
       cy.get('li').contains(this.application.createdBy.name)
+      cy.get('li').contains(person.prisonName)
       cy.get('li').contains(this.application.createdBy.email)
+      cy.get('li').contains(this.application.id)
     })
   }
 
