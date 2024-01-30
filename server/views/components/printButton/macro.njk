@@ -1,12 +1,12 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% macro printButton(text = 'Download as a PDF') %}
+{% macro printButton(text = 'Download as a PDF', styles = 'govuk-button print__hidden') %}
   {{ govukButton({
     text: text,
-    classes: 'govuk-button print__hidden',
+    classes: styles,
     attributes: { 'data-print-btn': true }
   }) }}
-{% endmacro%}
+  {% endmacro%}
 
   {% macro printButtonScript(cspNonce) %}
     <script type="text/javascript" nonce="{{ cspNonce }}">
