@@ -1,0 +1,22 @@
+.submitted-application-panel {
+  text-align: left;
+  background: govuk-colour('blue');
+  color: govuk-colour('white');
+
+  &__text {
+    color: govuk-colour('white') !important;
+  }
+
+  &__update-status-button {
+    background-color: govuk-colour('white') !important;
+    color: $govuk-link-colour !important;
+    box-shadow: 0 2px 0 govuk-colour('dark-grey') !important;
+  }
+
+  &__download-pdf-button {
+    background-color: #1d70b8 !important;
+    color: #fff !important;
+    box-shadow: 0 2px 0 #505a5f !important;
+    border-color: #fff !important;
+  }
+}
