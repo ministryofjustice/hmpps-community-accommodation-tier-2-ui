@@ -4,6 +4,7 @@ import {
   Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
   Cas2SubmittedApplicationSummary,
 } from '@approved-premises/api'
+import { PaginatedResponse } from '@approved-premises/ui'
 
 import type { SubmittedApplicationClient, ReferenceDataClient, RestClientBuilder } from '../data'
 
@@ -13,10 +14,10 @@ export default class SubmittedApplicationService {
     private readonly referenceDataClientFactory: RestClientBuilder<ReferenceDataClient>,
   ) {}
 
-  async getAll(token: string): Promise<Array<Cas2SubmittedApplicationSummary>> {
+  async getAll(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2SubmittedApplicationSummary>> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
-    const applications = await applicationClient.all()
+    const applications = await applicationClient.all(pageNumber)
 
     return applications
   }
