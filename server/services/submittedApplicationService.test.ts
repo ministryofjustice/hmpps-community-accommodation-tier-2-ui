@@ -1,6 +1,8 @@
-import SubmittedApplicationService from './submittedApplicationService'
+import { Cas2SubmittedApplicationSummary } from '@approved-premises/api'
+import { PaginatedResponse } from '@approved-premises/ui'
 
-import { submittedApplicationFactory, applicationStatusFactory } from '../testutils/factories'
+import SubmittedApplicationService from './submittedApplicationService'
+import { submittedApplicationFactory, applicationStatusFactory, paginatedResponseFactory } from '../testutils/factories'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 import { ReferenceDataClient, SubmittedApplicationClient } from '../data'
 
@@ -29,14 +31,24 @@ describe('SubmittedApplicationService', () => {
   describe('getAll', () => {
     it('calls APIs index method and returns all submitted applications', async () => {
       const submittedApplicationSummaries = submittedApplicationSummary.buildList(2)
-      submittedApplicationClient.all.mockResolvedValue(submittedApplicationSummaries)
+      const paginatedResponse = paginatedResponseFactory.build({
+        data: submittedApplicationSummaries,
+        totalPages: '50',
+        totalResults: '500',
+        pageNumber: '2',
+      }) as PaginatedResponse<Cas2SubmittedApplicationSummary>
+      submittedApplicationClient.all.mockResolvedValue(paginatedResponse)
 
-      const result = await service.getAll(token)
+      const result = await service.getAll(token, 2)
 
-      expect(result).toEqual(submittedApplicationSummaries)
+      expect(result.data).toEqual(submittedApplicationSummaries)
+      expect(result.pageNumber).toEqual('2')
+      expect(result.pageSize).toEqual('10')
+      expect(result.totalPages).toEqual('50')
+      expect(result.totalResults).toEqual('500')
 
       expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
-      expect(submittedApplicationClient.all).toHaveBeenCalled()
+      expect(submittedApplicationClient.all).toHaveBeenCalledWith(2)
     })
   })
 
