@@ -1,48 +1,58 @@
-{% macro applicationSummary(summary) %}
-  <div id="application-summary">
-    <h2 class="govuk-heading-m">
-      Application summary
-    </h2>
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../../components/printButton/macro.njk" import printButton %}
 
-    <ul class="govuk-list govuk-list--spaced">
-        <li>
-          <span class="govuk-!-font-weight-bold">Application ID: </span>{{ summary.id }}
-        </li>
-      {% if summary.name %}
-        <li>
-          <span class="govuk-!-font-weight-bold">Applicant name: </span>{{ summary.name }}
-        </li>
-      {% endif %}
-      {% if summary.prisonNumber %}
-      <li>
-        <span class="govuk-!-font-weight-bold">Prison number: </span>{{ summary.prisonNumber }}
-      </li>
-      {% endif %}
-      {% if summary.prisonName %}
-      <li>
-        <span class="govuk-!-font-weight-bold">Prison: </span>{{ summary.prisonName }}
-      </li>
-      {% endif %}
+{% macro applicationSummary(summary) %}
+  <div id="application-summary" class="submitted-application-panel govuk-panel govuk-!-margin-bottom-7">
+
+    <h1 class="govuk-panel__title govuk-!-margin-bottom-5">
+      {%if summary.view == 'checkYourAnswers'%}
+        Check {{ summary.name }}'s application
+        {% else %}
+        {{ summary.name }}'s application
+        {% endif %}
+      <br>
+      <span class="govuk-body-l submitted-application-panel__text">
+        <strong>Prison number:</strong>
+        {{ summary.prisonNumber }}</span>
+    </h1>
+
+    <ul class="govuk-list govuk-list--spaced submitted-application-panel__text">
       <li>
         <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ summary.referrerName }}
       </li>
+      {% if summary.prisonName %}
+        <li>
+          <span class="govuk-!-font-weight-bold">Referring institution: </span>{{ summary.prisonName }}
+        </li>
+      {% endif %}
       {% if summary.contactEmail %}
         <li>
           <span class="govuk-!-font-weight-bold">Contact email address:</span>
-          <a href="mailto:{{ summary.contactEmail }}">{{ summary.contactEmail }}</a>
+          <a href="mailto:{{ summary.contactEmail }}" class="submitted-application-panel__text">{{ summary.contactEmail }}</a>
         </li>
-      {% endif %}
-      {% if summary.submissionDate %}
-          <li>
-            <span class="govuk-!-font-weight-bold">Submission date:</span>
-            {{ formatDate(summary.submissionDate, {format: 'medium'}) }}
-          </li>
       {% endif %}
       {% if summary.contactNumber %}
         <li>
-          <span class="govuk-!-font-weight-bold">Contact number: </span>{{ summary.contactNumber }}
+          <span class="govuk-!-font-weight-bold">Contact number: </span>
+          <a class="submitted-application-panel__text" href="tel:{{ summary.contactNumber }}">{{ summary.contactNumber }}</a>
         </li>
       {% endif %}
+      <li>
+        <span class="govuk-!-font-weight-bold">Application ID: </span>{{ summary.id }}
+      </li>
     </ul>
+
+    <div class="govuk-button-group govuk-!-margin-bottom-0">
+      {% if summary.view == 'assessor' %}
+        {{ govukButton({
+            text: "Update application status",
+            href: paths.statusUpdate.new({id: summary.id}),
+            classes: "govuk-button govuk-!-margin-bottom-0 submitted-application-panel__update-status-button"
+          })
+        }}
+      {% endif %}
+
+      {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary govuk-!-margin-bottom-0 submitted-application-panel__download-pdf-button') }}
+    </div>
   </div>
 {% endmacro %}
