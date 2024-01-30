@@ -80,7 +80,7 @@ context('Visit "About the applicant" section', () => {
   it('shows the task listed within the section', () => {
     // I see that the task has not been started
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Not started')
+    taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Not yet started')
   })
 
   // Scenario: follow link to first task page

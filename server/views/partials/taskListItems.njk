@@ -1,15 +1,17 @@
 {% for section in taskList.sections %}
   <li data-section_name="{{ section.title}}">
-    <h2 class="app-task-list__section">
+    <h2 class="govuk-!-font-size-24 govuk-!-font-weight-bold" data-cy-section-title="{{ section.title }}">
       {{ section.title }}
     </h2>
-    <ul class="app-task-list__items">
+    <ul class="govuk-task-list">
       {% for task in section.tasks %}
-        <li class="app-task-list__item">
-          <span class="app-task-list__task-name">
+        <li class="govuk-task-list__item govuk-task-list__item--with-link">
+          <div class="govuk-task-list__name-and-hint">
             {{ TaskListUtils.taskLink(task, application) | safe   }}
-          </span>
-          {{ TaskListUtils.statusTag(task) | safe  }}
+          </div>
+          <div class="govuk-task-list__status" id="{{ task.id }}-status">
+            {{ TaskListUtils.statusTag(task) | safe  }}
+          </div>
         </li>
       {% endfor %}
     </ul>

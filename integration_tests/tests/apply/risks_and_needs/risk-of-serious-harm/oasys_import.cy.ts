@@ -128,7 +128,7 @@ context('Visit "Risks and needs" section', () => {
   it('shows the task listed within the section', function test() {
     // Then I see that the "risk of serious harm" task has not been started
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('risk-of-serious-harm', 'Not started')
+    taskListPage.shouldShowTaskStatus('risk-of-serious-harm', 'Not yet started')
   })
 
   //  Scenario: there is OASys data

@@ -66,7 +66,7 @@ context('Visit "Risks and needs" section', () => {
   it('shows the task listed within the section', () => {
     // I see that the task has not been started
     const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('health-needs', 'Not started')
+    taskListPage.shouldShowTaskStatus('health-needs', 'Not yet started')
   })
 
   //  Scenario: reads "health needs guidance" page
