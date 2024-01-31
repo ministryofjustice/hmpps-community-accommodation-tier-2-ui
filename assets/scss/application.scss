@@ -14,7 +14,8 @@ $govuk-page-width: $moj-page-width;
 @import './components/tag';
 @import './components/checkboxes';
 @import './components/timeline';
-@import './components//status-box';
+@import './components/status-box';
+@import './components/side-nav';
 
 @import './pages//oasys-import';
 @import './pages/dashboard-index';
