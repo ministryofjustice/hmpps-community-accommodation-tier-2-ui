@@ -4,6 +4,7 @@ import { DateFormats } from '../../server/utils/dateUtils'
 import { Cas2Application } from '../../server/@types/shared/models/Cas2Application'
 import { Cas2SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
 import { FullPerson } from '../../server/@types/shared/models/FullPerson'
+import { stringToKebabCase } from '../../server/utils/utils'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -158,6 +159,18 @@ export default abstract class Page {
         })
       this.checkTermAndDescription('PNC number', person.pncNumber)
       this.checkTermAndDescription('CRN from nDelius', person.crn)
+    })
+  }
+
+  hasSideNavBar(application: Cas2SubmittedApplication) {
+    const document = application.document as ApplicationDocument
+
+    cy.get('.side-nav').within(() => {
+      document.sections.forEach(section => {
+        section.tasks.forEach(task => {
+          cy.get(`a[href="#${stringToKebabCase(task.title)}"]`)
+        })
+      })
     })
   }
 }

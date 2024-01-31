@@ -34,7 +34,40 @@ import Page from '../../pages/page'
 import SubmittedApplicationPage from '../../pages/assess/submittedApplicationPage'
 
 context("Assessor updates a submitted application's status", () => {
-  const submittedApplication = submittedApplicationFactory.build()
+  const submittedApplication = submittedApplicationFactory.build({
+    document: {
+      sections: [
+        {
+          title: 'Section 1',
+          tasks: [
+            {
+              title: 'Task 1',
+              questionsAndAnswers: [
+                {
+                  question: 'a question',
+                  answer: 'an answer',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Section 2',
+          tasks: [
+            {
+              title: 'Task 2',
+              questionsAndAnswers: [
+                {
+                  question: 'a question',
+                  answer: 'an answer',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  })
 
   beforeEach(() => {
     cy.task('reset')
