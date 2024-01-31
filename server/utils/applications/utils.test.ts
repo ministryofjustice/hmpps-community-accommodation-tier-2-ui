@@ -6,9 +6,47 @@ import {
   statusUpdateFactory,
   submittedApplicationFactory,
 } from '../../testutils/factories'
-
-import { eligibilityQuestionIsAnswered, getApplicationTimelineEvents } from './utils'
+import {
+  eligibilityQuestionIsAnswered,
+  getApplicationTimelineEvents,
+  getSideNavLinksForDocument,
+  getSideNavLinksForApplication,
+} from './utils'
 import { DateFormats } from '../dateUtils'
+import { getSections } from '../checkYourAnswersUtils'
+
+jest.mock('../checkYourAnswersUtils')
+
+const mockSections = [
+  {
+    title: 'Section 1',
+    tasks: [
+      {
+        title: 'Task 1',
+        questionsAndAnswers: [
+          {
+            question: 'a question',
+            answer: 'an answer',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Section 2',
+    tasks: [
+      {
+        title: 'Task 2',
+        questionsAndAnswers: [
+          {
+            question: 'a question',
+            answer: 'an answer',
+          },
+        ],
+      },
+    ],
+  },
+]
 
 describe('utils', () => {
   describe('eligibilityQuestionIsAnswered', () => {
@@ -197,6 +235,29 @@ describe('utils', () => {
           },
         ])
       })
+    })
+  })
+  describe('getSideNavLinksForDocument', () => {
+    it('returns an array with a side nav item for each task', () => {
+      const document = {
+        sections: mockSections,
+      }
+
+      expect(getSideNavLinksForDocument(document)).toEqual([
+        { text: 'Task 1', href: '#task-1' },
+        { text: 'Task 2', href: '#task-2' },
+      ])
+    })
+  })
+
+  describe('getSideNavLinksForApplication', () => {
+    it('returns an array with a side nav item for each task', () => {
+      ;(getSections as jest.Mock).mockReturnValue(mockSections)
+
+      expect(getSideNavLinksForApplication()).toEqual([
+        { text: 'Task 1', href: '#task-1' },
+        { text: 'Task 2', href: '#task-2' },
+      ])
     })
   })
 })
