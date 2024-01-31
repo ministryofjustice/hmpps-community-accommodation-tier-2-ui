@@ -34,6 +34,9 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
   get(paths.applications.removeFromList.pattern, applicationsController.removeFromList(), {
     auditEvent: 'UPDATE_APPLICATION_LIST_REMOVE',
   })
+  get(paths.applications.ineligible.pattern, applicationsController.ineligible(), {
+    auditEvent: 'VIEW_APPLICATION_INELIGIBLE',
+  })
 
   Object.keys(pages).forEach((taskKey: string) => {
     Object.keys(pages[taskKey]).forEach((pageKey: string) => {

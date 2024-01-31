@@ -70,10 +70,18 @@ export default class ApplicationsController {
       }
 
       if (eligibilityIsDenied(application)) {
-        return res.render('applications/ineligible', this.ineligibleViewParams(application))
+        return res.redirect(paths.applications.ineligible({ id: application.id }))
       }
 
       return res.redirect(firstPageOfBeforeYouStartSection(application))
+    }
+  }
+
+  ineligible(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+
+      return res.render('applications/ineligible', this.ineligibleViewParams(application))
     }
   }
 
