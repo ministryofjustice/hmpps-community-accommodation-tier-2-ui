@@ -8,6 +8,7 @@ import type { BookingSummary } from './BookingSummary';
 import type { Person } from './Person';
 import type { PersonRisks } from './PersonRisks';
 import type { PlacementDates } from './PlacementDates';
+import type { PlacementRequestRequestType } from './PlacementRequestRequestType';
 import type { PlacementRequestStatus } from './PlacementRequestStatus';
 import type { PlacementRequirements } from './PlacementRequirements';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
@@ -26,5 +27,6 @@ export type PlacementRequest = (PlacementRequirements & PlacementDates & {
     isParole: boolean;
     notes?: string;
     booking?: BookingSummary;
+    requestType?: PlacementRequestRequestType;
 });
 

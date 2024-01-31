@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AnyValue } from './AnyValue';
+import type { ApArea } from './ApArea';
 import type { Application } from './Application';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { AssessmentDecision } from './AssessmentDecision';
@@ -26,5 +27,6 @@ export type ApprovedPremisesApplication = (Application & {
     assessmentDecisionDate?: string;
     submittedAt?: string;
     personStatusOnSubmission?: PersonStatus;
+    apArea?: ApArea;
 });
 

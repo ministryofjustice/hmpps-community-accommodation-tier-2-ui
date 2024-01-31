@@ -1,0 +1,9 @@
+/* generated using openapi-typescript-codegen -- do no edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+import type { WithdrawPlacementRequestReason } from './WithdrawPlacementRequestReason';
+export type WithdrawPlacementApplication = {
+    reason: WithdrawPlacementRequestReason;
+};
+
