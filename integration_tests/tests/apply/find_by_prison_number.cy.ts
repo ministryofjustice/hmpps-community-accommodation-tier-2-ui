@@ -3,8 +3,8 @@
 //    As a referrer
 //    I want to enter the prison number of the applicant and see that the correct person is returned
 //
-//  Scenario: follow link from applications dashboard
-//    Given I'm on the applications dashboard
+//  Scenario: follow link from 'Before you start' page
+//    Given I'm on the 'Before you start' page
 //    And I click the link to start a new application
 //    Then I'm on the Enter prison number page
 //
@@ -33,7 +33,7 @@ import ConfirmApplicantPage from '../../pages/apply/confirmApplicantPage'
 import { personFactory, applicationFactory } from '../../../server/testutils/factories/index'
 import Page from '../../pages/page'
 import FindByPrisonNumberPage from '../../pages/apply/findByPrisonNumberPage'
-import ListPage from '../../pages/apply/list'
+import BeforeYouStartPage from '../../pages/apply/beforeYouStartPage'
 
 context('Find by prison number', () => {
   const person = personFactory.build({ name: 'Roger Smith', nomsNumber: '123' })
@@ -53,14 +53,14 @@ context('Find by prison number', () => {
     cy.task('stubApplications', applications)
   })
 
-  //  Scenario: follow link from applications dashboard
+  //  Scenario: follow link from 'Before you start' page
   // ----------------------------------------------
   it('start new application button takes me to the enter prison number page', () => {
-    // I'm on the applications dashboard
-    ListPage.visit([])
+    // I'm on the 'Before you start' page
+    BeforeYouStartPage.visit(person.name)
 
     // I click the link to start a new application
-    cy.get('a').contains('Start a new application').click()
+    cy.get('a').contains('Start now').click()
 
     // I'm on the Enter prison number page
     Page.verifyOnPage(FindByPrisonNumberPage)

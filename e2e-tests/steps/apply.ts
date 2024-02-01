@@ -1,12 +1,6 @@
 import { Page, expect } from '@playwright/test'
 
-import {
-  ApplicationsDashboardPage,
-  BeforeYouStartPage,
-  DashboardPage,
-  FindByPrisonNumberPage,
-  TaskListPage,
-} from '../pages/apply'
+import { BeforeYouStartPage, DashboardPage, FindByPrisonNumberPage, TaskListPage } from '../pages/apply'
 import {
   completeCheckInformationTask,
   completeConsentTask,
@@ -40,12 +34,6 @@ export const startAnApplication = async (page: Page) => {
   // // confirm that I'm ready to start
   const beforeYouStartPage = new BeforeYouStartPage(page)
   await beforeYouStartPage.startNow()
-
-  // Applications dashboard
-  // -----------------
-  // Follow link to 'Start a new application'
-  const applicationsDashboard = new ApplicationsDashboardPage(page)
-  await applicationsDashboard.startNewApplication()
 }
 
 export const enterPrisonerNumber = async (page: Page, prisonNumber: string) => {
