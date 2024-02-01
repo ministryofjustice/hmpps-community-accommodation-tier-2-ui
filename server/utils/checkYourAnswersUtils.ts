@@ -137,7 +137,7 @@ export const summaryListItemForQuestion = (
   questionAndAnswer: Record<string, string>,
 ) => {
   const nonEditablePages = ['summary']
-  const nonEditableQuestions = ['OASys started', 'OASys completed', 'OASys imported']
+  const nonEditableQuestions = ['OASys created', 'OASys completed', 'OASys imported']
 
   const { question, answer } = questionAndAnswer
 

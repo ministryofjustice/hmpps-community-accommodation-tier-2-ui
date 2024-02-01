@@ -25,7 +25,7 @@ export default class OasysImportPage extends ApplyPage {
 
   checkOasysInfo = (application): void => {
     cy.get('h2').contains(`OASys record available for ${application.person.name}`)
-    cy.get('p').contains('Date started: 26 July 2022')
+    cy.get('p').contains('Date created: 26 July 2022')
     cy.get('p').contains('Date completed: 27 July 2022')
   }
 }

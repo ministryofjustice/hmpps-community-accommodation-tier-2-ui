@@ -67,7 +67,7 @@ export default class CurrentRisk implements TaskListPage {
 
     if (oasysData) {
       return {
-        'OASys started': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
+        'OASys created': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
         'OASys completed': oasysData.oasysCompletedDate
           ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
           : 'Unknown',
