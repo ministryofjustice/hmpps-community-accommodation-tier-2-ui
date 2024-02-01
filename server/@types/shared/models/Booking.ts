@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { Arrival } from './Arrival';
 import type { BookingBody } from './BookingBody';
+import type { BookingPremisesSummary } from './BookingPremisesSummary';
 import type { BookingStatus } from './BookingStatus';
 import type { Cancellation } from './Cancellation';
 import type { Confirmation } from './Confirmation';
@@ -45,5 +46,6 @@ export type Booking = (BookingBody & {
     effectiveEndDate?: string;
     applicationId?: string;
     assessmentId?: string;
+    premises: BookingPremisesSummary;
 });
 
