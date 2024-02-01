@@ -153,9 +153,8 @@ describe('applicationsController', () => {
       })
 
       describe('and the person is confirmed INELIGIBLE', () => {
-        it('renders the _ineligible_ page', async () => {
+        it('redirects to the _ineligible_ page', async () => {
           const application = applicationFactory.build({
-            person: personFactory.build({ name: 'Roger Smith' }),
             data: {
               'confirm-eligibility': {
                 'confirm-eligibility': { isEligible: 'no' },
@@ -163,25 +162,12 @@ describe('applicationsController', () => {
             },
           })
 
-          const panelText = `Roger Smith is not eligible for CAS-2 accommodation`
-          const changeAnswerPath = paths.applications.pages.show({
-            id: application.id,
-            task: 'confirm-eligibility',
-            page: 'confirm-eligibility',
-          })
-          const newApplicationPath = paths.applications.new({})
-
           applicationService.findApplication.mockResolvedValue(application)
 
           const requestHandler = applicationsController.show()
           await requestHandler(request, response, next)
 
-          expect(response.render).toHaveBeenCalledWith('applications/ineligible', {
-            application,
-            panelText,
-            changeAnswerPath,
-            newApplicationPath,
-          })
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.ineligible({ id: application.id }))
         })
       })
     })
@@ -205,9 +191,8 @@ describe('applicationsController', () => {
     })
 
     describe('when the person is confirmed ELIGIBLE but consent has been DENIED', () => {
-      it('renders the _consent refused_ page', async () => {
+      it('redirects to the _consent refused_ page', async () => {
         const application = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
           data: {
             'confirm-eligibility': {
               'confirm-eligibility': { isEligible: 'yes' },
@@ -221,26 +206,12 @@ describe('applicationsController', () => {
           },
         })
 
-        const panelText = `Roger Smith has not given their consent`
-        const changeAnswerPath = paths.applications.pages.show({
-          id: application.id,
-          task: 'confirm-consent',
-          page: 'confirm-consent',
-        })
-        const newApplicationPath = paths.applications.new({})
-
         applicationService.findApplication.mockResolvedValue(application)
 
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
-        expect(response.render).toHaveBeenCalledWith('applications/consent-refused', {
-          application,
-          panelText,
-          changeAnswerPath,
-          newApplicationPath,
-          backLink: 'some-referrer/',
-        })
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.consentRefused({ id: application.id }))
       })
     })
 
@@ -267,6 +238,63 @@ describe('applicationsController', () => {
             page: 'confirm-consent',
           }),
         )
+      })
+    })
+
+    describe('ineligible', () => {
+      it('renders the ineligible page', async () => {
+        const application = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+        })
+
+        const panelText = `Roger Smith is not eligible for CAS-2 accommodation`
+        const changeAnswerPath = paths.applications.pages.show({
+          id: application.id,
+          task: 'confirm-eligibility',
+          page: 'confirm-eligibility',
+        })
+        const newApplicationPath = paths.applications.new({})
+
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.ineligible()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/ineligible', {
+          application,
+          panelText,
+          changeAnswerPath,
+          newApplicationPath,
+        })
+      })
+    })
+
+    describe('consentRefused', () => {
+      it('renders the consent refused page', async () => {
+        const application = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+        })
+
+        const panelText = `Roger Smith has not given their consent`
+        const changeAnswerPath = paths.applications.pages.show({
+          id: application.id,
+          task: 'confirm-consent',
+          page: 'confirm-consent',
+        })
+        const newApplicationPath = paths.applications.new({})
+
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.consentRefused()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/consent-refused', {
+          application,
+          panelText,
+          changeAnswerPath,
+          newApplicationPath,
+          backLink: 'some-referrer/',
+        })
       })
     })
 

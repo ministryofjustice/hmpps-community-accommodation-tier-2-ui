@@ -64,16 +64,32 @@ export default class ApplicationsController {
           return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
         }
         if (consentIsDenied(application)) {
-          return res.render('applications/consent-refused', this.consentRefusedViewParams(application, req))
+          return res.redirect(paths.applications.consentRefused({ id: application.id }))
         }
         return res.redirect(firstPageOfConsentTask(application))
       }
 
       if (eligibilityIsDenied(application)) {
-        return res.render('applications/ineligible', this.ineligibleViewParams(application))
+        return res.redirect(paths.applications.ineligible({ id: application.id }))
       }
 
       return res.redirect(firstPageOfBeforeYouStartSection(application))
+    }
+  }
+
+  ineligible(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+
+      return res.render('applications/ineligible', this.ineligibleViewParams(application))
+    }
+  }
+
+  consentRefused(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+
+      return res.render('applications/consent-refused', this.consentRefusedViewParams(application, req))
     }
   }
 
