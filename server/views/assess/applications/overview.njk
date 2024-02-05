@@ -3,10 +3,10 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/tag/macro.njk" import govukTag %}
 
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
-{% from "./partials/_timeline.njk" import timeline %}
+{% from "../../partials/_timeline.njk" import timeline %}
+{% from "../../partials/submittedApplicationDetails.njk" import submittedApplicationDetails %}
 
 {% extends "../../partials/layout.njk" %}
 
@@ -15,26 +15,7 @@
 
 {% block content %}
 
-  <h1 class="govuk-heading-l">
-    {{ application.person.name }}
-  </h1>
-
-  <p>Current status: 
-      {{govukTag({
-        text: status,
-        classes: "govuk-tag--blue"
-      })}}
-  </p>
-
-  {% if application.statusUpdates[0] %}
-
-    <p>{{application.statusUpdates[0].description}}</p>
-
-  {% else %}
-
-    <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
-
-  {% endif %}
+  {{submittedApplicationDetails(application, status)}}
 
   <div class="govuk-button-group govuk-!-margin-top-5">
     {{ govukButton({

@@ -1,0 +1,19 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "./_timeline.njk" import timeline %}
+
+{% macro submittedApplicationDetails(application, status) %}
+
+  <h1 class="govuk-heading-l">
+    {{ application.person.name }}
+  </h1>
+
+  <p class="govuk-heading-m">Current status: 
+      {{govukTag({
+        text: status,
+        classes: "govuk-tag--blue govuk-!-font-size-24 govuk-!-font-weight-bold govuk-!-margin-left-1 govuk-!-padding-left-3 govuk-!-padding-right-3"
+      })}}
+  </p>
+
+  <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
+
+{% endmacro %}
