@@ -20,4 +20,5 @@ export default Factory.define<Application>(() => ({
   status: 'inProgress' as const,
   type: 'CAS2',
   telephoneNumber: null,
+  statusUpdates: null,
 }))
