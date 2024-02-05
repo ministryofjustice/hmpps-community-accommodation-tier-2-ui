@@ -241,6 +241,43 @@ describe('applicationsController', () => {
       })
     })
 
+    describe('overview', () => {
+      it('renders the overview page', async () => {
+        const application = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+          submittedAt: '2024-02-05',
+        })
+
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.overview()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/overview', {
+          application,
+          status: 'Received',
+          pageHeading: 'Overview of application',
+        })
+      })
+
+      it('redirects to application show page if application has not been submitted', async () => {
+        const application = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+        })
+
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.overview()
+        await requestHandler(request, response, next)
+
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.show({
+            id: application.id,
+          }),
+        )
+      })
+    })
+
     describe('ineligible', () => {
       it('renders the ineligible page', async () => {
         const application = applicationFactory.build({

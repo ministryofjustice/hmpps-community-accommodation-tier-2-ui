@@ -77,6 +77,24 @@ export default class ApplicationsController {
     }
   }
 
+  overview(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+
+      if (!application.submittedAt) {
+        return res.redirect(paths.applications.show({ id: application.id }))
+      }
+
+      const status = application.statusUpdates?.length ? application.statusUpdates[0].label : 'Received'
+
+      return res.render('applications/overview', {
+        application,
+        status,
+        pageHeading: 'Overview of application',
+      })
+    }
+  }
+
   ineligible(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)

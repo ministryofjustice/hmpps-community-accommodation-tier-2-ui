@@ -19,6 +19,7 @@ const paths = {
       find: peoplePath.path('find'),
     },
     show: singleApplicationPath,
+    overview: singleApplicationPath.path('overview'),
     submission: singleApplicationPath.path('submission'),
     pages: {
       show: pagesPath,
