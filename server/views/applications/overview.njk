@@ -1,0 +1,35 @@
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "../partials/_timeline.njk" import timeline %}
+{% from "../partials/submittedApplicationDetails.njk" import submittedApplicationDetails%}
+
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + pageHeading  %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {{submittedApplicationDetails(application, status)}}
+
+  <div class="govuk-button-group govuk-!-margin-top-5">
+    {{ govukButton({
+      text: "View submitted application",
+      href: paths.applications.show({id: application.id})
+    }) }}
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
+
+  <h2 class="govuk-heading-l">
+        Application history
+  </h2>
+
+  {{ timeline(getApplicationTimelineEvents(application)) }}
+
+{% endblock %}
