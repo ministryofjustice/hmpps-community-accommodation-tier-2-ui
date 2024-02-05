@@ -27,6 +27,9 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
   post(paths.applications.submission.pattern, applicationsController.submit(), { auditEvent: 'SUBMIT_APPLICATION' })
   post(paths.applications.create.pattern, applicationsController.create(), { auditEvent: 'CREATE_APPLICATION' })
   put(paths.applications.update.pattern, applicationsController.update(), { auditEvent: 'UPDATE_APPLICATION' })
+  get(paths.applications.overview.pattern, applicationsController.overview(), {
+    auditEvent: 'VIEW_SUBMITTED_APPLICATION_OVERVIEW_AS_REFERRER',
+  })
 
   put(paths.applications.appendToList.pattern, applicationsController.appendToList(), {
     auditEvent: 'UPDATE_APPLICATION_LIST',

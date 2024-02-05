@@ -75,7 +75,7 @@ describe('submittedApplicationTableRows', () => {
     expect(result).toEqual([
       [
         {
-          html: `<a href=/applications/${applicationA.id} data-cy-id="${applicationA.id}">A</a>`,
+          html: `<a href=/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
         },
         {
           text: personA.nomsNumber,
@@ -89,7 +89,7 @@ describe('submittedApplicationTableRows', () => {
       ],
       [
         {
-          html: `<a href=/applications/${applicationB.id} data-cy-id="${applicationB.id}">B</a>`,
+          html: `<a href=/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
         },
         {
           text: personB.nomsNumber,
