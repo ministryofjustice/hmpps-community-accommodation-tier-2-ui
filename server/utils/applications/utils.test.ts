@@ -235,6 +235,33 @@ describe('utils', () => {
           },
         ])
       })
+      describe('when the application is not a SubmittedApplication', () => {
+        it('returns the submission data with the application createdBy name', () => {
+          const application = applicationFactory.build({
+            statusUpdates: undefined,
+            createdBy: nomisUserFactory.build({ name: 'Anne Nomis' }),
+            submittedAt: '2023-06-21T07:54:50',
+          })
+
+          expect(getApplicationTimelineEvents(application)).toEqual([
+            {
+              byline: {
+                text: 'Anne Nomis',
+              },
+              datetime: {
+                date: '21 June 2023 at 07:54am',
+                timestamp: '2023-06-21T07:54:50',
+              },
+              description: {
+                text: 'The application was received by an assessor.',
+              },
+              label: {
+                text: 'Application submitted',
+              },
+            },
+          ])
+        })
+      })
     })
   })
   describe('getSideNavLinksForDocument', () => {
