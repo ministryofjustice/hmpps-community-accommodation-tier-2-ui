@@ -14,7 +14,15 @@ export default class TaskListService {
 
     this.formSections.forEach(section => {
       section.tasks.forEach(task => {
-        this.taskStatuses[task.id] = getTaskStatus(task, application)
+        if (
+          task.id === 'check-your-answers' &&
+          (Object.values(this.taskStatuses).includes('not_started') ||
+            Object.values(this.taskStatuses).includes('in_progress'))
+        ) {
+          this.taskStatuses[task.id] = 'cannot_start'
+        } else {
+          this.taskStatuses[task.id] = getTaskStatus(task, application)
+        }
       })
     })
   }

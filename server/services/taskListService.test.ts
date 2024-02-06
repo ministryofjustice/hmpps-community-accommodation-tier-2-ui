@@ -35,6 +35,15 @@ jest.mock('../form-pages/apply', () => {
           },
         ],
       },
+      {
+        title: 'Check your answers',
+        tasks: [
+          {
+            id: 'check-your-answers',
+            title: 'Check your answers',
+          },
+        ],
+      },
     ],
   }
 })
@@ -49,7 +58,7 @@ describe('taskListService', () => {
   })
 
   describe('taskStatuses', () => {
-    it('returns status of task', () => {
+    it('returns task statuses and sets the statuses of check your answers to be cannot_start when other tasks have not been completed', () => {
       ;(getTaskStatus as jest.Mock).mockReturnValue('in_progress')
 
       const taskListService = new TaskListService(application)
@@ -60,9 +69,25 @@ describe('taskListService', () => {
         'third-task': 'in_progress',
         'fourth-task': 'in_progress',
         'fifth-task': 'in_progress',
+        'check-your-answers': 'cannot_start',
       })
 
       expect(getTaskStatus).toHaveBeenCalledTimes(5)
+    })
+
+    it('allows check your answers to be complete when other tasks have been completed', () => {
+      ;(getTaskStatus as jest.Mock).mockReturnValue('complete')
+
+      const taskListService = new TaskListService(application)
+
+      expect(taskListService.taskStatuses).toEqual({
+        'first-task': 'complete',
+        'second-task': 'complete',
+        'third-task': 'complete',
+        'fourth-task': 'complete',
+        'fifth-task': 'complete',
+        'check-your-answers': 'complete',
+      })
     })
   })
 
@@ -90,7 +115,7 @@ describe('taskListService', () => {
 
       const taskListService = new TaskListService(application)
 
-      expect(taskListService.completeTaskCount).toEqual(5)
+      expect(taskListService.completeTaskCount).toEqual(6)
     })
   })
 
@@ -136,6 +161,11 @@ describe('taskListService', () => {
             { id: 'fifth-task', title: 'Fifth task', status: 'not_started' },
           ],
         },
+        {
+          sectionNumber: 3,
+          title: 'Check your answers',
+          tasks: [{ id: 'check-your-answers', title: 'Check your answers', status: 'cannot_start' }],
+        },
       ])
     })
   })
@@ -144,7 +174,7 @@ describe('taskListService', () => {
     it('returns the number of total tasks', () => {
       const taskListService = new TaskListService(application)
 
-      expect(taskListService.taskCount).toEqual(5)
+      expect(taskListService.taskCount).toEqual(6)
     })
   })
 })

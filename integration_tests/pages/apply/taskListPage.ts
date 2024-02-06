@@ -25,7 +25,11 @@ export default class TaskListPage extends Page {
 
         // And I see each expected TASK
         section.tasks.forEach(task => {
-          cy.get('[data-cy-task-name]').contains(task.title)
+          if (task.id === 'check-your-answers') {
+            cy.get('div').contains('Check application answers')
+          } else {
+            cy.get('[data-cy-task-name]').contains(task.title)
+          }
         })
       })
     })
