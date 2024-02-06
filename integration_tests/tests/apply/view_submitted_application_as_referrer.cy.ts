@@ -46,6 +46,7 @@ context('View submitted application', () => {
     //  Then I should see the read-only version of the answers submitted
     submittedApplicationPage.hasExpectedSummaryData()
     submittedApplicationPage.hasApplicantDetails(this.application)
+    submittedApplicationPage.hasSideNavBar(this.application)
     submittedApplicationPage.hasQuestionsAndAnswersFromDocument(this.application.document)
 
     //  And I see a print button

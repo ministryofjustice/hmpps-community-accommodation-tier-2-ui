@@ -60,6 +60,7 @@ context('Assessor views submitted application', () => {
     const page = new SubmittedApplicationPage(this.submittedApplication)
     page.hasExpectedSummaryData()
     page.hasApplicantDetails(this.submittedApplication)
+    page.hasSideNavBar(this.submittedApplication)
     page.hasQuestionsAndAnswersFromDocument(this.submittedApplication.document)
 
     //  And I see a print button

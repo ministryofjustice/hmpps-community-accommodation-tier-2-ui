@@ -10,7 +10,8 @@
                     card: {
                             title: {
                               text: task.title
-                            }
+                            },
+                            attributes: { id: stringToKebabCase(task.title) }
                     },
                     rows: documentSummaryListRows(task.questionsAndAnswers)
                   })

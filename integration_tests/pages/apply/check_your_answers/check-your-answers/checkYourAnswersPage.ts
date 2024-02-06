@@ -1,9 +1,9 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import { FullPerson } from '../../../../../server/@types/shared/models/FullPerson'
 import ApplyPage from '../../applyPage'
-import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
+import { nameOrPlaceholderCopy, stringToKebabCase } from '../../../../../server/utils/utils'
 import { getQuestions } from '../../../../../server/form-pages/utils/questions'
-import { getPage, hasResponseMethod } from '../../../../../server/utils/checkYourAnswersUtils'
+import { getPage, getSections, hasResponseMethod } from '../../../../../server/utils/checkYourAnswersUtils'
 
 export default class CheckYourAnswersPage extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -110,6 +110,16 @@ export default class CheckYourAnswersPage extends ApplyPage {
           })
         })
       }
+    })
+  }
+
+  shouldShowSideNavBar() {
+    const sections = getSections()
+
+    sections.forEach(section => {
+      section.tasks.forEach(task => {
+        cy.get(`a[href="#${stringToKebabCase(task.title)}"]`)
+      })
     })
   }
 }

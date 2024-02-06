@@ -62,3 +62,7 @@ export const removeBlankSummaryListItems = (items: Array<SummaryListItem>): Arra
     return false
   })
 }
+
+export const stringToKebabCase = (stringToTransform: string) => {
+  return stringToTransform.replace(/\s+/g, '-').toLowerCase()
+}
