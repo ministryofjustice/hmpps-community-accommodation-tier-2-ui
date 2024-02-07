@@ -21,7 +21,7 @@ import {
   getSideNavLinksForApplication,
   getSideNavLinksForDocument,
 } from './applications/utils'
-import { applicationStatusRadios } from './assessUtils'
+import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { dateFieldValues } from './formUtils'
@@ -103,6 +103,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)
+  njkEnv.addGlobal('applicationStatusDetailOptions', applicationStatusDetailOptions)
 
   njkEnv.addFilter('removeBlankSummaryListItems', removeBlankSummaryListItems)
 

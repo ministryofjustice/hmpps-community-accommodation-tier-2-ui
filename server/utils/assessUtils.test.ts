@@ -1,5 +1,6 @@
-import { statusUpdateFactory } from '../testutils/factories'
-import { applicationStatusRadios } from './assessUtils'
+import { Cas2ApplicationStatusDetail } from '@approved-premises/api'
+import { statusUpdateFactory, statusUpdateDetailFactory } from '../testutils/factories'
+import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
 
 describe('applicationStatusRadios', () => {
   const statuses = [
@@ -66,5 +67,79 @@ describe('applicationStatusRadios', () => {
     ]
 
     expect(applicationStatusRadios(statuses, [])).toEqual(expected)
+  })
+})
+
+describe('applicationStatusUpdateDetailCheckboxes', () => {
+  const statusDetails = [
+    {
+      id: '9019c886-dcba-4277-b667-423a2ab847c3',
+      name: 'aboutTheApplicant',
+      label: 'About the applicant',
+    },
+    {
+      id: 'b174b4ab-25c2-4808-993b-dd00d646cb34',
+      name: 'areaFundingAndId',
+      label: 'Area, Funding and ID',
+    },
+    {
+      id: 'b7636e4e-bf05-4c35-a79f-41c1089cb578',
+      name: 'risksAndNeeds',
+      label: 'Risks and needs',
+    },
+  ] as Array<Cas2ApplicationStatusDetail>
+
+  it('returns an array of checkboxes', () => {
+    const expected = [
+      {
+        value: 'aboutTheApplicant',
+        text: 'About the applicant',
+        checked: true,
+      },
+      {
+        value: 'areaFundingAndId',
+        text: 'Area, Funding and ID',
+        checked: true,
+      },
+      {
+        value: 'risksAndNeeds',
+        text: 'Risks and needs',
+        checked: false,
+      },
+    ]
+
+    const previousStatuses = [
+      statusUpdateFactory.build({
+        name: 'moreInfoRequested',
+        statusUpdateDetails: [
+          statusUpdateDetailFactory.build({ name: 'aboutTheApplicant' }),
+          statusUpdateDetailFactory.build({ name: 'areaFundingAndId' }),
+        ],
+      }),
+    ]
+
+    expect(applicationStatusDetailOptions(statusDetails, previousStatuses)).toEqual(expected)
+  })
+
+  it('does not check boxes if previous statuses is an empty array', () => {
+    const expected = [
+      {
+        value: 'aboutTheApplicant',
+        text: 'About the applicant',
+        checked: false,
+      },
+      {
+        value: 'areaFundingAndId',
+        text: 'Area, Funding and ID',
+        checked: false,
+      },
+      {
+        value: 'risksAndNeeds',
+        text: 'Risks and needs',
+        checked: false,
+      },
+    ]
+
+    expect(applicationStatusDetailOptions(statusDetails, [])).toEqual(expected)
   })
 })
