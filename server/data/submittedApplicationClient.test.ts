@@ -22,6 +22,7 @@ describeClient('SubmittedApplicationClient', provider => {
         withRequest: {
           method: 'GET',
           path: paths.submissions.index.pattern,
+          query: { page: '1' },
           headers: {
             authorization: `Bearer ${token}`,
           },
@@ -29,12 +30,23 @@ describeClient('SubmittedApplicationClient', provider => {
         willRespondWith: {
           status: 200,
           body: submittedApplications,
+          headers: {
+            'X-Pagination-TotalPages': '10',
+            'X-Pagination-TotalResults': '100',
+            'X-Pagination-PageSize': '10',
+          },
         },
       })
 
-      const result = await submittedApplicationClient.all()
+      const result = await submittedApplicationClient.all(1)
 
-      expect(result).toEqual(submittedApplications)
+      expect(result).toEqual({
+        data: submittedApplications,
+        pageNumber: '1',
+        totalPages: '10',
+        totalResults: '100',
+        pageSize: '10',
+      })
     })
   })
 
