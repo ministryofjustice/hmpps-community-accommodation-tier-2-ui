@@ -11,7 +11,6 @@ import nomisUserFactory from './nomisUser'
 import statusUpdateFactory from './statusUpdate'
 import externalUserFactory from './externalUser'
 import applicationStatusFactory from './applicationStatusFactory'
-import paginatedResponseFactory from './paginatedResponse'
 
 export {
   applicationSummaryFactory,
@@ -30,5 +29,4 @@ export {
   statusUpdateFactory,
   externalUserFactory,
   applicationStatusFactory,
-  paginatedResponseFactory,
 }

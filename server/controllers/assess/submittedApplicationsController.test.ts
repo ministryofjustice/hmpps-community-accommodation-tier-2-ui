@@ -1,15 +1,11 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
+import { FullPerson } from '@approved-premises/api'
 
-import { PaginatedResponse } from '@approved-premises/ui'
-import { paginatedResponseFactory, statusUpdateFactory, submittedApplicationFactory } from '../../testutils/factories'
+import { statusUpdateFactory, submittedApplicationFactory } from '../../testutils/factories'
 import SubmittedApplicationsController from './submittedApplicationsController'
 import { SubmittedApplicationService } from '../../services'
 import paths from '../../paths/assess'
-import { getPaginationDetails } from '../../utils/getPaginationDetails'
-
-jest.mock('../../utils/getPaginationDetails')
 
 describe('submittedApplicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -40,30 +36,12 @@ describe('submittedApplicationsController', () => {
   describe('index', () => {
     it('renders existing applications', async () => {
       const applications = [submittedApplication]
-
-      const paginatedResponse = paginatedResponseFactory.build({
-        data: applications,
-        totalPages: '50',
-        totalResults: '500',
-      }) as PaginatedResponse<Cas2SubmittedApplicationSummary>
-
-      const paginationDetails = {
-        hrefPrefix: paths.submittedApplications.index({}),
-        pageNumber: 1,
-      }
-      ;(getPaginationDetails as jest.Mock).mockReturnValue(paginationDetails)
-      submittedApplicationService.getAll.mockResolvedValue(paginatedResponse)
-
       const requestHandler = submittedApplicationsController.index()
 
       await requestHandler(request, response, next)
 
-      expect(submittedApplicationService.getAll).toHaveBeenCalledWith(token, 1)
       expect(response.render).toHaveBeenCalledWith('assess/applications/index', {
         applications,
-        pageNumber: 1,
-        totalPages: 50,
-        hrefPrefix: paths.submittedApplications.index({}),
         pageHeading: 'Submitted Applications',
       })
     })

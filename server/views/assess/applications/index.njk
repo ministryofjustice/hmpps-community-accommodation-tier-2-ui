@@ -3,8 +3,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/pagination/macro.njk" import govukPagination %}
-
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../../partials/table.njk" import applicationsTable %}
 {% from "../../components/formFields/form-page-input/macro.njk" import formPageInput %}
@@ -40,11 +38,8 @@
               }
             ],
             submittedApplicationTableRows(applications, true)
-          )
-
+          )      
       }}
-
-    {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
 
     </div>
   </div>

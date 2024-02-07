@@ -25,7 +25,7 @@ context('Submitted applications', () => {
         person: fullPersonFactory.build({ name: 'Robert Smith' }),
       })
       cy.wrap(submittedApplication).as('submittedApplication')
-      cy.task('stubSubmittedApplicationsGet', { applications: [submittedApplication], page: 1 })
+      cy.task('stubSubmittedApplicationsGet', { applications: [submittedApplication] })
     })
   })
 
@@ -41,9 +41,6 @@ context('Submitted applications', () => {
     const page = Page.verifyOnPage(SubmissionListPage)
 
     //  Then see the submitted applications
-    page.shouldShowSubmittedApplications([this.submittedApplication])
-    cy.task('stubSubmittedApplicationsGet', { applications: [this.submittedApplication], page: 2 })
-    page.clickPageNumber('2')
     page.shouldShowSubmittedApplications([this.submittedApplication])
   })
 })

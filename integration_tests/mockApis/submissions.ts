@@ -19,23 +19,15 @@ export default {
         jsonBody: args.application,
       },
     }),
-  stubSubmittedApplicationsGet: (args: {
-    applications: Array<SubmittedApplication>
-    page: number
-  }): SuperAgentRequest =>
+  stubSubmittedApplicationsGet: (args: { applications: Array<SubmittedApplication> }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/submissions?page=${args.page}`,
+        url: `/cas2/submissions`,
       },
       response: {
         status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'X-Pagination-TotalPages': '2',
-          'X-Pagination-TotalResults': '20',
-          'X-Pagination-PageSize': '10',
-        },
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         jsonBody: args.applications,
       },
     }),

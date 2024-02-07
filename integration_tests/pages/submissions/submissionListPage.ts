@@ -35,9 +35,4 @@ export default class SubmissionListPage extends Page {
         })
     })
   }
-
-  clickPageNumber(pageNumber: string): void {
-    const linkText = new RegExp(`^\\s+${pageNumber}\\s+$`)
-    cy.get('a').contains(linkText).click()
-  }
 }
