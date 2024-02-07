@@ -1,23 +1,16 @@
 import { Request, RequestHandler, Response } from 'express'
 import { FullPerson } from '@approved-premises/api'
 import SubmittedApplicationService from '../../services/submittedApplicationService'
-import assessPaths from '../../paths/assess'
-import { getPaginationDetails } from '../../utils/getPaginationDetails'
 
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
 
   index(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { pageNumber, hrefPrefix } = getPaginationDetails(req, assessPaths.submittedApplications.index({}))
-
-      const result = await this.submittedApplicationService.getAll(req.user.token, pageNumber)
+      const applications = await this.submittedApplicationService.getAll(req.user.token)
 
       return res.render('assess/applications/index', {
-        applications: result.data,
-        pageNumber: Number(result.pageNumber),
-        totalPages: Number(result.totalPages),
-        hrefPrefix,
+        applications,
         pageHeading: 'Submitted Applications',
       })
     }

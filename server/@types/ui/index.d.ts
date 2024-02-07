@@ -194,11 +194,3 @@ export type SideNavItem = {
   text: string
   href: string
 }
-
-export type PaginatedResponse<T> = {
-  data: Array<T>
-  pageNumber: string
-  totalPages: string
-  totalResults: string
-  pageSize: string
-}

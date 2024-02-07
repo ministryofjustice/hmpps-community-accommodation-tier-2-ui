@@ -5,13 +5,11 @@ import superagent from 'superagent'
 import Agent, { HttpsAgent } from 'agentkeepalive'
 import type { Response } from 'express'
 
-import { PaginatedResponse } from '@approved-premises/ui'
 import logger from '../../logger'
 import sanitiseError from '../sanitisedError'
 import { ApiConfig } from '../config'
 import type { UnsanitisedError } from '../sanitisedError'
 import { restClientMetricsMiddleware } from './restClientMetricsMiddleware'
-import { createQueryString } from '../utils/utils'
 
 interface GetRequest {
   path?: string
@@ -123,30 +121,6 @@ export default class RestClient {
       const sanitisedError = sanitiseError(error)
       logger.warn({ ...sanitisedError, query }, `Error calling ${this.name}, path: '${path}', verb: 'GET'`)
       throw sanitisedError
-    }
-  }
-
-  async getPaginatedResponse<T>({
-    path = '',
-    page = '',
-    query = {},
-  }: {
-    path: string
-    page: string
-    query: Record<string, unknown>
-  }): Promise<PaginatedResponse<T>> {
-    const response = (await this.get({
-      path,
-      query: createQueryString({ page, ...query }),
-      raw: true,
-    })) as superagent.Response
-
-    return {
-      data: response.body,
-      pageNumber: page,
-      totalPages: response.headers['x-pagination-totalpages'],
-      totalResults: response.headers['x-pagination-totalresults'],
-      pageSize: response.headers['x-pagination-pagesize'],
     }
   }
 
