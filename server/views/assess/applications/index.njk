@@ -20,9 +20,9 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">Short-Term Accommodation (CAS-2) applications</h1>
       {{ showErrorSummary(errorSummary) }}
-
-      {{  
-      
+      <div data-testid="submitted-applications">
+        {{  
+    
         applicationsTable(
             "Submitted", 
             [
@@ -43,6 +43,7 @@
           )
 
       }}
+      </div>
 
     {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
 
