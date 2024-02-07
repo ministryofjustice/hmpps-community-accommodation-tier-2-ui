@@ -77,8 +77,8 @@ export const completeOffenceAndLicenceInformationSection = async (page: Page, na
   await completeHDCLicenceAndCPPDetailsTask(page, name)
 }
 
-export const completeCheckAnswersSection = async (page: Page) => {
-  await completeCheckAnswersTask(page)
+export const completeCheckAnswersSection = async (page: Page, name: string) => {
+  await completeCheckAnswersTask(page, name)
 }
 
 export const submitApplication = async (page: Page) => {

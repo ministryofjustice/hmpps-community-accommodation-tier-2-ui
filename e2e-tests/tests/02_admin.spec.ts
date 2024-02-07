@@ -6,7 +6,7 @@ test('view a submitted application as an admin', async ({ page, adminUser, perso
   await signOut(page)
   await signInAsAdmin(page, adminUser)
   await viewSubmittedApplication(page, person.name)
-  await expect(page.locator('h1')).toContainText('Application answers')
+  await expect(page.locator('h1')).toContainText(`${person.name}'s application`)
 })
 
 const signOut = async (page: Page) => {
