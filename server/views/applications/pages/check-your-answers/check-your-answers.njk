@@ -28,7 +28,6 @@
 
       {{ applicationSummary(page.applicationSummary()) }}
 
-      {{ applicantDetails(page.application) }}
 
       <div class="govuk-grid-row">
 
@@ -38,6 +37,8 @@
 
         <div class="govuk-grid-column-three-quarters">
 
+          {{ applicantDetails(page.application) }}
+          
           {% for section in checkYourAnswersSections(page.application) %}
             <h2 class="govuk-heading-l">{{ section.title }}</h2>
             {% for task in section.tasks %}
