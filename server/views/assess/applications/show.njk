@@ -30,8 +30,6 @@
         view: 'assessor'
       })}}
 
-      {{ applicantDetails(application) }}
-
       <div class="govuk-grid-column-one-quarter side-nav">
 
         {{ sideNav(getSideNavLinksForDocument(application.document)) }}
@@ -39,6 +37,7 @@
       </div>
 
       <div class="govuk-grid-column-three-quarters">
+        {{ applicantDetails(application) }}
         {% if application.document.sections | length %}
           {{ documentSummaryList(application) }}
         {% endif %}
