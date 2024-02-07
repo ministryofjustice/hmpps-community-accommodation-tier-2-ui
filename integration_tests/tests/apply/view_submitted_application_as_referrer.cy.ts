@@ -45,6 +45,7 @@ context('View submitted application', () => {
     const submittedApplicationPage = SubmissionPage.visit(this.application)
     //  Then I should see the read-only version of the answers submitted
     submittedApplicationPage.hasExpectedSummaryData()
+    submittedApplicationPage.doesNotHaveUpdateStatusButton()
     submittedApplicationPage.hasApplicantDetails(this.application)
     submittedApplicationPage.hasSideNavBar(this.application)
     submittedApplicationPage.hasQuestionsAndAnswersFromDocument(this.application.document)

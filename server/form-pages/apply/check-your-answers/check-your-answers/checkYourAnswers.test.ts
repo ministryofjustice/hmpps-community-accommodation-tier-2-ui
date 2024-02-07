@@ -43,6 +43,7 @@ describe('CheckYourAnswers', () => {
         prisonName: person.prisonName,
         referrerName: application.createdBy.name,
         contactEmail: application.createdBy.email,
+        view: 'checkYourAnswers',
       })
     })
 
@@ -63,6 +64,7 @@ describe('CheckYourAnswers', () => {
           prisonName: null,
           referrerName: application.createdBy.name,
           contactEmail: application.createdBy.email,
+          view: 'checkYourAnswers',
         })
       })
     })
