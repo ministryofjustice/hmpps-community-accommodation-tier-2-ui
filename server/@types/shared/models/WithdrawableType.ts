@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type WithdrawableType = 'placement_request' | 'placement_application' | 'booking';
+export type WithdrawableType = 'application' | 'booking' | 'placement_application' | 'placement_request';
