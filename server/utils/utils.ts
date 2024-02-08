@@ -72,3 +72,21 @@ export const isSubmittedApplication = (
 ): application is Cas2SubmittedApplication => {
   return !Object.keys(application).includes('createdBy')
 }
+
+/**
+ * Transforms a kebab-case formatted string into camelCase
+ * @param str a string that is formatted in kebab-case
+ * @returns string formatted in camelCase
+ */
+export const kebabToCamelCase = (str: string) => {
+  return str.replace(/-./g, match => match[1].toUpperCase())
+}
+
+/**
+ * Transforms a camelCase formatted string into kebab-case
+ * @param str a string that is formatted in camelCase
+ * @returns string formatted in kebab-case
+ */
+export const camelToKebabCase = (str: string) => {
+  return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
