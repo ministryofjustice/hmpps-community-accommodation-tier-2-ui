@@ -1,6 +1,11 @@
 import { Cas2ApplicationStatusDetail } from '@approved-premises/api'
-import { statusUpdateFactory, statusUpdateDetailFactory } from '../testutils/factories'
-import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
+import {
+  statusUpdateFactory,
+  statusUpdateDetailFactory,
+  applicationStatusDetailFactory,
+  applicationStatusFactory,
+} from '../testutils/factories'
+import { applicationStatusRadios, applicationStatusDetailOptions, getStatusDetailsByStatusName } from './assessUtils'
 
 describe('applicationStatusRadios', () => {
   const statuses = [
@@ -141,5 +146,30 @@ describe('applicationStatusUpdateDetailCheckboxes', () => {
     ]
 
     expect(applicationStatusDetailOptions(statusDetails, [])).toEqual(expected)
+  })
+})
+
+describe('getStatusDetailsByStatusName', () => {
+  it('returns a list of status details belonging to the status name', () => {
+    const applicationStatus1Detail = applicationStatusDetailFactory.build()
+    const applicationStatus2Detail = applicationStatusDetailFactory.build()
+
+    const applicationStatus1 = applicationStatusFactory.build({ statusDetails: [applicationStatus1Detail] })
+    const applicationStatus2 = applicationStatusFactory.build({ statusDetails: [applicationStatus2Detail] })
+
+    const statusName = applicationStatus1.name
+
+    expect(getStatusDetailsByStatusName([applicationStatus1, applicationStatus2], statusName)).toEqual(
+      applicationStatus1.statusDetails,
+    )
+  })
+
+  it('returns an empty array if application status does not contain status detail', () => {
+    const applicationStatus1 = applicationStatusFactory.build({ statusDetails: [] })
+    const applicationStatus2 = applicationStatusFactory.build({ statusDetails: [] })
+
+    const statusName = applicationStatus1.name
+
+    expect(getStatusDetailsByStatusName([applicationStatus1, applicationStatus2], statusName)).toEqual([])
   })
 })

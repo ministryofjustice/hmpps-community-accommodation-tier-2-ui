@@ -1,4 +1,4 @@
-import { Cas2ApplicationStatusDetail, Cas2StatusUpdate } from '@approved-premises/api'
+import { Cas2ApplicationStatus, Cas2ApplicationStatusDetail, Cas2StatusUpdate } from '@approved-premises/api'
 
 export const applicationStatusRadios = (
   statuses: Array<Record<string, string>>,
@@ -26,4 +26,17 @@ export const applicationStatusDetailOptions = (
       checked: previousStatusUpdateDetails.some(detail => detail.name === statusDetail.name),
     }
   })
+}
+
+export const getStatusDetailsByStatusName = (
+  statuses: Array<Cas2ApplicationStatus>,
+  statusName: string,
+): Array<Cas2ApplicationStatusDetail | null> => {
+  if (!statuses.length) {
+    return []
+  }
+
+  const statusDetails = statuses.filter(status => status.name === statusName)[0]?.statusDetails
+
+  return statusDetails
 }
