@@ -9,9 +9,11 @@ import risksFactory, { roshRisksEnvelopeFactory } from './risks'
 import oasysRoshFactory from './oasysRosh'
 import nomisUserFactory from './nomisUser'
 import statusUpdateFactory from './statusUpdate'
+import statusUpdateDetailFactory from './statusUpdateDetail'
 import externalUserFactory from './externalUser'
 import applicationStatusFactory from './applicationStatusFactory'
 import paginatedResponseFactory from './paginatedResponse'
+import applicationStatusDetailFactory from './applicationStatusDetailFactory'
 
 export {
   applicationSummaryFactory,
@@ -28,7 +30,9 @@ export {
   roshRisksEnvelopeFactory,
   nomisUserFactory,
   statusUpdateFactory,
+  statusUpdateDetailFactory,
   externalUserFactory,
   applicationStatusFactory,
   paginatedResponseFactory,
+  applicationStatusDetailFactory,
 }
