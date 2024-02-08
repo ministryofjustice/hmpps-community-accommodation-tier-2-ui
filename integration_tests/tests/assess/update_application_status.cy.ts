@@ -92,7 +92,7 @@ context("Assessor updates a submitted application's status", () => {
     page.shouldShowCurrentApplicationStatus()
 
     // And I choose a status update and continue
-    page.checkRadioByNameAndValue('newStatus', 'moreInfoRequested')
+    page.checkRadioByNameAndValue('newStatus', 'awaitingDecision')
     cy.task('stubCreateApplicationStatusUpdate', { application: submittedApplication })
     page.clickSubmit()
 
