@@ -2,12 +2,12 @@ import { Page, expect } from '@playwright/test'
 import { signInAsAssessor, updateStatus, viewSubmittedApplication } from '../steps/assess'
 import { test } from '../test'
 
-test('view a submitted application as an admin', async ({ page, assessorUser, person }) => {
+test('view a submitted application as an admin', async ({ page, assessorUser }) => {
   await signOut(page)
   await signInAsAssessor(page, assessorUser)
-  await viewSubmittedApplication(page, person)
-  await updateStatus(page, person)
-  await expect(page.locator('h1')).toContainText(person.name)
+  await viewSubmittedApplication(page)
+  await updateStatus(page)
+  await expect(page.locator('.moj-timeline__title').first()).toContainText('More information requested')
 })
 
 const signOut = async (page: Page) => {

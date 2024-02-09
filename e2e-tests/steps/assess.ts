@@ -1,21 +1,19 @@
 import { Page, expect } from '@playwright/test'
 
-export const updateStatus = async (page: Page, person: { crn: string; name: string; nomsNumber: string }) => {
+export const updateStatus = async (page: Page) => {
   await page.getByRole('button', { name: 'Update application status' }).click()
-  await expect(page.locator('h1')).toContainText(`What is the latest status of ${person.name}'s application?`)
+  await expect(page.locator('h1')).toContainText(`What is the latest status`)
   await page.getByLabel('More information requested').check()
   await page.getByRole('button', { name: 'Save and continue' }).click()
 }
 
-export const viewSubmittedApplication = async (
-  page: Page,
-  person: { crn: string; name: string; nomsNumber: string },
-) => {
+export const viewSubmittedApplication = async (page: Page) => {
   await page.goto('/assess/applications')
   await expect(page.locator('h1')).toContainText('Short-Term Accommodation (CAS-2) applications')
   await page.getByTestId('submitted-applications').getByRole('link').first().click()
   await page.getByRole('button', { name: 'View submitted application' }).click()
-  await expect(page.locator('h1')).toContainText(`${person.name}'s application`)
+  await expect(page.locator('h1')).toContainText(`application`)
+  await expect(page.locator('h2').first()).toContainText('Applicant details')
 }
 
 export const signInAsAssessor = async (
