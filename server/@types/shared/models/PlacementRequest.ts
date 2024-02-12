@@ -28,5 +28,6 @@ export type PlacementRequest = (PlacementRequirements & PlacementDates & {
     notes?: string;
     booking?: BookingSummary;
     requestType?: PlacementRequestRequestType;
+    isWithdrawn: boolean;
 });
 
