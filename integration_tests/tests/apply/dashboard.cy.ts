@@ -45,7 +45,7 @@ context('Applications dashboard', () => {
     page.shouldShowInProgressApplications()
   })
   //  Scenario: show submitted applications
-  it('shows in progress applications', () => {
+  it('shows submitted applications', () => {
     // There are applications in the database
     const submittedApplications = applicationSummaryFactory.buildList(5, {
       status: 'submitted',

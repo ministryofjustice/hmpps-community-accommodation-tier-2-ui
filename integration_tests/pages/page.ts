@@ -1,10 +1,10 @@
 import { ApplicationDocument } from '@approved-premises/ui'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
-import { Cas2Application } from '../../server/@types/shared/models/Cas2Application'
-import { Cas2SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
+import { Cas2Application as Application } from '../../server/@types/shared/models/Cas2Application'
+import { Cas2SubmittedApplication as SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
 import { FullPerson } from '../../server/@types/shared/models/FullPerson'
-import { stringToKebabCase } from '../../server/utils/utils'
+import { stringToKebabCase, isSubmittedApplication } from '../../server/utils/utils'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -140,7 +140,7 @@ export default abstract class Page {
     cy.get('@printStub').should('be.calledOnce')
   }
 
-  hasApplicantDetails(application: Cas2Application | Cas2SubmittedApplication): void {
+  hasApplicantDetails(application: SubmittedApplication): void {
     const person = application.person as FullPerson
     cy.get(`[data-cy-check-your-answers-section="applicant-details"]`).within(() => {
       this.checkTermAndDescription('Full name', person.name)
@@ -162,7 +162,7 @@ export default abstract class Page {
     })
   }
 
-  hasSideNavBar(application: Cas2SubmittedApplication) {
+  hasSideNavBar(application: SubmittedApplication) {
     const document = application.document as ApplicationDocument
 
     cy.get('.side-nav').within(() => {
@@ -170,6 +170,52 @@ export default abstract class Page {
         section.tasks.forEach(task => {
           cy.get(`a[href="#${stringToKebabCase(task.title)}"]`)
         })
+      })
+    })
+  }
+
+  shouldShowApplicationSummaryDetails(application: Application | SubmittedApplication): void {
+    const person = application.person as FullPerson
+    cy.get('h1').contains(person.name)
+
+    const status = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
+
+    cy.get('p').contains(`Current status: ${status}`)
+
+    cy.get('p').contains(
+      `This application was submitted on ${DateFormats.isoDateToUIDate(application.submittedAt, {
+        format: 'medium',
+      })}.`,
+    )
+  }
+
+  shouldShowTimeline(application: Application | SubmittedApplication): void {
+    const sortedTimelineEvents = application.statusUpdates.sort((a, b) => {
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    })
+
+    cy.get('.moj-timeline').within(() => {
+      cy.get('.moj-timeline__item').should('have.length', application.statusUpdates.length + 1)
+
+      cy.get('.moj-timeline__item').each(($el, index) => {
+        if (index !== application.statusUpdates.length) {
+          cy.wrap($el).within(() => {
+            cy.get('.moj-timeline__header').should('contain', sortedTimelineEvents[index].label)
+            cy.get('.moj-timeline__byline').should('contain', sortedTimelineEvents[index].updatedBy.name)
+            cy.get('time').should('have.attr', { time: sortedTimelineEvents[index].updatedAt })
+            cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents[index].updatedAt))
+          })
+        } else {
+          cy.wrap($el).within(() => {
+            cy.get('.moj-timeline__header').should('contain', `Application submitted`)
+            cy.get('.moj-timeline__byline').should(
+              'contain',
+              `by ${isSubmittedApplication(application) ? application.submittedBy.name : application.createdBy.name}`,
+            )
+            cy.get('time').should('have.attr', { time: application.submittedAt })
+            cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(application.submittedAt))
+          })
+        }
       })
     })
   }
