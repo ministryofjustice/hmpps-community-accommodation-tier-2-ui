@@ -1,6 +1,7 @@
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../../partials/documentSummaryList.njk" import documentSummaryList %}
@@ -13,6 +14,13 @@
 
 {% set pageTitle = applicationName + " - " + pageHeading  %}
 {% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: paths.submittedApplications.overview({id: application.id})
+  }) }}
+{% endblock %}
 
 {% block content %}
 

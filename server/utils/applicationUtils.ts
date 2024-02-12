@@ -10,7 +10,7 @@ export const inProgressApplicationTableRows = (applications: Array<Application>)
   return applications.map(application => {
     const person = application.person as FullPerson
     return [
-      nameAnchorElement(nameOrPlaceholderCopy(person), application.id),
+      nameAnchorElement(nameOrPlaceholderCopy(person), application.id, false, true),
       textValue(person.nomsNumber),
       textValue(person.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
@@ -50,14 +50,21 @@ const htmlValue = (value: string) => {
   return { html: value }
 }
 
-const nameAnchorElement = (name: string, applicationId: string, isAssessPath: boolean = false) => {
-  return htmlValue(
-    `<a href=${
-      isAssessPath
-        ? assessPaths.submittedApplications.overview({ id: applicationId })
-        : applyPaths.applications.show({ id: applicationId })
-    } data-cy-id="${applicationId}">${name}</a>`,
-  )
+const nameAnchorElement = (
+  name: string,
+  applicationId: string,
+  isAssessPath: boolean = false,
+  inProgress: boolean = false,
+) => {
+  let href = ''
+  if (inProgress) {
+    href = applyPaths.applications.show({ id: applicationId })
+  } else if (isAssessPath) {
+    href = assessPaths.submittedApplications.overview({ id: applicationId })
+  } else {
+    href = applyPaths.applications.overview({ id: applicationId })
+  }
+  return htmlValue(`<a href=${href} data-cy-id="${applicationId}">${name}</a>`)
 }
 
 const textValue = (value: string) => {

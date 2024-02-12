@@ -1,5 +1,5 @@
 import qs, { IStringifyOptions } from 'qs'
-import { FullPerson, Person } from '@approved-premises/api'
+import { Cas2Application, Cas2SubmittedApplication, FullPerson, Person } from '@approved-premises/api'
 import { SummaryListItem } from '@approved-premises/ui'
 
 const properCase = (word: string): string =>
@@ -65,4 +65,10 @@ export const removeBlankSummaryListItems = (items: Array<SummaryListItem>): Arra
 
 export const stringToKebabCase = (stringToTransform: string) => {
   return stringToTransform.replace(/\s+/g, '-').toLowerCase()
+}
+
+export const isSubmittedApplication = (
+  application: Cas2Application | Cas2SubmittedApplication,
+): application is Cas2SubmittedApplication => {
+  return !Object.keys(application).includes('createdBy')
 }

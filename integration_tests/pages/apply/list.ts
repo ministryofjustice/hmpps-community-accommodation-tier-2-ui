@@ -20,7 +20,7 @@ export default class ListPage extends Page {
   }
 
   shouldShowInProgressApplications(): void {
-    this.shouldShowApplications(this.applications)
+    this.shouldShowApplications(this.applications, true)
   }
 
   shouldShowSubmittedApplications(): void {
@@ -32,11 +32,17 @@ export default class ListPage extends Page {
     cy.get(`a[data-cy-id="${application.id}"]`).click()
   }
 
-  private shouldShowApplications(applications: Array<Cas2ApplicationSummary>): void {
+  private shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
       const personName = nameOrPlaceholderCopy(application.person)
       cy.contains(personName)
-        .should('have.attr', 'href', paths.applications.show({ id: application.id }))
+        .should(
+          'have.attr',
+          'href',
+          inProgress
+            ? paths.applications.show({ id: application.id })
+            : paths.applications.overview({ id: application.id }),
+        )
         .parent()
         .parent()
         .within(() => {

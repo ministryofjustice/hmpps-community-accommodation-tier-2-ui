@@ -1,10 +1,15 @@
 import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimelineEvent } from '@approved-premises/ui'
-import type { Cas2Application as Application, Cas2StatusUpdate, Cas2SubmittedApplication } from '@approved-premises/api'
+import type {
+  Cas2Application as Application,
+  Cas2Application,
+  Cas2StatusUpdate,
+  Cas2SubmittedApplication,
+} from '@approved-premises/api'
+import { getSections } from '../checkYourAnswersUtils'
+import { stringToKebabCase, isSubmittedApplication } from '../utils'
 import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
-import { getSections } from '../checkYourAnswersUtils'
-import { stringToKebabCase } from '../utils'
 
 export const journeyPages = (_journeyType: JourneyType): FormPages => {
   return Apply.pages
@@ -83,10 +88,15 @@ export const getSubmittedTimelineEvent = (submitterName: string, submittedAt: st
   }
 }
 
-export const getApplicationTimelineEvents = (application: Cas2SubmittedApplication): Array<UiTimelineEvent> => {
+export const getApplicationTimelineEvents = (
+  application: Cas2Application | Cas2SubmittedApplication,
+): Array<UiTimelineEvent> => {
   return [
     ...getStatusTimelineEvents(application.statusUpdates),
-    getSubmittedTimelineEvent(application.submittedBy.name, application.submittedAt),
+    getSubmittedTimelineEvent(
+      isSubmittedApplication(application) ? application.submittedBy.name : application.createdBy.name,
+      application.submittedAt,
+    ),
   ]
 }
 
