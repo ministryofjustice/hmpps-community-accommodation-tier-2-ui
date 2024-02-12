@@ -1,5 +1,6 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 {% from "./_timeline.njk" import timeline %}
+{% from "./applicationCurrentStatus.njk" import applicationCurrentStatus %}
 
 {% macro submittedApplicationDetails(application, status) %}
 
@@ -7,12 +8,7 @@
     {{ application.person.name }}
   </h1>
 
-  <p class="govuk-heading-m">Current status: 
-      {{govukTag({
-        text: status,
-        classes: "govuk-tag--blue govuk-!-font-size-24 govuk-!-font-weight-bold govuk-!-margin-left-1 govuk-!-padding-left-3 govuk-!-padding-right-3"
-      })}}
-  </p>
+  {{ applicationCurrentStatus(status) }}
 
   <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
 
