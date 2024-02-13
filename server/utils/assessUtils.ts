@@ -40,3 +40,14 @@ export const getStatusDetailsByStatusName = (
 
   return statusDetails
 }
+
+export const getStatusDetailQuestionText = (status: string): string => {
+  const questions = {
+    moreInfoRequested: 'What information do you need?',
+    offerDeclined: 'Why was the offer declined or withdrawn?',
+    withdrawn: 'Why was the referral withdrawn?',
+    cancelled: 'Why was the referral cancelled?',
+  }
+
+  return questions[status] || ''
+}

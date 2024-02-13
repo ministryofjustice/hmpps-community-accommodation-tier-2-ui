@@ -5,7 +5,12 @@ import {
   applicationStatusDetailFactory,
   applicationStatusFactory,
 } from '../testutils/factories'
-import { applicationStatusRadios, applicationStatusDetailOptions, getStatusDetailsByStatusName } from './assessUtils'
+import {
+  applicationStatusRadios,
+  applicationStatusDetailOptions,
+  getStatusDetailsByStatusName,
+  getStatusDetailQuestionText,
+} from './assessUtils'
 
 describe('applicationStatusRadios', () => {
   const statuses = [
@@ -171,5 +176,18 @@ describe('getStatusDetailsByStatusName', () => {
     const statusName = applicationStatus1.name
 
     expect(getStatusDetailsByStatusName([applicationStatus1, applicationStatus2], statusName)).toEqual([])
+  })
+})
+
+describe('getStatusDetailQuestionText', () => {
+  it('returns question associated with status name', () => {
+    expect(getStatusDetailQuestionText('moreInfoRequested')).toEqual('What information do you need?')
+    expect(getStatusDetailQuestionText('offerDeclined')).toEqual('Why was the offer declined or withdrawn?')
+    expect(getStatusDetailQuestionText('withdrawn')).toEqual('Why was the referral withdrawn?')
+    expect(getStatusDetailQuestionText('cancelled')).toEqual('Why was the referral cancelled?')
+  })
+
+  it('returns an empty string if the status has no associated question', () => {
+    expect(getStatusDetailQuestionText('statusNotFound')).toEqual('')
   })
 })
