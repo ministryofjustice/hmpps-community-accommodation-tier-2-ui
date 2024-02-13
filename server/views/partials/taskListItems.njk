@@ -8,12 +8,17 @@
         <li class="govuk-task-list__item govuk-task-list__item--with-link">
           <div class="govuk-task-list__name-and-hint">
             {{ TaskListUtils.taskLink(task, application) | safe   }}
-          </div>
-          <div class="govuk-task-list__status" id="{{ task.id }}-status">
-            {{ TaskListUtils.statusTag(task) | safe  }}
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </li>
-{% endfor %}
+            {% if task.id == 'check-your-answers' %}
+              <div class="govuk-task-list__hint">
+                All questions must be answered first
+              </div>
+              {%endif%}
+            </div>
+            <div class="govuk-task-list__status" id="{{ task.id }}-status">
+              {{ TaskListUtils.statusTag(task) | safe  }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}

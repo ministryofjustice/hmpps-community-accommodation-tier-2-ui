@@ -9,6 +9,14 @@
 //    And the 'Before you start' tasks are complete
 //    When I visit the task list page
 //    Then I see the task listed by section
+//    And I see that Check your answers cannot be started
+//
+//  Scenario: all tasks prior to Check your answers are complete
+//    Given I am logged in
+//    And an application exists
+//    And all tasks prior to Check your answers are complete
+//    When I visit the task list page
+//    Then I see that Check your answers can be started
 
 import { applicationFactory } from '../../../server/testutils/factories'
 import Page from '../../pages/page'
@@ -17,7 +25,7 @@ import { fullPersonFactory } from '../../../server/testutils/factories/person'
 import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 context('Visit task list', () => {
-  const application = applicationFactory.build({
+  const incompleteApplication = applicationFactory.build({
     id: 'abc123',
     data: {
       'confirm-eligibility': {
@@ -40,6 +48,16 @@ context('Visit task list', () => {
     cy.task('reset')
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
+
+    cy.fixture('applicationData.json').then(applicationData => {
+      delete applicationData['check-your-answers']['check-your-answers']
+      const application = applicationFactory.build({
+        id: 'abc456',
+        person: fullPersonFactory.build(),
+        data: applicationData,
+      })
+      cy.wrap(application).as('completeApplication')
+    })
   })
 
   beforeEach(function test() {
@@ -49,7 +67,7 @@ context('Visit task list', () => {
 
     // And an application exists
     // -------------------------
-    cy.task('stubApplicationGet', { application })
+    cy.task('stubApplicationGet', { application: incompleteApplication })
   })
 
   // Scenario: view list of tasks
@@ -58,11 +76,28 @@ context('Visit task list', () => {
     // I visit the task list page
     // --------------------------------
     cy.visit('applications/abc123')
-    const person = application.person as FullPerson
+    const person = incompleteApplication.person as FullPerson
 
     const page = Page.verifyOnPage(TaskListPage, person.name)
 
     // I see the task listed by section
     page.shouldShowTasksWithinTheirSections()
+
+    // And I see that Check your answers cannot be started
+    page.shouldShowTaskStatus('check-your-answers', 'Cannot start yet')
+  })
+
+  //  Scenario: all tasks prior to Check your answers are complete
+  it('shows Check your answers with a status of not started', function test() {
+    //  And all tasks prior to Check your answers are complete
+    cy.task('stubApplicationGet', { application: this.completeApplication })
+
+    //  When I visit the task list page
+    cy.visit('applications/abc456')
+    const person = this.completeApplication.person as FullPerson
+    const page = Page.verifyOnPage(TaskListPage, person.name)
+
+    //  Then I see that Check your answers can be started
+    page.shouldShowTaskStatus('check-your-answers', 'Not yet started')
   })
 })

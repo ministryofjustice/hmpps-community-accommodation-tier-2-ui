@@ -17,7 +17,6 @@ export const statusTag = (task: TaskWithStatus): string => {
 
 export const taskLink = (task: TaskWithStatus, application: Application): string => {
   if (task.status !== 'cannot_start') {
-    // there is no such status, so this is always true
     const firstPage = Object.keys(task.pages)[0]
     const link = applyPaths.applications.pages.show({
       id: application.id,
