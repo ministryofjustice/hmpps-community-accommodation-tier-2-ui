@@ -27,7 +27,7 @@ describe('statusUpdateController', () => {
   beforeEach(() => {
     statusUpdateController = new StatusUpdateController(submittedApplicationService)
 
-    request = createMock<Request>({ user: { token } })
+    request = createMock<Request>({ user: { token }, headers: { referer: 'referer' } })
     response = createMock<Response>({})
   })
 
@@ -58,6 +58,46 @@ describe('statusUpdateController', () => {
         errors: {},
         pageHeading: 'What is the latest status of the application?',
         questionText: `What is the latest status of ${person.name}'s application?`,
+        previousPath: 'referer',
+      })
+    })
+
+    describe('when the referrer is the status update details page', () => {
+      it('the back button links to the application overview page', async () => {
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
+
+        submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
+        submittedApplicationService.getApplicationStatuses.mockResolvedValue(applicationStatuses)
+
+        const person = submittedApplication.person as FullPerson
+
+        request = createMock<Request>({
+          user: { token },
+          headers: {
+            referer: paths.statusUpdateDetails.new({ id: submittedApplication.id, statusName: 'more-info-requested' }),
+          },
+        })
+
+        const requestHandler = statusUpdateController.new()
+        await requestHandler(request, response, next)
+
+        expect(paths.statusUpdate.new({ id: submittedApplication.id })).toEqual(
+          `/assess/applications/${submittedApplication.id}/update-status`,
+        )
+
+        expect(response.render).toHaveBeenCalledWith('assess/statusUpdate/new', {
+          application: submittedApplication,
+          person,
+          currentStatus: 'Received',
+          statuses: applicationStatuses,
+          errorSummary: [],
+          errors: {},
+          pageHeading: 'What is the latest status of the application?',
+          questionText: `What is the latest status of ${person.name}'s application?`,
+          previousPath: paths.submittedApplications.overview({ id: submittedApplication.id }),
+        })
       })
     })
   })

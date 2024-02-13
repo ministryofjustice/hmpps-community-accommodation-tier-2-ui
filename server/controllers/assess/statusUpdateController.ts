@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { FullPerson } from '@approved-premises/api'
+import { Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
 import SubmittedApplicationService from '../../services/submittedApplicationService'
 import paths from '../../paths/assess'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
@@ -18,7 +18,7 @@ export default class StatusUpdateController {
 
       const statuses = await this.submittedApplicationService.getApplicationStatuses(req.user.token)
 
-      const previousPath = req.headers.referer
+      const previousPath = this.previousPath(application, req.headers.referer)
 
       return res.render('assess/statusUpdate/new', {
         application,
@@ -32,6 +32,14 @@ export default class StatusUpdateController {
         questionText: `What is the latest status of ${person.name}'s application?`,
       })
     }
+  }
+
+  private previousPath(application: Cas2SubmittedApplication, referer?: string) {
+    if (referer?.includes('update-status/further-information')) {
+      return paths.submittedApplications.overview({ id: application.id })
+    }
+
+    return referer
   }
 
   create(): RequestHandler {
