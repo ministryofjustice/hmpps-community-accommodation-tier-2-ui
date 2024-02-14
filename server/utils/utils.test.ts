@@ -5,6 +5,7 @@ import {
   removeBlankSummaryListItems,
   camelToKebabCase,
   kebabToCamelCase,
+  formatCommaToLinebreak,
 } from './utils'
 
 describe('convert to title case', () => {
@@ -136,5 +137,17 @@ describe('kebabToCamelCase', () => {
 
   it('transforms kebab-case with uppercase letters correctly', () => {
     expect(kebabToCamelCase('mixed-Case-Text')).toBe('mixedCaseText')
+  })
+})
+
+describe('formatCommaToLinebreak', () => {
+  it('replaces a single comma with <br>', () => {
+    expect(formatCommaToLinebreak('Health needs, Risk to self, Exclusion zones and preferred areas')).toEqual(
+      'Health needs<br>Risk to self<br>Exclusion zones and preferred areas',
+    )
+  })
+
+  it('returns the string unchanged if no commas are present', () => {
+    expect(formatCommaToLinebreak('Health needs')).toEqual('Health needs')
   })
 })
