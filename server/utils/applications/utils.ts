@@ -2,14 +2,15 @@ import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimeli
 import type {
   Cas2Application as Application,
   Cas2Application,
-  Cas2StatusUpdate,
   Cas2SubmittedApplication,
+  Cas2TimelineEvent,
 } from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
-import { stringToKebabCase, isSubmittedApplication } from '../utils'
+import { stringToKebabCase, formatCommaToLinebreak } from '../utils'
 import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
+import config from '../../config'
 
 export const journeyPages = (_journeyType: JourneyType): FormPages => {
   return Apply.pages
@@ -49,22 +50,27 @@ const consentAnswer = (application: Application): string => {
   return application.data?.['confirm-consent']?.['confirm-consent']?.hasGivenConsent
 }
 
-export const getStatusTimelineEvents = (statusUpdates: Array<Cas2StatusUpdate>): Array<UiTimelineEvent> => {
-  if (statusUpdates) {
-    return statusUpdates
-      .sort((a, b) => Number(DateFormats.isoToDateObj(b.updatedAt)) - Number(DateFormats.isoToDateObj(a.updatedAt)))
-      .map(statusUpdate => {
+export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Array<UiTimelineEvent> => {
+  if (timelineEvents) {
+    return timelineEvents
+      .sort((a, b) => Number(DateFormats.isoToDateObj(b.occurredAt)) - Number(DateFormats.isoToDateObj(a.occurredAt)))
+      .map(sortedTimelineEvents => {
+        const description =
+          sortedTimelineEvents.type === 'cas2_status_update' && sortedTimelineEvents.body
+            ? formatCommaToLinebreak(sortedTimelineEvents.body)
+            : sortedTimelineEvents.body
+
         return {
-          label: { text: statusUpdate.label },
+          label: { text: sortedTimelineEvents.label },
           byline: {
-            text: statusUpdate.updatedBy.name,
+            text: sortedTimelineEvents.createdByName,
           },
           datetime: {
-            timestamp: statusUpdate.updatedAt,
-            date: DateFormats.isoDateTimeToUIDateTime(statusUpdate.updatedAt),
+            timestamp: sortedTimelineEvents.occurredAt,
+            date: DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents.occurredAt),
           },
           description: {
-            text: statusUpdate.description,
+            text: description,
           },
         }
       })
@@ -72,32 +78,15 @@ export const getStatusTimelineEvents = (statusUpdates: Array<Cas2StatusUpdate>):
   return []
 }
 
-export const getSubmittedTimelineEvent = (submitterName: string, submittedAt: string): UiTimelineEvent => {
-  return {
-    label: { text: 'Application submitted' },
-    byline: {
-      text: submitterName,
-    },
-    datetime: {
-      timestamp: submittedAt,
-      date: DateFormats.isoDateTimeToUIDateTime(submittedAt),
-    },
-    description: {
-      text: 'The application was received by an assessor.',
-    },
-  }
-}
-
 export const getApplicationTimelineEvents = (
   application: Cas2Application | Cas2SubmittedApplication,
 ): Array<UiTimelineEvent> => {
-  return [
-    ...getStatusTimelineEvents(application.statusUpdates),
-    getSubmittedTimelineEvent(
-      isSubmittedApplication(application) ? application.submittedBy.name : application.createdBy.name,
-      application.submittedAt,
-    ),
-  ]
+  const timelineEvents =
+    config.flags.notesDisabled === 'false'
+      ? application.timelineEvents
+      : application.timelineEvents.filter(event => event.type !== 'cas2_note')
+
+  return [...getTimelineEvents(timelineEvents)]
 }
 
 export const generateSuccessMessage = (pageName: string): string => {
