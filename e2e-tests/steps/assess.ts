@@ -5,6 +5,8 @@ export const updateStatus = async (page: Page) => {
   await expect(page.locator('h1')).toContainText(`What is the latest status`)
   await page.getByLabel('More information requested').check()
   await page.getByRole('button', { name: 'Save and continue' }).click()
+  await page.getByLabel('Health needs').check()
+  await page.getByRole('button', { name: 'Save and continue' }).click()
 }
 
 export const viewSubmittedApplication = async (page: Page) => {

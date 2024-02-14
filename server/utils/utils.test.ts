@@ -1,5 +1,11 @@
 import { SummaryListItem } from '@approved-premises/ui'
-import { convertToTitleCase, initialiseName, removeBlankSummaryListItems } from './utils'
+import {
+  convertToTitleCase,
+  initialiseName,
+  removeBlankSummaryListItems,
+  camelToKebabCase,
+  kebabToCamelCase,
+} from './utils'
 
 describe('convert to title case', () => {
   it.each([
@@ -106,5 +112,29 @@ describe('removeBlankSummaryListItems', () => {
         },
       },
     ])
+  })
+})
+
+describe('camelToKebabCase', () => {
+  it('transforms camelCase to kebabCase', () => {
+    expect(camelToKebabCase('moreInfoRequested')).toBe('more-info-requested')
+  })
+
+  it('leaves single words untransformed', () => {
+    expect(camelToKebabCase('word')).toBe('word')
+  })
+})
+
+describe('kebabToCamelCase', () => {
+  it('transforms kebab-case with multiple hyphens correctly', () => {
+    expect(kebabToCamelCase('more-complex-example-text')).toBe('moreComplexExampleText')
+  })
+
+  it('leaves the string untransformed if there are no hyphens', () => {
+    expect(kebabToCamelCase('unchanged')).toBe('unchanged')
+  })
+
+  it('transforms kebab-case with uppercase letters correctly', () => {
+    expect(kebabToCamelCase('mixed-Case-Text')).toBe('mixedCaseText')
   })
 })

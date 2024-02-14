@@ -3,6 +3,7 @@ import { path } from 'static-path'
 const assessApplicationsPath = path('/assess/applications')
 const singleApplicationPath = assessApplicationsPath.path(':id')
 const updateStatusPath = singleApplicationPath.path('update-status')
+const statusUpdateDetailsPath = updateStatusPath.path('further-information/:statusName')
 
 export default {
   submittedApplications: {
@@ -13,5 +14,9 @@ export default {
   statusUpdate: {
     new: updateStatusPath,
     create: updateStatusPath,
+  },
+  statusUpdateDetails: {
+    new: statusUpdateDetailsPath,
+    create: statusUpdateDetailsPath,
   },
 }

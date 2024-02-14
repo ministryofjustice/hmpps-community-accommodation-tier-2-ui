@@ -77,5 +77,19 @@
   },
   "newStatus": {
     "empty": "Select an application status"
+  },
+  "newStatusDetails": {
+    "moreInfoRequested": {
+      "empty": "Select the types of information you need"
+    },
+    "offerDeclined": {
+      "empty": "Select why the offer was declined or withdrawn"
+    },
+    "withdrawn": {
+      "empty": "Select why the referral was withdrawn"
+    },
+    "cancelled": {
+      "empty": "Select why the referral was cancelled"
+    }
   }
 }

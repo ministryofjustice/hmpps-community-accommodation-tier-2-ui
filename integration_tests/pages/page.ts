@@ -70,6 +70,10 @@ export default abstract class Page {
     cy.get(`input[value="${option}"]`).check()
   }
 
+  uncheckAllCheckboxes(): void {
+    cy.get(':checkbox').uncheck()
+  }
+
   completeDateInputs(prefix: string, date: string): void {
     const parsedDate = DateFormats.isoToDateObj(date)
     cy.get(`#${prefix}-day`).type(parsedDate.getDate().toString())

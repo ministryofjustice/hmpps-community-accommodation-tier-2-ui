@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 import { DateFormats } from '../../utils/dateUtils'
 import externalUser from './externalUser'
+import statusUpdateDetail from './statusUpdateDetail'
 
 export default Factory.define<Cas2StatusUpdate>(() => ({
   id: faker.string.uuid(),
@@ -11,4 +12,5 @@ export default Factory.define<Cas2StatusUpdate>(() => ({
   description: 'No suitable place is currently available.',
   updatedBy: externalUser.build(),
   updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.recent()),
+  statusUpdateDetails: [statusUpdateDetail.build()],
 }))
