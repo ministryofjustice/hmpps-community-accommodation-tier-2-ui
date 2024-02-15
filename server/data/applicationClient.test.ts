@@ -1,6 +1,6 @@
 import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 import ApplicationClient from './applicationClient'
-import { applicationFactory } from '../testutils/factories'
+import { applicationFactory, applicationNoteFactory } from '../testutils/factories'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -150,6 +150,38 @@ describeClient('ApplicationClient', provider => {
       })
 
       await applicationClient.submit(application.id, data)
+    })
+  })
+
+  describe('addNote', () => {
+    it('should create a note', async () => {
+      const application = applicationFactory.build()
+      const body = {
+        note: 'some note',
+      }
+
+      const applicationNote = applicationNoteFactory.build({ body: body.note })
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to add a note to an application',
+        withRequest: {
+          method: 'POST',
+          path: paths.submissions.applicationNotes.create({ id: application.id }),
+          body,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: applicationNote,
+        },
+      })
+
+      const result = await applicationClient.addNote(application.id, body.note)
+
+      expect(result).toEqual(applicationNote)
     })
   })
 })

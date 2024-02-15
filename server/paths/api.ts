@@ -27,6 +27,9 @@ export default {
     index: submissionsPath,
     create: submissionsPath,
     show: singleSubmissionPath,
+    applicationNotes: {
+      create: singleSubmissionPath.path('notes'),
+    },
   },
   applications: {
     new: applicationsPath,
