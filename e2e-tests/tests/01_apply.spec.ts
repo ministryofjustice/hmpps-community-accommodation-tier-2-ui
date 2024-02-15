@@ -11,6 +11,8 @@ import {
   enterPrisonerNumber,
   startAnApplication,
   submitApplication,
+  viewSubmittedApplication,
+  addNote,
 } from '../steps/apply'
 
 test('create a CAS-2 application', async ({ page, person }) => {
@@ -25,4 +27,9 @@ test('create a CAS-2 application', async ({ page, person }) => {
   await completeCheckAnswersSection(page, person.name)
   await expect(page.getByText('You have completed 16 of 16 tasks')).toBeVisible()
   await submitApplication(page)
+})
+
+test('add a note to a submitted application', async ({ page, person }) => {
+  await viewSubmittedApplication(page, person.name)
+  await addNote(page)
 })

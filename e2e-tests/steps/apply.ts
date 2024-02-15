@@ -85,3 +85,17 @@ export const submitApplication = async (page: Page) => {
   await page.getByRole('button', { name: 'Submit application' }).click()
   await expect(page.locator('h1')).toContainText('Application complete')
 }
+
+export const viewSubmittedApplication = async (page: Page, name: string) => {
+  await page.goto('/applications#submitted')
+  await expect(page.locator('h1')).toContainText('Short-Term Accommodation (CAS-2) applications')
+  await page.getByRole('link', { name }).first().click()
+  await expect(page.locator('h1')).toContainText(name)
+  await expect(page.locator('h2').first()).toContainText('Application history')
+}
+
+export const addNote = async (page: Page) => {
+  await page.getByLabel('Add a note for the assessor ', { exact: true }).fill('some notes for the assessor')
+  await page.getByTestId('submit-button').click()
+  await expect(page.locator('h2').first()).toContainText('Success')
+}
