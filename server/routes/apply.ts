@@ -76,5 +76,7 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     })
   })
 
+  post(paths.applications.addNote.pattern, applicationsController.addNote(), { auditEvent: 'CREATE_APPLICATION_NOTE' })
+
   return router
 }
