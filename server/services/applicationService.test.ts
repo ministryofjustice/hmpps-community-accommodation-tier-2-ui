@@ -11,7 +11,7 @@ import { ValidationError } from '../utils/errors'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 
-import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
+import { applicationFactory, applicationNoteFactory, applicationSummaryFactory } from '../testutils/factories'
 
 jest.mock('../data/applicationClient.ts')
 jest.mock('../data/personClient.ts')
@@ -687,6 +687,26 @@ describe('ApplicationService', () => {
         data: newApplicationData,
       })
       expect(applicationClient.update).toHaveBeenCalledWith(application.id, applicationData)
+    })
+  })
+
+  describe('addApplicationNote', () => {
+    it('calls the correct client method and returns the created application note', async () => {
+      const application = applicationFactory.build()
+      const body = {
+        note: 'some note',
+      }
+      const token = 'some-token'
+
+      const applicationNote = applicationNoteFactory.build({ body: body.note })
+
+      applicationClient.addNote.mockImplementation(() => Promise.resolve(applicationNote))
+
+      const result = await service.addApplicationNote(token, application.id, body.note)
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.addNote).toHaveBeenCalledWith(application.id, body.note)
+      expect(result).toEqual(applicationNote)
     })
   })
 })
