@@ -22,6 +22,7 @@ import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, TaskListService } from '../../services'
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
+import config from '../../config'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
@@ -248,23 +249,52 @@ describe('applicationsController', () => {
   })
 
   describe('overview', () => {
-    it('renders the overview page', async () => {
+    const priorConfigFlags = config.flags
+
+    afterAll(() => {
+      config.flags = priorConfigFlags
+    })
+
+    const submittedApplication = applicationFactory.build({
+      person: personFactory.build({ name: 'Roger Smith' }),
+      submittedAt: '2024-02-05',
+    })
+
+    it('renders the overview page with the feature flag set to false', async () => {
+      config.flags.notesDisabled = 'false'
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
 
-      const application = applicationFactory.build({
-        person: personFactory.build({ name: 'Roger Smith' }),
-        submittedAt: '2024-02-05',
-      })
-
-      applicationService.findApplication.mockResolvedValue(application)
+      applicationService.findApplication.mockResolvedValue(submittedApplication)
 
       const requestHandler = applicationsController.overview()
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/overview', {
-        application,
+        notesDisabled: 'false',
+        application: submittedApplication,
+        status: 'Received',
+        pageHeading: 'Overview of application',
+        errors: {},
+        errorSummary: [],
+      })
+    })
+
+    it('renders the overview page with the feature flag set to true', async () => {
+      config.flags.notesDisabled = 'true'
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      applicationService.findApplication.mockResolvedValue(submittedApplication)
+
+      const requestHandler = applicationsController.overview()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/overview', {
+        notesDisabled: 'true',
+        application: submittedApplication,
         status: 'Received',
         pageHeading: 'Overview of application',
         errors: {},

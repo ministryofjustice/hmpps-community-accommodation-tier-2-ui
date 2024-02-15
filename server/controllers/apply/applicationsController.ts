@@ -23,6 +23,7 @@ import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
+import config from '../../config'
 
 export default class ApplicationsController {
   constructor(
@@ -90,6 +91,7 @@ export default class ApplicationsController {
       const status = application.statusUpdates?.length ? application.statusUpdates[0].label : 'Received'
 
       return res.render('applications/overview', {
+        notesDisabled: config.flags.notesDisabled,
         application,
         status,
         errors,
