@@ -7,9 +7,9 @@
 //    Then I should see the read-only version of the answers submitted
 //    And I see a print button
 
-import SubmissionPage from '../../pages/submissions/submissionPage'
-import { applicationFactory } from '../../../server/testutils/factories'
-import { fullPersonFactory } from '../../../server/testutils/factories/person'
+import SubmissionPage from '../../../pages/submissions/submissionPage'
+import { applicationFactory } from '../../../../server/testutils/factories'
+import { fullPersonFactory } from '../../../../server/testutils/factories/person'
 
 context('View submitted application', () => {
   beforeEach(() => {
