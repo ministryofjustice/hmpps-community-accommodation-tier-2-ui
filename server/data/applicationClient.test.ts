@@ -131,6 +131,7 @@ describeClient('ApplicationClient', provider => {
       const data = {
         translatedDocument: application.document,
         applicationId: application.id,
+        telephoneNumber: '123',
       } as SubmitCas2Application
 
       provider.addInteraction({
