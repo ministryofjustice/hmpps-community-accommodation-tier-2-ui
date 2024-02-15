@@ -20,11 +20,7 @@
 //    Then I am taken to the 'Update status' page
 
 import { faker } from '@faker-js/faker'
-import {
-  externalUserFactory,
-  statusUpdateFactory,
-  submittedApplicationFactory,
-} from '../../../server/testutils/factories/index'
+import { submittedApplicationFactory, timelineEventsFactory } from '../../../server/testutils/factories/index'
 import { DateFormats } from '../../../server/utils/dateUtils'
 import SubmittedApplicationOverviewPage from '../../pages/assess/submittedApplicationOverviewPage'
 import UpdateApplicationStatusPage from '../../pages/assess/updateApplicationStatusPage'
@@ -32,21 +28,32 @@ import Page from '../../pages/page'
 
 context('Assessor views a submitted application overview', () => {
   const submittedApplication = submittedApplicationFactory.build({
-    statusUpdates: [
-      statusUpdateFactory.build({
-        updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
-        updatedBy: externalUserFactory.build({ name: 'Anne Assessor' }),
-        name: 'moreInfoRequested',
-        label: 'More information requested',
-        description:
-          'More information about the application has been requested from the POM (Prison Offender Manager).',
-      }),
-      statusUpdateFactory.build({
-        updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),
-        updatedBy: externalUserFactory.build({ name: 'Anne Other Assessor' }),
-        name: 'awaitingDecision',
+    timelineEvents: [
+      timelineEventsFactory.build({
+        occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),
+        createdByName: 'Anne Other Assessor',
         label: 'Awaiting decision',
-        description: 'All information has been received and the application is awaiting assessment.',
+        body: null,
+      }),
+      timelineEventsFactory.build({
+        occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+        createdByName: 'Anne Assessor',
+        label: 'More information requested',
+        body: 'Personal information',
+      }),
+      timelineEventsFactory.build({
+        occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+        type: 'cas2_note',
+        createdByName: 'Anne Assessor',
+        label: 'Note',
+        body: 'Note text',
+      }),
+      timelineEventsFactory.build({
+        occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+        type: 'cas2_application_submitted',
+        createdByName: 'Anne Assessor',
+        label: 'Application submitted',
+        body: null,
       }),
     ],
   })

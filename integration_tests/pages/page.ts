@@ -4,7 +4,7 @@ import { DateFormats } from '../../server/utils/dateUtils'
 import { Cas2Application as Application } from '../../server/@types/shared/models/Cas2Application'
 import { Cas2SubmittedApplication as SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
 import { FullPerson } from '../../server/@types/shared/models/FullPerson'
-import { stringToKebabCase, isSubmittedApplication } from '../../server/utils/utils'
+import { stringToKebabCase } from '../../server/utils/utils'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -194,32 +194,23 @@ export default abstract class Page {
   }
 
   shouldShowTimeline(application: Application | SubmittedApplication): void {
-    const sortedTimelineEvents = application.statusUpdates.sort((a, b) => {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    const sortedTimelineEvents = application.timelineEvents.sort((a, b) => {
+      return new Date(b.occurredAt).getTime() - new Date(a.occurredAt).getTime()
     })
 
     cy.get('.moj-timeline').within(() => {
-      cy.get('.moj-timeline__item').should('have.length', application.statusUpdates.length + 1)
+      cy.get('.moj-timeline__item').should('have.length', application.timelineEvents.length)
 
       cy.get('.moj-timeline__item').each(($el, index) => {
-        if (index !== application.statusUpdates.length) {
-          cy.wrap($el).within(() => {
-            cy.get('.moj-timeline__header').should('contain', sortedTimelineEvents[index].label)
-            cy.get('.moj-timeline__byline').should('contain', sortedTimelineEvents[index].updatedBy.name)
-            cy.get('time').should('have.attr', { time: sortedTimelineEvents[index].updatedAt })
-            cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents[index].updatedAt))
-          })
-        } else {
-          cy.wrap($el).within(() => {
-            cy.get('.moj-timeline__header').should('contain', `Application submitted`)
-            cy.get('.moj-timeline__byline').should(
-              'contain',
-              `by ${isSubmittedApplication(application) ? application.submittedBy.name : application.createdBy.name}`,
-            )
-            cy.get('time').should('have.attr', { time: application.submittedAt })
-            cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(application.submittedAt))
-          })
-        }
+        cy.wrap($el).within(() => {
+          cy.get('.moj-timeline__header').should('contain', sortedTimelineEvents[index].label)
+          cy.get('.moj-timeline__byline').should('contain', sortedTimelineEvents[index].createdByName)
+          cy.get('time').should('have.attr', { time: sortedTimelineEvents[index].occurredAt })
+          cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents[index].occurredAt))
+          if (sortedTimelineEvents[index].body) {
+            cy.get('.moj-timeline__description').should('contain', sortedTimelineEvents[index].body)
+          }
+        })
       })
     })
   }
