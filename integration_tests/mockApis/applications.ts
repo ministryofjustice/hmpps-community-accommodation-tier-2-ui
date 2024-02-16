@@ -1,4 +1,4 @@
-import type { Cas2Application as Application } from '@approved-premises/api'
+import type { Cas2Application as Application, Cas2ApplicationNote as ApplicationNote } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from '../../wiremock'
 import paths from '../../server/paths/api'
@@ -80,6 +80,40 @@ export default {
       response: {
         status: 200,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      },
+    }),
+  stubAddNote: (args: { applicationId: string; note: ApplicationNote }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        url: paths.submissions.applicationNotes.create({ id: args.applicationId }),
+      },
+      response: {
+        status: 201,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.note,
+      },
+    }),
+  stubAddNoteBadRequest: (args: { applicationId: string }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        url: paths.submissions.applicationNotes.create({ id: args.applicationId }),
+      },
+      response: {
+        status: 400,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          type: 'https://example.net/validation-error',
+          title: 'Invalid request parameters',
+          code: 400,
+          'invalid-params': [
+            {
+              propertyName: `$.note`,
+              errorType: 'empty',
+            },
+          ],
+        },
       },
     }),
 }
