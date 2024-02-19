@@ -15,5 +15,6 @@ export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     createdByUserId: string;
     status: ApprovedPremisesApplicationStatus;
     tier?: string;
+    isWithdrawn: boolean;
 });
 

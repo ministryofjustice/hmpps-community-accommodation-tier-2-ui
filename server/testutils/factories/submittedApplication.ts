@@ -5,6 +5,7 @@ import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory } from './person'
 import nomisUserFactory from './nomisUser'
 import statusUpdateFactory from './statusUpdate'
+import timelineEvents from './timelineEvents'
 
 export default Factory.define<SubmittedApplication>(() => ({
   id: faker.string.uuid(),
@@ -17,4 +18,5 @@ export default Factory.define<SubmittedApplication>(() => ({
   outdatedSchema: faker.datatype.boolean(),
   statusUpdates: statusUpdateFactory.buildList(2),
   telephoneNumber: faker.string.numeric({ length: 8 }),
+  timelineEvents: [timelineEvents.build()],
 }))

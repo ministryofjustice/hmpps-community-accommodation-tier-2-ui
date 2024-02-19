@@ -90,6 +90,7 @@ export type { Cas2StatusUpdate } from './models/Cas2StatusUpdate';
 export type { Cas2StatusUpdateDetail } from './models/Cas2StatusUpdateDetail';
 export type { Cas2SubmittedApplication } from './models/Cas2SubmittedApplication';
 export type { Cas2SubmittedApplicationSummary } from './models/Cas2SubmittedApplicationSummary';
+export type { Cas2TimelineEvent } from './models/Cas2TimelineEvent';
 export type { Characteristic } from './models/Characteristic';
 export type { CharacteristicPair } from './models/CharacteristicPair';
 export type { ClarificationNote } from './models/ClarificationNote';

@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { AnyValue } from './AnyValue';
 import type { Cas2StatusUpdate } from './Cas2StatusUpdate';
+import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
 import type { NomisUser } from './NomisUser';
 import type { Person } from './Person';
 export type Cas2SubmittedApplication = {
@@ -17,5 +18,6 @@ export type Cas2SubmittedApplication = {
     submittedAt?: string;
     statusUpdates?: Array<Cas2StatusUpdate>;
     telephoneNumber?: string;
+    timelineEvents: Array<Cas2TimelineEvent>;
 };
 
