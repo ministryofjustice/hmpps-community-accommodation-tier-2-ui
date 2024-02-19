@@ -91,5 +91,8 @@
     "cancelled": {
       "empty": "Select why the referral was cancelled"
     }
+  },
+  "note": {
+    "empty": "Enter a note for the assessor"
   }
 }

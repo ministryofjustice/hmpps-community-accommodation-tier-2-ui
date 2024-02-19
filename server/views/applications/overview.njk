@@ -4,6 +4,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% from "../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../partials/_timeline.njk" import timeline %}
@@ -22,22 +25,57 @@
 {% endblock %}
 
 {% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ showErrorSummary(errorSummary) }}
 
-  {{submittedApplicationDetails(application, status)}}
+      {% if successMessages %}
+        {% for message in successMessages %}
+          {{ govukNotificationBanner({
+                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                type: 'success',
+                titleId: 'success-title'
+              }) }}
+        {% endfor %}
+      {% endif %}
 
-  <div class="govuk-button-group govuk-!-margin-top-5">
-    {{ govukButton({
+      {{submittedApplicationDetails(application, status)}}
+
+      <div class="govuk-button-group govuk-!-margin-top-5">
+        {{ govukButton({
       text: "View submitted application",
       href: paths.applications.show({id: application.id})
     }) }}
-  </div>
+      </div>
 
-  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
 
-  <h2 class="govuk-heading-l">
+      <h2 class="govuk-heading-l">
         Application history
-  </h2>
+      </h2>
 
-  {{ timeline(getApplicationTimelineEvents(application)) }}
+      <form action="{{ paths.applications.addNote({ id: application.id }) }}" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-{% endblock %}
+        {{ govukTextarea({
+        name: "note",
+        id: "note",
+        label: {
+          text: "Add a note for the assessor",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: 'Use this text box to ask for or provide more information. Anything you add and save will appear on the application history.'
+        },
+        errorMessage: errors.note
+      }) }}
+
+        <button type="submit" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true" data-testid="submit-button">
+          Submit
+        </button>
+
+      </form>
+
+      {{ timeline(getApplicationTimelineEvents(application)) }}
+
+    {% endblock %}

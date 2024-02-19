@@ -30,6 +30,7 @@ const paths = {
     removeFromList: removeFromListPath,
     ineligible: singleApplicationPath.path('not-eligible'),
     consentRefused: singleApplicationPath.path('no-consent-given'),
+    addNote: singleApplicationPath.path('add-note'),
   },
 }
 

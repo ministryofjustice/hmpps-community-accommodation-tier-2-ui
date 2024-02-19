@@ -79,6 +79,8 @@ export default class ApplicationsController {
 
   overview(): RequestHandler {
     return async (req: Request, res: Response) => {
+      const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
 
       if (!application.submittedAt) {
@@ -90,6 +92,8 @@ export default class ApplicationsController {
       return res.render('applications/overview', {
         application,
         status,
+        errors,
+        errorSummary,
         pageHeading: 'Overview of application',
       })
     }
@@ -277,6 +281,21 @@ export default class ApplicationsController {
         )
       }
       return res.redirect(paths.applications.pages.show({ id, task, page: redirectPage as string }))
+    }
+  }
+
+  addNote() {
+    return async (req: Request, res: Response) => {
+      const { id } = req.params
+      const { note } = req.body
+
+      try {
+        await this.applicationService.addApplicationNote(req.user.token, id, note)
+        req.flash('success', 'Your note was saved.')
+        res.redirect(paths.applications.overview({ id }))
+      } catch (err) {
+        catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id }))
+      }
     }
   }
 }
