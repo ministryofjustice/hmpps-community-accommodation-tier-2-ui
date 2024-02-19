@@ -23,6 +23,7 @@ import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
+import config from '../../config'
 
 export default class ApplicationsController {
   constructor(
@@ -79,6 +80,8 @@ export default class ApplicationsController {
 
   overview(): RequestHandler {
     return async (req: Request, res: Response) => {
+      const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
 
       if (!application.submittedAt) {
@@ -88,8 +91,11 @@ export default class ApplicationsController {
       const status = application.statusUpdates?.length ? application.statusUpdates[0].label : 'Received'
 
       return res.render('applications/overview', {
+        notesDisabled: config.flags.notesDisabled,
         application,
         status,
+        errors,
+        errorSummary,
         pageHeading: 'Overview of application',
       })
     }
@@ -277,6 +283,21 @@ export default class ApplicationsController {
         )
       }
       return res.redirect(paths.applications.pages.show({ id, task, page: redirectPage as string }))
+    }
+  }
+
+  addNote() {
+    return async (req: Request, res: Response) => {
+      const { id } = req.params
+      const { note } = req.body
+
+      try {
+        await this.applicationService.addApplicationNote(req.user.token, id, note)
+        req.flash('success', 'Your note was saved.')
+        res.redirect(paths.applications.overview({ id }))
+      } catch (err) {
+        catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id }))
+      }
     }
   }
 }

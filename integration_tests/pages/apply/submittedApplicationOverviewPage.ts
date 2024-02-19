@@ -11,4 +11,9 @@ export default class SubmittedApplicationOverviewPage extends Page {
   static visit(application: Application): void {
     cy.visit(paths.applications.overview({ id: application.id }))
   }
+
+  addANote = (): void => {
+    this.getTextInputByIdAndEnterDetails('note', 'some notes')
+    cy.get('button').click()
+  }
 }

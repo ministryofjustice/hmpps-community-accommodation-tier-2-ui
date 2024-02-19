@@ -10,20 +10,21 @@ generic-service:
 
   env:
     ENVIRONMENT: dev
-    INGRESS_URL: "https://community-accommodation-tier-2-dev.hmpps.service.justice.gov.uk"
-    APPROVED_PREMISES_API_URL: "https://approved-premises-api-dev.hmpps.service.justice.gov.uk"
-    HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
-    TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
+    INGRESS_URL: 'https://community-accommodation-tier-2-dev.hmpps.service.justice.gov.uk'
+    APPROVED_PREMISES_API_URL: 'https://approved-premises-api-dev.hmpps.service.justice.gov.uk'
+    HMPPS_AUTH_URL: 'https://sign-in-dev.hmpps.service.justice.gov.uk/auth'
+    TOKEN_VERIFICATION_API_URL: 'https://token-verification-api-dev.prison.service.justice.gov.uk'
     AUDIT_LOG_ERRORS: 'true'
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
+    NOTES_DISABLED: 'false'
 
   namespace_secrets:
     hmpps-community-accommodation-tier-2-ui:
-      TAG_MANAGER_ID: "TAG_MANAGER_ID"
+      TAG_MANAGER_ID: 'TAG_MANAGER_ID'
     sqs-hmpps-audit-secret:
-      AUDIT_SQS_QUEUE_URL: "sqs_queue_url"
-      AUDIT_SQS_QUEUE_NAME: "sqs_queue_name"
+      AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
+      AUDIT_SQS_QUEUE_NAME: 'sqs_queue_name'
 
   allowlist: null
 

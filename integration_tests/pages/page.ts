@@ -223,4 +223,9 @@ export default abstract class Page {
       })
     })
   }
+
+  shouldShowSuccessMessage(message: string): void {
+    cy.get('h2').contains('Success')
+    cy.get('h3').contains(message)
+  }
 }

@@ -15,6 +15,7 @@ import applicationStatusFactory from './applicationStatusFactory'
 import paginatedResponseFactory from './paginatedResponse'
 import applicationStatusDetailFactory from './applicationStatusDetailFactory'
 import timelineEventsFactory from './timelineEvents'
+import applicationNoteFactory from './applicationNote'
 
 export {
   applicationSummaryFactory,
@@ -37,4 +38,5 @@ export {
   paginatedResponseFactory,
   applicationStatusDetailFactory,
   timelineEventsFactory,
+  applicationNoteFactory,
 }

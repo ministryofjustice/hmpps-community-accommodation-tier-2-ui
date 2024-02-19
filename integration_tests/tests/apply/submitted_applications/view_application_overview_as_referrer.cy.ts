@@ -10,11 +10,11 @@
 //    Then I see the submitted application overview
 
 import { faker } from '@faker-js/faker'
-import { DateFormats } from '../../../server/utils/dateUtils'
-import SubmittedApplicationOverviewPage from '../../pages/apply/submittedApplicationOverviewPage'
-import { externalUserFactory, statusUpdateFactory, applicationFactory } from '../../../server/testutils/factories'
-import { fullPersonFactory } from '../../../server/testutils/factories/person'
-import Page from '../../pages/page'
+import { DateFormats } from '../../../../server/utils/dateUtils'
+import SubmittedApplicationOverviewPage from '../../../pages/apply/submittedApplicationOverviewPage'
+import { externalUserFactory, statusUpdateFactory, applicationFactory } from '../../../../server/testutils/factories'
+import { fullPersonFactory } from '../../../../server/testutils/factories/person'
+import Page from '../../../pages/page'
 
 context('View submitted application overview', () => {
   beforeEach(() => {

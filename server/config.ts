@@ -100,7 +100,7 @@ export default {
   },
   domain: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   flags: {
-    oasysDisabled: process.env.OASYS_DISABLED || false,
+    notesDisabled: get('NOTES_DISABLED', 'false'),
     maintenanceMode: get('IN_MAINTENANCE_MODE', false),
   },
   analytics: {
