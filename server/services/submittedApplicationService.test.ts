@@ -2,7 +2,12 @@ import { Cas2SubmittedApplicationSummary } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 
 import SubmittedApplicationService from './submittedApplicationService'
-import { submittedApplicationFactory, applicationStatusFactory, paginatedResponseFactory } from '../testutils/factories'
+import {
+  submittedApplicationFactory,
+  applicationStatusFactory,
+  paginatedResponseFactory,
+  applicationNoteFactory,
+} from '../testutils/factories'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 import { ReferenceDataClient, SubmittedApplicationClient } from '../data'
 
@@ -90,6 +95,24 @@ describe('SubmittedApplicationService', () => {
 
       expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
       expect(submittedApplicationClient.updateStatus).toHaveBeenCalledWith(submittedApplication.id, data)
+    })
+  })
+
+  describe('addApplicationNote', () => {
+    it('calls the correct client method and returns the created application note', async () => {
+      const body = {
+        note: 'some note',
+      }
+
+      const applicationNote = applicationNoteFactory.build({ body: body.note })
+
+      submittedApplicationClient.addNote.mockImplementation(() => Promise.resolve(applicationNote))
+
+      const result = await service.addApplicationNote(token, submittedApplication.id, body.note)
+
+      expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
+      expect(submittedApplicationClient.addNote).toHaveBeenCalledWith(submittedApplication.id, body.note)
+      expect(result).toEqual(applicationNote)
     })
   })
 })
