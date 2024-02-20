@@ -1,5 +1,5 @@
 import SubmittedApplicationClient from './submittedApplicationClient'
-import { submittedApplicationFactory } from '../testutils/factories'
+import { applicationFactory, applicationNoteFactory, submittedApplicationFactory } from '../testutils/factories'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -100,6 +100,38 @@ describeClient('SubmittedApplicationClient', provider => {
       })
 
       await submittedApplicationClient.updateStatus(application.id, data)
+    })
+  })
+
+  describe('addNote', () => {
+    it('should create a note', async () => {
+      const application = applicationFactory.build()
+      const body = {
+        note: 'some note',
+      }
+
+      const applicationNote = applicationNoteFactory.build({ body: body.note })
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to add a note to an application',
+        withRequest: {
+          method: 'POST',
+          path: paths.submissions.applicationNotes.create({ id: application.id }),
+          body,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: applicationNote,
+        },
+      })
+
+      const result = await submittedApplicationClient.addNote(application.id, body.note)
+
+      expect(result).toEqual(applicationNote)
     })
   })
 })
