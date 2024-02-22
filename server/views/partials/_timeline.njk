@@ -19,6 +19,12 @@
         <p class="moj-timeline__date">
           <time datetime="{{event.datetime.timestamp}}">{{ event.datetime.date }}</time>
         </p>
+
+        {% if event.description.text %}
+          <p class="moj-timeline__description">
+            {{ event.description.text | safe }}
+          </p>
+        {% endif %}
       </div>
     {% endfor %}
 
