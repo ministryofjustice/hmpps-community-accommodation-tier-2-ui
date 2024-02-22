@@ -32,4 +32,5 @@ test('create a CAS-2 application', async ({ page, person }) => {
 test('add a note to a submitted application', async ({ page, person }) => {
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
+  await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 })
