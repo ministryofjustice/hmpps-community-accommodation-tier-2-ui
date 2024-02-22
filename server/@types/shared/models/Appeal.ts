@@ -3,16 +3,16 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AppealDecision } from './AppealDecision';
+import type { User } from './User';
 export type Appeal = {
     id: string;
     appealDate: string;
     appealDetail: string;
-    reviewer: string;
     decision: AppealDecision;
     decisionDetail: string;
     createdAt: string;
     applicationId: string;
     assessmentId?: string;
-    createdByUserId: string;
+    createdByUser: User;
 };
 

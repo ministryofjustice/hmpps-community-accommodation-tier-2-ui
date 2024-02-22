@@ -6,7 +6,6 @@ import type { AppealDecision } from './AppealDecision';
 export type NewAppeal = {
     appealDate: string;
     appealDetail: string;
-    reviewer: string;
     decision: AppealDecision;
     decisionDetail: string;
 };

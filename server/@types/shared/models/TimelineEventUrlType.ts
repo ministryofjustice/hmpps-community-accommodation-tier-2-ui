@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type TimelineEventUrlType = 'application' | 'booking' | 'assessment';
+export type TimelineEventUrlType = 'application' | 'booking' | 'assessment' | 'assessmentAppeal';
