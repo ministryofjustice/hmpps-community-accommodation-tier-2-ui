@@ -3,5 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Task } from './Task';
-export type AssessmentTask = Task;
+export type AssessmentTask = (Task & {
+    createdFromAppeal: boolean;
+});
 
