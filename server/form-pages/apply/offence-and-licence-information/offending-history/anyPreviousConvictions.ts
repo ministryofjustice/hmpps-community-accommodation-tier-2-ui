@@ -15,11 +15,11 @@ type AnyPreviousConvictionsBody = {
   bodyProperties: ['hasAnyPreviousConvictions'],
 })
 export default class AnyPreviousConvictions implements TaskListPage {
-  documentTitle = 'Does the person have any previous convictions?'
+  documentTitle = 'Does the person have any previous unspent convictions?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Does ${this.personName} have any previous convictions?`
+  title = `Does ${this.personName} have any previous unspent convictions?`
 
   questions = getQuestions(this.personName)['offending-history']['any-previous-convictions']
 
@@ -51,7 +51,7 @@ export default class AnyPreviousConvictions implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.hasAnyPreviousConvictions) {
-      errors.hasAnyPreviousConvictions = 'Confirm whether the applicant has any previous convictions'
+      errors.hasAnyPreviousConvictions = 'Confirm whether the applicant has any previous unspent convictions'
     }
     return errors
   }

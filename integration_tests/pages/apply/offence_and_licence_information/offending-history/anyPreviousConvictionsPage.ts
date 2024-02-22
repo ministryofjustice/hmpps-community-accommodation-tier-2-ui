@@ -6,7 +6,7 @@ import paths from '../../../../../server/paths/apply'
 export default class AnyPreviousConvictionsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Does ${nameOrPlaceholderCopy(application.person)} have any previous convictions?`,
+      `Does ${nameOrPlaceholderCopy(application.person)} have any previous unspent convictions?`,
       application,
       'offending-history',
       'any-previous-convictions',

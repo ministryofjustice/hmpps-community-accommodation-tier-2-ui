@@ -37,7 +37,10 @@ export const completeOffenceHistoryTask = async (page: Page, name: string) => {
 }
 
 async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
-  const anyPreviousConvictionsPage = await ApplyPage.initialize(page, `Does ${name} have any previous convictions?`)
+  const anyPreviousConvictionsPage = await ApplyPage.initialize(
+    page,
+    `Does ${name} have any previous unspent convictions?`,
+  )
   await anyPreviousConvictionsPage.checkRadio('No')
   await anyPreviousConvictionsPage.clickSave()
 }

@@ -38,7 +38,7 @@ export const offenceDetailsFactory = Factory.define<OASysQuestion>(options => ({
     'Provide evidence of the motivation and triggers for the offending',
     'Provide details of the impact on the victim',
     'Victim Information',
-    'Is there a pattern of offending? Consider details of previous convictions',
+    'Is there a pattern of offending? Consider details of previous unspent convictions',
   ]),
   answer: faker.lorem.paragraph(),
 }))
