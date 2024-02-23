@@ -16,4 +16,9 @@ export default class SubmittedApplicationOverviewPage extends Page {
     this.getTextInputByIdAndEnterDetails('note', 'some notes')
     cy.get('button').click()
   }
+
+  shouldShowErrorMessage(): void {
+    cy.get('.govuk-error-summary').should('contain', 'Enter a note for the assessor')
+    cy.get('form').should('contain', 'Enter a note for the assessor')
+  }
 }

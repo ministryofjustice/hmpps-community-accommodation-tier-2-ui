@@ -11,4 +11,14 @@ export default class SubmittedApplicationOverviewPage extends Page {
     cy.visit(`/assess/applications/${application.id}/overview`)
     return new SubmittedApplicationOverviewPage(application)
   }
+
+  addANote = (): void => {
+    this.getTextInputByIdAndEnterDetails('note', 'some notes')
+    cy.get('button').click()
+  }
+
+  shouldShowErrorMessage(): void {
+    cy.get('.govuk-error-summary').should('contain', 'Enter a note for the referrer')
+    cy.get('form').should('contain', 'Enter a note for the referrer')
+  }
 }

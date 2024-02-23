@@ -74,6 +74,6 @@ context('Referrer adds a note to a submitted application', () => {
     page.addANote()
 
     //   Then I see an error message
-    page.shouldShowErrorMessagesForFields(['note'])
+    page.shouldShowErrorMessage()
   })
 })
