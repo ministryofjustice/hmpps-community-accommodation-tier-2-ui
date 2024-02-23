@@ -3,6 +3,7 @@ import { FullPerson } from '@approved-premises/api'
 import SubmittedApplicationService from '../../services/submittedApplicationService'
 import assessPaths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
+import config from '../../config'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 
 export default class SubmittedApplicationsController {
@@ -45,6 +46,7 @@ export default class SubmittedApplicationsController {
       const status = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
 
       return res.render('assess/applications/overview', {
+        notesDisabled: config.flags.notesDisabled,
         application,
         status,
         errors,

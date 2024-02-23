@@ -61,6 +61,7 @@
         Application history
       </h2>
 
+      {% if notesDisabled == 'false' %}
 
         <form action="{{ paths.submittedApplications.addNote({ id: application.id }) }}" method="post">
           <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
@@ -83,6 +84,8 @@
         </button>
 
         </form>
+
+      {% endif %}
 
       {{ timeline(getApplicationTimelineEvents(application)) }}
     </div>

@@ -97,12 +97,20 @@ describe('submittedApplicationsController', () => {
   })
 
   describe('overview', () => {
+    const priorConfigFlags = config.flags
+
+    afterAll(() => {
+      config.flags = priorConfigFlags
+    })
+
     describe('when there is a status update', () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
       it('renders the submitted application overview template', async () => {
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
+
+        config.flags.notesDisabled = 'false'
 
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
@@ -112,6 +120,7 @@ describe('submittedApplicationsController', () => {
         )
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
+          notesDisabled: 'false',
           application: submittedApplication,
           status: statusUpdate.label,
           errors: {},
@@ -130,6 +139,8 @@ describe('submittedApplicationsController', () => {
         })
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplicationWithoutStatus)
 
+        config.flags.notesDisabled = 'true'
+
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
 
@@ -138,6 +149,7 @@ describe('submittedApplicationsController', () => {
         )
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
+          notesDisabled: 'true',
           application: submittedApplicationWithoutStatus,
           status: 'Received',
           errors: {},
