@@ -19,7 +19,7 @@ import {
   errorSummary as errorSummaryMock,
 } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
-import { PersonService, ApplicationService, TaskListService } from '../../services'
+import { PersonService, ApplicationService, TaskListService, SubmittedApplicationService } from '../../services'
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
@@ -38,6 +38,7 @@ describe('applicationsController', () => {
 
   const personService = createMock<PersonService>({})
   const applicationService = createMock<ApplicationService>({})
+  const submittedApplicationService = createMock<SubmittedApplicationService>({})
 
   let applicationsController: ApplicationsController
 
@@ -46,10 +47,15 @@ describe('applicationsController', () => {
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 
   beforeEach(() => {
-    applicationsController = new ApplicationsController(personService, applicationService, {
+    applicationsController = new ApplicationsController(
       personService,
       applicationService,
-    })
+      submittedApplicationService,
+      {
+        personService,
+        applicationService,
+      },
+    )
 
     request = createMock<Request>({
       user: { token },
@@ -791,7 +797,7 @@ describe('applicationsController', () => {
 
         const note = applicationNoteFactory.build()
 
-        applicationService.addApplicationNote.mockImplementation(async () => note)
+        submittedApplicationService.addApplicationNote.mockImplementation(async () => note)
 
         const requestHandler = applicationsController.addNote()
         await requestHandler(request, response)
@@ -809,7 +815,7 @@ describe('applicationsController', () => {
         request.body = { note: 'some notes' }
 
         const err = new Error()
-        applicationService.addApplicationNote.mockImplementation(() => {
+        submittedApplicationService.addApplicationNote.mockImplementation(() => {
           throw err
         })
 
