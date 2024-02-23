@@ -40,5 +40,9 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     auditEvent: 'CREATE_SUBMITTED_APPLICATION_FURTHER_INFORMATION_STATUS_UPDATE',
   })
 
+  post(paths.submittedApplications.addNote.pattern, submittedApplicationsController.addNote(), {
+    auditEvent: 'CREATE_APPLICATION_NOTE_AS_ASSESSOR',
+  })
+
   return router
 }

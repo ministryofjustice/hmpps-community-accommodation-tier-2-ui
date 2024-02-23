@@ -3,6 +3,7 @@ import { FullPerson } from '@approved-premises/api'
 import SubmittedApplicationService from '../../services/submittedApplicationService'
 import assessPaths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
+import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
@@ -37,6 +38,8 @@ export default class SubmittedApplicationsController {
 
   overview(): RequestHandler {
     return async (req: Request, res: Response) => {
+      const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
 
       const status = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
@@ -44,8 +47,33 @@ export default class SubmittedApplicationsController {
       return res.render('assess/applications/overview', {
         application,
         status,
+        errors,
+        errorSummary,
         pageHeading: 'Overview of application',
       })
+    }
+  }
+
+  addNote() {
+    return async (req: Request, res: Response) => {
+      const { id } = req.params
+      const { note } = req.body
+
+      try {
+        await this.submittedApplicationService.addApplicationNote(req.user.token, id, note)
+        req.flash('success', 'Your note was saved.')
+        res.redirect(assessPaths.submittedApplications.overview({ id }))
+      } catch (err) {
+        if (err.status === 400) {
+          req.flash('errors', {
+            note: { text: 'Enter a note for the referrer' },
+          })
+          req.flash('errorSummary', [{ text: 'Enter a note for the referrer', href: '#note' }])
+          res.redirect(assessPaths.submittedApplications.overview({ id }))
+        } else {
+          catchValidationErrorOrPropogate(req, res, err, assessPaths.submittedApplications.overview({ id }))
+        }
+      }
     }
   }
 }
