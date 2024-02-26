@@ -81,6 +81,7 @@ context('Assessor views a submitted application overview', () => {
     // Then I see the submitted application overview
     page.shouldShowApplicationSummaryDetails(submittedApplication)
     page.shouldShowTimeline(submittedApplication)
+    page.shouldShowPrintButtonInActionsMenu()
   })
 
   //  Scenario: first visit to submitted application overview page

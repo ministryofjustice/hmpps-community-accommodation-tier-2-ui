@@ -1,4 +1,5 @@
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -11,6 +12,8 @@
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../../partials/_timeline.njk" import timeline %}
 {% from "../../partials/submittedApplicationDetails.njk" import submittedApplicationDetails %}
+{% from "../../components/printButton/macro.njk" import printButton,
+printButtonScript %}
 
 {% extends "../../partials/layout.njk" %}
 
@@ -20,13 +23,23 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: paths.submittedApplications.index()
+    href: paths.submittedApplications.index(),
+    classes: 'print__hidden'
   }) }}
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
+      <div class="actions-menu">
+        <div class="moj-button-menu print__hidden">
+          <div class="moj-button-menu__wrapper">
+
+            {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary moj-button-menu__item') }}
+
+          </div>
+        </div>
+      </div>
       {{ showErrorSummary(errorSummary) }}
 
       {% if successMessages %}
@@ -43,19 +56,24 @@
 
       <div class="govuk-button-group govuk-!-margin-top-5">
         {{ govukButton({
-      text: "View submitted application",
-      href: paths.submittedApplications.show({id: application.id})
-    }) }}
+              text: "View submitted application",
+              href: paths.submittedApplications.show({id: application.id})
+            }) }}
 
         {{ govukButton({
-      text: "Update application status",
-      href: paths.statusUpdate.new({id: application.id}),
-      classes: "govuk-button--secondary"
-    })
-  }}
+              text: "Update application status",
+              href: paths.statusUpdate.new({id: application.id}),
+              classes: "govuk-button--secondary"
+            })
+          }}
       </div>
+    </div>
+  </div>
 
-      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
 
       <h2 class="govuk-heading-l">
         Application history
@@ -90,4 +108,17 @@
       {{ timeline(getApplicationTimelineEvents(application)) }}
     </div>
   </div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block extraScripts %}
+{{ printButtonScript(cspNonce) }}
+
+<script type="text/javascript" nonce="{{ cspNonce }}">
+new MOJFrontend.ButtonMenu({container: $('.moj-button-menu'), mq: "(min-width: 200em)", buttonText: "Actions", menuClasses: "moj-button-menu__wrapper--right"});
+</script>
+
 {% endblock %}
