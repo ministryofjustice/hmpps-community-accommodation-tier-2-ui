@@ -331,8 +331,8 @@
           "title": "Add offending history",
           "questionsAndAnswers": [
             {
-              "question": "Does Aadland Bertrand have any previous convictions?",
-              "answer": "No, this is their first offence"
+              "question": "Does Aadland Bertrand have any previous unspent convictions?",
+              "answer": "No"
             }
           ]
         }
