@@ -90,3 +90,13 @@ export const kebabToCamelCase = (str: string) => {
 export const camelToKebabCase = (str: string) => {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
+
+/**
+ * Substitutes commas in a comma separated list with HTML linebreaks
+ * example: "This, is, a, list" --> "This<br>is<br>a<br>list<br>"
+ * @param str
+ * @returns string
+ */
+export const formatCommaToLinebreak = (str: string) => {
+  return str.replace(/,\s*/g, '<br>')
+}

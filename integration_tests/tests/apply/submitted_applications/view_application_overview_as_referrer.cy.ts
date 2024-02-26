@@ -12,7 +12,12 @@
 import { faker } from '@faker-js/faker'
 import { DateFormats } from '../../../../server/utils/dateUtils'
 import SubmittedApplicationOverviewPage from '../../../pages/apply/submittedApplicationOverviewPage'
-import { externalUserFactory, statusUpdateFactory, applicationFactory } from '../../../../server/testutils/factories'
+import {
+  externalUserFactory,
+  statusUpdateFactory,
+  applicationFactory,
+  timelineEventsFactory,
+} from '../../../../server/testutils/factories'
 import { fullPersonFactory } from '../../../../server/testutils/factories/person'
 import Page from '../../../pages/page'
 
@@ -39,15 +44,34 @@ context('View submitted application overview', () => {
               updatedBy: externalUserFactory.build({ name: 'Anne Other Assessor' }),
               name: 'awaitingDecision',
               label: 'Awaiting decision',
-              description: 'All information has been received and the application is awaiting assessment.',
             }),
-            statusUpdateFactory.build({
-              updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
-              updatedBy: externalUserFactory.build({ name: 'Anne Assessor' }),
-              name: 'moreInfoRequested',
+          ],
+          timelineEvents: [
+            timelineEventsFactory.build({
+              occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),
+              createdByName: 'Anne Other Assessor',
+              label: 'Awaiting decision',
+              body: null,
+            }),
+            timelineEventsFactory.build({
+              occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+              createdByName: 'Anne Assessor',
               label: 'More information requested',
-              description:
-                'More information about the application has been requested from the POM (Prison Offender Manager).',
+              body: 'Personal information',
+            }),
+            timelineEventsFactory.build({
+              occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+              type: 'cas2_note',
+              createdByName: 'Anne Assessor',
+              label: 'Note',
+              body: 'Note text',
+            }),
+            timelineEventsFactory.build({
+              occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+              type: 'cas2_application_submitted',
+              createdByName: 'Anne Assessor',
+              label: 'Application submitted',
+              body: null,
             }),
           ],
         })

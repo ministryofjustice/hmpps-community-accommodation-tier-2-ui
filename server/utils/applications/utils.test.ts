@@ -1,11 +1,5 @@
 import { isAfter } from 'date-fns'
-import {
-  applicationFactory,
-  externalUserFactory,
-  nomisUserFactory,
-  statusUpdateFactory,
-  submittedApplicationFactory,
-} from '../../testutils/factories'
+import { applicationFactory, submittedApplicationFactory, timelineEventsFactory } from '../../testutils/factories'
 import {
   eligibilityQuestionIsAnswered,
   getApplicationTimelineEvents,
@@ -14,6 +8,7 @@ import {
 } from './utils'
 import { DateFormats } from '../dateUtils'
 import { getSections } from '../checkYourAnswersUtils'
+import config from '../../config'
 
 jest.mock('../checkYourAnswersUtils')
 
@@ -111,19 +106,31 @@ describe('utils', () => {
     })
   })
   describe('getApplicationTimelineEvents', () => {
-    describe('when there are status updates', () => {
+    const priorConfigFlags = config.flags
+
+    afterAll(() => {
+      config.flags = priorConfigFlags
+    })
+
+    describe('when there are timeline events', () => {
+      config.flags.notesDisabled = 'false'
       it('returns them in the timeline events', () => {
         const application = submittedApplicationFactory.build({
-          statusUpdates: [
-            statusUpdateFactory.build({
+          timelineEvents: [
+            timelineEventsFactory.build({
               label: 'a status update',
-              description: 'the status description',
-              updatedBy: externalUserFactory.build({ name: 'A Nacro' }),
-              updatedAt: '2023-06-22T08:54:50',
+              body: 'the status description',
+              createdByName: 'A Nacro',
+              occurredAt: '2023-06-22T08:54:50',
+            }),
+            timelineEventsFactory.build({
+              type: 'cas2_application_submitted',
+              label: 'Application submitted',
+              body: 'The application was received by an assessor.',
+              createdByName: 'Anne Nomis',
+              occurredAt: '2023-06-21T07:54:50',
             }),
           ],
-          submittedBy: nomisUserFactory.build({ name: 'Anne Nomis' }),
-          submittedAt: '2023-06-21T07:54:50',
         })
         expect(getApplicationTimelineEvents(application)).toEqual([
           {
@@ -161,28 +168,33 @@ describe('utils', () => {
 
       it('sorts the events in ascending order', () => {
         const application = submittedApplicationFactory.build({
-          statusUpdates: [
-            statusUpdateFactory.build({
+          timelineEvents: [
+            timelineEventsFactory.build({
               label: 'a status update',
-              description: 'the status description',
-              updatedBy: externalUserFactory.build(),
-              updatedAt: '2023-06-22T08:54:50',
+              body: 'the status description',
+              createdByName: 'A Nacro',
+              occurredAt: '2023-06-22T08:54:50',
             }),
-            statusUpdateFactory.build({
+            timelineEventsFactory.build({
               label: 'a status update',
-              description: 'the status description',
-              updatedBy: externalUserFactory.build(),
-              updatedAt: '2023-06-20T08:54:50',
+              body: 'the status description',
+              createdByName: 'A Nacro',
+              occurredAt: '2023-06-27T08:54:50',
             }),
-            statusUpdateFactory.build({
+            timelineEventsFactory.build({
               label: 'a status update',
-              description: 'the status description',
-              updatedBy: externalUserFactory.build(),
-              updatedAt: '2023-06-23T08:54:50',
+              body: 'the status description',
+              createdByName: 'A Nacro',
+              occurredAt: '2023-06-20T08:54:50',
+            }),
+            timelineEventsFactory.build({
+              type: 'cas2_application_submitted',
+              label: 'Application submitted',
+              body: 'The application was received by an assessor.',
+              createdByName: 'Anne Nomis',
+              occurredAt: '2023-06-19T07:54:50',
             }),
           ],
-          submittedBy: nomisUserFactory.build(),
-          submittedAt: '2023-06-21T07:54:50',
         })
 
         const actual = getApplicationTimelineEvents(application)
@@ -208,62 +220,46 @@ describe('utils', () => {
           ),
         ).toEqual(true)
       })
+
+      describe('when the timeline event is a status update', () => {
+        it('formats the description text', () => {
+          const application = submittedApplicationFactory.build({
+            timelineEvents: [
+              timelineEventsFactory.build({
+                body: 'the status description, and another, and another',
+              }),
+            ],
+          })
+          expect(getApplicationTimelineEvents(application)[0].description.text).toEqual(
+            'the status description<br>and another<br>and another',
+          )
+        })
+      })
     })
 
-    describe('when there are no status updates', () => {
-      it('just returns the application submitted info', () => {
-        const application = submittedApplicationFactory.build({
-          statusUpdates: undefined,
-          submittedBy: nomisUserFactory.build({ name: 'Anne Nomis' }),
-          submittedAt: '2023-06-21T07:54:50',
-        })
-        expect(getApplicationTimelineEvents(application)).toEqual([
-          {
-            byline: {
-              text: 'Anne Nomis',
-            },
-            datetime: {
-              date: '21 June 2023 at 07:54am',
-              timestamp: '2023-06-21T07:54:50',
-            },
-            description: {
-              text: 'The application was received by an assessor.',
-            },
-            label: {
-              text: 'Application submitted',
-            },
-          },
-        ])
-      })
-      describe('when the application is not a SubmittedApplication', () => {
-        it('returns the submission data with the application createdBy name', () => {
-          const application = applicationFactory.build({
-            statusUpdates: undefined,
-            createdBy: nomisUserFactory.build({ name: 'Anne Nomis' }),
-            submittedAt: '2023-06-21T07:54:50',
-          })
+    describe('when the feature flag is disabled', () => {
+      it('does not include events with the type "cas2_note"', () => {
+        config.flags.notesDisabled = 'true'
 
-          expect(getApplicationTimelineEvents(application)).toEqual([
-            {
-              byline: {
-                text: 'Anne Nomis',
-              },
-              datetime: {
-                date: '21 June 2023 at 07:54am',
-                timestamp: '2023-06-21T07:54:50',
-              },
-              description: {
-                text: 'The application was received by an assessor.',
-              },
-              label: {
-                text: 'Application submitted',
-              },
-            },
-          ])
+        const application = submittedApplicationFactory.build({
+          timelineEvents: [
+            timelineEventsFactory.build({
+              type: 'cas2_status_update',
+              label: 'cas2_status_update',
+            }),
+            timelineEventsFactory.build({
+              type: 'cas2_note',
+              label: 'cas2_note',
+            }),
+          ],
         })
+
+        expect(getApplicationTimelineEvents(application).length).toEqual(1)
+        expect(getApplicationTimelineEvents(application)[0].label.text).toEqual('cas2_status_update')
       })
     })
   })
+
   describe('getSideNavLinksForDocument', () => {
     it('returns an array with a side nav item for each task', () => {
       const document = {
