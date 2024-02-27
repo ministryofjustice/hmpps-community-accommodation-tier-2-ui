@@ -26,3 +26,9 @@ export const signInAsAssessor = async (
   await page.getByLabel('Password').fill(assessorUser.password)
   await page.getByRole('button', { name: 'Sign in' }).click()
 }
+
+export const addNote = async (page: Page) => {
+  await page.getByLabel('Add a note for the referrer ', { exact: true }).fill('some notes for the referrer')
+  await page.getByTestId('submit-button').click()
+  await expect(page.locator('h2').first()).toContainText('Success')
+}

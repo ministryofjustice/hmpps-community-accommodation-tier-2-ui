@@ -10,6 +10,7 @@ export default {
     index: assessApplicationsPath,
     show: singleApplicationPath,
     overview: singleApplicationPath.path('overview'),
+    addNote: singleApplicationPath.path('add-note'),
   },
   statusUpdate: {
     new: updateStatusPath,

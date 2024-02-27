@@ -3,13 +3,21 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
 
 import { PaginatedResponse } from '@approved-premises/ui'
-import { paginatedResponseFactory, statusUpdateFactory, submittedApplicationFactory } from '../../testutils/factories'
+import {
+  applicationNoteFactory,
+  paginatedResponseFactory,
+  statusUpdateFactory,
+  submittedApplicationFactory,
+} from '../../testutils/factories'
 import SubmittedApplicationsController from './submittedApplicationsController'
 import { SubmittedApplicationService } from '../../services'
 import paths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
+import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
+import config from '../../config'
 
 jest.mock('../../utils/getPaginationDetails')
+jest.mock('../../utils/validation')
 
 describe('submittedApplicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -89,9 +97,20 @@ describe('submittedApplicationsController', () => {
   })
 
   describe('overview', () => {
+    const priorConfigFlags = config.flags
+
+    afterAll(() => {
+      config.flags = priorConfigFlags
+    })
+
     describe('when there is a status update', () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
       it('renders the submitted application overview template', async () => {
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
+
+        config.flags.notesDisabled = 'false'
 
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
@@ -101,8 +120,11 @@ describe('submittedApplicationsController', () => {
         )
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
+          notesDisabled: 'false',
           application: submittedApplication,
           status: statusUpdate.label,
+          errors: {},
+          errorSummary: [],
           pageHeading: `Overview of application`,
         })
       })
@@ -117,6 +139,8 @@ describe('submittedApplicationsController', () => {
         })
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplicationWithoutStatus)
 
+        config.flags.notesDisabled = 'true'
+
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
 
@@ -125,10 +149,57 @@ describe('submittedApplicationsController', () => {
         )
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
+          notesDisabled: 'true',
           application: submittedApplicationWithoutStatus,
           status: 'Received',
+          errors: {},
+          errorSummary: [],
           pageHeading: `Overview of application`,
         })
+      })
+    })
+  })
+
+  describe('addNote', () => {
+    describe('when a note is added', () => {
+      it('redirects to the overview page with a success message', async () => {
+        request.params = {
+          id: 'abc123',
+        }
+        request.body = { note: 'some notes' }
+
+        const note = applicationNoteFactory.build()
+
+        submittedApplicationService.addApplicationNote.mockImplementation(async () => note)
+
+        const requestHandler = submittedApplicationsController.addNote()
+        await requestHandler(request, response)
+
+        expect(request.flash).toHaveBeenCalledWith('success', 'Your note was saved.')
+        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'abc123' }))
+      })
+    })
+
+    describe('when there is an error', () => {
+      it('passes the error to the error handler', async () => {
+        request.params = {
+          id: 'abc123',
+        }
+        request.body = { note: 'some notes' }
+
+        const err = new Error()
+        submittedApplicationService.addApplicationNote.mockImplementation(() => {
+          throw err
+        })
+
+        const requestHandler = submittedApplicationsController.addNote()
+        await requestHandler(request, response)
+        expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
+          request,
+          response,
+          err,
+          paths.submittedApplications.overview({ id: 'abc123' }),
+        )
       })
     })
   })

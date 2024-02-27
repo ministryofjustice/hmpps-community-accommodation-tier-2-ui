@@ -8,7 +8,7 @@ import {
   errorSummary as buildErrorSummary,
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
-import ApplicationService from '../../services/applicationService'
+import { ApplicationService, SubmittedApplicationService } from '../../services'
 import {
   eligibilityIsDenied,
   eligibilityIsConfirmed,
@@ -29,6 +29,7 @@ export default class ApplicationsController {
   constructor(
     private readonly _personService: PersonService,
     private readonly applicationService: ApplicationService,
+    private readonly submittedApplicationService: SubmittedApplicationService,
     private readonly dataServices: DataServices,
   ) {}
 
@@ -292,11 +293,19 @@ export default class ApplicationsController {
       const { note } = req.body
 
       try {
-        await this.applicationService.addApplicationNote(req.user.token, id, note)
+        await this.submittedApplicationService.addApplicationNote(req.user.token, id, note)
         req.flash('success', 'Your note was saved.')
         res.redirect(paths.applications.overview({ id }))
       } catch (err) {
-        catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id }))
+        if (err.status === 400) {
+          req.flash('errors', {
+            note: { text: 'Enter a note for the assessor' },
+          })
+          req.flash('errorSummary', [{ text: 'Enter a note for the assessor', href: '#note' }])
+          res.redirect(paths.applications.overview({ id }))
+        } else {
+          catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id }))
+        }
       }
     }
   }

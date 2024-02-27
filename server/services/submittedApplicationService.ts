@@ -3,6 +3,7 @@ import {
   Cas2ApplicationStatus as ApplicationStatus,
   Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
   Cas2SubmittedApplicationSummary,
+  Cas2ApplicationNote,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 
@@ -46,5 +47,11 @@ export default class SubmittedApplicationService {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
     await applicationClient.updateStatus(applicationId, newStatus)
+  }
+
+  async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
+    const applicationClient = this.submittedApplicationClientFactory(token)
+
+    return applicationClient.addNote(applicationId, newNote)
   }
 }

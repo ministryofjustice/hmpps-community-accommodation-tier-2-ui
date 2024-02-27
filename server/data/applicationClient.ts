@@ -1,6 +1,5 @@
 import {
   Cas2Application as Application,
-  Cas2ApplicationNote,
   Cas2ApplicationSummary,
   SubmitCas2Application,
   UpdateApplication,
@@ -46,12 +45,5 @@ export default class ApplicationClient {
       path: paths.submissions.create.pattern,
       data: { ...submissionData, applicationId },
     })
-  }
-
-  async addNote(applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
-    return (await this.restClient.post({
-      path: paths.submissions.applicationNotes.create({ id: applicationId }),
-      data: { note: newNote },
-    })) as Cas2ApplicationNote
   }
 }

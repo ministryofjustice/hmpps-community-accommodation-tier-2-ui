@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { AnyValue, Cas2Application as Application, Cas2Application, Cas2ApplicationNote } from '@approved-premises/api'
+import { AnyValue, Cas2Application as Application, Cas2Application } from '@approved-premises/api'
 import type { DataServices, GroupedApplications } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -183,11 +183,5 @@ export default class ApplicationService {
     const client = this.applicationClientFactory(token)
 
     await client.submit(application.id, getApplicationSubmissionData(application))
-  }
-
-  async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
-    const applicationClient = this.applicationClientFactory(token)
-
-    return applicationClient.addNote(applicationId, newNote)
   }
 }
