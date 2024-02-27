@@ -6,7 +6,26 @@
     formPageRadios(
       {
         fieldName: "hasAnyPreviousConvictions",
-        items: page.items()
+        items: [
+          {
+            value: 'yesRelevantRisk',
+            text: page.questions.hasAnyPreviousConvictions.answers.yesRelevantRisk,
+            hint: {
+              text: 'Includes stalking, harassment, weapons, firearms, arson, domestic abuse, hate crimes, drugs and any behaviour where the person is a risk to themselves or others.'
+            }
+          },
+          {
+            value: 'yesNoRelevantRisk',
+            text: page.questions.hasAnyPreviousConvictions.answers.yesNoRelevantRisk,
+            hint: {
+              text: "For example, a theft offence with no violence would not be relevant when assessing the applicant's risk."
+            }
+          },
+          {
+            value: 'no',
+            text: page.questions.hasAnyPreviousConvictions.answers.no
+          }
+        ]
       },
       fetchContext()
     )

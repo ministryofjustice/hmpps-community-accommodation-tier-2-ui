@@ -1,13 +1,12 @@
-import { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import { TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
-import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
 type AnyPreviousConvictionsBody = {
-  hasAnyPreviousConvictions: YesOrNo
+  hasAnyPreviousConvictions: 'yesRelevantRisk' | 'yesNoRelevantRisk' | 'no'
 }
 
 @Page({
@@ -39,7 +38,7 @@ export default class AnyPreviousConvictions implements TaskListPage {
   }
 
   next() {
-    if (this.body.hasAnyPreviousConvictions === 'yes') {
+    if (this.body.hasAnyPreviousConvictions === 'yesRelevantRisk') {
       if (this.application.data['offending-history']?.['offence-history-data']?.length > 0) {
         return 'offence-history'
       }
@@ -54,12 +53,5 @@ export default class AnyPreviousConvictions implements TaskListPage {
       errors.hasAnyPreviousConvictions = 'Confirm whether the applicant has any previous unspent convictions'
     }
     return errors
-  }
-
-  items() {
-    return convertKeyValuePairToRadioItems(
-      this.questions.hasAnyPreviousConvictions.answers,
-      this.body.hasAnyPreviousConvictions,
-    )
   }
 }
