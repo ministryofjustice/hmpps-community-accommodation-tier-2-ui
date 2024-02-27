@@ -171,6 +171,7 @@ export type { PlacementApplication } from './models/PlacementApplication';
 export type { PlacementApplicationDecision } from './models/PlacementApplicationDecision';
 export type { PlacementApplicationDecisionEnvelope } from './models/PlacementApplicationDecisionEnvelope';
 export type { PlacementApplicationTask } from './models/PlacementApplicationTask';
+export type { PlacementApplicationType } from './models/PlacementApplicationType';
 export type { PlacementCriteria } from './models/PlacementCriteria';
 export type { PlacementDates } from './models/PlacementDates';
 export type { PlacementRequest } from './models/PlacementRequest';
