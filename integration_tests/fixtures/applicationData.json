@@ -317,7 +317,7 @@
     "current-offences": {}
   },
   "offending-history": {
-    "any-previous-convictions": { "hasAnyPreviousConvictions": "yes" },
+    "any-previous-convictions": { "hasAnyPreviousConvictions": "yesRelevantRisk" },
     "offence-history-data": [
       {
         "titleAndNumber": "Arson",
