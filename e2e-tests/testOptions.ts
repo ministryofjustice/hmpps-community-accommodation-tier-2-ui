@@ -19,4 +19,9 @@ export type TestOptions = {
     username: string
     password: string
   }
+  miUser: {
+    name: string
+    username: string
+    password: string
+  }
 }

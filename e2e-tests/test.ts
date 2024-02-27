@@ -35,4 +35,12 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
+  miUser: [
+    {
+      name: 'MI User',
+      username: process.env.CAS2_MI_USERNAME as string,
+      password: process.env.CAS2_MI_PASSWORD as string,
+    },
+    { option: true },
+  ],
 })
