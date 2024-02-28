@@ -6,6 +6,7 @@ import { fullPersonFactory } from './person'
 import nomisUserFactory from './nomisUser'
 import statusUpdateFactory from './statusUpdate'
 import timelineEvents from './timelineEvents'
+import assessmentFactory from './assessment'
 
 export default Factory.define<SubmittedApplication>(() => ({
   id: faker.string.uuid(),
@@ -19,4 +20,5 @@ export default Factory.define<SubmittedApplication>(() => ({
   statusUpdates: statusUpdateFactory.buildList(2),
   telephoneNumber: faker.string.numeric({ length: 8 }),
   timelineEvents: [timelineEvents.build()],
+  assessment: assessmentFactory.build(),
 }))

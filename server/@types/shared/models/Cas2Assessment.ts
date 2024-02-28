@@ -2,4 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type TaskSortField = 'createdAt' | 'dueAt';
+export type Cas2Assessment = {
+    nacroReferralId?: string;
+    assessorName?: string;
+};
+
