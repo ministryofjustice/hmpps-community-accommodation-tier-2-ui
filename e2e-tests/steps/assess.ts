@@ -1,4 +1,5 @@
 import { Page, expect } from '@playwright/test'
+import { faker } from '@faker-js/faker/locale/en_GB'
 
 export const updateStatus = async (page: Page) => {
   await page.getByRole('button', { name: 'Update application status' }).click()
@@ -28,7 +29,9 @@ export const signInAsAssessor = async (
 }
 
 export const addNote = async (page: Page) => {
-  await page.getByLabel('Add a note for the referrer ', { exact: true }).fill('some notes for the referrer')
+  const note = faker.lorem.paragraph()
+  await page.getByLabel('Add a note for the referrer', { exact: true }).fill(note)
   await page.getByTestId('submit-button').click()
   await expect(page.locator('h2').first()).toContainText('Success')
+  await expect(page.locator('.moj-timeline__description').first()).toContainText(note)
 }

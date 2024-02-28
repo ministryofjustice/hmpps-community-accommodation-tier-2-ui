@@ -1,4 +1,5 @@
 import { Page, expect } from '@playwright/test'
+import { faker } from '@faker-js/faker/locale/en_GB'
 
 import { BeforeYouStartPage, DashboardPage, FindByPrisonNumberPage, TaskListPage } from '../pages/apply'
 import {
@@ -97,7 +98,9 @@ export const viewSubmittedApplication = async (page: Page, name: string) => {
 }
 
 export const addNote = async (page: Page) => {
-  await page.getByLabel('Add a note for the assessor ', { exact: true }).fill('some notes for the assessor')
+  const note = faker.lorem.paragraph()
+  await page.getByLabel('Add a note for the assessor', { exact: true }).fill(note)
   await page.getByTestId('submit-button').click()
   await expect(page.locator('h2').first()).toContainText('Success')
+  await expect(page.locator('.moj-timeline__description').first()).toContainText(note)
 }
