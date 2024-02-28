@@ -5,8 +5,14 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 
+export enum PreviousConvictionsAnswers {
+  YesRelevantRisk = 'yesRelevantRisk',
+  YesNoRelevantRisk = 'yesNoRelevantRisk',
+  No = 'no',
+}
+
 type AnyPreviousConvictionsBody = {
-  hasAnyPreviousConvictions: 'yesRelevantRisk' | 'yesNoRelevantRisk' | 'no'
+  hasAnyPreviousConvictions: PreviousConvictionsAnswers
 }
 
 @Page({
@@ -49,7 +55,10 @@ export default class AnyPreviousConvictions implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
-    if (!this.body.hasAnyPreviousConvictions) {
+    if (
+      !this.body.hasAnyPreviousConvictions ||
+      !Object.values(PreviousConvictionsAnswers).includes(this.body.hasAnyPreviousConvictions)
+    ) {
       errors.hasAnyPreviousConvictions = 'Confirm whether the applicant has any previous unspent convictions'
     }
     return errors
