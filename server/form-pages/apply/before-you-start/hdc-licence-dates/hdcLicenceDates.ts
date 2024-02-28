@@ -21,7 +21,7 @@ export default class HDCLicenceDates implements TaskListPage {
 
   title = `${this.personName}'s Home Detention Curfew (HDC) licence dates`
 
-  questions = getQuestions(this.personName)['hdc-licence-and-cpp-details']['hdc-licence-dates']
+  questions = getQuestions(this.personName)['hdc-licence-dates']['hdc-licence-dates']
 
   options: Record<string, string>
 
@@ -39,7 +39,7 @@ export default class HDCLicenceDates implements TaskListPage {
   }
 
   next() {
-    return 'cpp-details'
+    return ''
   }
 
   response() {

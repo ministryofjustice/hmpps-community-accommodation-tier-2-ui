@@ -3,10 +3,10 @@
 import { Section } from '../../utils/decorators'
 import OffendingHistory from './offending-history'
 import CurrentOffences from './current-offences'
-import HDCLicenceAndCPPDetails from './hdc-licence-and-cpp-details'
+import CPPDetailsAndHDCLicenceConditions from './cpp-details-and-hdc-licence-conditions'
 
 @Section({
   title: 'Offence and licence information',
-  tasks: [CurrentOffences, OffendingHistory, HDCLicenceAndCPPDetails],
+  tasks: [CurrentOffences, OffendingHistory, CPPDetailsAndHDCLicenceConditions],
 })
 export default class OffenceAndLicenceInformation {}

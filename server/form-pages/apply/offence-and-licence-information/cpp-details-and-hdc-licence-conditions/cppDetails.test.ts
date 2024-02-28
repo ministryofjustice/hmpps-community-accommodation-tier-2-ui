@@ -13,7 +13,7 @@ describe('CPPDetails', () => {
     })
   })
 
-  itShouldHavePreviousValue(new CPPDetails({}, application), 'hdc-licence-dates')
+  itShouldHavePreviousValue(new CPPDetails({}, application), 'taskList')
   itShouldHaveNextValue(new CPPDetails({}, application), 'non-standard-licence-conditions')
 
   describe('errors', () => {

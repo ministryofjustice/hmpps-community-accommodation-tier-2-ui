@@ -23,7 +23,7 @@ export default class CPPDetails implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['hdc-licence-and-cpp-details']['cpp-details']
+  questions = getQuestions(this.personName)['cpp-details-and-hdc-licence-conditions']['cpp-details']
 
   options: Record<string, string>
 
@@ -38,7 +38,7 @@ export default class CPPDetails implements TaskListPage {
   }
 
   previous() {
-    return 'hdc-licence-dates'
+    return 'taskList'
   }
 
   next() {
