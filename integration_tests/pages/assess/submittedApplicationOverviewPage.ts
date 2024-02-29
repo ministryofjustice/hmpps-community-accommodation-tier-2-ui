@@ -14,11 +14,16 @@ export default class SubmittedApplicationOverviewPage extends Page {
 
   addANote = (): void => {
     this.getTextInputByIdAndEnterDetails('note', 'some notes')
-    cy.get('button').click()
+    cy.get('button').contains('Submit').click()
   }
 
   shouldShowErrorMessage(): void {
     cy.get('.govuk-error-summary').should('contain', 'Enter a note for the referrer')
     cy.get('form').should('contain', 'Enter a note for the referrer')
+  }
+
+  shouldShowPrintButtonInActionsMenu() {
+    cy.get('.moj-button-menu').click()
+    cy.contains('.moj-button-menu__item', 'Download as a PDF')
   }
 }
