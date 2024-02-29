@@ -79,6 +79,11 @@ export default defineConfig<TestOptions>({
           username: 'CAS2_ASSESSOR_USER',
           password: 'password123456',
         },
+        miUser: {
+          name: 'MI User',
+          username: 'CAS2_MI_USER',
+          password: 'password123456'
+        },
       },
       dependencies: ['setupLocal'],
     },
