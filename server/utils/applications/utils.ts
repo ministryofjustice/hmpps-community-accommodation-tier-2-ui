@@ -46,6 +46,10 @@ export const consentIsDenied = (application: Application): boolean => {
   return consentAnswer(application) === 'no'
 }
 
+export const hdcDatesHaveBeenEntered = (application: Application): boolean => {
+  return Boolean(application.data?.['hdc-licence-dates']?.['hdc-licence-dates'])
+}
+
 const consentAnswer = (application: Application): string => {
   return application.data?.['confirm-consent']?.['confirm-consent']?.hasGivenConsent
 }

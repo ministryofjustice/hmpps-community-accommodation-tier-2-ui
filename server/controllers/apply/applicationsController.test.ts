@@ -99,8 +99,8 @@ describe('applicationsController', () => {
         })
       })
     })
-    describe('when "Confirm eligibility" and "confirm consent" tasks are complete', () => {
-      describe('and the person is confirmed eligible and has given consent', () => {
+    describe('when "Confirm eligibility", "confirm consent" and "HDC licence dates" tasks are complete', () => {
+      describe('and the person is confirmed eligible, has given consent and entered HDC licence dates', () => {
         const application = applicationFactory.build({
           data: {
             'confirm-eligibility': {
@@ -113,6 +113,18 @@ describe('applicationsController', () => {
                 'consentDate-year': '2022',
                 'consentDate-month': '2',
                 'consentDate-day': '22',
+              },
+            },
+            'hdc-licence-dates': {
+              'hdc-licence-dates': {
+                hdcEligibilityDate: '2024-02-28',
+                'hdcEligibilityDate-year': '2024',
+                'hdcEligibilityDate-month': '2',
+                'hdcEligibilityDate-day': '28',
+                conditionalReleaseDate: '2024-02-22',
+                'conditionalReleaseDate-year': '2024',
+                'conditionalReleaseDate-month': '2',
+                'conditionalReleaseDate-day': '22',
               },
             },
           },
@@ -248,6 +260,40 @@ describe('applicationsController', () => {
             id: application.id,
             task: 'confirm-consent',
             page: 'confirm-consent',
+          }),
+        )
+      })
+    })
+    describe('when the person is confirmed ELIGIBLE and consent is confirmed, but the HDC licence dates task has not been completed', () => {
+      it('redirects to the _confirm consent_ page', async () => {
+        const application = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+          data: {
+            'confirm-eligibility': {
+              'confirm-eligibility': { isEligible: 'yes' },
+            },
+            'confirm-consent': {
+              'confirm-consent': {
+                hasGivenConsent: 'yes',
+                consentDate: '2022-02-22',
+                'consentDate-year': '2022',
+                'consentDate-month': '2',
+                'consentDate-day': '22',
+              },
+            },
+          },
+        })
+
+        applicationService.findApplication.mockResolvedValue(application)
+
+        const requestHandler = applicationsController.show()
+        await requestHandler(request, response, next)
+
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'hdc-licence-dates',
+            page: 'hdc-licence-dates',
           }),
         )
       })

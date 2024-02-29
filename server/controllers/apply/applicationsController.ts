@@ -17,6 +17,7 @@ import {
   consentIsConfirmed,
   consentIsDenied,
   generateSuccessMessage,
+  hdcDatesHaveBeenEntered,
 } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import paths from '../../paths/apply'
@@ -59,11 +60,20 @@ export default class ApplicationsController {
 
       if (eligibilityIsConfirmed(application)) {
         if (consentIsConfirmed(application)) {
-          const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+          if (hdcDatesHaveBeenEntered(application)) {
+            const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
-          const referrer = req.headers.referer
-          const taskList = new TaskListService(application)
-          return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
+            const referrer = req.headers.referer
+            const taskList = new TaskListService(application)
+            return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
+          }
+          return res.redirect(
+            paths.applications.pages.show({
+              id: application.id,
+              task: 'hdc-licence-dates',
+              page: 'hdc-licence-dates',
+            }),
+          )
         }
         if (consentIsDenied(application)) {
           return res.redirect(paths.applications.consentRefused({ id: application.id }))
