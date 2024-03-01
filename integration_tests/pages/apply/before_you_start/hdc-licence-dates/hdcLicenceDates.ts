@@ -8,7 +8,7 @@ export default class HDCLicenceDates extends ApplyPage {
     super(
       `${nameOrPlaceholderCopy(application.person, 'The person')}'s Home Detention Curfew (HDC) licence dates`,
       application,
-      'hdc-licence-and-cpp-details',
+      'hdc-licence-dates',
       'hdc-licence-dates',
     )
   }
@@ -17,7 +17,7 @@ export default class HDCLicenceDates extends ApplyPage {
     cy.visit(
       paths.applications.pages.show({
         id: application.id,
-        task: 'hdc-licence-and-cpp-details',
+        task: 'hdc-licence-dates',
         page: 'hdc-licence-dates',
       }),
     )

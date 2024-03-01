@@ -8,7 +8,7 @@ export default class NonStandardLicenceConditionsPage extends ApplyPage {
     super(
       `Does ${nameOrPlaceholderCopy(application.person, 'The person')} have any non-standard licence conditions?`,
       application,
-      'hdc-licence-and-cpp-details',
+      'cpp-details-and-hdc-licence-conditions',
       'non-standard-licence-conditions',
     )
   }
@@ -17,7 +17,7 @@ export default class NonStandardLicenceConditionsPage extends ApplyPage {
     cy.visit(
       paths.applications.pages.show({
         id: application.id,
-        task: 'hdc-licence-and-cpp-details',
+        task: 'cpp-details-and-hdc-licence-conditions',
         page: 'non-standard-licence-conditions',
       }),
     )
