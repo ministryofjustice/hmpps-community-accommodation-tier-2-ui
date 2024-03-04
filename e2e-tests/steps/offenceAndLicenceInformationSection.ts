@@ -41,7 +41,7 @@ async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
     page,
     `Does ${name} have any previous unspent convictions?`,
   )
-  await anyPreviousConvictionsPage.checkRadio('No')
+  await anyPreviousConvictionsPage.checkRadio('No, they do not have any previous unspent convictions')
   await anyPreviousConvictionsPage.clickSave()
 }
 
