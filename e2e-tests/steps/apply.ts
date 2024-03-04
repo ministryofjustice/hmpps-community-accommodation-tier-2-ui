@@ -6,6 +6,7 @@ import {
   completeConsentTask,
   completeEligibilityTask,
   completeReferrerDetailsTask,
+  completeHDCLicenceDatesTask,
 } from './beforeYouStartSection'
 import {
   completeAddressHistoryTask,
@@ -16,7 +17,7 @@ import { completeHealthNeedsTask, completeRiskToSelfTask, completeRoshTask } fro
 import { completeAreaInformationTask, completeFundingInformationTask } from './areaAndFundingSection'
 import {
   completeCurrentOffencesTask,
-  completeHDCLicenceAndCPPDetailsTask,
+  completeCPPDetailsAndHDCLicenceConditionsTask,
   completeOffenceHistoryTask,
 } from './offenceAndLicenceInformationSection'
 import { completeCheckAnswersTask } from './checkAnswersSection'
@@ -50,6 +51,7 @@ export const confirmApplicant = async (page: Page) => {
 export const completeBeforeYouStartSection = async (page: Page, name: string) => {
   await completeEligibilityTask(page, name)
   await completeConsentTask(page, name)
+  await completeHDCLicenceDatesTask(page, name)
   await completeReferrerDetailsTask(page)
   await completeCheckInformationTask(page)
 }
@@ -74,7 +76,7 @@ export const completeRisksAndNeedsSection = async (page: Page, name: string) => 
 export const completeOffenceAndLicenceInformationSection = async (page: Page, name: string) => {
   await completeCurrentOffencesTask(page, name)
   await completeOffenceHistoryTask(page, name)
-  await completeHDCLicenceAndCPPDetailsTask(page, name)
+  await completeCPPDetailsAndHDCLicenceConditionsTask(page, name)
 }
 
 export const completeCheckAnswersSection = async (page: Page, name: string) => {

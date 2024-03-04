@@ -45,28 +45,12 @@ async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
   await anyPreviousConvictionsPage.clickSave()
 }
 
-export const completeHDCLicenceAndCPPDetailsTask = async (page: Page, name: string) => {
+export const completeCPPDetailsAndHDCLicenceConditionsTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add HDC licence and CPP details')
+  await taskListPage.clickTask('Add CPP details and HDC licence conditions')
 
-  await completeHDCLicenceDatesPage(page, name)
   await completeCPPDetailsPage(page, name)
   await completeNonStandardLicenceConditionsPage(page, name)
-}
-
-async function completeHDCLicenceDatesPage(page: Page, name: string) {
-  const hdcLicenceDatesPage = await ApplyPage.initialize(page, `${name}'s Home Detention Curfew (HDC) licence dates`)
-  await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s HDC eligibility date?`, {
-    year: '2022',
-    month: '3',
-    day: '1',
-  })
-  await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s conditional release date?`, {
-    year: '2023',
-    month: '3',
-    day: '1',
-  })
-  await hdcLicenceDatesPage.clickSave()
 }
 
 async function completeCPPDetailsPage(page: Page, name: string) {
