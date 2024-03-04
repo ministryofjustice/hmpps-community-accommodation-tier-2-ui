@@ -68,7 +68,7 @@ context('Visit "has any previous unspent convictions" page', () => {
   it('navigates to the next page', function test() {
     //    When I complete the "has any previous unspent convictions" page
     const page = Page.verifyOnPage(AnyPreviousConvictionsPage, this.application)
-    page.checkRadioByNameAndValue('hasAnyPreviousConvictions', 'yes')
+    page.checkRadioByNameAndValue('hasAnyPreviousConvictions', 'yesRelevantRisk')
 
     //    When I continue to the next task / page
     page.clickSubmit()

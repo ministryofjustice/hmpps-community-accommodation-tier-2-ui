@@ -810,7 +810,11 @@ export const getQuestions = (name: string) => {
       'any-previous-convictions': {
         hasAnyPreviousConvictions: {
           question: `Does ${name} have any previous unspent convictions?`,
-          answers: { yes: 'Yes', no: 'No' },
+          answers: {
+            yesRelevantRisk: 'Yes, and there is relevant risk',
+            yesNoRelevantRisk: 'Yes, but there is no relevant risk',
+            no: 'No, they do not have any previous unspent convictions',
+          },
         },
       },
       'offence-history-data': {

@@ -113,6 +113,8 @@
         "semi": false
       }
     ],
-    "no-empty-function": ["error", { "allow": ["constructors"] }]
+    "no-empty-function": ["error", { "allow": ["constructors"] }],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   }
 }

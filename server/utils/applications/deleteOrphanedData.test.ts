@@ -120,6 +120,44 @@ describe('deleteOrphanedFollowOnAnswers', () => {
         })
       })
     })
+
+    describe('when hasAnyPreviousConvictions is set to yesNoRelevantRisk', () => {
+      const applicationData = {
+        'offending-history': {
+          'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
+          'offence-history-data': [
+            {
+              titleAndNumber: 'Arson (09000)',
+              offenceCategory: 'Arson',
+              'offenceDate-day': '5',
+              'offenceDate-month': '6',
+              'offenceDate-year': '1940',
+              sentenceLength: '3 years',
+              summary: 'summary detail',
+            },
+            {
+              titleAndNumber: 'Stalking (08000)',
+              offenceCategory: 'Stalking',
+              'offenceDate-day': '6',
+              'offenceDate-month': '7',
+              'offenceDate-year': '2023',
+              sentenceLength: '2 months',
+              summary: 'more summary detail',
+            },
+          ],
+          'offence-history': {},
+        },
+      }
+
+      it('removes offence history data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'offending-history': {
+            'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
+            'offence-history': {},
+          },
+        })
+      })
+    })
   })
 
   describe('address-history', () => {
