@@ -38,6 +38,7 @@ expect.extend({
           curl -s "${openAPIUrl}" |
           sed -E 's@/applications@/cas2/applications@g' |
           sed -E 's@/submissions@/cas2/submissions@g' |
+          sed -E 's@/assessments@/cas2/assessments@g' |
           sed -E 's@/people@/cas2/people@g' |
           sed -E 's@/reports@/cas2/reports@g' |
           sed -E 's@/reference-data/@/cas2/reference-data/@g' > ${openAPIPath}
