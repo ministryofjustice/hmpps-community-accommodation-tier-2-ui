@@ -6,5 +6,6 @@ import type { ApprovedPremisesAssessmentStatus } from './ApprovedPremisesAssessm
 import type { AssessmentSummary } from './AssessmentSummary';
 export type ApprovedPremisesAssessmentSummary = (AssessmentSummary & {
     status: ApprovedPremisesAssessmentStatus;
+    dueAt: string;
 });
 
