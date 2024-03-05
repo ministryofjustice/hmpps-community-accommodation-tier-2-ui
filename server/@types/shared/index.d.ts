@@ -248,6 +248,7 @@ export type { UpdateApplicationType } from './models/UpdateApplicationType';
 export type { UpdateApprovedPremisesApplication } from './models/UpdateApprovedPremisesApplication';
 export type { UpdateAssessment } from './models/UpdateAssessment';
 export type { UpdateCas2Application } from './models/UpdateCas2Application';
+export type { UpdateCas2Assessment } from './models/UpdateCas2Assessment';
 export type { UpdatedClarificationNote } from './models/UpdatedClarificationNote';
 export type { UpdateLostBed } from './models/UpdateLostBed';
 export type { UpdatePlacementApplication } from './models/UpdatePlacementApplication';
