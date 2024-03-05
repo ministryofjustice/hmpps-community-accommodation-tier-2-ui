@@ -19,15 +19,17 @@ import {
   errorSummary as errorSummaryMock,
 } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
-import { PersonService, ApplicationService, TaskListService, SubmittedApplicationService } from '../../services'
+import { PersonService, ApplicationService, SubmittedApplicationService } from '../../services'
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
+import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getPage')
 jest.mock('../../utils/applications/documentUtils')
+jest.mock('../../utils/applications/utils')
 
 describe('applicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -99,203 +101,17 @@ describe('applicationsController', () => {
         })
       })
     })
-    describe('when "Confirm eligibility", "confirm consent" and "HDC licence dates" tasks are complete', () => {
-      describe('and the person is confirmed eligible, has given consent and entered HDC licence dates', () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-            'confirm-consent': {
-              'confirm-consent': {
-                hasGivenConsent: 'yes',
-                consentDate: '2022-02-22',
-                'consentDate-year': '2022',
-                'consentDate-month': '2',
-                'consentDate-day': '22',
-              },
-            },
-            'hdc-licence-dates': {
-              'hdc-licence-dates': {
-                hdcEligibilityDate: '2024-02-28',
-                'hdcEligibilityDate-year': '2024',
-                'hdcEligibilityDate-month': '2',
-                'hdcEligibilityDate-day': '28',
-                conditionalReleaseDate: '2024-02-22',
-                'conditionalReleaseDate-year': '2024',
-                'conditionalReleaseDate-month': '2',
-                'conditionalReleaseDate-day': '22',
-              },
-            },
-          },
-        })
-        it('renders the task list view', async () => {
-          const stubTaskList = jest.fn()
-          applicationService.findApplication.mockResolvedValue(application)
-          ;(TaskListService as jest.Mock).mockImplementation(() => {
-            return stubTaskList
-          })
-          ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-            return { errors: {}, errorSummary: [], userInput: {} }
-          })
 
-          const requestHandler = applicationsController.show()
-          await requestHandler(request, response, next)
-
-          expect(response.render).toHaveBeenCalledWith('applications/taskList', {
-            application,
-            taskList: stubTaskList,
-            errors: {},
-            errorSummary: [],
-            referrer: 'some-referrer/',
-          })
-        })
-
-        it('renders the task list view with errors', async () => {
-          const stubTaskList = jest.fn()
-          applicationService.findApplication.mockResolvedValue(application)
-          ;(TaskListService as jest.Mock).mockImplementation(() => {
-            return stubTaskList
-          })
-
-          const errorSummary = [{ text: 'Error text' }]
-          ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-            return { errors: {}, errorSummary, userInput: {} }
-          })
-
-          const requestHandler = applicationsController.show()
-          await requestHandler(request, response, next)
-
-          expect(response.render).toHaveBeenCalledWith('applications/taskList', {
-            application,
-            taskList: stubTaskList,
-            errors: {},
-            errorSummary,
-            referrer: 'some-referrer/',
-          })
-        })
-      })
-
-      describe('and the person is confirmed INELIGIBLE', () => {
-        it('redirects to the _ineligible_ page', async () => {
-          const application = applicationFactory.build({
-            data: {
-              'confirm-eligibility': {
-                'confirm-eligibility': { isEligible: 'no' },
-              },
-            },
-          })
-
-          applicationService.findApplication.mockResolvedValue(application)
-
-          const requestHandler = applicationsController.show()
-          await requestHandler(request, response, next)
-
-          expect(response.redirect).toHaveBeenCalledWith(paths.applications.ineligible({ id: application.id }))
-        })
-      })
-    })
-
-    describe('when "Confirm eligibility" task is NOT complete', () => {
-      it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
-        const application = applicationFactory.build({ data: {} })
-        applicationService.findApplication.mockResolvedValue(application)
+    describe('when application is not submitted', () => {
+      it('calls showMissingRequiredTasksOrTaskList', async () => {
+        ;(showMissingRequiredTasksOrTaskList as jest.Mock).mockImplementation(jest.fn())
+        const unsubmittedApplication = applicationFactory.build({})
+        applicationService.findApplication.mockResolvedValue(unsubmittedApplication)
 
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
-        expect(response.redirect).toHaveBeenCalledWith(
-          paths.applications.pages.show({
-            id: application.id,
-            task: 'confirm-eligibility',
-            page: 'confirm-eligibility',
-          }),
-        )
-      })
-    })
-
-    describe('when the person is confirmed ELIGIBLE but consent has been DENIED', () => {
-      it('redirects to the _consent refused_ page', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-            'confirm-consent': {
-              'confirm-consent': {
-                hasGivenConsent: 'no',
-                consentRefusalDetail: 'some reason',
-              },
-            },
-          },
-        })
-
-        applicationService.findApplication.mockResolvedValue(application)
-
-        const requestHandler = applicationsController.show()
-        await requestHandler(request, response, next)
-
-        expect(response.redirect).toHaveBeenCalledWith(paths.applications.consentRefused({ id: application.id }))
-      })
-    })
-
-    describe('when the person is confirmed ELIGIBLE but the consent task has not been completed', () => {
-      it('redirects to the _confirm consent_ page', async () => {
-        const application = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-          },
-        })
-
-        applicationService.findApplication.mockResolvedValue(application)
-
-        const requestHandler = applicationsController.show()
-        await requestHandler(request, response, next)
-
-        expect(response.redirect).toHaveBeenCalledWith(
-          paths.applications.pages.show({
-            id: application.id,
-            task: 'confirm-consent',
-            page: 'confirm-consent',
-          }),
-        )
-      })
-    })
-    describe('when the person is confirmed ELIGIBLE and consent is confirmed, but the HDC licence dates task has not been completed', () => {
-      it('redirects to the _confirm consent_ page', async () => {
-        const application = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-            'confirm-consent': {
-              'confirm-consent': {
-                hasGivenConsent: 'yes',
-                consentDate: '2022-02-22',
-                'consentDate-year': '2022',
-                'consentDate-month': '2',
-                'consentDate-day': '22',
-              },
-            },
-          },
-        })
-
-        applicationService.findApplication.mockResolvedValue(application)
-
-        const requestHandler = applicationsController.show()
-        await requestHandler(request, response, next)
-
-        expect(response.redirect).toHaveBeenCalledWith(
-          paths.applications.pages.show({
-            id: application.id,
-            task: 'hdc-licence-dates',
-            page: 'hdc-licence-dates',
-          }),
-        )
+        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(request, response, unsubmittedApplication)
       })
     })
   })
@@ -626,6 +442,7 @@ describe('applicationsController', () => {
         }
 
         applicationService.appendToList.mockResolvedValue()
+        ;(generateSuccessMessage as jest.Mock).mockReturnValue('')
 
         const requestHandler = applicationsController.appendToList()
 

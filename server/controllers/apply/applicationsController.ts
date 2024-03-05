@@ -9,17 +9,7 @@ import {
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
-import {
-  eligibilityIsDenied,
-  eligibilityIsConfirmed,
-  firstPageOfBeforeYouStartSection,
-  firstPageOfConsentTask,
-  consentIsConfirmed,
-  consentIsDenied,
-  generateSuccessMessage,
-  hdcDatesHaveBeenEntered,
-} from '../../utils/applications/utils'
-import TaskListService from '../../services/taskListService'
+import { generateSuccessMessage, showMissingRequiredTasksOrTaskList } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
@@ -58,34 +48,7 @@ export default class ApplicationsController {
         return res.render('applications/show', { application })
       }
 
-      if (eligibilityIsConfirmed(application)) {
-        if (consentIsConfirmed(application)) {
-          if (hdcDatesHaveBeenEntered(application)) {
-            const { errors, errorSummary } = fetchErrorsAndUserInput(req)
-
-            const referrer = req.headers.referer
-            const taskList = new TaskListService(application)
-            return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
-          }
-          return res.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'hdc-licence-dates',
-              page: 'hdc-licence-dates',
-            }),
-          )
-        }
-        if (consentIsDenied(application)) {
-          return res.redirect(paths.applications.consentRefused({ id: application.id }))
-        }
-        return res.redirect(firstPageOfConsentTask(application))
-      }
-
-      if (eligibilityIsDenied(application)) {
-        return res.redirect(paths.applications.ineligible({ id: application.id }))
-      }
-
-      return res.redirect(firstPageOfBeforeYouStartSection(application))
+      return showMissingRequiredTasksOrTaskList(req, res, application)
     }
   }
 
