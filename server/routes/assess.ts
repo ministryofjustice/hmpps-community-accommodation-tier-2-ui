@@ -10,7 +10,12 @@ import { actions } from './utils'
 export default function applyRoutes(controllers: Controllers, router: Router, services: Services): Router {
   const { get, post } = actions(router, services.auditService)
 
-  const { submittedApplicationsController, statusUpdateController, statusUpdateDetailsController } = controllers
+  const {
+    submittedApplicationsController,
+    statusUpdateController,
+    statusUpdateDetailsController,
+    assessmentsController,
+  } = controllers
 
   get(paths.submittedApplications.index.pattern, submittedApplicationsController.index(), {
     auditEvent: 'VIEW_SUBMITTED_APPLICATIONS_LIST',
@@ -42,6 +47,14 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
 
   post(paths.submittedApplications.addNote.pattern, submittedApplicationsController.addNote(), {
     auditEvent: 'CREATE_APPLICATION_NOTE_AS_ASSESSOR',
+  })
+
+  get(paths.assessmentDetails.show.pattern, assessmentsController.show(), {
+    auditEvent: 'VIEW_ASSESSMENT_SHOW',
+  })
+
+  post(paths.assessmentDetails.update.pattern, assessmentsController.update(), {
+    auditEvent: 'UPDATE_ASSESSMENT',
   })
 
   return router

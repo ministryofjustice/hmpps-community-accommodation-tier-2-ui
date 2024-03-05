@@ -10,8 +10,13 @@ import StatusUpdateDetailsController from './assess/statusUpdateDetailsControlle
 import DashboardController from './dashboardController'
 import ReportsController from './report/reportsController'
 import StaticController from './staticController'
+import AssessmentsController from './assess/assessmentsController'
 
 export const controllers = (services: Services) => {
+  const assessmentsController = new AssessmentsController(
+    services.submittedApplicationService,
+    services.assessmentService,
+  )
   const dashboardController = new DashboardController()
   const peopleController = new PeopleController(services.applicationService, services.personService)
   const submittedApplicationsController = new SubmittedApplicationsController(services.submittedApplicationService)
@@ -20,6 +25,7 @@ export const controllers = (services: Services) => {
   const reportController = new ReportsController(services.reportService)
   const staticController = new StaticController()
   return {
+    assessmentsController,
     dashboardController,
     submittedApplicationsController,
     statusUpdateController,
