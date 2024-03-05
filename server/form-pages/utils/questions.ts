@@ -152,7 +152,7 @@ export const getQuestions = (name: string) => {
           question: 'What was the address?',
         },
         lastKnownAddress: {
-          question: 'What was their last known address?',
+          question: 'What was their last known address? (Optional)',
         },
         howLong: {
           question: 'How long did the applicant have no fixed address for?',
