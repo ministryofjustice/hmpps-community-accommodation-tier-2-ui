@@ -12,7 +12,12 @@ export type Task = {
     applicationId: string;
     personName: string;
     crn: string;
+    /**
+     * The Due date of the task - this is deprecated in favour of the `dueAt` field
+     * @deprecated
+     */
     dueDate: string;
+    dueAt: string;
     allocatedToStaffMember?: ApprovedPremisesUser;
     status: TaskStatus;
     apArea?: ApArea;
