@@ -5,6 +5,7 @@ const personPath = peoplePath.path(':crn')
 const oasysPath = personPath.path('oasys')
 const applicationsPath = path('/cas2/applications')
 const singleApplicationPath = applicationsPath.path(':id')
+const singleAssessmentPath = path('/cas2/assessments/:id')
 const submissionsPath = path('/cas2/submissions')
 const singleSubmissionPath = submissionsPath.path(':id')
 const referenceDataPath = path('/cas2/reference-data')
@@ -36,6 +37,10 @@ export default {
     index: applicationsPath,
     show: singleApplicationPath,
     update: singleApplicationPath,
+  },
+  assessments: {
+    show: singleAssessmentPath,
+    update: singleAssessmentPath,
   },
   referenceData: {
     applicationStatuses: referenceDataPath.path('application-status'),
