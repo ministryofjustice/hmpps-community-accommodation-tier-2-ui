@@ -20,4 +20,8 @@ export default {
     new: statusUpdateDetailsPath,
     create: statusUpdateDetailsPath,
   },
+  assessmentDetails: {
+    show: singleApplicationPath.path('assessment-details'),
+    update: singleApplicationPath.path('assessment-details/update'),
+  },
 }
