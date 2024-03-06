@@ -39,3 +39,38 @@
   }) }}
 
 {% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function setCheckedToFalseById(id) {
+      document
+        .getElementById(id)
+        .checked = false;
+    }
+
+    function clearValueByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .value = ''
+      })
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // 'no' checkbox sets the others to unchecked
+      document
+        .getElementById('alternativeIDDocuments-34')
+        .addEventListener('click', () => {
+          document
+            .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-34)')
+            .forEach(checkbox => checkbox.checked = false)
+        });
+      // clicking any arrangement checkbox sets 'no' to unchecked
+      document
+        .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-34)')
+        .forEach(checkbox => {
+          checkbox.addEventListener('click', () => setCheckedToFalseById('alternativeIDDocuments-34'));
+        })
+    });
+  </script>
+{% endblock %}

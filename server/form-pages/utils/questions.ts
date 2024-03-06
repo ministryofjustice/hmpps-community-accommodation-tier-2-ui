@@ -473,6 +473,7 @@ export const getQuestions = (name: string) => {
             vehicleRegistration: 'Vehicle registration/motor insurance documents',
             nhsCard: 'NHS medical card',
             other: 'Other type of identification',
+            none: 'No ID available',
           },
         },
         other: { question: `What other ID does ${name} have?` },

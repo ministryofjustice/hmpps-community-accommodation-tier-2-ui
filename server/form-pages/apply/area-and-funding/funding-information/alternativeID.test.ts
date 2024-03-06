@@ -66,8 +66,9 @@ describe('AlternativeIdentification', () => {
         { checked: false, text: 'Deed poll certificate', value: 'deedPoll' },
         { checked: false, text: 'Vehicle registration/motor insurance documents', value: 'vehicleRegistration' },
         { checked: false, text: 'NHS medical card', value: 'nhsCard' },
-        { divider: 'or' },
         { checked: false, text: 'Other type of identification', value: 'other', conditional: { html: conditional } },
+        { divider: 'or' },
+        { checked: false, text: 'No ID available', value: 'none' },
       ]
 
       expect(page.items(conditional)).toEqual(expected)
