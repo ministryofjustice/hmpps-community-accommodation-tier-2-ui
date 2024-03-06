@@ -37,7 +37,19 @@ printButtonScript %}
 
             {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary moj-button-menu__item') }}
 
+            {% if assessmentHasExistingData %}
+              {% set assessmentLinkText = 'Change assessment details' %}
+            {% else %}
+              {% set assessmentLinkText = 'Add assessment details' %}
+            {% endif %}
+
+            {{ govukButton({
+              text: assessmentLinkText,
+              classes: 'govuk-button govuk-button--secondary moj-button-menu__item',
+              href: paths.assessmentDetails.show({ id: application.id })
+            }) }}
           </div>
+
         </div>
       </div>
       {{ showErrorSummary(errorSummary) }}

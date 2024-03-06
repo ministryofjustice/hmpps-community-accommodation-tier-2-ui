@@ -15,9 +15,11 @@ import paths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import config from '../../config'
+import { assessmentHasExistingData } from '../../utils/assessmentUtils'
 
 jest.mock('../../utils/getPaginationDetails')
 jest.mock('../../utils/validation')
+jest.mock('../../utils/assessmentUtils')
 
 describe('submittedApplicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -102,6 +104,9 @@ describe('submittedApplicationsController', () => {
     afterAll(() => {
       config.flags = priorConfigFlags
     })
+    ;(assessmentHasExistingData as jest.Mock).mockImplementation(() => {
+      return false
+    })
 
     describe('when there is a status update', () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
@@ -126,6 +131,7 @@ describe('submittedApplicationsController', () => {
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
+          assessmentHasExistingData: false,
         })
       })
     })
@@ -155,6 +161,7 @@ describe('submittedApplicationsController', () => {
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
+          assessmentHasExistingData: false,
         })
       })
     })
