@@ -40,6 +40,18 @@ context('Visit task list', () => {
           'consentDate-day': '1',
         },
       },
+      'hdc-licence-dates': {
+        'hdc-licence-dates': {
+          hdcEligibilityDate: '2024-02-28',
+          'hdcEligibilityDate-year': '2024',
+          'hdcEligibilityDate-month': '2',
+          'hdcEligibilityDate-day': '28',
+          conditionalReleaseDate: '2024-02-22',
+          'conditionalReleaseDate-year': '2024',
+          'conditionalReleaseDate-month': '2',
+          'conditionalReleaseDate-day': '22',
+        },
+      },
     },
     person: fullPersonFactory.build(),
   })

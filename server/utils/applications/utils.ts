@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimelineEvent } from '@approved-premises/ui'
 import type {
   Cas2Application as Application,
@@ -11,6 +12,8 @@ import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
 import config from '../../config'
+import { fetchErrorsAndUserInput } from '../validation'
+import { TaskListService } from '../../services'
 
 export const journeyPages = (_journeyType: JourneyType): FormPages => {
   return Apply.pages
@@ -44,6 +47,10 @@ export const consentIsConfirmed = (application: Application): boolean => {
 }
 export const consentIsDenied = (application: Application): boolean => {
   return consentAnswer(application) === 'no'
+}
+
+export const hdcDatesHaveBeenEntered = (application: Application): boolean => {
+  return Boolean(application.data?.['hdc-licence-dates']?.['hdc-licence-dates'])
 }
 
 const consentAnswer = (application: Application): string => {
@@ -124,4 +131,35 @@ export const getSideNavLinksForApplication = () => {
   })
 
   return tasks
+}
+
+export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, application: Application) => {
+  if (eligibilityIsConfirmed(application)) {
+    if (consentIsConfirmed(application)) {
+      if (hdcDatesHaveBeenEntered(application)) {
+        const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+
+        const referrer = req.headers.referer
+        const taskList = new TaskListService(application)
+        return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
+      }
+      return res.redirect(
+        paths.applications.pages.show({
+          id: application.id,
+          task: 'hdc-licence-dates',
+          page: 'hdc-licence-dates',
+        }),
+      )
+    }
+    if (consentIsDenied(application)) {
+      return res.redirect(paths.applications.consentRefused({ id: application.id }))
+    }
+    return res.redirect(firstPageOfConsentTask(application))
+  }
+
+  if (eligibilityIsDenied(application)) {
+    return res.redirect(paths.applications.ineligible({ id: application.id }))
+  }
+
+  return res.redirect(firstPageOfBeforeYouStartSection(application))
 }

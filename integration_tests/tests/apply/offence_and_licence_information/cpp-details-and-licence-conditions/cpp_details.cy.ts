@@ -1,5 +1,5 @@
 //  Feature: Referrer completes 'CPP details' page
-//    So that I can complete the "HDC licence and CPP details" task
+//    So that I can complete the "CPP details and licence conditions" task
 //    As a referrer
 //    I want to complete the 'CPP details' page
 //
@@ -30,7 +30,7 @@ context('Visit "CPP details" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['hdc-licence-and-cpp-details']
+      delete applicationData['cpp-details-and-hdc-licence-conditions']
       const application = applicationFactory.build({
         id: 'abc123',
         person,

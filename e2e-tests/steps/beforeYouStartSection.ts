@@ -26,6 +26,21 @@ export const completeConsentTask = async (page: Page, name: string) => {
   await confirmConsentPage.clickSave()
 }
 
+export const completeHDCLicenceDatesTask = async (page: Page, name: string) => {
+  const hdcLicenceDatesPage = await ApplyPage.initialize(page, `${name}'s Home Detention Curfew (HDC) licence dates`)
+  await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s HDC eligibility date?`, {
+    year: '2022',
+    month: '3',
+    day: '1',
+  })
+  await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s conditional release date?`, {
+    year: '2023',
+    month: '3',
+    day: '1',
+  })
+  await hdcLicenceDatesPage.clickSave()
+}
+
 export const completeReferrerDetailsTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add referrer details')

@@ -15,7 +15,7 @@
 //    When I complete the "Non-standard licence conditions" page
 //    And I continue to the next task / page
 //    Then I am taken to the non-standard licence conditions page
-//    And I see that the offence and licence information task is complete
+//    And I see that the CPP details and licence information task is complete
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -31,7 +31,7 @@ context('Visit "Non-standard licence conditions" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['hdc-licence-and-cpp-details']
+      delete applicationData['cpp-details-and-hdc-licence-conditions']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -86,7 +86,7 @@ context('Visit "Non-standard licence conditions" page', () => {
     // Then I am taken back to the task list
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
-    // And I see that the offence and licence information task is complete
-    taskListPage.shouldShowTaskStatus('hdc-licence-and-cpp-details', 'Completed')
+    // And I see that the CPP details and licence information task is complete
+    taskListPage.shouldShowTaskStatus('cpp-details-and-hdc-licence-conditions', 'Completed')
   })
 })

@@ -13,17 +13,15 @@ const preferredAreasFromAppData = (application: Application): string => {
 }
 
 const hdcEligibilityDateFromAppData = (application: Application): string => {
-  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-and-cpp-details']?.[
-    'hdc-licence-dates'
-  ]?.hdcEligibilityDate
+  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-dates']?.['hdc-licence-dates']
+    ?.hdcEligibilityDate
 
   return date || null
 }
 
 const conditionalReleaseDateFromAppData = (application: Application): string => {
-  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-and-cpp-details']?.[
-    'hdc-licence-dates'
-  ]?.conditionalReleaseDate
+  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-dates']?.['hdc-licence-dates']
+    ?.conditionalReleaseDate
 
   return date || null
 }

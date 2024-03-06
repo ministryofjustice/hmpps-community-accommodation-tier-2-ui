@@ -65,7 +65,7 @@ describe('managementInfoFromAppData', () => {
     it('returns the given date', () => {
       const application = applicationFactory.build({
         data: {
-          'hdc-licence-and-cpp-details': {
+          'hdc-licence-dates': {
             'hdc-licence-dates': { hdcEligibilityDate: '2024-02-27' },
           },
         },
@@ -75,10 +75,10 @@ describe('managementInfoFromAppData', () => {
 
     const noDateData = [
       {
-        'hdc-licence-and-cpp-details': null,
+        'hdc-licence-dates': null,
       },
       {
-        'hdc-licence-and-cpp-details': { 'hdc-licence-dates': null },
+        'hdc-licence-dates': { 'hdc-licence-dates': null },
       },
       {},
       null,
@@ -96,7 +96,7 @@ describe('managementInfoFromAppData', () => {
     it('returns the given date', () => {
       const application = applicationFactory.build({
         data: {
-          'hdc-licence-and-cpp-details': {
+          'hdc-licence-dates': {
             'hdc-licence-dates': { conditionalReleaseDate: '2024-03-15' },
           },
         },
@@ -106,10 +106,10 @@ describe('managementInfoFromAppData', () => {
 
     const noDateData = [
       {
-        'hdc-licence-and-cpp-details': null,
+        'hdc-licence-dates': null,
       },
       {
-        'hdc-licence-and-cpp-details': { 'hdc-licence-dates': null },
+        'hdc-licence-dates': { 'hdc-licence-dates': null },
       },
       {},
       null,

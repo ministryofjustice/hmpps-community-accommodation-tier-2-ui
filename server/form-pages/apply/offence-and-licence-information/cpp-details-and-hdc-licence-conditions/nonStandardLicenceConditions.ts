@@ -22,7 +22,7 @@ export default class NonStandardLicenceConditions implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['hdc-licence-and-cpp-details']['non-standard-licence-conditions']
+  questions = getQuestions(this.personName)['cpp-details-and-hdc-licence-conditions']['non-standard-licence-conditions']
 
   body: NonStandardLicenceConditionsBody
 

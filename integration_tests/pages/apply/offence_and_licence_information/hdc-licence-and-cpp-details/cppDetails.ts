@@ -8,7 +8,7 @@ export default class CPPDetails extends ApplyPage {
     super(
       `Who is ${nameOrPlaceholderCopy(application.person, 'The person')}'s Community Probation Practitioner (CPP)?`,
       application,
-      'hdc-licence-and-cpp-details',
+      'cpp-details-and-hdc-licence-conditions',
       'cpp-details',
     )
   }
@@ -17,7 +17,7 @@ export default class CPPDetails extends ApplyPage {
     cy.visit(
       paths.applications.pages.show({
         id: application.id,
-        task: 'hdc-licence-and-cpp-details',
+        task: 'cpp-details-and-hdc-licence-conditions',
         page: 'cpp-details',
       }),
     )

@@ -14,7 +14,7 @@ describe('HDCLicenceDates', () => {
   })
 
   itShouldHavePreviousValue(new HDCLicenceDates({}, application), 'taskList')
-  itShouldHaveNextValue(new HDCLicenceDates({}, application), 'cpp-details')
+  itShouldHaveNextValue(new HDCLicenceDates({}, application), '')
 
   describe('errors', () => {
     describe('when they have not provided any answer', () => {
