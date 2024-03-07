@@ -25,6 +25,10 @@ describe('PreviousAddress', () => {
     lastKnownPostcode: 'EF1 GHD',
   } as PreviousAddressBody
 
+  const noLastKnownAddress = {
+    hasPreviousAddress: 'no',
+  } as PreviousAddressBody
+
   describe('title', () => {
     it('has a page title', () => {
       const page = new PreviousAddress({}, application)
@@ -67,23 +71,9 @@ describe('PreviousAddress', () => {
     })
 
     describe('when there is not a previous address', () => {
-      describe('when there are no errors', () => {
-        it('returns empty object', () => {
-          const page = new PreviousAddress(lastKnownAddress, application)
-          expect(page.errors()).toEqual({})
-        })
-      })
-      const requiredFields = [
-        ['lastKnownAddressLine1', 'Enter the first line of the address'],
-        ['lastKnownTownOrCity', 'Enter a town or city'],
-        ['lastKnownPostcode', 'Enter a postcode'],
-      ]
-
-      it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
-        const page = new PreviousAddress({ hasPreviousAddress: 'no' }, application)
-        const errors = page.errors()
-
-        expect(errors[field]).toEqual(message)
+      it('includes a validation error for howLong field', () => {
+        const page = new PreviousAddress(noLastKnownAddress, application)
+        expect(page.errors()).toEqual({ howLong: 'Enter how long the person has had no fixed address' })
       })
     })
   })
@@ -107,7 +97,7 @@ describe('PreviousAddress', () => {
       })
     })
 
-    describe('when there no previous address', () => {
+    describe('when there is no previous address, but there is a last known address', () => {
       const applicationWithData = {
         ...application,
         data: { 'address-history': { 'previous-address': { ...lastKnownAddress } } },
@@ -116,7 +106,42 @@ describe('PreviousAddress', () => {
       expect(page.response()).toEqual({
         'Did Roger Smith have an address before entering custody?': 'No fixed address',
         'How long did the applicant have no fixed address for?': '6 months',
-        'What was their last known address?': `2 Example Road\r\n2 Pretend Close\r\nBristol\r\nShropshire\r\nEF1 GHD\r\n`,
+        'What was their last known address? (Optional)': `2 Example Road\r\n2 Pretend Close\r\nBristol\r\nShropshire\r\nEF1 GHD\r\n`,
+      })
+    })
+
+    describe('when there is no previous address or last known address', () => {
+      const applicationWithData = {
+        ...application,
+        data: { 'address-history': { 'previous-address': { ...noLastKnownAddress, howLong: '6 months' } } },
+      }
+      const page = new PreviousAddress({}, applicationWithData)
+      expect(page.response()).toEqual({
+        'Did Roger Smith have an address before entering custody?': 'No fixed address',
+        'How long did the applicant have no fixed address for?': '6 months',
+        'What was their last known address? (Optional)': 'Not applicable',
+      })
+    })
+
+    describe('when there is no previous address and a partial last known address', () => {
+      const applicationWithData = {
+        ...application,
+        data: {
+          'address-history': {
+            'previous-address': {
+              hasPreviousAddress: 'no',
+              howLong: '6 months',
+              lastKnownCounty: 'Shropshire',
+              lastKnownPostcode: 'EF1 GHD',
+            },
+          },
+        },
+      }
+      const page = new PreviousAddress({}, applicationWithData)
+      expect(page.response()).toEqual({
+        'Did Roger Smith have an address before entering custody?': 'No fixed address',
+        'How long did the applicant have no fixed address for?': '6 months',
+        'What was their last known address? (Optional)': `Shropshire\r\nEF1 GHD\r\n`,
       })
     })
   })

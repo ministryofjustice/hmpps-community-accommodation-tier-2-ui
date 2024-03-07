@@ -6,13 +6,13 @@
   <h1 class="govuk-heading-l">{{ page.questions.hasPreviousAddress.question }}</h1>
 
   {% set knownAddress %}
-      {% call govukFieldset({
+  {% call govukFieldset({
         legend: {
           text: page.questions.knownAddress.question,
           classes: "govuk-fieldset__legend--m"
         }
       }) %}
-        {{
+  {{
             formPageInput(
               {
                 label: { 
@@ -23,18 +23,18 @@
               fetchContext()
             )
         }}
-        {{
+  {{
             formPageInput(
               {
                 label: { 
-                  text:  page.addressLabels.addressLine2
+                  text:  page.addressLabels.addressLine2Optional
                 },
                 fieldName: "previousAddressLine2"
               },
               fetchContext()
             )
-        }}        
-        {{
+        }}
+  {{
             formPageInput(
               {
                 label: { 
@@ -45,20 +45,20 @@
               },
               fetchContext()
             )
-        }}             
-        {{
+        }}
+  {{
             formPageInput(
               {
                 label: { 
-                  text:   page.addressLabels.county
+                  text:   page.addressLabels.countyOptional
                 },
                 fieldName: "previousCounty",
                 classes: "govuk-!-width-two-thirds"
               },
               fetchContext()
             )
-        }}             
-        {{
+        }}
+  {{
             formPageInput(
               {
                 label: { 
@@ -69,13 +69,13 @@
               },
               fetchContext()
             )
-        }}             
+        }}
 
-      {% endcall %}
+  {% endcall %}
   {% endset -%}
 
   {% set lastKnownAddress %}
-      {{
+  {{
           formPageInput(
             {
               label: {
@@ -83,19 +83,19 @@
                 classes: "govuk-label--m"
               },
               fieldName: "howLong",
-              classes: "govuk-!-margin-bottom-5"
+              classes: "govuk-!-width-two-thirds govuk-!-margin-bottom-5"
             },
             fetchContext()
           )
       }}
 
-      {% call govukFieldset({
+  {% call govukFieldset({
         legend: {
           text: page.questions.lastKnownAddress.question,
           classes: "govuk-fieldset__legend--m"
         }
       }) %}
-        {{
+  {{
             formPageInput(
               {
                 label: { 
@@ -106,7 +106,7 @@
               fetchContext()
             )
         }}
-        {{
+  {{
             formPageInput(
               {
                 label: { 
@@ -116,8 +116,8 @@
               },
               fetchContext()
             )
-        }}        
-        {{
+        }}
+  {{
             formPageInput(
               {
                 label: { 
@@ -128,8 +128,8 @@
               },
               fetchContext()
             )
-        }}             
-        {{
+        }}
+  {{
             formPageInput(
               {
                 label: { 
@@ -140,8 +140,8 @@
               },
               fetchContext()
             )
-        }}             
-        {{
+        }}
+  {{
             formPageInput(
               {
                 label: { 
@@ -152,8 +152,8 @@
               },
               fetchContext()
             )
-        }}                 
-      {% endcall %}
+        }}
+  {% endcall %}
   {% endset -%}
 
   {{

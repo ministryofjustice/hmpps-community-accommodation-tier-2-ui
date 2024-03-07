@@ -58,9 +58,11 @@ export default class PreviousAddress implements TaskListPage {
 
   addressLabels = {
     addressLine1: 'Address line 1',
-    addressLine2: 'Address line 2 (optional)',
+    addressLine2: 'Address line 2',
+    addressLine2Optional: 'Address line 2 (optional)',
     townOrCity: 'Town or city',
-    county: 'County (optional)',
+    county: 'County',
+    countyOptional: 'County (optional)',
     postcode: 'Postcode',
   }
 
@@ -97,19 +99,8 @@ export default class PreviousAddress implements TaskListPage {
       }
     }
 
-    if (this.body.hasPreviousAddress === 'no') {
-      if (!this.body.howLong) {
-        errors.howLong = 'Enter how long the person has had no fixed address'
-      }
-      if (!this.body.lastKnownAddressLine1) {
-        errors.lastKnownAddressLine1 = errorLookups.addressLine1.empty
-      }
-      if (!this.body.lastKnownTownOrCity) {
-        errors.lastKnownTownOrCity = errorLookups.townOrCity.empty
-      }
-      if (!this.body.lastKnownPostcode) {
-        errors.lastKnownPostcode = errorLookups.postCode.empty
-      }
+    if (this.body.hasPreviousAddress === 'no' && !this.body.howLong) {
+      errors.howLong = 'Enter how long the person has had no fixed address'
     }
 
     return errors
@@ -153,9 +144,12 @@ export default class PreviousAddress implements TaskListPage {
         response[this.questions.howLong.question] = answerData.howLong
 
         lastKnownKeys.slice(1).forEach(key => {
-          address += `${answerData[key]}\r\n`
+          if (answerData[key]) {
+            address += `${answerData[key]}\r\n`
+          }
         })
-        response[this.questions.lastKnownAddress.question] = address
+
+        response[this.questions.lastKnownAddress.question] = address || 'Not applicable'
       }
     }
 
