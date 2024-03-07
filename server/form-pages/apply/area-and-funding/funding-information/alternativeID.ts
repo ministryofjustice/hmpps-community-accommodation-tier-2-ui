@@ -21,7 +21,7 @@ export type AlternativeIdentificationBody = {
   bodyProperties: ['alternativeIDDocuments', 'other'],
 })
 export default class AlternativeIdentification implements TaskListPage {
-  documentTitle = 'What identification documentation (ID) does the person have?'
+  documentTitle = 'What alternative identification documentation (ID) does the person have?'
 
   title
 
@@ -120,9 +120,13 @@ export default class AlternativeIdentification implements TaskListPage {
       other,
     }))(alternativeIDOptions)
 
+    const noneOption = (({ none }) => ({
+      none,
+    }))(alternativeIDOptions)
+
     const otherItems = convertKeyValuePairToCheckboxItems(otherOptions, this.body.alternativeIDDocuments)
 
-    const other = otherItems.pop()
+    const miscellaneousOther = otherItems.pop()
 
     return [
       ...convertKeyValuePairToCheckboxItems(workAndEmploymentOptions, this.body.alternativeIDDocuments),
@@ -136,8 +140,9 @@ export default class AlternativeIdentification implements TaskListPage {
       ...convertKeyValuePairToCheckboxItems(studentOptions, this.body.alternativeIDDocuments),
       { divider: 'Other' },
       ...otherItems,
+      { ...miscellaneousOther, conditional: { html: conditionalHtml } },
       { divider: 'or' },
-      { ...other, conditional: { html: conditionalHtml } },
+      ...convertKeyValuePairToCheckboxItems(noneOption, this.body.alternativeIDDocuments),
     ]
   }
 
