@@ -428,7 +428,7 @@ export const getQuestions = (name: string) => {
       identification: {
         idDocuments: {
           question: `What identification documentation (ID) does ${name} have?`,
-          hint: 'Select all that apply.',
+          hint: 'Expired ID will be accepted. Select all that apply.',
           answers: {
             passport: 'Passport',
             travelPass: 'Travel pass with photograph',
@@ -444,7 +444,7 @@ export const getQuestions = (name: string) => {
       'alternative-identification': {
         alternativeIDDocuments: {
           question: `What alternative identification documentation (ID) does ${name} have?`,
-          hint: 'Select all that apply.',
+          hint: 'Expired ID will be accepted. Select all that apply.',
           answers: {
             contract: 'Employer letter/contract of employment',
             tradeUnion: 'Trade union membership card',

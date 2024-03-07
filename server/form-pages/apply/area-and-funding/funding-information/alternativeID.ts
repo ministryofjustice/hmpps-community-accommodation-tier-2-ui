@@ -21,7 +21,7 @@ export type AlternativeIdentificationBody = {
   bodyProperties: ['alternativeIDDocuments', 'other'],
 })
 export default class AlternativeIdentification implements TaskListPage {
-  documentTitle = 'What identification documentation (ID) does the person have?'
+  documentTitle = 'What alternative identification documentation (ID) does the person have?'
 
   title
 
