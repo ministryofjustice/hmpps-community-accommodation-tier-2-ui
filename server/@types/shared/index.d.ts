@@ -80,6 +80,7 @@ export type { BookingSummary } from './models/BookingSummary';
 export type { CacheType } from './models/CacheType';
 export type { Cancellation } from './models/Cancellation';
 export type { CancellationReason } from './models/CancellationReason';
+export type { Cas1ApplicationUserDetails } from './models/Cas1ApplicationUserDetails';
 export type { Cas2Application } from './models/Cas2Application';
 export type { Cas2ApplicationNote } from './models/Cas2ApplicationNote';
 export type { Cas2ApplicationStatus } from './models/Cas2ApplicationStatus';
