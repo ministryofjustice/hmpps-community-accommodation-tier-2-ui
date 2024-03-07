@@ -66,6 +66,22 @@ printButtonScript %}
 
       {{submittedApplicationDetails(application, status)}}
 
+      <p data-testid="cas2-ref-number">CAS-2 reference number:
+        {% if application.assessment.nacroReferralId %}
+          <strong>{{ application.assessment.nacroReferralId }}</strong>
+        {% else %}
+          <strong>Not added yet</strong>
+        {% endif %}
+      </p>
+
+      <p data-testid="assessor-name">Assessor name:
+        {% if application.assessment.assessorName %}
+          <strong>{{ application.assessment.assessorName }}</strong>
+        {% else %}
+          <strong>Not added yet</strong>
+        {% endif %}
+      </p>
+
       <div class="govuk-button-group govuk-!-margin-top-5">
         {{ govukButton({
               text: "View submitted application",
