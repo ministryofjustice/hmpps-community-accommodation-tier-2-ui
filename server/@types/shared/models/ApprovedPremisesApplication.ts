@@ -7,6 +7,7 @@ import type { ApArea } from './ApArea';
 import type { Application } from './Application';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { AssessmentDecision } from './AssessmentDecision';
+import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { PersonRisks } from './PersonRisks';
 import type { PersonStatus } from './PersonStatus';
 export type ApprovedPremisesApplication = (Application & {
@@ -28,5 +29,11 @@ export type ApprovedPremisesApplication = (Application & {
     submittedAt?: string;
     personStatusOnSubmission?: PersonStatus;
     apArea?: ApArea;
+    applicantUserDetails?: Cas1ApplicationUserDetails;
+    /**
+     * If true, caseManagerUserDetails will provide case manager details. Otherwise, applicantUserDetails can be used for case manager details
+     */
+    caseManagerIsNotApplicant?: boolean;
+    caseManagerUserDetails?: Cas1ApplicationUserDetails;
 });
 
