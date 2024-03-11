@@ -46,7 +46,10 @@ printButtonScript %}
             {{ govukButton({
               text: assessmentLinkText,
               classes: 'govuk-button govuk-button--secondary moj-button-menu__item',
-              href: paths.assessmentDetails.show({ id: application.id })
+              href: paths.assessmentDetails.show({ id: application.id }),
+              attributes: {
+                'data-testid': 'add-assessment-details'
+              }
             }) }}
           </div>
 

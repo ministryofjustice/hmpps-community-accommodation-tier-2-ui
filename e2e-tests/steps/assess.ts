@@ -35,3 +35,16 @@ export const addNote = async (page: Page) => {
   await expect(page.locator('h2').first()).toContainText('Success')
   await expect(page.locator('.moj-timeline__description').first()).toContainText(note)
 }
+
+export const addAssessmentDetails = async (page: Page) => {
+  await page.locator('button').filter({ hasText: 'Actions' }).click()
+  await page.getByTestId('add-assessment-details').click()
+
+  await page.getByLabel('Assessor name').fill('John Doe')
+  await page.getByLabel('Nacro CAS-2 reference number').fill('123456')
+  await page.getByTestId('save-assessment-details').click()
+
+  await expect(page.locator('h2').first()).toContainText('Success')
+  await expect(page.getByTestId('assessor-name')).toContainText('John Doe')
+  await expect(page.getByTestId('cas2-ref-number')).toContainText('123456')
+}
