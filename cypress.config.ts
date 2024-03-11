@@ -6,6 +6,7 @@ import person from './integration_tests/mockApis/person'
 import applications from './integration_tests/mockApis/applications'
 import submissions from './integration_tests/mockApis/submissions'
 import referenceData from './integration_tests/mockApis/referenceData'
+import assessments from './integration_tests/mockApis/assessments'
 
 export default defineConfig({
   chromeWebSecurity: false,
@@ -29,6 +30,7 @@ export default defineConfig({
         ...applications,
         ...submissions,
         ...referenceData,
+        ...assessments,
       })
     },
     baseUrl: 'http://localhost:3007',
