@@ -6,5 +6,9 @@ export type UpdateRoom = {
     notes?: string;
     characteristicIds: Array<string>;
     name?: string;
+    /**
+     * End date of the bed availability, open for availability if not specified
+     */
+    bedEndDate?: string;
 };
 
