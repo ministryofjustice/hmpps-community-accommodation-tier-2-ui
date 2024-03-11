@@ -31,6 +31,19 @@ printButtonScript %}
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+      {{ showErrorSummary(errorSummary) }}
+
+      {% if successMessages %}
+        {% for message in successMessages %}
+          {{ govukNotificationBanner({
+                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                type: 'success',
+                titleId: 'success-title'
+              }) }}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="govuk-grid-column-full">
       <div class="actions-menu">
         <div class="moj-button-menu print__hidden">
           <div class="moj-button-menu__wrapper">
@@ -55,17 +68,6 @@ printButtonScript %}
 
         </div>
       </div>
-      {{ showErrorSummary(errorSummary) }}
-
-      {% if successMessages %}
-        {% for message in successMessages %}
-          {{ govukNotificationBanner({
-                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
-                type: 'success',
-                titleId: 'success-title'
-              }) }}
-        {% endfor %}
-      {% endif %}
 
       {{submittedApplicationDetails(application, status)}}
 
