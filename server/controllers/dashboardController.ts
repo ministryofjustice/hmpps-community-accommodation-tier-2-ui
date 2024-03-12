@@ -7,7 +7,7 @@ export default class DashboardController {
       const sections = sectionsForUser(res.locals.user.roles)
 
       res.render('dashboard/index', {
-        pageHeading: 'CAS2: Short-term accommodation',
+        pageHeading: 'CAS-2: Short-Term Accommodation',
         sections,
       })
     }

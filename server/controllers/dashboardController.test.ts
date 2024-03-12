@@ -36,7 +36,7 @@ describe('DashboardController', () => {
 
       expect(sectionsForUser).toHaveBeenCalledWith(['role_1', 'role_2'])
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'CAS2: Short-term accommodation',
+        pageHeading: 'CAS-2: Short-Term Accommodation',
         sections,
       })
     })
