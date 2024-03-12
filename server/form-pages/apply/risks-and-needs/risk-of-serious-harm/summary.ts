@@ -82,7 +82,7 @@ export default class Summary implements TaskListPage {
       const oasysData = this.application.data['risk-of-serious-harm']['summary-data']
       response = {
         'OASys created': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
-        'OASys completed': oasysData.dateCompleted
+        'OASys completed': oasysData.oasysCompletedDate
           ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
           : 'Unknown',
         'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
