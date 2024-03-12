@@ -8,6 +8,7 @@ import type {
 } from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
 import { stringToKebabCase, formatCommaToLinebreak } from '../utils'
+import { formatLines } from '../viewUtils'
 import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
@@ -65,7 +66,7 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
         const description =
           sortedTimelineEvents.type === 'cas2_status_update' && sortedTimelineEvents.body
             ? formatCommaToLinebreak(sortedTimelineEvents.body)
-            : sortedTimelineEvents.body
+            : formatLines(sortedTimelineEvents.body)
 
         return {
           label: { text: sortedTimelineEvents.label },
