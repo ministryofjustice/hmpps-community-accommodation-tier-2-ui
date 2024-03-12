@@ -5,6 +5,7 @@ import assessPaths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import config from '../../config'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
+import { assessmentHasExistingData } from '../../utils/assessmentUtils'
 
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
@@ -52,6 +53,7 @@ export default class SubmittedApplicationsController {
         errors,
         errorSummary,
         pageHeading: 'Overview of application',
+        assessmentHasExistingData: assessmentHasExistingData(application.assessment),
       })
     }
   }

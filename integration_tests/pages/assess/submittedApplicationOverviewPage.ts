@@ -26,4 +26,19 @@ export default class SubmittedApplicationOverviewPage extends Page {
     cy.get('.moj-button-menu').click()
     cy.contains('.moj-button-menu__item', 'Download as a PDF')
   }
+
+  shouldShowAssessmentDetails(assessorName = 'Not added yet', nacroReferralId = 'Not added yet') {
+    cy.get('[data-testid="cas2-ref-number"]').contains(nacroReferralId)
+    cy.get('[data-testid="assessor-name"]').contains(assessorName)
+  }
+
+  clickAssessmentDetailsLink(hasAssessmentDetails = false) {
+    cy.get('.moj-button-menu').click()
+
+    if (hasAssessmentDetails) {
+      cy.contains('.moj-button-menu__item', 'Change assessment details').click()
+    } else {
+      cy.contains('.moj-button-menu__item', 'Add assessment details').click()
+    }
+  }
 }

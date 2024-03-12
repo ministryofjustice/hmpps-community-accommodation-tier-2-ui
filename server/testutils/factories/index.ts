@@ -3,6 +3,7 @@ import oasysSelectionFactory from './oasysSelection'
 import oasysRiskToSelfFactory from './oasysRiskToSelf'
 import { fullPersonFactory as personFactory, restrictedPersonFactory } from './person'
 import applicationFactory from './application'
+import assessmentFactory from './assessment'
 import submittedApplicationFactory from './submittedApplication'
 import applicationSummaryFactory from './applicationSummary'
 import risksFactory, { roshRisksEnvelopeFactory } from './risks'
@@ -25,6 +26,7 @@ export {
   oasysRoshFactory,
   roshSummaryFactory,
   applicationFactory,
+  assessmentFactory,
   submittedApplicationFactory,
   personFactory,
   restrictedPersonFactory,

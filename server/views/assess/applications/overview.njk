@@ -31,15 +31,6 @@ printButtonScript %}
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <div class="actions-menu">
-        <div class="moj-button-menu print__hidden">
-          <div class="moj-button-menu__wrapper">
-
-            {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary moj-button-menu__item') }}
-
-          </div>
-        </div>
-      </div>
       {{ showErrorSummary(errorSummary) }}
 
       {% if successMessages %}
@@ -51,8 +42,50 @@ printButtonScript %}
               }) }}
         {% endfor %}
       {% endif %}
+    </div>
+    <div class="govuk-grid-column-full">
+      <div class="actions-menu">
+        <div class="moj-button-menu print__hidden">
+          <div class="moj-button-menu__wrapper">
+
+            {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary moj-button-menu__item') }}
+
+            {% if assessmentHasExistingData %}
+              {% set assessmentLinkText = 'Change assessment details' %}
+            {% else %}
+              {% set assessmentLinkText = 'Add assessment details' %}
+            {% endif %}
+
+            {{ govukButton({
+              text: assessmentLinkText,
+              classes: 'govuk-button govuk-button--secondary moj-button-menu__item',
+              href: paths.assessmentDetails.show({ id: application.id }),
+              attributes: {
+                'data-testid': 'add-assessment-details'
+              }
+            }) }}
+          </div>
+
+        </div>
+      </div>
 
       {{submittedApplicationDetails(application, status)}}
+
+      <p data-testid="cas2-ref-number">CAS-2 reference number:
+        {% if application.assessment.nacroReferralId %}
+          <strong>{{ application.assessment.nacroReferralId }}</strong>
+        {% else %}
+          <strong>Not added yet</strong>
+        {% endif %}
+      </p>
+
+      <p data-testid="assessor-name">Assessor name:
+        {% if application.assessment.assessorName %}
+          <strong>{{ application.assessment.assessorName }}</strong>
+        {% else %}
+          <strong>Not added yet</strong>
+        {% endif %}
+      </p>
 
       <div class="govuk-button-group govuk-!-margin-top-5">
         {{ govukButton({

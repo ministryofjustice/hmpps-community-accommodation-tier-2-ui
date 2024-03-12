@@ -1,0 +1,86 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% from "../../../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../../../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + pageHeading  %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: paths.submittedApplications.overview({ id: application.id }),
+    classes: 'print__hidden'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {{ showErrorSummary(errorSummary) }}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+
+      {% if assessmentHasExistingData %}
+        <h1 class="govuk-heading-xl">
+          Change assessment details
+        </h1>
+      {% else %}
+        <h1 class="govuk-heading-xl">
+          Add assessment details
+        </h1>
+      {% endif %}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+          <form action="{{ paths.assessmentDetails.update({ id: application.id }) }}" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+            {{ formPageInput(
+              {
+                label: {
+                  text: 'Assessor name (Optional)',
+                  classes: "govuk-label--m"
+                },
+                hint: {
+                  text: 'The full name of the person assessing the application'
+                },
+                fieldName: "assessorName",
+                classes: "govuk-!-margin-bottom-5"
+              },
+              fetchContext()
+            ) }}
+
+            {{ formPageInput(
+              {
+                label: {
+                  text: 'Nacro CAS-2 reference number (Optional)',
+                  classes: "govuk-label--m"
+                },
+                hint: {
+                  html: 'The reference number from Open Housing.<br>For example, 10108474'
+                },
+                fieldName: "nacroReferralId",
+                classes: "govuk-!-margin-bottom-5"
+              },
+              fetchContext()
+            ) }}
+
+            {{ govukButton({
+              text: "Save details",
+              attributes: {
+                'data-testid': 'save-assessment-details'
+              }
+            }) }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

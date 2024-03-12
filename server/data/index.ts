@@ -8,6 +8,7 @@
 import { initialiseAppInsights, buildAppInsightsClient } from '../utils/azureAppInsights'
 import PersonClient from './personClient'
 import ApplicationClient from './applicationClient'
+import AssessmentClient from './assessmentClient'
 import SubmittedApplicationClient from './submittedApplicationClient'
 import ReferenceDataClient from './referenceDataClient'
 
@@ -25,6 +26,7 @@ export const dataAccess = () => ({
   hmppsAuthClient: new HmppsAuthClient(new TokenStore(createRedisClient())),
   personClient: ((token: string) => new PersonClient(token)) as RestClientBuilder<PersonClient>,
   applicationClient: ((token: string) => new ApplicationClient(token)) as RestClientBuilder<ApplicationClient>,
+  assessmentClient: ((token: string) => new AssessmentClient(token)) as RestClientBuilder<AssessmentClient>,
   submittedApplicationClient: ((token: string) =>
     new SubmittedApplicationClient(token)) as RestClientBuilder<SubmittedApplicationClient>,
   referenceDataClient: ((token: string) => new ReferenceDataClient(token)) as RestClientBuilder<ReferenceDataClient>,
@@ -38,6 +40,7 @@ export {
   PersonClient,
   RestClientBuilder,
   ApplicationClient,
+  AssessmentClient,
   SubmittedApplicationClient,
   ReferenceDataClient,
 }
