@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UpdateCas2Assessment = {
-    nacroReferralId: string;
-    assessorName: string;
+    nacroReferralId?: string;
+    assessorName?: string;
 };
 

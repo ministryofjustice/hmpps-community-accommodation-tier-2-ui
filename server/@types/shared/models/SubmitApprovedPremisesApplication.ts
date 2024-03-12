@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
 import type { SentenceTypeOption } from './SentenceTypeOption';
 import type { SituationOption } from './SituationOption';
@@ -17,5 +18,8 @@ export type SubmitApprovedPremisesApplication = (SubmitApplication & {
     situation?: SituationOption;
     arrivalDate?: string;
     apAreaId?: string;
+    applicantUserDetails?: Cas1ApplicationUserDetails;
+    caseManagerIsNotApplicant?: boolean;
+    caseManagerUserDetails?: Cas1ApplicationUserDetails;
 });
 

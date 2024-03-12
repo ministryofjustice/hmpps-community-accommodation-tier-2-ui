@@ -2,4 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type TaskSortField = 'createdAt' | 'dueAt' | 'person' | 'allocatedTo';
+export type Cas1ApplicationUserDetails = {
+    name: string;
+    email?: string;
+    telephoneNumber?: string;
+};
+
