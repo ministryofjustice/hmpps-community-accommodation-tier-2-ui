@@ -6,5 +6,6 @@ export type NewCancellation = {
     date: string;
     reason: string;
     notes?: string;
+    otherReason?: string;
 };
 
