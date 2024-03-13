@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { AcctDataBody } from './custom-forms/acctData'
 import { DateFormats } from '../../../../utils/dateUtils'
+import { formatLines } from '../../../../utils/viewUtils'
 import paths from '../../../../paths/apply'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 
@@ -48,7 +49,7 @@ export default class Acct implements TaskListPage {
         return {
           title: `${createdDate} - ${isOngoing ? 'Ongoing' : closedDate}`,
           referringInstitution: acct.referringInstitution,
-          acctDetails: acct.acctDetails,
+          acctDetails: formatLines(acct.acctDetails),
           createdDate,
           closedDate,
           removeLink: `${paths.applications.removeFromList({

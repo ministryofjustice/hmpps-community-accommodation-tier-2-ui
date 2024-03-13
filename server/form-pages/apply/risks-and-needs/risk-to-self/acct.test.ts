@@ -1,9 +1,14 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
+import { formatLines } from '../../../../utils/viewUtils'
 import Acct from './acct'
+
+jest.mock('../../../../utils/viewUtils')
 
 describe('Acct', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+
+  ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
 
   describe('title', () => {
     it('personalises the page title', () => {
@@ -15,7 +20,7 @@ describe('Acct', () => {
 
   describe('acct data', () => {
     describe('when there is acct data on the application', () => {
-      it('assigns them to the accts field on the page', () => {
+      it('assigns them to the accts field on the page, preserving new lines for acctDetails', () => {
         const applicationWithData = applicationFactory.build({
           person: personFactory.build({ name: 'Roger Smith' }),
           data: {
@@ -65,6 +70,7 @@ describe('Acct', () => {
             title: '2 March 2012 - Ongoing',
           },
         ])
+        page.accts.forEach(acct => expect(formatLines).toHaveBeenCalledWith(acct.acctDetails))
       })
     })
   })
