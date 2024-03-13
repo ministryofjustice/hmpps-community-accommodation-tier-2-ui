@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
-import { dateAndTimeInputsAreValidDates, DateFormats } from '../../../../utils/dateUtils'
+import { dateAndTimeInputsAreValidDates, DateFormats, dateIsTodayOrInTheFuture } from '../../../../utils/dateUtils'
 import { dateBodyProperties } from '../../../utils'
 
 type HDCLicenceDatesBody = ObjectWithDateParts<'hdcEligibilityDate'> & ObjectWithDateParts<'conditionalReleaseDate'>
@@ -56,6 +56,9 @@ export default class HDCLicenceDates implements TaskListPage {
     }
     if (!dateAndTimeInputsAreValidDates(this.body, 'conditionalReleaseDate')) {
       errors.conditionalReleaseDate = "Enter the applicant's conditional release date"
+    }
+    if (!dateIsTodayOrInTheFuture(this.body, 'conditionalReleaseDate')) {
+      errors.conditionalReleaseDate = 'Conditional release date cannot be in the past'
     }
     return errors
   }

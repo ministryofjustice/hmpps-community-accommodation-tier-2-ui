@@ -1,14 +1,21 @@
 /* eslint-disable import/no-duplicates */
-import { differenceInDays, formatDistanceStrict } from 'date-fns'
+import { differenceInDays, formatDistanceStrict, isFuture, isToday } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
-import { DateFormats, InvalidDateStringError, dateAndTimeInputsAreValidDates } from './dateUtils'
+import {
+  DateFormats,
+  InvalidDateStringError,
+  dateAndTimeInputsAreValidDates,
+  dateIsTodayOrInTheFuture,
+} from './dateUtils'
 
 jest.mock('date-fns', () => {
   return {
     ...jest.requireActual('date-fns'),
     formatDistanceStrict: jest.fn(() => '1 day'),
     differenceInDays: jest.fn(() => 1),
+    isFuture: jest.fn(() => true),
+    isToday: jest.fn(() => false),
   }
 })
 
@@ -227,6 +234,21 @@ describe('DateFormats', () => {
       const result = dateAndTimeInputsAreValidDates(undefined, 'date')
 
       expect(result).toEqual(false)
+    })
+  })
+
+  describe('dateIsInTheFuture', () => {
+    it('calls the date-fns function', () => {
+      const obj: ObjectWithDateParts<'date'> = {
+        'date-year': '2022',
+        'date-month': '12',
+        'date-day': '11',
+      }
+
+      dateIsTodayOrInTheFuture(obj, 'date')
+
+      expect(isFuture).toHaveBeenCalled()
+      expect(isToday).toHaveBeenCalled()
     })
   })
 })

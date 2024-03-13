@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
-import { differenceInDays, formatDistanceStrict, formatISO, parseISO, format } from 'date-fns'
+import { differenceInDays, formatDistanceStrict, formatISO, parseISO, format, isFuture, isToday } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
 export class DateFormats {
@@ -95,18 +95,22 @@ export class DateFormats {
     return dateInputObj
   }
 
-    /**
+  /**
    * Converts input for a GDS date input https://design-system.service.gov.uk/components/date-input/
    * into a human readable date for the user
    * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
    * @param key the key that prefixes each item in the dateInputObj, also the name of the property which the date object will be returned in the return value.
    * @returns a friendly date.
    */
-    static dateAndTimeInputsToUiDate(dateInputObj: Record<string, string>, key: string | number, format = 'medium' as 'short' | 'long' | 'medium') {
-      const iso8601Date = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)[key]
-  
-      return DateFormats.isoDateToUIDate(iso8601Date, { format: format })
-    }
+  static dateAndTimeInputsToUiDate(
+    dateInputObj: Record<string, string>,
+    key: string | number,
+    format = 'medium' as 'short' | 'long' | 'medium',
+  ) {
+    const iso8601Date = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)[key]
+
+    return DateFormats.isoDateToUIDate(iso8601Date, { format: format })
+  }
 
   /**
    * @param date1 first day to compare.
@@ -122,7 +126,6 @@ export const dateAndTimeInputsAreValidDates = <K extends string | number>(
   dateInputObj: ObjectWithDateParts<K>,
   key: K,
 ): boolean => {
-
   if (!dateInputObj) {
     return false
   }
@@ -142,6 +145,21 @@ export const dateAndTimeInputsAreValidDates = <K extends string | number>(
   }
 
   return true
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param key The date key for the date to check.
+ * @returns a boolean.
+ */
+export const dateIsTodayOrInTheFuture = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  key: K,
+): boolean => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)
+  const date = DateFormats.isoToDateObj(dateIsoStrings[key])
+
+  return isToday(date) || isFuture(date)
 }
 
 export class InvalidDateStringError extends Error {}
