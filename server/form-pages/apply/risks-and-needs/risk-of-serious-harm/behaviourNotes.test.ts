@@ -1,9 +1,14 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
+import { formatLines } from '../../../../utils/viewUtils'
 import BehaviourNotes from './behaviourNotes'
+
+jest.mock('../../../../utils/viewUtils')
 
 describe('BehaviourNotes', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+
+  ;(formatLines as jest.MockedFunction<typeof formatLines>).mockImplementation(text => text)
 
   describe('title', () => {
     it('personalises the page title', () => {
@@ -43,7 +48,7 @@ describe('BehaviourNotes', () => {
   })
 
   describe('behaviourNotes', () => {
-    it('adds a redirect link to the data', () => {
+    it('adds a redirect link to the data and preserves line breaks in behaviour notes', () => {
       const applicationWithNotes = applicationFactory.build({
         id: 'abc123',
         data: {
@@ -74,6 +79,8 @@ describe('BehaviourNotes', () => {
           behaviourDetail: 'some detail 2',
         },
       ])
+
+      page.behaviourNotes.forEach(({ behaviourDetail }) => expect(formatLines).toHaveBeenCalledWith(behaviourDetail))
     })
   })
 })

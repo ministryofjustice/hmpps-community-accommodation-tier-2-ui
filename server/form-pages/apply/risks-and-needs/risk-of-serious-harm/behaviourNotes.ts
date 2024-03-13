@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 import paths from '../../../../paths/apply'
+import { formatLines } from '../../../../utils/viewUtils'
 
 type BehaviourNotesBody = Record<string, never>
 
@@ -35,7 +36,7 @@ export default class BehaviourNotes implements TaskListPage {
         }
 
         return {
-          ...note,
+          behaviourDetail: formatLines(note.behaviourDetail),
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: 'risk-of-serious-harm',
