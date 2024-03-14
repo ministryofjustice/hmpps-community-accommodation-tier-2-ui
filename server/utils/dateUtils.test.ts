@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import { differenceInDays, formatDistanceStrict, isFuture, isToday, differenceInCalendarMonths } from 'date-fns'
+import { isFuture, isToday } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
 import {
@@ -13,8 +13,6 @@ import {
 jest.mock('date-fns', () => {
   return {
     ...jest.requireActual('date-fns'),
-    formatDistanceStrict: jest.fn(() => '1 day'),
-    differenceInDays: jest.fn(() => 1),
     isFuture: jest.fn(() => true),
     isToday: jest.fn(() => false),
   }
@@ -177,8 +175,6 @@ describe('DateFormats', () => {
         ui: '1 day',
         number: 1,
       })
-      expect(formatDistanceStrict).toHaveBeenCalledWith(date1, date2, { unit: 'day' })
-      expect(differenceInDays).toHaveBeenCalledWith(date1, date2)
     })
   })
 
