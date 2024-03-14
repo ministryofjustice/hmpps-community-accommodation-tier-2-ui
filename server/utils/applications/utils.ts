@@ -12,7 +12,6 @@ import { formatLines } from '../viewUtils'
 import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
-import config from '../../config'
 import { fetchErrorsAndUserInput } from '../validation'
 import { TaskListService } from '../../services'
 
@@ -88,14 +87,7 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
 
 export const getApplicationTimelineEvents = (
   application: Cas2Application | Cas2SubmittedApplication,
-): Array<UiTimelineEvent> => {
-  const timelineEvents =
-    config.flags.notesDisabled === 'false'
-      ? application.timelineEvents
-      : application.timelineEvents.filter(event => event.type !== 'cas2_note')
-
-  return [...getTimelineEvents(timelineEvents)]
-}
+): Array<UiTimelineEvent> => getTimelineEvents(application.timelineEvents)
 
 export const generateSuccessMessage = (pageName: string): string => {
   switch (pageName) {

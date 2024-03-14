@@ -54,12 +54,10 @@
         Application history
       </h2>
 
-      {% if notesDisabled == 'false' %}
+      <form action="{{ paths.applications.addNote({ id: application.id }) }}" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-        <form action="{{ paths.applications.addNote({ id: application.id }) }}" method="post">
-          <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
-
-          {{ govukTextarea({
+        {{ govukTextarea({
         name: "note",
         id: "note",
         label: {
@@ -72,13 +70,11 @@
         errorMessage: errors.note
       }) }}
 
-          <button type="submit" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true" data-testid="submit-button">
+        <button type="submit" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true" data-testid="submit-button">
           Submit
         </button>
 
-        </form>
-
-      {% endif %}
+      </form>
 
       {{ timeline(getApplicationTimelineEvents(application)) }}
     </div>

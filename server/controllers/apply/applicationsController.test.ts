@@ -128,8 +128,7 @@ describe('applicationsController', () => {
       submittedAt: '2024-02-05',
     })
 
-    it('renders the overview page with the feature flag set to false', async () => {
-      config.flags.notesDisabled = 'false'
+    it('renders the overview page', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
@@ -140,28 +139,6 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/overview', {
-        notesDisabled: 'false',
-        application: submittedApplication,
-        status: 'Received',
-        pageHeading: 'Overview of application',
-        errors: {},
-        errorSummary: [],
-      })
-    })
-
-    it('renders the overview page with the feature flag set to true', async () => {
-      config.flags.notesDisabled = 'true'
-      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-        return { errors: {}, errorSummary: [], userInput: {} }
-      })
-
-      applicationService.findApplication.mockResolvedValue(submittedApplication)
-
-      const requestHandler = applicationsController.overview()
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/overview', {
-        notesDisabled: 'true',
         application: submittedApplication,
         status: 'Received',
         pageHeading: 'Overview of application',

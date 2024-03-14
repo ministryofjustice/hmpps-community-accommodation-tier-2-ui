@@ -115,8 +115,6 @@ describe('submittedApplicationsController', () => {
       it('renders the submitted application overview template', async () => {
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
 
-        config.flags.notesDisabled = 'false'
-
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
 
@@ -125,7 +123,6 @@ describe('submittedApplicationsController', () => {
         )
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
-          notesDisabled: 'false',
           application: submittedApplication,
           status: statusUpdate.label,
           errors: {},
@@ -145,8 +142,6 @@ describe('submittedApplicationsController', () => {
         })
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplicationWithoutStatus)
 
-        config.flags.notesDisabled = 'true'
-
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
 
@@ -155,7 +150,6 @@ describe('submittedApplicationsController', () => {
         )
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
-          notesDisabled: 'true',
           application: submittedApplicationWithoutStatus,
           status: 'Received',
           errors: {},
