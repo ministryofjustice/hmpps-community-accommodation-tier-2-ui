@@ -26,7 +26,7 @@ export default class AcctPage extends ApplyPage {
   hasListOfAccts(): void {
     cy.get('.govuk-summary-card__title').contains('1 February 2012 - 10 October 2013')
     cy.get('.govuk-summary-list').contains('HMPPS prison')
-    cy.get('.govuk-summary-list').contains('ACCT details')
+    cy.get('.govuk-summary-list').should('contain.html', 'ACCT details<br>some more details on another line')
   }
 
   hasNoAccts(): void {

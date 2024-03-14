@@ -370,7 +370,7 @@ describe('checkYourAnswersUtils', () => {
         'closedDate-month': '10',
         'closedDate-year': '2013',
         referringInstitution: 'HMPPS prison',
-        acctDetails: 'ACCT details',
+        acctDetails: 'ACCT details\nsome more details on another line',
       }
 
       expect(getAnswer(application, questions, 'risk-to-self', 'acct-data', '0')).toEqual(expected)

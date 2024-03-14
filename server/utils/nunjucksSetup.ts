@@ -30,6 +30,7 @@ import { statusTag } from './personUtils'
 import * as TaskListUtils from './taskListUtils'
 import { initialiseName, removeBlankSummaryListItems, stringToKebabCase, camelToKebabCase } from './utils'
 import { pagination } from './pagination'
+import { formatLines } from './viewUtils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -106,6 +107,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('applicationStatusDetailOptions', applicationStatusDetailOptions)
 
   njkEnv.addFilter('removeBlankSummaryListItems', removeBlankSummaryListItems)
+  njkEnv.addFilter('formatLines', formatLines)
 
   const markAsSafe = (html: string): string => {
     const safeFilter = njkEnv.getFilter('safe')

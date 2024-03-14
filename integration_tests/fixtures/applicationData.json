@@ -237,7 +237,7 @@
         "closedDate-month": "10",
         "closedDate-year": "2013",
         "referringInstitution": "HMPPS prison",
-        "acctDetails": "ACCT details"
+        "acctDetails": "ACCT details\nsome more details on another line"
       },
       {
         "createdDate-day": "2",
@@ -296,7 +296,7 @@
       "cellShareInformationDetail": "some information"
     },
     "behaviour-notes": {},
-    "behaviour-notes-data": [{ "behaviourDetail": "some detail" }, { "behaviourDetail": "some other detail" }],
+    "behaviour-notes-data": [{ "behaviourDetail": "some detail\nsome more detail on another line" }, { "behaviourDetail": "some other detail" }],
     "additional-risk-information": {
       "hasAdditionalInformation": "yes",
       "additionalInformationDetail": "some information"
