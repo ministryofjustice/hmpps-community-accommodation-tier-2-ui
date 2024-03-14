@@ -1,7 +1,16 @@
 /* eslint-disable */
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
-import { differenceInDays, formatDistanceStrict, formatISO, parseISO, format, isFuture, isToday } from 'date-fns'
+import {
+  differenceInDays,
+  differenceInMonths,
+  formatDistanceStrict,
+  formatISO,
+  parseISO,
+  format,
+  isFuture,
+  isToday,
+} from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
 export class DateFormats {
@@ -160,6 +169,42 @@ export const dateIsTodayOrInTheFuture = <K extends string | number>(
   const date = DateFormats.isoToDateObj(dateIsoStrings[key])
 
   return isToday(date) || isFuture(date)
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param laterKey The date key for the later date.
+ * @param earlierKey The date key for the earlier date.
+ * @param months number of months to check between the two dates.
+ * @returns a boolean.
+ */
+export const isMoreThanMonthsBetweenDates = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  laterKey: K,
+  earlierKey: K,
+  months: number,
+): boolean => {
+  const laterDateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, laterKey)
+  const earlierDateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, earlierKey)
+
+  const laterDate = DateFormats.isoToDateObj(laterDateIsoStrings[laterKey])
+  const earlierDate = DateFormats.isoToDateObj(earlierDateIsoStrings[earlierKey])
+
+  const monthDifference = differenceInMonths(laterDate, earlierDate)
+
+  if (monthDifference > months) {
+    return true
+  }
+
+  if (monthDifference === months) {
+    const dateAfterSixMonths = new Date(earlierDate.setMonth(earlierDate.getMonth() + months))
+
+    const dayDifference = differenceInDays(laterDate, dateAfterSixMonths)
+
+    return dayDifference >= 1
+  }
+
+  return false
 }
 
 export class InvalidDateStringError extends Error {}

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import { differenceInDays, formatDistanceStrict, isFuture, isToday } from 'date-fns'
+import { differenceInDays, formatDistanceStrict, isFuture, isToday, differenceInCalendarMonths } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
 import {
@@ -7,6 +7,7 @@ import {
   InvalidDateStringError,
   dateAndTimeInputsAreValidDates,
   dateIsTodayOrInTheFuture,
+  isMoreThanMonthsBetweenDates,
 } from './dateUtils'
 
 jest.mock('date-fns', () => {
@@ -249,6 +250,72 @@ describe('DateFormats', () => {
 
       expect(isFuture).toHaveBeenCalled()
       expect(isToday).toHaveBeenCalled()
+    })
+  })
+
+  describe('isMoreThanMonthsBetweenDates', () => {
+    it('returns false when dates are not more than the given amount of months apart', () => {
+      const monthsBetween = 6
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '12',
+        'laterDate-day': '11',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(false)
+    })
+
+    it('returns true when dates are more than the given amount of months apart', () => {
+      const monthsBetween = 1
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '12',
+        'laterDate-day': '11',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(true)
+    })
+
+    it('returns true when dates are more than the given amount of months apart by a day', () => {
+      const monthsBetween = 1
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '11',
+        'laterDate-day': '12',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(true)
+    })
+
+    it('returns false when dates are equal to the given amount of months apart', () => {
+      const monthsBetween = 1
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '11',
+        'laterDate-day': '11',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(false)
     })
   })
 })
