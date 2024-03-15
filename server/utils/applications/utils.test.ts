@@ -121,7 +121,6 @@ describe('utils', () => {
     })
 
     describe('when there are timeline events', () => {
-      config.flags.notesDisabled = 'false'
       it('returns them in the timeline events', () => {
         const application = submittedApplicationFactory.build({
           timelineEvents: [
@@ -242,28 +241,6 @@ describe('utils', () => {
             'the status description<br>and another<br>and another',
           )
         })
-      })
-    })
-
-    describe('when the feature flag is disabled', () => {
-      it('does not include events with the type "cas2_note"', () => {
-        config.flags.notesDisabled = 'true'
-
-        const application = submittedApplicationFactory.build({
-          timelineEvents: [
-            timelineEventsFactory.build({
-              type: 'cas2_status_update',
-              label: 'cas2_status_update',
-            }),
-            timelineEventsFactory.build({
-              type: 'cas2_note',
-              label: 'cas2_note',
-            }),
-          ],
-        })
-
-        expect(getApplicationTimelineEvents(application).length).toEqual(1)
-        expect(getApplicationTimelineEvents(application)[0].label.text).toEqual('cas2_status_update')
       })
     })
   })
