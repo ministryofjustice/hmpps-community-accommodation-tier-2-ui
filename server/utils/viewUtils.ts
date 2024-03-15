@@ -1,3 +1,4 @@
+import config from '../config'
 import { escape } from './formUtils'
 
 export const formatLines = (text: string): string => {
@@ -18,6 +19,14 @@ export const formatLines = (text: string): string => {
     return paragraphs[0]
   }
   return `<p>${paragraphs.join('</p><p>')}</p>`
+}
+
+export const validateReferer = (referer?: string): string => {
+  if (!referer || !referer.startsWith(config.domain)) {
+    return '/'
+  }
+
+  return referer
 }
 
 function normalizeText(text: string): string {

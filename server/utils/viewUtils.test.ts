@@ -1,7 +1,11 @@
 import * as viewUtilsModule from './viewUtils'
 import * as formUtilsModule from './formUtils'
 
-const { formatLines } = viewUtilsModule
+const { formatLines, validateReferer } = viewUtilsModule
+
+jest.mock('../config', () => ({
+  domain: 'https://test-domain.com',
+}))
 
 describe('formatLines', () => {
   let escapeSpy: jest.SpyInstance<string, [text: string]>
@@ -39,5 +43,25 @@ describe('formatLines', () => {
 
   it('returns the empty string when given null', () => {
     expect(formatLines(null)).toEqual('')
+  })
+})
+
+describe('validateReferer', () => {
+  describe('when the referer is from our own domain', () => {
+    it('returns the referer path', () => {
+      expect(validateReferer('https://test-domain.com/some-referer')).toEqual('https://test-domain.com/some-referer')
+    })
+  })
+
+  describe('when the referer is from outside our domain', () => {
+    it('returns the root path', () => {
+      expect(validateReferer('https://example.com/some-external-referer')).toEqual('/')
+    })
+  })
+
+  describe('when the referer is undefined, for any reason', () => {
+    it('returns the root path', () => {
+      expect(validateReferer(undefined)).toEqual('/')
+    })
   })
 })
