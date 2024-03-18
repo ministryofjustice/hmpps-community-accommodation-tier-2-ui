@@ -4,6 +4,7 @@ import { errorMessage, errorSummary } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
 import { DateFormats } from '../utils/dateUtils'
+import { validateReferer } from '../utils/viewUtils'
 
 export default class PeopleController {
   constructor(
@@ -40,11 +41,11 @@ export default class PeopleController {
             throw err
           }
 
-          return res.redirect(req.headers.referer)
+          return res.redirect(validateReferer(req.headers.referer))
         }
       } else {
         this.addErrorMessagesToFlash(req, 'Enter a prison number')
-        return res.redirect(req.headers.referer)
+        return res.redirect(validateReferer(req.headers.referer))
       }
     }
   }

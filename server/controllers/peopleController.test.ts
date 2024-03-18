@@ -9,6 +9,10 @@ import { fullPersonFactory } from '../testutils/factories/person'
 import applicationFactory from '../testutils/factories/application'
 import { DateFormats } from '../utils/dateUtils'
 
+import { validateReferer } from '../utils/viewUtils'
+
+jest.mock('../utils/viewUtils')
+
 describe('peopleController', () => {
   const flashSpy = jest.fn()
   const token = 'SOME_TOKEN'
@@ -30,7 +34,7 @@ describe('peopleController', () => {
       user: { token },
       flash: flashSpy,
       headers: {
-        referer: 'some-referrer/',
+        referer: 'some-referer/',
       },
     })
     response = createMock<Response>({})
@@ -38,6 +42,9 @@ describe('peopleController', () => {
   })
 
   describe('find', () => {
+    beforeEach(() => {
+      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
+    })
     describe('when there is a prison number', () => {
       it('redirects to the show applications path', async () => {
         const requestHandler = peopleController.find()
@@ -84,7 +91,8 @@ describe('peopleController', () => {
                 `No person found for prison number ${request.body.prisonNumber}, please try another number.`,
               ),
             ])
-            expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
+            expect(validateReferer).toHaveBeenCalledWith('some-referer/')
+            expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
           })
         })
 
@@ -114,7 +122,8 @@ describe('peopleController', () => {
                 'You do not have permission to access the prison number SOME_NUMBER, please try another number.',
               ),
             ])
-            expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
+            expect(validateReferer).toHaveBeenCalledWith('some-referer/')
+            expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
           })
         })
 
@@ -143,8 +152,8 @@ describe('peopleController', () => {
         const requestHandler = peopleController.find()
 
         await requestHandler(request, response, next)
-
-        expect(response.redirect).toHaveBeenCalledWith('some-referrer/')
+        expect(validateReferer).toHaveBeenCalledWith('some-referer/')
+        expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
 
         expect(flashSpy).toHaveBeenCalledWith('errors', {
           prisonNumber: errorMessage('prisonNumber', 'Enter a prison number'),
