@@ -1,4 +1,8 @@
-import type { Cas2Application as Application, FullPerson } from '@approved-premises/api'
+import type {
+  Cas2Application as Application,
+  Cas2SubmittedApplicationSummary,
+  FullPerson,
+} from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
@@ -28,6 +32,17 @@ export const submittedApplicationTableRows = (
       nameAnchorElement(nameOrPlaceholderCopy(person), application.id, isAssessPath),
       textValue(person.nomsNumber),
       textValue(person.crn),
+      textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
+    ]
+  })
+}
+
+export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
+  return applications.map(application => {
+    return [
+      nameAnchorElement(application.personName, application.id, true),
+      textValue(application.nomsNumber),
+      textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
     ]
   })

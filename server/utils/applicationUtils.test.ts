@@ -4,8 +4,10 @@ import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
   submittedApplicationTableRows,
+  assessmentsTableRows,
 } from './applicationUtils'
 import { fullPersonFactory } from '../testutils/factories/person'
+import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
 describe('inProgressApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
@@ -96,6 +98,52 @@ describe('submittedApplicationTableRows', () => {
         },
         {
           text: personB.crn,
+        },
+        {
+          text: '11 December 2022',
+        },
+      ],
+    ])
+  })
+})
+
+describe('assessmentsTableRows', () => {
+  it('returns an array of applications as table rows', async () => {
+    const applicationA = submittedApplicationSummary.build({
+      submittedAt: '2022-12-10T21:47:28Z',
+      personName: 'A',
+    })
+    const applicationB = submittedApplicationSummary.build({
+      submittedAt: '2022-12-11T21:47:28Z',
+      personName: 'B',
+    })
+
+    const result = assessmentsTableRows([applicationA, applicationB])
+
+    expect(result).toEqual([
+      [
+        {
+          html: `<a href=/assess/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
+        },
+        {
+          text: applicationA.nomsNumber,
+        },
+        {
+          text: applicationA.crn,
+        },
+        {
+          text: '10 December 2022',
+        },
+      ],
+      [
+        {
+          html: `<a href=/assess/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
+        },
+        {
+          text: applicationB.nomsNumber,
+        },
+        {
+          text: applicationB.crn,
         },
         {
           text: '11 December 2022',
