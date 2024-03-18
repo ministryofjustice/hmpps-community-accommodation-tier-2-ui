@@ -39,13 +39,13 @@
                 text: "Date submitted"
               }
             ],
-            submittedApplicationTableRows(applications, true)
+            assessmentsTableRows(applications)
           )
 
       }}
       </div>
 
-    {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
+      {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
 
     </div>
   </div>

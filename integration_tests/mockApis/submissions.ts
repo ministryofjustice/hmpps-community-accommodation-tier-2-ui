@@ -1,6 +1,7 @@
 import type {
   Cas2SubmittedApplication as SubmittedApplication,
   Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
+  Cas2SubmittedApplicationSummary,
 } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { stubFor } from '../../wiremock'
@@ -20,7 +21,7 @@ export default {
       },
     }),
   stubSubmittedApplicationsGet: (args: {
-    applications: Array<SubmittedApplication>
+    applications: Array<Cas2SubmittedApplicationSummary>
     page: number
   }): SuperAgentRequest =>
     stubFor({

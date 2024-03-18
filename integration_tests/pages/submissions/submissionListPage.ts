@@ -1,7 +1,6 @@
 import Page from '../page'
 import paths from '../../../server/paths/assess'
-import { Cas2SubmittedApplication, FullPerson } from '../../../server/@types/shared'
-import { nameOrPlaceholderCopy } from '../../../server/utils/utils'
+import { Cas2SubmittedApplication, Cas2SubmittedApplicationSummary, FullPerson } from '../../../server/@types/shared'
 
 export default class SubmissionListPage extends Page {
   constructor(
@@ -19,13 +18,9 @@ export default class SubmissionListPage extends Page {
     return new SubmissionListPage(applications, person?.name)
   }
 
-  shouldShowSubmittedApplications(applications: Array<Cas2SubmittedApplication>): void {
-    this.shouldShowApplications(applications)
-  }
-
-  private shouldShowApplications(applications: Array<Cas2SubmittedApplication>): void {
+  shouldShowSubmittedApplications(applications: Array<Cas2SubmittedApplicationSummary>): void {
     applications.forEach(application => {
-      const personName = nameOrPlaceholderCopy(application.person)
+      const { personName } = application
       cy.contains(personName)
         .should('have.attr', 'href', paths.submittedApplications.overview({ id: application.id }))
         .parent()
