@@ -28,7 +28,7 @@ export default class BehaviourNotesPage extends ApplyPage {
   }
 
   hasListOfBehaviourNotes(): void {
-    cy.get('.govuk-summary-list').contains('some detail')
+    cy.get('.govuk-summary-list').should('contain.html', 'some detail<br>some more detail on another line')
   }
 
   hasNoBehaviourNotes(): void {
