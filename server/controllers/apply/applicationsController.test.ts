@@ -24,12 +24,14 @@ import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
 import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
+import { validateReferer } from '../../utils/viewUtils'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getPage')
 jest.mock('../../utils/applications/documentUtils')
 jest.mock('../../utils/applications/utils')
+jest.mock('../../utils/viewUtils')
 
 describe('applicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -62,7 +64,7 @@ describe('applicationsController', () => {
     request = createMock<Request>({
       user: { token },
       headers: {
-        referer: 'some-referrer/',
+        referer: 'some-referer/',
       },
     })
     response = createMock<Response>({})
@@ -195,6 +197,7 @@ describe('applicationsController', () => {
 
   describe('consentRefused', () => {
     it('renders the consent refused page', async () => {
+      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
       const application = applicationFactory.build({
         person: personFactory.build({ name: 'Roger Smith' }),
       })
@@ -217,8 +220,9 @@ describe('applicationsController', () => {
         panelText,
         changeAnswerPath,
         newApplicationPath,
-        backLink: 'some-referrer/',
+        backLink: 'some-validated-referer',
       })
+      expect(validateReferer).toHaveBeenCalledWith('some-referer/')
     })
   })
 
