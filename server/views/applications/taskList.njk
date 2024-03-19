@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block beforeContent%}
-  {% if referrer %}
+  {% if referer %}
     {{ govukBackLink({
         text: "Back",
-        href: referrer
+        href: referer
     }) }}
   {% endif %}
 {% endblock %}
