@@ -13,4 +13,7 @@ export default Factory.define<Cas2SubmittedApplicationSummary>(() => ({
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   createdByUserId: faker.string.uuid(),
   status: 'submitted',
+  crn: faker.string.alphanumeric(5),
+  nomsNumber: faker.string.alphanumeric(5),
+  personName: faker.person.fullName(),
 }))

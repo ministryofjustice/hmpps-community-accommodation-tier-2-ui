@@ -15,6 +15,7 @@ import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
   submittedApplicationTableRows,
+  assessmentsTableRows,
 } from './applicationUtils'
 import {
   getApplicationTimelineEvents,
@@ -84,6 +85,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('inProgressApplicationTableRows', inProgressApplicationTableRows)
   njkEnv.addGlobal('submittedApplicationTableRows', submittedApplicationTableRows)
+  njkEnv.addGlobal('assessmentsTableRows', assessmentsTableRows)
   njkEnv.addGlobal('documentSummaryListRows', documentSummaryListRows)
 
   const {
