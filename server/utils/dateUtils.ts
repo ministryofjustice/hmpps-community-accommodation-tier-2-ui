@@ -8,6 +8,7 @@ import {
   formatISO,
   parseISO,
   format,
+  isBefore,
   isFuture,
   isToday,
 } from 'date-fns'
@@ -205,6 +206,26 @@ export const isMoreThanMonthsBetweenDates = <K extends string | number>(
   }
 
   return false
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param dateKey The date key for the date that should be before the other one to return true.
+ * @param dateToCompareKey The date key for the date to compare with.
+ * @returns a boolean.
+ */
+export const isBeforeDate = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  dateKey: K,
+  dateToCompareKey: K,
+): boolean => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, dateKey)
+  const dateToCompareIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, dateToCompareKey)
+
+  const date = DateFormats.isoToDateObj(dateIsoStrings[dateKey])
+  const dateToCompare = DateFormats.isoToDateObj(dateToCompareIsoStrings[dateToCompareKey])
+
+  return isBefore(date, dateToCompare)
 }
 
 export class InvalidDateStringError extends Error {}

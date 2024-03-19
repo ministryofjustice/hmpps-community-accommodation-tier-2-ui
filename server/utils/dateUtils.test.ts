@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import { isFuture, isToday } from 'date-fns'
+import { isBefore, isFuture, isToday } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
 import {
@@ -8,6 +8,7 @@ import {
   dateAndTimeInputsAreValidDates,
   dateIsTodayOrInTheFuture,
   isMoreThanMonthsBetweenDates,
+  isBeforeDate,
 } from './dateUtils'
 
 jest.mock('date-fns', () => {
@@ -15,6 +16,7 @@ jest.mock('date-fns', () => {
     ...jest.requireActual('date-fns'),
     isFuture: jest.fn(() => true),
     isToday: jest.fn(() => false),
+    isBefore: jest.fn(() => true),
   }
 })
 
@@ -312,6 +314,23 @@ describe('DateFormats', () => {
       const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
 
       expect(result).toEqual(false)
+    })
+  })
+
+  describe('isBeforeDate', () => {
+    it('calls the date-fns function with the given dates', () => {
+      const obj: ObjectWithDateParts<'date' | 'dateToCompare'> = {
+        'date-year': '2024',
+        'date-month': '11',
+        'date-day': '10',
+        'dateToCompare-year': '2024',
+        'dateToCompare-month': '11',
+        'dateToCompare-day': '11',
+      }
+
+      isBeforeDate(obj, 'date', 'dateToCompare')
+
+      expect(isBefore).toHaveBeenCalled()
     })
   })
 })

@@ -9,6 +9,7 @@ import {
   dateAndTimeInputsAreValidDates,
   DateFormats,
   dateIsTodayOrInTheFuture,
+  isBeforeDate,
   isMoreThanMonthsBetweenDates,
 } from '../../../../utils/dateUtils'
 import { dateBodyProperties } from '../../../utils'
@@ -76,6 +77,9 @@ export default class HDCLicenceDates implements TaskListPage {
     ) {
       errors.hdcEligibilityDate =
         'HDC eligibility date cannot be more than 6 months before the conditional release date'
+    }
+    if (!isBeforeDate(this.body, 'hdcEligibilityDate', 'conditionalReleaseDate')) {
+      errors.hdcEligibilityDate = 'HDC eligibility date must be before the conditional release date'
     }
     return errors
   }
