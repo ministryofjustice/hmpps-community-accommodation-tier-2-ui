@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Cas1ApplicationTimelinessCategory } from './Cas1ApplicationTimelinessCategory';
 import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
 import type { SentenceTypeOption } from './SentenceTypeOption';
@@ -21,5 +22,6 @@ export type SubmitApprovedPremisesApplication = (SubmitApplication & {
     applicantUserDetails?: Cas1ApplicationUserDetails;
     caseManagerIsNotApplicant?: boolean;
     caseManagerUserDetails?: Cas1ApplicationUserDetails;
+    noticeType?: Cas1ApplicationTimelinessCategory;
 });
 
