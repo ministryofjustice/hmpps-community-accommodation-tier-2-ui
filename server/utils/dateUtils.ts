@@ -14,6 +14,7 @@ import {
 } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
+type TodaysDate = { year: string; month: string; day: string; formattedDate: string }
 export class DateFormats {
   /**
    * @param date JS Date object.
@@ -226,6 +227,26 @@ export const isBeforeDate = <K extends string | number>(
   const dateToCompare = DateFormats.isoToDateObj(dateToCompareIsoStrings[dateToCompareKey])
 
   return isBefore(date, dateToCompare)
+}
+
+/**
+ * @param monthsToAdd the number of months to add to todays date
+ * @returns {TodaysDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
+ */
+export const getTodaysDatePlusMonths = (monthsToAdd = 0): TodaysDate => {
+  const date = new Date()
+  date.setMonth(date.getMonth() + monthsToAdd)
+
+  const year = date.getFullYear().toString()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+
+  return {
+    year,
+    month,
+    day,
+    formattedDate: `${year}-${month}-${day}`,
+  }
 }
 
 export class InvalidDateStringError extends Error {}
