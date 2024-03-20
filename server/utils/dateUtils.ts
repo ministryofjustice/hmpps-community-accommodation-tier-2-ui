@@ -2,6 +2,7 @@
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
 import {
+  differenceInCalendarDays,
   differenceInDays,
   differenceInMonths,
   formatDistanceStrict,
@@ -207,6 +208,23 @@ export const isMoreThanMonthsBetweenDates = <K extends string | number>(
   }
 
   return false
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param key The date key for the date.
+ * @returns a boolean.
+ */
+export const differenceInDaysFromToday = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  key: K,
+): number => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)
+
+  const date = DateFormats.isoToDateObj(dateIsoStrings[key])
+  const todaysDate = new Date()
+
+  return differenceInCalendarDays(date, todaysDate)
 }
 
 /**

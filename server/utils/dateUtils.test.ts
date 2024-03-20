@@ -9,6 +9,7 @@ import {
   dateIsTodayOrInTheFuture,
   getTodaysDatePlusMonths,
   isMoreThanMonthsBetweenDates,
+  differenceInDaysFromToday,
   isBeforeDate,
 } from './dateUtils'
 
@@ -315,6 +316,35 @@ describe('DateFormats', () => {
       const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
 
       expect(result).toEqual(false)
+    })
+  })
+
+  describe('differenceInDaysFromToday', () => {
+    const createDateDaysFromNow = (daysFromNow = 0) => {
+      const today = new Date()
+      const dateDaysFromNow = new Date(today)
+      dateDaysFromNow.setDate(today.getDate() + daysFromNow)
+
+      return dateDaysFromNow
+    }
+
+    const createDateObj = (date: Date) => {
+      const dateObj: ObjectWithDateParts<'date'> = {
+        'date-year': date.getFullYear().toString(),
+        'date-month': (date.getMonth() + 1).toString().padStart(2, '0'),
+        'date-day': date.getDate().toString().padStart(2, '0'),
+      }
+
+      return dateObj
+    }
+
+    it('returns the difference in days from today for a given date', () => {
+      const dateOneDayFromNow = createDateDaysFromNow(3)
+      const obj = createDateObj(dateOneDayFromNow)
+
+      const result = differenceInDaysFromToday(obj, 'date')
+
+      expect(result).toEqual(3)
     })
   })
 
