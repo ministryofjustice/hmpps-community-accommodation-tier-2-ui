@@ -20,8 +20,8 @@ describe('getApplicationSubmissionData', () => {
       applicationId: mockApplication.id,
       translatedDocument: mockApplication.document,
       preferredAreas: 'London | Birmingham',
-      hdcEligibilityDate: '2024-02-28',
-      conditionalReleaseDate: '2024-02-22',
+      hdcEligibilityDate: '2024-02-22',
+      conditionalReleaseDate: '2024-03-28',
       telephoneNumber: '1234567',
     })
   })

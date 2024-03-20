@@ -1,6 +1,23 @@
 import { itShouldHavePreviousValue, itShouldHaveNextValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import HDCLicenceDates from './hdcLicenceDates'
+import {
+  dateAndTimeInputsAreValidDates,
+  dateIsTodayOrInTheFuture,
+  isBeforeDate,
+  isMoreThanMonthsBetweenDates,
+} from '../../../../utils/dateUtils'
+
+jest.mock('../../../../utils/dateUtils', () => {
+  const actual = jest.requireActual('../../../../utils/dateUtils')
+  return {
+    ...actual,
+    dateAndTimeInputsAreValidDates: jest.fn(),
+    dateIsTodayOrInTheFuture: jest.fn(),
+    isMoreThanMonthsBetweenDates: jest.fn(),
+    isBeforeDate: jest.fn(),
+  }
+})
 
 describe('HDCLicenceDates', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -17,12 +34,71 @@ describe('HDCLicenceDates', () => {
   itShouldHaveNextValue(new HDCLicenceDates({}, application), '')
 
   describe('errors', () => {
-    describe('when they have not provided any answer', () => {
+    describe('when the dates given are not valid', () => {
+      beforeEach(() => {
+        jest.resetAllMocks()
+        ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => false)
+        ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => true)
+        ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => false)
+        ;(isBeforeDate as jest.Mock).mockImplementation(() => true)
+      })
+
       it('returns errors', () => {
         const page = new HDCLicenceDates({}, application)
         expect(page.errors()).toEqual({
           hdcEligibilityDate: "Enter the applicant's HDC eligibility date",
           conditionalReleaseDate: "Enter the applicant's conditional release date",
+        })
+      })
+    })
+
+    describe('when the conditional release date (CRD) is in the past', () => {
+      beforeEach(() => {
+        jest.resetAllMocks()
+        ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => true)
+        ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => false)
+        ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => false)
+        ;(isBeforeDate as jest.Mock).mockImplementation(() => true)
+      })
+
+      it('returns errors', () => {
+        const page = new HDCLicenceDates({}, application)
+        expect(page.errors()).toEqual({
+          conditionalReleaseDate: 'Conditional release date cannot be in the past',
+        })
+      })
+    })
+
+    describe('when the HDC date is more than 6 months before the CRD date', () => {
+      beforeEach(() => {
+        jest.resetAllMocks()
+        ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => true)
+        ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => true)
+        ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => true)
+        ;(isBeforeDate as jest.Mock).mockImplementation(() => true)
+      })
+
+      it('returns errors', () => {
+        const page = new HDCLicenceDates({}, application)
+        expect(page.errors()).toEqual({
+          hdcEligibilityDate: 'HDC eligibility date cannot be more than 6 months before the conditional release date',
+        })
+      })
+    })
+
+    describe('when the HDC date is after the CRD date', () => {
+      beforeEach(() => {
+        jest.resetAllMocks()
+        ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => true)
+        ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => true)
+        ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => false)
+        ;(isBeforeDate as jest.Mock).mockImplementation(() => false)
+      })
+
+      it('returns errors', () => {
+        const page = new HDCLicenceDates({}, application)
+        expect(page.errors()).toEqual({
+          hdcEligibilityDate: 'HDC eligibility date must be before the conditional release date',
         })
       })
     })

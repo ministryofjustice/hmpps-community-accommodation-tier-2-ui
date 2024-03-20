@@ -1,14 +1,23 @@
 /* eslint-disable import/no-duplicates */
-import { differenceInDays, formatDistanceStrict } from 'date-fns'
+import { isBefore, isFuture, isToday } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
-import { DateFormats, InvalidDateStringError, dateAndTimeInputsAreValidDates } from './dateUtils'
+import {
+  DateFormats,
+  InvalidDateStringError,
+  dateAndTimeInputsAreValidDates,
+  dateIsTodayOrInTheFuture,
+  getTodaysDatePlusMonths,
+  isMoreThanMonthsBetweenDates,
+  isBeforeDate,
+} from './dateUtils'
 
 jest.mock('date-fns', () => {
   return {
     ...jest.requireActual('date-fns'),
-    formatDistanceStrict: jest.fn(() => '1 day'),
-    differenceInDays: jest.fn(() => 1),
+    isFuture: jest.fn(() => true),
+    isToday: jest.fn(() => false),
+    isBefore: jest.fn(() => true),
   }
 })
 
@@ -169,8 +178,6 @@ describe('DateFormats', () => {
         ui: '1 day',
         number: 1,
       })
-      expect(formatDistanceStrict).toHaveBeenCalledWith(date1, date2, { unit: 'day' })
-      expect(differenceInDays).toHaveBeenCalledWith(date1, date2)
     })
   })
 
@@ -227,6 +234,115 @@ describe('DateFormats', () => {
       const result = dateAndTimeInputsAreValidDates(undefined, 'date')
 
       expect(result).toEqual(false)
+    })
+  })
+
+  describe('dateIsInTheFuture', () => {
+    it('calls the date-fns function', () => {
+      const obj: ObjectWithDateParts<'date'> = {
+        'date-year': '2022',
+        'date-month': '12',
+        'date-day': '11',
+      }
+
+      dateIsTodayOrInTheFuture(obj, 'date')
+
+      expect(isFuture).toHaveBeenCalled()
+      expect(isToday).toHaveBeenCalled()
+    })
+  })
+
+  describe('isMoreThanMonthsBetweenDates', () => {
+    it('returns false when dates are not more than the given amount of months apart', () => {
+      const monthsBetween = 6
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '12',
+        'laterDate-day': '11',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(false)
+    })
+
+    it('returns true when dates are more than the given amount of months apart', () => {
+      const monthsBetween = 1
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '12',
+        'laterDate-day': '11',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(true)
+    })
+
+    it('returns true when dates are more than the given amount of months apart by a day', () => {
+      const monthsBetween = 1
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '11',
+        'laterDate-day': '12',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(true)
+    })
+
+    it('returns false when dates are equal to the given amount of months apart', () => {
+      const monthsBetween = 1
+      const obj: ObjectWithDateParts<'laterDate' | 'earlierDate'> = {
+        'laterDate-year': '2022',
+        'laterDate-month': '11',
+        'laterDate-day': '11',
+        'earlierDate-year': '2022',
+        'earlierDate-month': '10',
+        'earlierDate-day': '11',
+      }
+
+      const result = isMoreThanMonthsBetweenDates(obj, 'laterDate', 'earlierDate', monthsBetween)
+
+      expect(result).toEqual(false)
+    })
+  })
+
+  describe('isBeforeDate', () => {
+    it('calls the date-fns function with the given dates', () => {
+      const obj: ObjectWithDateParts<'date' | 'dateToCompare'> = {
+        'date-year': '2024',
+        'date-month': '11',
+        'date-day': '10',
+        'dateToCompare-year': '2024',
+        'dateToCompare-month': '11',
+        'dateToCompare-day': '11',
+      }
+
+      isBeforeDate(obj, 'date', 'dateToCompare')
+
+      expect(isBefore).toHaveBeenCalled()
+    })
+  })
+
+  describe('getTodaysDatePlusMonths', () => {
+    it('returns a string of todays date', () => {
+      const result = getTodaysDatePlusMonths()
+
+      expect(result.year).toBeTruthy()
+      expect(result.month).toBeTruthy()
+      expect(result.day).toBeTruthy()
+      expect(result.formattedDate).toBeTruthy()
     })
   })
 })

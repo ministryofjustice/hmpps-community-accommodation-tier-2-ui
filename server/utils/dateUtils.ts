@@ -1,9 +1,20 @@
 /* eslint-disable */
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
-import { differenceInDays, formatDistanceStrict, formatISO, parseISO, format } from 'date-fns'
+import {
+  differenceInDays,
+  differenceInMonths,
+  formatDistanceStrict,
+  formatISO,
+  parseISO,
+  format,
+  isBefore,
+  isFuture,
+  isToday,
+} from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
+type TodaysDate = { year: string; month: string; day: string; formattedDate: string }
 export class DateFormats {
   /**
    * @param date JS Date object.
@@ -95,18 +106,22 @@ export class DateFormats {
     return dateInputObj
   }
 
-    /**
+  /**
    * Converts input for a GDS date input https://design-system.service.gov.uk/components/date-input/
    * into a human readable date for the user
    * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
    * @param key the key that prefixes each item in the dateInputObj, also the name of the property which the date object will be returned in the return value.
    * @returns a friendly date.
    */
-    static dateAndTimeInputsToUiDate(dateInputObj: Record<string, string>, key: string | number, format = 'medium' as 'short' | 'long' | 'medium') {
-      const iso8601Date = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)[key]
-  
-      return DateFormats.isoDateToUIDate(iso8601Date, { format: format })
-    }
+  static dateAndTimeInputsToUiDate(
+    dateInputObj: Record<string, string>,
+    key: string | number,
+    format = 'medium' as 'short' | 'long' | 'medium',
+  ) {
+    const iso8601Date = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)[key]
+
+    return DateFormats.isoDateToUIDate(iso8601Date, { format: format })
+  }
 
   /**
    * @param date1 first day to compare.
@@ -122,7 +137,6 @@ export const dateAndTimeInputsAreValidDates = <K extends string | number>(
   dateInputObj: ObjectWithDateParts<K>,
   key: K,
 ): boolean => {
-
   if (!dateInputObj) {
     return false
   }
@@ -142,6 +156,97 @@ export const dateAndTimeInputsAreValidDates = <K extends string | number>(
   }
 
   return true
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param key The date key for the date to check.
+ * @returns a boolean.
+ */
+export const dateIsTodayOrInTheFuture = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  key: K,
+): boolean => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)
+  const date = DateFormats.isoToDateObj(dateIsoStrings[key])
+
+  return isToday(date) || isFuture(date)
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param laterKey The date key for the later date.
+ * @param earlierKey The date key for the earlier date.
+ * @param months number of months to check between the two dates.
+ * @returns a boolean.
+ */
+export const isMoreThanMonthsBetweenDates = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  laterKey: K,
+  earlierKey: K,
+  months: number,
+): boolean => {
+  const laterDateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, laterKey)
+  const earlierDateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, earlierKey)
+
+  const laterDate = DateFormats.isoToDateObj(laterDateIsoStrings[laterKey])
+  const earlierDate = DateFormats.isoToDateObj(earlierDateIsoStrings[earlierKey])
+
+  const monthDifference = differenceInMonths(laterDate, earlierDate)
+
+  if (monthDifference > months) {
+    return true
+  }
+
+  if (monthDifference === months) {
+    const dateAfterSixMonths = new Date(earlierDate.setMonth(earlierDate.getMonth() + months))
+
+    const dayDifference = differenceInDays(laterDate, dateAfterSixMonths)
+
+    return dayDifference >= 1
+  }
+
+  return false
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param dateKey The date key for the date that should be before the other one to return true.
+ * @param dateToCompareKey The date key for the date to compare with.
+ * @returns a boolean.
+ */
+export const isBeforeDate = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  dateKey: K,
+  dateToCompareKey: K,
+): boolean => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, dateKey)
+  const dateToCompareIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, dateToCompareKey)
+
+  const date = DateFormats.isoToDateObj(dateIsoStrings[dateKey])
+  const dateToCompare = DateFormats.isoToDateObj(dateToCompareIsoStrings[dateToCompareKey])
+
+  return isBefore(date, dateToCompare)
+}
+
+/**
+ * @param monthsToAdd the number of months to add to todays date
+ * @returns {TodaysDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
+ */
+export const getTodaysDatePlusMonths = (monthsToAdd = 0): TodaysDate => {
+  const date = new Date()
+  date.setMonth(date.getMonth() + monthsToAdd)
+
+  const year = date.getFullYear().toString()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+
+  return {
+    year,
+    month,
+    day,
+    formattedDate: `${year}-${month}-${day}`,
+  }
 }
 
 export class InvalidDateStringError extends Error {}

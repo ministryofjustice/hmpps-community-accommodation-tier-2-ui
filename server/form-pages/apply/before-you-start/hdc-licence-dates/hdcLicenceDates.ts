@@ -5,11 +5,18 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
-import { dateAndTimeInputsAreValidDates, DateFormats } from '../../../../utils/dateUtils'
+import {
+  dateAndTimeInputsAreValidDates,
+  DateFormats,
+  dateIsTodayOrInTheFuture,
+  isBeforeDate,
+  isMoreThanMonthsBetweenDates,
+} from '../../../../utils/dateUtils'
 import { dateBodyProperties } from '../../../utils'
 
 type HDCLicenceDatesBody = ObjectWithDateParts<'hdcEligibilityDate'> & ObjectWithDateParts<'conditionalReleaseDate'>
 
+const MAX_MONTHS_BETWEEN_HDC_AND_CRD = 6
 @Page({
   name: 'hdc-licence-dates',
   bodyProperties: [...dateBodyProperties('hdcEligibilityDate'), ...dateBodyProperties('conditionalReleaseDate')],
@@ -56,6 +63,23 @@ export default class HDCLicenceDates implements TaskListPage {
     }
     if (!dateAndTimeInputsAreValidDates(this.body, 'conditionalReleaseDate')) {
       errors.conditionalReleaseDate = "Enter the applicant's conditional release date"
+    }
+    if (!dateIsTodayOrInTheFuture(this.body, 'conditionalReleaseDate')) {
+      errors.conditionalReleaseDate = 'Conditional release date cannot be in the past'
+    }
+    if (
+      isMoreThanMonthsBetweenDates(
+        this.body,
+        'conditionalReleaseDate',
+        'hdcEligibilityDate',
+        MAX_MONTHS_BETWEEN_HDC_AND_CRD,
+      )
+    ) {
+      errors.hdcEligibilityDate =
+        'HDC eligibility date cannot be more than 6 months before the conditional release date'
+    }
+    if (!isBeforeDate(this.body, 'hdcEligibilityDate', 'conditionalReleaseDate')) {
+      errors.hdcEligibilityDate = 'HDC eligibility date must be before the conditional release date'
     }
     return errors
   }
