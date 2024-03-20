@@ -11,6 +11,9 @@ import {
 } from './validation'
 import { TaskListAPIError, ValidationError } from './errors'
 import errorLookups from '../i18n/en/errors.json'
+import { validateReferer } from './viewUtils'
+
+jest.mock('./viewUtils')
 
 jest.mock('../i18n/en/errors.json', () => {
   return {
@@ -148,6 +151,7 @@ describe('catchAPIErrorOrPropogate', () => {
 
   it('populates the error and redirects to the previous page if the API finds an error', () => {
     const error = new TaskListAPIError('some message', 'field')
+    ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
 
     catchAPIErrorOrPropogate(request, response, error)
 
@@ -161,7 +165,8 @@ describe('catchAPIErrorOrPropogate', () => {
       },
     ])
 
-    expect(response.redirect).toHaveBeenCalledWith(request.headers.referer)
+    expect(validateReferer).toHaveBeenCalledWith(request.headers.referer)
+    expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
   })
 
   it('throws the error if not of type TaskListAPIError', () => {

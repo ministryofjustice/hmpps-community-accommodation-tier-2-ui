@@ -8,7 +8,7 @@ import type {
 } from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
 import { stringToKebabCase, formatCommaToLinebreak } from '../utils'
-import { formatLines } from '../viewUtils'
+import { formatLines, validateReferer } from '../viewUtils'
 import Apply from '../../form-pages/apply'
 import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
@@ -132,9 +132,9 @@ export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, 
       if (hdcDatesHaveBeenEntered(application)) {
         const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
-        const referrer = req.headers.referer
+        const referer = validateReferer(req.headers.referer)
         const taskList = new TaskListService(application)
-        return res.render('applications/taskList', { application, taskList, errors, errorSummary, referrer })
+        return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
       }
       return res.redirect(
         paths.applications.pages.show({

@@ -15,10 +15,12 @@ import { getSections } from '../checkYourAnswersUtils'
 import config from '../../config'
 import paths from '../../paths/apply'
 import { TaskListService } from '../../services'
+import { formatLines, validateReferer } from '../viewUtils'
 
 jest.mock('../../services/taskListService')
 jest.mock('../checkYourAnswersUtils')
 jest.mock('../../utils/validation')
+jest.mock('../../utils/viewUtils')
 
 const mockSections = [
   {
@@ -139,6 +141,11 @@ describe('utils', () => {
             }),
           ],
         })
+
+        ;(formatLines as jest.MockedFunction<typeof formatLines>).mockReturnValue(
+          'The application was received by an assessor.',
+        )
+
         expect(getApplicationTimelineEvents(application)).toEqual([
           {
             byline: {
@@ -390,6 +397,7 @@ describe('utils', () => {
         ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
           return { errors: {}, errorSummary: [], userInput: {} }
         })
+        ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
 
         const actual = showMissingRequiredTasksOrTaskList(request, response, application)
 
@@ -399,7 +407,7 @@ describe('utils', () => {
             taskList: stubTaskList,
             errors: {},
             errorSummary: [],
-            referrer: 'some-referrer/',
+            referrer: 'some-validated-referer',
           }),
         )
       })

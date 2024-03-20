@@ -5,6 +5,7 @@ import type { ErrorMessage, ErrorMessages, ErrorSummary, ErrorsAndUserInput } fr
 import { SanitisedError } from '../sanitisedError'
 import errorLookup from '../i18n/en/errors.json'
 import { TaskListAPIError, ValidationError } from './errors'
+import { validateReferer } from './viewUtils'
 
 interface InvalidParams {
   propertyName: string
@@ -32,7 +33,7 @@ export const catchAPIErrorOrPropogate = (request: Request, response: Response, e
     })
     request.flash('errorSummary', [errorSummary(error.field, error.message)])
 
-    response.redirect(request.headers.referer)
+    response.redirect(validateReferer(request.headers.referer))
   } else {
     throw error
   }

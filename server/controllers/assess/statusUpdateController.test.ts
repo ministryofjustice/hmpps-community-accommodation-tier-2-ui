@@ -8,8 +8,10 @@ import { SubmittedApplicationService } from '../../services'
 import paths from '../../paths/assess'
 import applicationStatuses from '../../../wiremock/stubs/application-statuses.json'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
+import { validateReferer } from '../../utils/viewUtils'
 
 jest.mock('../../utils/validation')
+jest.mock('../../utils/viewUtils')
 
 describe('statusUpdateController', () => {
   const token = 'SOME_TOKEN'
@@ -32,10 +34,14 @@ describe('statusUpdateController', () => {
   })
 
   describe('new', () => {
+    beforeEach(() => {
+      jest.resetAllMocks()
+    })
     it('renders the status update _new_ template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
+      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
 
       submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
       submittedApplicationService.getApplicationStatuses.mockResolvedValue(applicationStatuses)
@@ -58,7 +64,7 @@ describe('statusUpdateController', () => {
         errors: {},
         pageHeading: 'What is the latest status of the application?',
         questionText: `What is the latest status of ${person.name}'s application?`,
-        previousPath: 'referer',
+        previousPath: 'some-validated-referer',
       })
     })
 
@@ -98,6 +104,7 @@ describe('statusUpdateController', () => {
           questionText: `What is the latest status of ${person.name}'s application?`,
           previousPath: paths.submittedApplications.overview({ id: submittedApplication.id }),
         })
+        expect(validateReferer).not.toHaveBeenCalled()
       })
     })
   })

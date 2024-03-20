@@ -14,6 +14,7 @@ import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
+import { validateReferer } from '../../utils/viewUtils'
 
 export default class ApplicationsController {
   constructor(
@@ -114,7 +115,7 @@ export default class ApplicationsController {
       page: 'confirm-consent',
     })
     const newApplicationPath = paths.applications.new({})
-    const backLink = req.headers.referer
+    const backLink = validateReferer(req.headers.referer)
     return { application, panelText, changeAnswerPath, newApplicationPath, backLink }
   }
 

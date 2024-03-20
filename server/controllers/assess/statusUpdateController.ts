@@ -4,6 +4,7 @@ import SubmittedApplicationService from '../../services/submittedApplicationServ
 import paths from '../../paths/assess'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { camelToKebabCase } from '../../utils/utils'
+import { validateReferer } from '../../utils/viewUtils'
 
 export default class StatusUpdateController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
@@ -39,7 +40,7 @@ export default class StatusUpdateController {
       return paths.submittedApplications.overview({ id: application.id })
     }
 
-    return referer
+    return validateReferer(referer)
   }
 
   create(): RequestHandler {
