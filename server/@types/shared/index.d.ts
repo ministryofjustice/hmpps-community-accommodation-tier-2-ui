@@ -1,4 +1,4 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -80,6 +80,7 @@ export type { BookingSummary } from './models/BookingSummary';
 export type { CacheType } from './models/CacheType';
 export type { Cancellation } from './models/Cancellation';
 export type { CancellationReason } from './models/CancellationReason';
+export type { Cas1ApplicationTimelinessCategory } from './models/Cas1ApplicationTimelinessCategory';
 export type { Cas1ApplicationUserDetails } from './models/Cas1ApplicationUserDetails';
 export type { Cas2Application } from './models/Cas2Application';
 export type { Cas2ApplicationNote } from './models/Cas2ApplicationNote';
@@ -88,6 +89,7 @@ export type { Cas2ApplicationStatusDetail } from './models/Cas2ApplicationStatus
 export type { Cas2ApplicationStatusUpdate } from './models/Cas2ApplicationStatusUpdate';
 export type { Cas2ApplicationSummary } from './models/Cas2ApplicationSummary';
 export type { Cas2Assessment } from './models/Cas2Assessment';
+export type { Cas2ReportName } from './models/Cas2ReportName';
 export type { Cas2StatusUpdate } from './models/Cas2StatusUpdate';
 export type { Cas2StatusUpdateDetail } from './models/Cas2StatusUpdateDetail';
 export type { Cas2SubmittedApplication } from './models/Cas2SubmittedApplication';
