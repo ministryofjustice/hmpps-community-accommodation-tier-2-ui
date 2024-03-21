@@ -1,4 +1,4 @@
-import { itShouldHavePreviousValue, itShouldHaveNextValue } from '../../../shared-examples'
+import { itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import HDCLicenceDates from './hdcLicenceDates'
 import {
@@ -6,6 +6,7 @@ import {
   dateIsTodayOrInTheFuture,
   isBeforeDate,
   isMoreThanMonthsBetweenDates,
+  differenceInDaysFromToday,
 } from '../../../../utils/dateUtils'
 
 jest.mock('../../../../utils/dateUtils', () => {
@@ -16,6 +17,7 @@ jest.mock('../../../../utils/dateUtils', () => {
     dateIsTodayOrInTheFuture: jest.fn(),
     isMoreThanMonthsBetweenDates: jest.fn(),
     isBeforeDate: jest.fn(),
+    differenceInDaysFromToday: jest.fn(),
   }
 })
 
@@ -31,7 +33,24 @@ describe('HDCLicenceDates', () => {
   })
 
   itShouldHavePreviousValue(new HDCLicenceDates({}, application), 'taskList')
-  itShouldHaveNextValue(new HDCLicenceDates({}, application), '')
+
+  describe('next', () => {
+    it('returns an empty string', () => {
+      ;(differenceInDaysFromToday as jest.Mock).mockImplementation(() => 25)
+
+      const page = new HDCLicenceDates({}, application)
+      expect(page.next()).toEqual('')
+    })
+
+    describe('when the current date is within 20 days of the CRD', () => {
+      it("returns 'hdc-warning'", () => {
+        ;(differenceInDaysFromToday as jest.Mock).mockImplementation(() => 20)
+
+        const page = new HDCLicenceDates({}, application)
+        expect(page.next()).toEqual('hdc-warning')
+      })
+    })
+  })
 
   describe('errors', () => {
     describe('when the dates given are not valid', () => {
