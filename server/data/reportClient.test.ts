@@ -24,7 +24,7 @@ describeClient('ReportClient', provider => {
         uponReceiving: 'A request to get an application report',
         withRequest: {
           method: 'GET',
-          path: paths.reports.show({ name: 'report-name' }),
+          path: paths.reports.show({ name: 'submitted-applications' }),
           query: {},
           headers: {
             authorization: `Bearer ${token}`,
@@ -35,11 +35,11 @@ describeClient('ReportClient', provider => {
         },
       })
 
-      await client.getReport('report-name', response)
+      await client.getReport('submitted-applications', response)
 
       expect(response.set).toHaveBeenCalledWith(
         'Content-Disposition',
-        `attachment; filename="cas2-report-name-report.xlsx"`,
+        `attachment; filename="cas2-submitted-applications-report.xlsx"`,
       )
     })
   })

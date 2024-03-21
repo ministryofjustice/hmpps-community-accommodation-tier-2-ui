@@ -2,7 +2,6 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 
 import ReportsController from './reportsController'
-
 import ReportService from '../../services/reportService'
 import paths from '../../paths/report'
 
@@ -10,7 +9,7 @@ jest.mock('../../utils/validation')
 
 describe('reportsController', () => {
   const token = 'SOME_TOKEN'
-  const name = 'report-name'
+  const name = 'submitted-applications'
 
   let request: DeepMocked<Request> = createMock<Request>({ user: { token } })
   let response: DeepMocked<Response> = createMock<Response>({})
@@ -43,7 +42,7 @@ describe('reportsController', () => {
 
       await requestHandler(request, response, next)
 
-      expect(paths.report.create({ name })).toEqual('/reports/report-name')
+      expect(paths.report.create({ name })).toEqual('/reports/submitted-applications')
 
       expect(reportService.getReport).toHaveBeenCalledWith(name, token, response)
     })
