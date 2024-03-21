@@ -1,4 +1,4 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -15,6 +15,7 @@ export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     eligibilityReason?: string;
     dutyToReferLocalAuthorityAreaName?: string;
     personReleaseDate?: string;
+    pdu?: string;
     summaryData: AnyValue;
 });
 
