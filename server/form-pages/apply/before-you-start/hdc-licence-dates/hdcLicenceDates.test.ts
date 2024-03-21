@@ -50,6 +50,15 @@ describe('HDCLicenceDates', () => {
         expect(page.next()).toEqual('hdc-warning')
       })
     })
+
+    describe('when the current date is within 10 days of the CRD', () => {
+      it("returns 'hdc-ineligible'", () => {
+        ;(differenceInDaysFromToday as jest.Mock).mockImplementation(() => 10)
+
+        const page = new HDCLicenceDates({}, application)
+        expect(page.next()).toEqual('hdc-ineligible')
+      })
+    })
   })
 
   describe('errors', () => {

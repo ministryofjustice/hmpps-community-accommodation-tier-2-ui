@@ -53,9 +53,15 @@ export default class HDCLicenceDates implements TaskListPage {
     const isWithinWarningRange =
       differenceBetweenCrdAndTodaysDate < MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_WARNING &&
       differenceBetweenCrdAndTodaysDate > MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_INELIGIBILITY
+    const isWithinIneligibleRange =
+      differenceBetweenCrdAndTodaysDate <= MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_INELIGIBILITY
 
     if (isWithinWarningRange) {
       return 'hdc-warning'
+    }
+
+    if (isWithinIneligibleRange) {
+      return 'hdc-ineligible'
     }
 
     return ''

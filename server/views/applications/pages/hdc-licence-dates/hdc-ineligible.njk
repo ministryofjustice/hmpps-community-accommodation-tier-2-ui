@@ -1,0 +1,24 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+    {{ govukPanel({
+        titleText: page.title,
+        text: "You cannot submit this CAS-2 application because there are fewer than 10 days before the applicant's conditional release date.",
+        classes: "govuk-!-margin-bottom-9 govuk-panel--fail"
+    }) }}
+
+{% endblock %}
+
+{% block button %}
+
+    <div class="govuk-button-group">
+        {{ govukButton({
+            text: "Search for a different applicant",
+            href: paths.applications.new()
+        }) }}
+
+        <a href="{{ paths.applications.pages.show({ id: applicationId, task: 'hdc-licence-dates', page: 'hdc-licence-dates' }) }}">Change HDC dates</a>
+    </div>
+
+{% endblock %}
