@@ -177,7 +177,6 @@ export default class ApplicationsController {
         await this.applicationService.submit(req.user.token, application)
         res.render('applications/confirm', { pageHeading: 'Application confirmation', application })
       } catch (err) {
-        err.data = { detail: err.message }
         catchValidationErrorOrPropogate(req, res, err, paths.applications.show({ id: application.id }))
       }
     }

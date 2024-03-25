@@ -20,6 +20,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
+      {{ showErrorSummary(errorSummary) }}
       <h1 class="govuk-heading-xl">Apply for Short-Term Accommodation (CAS-2)</h1>
 
       <div class="govuk-!-margin-bottom-4">
@@ -40,7 +41,6 @@
 
       <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible  govuk-!-margin-top-7">
     </div>
-    {{ showErrorSummary(errorSummary) }}
 
     <div class="govuk-grid-column-three-quarters">
       <form action="{{ paths.applications.submission({id: application.id}) }}" method="post">
