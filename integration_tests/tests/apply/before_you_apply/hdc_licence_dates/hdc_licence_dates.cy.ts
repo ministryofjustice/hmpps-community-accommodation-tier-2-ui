@@ -156,7 +156,24 @@ context('Visit "HDC licence dates" page', () => {
   // ----------------------------------------------
   it('pre-populates date inputs', function test() {
     // When there is existing data for 'HDC licence dates' in the application
-    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    const hdcEligibilityDate = getTodaysDatePlusMonthsAndDays()
+    const conditionalReleaseDate = getTodaysDatePlusMonthsAndDays(2)
+
+    const HDCApplicationData = {
+      'hdc-licence-dates': {
+        'hdc-licence-dates': {
+          hdcEligibilityDate: hdcEligibilityDate.formattedDate,
+          'hdcEligibilityDate-year': hdcEligibilityDate.year,
+          'hdcEligibilityDate-month': hdcEligibilityDate.month,
+          'hdcEligibilityDate-day': hdcEligibilityDate.day,
+          conditionalReleaseDate: conditionalReleaseDate.formattedDate,
+          'conditionalReleaseDate-year': conditionalReleaseDate.year,
+          'conditionalReleaseDate-month': conditionalReleaseDate.month,
+          'conditionalReleaseDate-day': conditionalReleaseDate.day,
+        },
+      },
+    }
+    cy.task('stubApplicationGet', { application: { data: { ...HDCApplicationData } } })
     HDCLicenceDatesPage.visit(this.applicationWithData)
 
     // Then I see the dates on the page
