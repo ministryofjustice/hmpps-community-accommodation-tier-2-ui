@@ -24,7 +24,8 @@
       "conditionalReleaseDate-month": "3",
       "conditionalReleaseDate-day": "28"
     },
-    "hdc-warning": {}
+    "hdc-warning": {},
+    "hdc-ineligible": {}
   },
   "referrer-details": {
     "confirm-details": { "name": "Eric Dier", "email": "eric.dier@moj.gov.uk" },
