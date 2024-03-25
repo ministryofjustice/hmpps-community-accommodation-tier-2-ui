@@ -7,7 +7,7 @@ import {
   InvalidDateStringError,
   dateAndTimeInputsAreValidDates,
   dateIsTodayOrInTheFuture,
-  getTodaysDatePlusMonths,
+  getTodaysDatePlusMonthsAndDays,
   isMoreThanMonthsBetweenDates,
   differenceInDaysFromToday,
   isBeforeDate,
@@ -365,9 +365,9 @@ describe('DateFormats', () => {
     })
   })
 
-  describe('getTodaysDatePlusMonths', () => {
+  describe('getTodaysDatePlusMonthsAndDays', () => {
     it('returns a string of todays date', () => {
-      const result = getTodaysDatePlusMonths()
+      const result = getTodaysDatePlusMonthsAndDays()
 
       expect(result.year).toBeTruthy()
       expect(result.month).toBeTruthy()

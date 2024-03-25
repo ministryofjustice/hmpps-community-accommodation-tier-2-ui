@@ -251,9 +251,10 @@ export const isBeforeDate = <K extends string | number>(
  * @param monthsToAdd the number of months to add to todays date
  * @returns {TodaysDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
  */
-export const getTodaysDatePlusMonths = (monthsToAdd = 0): TodaysDate => {
+export const getTodaysDatePlusMonthsAndDays = (monthsToAdd = 0, daysToAdd = 0): TodaysDate => {
   const date = new Date()
   date.setMonth(date.getMonth() + monthsToAdd)
+  date.setDate(date.getDate() + daysToAdd)
 
   const year = date.getFullYear().toString()
   const month = (date.getMonth() + 1).toString().padStart(2, '0')

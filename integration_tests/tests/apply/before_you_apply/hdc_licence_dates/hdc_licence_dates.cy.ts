@@ -9,10 +9,19 @@
 //    And I have confirmed the user is eligible for CAS-2 and has given consent
 //    And I'm now faced with the 'HDC licence dates' page
 //
-//  Scenario: navigate to next page
+//  Scenario: navigate to task list page
 //    When I complete the "HDC licence dates" page
 //    And I continue to the next task / page
 //    Then I am taken to the task list
+//    And I see that the HDC licence dates task is complete
+//
+//  Scenario: navigate to warning page
+//    When I complete the "HDC licence dates" page
+//    And the current date is within 21 days of the CRD
+//    And I continue to the next task / page
+//    Then I am taken to the HDC warning page
+//    And I can continue the application
+//    Then I am taken to the task list page
 //    And I see that the HDC licence dates task is complete
 //
 //  Scenario: date is pre-populated
@@ -22,8 +31,10 @@
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import HDCLicenceDatesPage from '../../../../pages/apply/before_you_start/hdc-licence-dates/hdcLicenceDates'
+import HDCWarningPage from '../../../../pages/apply/before_you_start/hdc-licence-dates/hdcWarningPage'
 import paths from '../../../../../server/paths/apply'
 import TaskListPage from '../../../../pages/apply/taskListPage'
+import { getTodaysDatePlusMonthsAndDays } from '../../../../../server/utils/dateUtils'
 
 context('Visit "HDC licence dates" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -88,7 +99,7 @@ context('Visit "HDC licence dates" page', () => {
 
   //  Scenario: navigate to next page
   // ----------------------------------------------
-  it('navigates to the next page', function test() {
+  it('navigates to the task list page', function test() {
     // When I complete the "HDC licence dates" page
     const page = Page.verifyOnPage(HDCLicenceDatesPage, this.application)
     page.completeForm()
@@ -102,6 +113,39 @@ context('Visit "HDC licence dates" page', () => {
     page.clickSubmit()
 
     // Then I am taken to the task list
+    const taskListPage = Page.verifyOnPage(TaskListPage)
+
+    // And I see that the HDC licence dates task is complete
+    taskListPage.shouldShowTaskStatus('hdc-licence-dates', 'Completed')
+  })
+
+  //  Scenario: navigate to warning page
+  // ----------------------------------------------
+  it('navigates to the warning page', function test() {
+    // When I complete the "HDC licence dates" page
+    // And the current date is within 21 days of the CRD
+    const page = Page.verifyOnPage(HDCLicenceDatesPage, this.application)
+
+    const hdcEligibilityDate = getTodaysDatePlusMonthsAndDays().formattedDate
+    const conditionalReleaseDate = getTodaysDatePlusMonthsAndDays(0, 20).formattedDate
+
+    page.completeForm(hdcEligibilityDate, conditionalReleaseDate)
+
+    // after submission of the valid form the API will return the answered question
+    // -- note that it this case the value must be yes or no to indicate that the
+    //    'Confirm consent' task is complete
+    cy.task('stubApplicationGet', { application: this.applicationWithData })
+
+    // When I continue to the next task / page
+    page.clickSubmit()
+
+    // Then I am taken to the HDC warning page
+    const warningPage = Page.verifyOnPage(HDCWarningPage, this.application)
+
+    // And when I continue the application
+    warningPage.clickSubmit('Accept and continue')
+
+    // Then I am taken to the task list page
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     // And I see that the HDC licence dates task is complete

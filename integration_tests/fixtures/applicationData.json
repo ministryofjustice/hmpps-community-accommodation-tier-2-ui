@@ -23,7 +23,8 @@
       "conditionalReleaseDate-year": "2024",
       "conditionalReleaseDate-month": "3",
       "conditionalReleaseDate-day": "28"
-    }
+    },
+    "hdc-warning": {}
   },
   "referrer-details": {
     "confirm-details": { "name": "Eric Dier", "email": "eric.dier@moj.gov.uk" },

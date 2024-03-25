@@ -2,7 +2,7 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
-import { getTodaysDatePlusMonths } from '../../../../../server/utils/dateUtils'
+import { getTodaysDatePlusMonthsAndDays } from '../../../../../server/utils/dateUtils'
 
 export default class HDCLicenceDates extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -24,9 +24,12 @@ export default class HDCLicenceDates extends ApplyPage {
     )
   }
 
-  completeForm(): void {
-    this.completeDateInputs('hdcEligibilityDate', getTodaysDatePlusMonths().formattedDate)
-    this.completeDateInputs('conditionalReleaseDate', getTodaysDatePlusMonths(2).formattedDate)
+  completeForm(hdcEligibilityDate?: string, conditionalReleaseDate?: string): void {
+    this.completeDateInputs('hdcEligibilityDate', hdcEligibilityDate || getTodaysDatePlusMonthsAndDays().formattedDate)
+    this.completeDateInputs(
+      'conditionalReleaseDate',
+      conditionalReleaseDate || getTodaysDatePlusMonthsAndDays(2).formattedDate,
+    )
   }
 
   shouldShowPrepopulatedDates(): void {
