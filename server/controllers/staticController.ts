@@ -12,4 +12,10 @@ export default class StaticController {
       res.render('static/privacy-notice')
     }
   }
+
+  cookiesPolicyPage(): RequestHandler {
+    return (_req: Request, res: Response) => {
+      res.render('static/cookies-policy')
+    }
+  }
 }
