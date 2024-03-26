@@ -6,6 +6,7 @@ import type { AnyValue } from './AnyValue';
 import type { ApArea } from './ApArea';
 import type { Application } from './Application';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
+import type { ApType } from './ApType';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { PersonRisks } from './PersonRisks';
@@ -15,6 +16,7 @@ export type ApprovedPremisesApplication = (Application & {
     isPipeApplication?: boolean;
     isEmergencyApplication?: boolean;
     isEsapApplication?: boolean;
+    apType?: ApType;
     arrivalDate?: string;
     risks?: PersonRisks;
     createdByUserId: string;
