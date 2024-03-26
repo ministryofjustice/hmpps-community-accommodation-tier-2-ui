@@ -15,7 +15,7 @@ import {
 } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
-type TodaysDate = { year: string; month: string; day: string; formattedDate: string }
+type StructuredDate = { year: string; month: string; day: string; formattedDate: string }
 export class DateFormats {
   /**
    * @param date JS Date object.
@@ -249,9 +249,9 @@ export const isBeforeDate = <K extends string | number>(
 
 /**
  * @param monthsToAdd the number of months to add to todays date
- * @returns {TodaysDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
+ * @returns {StructuredDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
  */
-export const getTodaysDatePlusMonthsAndDays = (monthsToAdd = 0, daysToAdd = 0): TodaysDate => {
+export const getTodaysDatePlusMonthsAndDays = (monthsToAdd = 0, daysToAdd = 0): StructuredDate => {
   const date = new Date()
   date.setMonth(date.getMonth() + monthsToAdd)
   date.setDate(date.getDate() + daysToAdd)
