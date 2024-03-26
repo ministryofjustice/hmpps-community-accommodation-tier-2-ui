@@ -2,7 +2,7 @@ import { Cas2Application as Application } from '../../../../../server/@types/sha
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
-import { getTodaysDatePlusMonthsAndDays } from '../../../../../server/utils/dateUtils'
+import { StructuredDate } from '../../../../../server/utils/dateUtils'
 
 export default class HDCLicenceDates extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -24,20 +24,17 @@ export default class HDCLicenceDates extends ApplyPage {
     )
   }
 
-  completeForm(hdcEligibilityDate?: string, conditionalReleaseDate?: string): void {
-    this.completeDateInputs('hdcEligibilityDate', hdcEligibilityDate || getTodaysDatePlusMonthsAndDays().formattedDate)
-    this.completeDateInputs(
-      'conditionalReleaseDate',
-      conditionalReleaseDate || getTodaysDatePlusMonthsAndDays(2).formattedDate,
-    )
+  completeForm(hdcEligibilityDate: string, conditionalReleaseDate: string): void {
+    this.completeDateInputs('hdcEligibilityDate', hdcEligibilityDate)
+    this.completeDateInputs('conditionalReleaseDate', conditionalReleaseDate)
   }
 
-  shouldShowPrepopulatedDates(): void {
-    cy.get('#hdcEligibilityDate-day').should('have.value', '22')
-    cy.get('#hdcEligibilityDate-month').should('have.value', '2')
-    cy.get('#hdcEligibilityDate-year').should('have.value', '2024')
-    cy.get('#conditionalReleaseDate-day').should('have.value', '28')
-    cy.get('#conditionalReleaseDate-month').should('have.value', '3')
-    cy.get('#conditionalReleaseDate-year').should('have.value', '2024')
+  shouldShowPrepopulatedDates(hdcEligibilityDate: StructuredDate, conditionalReleaseDate: StructuredDate): void {
+    cy.get('#hdcEligibilityDate-day').should('have.value', hdcEligibilityDate.day)
+    cy.get('#hdcEligibilityDate-month').should('have.value', hdcEligibilityDate.month)
+    cy.get('#hdcEligibilityDate-year').should('have.value', hdcEligibilityDate.year)
+    cy.get('#conditionalReleaseDate-day').should('have.value', conditionalReleaseDate.day)
+    cy.get('#conditionalReleaseDate-month').should('have.value', conditionalReleaseDate.month)
+    cy.get('#conditionalReleaseDate-year').should('have.value', conditionalReleaseDate.year)
   }
 }

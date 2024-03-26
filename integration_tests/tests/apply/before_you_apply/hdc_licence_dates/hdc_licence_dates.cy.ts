@@ -42,7 +42,23 @@ import HDCIneligiblePage from '../../../../pages/apply/before_you_start/hdc-lice
 import FindByPrisonNumberPage from '../../../../pages/apply/findByPrisonNumberPage'
 import paths from '../../../../../server/paths/apply'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import { getTodaysDatePlusMonthsAndDays } from '../../../../../server/utils/dateUtils'
+import { getTodaysDatePlusMonthsAndDays, StructuredDate } from '../../../../../server/utils/dateUtils'
+
+const createHdcApplicationData = (hdcEligibilityDate: StructuredDate, conditionalReleaseDate: StructuredDate) => ({
+  'hdc-licence-dates': {
+    'hdc-licence-dates': {
+      hdcEligibilityDate: hdcEligibilityDate.formattedDate,
+      'hdcEligibilityDate-year': hdcEligibilityDate.year,
+      'hdcEligibilityDate-month': hdcEligibilityDate.month,
+      'hdcEligibilityDate-day': hdcEligibilityDate.day,
+      conditionalReleaseDate: conditionalReleaseDate.formattedDate,
+      'conditionalReleaseDate-year': conditionalReleaseDate.year,
+      'conditionalReleaseDate-month': conditionalReleaseDate.month,
+      'conditionalReleaseDate-day': conditionalReleaseDate.day,
+    },
+    'hdc-warning': {},
+  },
+})
 
 context('Visit "HDC licence dates" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -110,12 +126,24 @@ context('Visit "HDC licence dates" page', () => {
   it('navigates to the task list page', function test() {
     // When I complete the "HDC licence dates" page
     const page = Page.verifyOnPage(HDCLicenceDatesPage, this.application)
-    page.completeForm()
+
+    const hdcEligibilityDate = getTodaysDatePlusMonthsAndDays()
+    const conditionalReleaseDate = getTodaysDatePlusMonthsAndDays(3)
+
+    page.completeForm(hdcEligibilityDate.formattedDate, conditionalReleaseDate.formattedDate)
 
     // after submission of the valid form the API will return the answered question
     // -- note that it this case the value must be yes or no to indicate that the
     //    'Confirm consent' task is complete
-    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    cy.task('stubApplicationGet', {
+      application: {
+        ...this.applicationWithData,
+        data: {
+          ...this.applicationWithData.data,
+          ...createHdcApplicationData(hdcEligibilityDate, conditionalReleaseDate),
+        },
+      },
+    })
 
     // When I continue to the next task / page
     page.clickSubmit()
@@ -134,15 +162,23 @@ context('Visit "HDC licence dates" page', () => {
     // And the current date is within 21 days of the CRD
     const page = Page.verifyOnPage(HDCLicenceDatesPage, this.application)
 
-    const hdcEligibilityDate = getTodaysDatePlusMonthsAndDays().formattedDate
-    const conditionalReleaseDate = getTodaysDatePlusMonthsAndDays(0, 20).formattedDate
+    const hdcEligibilityDate = getTodaysDatePlusMonthsAndDays()
+    const conditionalReleaseDate = getTodaysDatePlusMonthsAndDays(0, 20)
 
-    page.completeForm(hdcEligibilityDate, conditionalReleaseDate)
+    page.completeForm(hdcEligibilityDate.formattedDate, conditionalReleaseDate.formattedDate)
 
     // after submission of the valid form the API will return the answered question
     // -- note that it this case the value must be yes or no to indicate that the
     //    'Confirm consent' task is complete
-    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    cy.task('stubApplicationGet', {
+      application: {
+        ...this.applicationWithData,
+        data: {
+          ...this.applicationWithData.data,
+          ...createHdcApplicationData(hdcEligibilityDate, conditionalReleaseDate),
+        },
+      },
+    })
 
     // When I continue to the next task / page
     page.clickSubmit()
@@ -195,25 +231,18 @@ context('Visit "HDC licence dates" page', () => {
     const hdcEligibilityDate = getTodaysDatePlusMonthsAndDays()
     const conditionalReleaseDate = getTodaysDatePlusMonthsAndDays(2)
 
-    const HDCApplicationData = {
-      'hdc-licence-dates': {
-        'hdc-licence-dates': {
-          hdcEligibilityDate: hdcEligibilityDate.formattedDate,
-          'hdcEligibilityDate-year': hdcEligibilityDate.year,
-          'hdcEligibilityDate-month': hdcEligibilityDate.month,
-          'hdcEligibilityDate-day': hdcEligibilityDate.day,
-          conditionalReleaseDate: conditionalReleaseDate.formattedDate,
-          'conditionalReleaseDate-year': conditionalReleaseDate.year,
-          'conditionalReleaseDate-month': conditionalReleaseDate.month,
-          'conditionalReleaseDate-day': conditionalReleaseDate.day,
-        },
+    const applicationWithHdcDates = {
+      application: {
+        ...this.application,
+        data: createHdcApplicationData(hdcEligibilityDate, conditionalReleaseDate),
       },
     }
-    cy.task('stubApplicationGet', { application: { data: { ...HDCApplicationData } } })
-    HDCLicenceDatesPage.visit(this.applicationWithData)
+
+    cy.task('stubApplicationGet', applicationWithHdcDates)
+    HDCLicenceDatesPage.visit(applicationWithHdcDates.application)
 
     // Then I see the dates on the page
-    const page = Page.verifyOnPage(HDCLicenceDatesPage, this.applicationWithData)
-    page.shouldShowPrepopulatedDates()
+    const page = Page.verifyOnPage(HDCLicenceDatesPage, applicationWithHdcDates.application)
+    page.shouldShowPrepopulatedDates(hdcEligibilityDate, conditionalReleaseDate)
   })
 })

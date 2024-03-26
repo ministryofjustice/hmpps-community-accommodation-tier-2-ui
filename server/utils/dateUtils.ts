@@ -15,7 +15,7 @@ import {
 } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
-type StructuredDate = { year: string; month: string; day: string; formattedDate: string }
+export type StructuredDate = { year: string; month: string; day: string; formattedDate: string }
 export class DateFormats {
   /**
    * @param date JS Date object.
