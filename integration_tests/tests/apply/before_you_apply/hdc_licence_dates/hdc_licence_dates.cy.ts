@@ -78,10 +78,6 @@ context('Visit "HDC licence dates" page', () => {
       cy.wrap({ ...application, data: applicationData }).as('application')
     })
 
-    cy.fixture('applicationData.json').then(applicationData => {
-      cy.wrap({ ...application, data: applicationData }).as('applicationWithData')
-    })
-
     cy.wrap({
       ...application,
       data: {
@@ -132,14 +128,11 @@ context('Visit "HDC licence dates" page', () => {
 
     page.completeForm(hdcEligibilityDate.formattedDate, conditionalReleaseDate.formattedDate)
 
-    // after submission of the valid form the API will return the answered question
-    // -- note that it this case the value must be yes or no to indicate that the
-    //    'Confirm consent' task is complete
     cy.task('stubApplicationGet', {
       application: {
-        ...this.applicationWithData,
+        ...this.application,
         data: {
-          ...this.applicationWithData.data,
+          ...this.application.data,
           ...createHdcApplicationData(hdcEligibilityDate, conditionalReleaseDate),
         },
       },
@@ -167,14 +160,11 @@ context('Visit "HDC licence dates" page', () => {
 
     page.completeForm(hdcEligibilityDate.formattedDate, conditionalReleaseDate.formattedDate)
 
-    // after submission of the valid form the API will return the answered question
-    // -- note that it this case the value must be yes or no to indicate that the
-    //    'Confirm consent' task is complete
     cy.task('stubApplicationGet', {
       application: {
-        ...this.applicationWithData,
+        ...this.application,
         data: {
-          ...this.applicationWithData.data,
+          ...this.application.data,
           ...createHdcApplicationData(hdcEligibilityDate, conditionalReleaseDate),
         },
       },
@@ -208,10 +198,7 @@ context('Visit "HDC licence dates" page', () => {
 
     page.completeForm(hdcEligibilityDate, conditionalReleaseDate)
 
-    // after submission of the valid form the API will return the answered question
-    // -- note that it this case the value must be yes or no to indicate that the
-    //    'Confirm consent' task is complete
-    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    cy.task('stubApplicationGet', { application: this.application })
 
     // When I continue to the next task / page
     page.clickSubmit()
