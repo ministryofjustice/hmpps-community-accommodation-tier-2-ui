@@ -831,9 +831,9 @@ export const getQuestions = (name: string) => {
         },
       },
       'offence-history-data': {
-        titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
+        offenceGroupName: {
+          question: 'Offence group name',
+          hint: 'For example, grievous bodily harm (GBH)',
         },
         offenceCategory,
         offenceDate: {

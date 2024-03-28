@@ -7,7 +7,7 @@ import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
 export type OffenceHistoryDataBody = {
-  titleAndNumber: string
+  offenceGroupName: string
   offenceCategory: string
   offenceDate: string
   'offenceDate-day': string
@@ -20,7 +20,7 @@ export type OffenceHistoryDataBody = {
 @Page({
   name: 'offence-history-data',
   bodyProperties: [
-    'titleAndNumber',
+    'offenceGroupName',
     'offenceCategory',
     'offenceDate-day',
     'offenceDate-month',
@@ -84,8 +84,8 @@ export default class OffenceHistoryData implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.titleAndNumber) {
-      errors.titleAndNumber = 'Enter the offence title'
+    if (!this.body.offenceGroupName) {
+      errors.offenceGroupName = 'Enter the offence group name'
     }
     if (this.body.offenceCategory === 'choose') {
       errors.offenceCategory = 'Select the offence category'
