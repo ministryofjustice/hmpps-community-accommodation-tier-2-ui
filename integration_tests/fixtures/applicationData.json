@@ -332,7 +332,7 @@
     "any-previous-convictions": { "hasAnyPreviousConvictions": "yesRelevantRisk" },
     "offence-history-data": [
       {
-        "titleAndNumber": "Arson",
+        "offenceGroupName": "Arson",
         "offenceCategory": "Arson",
         "offenceDate-day": "5",
         "offenceDate-month": "6",
@@ -341,7 +341,7 @@
         "summary": "summary detail"
       },
       {
-        "titleAndNumber": "Stalking",
+        "offenceGroupName": "Stalking",
         "offenceCategory": "Stalking",
         "offenceDate-day": "6",
         "offenceDate-month": "7",

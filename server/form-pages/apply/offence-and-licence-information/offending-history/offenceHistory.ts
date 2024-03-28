@@ -11,7 +11,7 @@ import { getQuestions } from '../../../utils/questions'
 type OffenceHistoryBody = Record<string, never>
 
 type OffenceHistoryUI = {
-  titleAndNumber: string
+  offenceGroupName: string
   offenceCategoryTag: string
   offenceCategoryText: string
   offenceDate: string
@@ -60,7 +60,7 @@ export default class OffenceHistory implements TaskListPage {
         const offenceCategoryText = this.offenceCategories[offence.offenceCategory]
 
         return {
-          titleAndNumber: offence.titleAndNumber,
+          offenceGroupName: offence.offenceGroupName,
           offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
           offenceCategoryText,
           offenceDate,
@@ -96,8 +96,8 @@ export default class OffenceHistory implements TaskListPage {
     const response = {}
 
     this.offences?.forEach((offence, index) => {
-      const { titleAndNumber, offenceCategoryText, offenceDate, sentenceLength, summary } = offence
-      const offenceString = `${titleAndNumber}\r\n${offenceCategoryText}\r\n${offenceDate}\r\n${sentenceLength}\r\n\nSummary: ${summary}`
+      const { offenceGroupName, offenceCategoryText, offenceDate, sentenceLength, summary } = offence
+      const offenceString = `${offenceGroupName}\r\n${offenceCategoryText}\r\n${offenceDate}\r\n${sentenceLength}\r\n\nSummary: ${summary}`
       response[`Historical offence ${index + 1}`] = offenceString
     })
 
