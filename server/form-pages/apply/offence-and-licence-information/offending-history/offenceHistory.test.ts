@@ -11,7 +11,7 @@ describe('OffenceHistory', () => {
       'offending-history': {
         'offence-history-data': [
           {
-            titleAndNumber: 'Stalking',
+            offenceGroupName: 'Stalking',
             offenceCategory: 'stalkingOrHarassment',
             'offenceDate-day': '1',
             'offenceDate-month': '2',
@@ -20,7 +20,7 @@ describe('OffenceHistory', () => {
             summary: 'summary detail',
           },
           {
-            titleAndNumber: 'Arson',
+            offenceGroupName: 'Arson',
             offenceCategory: 'arson',
             'offenceDate-day': '5',
             'offenceDate-month': '6',
@@ -48,7 +48,7 @@ describe('OffenceHistory', () => {
 
         expect(page.offences).toEqual([
           {
-            titleAndNumber: 'Stalking',
+            offenceGroupName: 'Stalking',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>',
             offenceCategoryText: 'Stalking or Harassment',
             offenceDate: '1 February 2023',
@@ -57,7 +57,7 @@ describe('OffenceHistory', () => {
             removeLink: `/applications/${applicationWithData.id}/tasks/offending-history/pages/offence-history-data/0/removeFromList?redirectPage=offence-history`,
           },
           {
-            titleAndNumber: 'Arson',
+            offenceGroupName: 'Arson',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--yellow">Arson</strong>',
             offenceCategoryText: 'Arson',
             offenceDate: '5 June 1940',
