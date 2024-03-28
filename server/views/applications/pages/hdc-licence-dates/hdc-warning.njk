@@ -1,0 +1,23 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+    {{ govukPanel({
+        titleText: page.title,
+        text: "The CAS-2 team may not have enough time before the applicant's conditional release date to process their application and find suitable accommodation.",
+        classes: "govuk-!-margin-bottom-9 govuk-panel--warning"
+    }) }}
+
+{% endblock %}
+
+{% block button %}
+
+    <div class="govuk-button-group">
+        {{ govukButton({
+            text: "Accept and continue"
+        }) }}
+
+        <a href="{{ paths.applications.pages.show({ id: applicationId, task: 'hdc-licence-dates', page: 'hdc-licence-dates' }) }}">Change HDC dates</a>
+    </div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
-import { getTodaysDatePlusMonths } from '../../server/utils/dateUtils'
+import { getTodaysDatePlusMonthsAndDays } from '../../server/utils/dateUtils'
 
 export const completeEligibilityTask = async (page: Page, name: string) => {
   const confirmEligibilityPage = await ApplyPage.initialize(
@@ -28,8 +28,8 @@ export const completeConsentTask = async (page: Page, name: string) => {
 }
 
 export const completeHDCLicenceDatesTask = async (page: Page, name: string) => {
-  const hdcDate = getTodaysDatePlusMonths()
-  const crdDate = getTodaysDatePlusMonths(2)
+  const hdcDate = getTodaysDatePlusMonthsAndDays()
+  const crdDate = getTodaysDatePlusMonthsAndDays(2)
 
   const hdcLicenceDatesPage = await ApplyPage.initialize(page, `${name}'s Home Detention Curfew (HDC) licence dates`)
   await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s HDC eligibility date?`, {

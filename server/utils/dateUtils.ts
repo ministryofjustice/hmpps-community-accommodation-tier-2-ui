@@ -2,6 +2,7 @@
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 
 import {
+  differenceInCalendarDays,
   differenceInDays,
   differenceInMonths,
   formatDistanceStrict,
@@ -14,7 +15,7 @@ import {
 } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
-type TodaysDate = { year: string; month: string; day: string; formattedDate: string }
+export type StructuredDate = { year: string; month: string; day: string; formattedDate: string }
 export class DateFormats {
   /**
    * @param date JS Date object.
@@ -211,6 +212,23 @@ export const isMoreThanMonthsBetweenDates = <K extends string | number>(
 
 /**
  * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param key The date key for the date.
+ * @returns a boolean.
+ */
+export const differenceInDaysFromToday = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  key: K,
+): number => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)
+
+  const date = DateFormats.isoToDateObj(dateIsoStrings[key])
+  const todaysDate = new Date()
+
+  return differenceInCalendarDays(date, todaysDate)
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
  * @param dateKey The date key for the date that should be before the other one to return true.
  * @param dateToCompareKey The date key for the date to compare with.
  * @returns a boolean.
@@ -231,11 +249,12 @@ export const isBeforeDate = <K extends string | number>(
 
 /**
  * @param monthsToAdd the number of months to add to todays date
- * @returns {TodaysDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
+ * @returns {StructuredDate} an object that contains the computed date in parts e.g `year: 2024` and in whole e.g `2024-05-12`
  */
-export const getTodaysDatePlusMonths = (monthsToAdd = 0): TodaysDate => {
+export const getTodaysDatePlusMonthsAndDays = (monthsToAdd = 0, daysToAdd = 0): StructuredDate => {
   const date = new Date()
   date.setMonth(date.getMonth() + monthsToAdd)
+  date.setDate(date.getDate() + daysToAdd)
 
   const year = date.getFullYear().toString()
   const month = (date.getMonth() + 1).toString().padStart(2, '0')

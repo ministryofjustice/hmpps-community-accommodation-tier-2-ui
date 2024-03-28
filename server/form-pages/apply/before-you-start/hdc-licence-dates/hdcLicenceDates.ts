@@ -10,6 +10,7 @@ import {
   DateFormats,
   dateIsTodayOrInTheFuture,
   isBeforeDate,
+  differenceInDaysFromToday,
   isMoreThanMonthsBetweenDates,
 } from '../../../../utils/dateUtils'
 import { dateBodyProperties } from '../../../utils'
@@ -17,6 +18,8 @@ import { dateBodyProperties } from '../../../utils'
 type HDCLicenceDatesBody = ObjectWithDateParts<'hdcEligibilityDate'> & ObjectWithDateParts<'conditionalReleaseDate'>
 
 const MAX_MONTHS_BETWEEN_HDC_AND_CRD = 6
+const MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_WARNING = 21
+const MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_INELIGIBILITY = 10
 @Page({
   name: 'hdc-licence-dates',
   bodyProperties: [...dateBodyProperties('hdcEligibilityDate'), ...dateBodyProperties('conditionalReleaseDate')],
@@ -46,6 +49,21 @@ export default class HDCLicenceDates implements TaskListPage {
   }
 
   next() {
+    const differenceBetweenCrdAndTodaysDate = differenceInDaysFromToday(this.body, 'conditionalReleaseDate')
+    const isWithinWarningRange =
+      differenceBetweenCrdAndTodaysDate < MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_WARNING &&
+      differenceBetweenCrdAndTodaysDate > MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_INELIGIBILITY
+    const isWithinIneligibleRange =
+      differenceBetweenCrdAndTodaysDate <= MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_INELIGIBILITY
+
+    if (isWithinWarningRange) {
+      return 'hdc-warning'
+    }
+
+    if (isWithinIneligibleRange) {
+      return 'hdc-ineligible'
+    }
+
     return ''
   }
 

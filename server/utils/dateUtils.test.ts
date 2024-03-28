@@ -7,8 +7,9 @@ import {
   InvalidDateStringError,
   dateAndTimeInputsAreValidDates,
   dateIsTodayOrInTheFuture,
-  getTodaysDatePlusMonths,
+  getTodaysDatePlusMonthsAndDays,
   isMoreThanMonthsBetweenDates,
+  differenceInDaysFromToday,
   isBeforeDate,
 } from './dateUtils'
 
@@ -318,6 +319,35 @@ describe('DateFormats', () => {
     })
   })
 
+  describe('differenceInDaysFromToday', () => {
+    const createDateDaysFromNow = (daysFromNow = 0) => {
+      const today = new Date()
+      const dateDaysFromNow = new Date(today)
+      dateDaysFromNow.setDate(today.getDate() + daysFromNow)
+
+      return dateDaysFromNow
+    }
+
+    const createDateObj = (date: Date) => {
+      const dateObj: ObjectWithDateParts<'date'> = {
+        'date-year': date.getFullYear().toString(),
+        'date-month': (date.getMonth() + 1).toString().padStart(2, '0'),
+        'date-day': date.getDate().toString().padStart(2, '0'),
+      }
+
+      return dateObj
+    }
+
+    it('returns the difference in days from today for a given date', () => {
+      const dateOneDayFromNow = createDateDaysFromNow(3)
+      const obj = createDateObj(dateOneDayFromNow)
+
+      const result = differenceInDaysFromToday(obj, 'date')
+
+      expect(result).toEqual(3)
+    })
+  })
+
   describe('isBeforeDate', () => {
     it('calls the date-fns function with the given dates', () => {
       const obj: ObjectWithDateParts<'date' | 'dateToCompare'> = {
@@ -335,9 +365,9 @@ describe('DateFormats', () => {
     })
   })
 
-  describe('getTodaysDatePlusMonths', () => {
+  describe('getTodaysDatePlusMonthsAndDays', () => {
     it('returns a string of todays date', () => {
-      const result = getTodaysDatePlusMonths()
+      const result = getTodaysDatePlusMonthsAndDays()
 
       expect(result.year).toBeTruthy()
       expect(result.month).toBeTruthy()

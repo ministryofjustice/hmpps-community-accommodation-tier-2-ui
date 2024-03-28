@@ -29,6 +29,11 @@ $govuk-page-width: $moj-page-width;
   color: #ffffff;
 }
 
+.govuk-panel--warning {
+  background-color: #FAC710;
+  color: $govuk-text-colour;
+}
+
 .alternative-id-documents {
   .govuk-checkboxes__divider {
     width: 100%;
