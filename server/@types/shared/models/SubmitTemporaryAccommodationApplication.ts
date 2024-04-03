@@ -16,6 +16,8 @@ export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     dutyToReferLocalAuthorityAreaName?: string;
     personReleaseDate?: string;
     pdu?: string;
+    isHistoryOfSexualOffence?: boolean;
+    isConcerningSexualBehaviour?: boolean;
     summaryData: AnyValue;
 });
 
