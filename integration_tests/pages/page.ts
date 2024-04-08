@@ -116,7 +116,7 @@ export default abstract class Page {
 
     cy.get('dt')
       .contains(formattedTerm)
-      .parent()
+      .parents('.govuk-summary-list__row')
       .within(() => {
         cy.get('dd').invoke('text').should('contain', formattedDescription)
       })
