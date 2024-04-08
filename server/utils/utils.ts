@@ -100,3 +100,13 @@ export const camelToKebabCase = (str: string) => {
 export const formatCommaToLinebreak = (str: string) => {
   return str.replace(/,\s*/g, '<br>')
 }
+
+/**
+ * Removes HTML tags from a string
+ * example: <strong>Arson</strong> --> "Arson"
+ * @param str
+ * @returns string
+ */
+export const htmlToPlainText = (str: string) => {
+  return str.replace(/(<([^>]+)>)/gi, '')
+}
