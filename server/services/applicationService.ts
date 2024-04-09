@@ -1,6 +1,11 @@
 import type { Request } from 'express'
-import { AnyValue, Cas2Application as Application, Cas2Application } from '@approved-premises/api'
-import type { DataServices, GroupedApplications } from '@approved-premises/ui'
+import {
+  AnyValue,
+  Cas2Application as Application,
+  Cas2Application,
+  Cas2ApplicationSummary,
+} from '@approved-premises/api'
+import type { DataServices } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
@@ -28,25 +33,15 @@ export default class ApplicationService {
     return application
   }
 
-  async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
-    const applicationClient = this.applicationClientFactory(token)
+  async getApplicationsBySubmissionStatusForLoggedInUser(args: {
+    token: string
+    isSubmitted: boolean
+  }): Promise<Array<Cas2ApplicationSummary>> {
+    const applicationClient = this.applicationClientFactory(args.token)
 
-    const allApplications = await applicationClient.all()
+    const applications = await applicationClient.allBySubmissionStatus({ isSubmitted: args.isSubmitted })
 
-    const result = {
-      inProgress: [],
-      submitted: [],
-    } as GroupedApplications
-
-    allApplications.map(async application => {
-      if (application.status === 'inProgress') {
-        result.inProgress.push(application)
-      } else if (application.status === 'submitted') {
-        result.submitted.push(application)
-      }
-    })
-
-    return result
+    return applications
   }
 
   async save(page: TaskListPage, request: Request) {

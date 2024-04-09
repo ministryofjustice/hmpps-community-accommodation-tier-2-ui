@@ -2,7 +2,7 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
 import { SubmitCas2Application } from '@approved-premises/api'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
-import { DataServices, GroupedApplications, TaskListErrors } from '@approved-premises/ui'
+import { DataServices, TaskListErrors } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
@@ -62,25 +62,19 @@ describe('ApplicationService', () => {
     })
   })
 
-  describe('getAllForLoggedInUser', () => {
+  describe('getApplicationsBySubmissionStatusForLoggedInUser', () => {
     const token = 'SOME_TOKEN'
-    const applications: GroupedApplications = {
-      inProgress: applicationSummaryFactory.buildList(1, { status: 'inProgress' }),
-      submitted: applicationSummaryFactory.buildList(1, { status: 'submitted' }),
-    }
 
-    it('fetches all applications', async () => {
-      applicationClient.all.mockResolvedValue(Object.values(applications).flat())
+    it('fetches applications', async () => {
+      const applications = applicationSummaryFactory.buildList(3)
+      applicationClient.allBySubmissionStatus.mockResolvedValue(applications)
 
-      const result = await service.getAllForLoggedInUser(token)
+      const result = await service.getApplicationsBySubmissionStatusForLoggedInUser({ token, isSubmitted: true })
 
-      expect(result).toEqual({
-        inProgress: applications.inProgress,
-        submitted: applications.submitted,
-      })
+      expect(result).toEqual(applications)
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.all).toHaveBeenCalled()
+      expect(applicationClient.allBySubmissionStatus).toHaveBeenCalled()
     })
   })
 
