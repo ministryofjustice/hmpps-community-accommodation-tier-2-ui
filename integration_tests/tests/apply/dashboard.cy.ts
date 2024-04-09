@@ -36,7 +36,8 @@ context('Applications dashboard', () => {
       status: 'inProgress',
     })
 
-    cy.task('stubApplications', inProgressApplications)
+    cy.task('stubApplications', { applications: inProgressApplications, isSubmitted: false })
+    cy.task('stubApplications', { applications: [], isSubmitted: true })
 
     // I visit the Previous Applications page
     const page = ListPage.visit(inProgressApplications)
@@ -51,7 +52,8 @@ context('Applications dashboard', () => {
       status: 'submitted',
     })
 
-    cy.task('stubApplications', submittedApplications)
+    cy.task('stubApplications', { applications: submittedApplications, isSubmitted: true })
+    cy.task('stubApplications', { applications: [], isSubmitted: false })
 
     // I visit the submitted applications tab
     const page = ListPage.visit(submittedApplications)

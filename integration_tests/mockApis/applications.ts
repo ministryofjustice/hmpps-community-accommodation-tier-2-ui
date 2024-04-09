@@ -28,16 +28,16 @@ export default {
         jsonBody: args.application,
       },
     }),
-  stubApplications: (applications: Array<Application>): SuperAgentRequest =>
+  stubApplications: (args: { applications: Array<Application>; isSubmitted: boolean }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications`,
+        url: `/cas2/applications?isSubmitted=${args.isSubmitted}`,
       },
       response: {
         status: 200,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        jsonBody: applications,
+        jsonBody: args.applications,
       },
     }),
   stubApplicationGet: (args: { application: Application }): SuperAgentRequest =>
