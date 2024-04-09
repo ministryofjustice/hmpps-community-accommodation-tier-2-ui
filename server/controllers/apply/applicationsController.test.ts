@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
+import { ErrorsAndUserInput } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -46,10 +46,6 @@ describe('applicationsController', () => {
 
   let applicationsController: ApplicationsController
 
-  const applications = { inProgress: applicationSummaryFactory.buildList(3), submitted: [] } as GroupedApplications
-
-  applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
-
   beforeEach(() => {
     applicationsController = new ApplicationsController(
       personService,
@@ -72,6 +68,11 @@ describe('applicationsController', () => {
 
   describe('index', () => {
     it('renders existing applications', async () => {
+      const inProgressApplications = applicationSummaryFactory.buildList(3)
+      const submittedApplications = applicationSummaryFactory.buildList(3)
+
+      applicationService.getApplicationsBySubmissionStatusForLoggedInUser.mockResolvedValueOnce(inProgressApplications)
+      applicationService.getApplicationsBySubmissionStatusForLoggedInUser.mockResolvedValueOnce(submittedApplications)
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
@@ -83,7 +84,8 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/index', {
         errors: {},
         errorSummary: [],
-        applications,
+        inProgressApplications,
+        submittedApplications,
         pageHeading: 'Applications',
       })
     })

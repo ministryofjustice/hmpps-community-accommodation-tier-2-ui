@@ -26,7 +26,15 @@ export default class ApplicationsController {
 
   index(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const applications = await this.applicationService.getAllForLoggedInUser(req.user.token)
+      const inProgressApplications = await this.applicationService.getApplicationsBySubmissionStatusForLoggedInUser({
+        token: req.user.token,
+        isSubmitted: false,
+      })
+
+      const submittedApplications = await this.applicationService.getApplicationsBySubmissionStatusForLoggedInUser({
+        token: req.user.token,
+        isSubmitted: true,
+      })
 
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
@@ -34,7 +42,8 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         ...userInput,
-        applications,
+        inProgressApplications,
+        submittedApplications,
         pageHeading: 'Applications',
       })
     }
