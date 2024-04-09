@@ -29,8 +29,9 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async all(): Promise<Array<Cas2ApplicationSummary>> {
-    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
+  async allBySubmissionStatus(args: { isSubmitted: boolean }): Promise<Array<Cas2ApplicationSummary>> {
+    const path = `${paths.applications.index({})}?isSubmitted=${args.isSubmitted}`
+    return (await this.restClient.get({ path })) as Array<Cas2ApplicationSummary>
   }
 
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {

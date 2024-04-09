@@ -68,8 +68,8 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
-  describe('all', () => {
-    it('should get all previous applications', async () => {
+  describe('allBySubmissionStatus', () => {
+    it('should get all previous applications by submission status', async () => {
       const previousApplications = applicationFactory.buildList(5)
 
       provider.addInteraction({
@@ -78,6 +78,9 @@ describeClient('ApplicationClient', provider => {
         withRequest: {
           method: 'GET',
           path: paths.applications.index.pattern,
+          query: {
+            isSubmitted: 'true',
+          },
           headers: {
             authorization: `Bearer ${token}`,
           },
@@ -88,7 +91,7 @@ describeClient('ApplicationClient', provider => {
         },
       })
 
-      const result = await applicationClient.all()
+      const result = await applicationClient.allBySubmissionStatus({ isSubmitted: true })
 
       expect(result).toEqual(previousApplications)
     })
