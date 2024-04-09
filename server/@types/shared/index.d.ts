@@ -95,6 +95,7 @@ export type { Cas2StatusUpdateDetail } from './models/Cas2StatusUpdateDetail';
 export type { Cas2SubmittedApplication } from './models/Cas2SubmittedApplication';
 export type { Cas2SubmittedApplicationSummary } from './models/Cas2SubmittedApplicationSummary';
 export type { Cas2TimelineEvent } from './models/Cas2TimelineEvent';
+export type { Cas3ReportType } from './models/Cas3ReportType';
 export type { Characteristic } from './models/Characteristic';
 export type { CharacteristicPair } from './models/CharacteristicPair';
 export type { ClarificationNote } from './models/ClarificationNote';
@@ -184,6 +185,7 @@ export type { PlacementRequestRequestType } from './models/PlacementRequestReque
 export type { PlacementRequestSortField } from './models/PlacementRequestSortField';
 export type { PlacementRequestStatus } from './models/PlacementRequestStatus';
 export type { PlacementRequestTask } from './models/PlacementRequestTask';
+export type { PlacementRequestTaskOutcome } from './models/PlacementRequestTaskOutcome';
 export type { PlacementRequirements } from './models/PlacementRequirements';
 export type { PlacementType } from './models/PlacementType';
 export type { Premises } from './models/Premises';

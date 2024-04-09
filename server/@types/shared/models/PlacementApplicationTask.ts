@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { PlacementApplicationDecision } from './PlacementApplicationDecision';
 import type { PlacementDates } from './PlacementDates';
 import type { PlacementType } from './PlacementType';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
@@ -12,5 +13,6 @@ export type PlacementApplicationTask = (Task & {
     releaseType: ReleaseTypeOption;
     placementType: PlacementType;
     placementDates?: Array<PlacementDates>;
+    outcome?: PlacementApplicationDecision;
 });
 

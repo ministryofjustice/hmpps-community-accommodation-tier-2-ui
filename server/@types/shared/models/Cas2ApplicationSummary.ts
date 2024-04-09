@@ -9,5 +9,6 @@ export type Cas2ApplicationSummary = (ApplicationSummary & {
     createdByUserId: string;
     status: ApplicationStatus;
     risks?: PersonRisks;
+    hdcEligibilityDate?: string;
 });
 
