@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserQualification = 'womens' | 'pipe' | 'lao' | 'emergency' | 'esap' | 'recovery_focused' | 'mental_health_specialist';
+export type Cas3ReportType = 'referral' | 'booking' | 'bedUsage' | 'bedOccupancy';

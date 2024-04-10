@@ -5,6 +5,7 @@
 import type { ApplicationSummary } from './ApplicationSummary';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { PersonRisks } from './PersonRisks';
+import type { ReleaseTypeOption } from './ReleaseTypeOption';
 export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;
@@ -16,5 +17,6 @@ export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     status: ApprovedPremisesApplicationStatus;
     tier?: string;
     isWithdrawn: boolean;
+    releaseType?: ReleaseTypeOption;
 });
 

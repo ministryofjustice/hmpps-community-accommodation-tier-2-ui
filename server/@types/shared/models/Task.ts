@@ -21,5 +21,6 @@ export type Task = {
     allocatedToStaffMember?: ApprovedPremisesUser;
     status: TaskStatus;
     apArea?: ApArea;
+    outcomeRecordedAt?: string;
 };
 
