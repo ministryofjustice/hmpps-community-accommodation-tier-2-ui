@@ -97,10 +97,17 @@ export const viewSubmittedApplication = async (page: Page, name: string) => {
   await expect(page.locator('h2').first()).toContainText('Application history')
 }
 
+export const viewSubmittedApplicationOverview = async (applicationId: string, page: Page, name: string) => {
+  await page.goto(`/applications/${applicationId}/overview`)
+  await expect(page.locator('h1')).toContainText(name)
+  await expect(page.locator('h2').first()).toContainText('Application history')
+}
+
 export const addNote = async (page: Page) => {
   const note = faker.lorem.paragraph()
   await page.getByLabel('Add a note for the assessor', { exact: true }).fill(note)
   await page.getByTestId('submit-button').click()
   await expect(page.locator('h2').first()).toContainText('Success')
   await expect(page.locator('.moj-timeline__description').first()).toContainText(note)
+  await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 }

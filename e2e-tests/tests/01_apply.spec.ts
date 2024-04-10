@@ -13,6 +13,7 @@ import {
   submitApplication,
   viewSubmittedApplication,
   addNote,
+  viewSubmittedApplicationOverview,
 } from '../steps/apply'
 
 test('create a CAS-2 application', async ({ page, person }) => {
@@ -32,5 +33,11 @@ test('create a CAS-2 application', async ({ page, person }) => {
 test('add a note to a submitted application', async ({ page, person }) => {
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
-  await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
+})
+
+test(`add a note to a submitted application created by another user within user's prison`, async ({ page, person }) => {
+  const { name } = person
+  const SEEDED_APPLICATION_ID = 'edd787eb-31a3-4fad-a473-9cf8969f1487'
+  await viewSubmittedApplicationOverview(SEEDED_APPLICATION_ID, page, name)
+  await addNote(page)
 })
