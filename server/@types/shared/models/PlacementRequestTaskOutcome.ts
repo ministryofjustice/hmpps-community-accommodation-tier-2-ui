@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserQualification = 'womens' | 'pipe' | 'lao' | 'emergency' | 'esap' | 'recovery_focused' | 'mental_health_specialist';
+export type PlacementRequestTaskOutcome = 'matched' | 'unable_to_match';
