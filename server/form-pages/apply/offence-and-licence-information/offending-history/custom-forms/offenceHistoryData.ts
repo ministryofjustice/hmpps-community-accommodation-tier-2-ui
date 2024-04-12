@@ -2,20 +2,32 @@ import type { SelectItem, TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
+import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
 export type OffenceHistoryDataBody = {
   offenceGroupName: string
   offenceCategory: string
-  numberOfOffences: string
-  sentenceTypes: string
+  offenceDate: string
+  'offenceDate-day': string
+  'offenceDate-month': string
+  'offenceDate-year': string
+  sentenceLength: string
   summary: string
 }
 
 @Page({
   name: 'offence-history-data',
-  bodyProperties: ['offenceGroupName', 'offenceCategory', 'numberOfOffences', 'sentenceTypes', 'summary'],
+  bodyProperties: [
+    'offenceGroupName',
+    'offenceCategory',
+    'offenceDate-day',
+    'offenceDate-month',
+    'offenceDate-year',
+    'sentenceLength',
+    'summary',
+  ],
 })
 export default class OffenceHistoryData implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
@@ -76,16 +88,16 @@ export default class OffenceHistoryData implements TaskListPage {
       errors.offenceGroupName = 'Enter the offence group name'
     }
     if (this.body.offenceCategory === 'choose') {
-      errors.offenceCategory = 'Select the offence type'
+      errors.offenceCategory = 'Select the offence category'
     }
-    if (!this.body.numberOfOffences) {
-      errors.numberOfOffences = 'Enter the number of offences'
+    if (!dateAndTimeInputsAreValidDates(this.body, 'offenceDate')) {
+      errors.offenceDate = 'Enter the date the offence was committed'
     }
-    if (!this.body.sentenceTypes) {
-      errors.sentenceTypes = 'Enter the sentence type(s)'
+    if (!this.body.sentenceLength) {
+      errors.sentenceLength = 'Enter the sentence length'
     }
     if (!this.body.summary) {
-      errors.summary = 'Enter the offence details'
+      errors.summary = 'Enter a summary of the offence'
     }
 
     return errors

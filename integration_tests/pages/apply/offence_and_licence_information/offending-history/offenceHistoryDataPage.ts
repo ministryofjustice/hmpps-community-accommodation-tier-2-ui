@@ -26,13 +26,13 @@ export default class OffenceHistoryDataPage extends ApplyPage {
   addOffenceInformation(): void {
     this.getTextInputByIdAndEnterDetails('offenceGroupName', 'Arson (01000)')
     this.getSelectInputByIdAndSelectAnEntry('offenceCategory', 'Arson')
-    this.getTextInputByIdAndEnterDetails('numberOfOffences', '2')
-    this.getTextInputByIdAndEnterDetails('sentenceTypes', '1 suspended')
+    this.completeDateInputs('offenceDate', '2022-07-15')
+    this.getTextInputByIdAndEnterDetails('sentenceLength', '6 months')
     this.getTextInputByIdAndEnterDetails('summary', 'some detail')
   }
 
   clickSubmit(): void {
-    cy.get('button').contains('Save and add offence').click()
+    cy.get('button').contains('Save and continue').click()
   }
 
   clickAddAnother(): void {

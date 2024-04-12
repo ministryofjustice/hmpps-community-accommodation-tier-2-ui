@@ -24,9 +24,9 @@ export default class OffenceHistoryPage extends ApplyPage {
   }
 
   hasListOfOffences(): void {
-    cy.get('.govuk-table__header').contains('Arson')
-    cy.get('.govuk-table__cell').contains('Arson')
-    cy.get('.govuk-table__cell').contains('3')
+    cy.get('.govuk-summary-card__title').contains('Arson')
+    cy.get('.govuk-summary-list').contains('summary detail')
+    cy.get('.govuk-summary-list').contains('2 months')
   }
 
   hasNoOffences(): void {

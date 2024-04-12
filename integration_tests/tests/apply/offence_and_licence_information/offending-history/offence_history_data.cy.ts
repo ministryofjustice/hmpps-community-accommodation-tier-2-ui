@@ -11,6 +11,12 @@
 //  Scenario: I fill in required information for a previous offence
 //    And I save and contnue
 //    Then I am taken back to the Offence history page
+//
+//  Scenario: Add another offence
+//    Given I have filled in required information for an offence
+//    When I save and add another
+//    Then I am taken to a blank "Add a previous offence" page
+//    And I see a success message
 
 import OffenceHistoryDataPage from '../../../../pages/apply/offence_and_licence_information/offending-history/offenceHistoryDataPage'
 import OffenceHistoryPage from '../../../../pages/apply/offence_and_licence_information/offending-history/offenceHistoryPage'
@@ -67,10 +73,26 @@ context('Visit "Offence and licence" section', () => {
 
     page.addOffenceInformation()
 
-    cy.task('stubApplicationGet', { application: this.applicationWithData })
-
     page.clickSubmit()
 
     Page.verifyOnPage(OffenceHistoryPage, this.application)
+  })
+
+  //  Scenario: Add another Offence
+  it('returns to form when adding another', function test() {
+    const page = new OffenceHistoryDataPage(this.application)
+
+    //    Given I have filled in required information for an Offence
+    page.addOffenceInformation()
+
+    //    When I save and add another
+    page.clickAddAnother()
+
+    //    Then I am taken to a blank "Add a previous offence" page
+    Page.verifyOnPage(OffenceHistoryDataPage, this.application)
+    page.assertFormisEmpty()
+
+    //  And I see a success message
+    page.shouldShowSuccessMessage('The offence has been saved')
   })
 })
