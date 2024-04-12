@@ -89,7 +89,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
           'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
           'offence-history-data': [
             {
-              offenceGroupName: 'Arson (09000)',
+              titleAndNumber: 'Arson (09000)',
               offenceCategory: 'Arson',
               'offenceDate-day': '5',
               'offenceDate-month': '6',
@@ -98,7 +98,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               summary: 'summary detail',
             },
             {
-              offenceGroupName: 'Stalking (08000)',
+              titleAndNumber: 'Stalking (08000)',
               offenceCategory: 'Stalking',
               'offenceDate-day': '6',
               'offenceDate-month': '7',
@@ -127,7 +127,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
           'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
           'offence-history-data': [
             {
-              offenceGroupName: 'Arson (09000)',
+              titleAndNumber: 'Arson (09000)',
               offenceCategory: 'Arson',
               'offenceDate-day': '5',
               'offenceDate-month': '6',
@@ -136,7 +136,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               summary: 'summary detail',
             },
             {
-              offenceGroupName: 'Stalking (08000)',
+              titleAndNumber: 'Stalking (08000)',
               offenceCategory: 'Stalking',
               'offenceDate-day': '6',
               'offenceDate-month': '7',

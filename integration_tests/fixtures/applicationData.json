@@ -15,12 +15,12 @@
   },
   "hdc-licence-dates": {
     "hdc-licence-dates": {
-      "hdcEligibilityDate": "2026-02-22",
-      "hdcEligibilityDate-year": "2026",
+      "hdcEligibilityDate": "2024-02-22",
+      "hdcEligibilityDate-year": "2024",
       "hdcEligibilityDate-month": "2",
       "hdcEligibilityDate-day": "22",
-      "conditionalReleaseDate": "2026-03-28",
-      "conditionalReleaseDate-year": "2026",
+      "conditionalReleaseDate": "2024-03-28",
+      "conditionalReleaseDate-year": "2024",
       "conditionalReleaseDate-month": "3",
       "conditionalReleaseDate-day": "28"
     },
@@ -298,10 +298,7 @@
       "cellShareInformationDetail": "some information"
     },
     "behaviour-notes": {},
-    "behaviour-notes-data": [
-      { "behaviourDetail": "some detail\nsome more detail on another line" },
-      { "behaviourDetail": "some other detail" }
-    ],
+    "behaviour-notes-data": [{ "behaviourDetail": "some detail\nsome more detail on another line" }, { "behaviourDetail": "some other detail" }],
     "additional-risk-information": {
       "hasAdditionalInformation": "yes",
       "additionalInformationDetail": "some information"
@@ -337,17 +334,21 @@
     "any-previous-convictions": { "hasAnyPreviousConvictions": "yesRelevantRisk" },
     "offence-history-data": [
       {
-        "offenceGroupName": "Arson",
-        "offenceCategory": "arson",
-        "numberOfOffences": "3",
-        "sentenceTypes": "1 custodial",
+        "titleAndNumber": "Arson",
+        "offenceCategory": "Arson",
+        "offenceDate-day": "5",
+        "offenceDate-month": "6",
+        "offenceDate-year": "1940",
+        "sentenceLength": "3 years",
         "summary": "summary detail"
       },
       {
-        "offenceGroupName": "Stalking",
-        "offenceCategory": "stalkingOrHarassment",
-        "numberOfOffences": "3",
-        "sentenceTypes": "1 suspended",
+        "titleAndNumber": "Stalking",
+        "offenceCategory": "Stalking",
+        "offenceDate-day": "6",
+        "offenceDate-month": "7",
+        "offenceDate-year": "2023",
+        "sentenceLength": "2 months",
         "summary": "more summary detail"
       }
     ],

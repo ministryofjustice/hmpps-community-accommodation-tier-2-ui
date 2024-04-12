@@ -11,17 +11,21 @@ describe('OffenceHistory', () => {
       'offending-history': {
         'offence-history-data': [
           {
-            offenceGroupName: 'Stalking',
+            titleAndNumber: 'Stalking',
             offenceCategory: 'stalkingOrHarassment',
-            numberOfOffences: '3',
-            sentenceTypes: '1 custodial',
+            'offenceDate-day': '1',
+            'offenceDate-month': '2',
+            'offenceDate-year': '2023',
+            sentenceLength: '12 months',
             summary: 'summary detail',
           },
           {
-            offenceGroupName: 'Arson',
+            titleAndNumber: 'Arson',
             offenceCategory: 'arson',
-            numberOfOffences: '2',
-            sentenceTypes: '2 suspended',
+            'offenceDate-day': '5',
+            'offenceDate-month': '6',
+            'offenceDate-year': '1940',
+            sentenceLength: '3 years',
             summary: 'second summary detail',
           },
         ],
@@ -44,153 +48,69 @@ describe('OffenceHistory', () => {
 
         expect(page.offences).toEqual([
           {
-            offenceGroupName: 'Stalking',
+            titleAndNumber: 'Stalking',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>',
             offenceCategoryText: 'Stalking or Harassment',
-            numberOfOffences: '3',
-            sentenceTypes: '1 custodial',
+            offenceDate: '1 February 2023',
+            sentenceLength: '12 months',
             summary: 'summary detail',
             removeLink: `/applications/${applicationWithData.id}/tasks/offending-history/pages/offence-history-data/0/removeFromList?redirectPage=offence-history`,
           },
           {
-            offenceGroupName: 'Arson',
+            titleAndNumber: 'Arson',
             offenceCategoryTag: '<strong class="govuk-tag govuk-tag--yellow">Arson</strong>',
             offenceCategoryText: 'Arson',
-            numberOfOffences: '2',
-            sentenceTypes: '2 suspended',
+            offenceDate: '5 June 1940',
+            sentenceLength: '3 years',
             summary: 'second summary detail',
             removeLink: `/applications/${applicationWithData.id}/tasks/offending-history/pages/offence-history-data/1/removeFromList?redirectPage=offence-history`,
           },
         ])
       })
     })
+  })
 
-    describe('when there is offence data using the previous data model', () => {
-      it('ignores the outdated data', () => {
-        const applicationWithMixedData = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
-          data: {
-            'offending-history': {
-              'offence-history-data': [
-                {
-                  offenceGroupName: 'Stalking',
-                  offenceCategory: 'stalkingOrHarassment',
-                  numberOfOffences: '3',
-                  sentenceTypes: '1 custodial',
-                  summary: 'summary detail',
-                },
-                {
-                  offenceGroupName: 'Arson',
-                  offenceCategory: 'Arson',
-                  'offenceDate-day': '5',
-                  'offenceDate-month': '6',
-                  'offenceDate-year': '1940',
-                  sentenceLength: '3 years',
-                  summary: 'summary detail',
-                },
-              ],
-            },
-          },
-        })
+  itShouldHaveNextValue(new OffenceHistory({}, application), '')
+  itShouldHavePreviousValue(new OffenceHistory({}, application), 'any-previous-convictions')
 
-        const page = new OffenceHistory({}, applicationWithMixedData)
+  describe('errors', () => {
+    it('returns empty object', () => {
+      const page = new OffenceHistory({}, application)
+      expect(page.errors()).toEqual({})
+    })
+  })
 
-        expect(page.offences).toEqual([
-          {
-            offenceGroupName: 'Stalking',
-            numberOfOffences: '3',
-            sentenceTypes: '1 custodial',
-            summary: 'summary detail',
-            offenceCategoryTag: '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>',
-            offenceCategoryText: 'Stalking or Harassment',
-            removeLink: `/applications/${applicationWithMixedData.id}/tasks/offending-history/pages/offence-history-data/0/removeFromList?redirectPage=offence-history`,
-          },
-        ])
+  describe('response', () => {
+    it('returns the offence information', () => {
+      const page = new OffenceHistory({}, applicationWithData)
+      expect(page.response()).toEqual({
+        'Historical offence 1':
+          'Stalking\r\nStalking or Harassment\r\n1 February 2023\r\n12 months\r\n\nSummary: summary detail',
+        'Historical offence 2': 'Arson\r\nArson\r\n5 June 1940\r\n3 years\r\n\nSummary: second summary detail',
       })
     })
 
-    itShouldHaveNextValue(new OffenceHistory({}, application), '')
-    itShouldHavePreviousValue(new OffenceHistory({}, application), 'any-previous-convictions')
-
-    describe('errors', () => {
-      it('returns empty object', () => {
-        const page = new OffenceHistory({}, application)
-        expect(page.errors()).toEqual({})
-      })
+    it('returns empty object when there are no offences', () => {
+      const page = new OffenceHistory({}, application)
+      expect(page.response()).toEqual({})
     })
+  })
 
-    describe('response', () => {
-      it('returns the offence information', () => {
-        const page = new OffenceHistory({}, applicationWithData)
-        expect(page.response()).toEqual({
-          '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong>':
-            'Stalking\r\nNumber of offences: 3\r\nSentence types: 1 custodial\r\n\nDetails: summary detail',
-          '<strong class="govuk-tag govuk-tag--yellow">Arson</strong>':
-            'Arson\r\nNumber of offences: 2\r\nSentence types: 2 suspended\r\n\nDetails: second summary detail',
-        })
-      })
-
-      it('returns empty object when there are no offences', () => {
-        const page = new OffenceHistory({}, application)
-        expect(page.response()).toEqual({})
-      })
-    })
-
-    describe('getOffenceTagColour', () => {
-      const categories = [
-        ['stalkingOrHarassment', 'blue'],
-        ['weaponsOrFirearms', 'red'],
-        ['arson', 'yellow'],
-        ['violence', 'pink'],
-        ['domesticAbuse', 'purple'],
-        ['hateCrime', 'green'],
-        ['drugs', 'custom-brown'],
-        ['other', 'grey'],
-        ['undefinedCategory', 'grey'],
-      ]
-      it.each(categories)('returns correct colour for category %s', (category, colour) => {
-        const page = new OffenceHistory({}, applicationWithData)
-        expect(page.getOffenceTagColour(category)).toEqual(colour)
-      })
-    })
-
-    describe('tableRows', () => {
-      it('returns the rows correctly', () => {
-        const page = new OffenceHistory({}, applicationWithData)
-
-        const expected = [
-          [
-            {
-              text: 'Stalking',
-            },
-            {
-              text: 'Stalking or Harassment',
-            },
-            {
-              text: '3',
-            },
-            {
-              html: `<a href=/applications/${applicationWithData.id}/tasks/offending-history/pages/offence-history-data/0/removeFromList?redirectPage=offence-history>Remove</a>`,
-            },
-          ],
-          [
-            {
-              text: 'Arson',
-            },
-            {
-              text: 'Arson',
-            },
-            {
-              text: '2',
-            },
-            {
-              html: `<a href=/applications/${applicationWithData.id}/tasks/offending-history/pages/offence-history-data/1/removeFromList?redirectPage=offence-history>Remove</a>`,
-            },
-          ],
-        ]
-
-        expect(page.tableRows()).toEqual(expected)
-      })
+  describe('getOffenceTagColour', () => {
+    const categories = [
+      ['stalkingOrHarassment', 'blue'],
+      ['weaponsOrFirearms', 'red'],
+      ['arson', 'yellow'],
+      ['violence', 'pink'],
+      ['domesticAbuse', 'purple'],
+      ['hateCrime', 'green'],
+      ['drugs', 'custom-brown'],
+      ['other', 'grey'],
+      ['undefinedCategory', 'grey'],
+    ]
+    it.each(categories)('returns correct colour for category %s', (category, colour) => {
+      const page = new OffenceHistory({}, applicationWithData)
+      expect(page.getOffenceTagColour(category)).toEqual(colour)
     })
   })
 })

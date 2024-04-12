@@ -5,7 +5,8 @@ export const getQuestions = (name: string) => {
   const dateExample = '27 3 2023'
 
   const offenceCategory = {
-    question: 'Offence type',
+    question: 'Offence category',
+    hint: 'Select the offence category',
     answers: {
       stalkingOrHarassment: 'Stalking or Harassment',
       weaponsOrFirearms: 'Weapons or Firearms',
@@ -19,7 +20,7 @@ export const getQuestions = (name: string) => {
   }
 
   const offenceSummaryHintHtml =
-    '<div id="offence-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>what happened (excluding names and other sensitive information)</li> <li>where it happened (excluding addresses)</li><li>when it happened</li><li>damage or injury caused</li><li>weapon type</li><li>motivations for the offence</li><li>if a violent offence, the relationship to the victim</li></ul></div>'
+    '<div id="offence-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>where it happened (excluding addresses)</li><li>when it happened</li><li>damage or injury caused</li><li>weapon type</li><li>motivations for the offence</li><li>if a violent offence, the relationship to the victim</li></ul></div>'
 
   return {
     'confirm-eligibility': {
@@ -830,21 +831,21 @@ export const getQuestions = (name: string) => {
         },
       },
       'offence-history-data': {
-        offenceGroupName: {
-          question: 'Offence group name',
-          hint: 'For example, grievous bodily harm (GBH)',
+        titleAndNumber: {
+          question: 'Offence title',
+          hint: "For example, 'Stalking'",
         },
         offenceCategory,
-        numberOfOffences: {
-          question: 'Number of offences',
-          hint: 'The number of the same offence type. For example, 3',
+        offenceDate: {
+          question: 'When did they commit the offence?',
+          hint: `For example, ${dateExample}`,
         },
-        sentenceTypes: {
-          question: 'Sentence type(s)',
-          hint: 'For example, 1 custodial and 1 suspended',
+        sentenceLength: {
+          question: 'How long were they sentenced for?',
+          hint: 'For example, 6 months',
         },
         summary: {
-          question: 'Offence details',
+          question: 'Provide a summary of the offence',
           hint: offenceSummaryHintHtml,
         },
       },

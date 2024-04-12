@@ -1,68 +1,86 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
 
 {% extends "../layout.njk" %}
 
 {% block questions %}
 
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
-  <div class="govuk-body">
-    <p>
-      You only need to record unspent offences with risk relevant to placement in the community.
-    </p>
-
-    {{ govukDetails({
-      summaryText: "Offence types with relevant risk",
-      html: '<p>You should include offences relating to:
-        <ul class="govuk-!-margin-bottom-0">
-        <li>stalking or harassment</li>
-        <li>weapons or firearms</li>
-        <li>arson</li>
-        <li>violence</li>
-        <li>domestic abuse</li>
-        <li>hate crimes</li>
-        <li>drugs</li>
-        <li>any behaviour where the applicant is a risk to themselves or others</li>
-      </ul>
-      <p>'
-    }) }}
-  </div>
-
-  {% if page.tableRows() | length %}
-
-    {% from "govuk/components/table/macro.njk" import govukTable %}
-
-    {{ govukTable({
-        firstCellIsHeader: true,
-        head: [
-          {
-            text: "Offence"
-          },
-          {
-            text: "Type"
-          },
-          {
-            text: "Number of offences"
-          },
-          {
-            text: ""
-          }
-        ],
-        rows: page.tableRows()
-      }) }}
-
-  {% else %}
-    <p class="govuk-body govuk-!-font-weight-bold">No previous offences have been added.</p>
-  {% endif %}
-
-  <div>
-    {{ govukButton({
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+      <div class="govuk-body">
+        <p>
+        The CAS-2 referral team needs an overview of unspent offences to assess risk and make sure people are placed safely.
+        </p>
+        <div>
+          {{ govukButton({
             text: "Add a previous offence",
             classes: "govuk-button--secondary",
             href: paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history-data' })
           }) }}
-  </div>
+        </div>
+        <hr class="govuk-section-break govuk-section-break--m">
+      </div>
+
+        {% if page.offences | length %}
+
+        {% for offence in page.offences %}
+
+          {{ govukSummaryList({
+          card: {
+            title: {
+              text: offence.titleAndNumber,
+              classes:  "govuk-summary-card__title-wrapper--flex-end"
+            },
+            actions: {
+              items: [
+                {
+                  href: offence.removeLink,
+                  text: "Remove",
+                  visuallyHiddenText: "remove this offence"
+                }
+              ]
+            }  
+          },
+          rows: [
+            {
+              key: {
+                text: 'Category:'
+              },
+              value: {
+                html: offence.offenceCategoryTag
+              }
+            },
+            {
+              key: {
+                text: 'Offence date:'
+              },
+              value: {
+                text: offence.offenceDate
+              }
+            },
+            {
+              key: {
+                text: 'Sentence length:'
+              },
+              value: {
+                text: offence.sentenceLength
+              }
+            },
+            {
+              key: {
+                text: 'Offence details:'
+              },
+              value: {
+                text: offence.summary
+              }
+            }
+          ]
+        }) }}
+
+        {% endfor %}
+
+        {% else %}
+          <p class="govuk-body govuk-!-font-weight-bold">No previous offences have been added.</p>
+        {% endif %}
 
 {% endblock %}
+

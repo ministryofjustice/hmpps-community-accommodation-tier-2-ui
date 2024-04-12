@@ -23,7 +23,6 @@
 //
 //  Scenario: When I continue to the next task / page
 //    Then I see the Task list page
-//    And I see that the task has been completed
 
 import OffenceHistoryPage from '../../../../pages/apply/offence_and_licence_information/offending-history/offenceHistoryPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
@@ -91,6 +90,7 @@ context('Visit "Risks and needs" section', () => {
   })
 
   //  Scenario: remove an offence
+
   it('removes an offence', function test() {
     // When there is already imported data
     cy.task('stubApplicationGet', { application: this.applicationWithData })
@@ -109,19 +109,14 @@ context('Visit "Risks and needs" section', () => {
   })
 
   //  Scenario: complete page and navigate to next page in health needs task
-
+  //    When I continue to the next task / page
+  //    Then I see the "task list" page
   it('navigates to the next page (Task List)', function test() {
-    //    When I continue to the next task / page
-    OffenceHistoryPage.visit(this.applicationWithData)
-    const page = new OffenceHistoryPage(this.applicationWithData)
+    OffenceHistoryPage.visit(this.application)
+    const page = new OffenceHistoryPage(this.application)
 
-    cy.task('stubApplicationGet', { application: this.applicationWithData })
     page.clickSubmit()
 
-    //    Then I see the "task list" page
-    const taskListPage = Page.verifyOnPage(TaskListPage, this.applicationWithData)
-
-    //    And I see that the task has been completed
-    taskListPage.shouldShowTaskStatus('offending-history', 'Completed')
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })
