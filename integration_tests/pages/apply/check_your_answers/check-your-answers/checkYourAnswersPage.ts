@@ -1,7 +1,7 @@
 import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import { FullPerson } from '../../../../../server/@types/shared/models/FullPerson'
 import ApplyPage from '../../applyPage'
-import { nameOrPlaceholderCopy, stringToKebabCase } from '../../../../../server/utils/utils'
+import { nameOrPlaceholderCopy, stringToKebabCase, htmlToPlainText } from '../../../../../server/utils/utils'
 import { getQuestions } from '../../../../../server/form-pages/utils/questions'
 import { getPage, getSections, hasResponseMethod } from '../../../../../server/utils/checkYourAnswersUtils'
 
@@ -79,7 +79,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
       if (hasResponseMethod(page)) {
         const response = page.response()
         Object.keys(response).forEach(question => {
-          this.checkTermAndDescription(question, response[question])
+          this.checkTermAndDescription(htmlToPlainText(question), response[question])
         })
       } else {
         const pageData = this.application.data[task][pageKey]

@@ -7,12 +7,10 @@ describe('OffenceHistoryData', () => {
 
   const offenceHistoryData = [
     {
-      titleAndNumber: 'Stalking',
+      offenceGroupName: 'Stalking',
       offenceCategory: 'Arson',
-      'offenceDate-day': '1',
-      'offenceDate-month': '2',
-      'offenceDate-year': '2023',
-      sentenceLength: '12 months',
+      numberOfOffences: '3',
+      sentenceTypes: '1 custodial',
       summary: 'summary detail',
     },
   ]
@@ -37,11 +35,11 @@ describe('OffenceHistoryData', () => {
     })
 
     const requiredFields = [
-      ['titleAndNumber', 'Enter the offence title'],
-      ['offenceCategory', 'Select the offence category'],
-      ['offenceDate', 'Enter the date the offence was committed'],
-      ['sentenceLength', 'Enter the sentence length'],
-      ['summary', 'Enter a summary of the offence'],
+      ['offenceGroupName', 'Enter the offence group name'],
+      ['offenceCategory', 'Select the offence type'],
+      ['numberOfOffences', 'Enter the number of offences'],
+      ['sentenceTypes', 'Enter the sentence type(s)'],
+      ['summary', 'Enter the offence details'],
     ]
 
     it.each(requiredFields)('it includes a validation error for %s', (field, message) => {

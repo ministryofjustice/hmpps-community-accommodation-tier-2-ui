@@ -2,32 +2,20 @@ import type { SelectItem, TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
-import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
 export type OffenceHistoryDataBody = {
-  titleAndNumber: string
+  offenceGroupName: string
   offenceCategory: string
-  offenceDate: string
-  'offenceDate-day': string
-  'offenceDate-month': string
-  'offenceDate-year': string
-  sentenceLength: string
+  numberOfOffences: string
+  sentenceTypes: string
   summary: string
 }
 
 @Page({
   name: 'offence-history-data',
-  bodyProperties: [
-    'titleAndNumber',
-    'offenceCategory',
-    'offenceDate-day',
-    'offenceDate-month',
-    'offenceDate-year',
-    'sentenceLength',
-    'summary',
-  ],
+  bodyProperties: ['offenceGroupName', 'offenceCategory', 'numberOfOffences', 'sentenceTypes', 'summary'],
 })
 export default class OffenceHistoryData implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
@@ -84,20 +72,20 @@ export default class OffenceHistoryData implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.titleAndNumber) {
-      errors.titleAndNumber = 'Enter the offence title'
+    if (!this.body.offenceGroupName) {
+      errors.offenceGroupName = 'Enter the offence group name'
     }
     if (this.body.offenceCategory === 'choose') {
-      errors.offenceCategory = 'Select the offence category'
+      errors.offenceCategory = 'Select the offence type'
     }
-    if (!dateAndTimeInputsAreValidDates(this.body, 'offenceDate')) {
-      errors.offenceDate = 'Enter the date the offence was committed'
+    if (!this.body.numberOfOffences) {
+      errors.numberOfOffences = 'Enter the number of offences'
     }
-    if (!this.body.sentenceLength) {
-      errors.sentenceLength = 'Enter the sentence length'
+    if (!this.body.sentenceTypes) {
+      errors.sentenceTypes = 'Enter the sentence type(s)'
     }
     if (!this.body.summary) {
-      errors.summary = 'Enter a summary of the offence'
+      errors.summary = 'Enter the offence details'
     }
 
     return errors

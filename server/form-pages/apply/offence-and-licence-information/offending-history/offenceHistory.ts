@@ -3,7 +3,6 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { OffenceHistoryDataBody } from './custom-forms/offenceHistoryData'
-import { DateFormats } from '../../../../utils/dateUtils'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 import paths from '../../../../paths/apply'
 import { getQuestions } from '../../../utils/questions'
@@ -11,11 +10,11 @@ import { getQuestions } from '../../../utils/questions'
 type OffenceHistoryBody = Record<string, never>
 
 type OffenceHistoryUI = {
-  titleAndNumber: string
+  offenceGroupName: string
   offenceCategoryTag: string
   offenceCategoryText: string
-  offenceDate: string
-  sentenceLength: string
+  numberOfOffences: string
+  sentenceTypes: string
   summary: string
   removeLink: string
 }
@@ -54,26 +53,26 @@ export default class OffenceHistory implements TaskListPage {
         redirectPage: this.pageName,
       }
 
-      this.offences = offenceHistoryData.map((offence, index) => {
-        const offenceDate = DateFormats.dateAndTimeInputsToUiDate(offence, 'offenceDate')
+      this.offences = offenceHistoryData
+        .filter(offence => offence.numberOfOffences)
+        .map((offence, index) => {
+          const offenceCategoryText = this.offenceCategories[offence.offenceCategory]
 
-        const offenceCategoryText = this.offenceCategories[offence.offenceCategory]
-
-        return {
-          titleAndNumber: offence.titleAndNumber,
-          offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
-          offenceCategoryText,
-          offenceDate,
-          sentenceLength: offence.sentenceLength,
-          summary: offence.summary,
-          removeLink: `${paths.applications.removeFromList({
-            id: application.id,
-            task: this.taskName,
-            page: this.dataPageName,
-            index: index.toString(),
-          })}?${createQueryString(query)}`,
-        }
-      })
+          return {
+            offenceGroupName: offence.offenceGroupName,
+            offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
+            offenceCategoryText,
+            numberOfOffences: offence.numberOfOffences,
+            sentenceTypes: offence.sentenceTypes,
+            summary: offence.summary,
+            removeLink: `${paths.applications.removeFromList({
+              id: application.id,
+              task: this.taskName,
+              page: this.dataPageName,
+              index: index.toString(),
+            })}?${createQueryString(query)}`,
+          }
+        })
     }
     this.body = body as OffenceHistoryBody
   }
@@ -95,10 +94,11 @@ export default class OffenceHistory implements TaskListPage {
   response() {
     const response = {}
 
-    this.offences?.forEach((offence, index) => {
-      const { titleAndNumber, offenceCategoryText, offenceDate, sentenceLength, summary } = offence
-      const offenceString = `${titleAndNumber}\r\n${offenceCategoryText}\r\n${offenceDate}\r\n${sentenceLength}\r\n\nSummary: ${summary}`
-      response[`Historical offence ${index + 1}`] = offenceString
+    this.offences?.forEach(offence => {
+      const { offenceCategoryTag, offenceGroupName, numberOfOffences, sentenceTypes, summary } = offence
+
+      const offenceString = `${offenceGroupName}\r\nNumber of offences: ${numberOfOffences}\r\nSentence types: ${sentenceTypes}\r\n\nDetails: ${summary}`
+      response[offenceCategoryTag] = offenceString
     })
 
     return response
@@ -129,5 +129,27 @@ export default class OffenceHistory implements TaskListPage {
       default:
         return 'grey'
     }
+  }
+
+  tableRows() {
+    if (this.offences) {
+      return this.offences.map(offence => {
+        return [
+          {
+            text: offence.offenceGroupName,
+          },
+          {
+            text: offence.offenceCategoryText,
+          },
+          {
+            text: offence.numberOfOffences,
+          },
+          {
+            html: `<a href=${offence.removeLink}>Remove</a>`,
+          },
+        ]
+      })
+    }
+    return []
   }
 }

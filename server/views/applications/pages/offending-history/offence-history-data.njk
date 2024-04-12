@@ -1,6 +1,7 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
 
 {% extends "../layout.njk" %}
@@ -21,9 +22,21 @@
         {% endfor %}
       {% endif %}
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon govuk-!-margin-top-1" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+            Do not disclose spent convictions, which are protected by law. <a href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">Check if a conviction is spent (opens in a new tab)</a> before adding it.          </strong>
+      </div>
+
       <div class="govuk-body">
-        <p>You must include unspent offences involving:
-            <ul>
+        <p>You only need to record unspent offences with risk relevant to placement in the community.</p>
+
+        {{ govukDetails({
+          summaryText: "Offence types with relevant risk",
+          html: '<p>You should include offences relating to:
+            <ul class="govuk-!-margin-bottom-0">
             <li>stalking or harassment</li>
             <li>weapons or firearms</li>
             <li>arson</li>
@@ -33,52 +46,38 @@
             <li>drugs</li>
             <li>any behaviour where the applicant is a risk to themselves or others</li>
           </ul>
-          <p>
-            <p>Add one offence at a time. For example, you should record 3 drug-related offences as 3 separate offences.</p>
-            <hr class="govuk-section-break govuk-section-break--m">
+          <p>'
+        }) }}
 
-            <h2 class="govuk-heading-m">Check the offence is not spent</h2>
-            <p>
-          You should <a href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">check if a caution or conviction is spent (opens in a new tab)</a> first.
-        </p>
+        <p>If a current risk, such as a restraining order, is linked to a spent conviction that should not be disclosed, you should add the risk to the relevant section.</p>
 
-            <div class="govuk-warning-text">
-              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-              <strong class="govuk-warning-text__text">
-                <span class="govuk-visually-hidden">Warning</span>
-            Spent convictions are protected under law and should not be disclosed. If a current risk, such as a restraining order, is linked to a spent conviction, you should add it to the relevant section.
-          </strong>
-            </div>
-          </div>
-          <hr class="govuk-section-break govuk-section-break--m">
-          <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+      </div>
 
-            {{
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{
             formPageInput(
               {
                 label: { 
-                  text: page.questions.titleAndNumber.question,
+                  text: page.questions.offenceGroupName.question,
                   classes: "govuk-label--m" 
                 },
                 classes: "govuk-input--width-20",
-                fieldName: "titleAndNumber",
+                fieldName: "offenceGroupName",
                 hint: {
-                  text: page.questions.titleAndNumber.hint
+                  text: page.questions.offenceGroupName.hint
                 }
               },
               fetchContext()
             )
         }}
 
-            {{
+        {{
             govukSelect({
                   label: { 
                     text: page.questions.offenceCategory.question,
                     classes: "govuk-label--m" 
-                  },
-                  hint: {
-                    text: page.questions.offenceCategory.hint
                   },
                   id: "offenceCategory",
                   name: "offenceCategory",
@@ -87,41 +86,41 @@
               })
         }}
 
-            {{ 
-          formPageDateInput( {
-            hint: {
-              text: page.questions.offenceDate.hint
-            },
-            fieldName: "offenceDate",
-            fieldset: {
-              legend: {
-                text: page.questions.offenceDate.question,
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
-            items: dateFieldValues('offenceDate', errors)
-            }, 
-            fetchContext()) 
-        }}
-
-            {{
+        {{
             formPageInput(
               {
                 label: { 
-                  text: page.questions.sentenceLength.question,
+                  text: page.questions.numberOfOffences.question,
                   classes: "govuk-label--m" 
                 },
-                classes: "govuk-input--width-20",
-                fieldName: "sentenceLength",
+                classes: "govuk-input--width-5",
+                fieldName: "numberOfOffences",
                 hint: {
-                  text: page.questions.sentenceLength.hint
+                  text: page.questions.numberOfOffences.hint
                 }
               },
               fetchContext()
             )
         }}
 
-            {{
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.sentenceTypes.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-20",
+                fieldName: "sentenceTypes",
+                hint: {
+                  text: page.questions.sentenceTypes.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
             formPageTextArea(
               {
                 fieldName: "summary",
@@ -137,41 +136,18 @@
             )
         }}
 
-            <div>
-              {{ govukButton({
-            id: "add-another",
-            text: "Save and add another",
-            classes: "govuk-button--secondary govuk-!-margin-bottom-4"
-          }) }}
-            </div>
-
-            {% block button %}
-              <div class="govuk-button-group">
-                {{ govukButton({
-                  text: "Save and continue"
+        {% block button %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+                  text: "Save and add offence"
               }) }}
-                <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history' }) }}">
+            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history' }) }}">
                 Cancel
             </a>
-              </div>
-            {% endblock %}
-          </form>
-        </div>
-      </div>
+          </div>
+        {% endblock %}
+      </form>
+    </div>
+  </div>
 
-    {% endblock %}
-
-    {% block extraScripts %}
-      <script type="text/javascript" nonce="{{ cspNonce }}">
-        function addRedirect(event) {
-          const form = document.getElementById('form')
-          form.action = form.action + '&redirectPage=offence-history-data'
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-          document
-            .getElementById('add-another')
-            .addEventListener('click', (event) => addRedirect(event));
-        });
-      </script>
-    {% endblock %}
+{% endblock %}

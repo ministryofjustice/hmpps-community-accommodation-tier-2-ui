@@ -6,6 +6,7 @@ import {
   camelToKebabCase,
   kebabToCamelCase,
   formatCommaToLinebreak,
+  htmlToPlainText,
 } from './utils'
 
 describe('convert to title case', () => {
@@ -149,5 +150,15 @@ describe('formatCommaToLinebreak', () => {
 
   it('returns the string unchanged if no commas are present', () => {
     expect(formatCommaToLinebreak('Health needs')).toEqual('Health needs')
+  })
+})
+
+describe('htmlToPlainText', () => {
+  it('removes the HTML elements from a string', () => {
+    expect(htmlToPlainText('<strong>Arson</strong>')).toEqual('Arson')
+  })
+
+  it('returns the string unchanged if no HTML is present', () => {
+    expect(htmlToPlainText('Health needs')).toEqual('Health needs')
   })
 })
