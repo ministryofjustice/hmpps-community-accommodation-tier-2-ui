@@ -28,6 +28,10 @@ export default class ListPage extends Page {
     this.shouldShowApplications(this.applications)
   }
 
+  shouldShowPrisonTab(): void {
+    cy.contains(`Your prison's applications`).should('have.attr', 'href', paths.applications.prison.pattern)
+  }
+
   clickApplication(application: Application) {
     cy.get(`a[data-cy-id="${application.id}"]`).click()
   }

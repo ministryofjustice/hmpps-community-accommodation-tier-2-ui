@@ -71,20 +71,44 @@ describe('applicationsController', () => {
   })
 
   describe('index', () => {
-    it('renders existing applications', async () => {
-      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-        return { errors: {}, errorSummary: [], userInput: {} }
+    describe('when the prison dashboard is enabled', () => {
+      it('renders existing applications with dashboard flag', async () => {
+        config.flags.isPrisonDashboardEnabled = true
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
+
+        const requestHandler = applicationsController.index()
+
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/index', {
+          errors: {},
+          errorSummary: [],
+          applications,
+          pageHeading: 'Applications',
+          isPrisonDashboardEnabled: true,
+        })
       })
+    })
+    describe('when the prison dashboard is disabled', () => {
+      it('renders existing applications with dashboard flag set to false', async () => {
+        config.flags.isPrisonDashboardEnabled = false
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
 
-      const requestHandler = applicationsController.index()
+        const requestHandler = applicationsController.index()
 
-      await requestHandler(request, response, next)
+        await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/index', {
-        errors: {},
-        errorSummary: [],
-        applications,
-        pageHeading: 'Applications',
+        expect(response.render).toHaveBeenCalledWith('applications/index', {
+          errors: {},
+          errorSummary: [],
+          applications,
+          pageHeading: 'Applications',
+          isPrisonDashboardEnabled: false,
+        })
       })
     })
   })
