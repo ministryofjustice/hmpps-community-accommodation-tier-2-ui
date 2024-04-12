@@ -14,6 +14,10 @@
 //    And there are submitted applications in the database
 //    When I visit the Submitted Applications tab
 //    Then I should see all of my submitted applications
+//
+//  Scenario: see prison dashboad
+//    Given I am logged in
+//    Then I see a tab for my prison's applications
 
 import ListPage from '../../pages/apply/list'
 import { applicationSummaryFactory } from '../../../server/testutils/factories'
@@ -58,5 +62,19 @@ context('Applications dashboard', () => {
 
     // I should see all of the in progress applications
     page.shouldShowSubmittedApplications()
+  })
+
+  //
+  //  Scenario: see prison dashboad
+  it('shows prison dashboard tab', () => {
+    // There are applications in the database
+    const submittedApplications = applicationSummaryFactory.buildList(1, {
+      status: 'submitted',
+    })
+
+    cy.task('stubApplications', submittedApplications)
+    //    Then I see a tab for my prison's applications
+    const page = ListPage.visit(submittedApplications)
+    page.shouldShowPrisonTab()
   })
 })
