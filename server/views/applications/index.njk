@@ -19,6 +19,20 @@
       <h1 class="govuk-heading-l">Short-Term Accommodation (CAS-2) applications</h1>
       {{ showErrorSummary(errorSummary) }}
 
+      {% if isPrisonDashboardEnabled %}
+        {{ mojSubNavigation({
+          label: 'Sub navigation',
+          items: [{
+            text: 'Your applications',
+            href: paths.applications.index(),
+            active: true
+          }, {
+            text: "Your prison's applications",
+            href: paths.applications.prison()
+          }]
+        }) }}
+      {% endif %}
+
       {{ govukTabs({
         items: [
           {

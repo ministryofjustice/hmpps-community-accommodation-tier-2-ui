@@ -15,6 +15,7 @@ import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
+import config from '../../config'
 
 export default class ApplicationsController {
   constructor(
@@ -36,6 +37,7 @@ export default class ApplicationsController {
         ...userInput,
         applications,
         pageHeading: 'Applications',
+        isPrisonDashboardEnabled: config.flags.isPrisonDashboardEnabled,
       })
     }
   }
