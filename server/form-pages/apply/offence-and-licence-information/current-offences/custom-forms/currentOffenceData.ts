@@ -65,7 +65,7 @@ export default class CurrentOffenceData implements TaskListPage {
     const items = [
       {
         value: 'choose',
-        text: 'Choose category',
+        text: 'Choose type',
         selected: selectedItem === '',
       },
     ]
@@ -95,7 +95,7 @@ export default class CurrentOffenceData implements TaskListPage {
       errors.titleAndNumber = 'Enter the offence title'
     }
     if (this.body.offenceCategory === 'choose') {
-      errors.offenceCategory = 'Select the offence category'
+      errors.offenceCategory = 'Select the offence type'
     }
     if (!dateAndTimeInputsAreValidDates(this.body, 'offenceDate')) {
       errors.offenceDate = 'Enter the date the offence was committed'

@@ -46,7 +46,7 @@ export default class OffenceHistoryData implements TaskListPage {
     const items = [
       {
         value: 'choose',
-        text: 'Choose category',
+        text: 'Choose type',
         selected: selectedItem === '',
       },
     ]

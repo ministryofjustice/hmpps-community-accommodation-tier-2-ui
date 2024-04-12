@@ -41,7 +41,7 @@ describe('CurrentOffenceData', () => {
     describe('when there are errors', () => {
       const requiredFields = [
         ['titleAndNumber', 'Enter the offence title'],
-        ['offenceCategory', 'Select the offence category'],
+        ['offenceCategory', 'Select the offence type'],
         ['offenceDate', 'Enter the date the offence was committed'],
         ['sentenceLength', 'Enter the sentence length'],
         ['summary', 'Enter a summary of the offence'],
