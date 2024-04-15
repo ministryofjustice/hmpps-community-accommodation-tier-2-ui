@@ -11,6 +11,7 @@ export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     hasHistoryOfArson?: boolean;
     isDutyToReferSubmitted?: boolean;
     dutyToReferSubmissionDate?: string;
+    dutyToReferOutcome?: string;
     isApplicationEligible?: boolean;
     eligibilityReason?: string;
     dutyToReferLocalAuthorityAreaName?: string;
