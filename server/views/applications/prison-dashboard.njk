@@ -1,0 +1,28 @@
+{% extends "../partials/layout.njk" %}
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+
+{% set pageTitle = applicationName + " - your prison's applications"  %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Short-Term Accommodation (CAS-2) applications</h1>
+
+      {{ mojSubNavigation({
+          label: 'Sub navigation',
+          items: [{
+            text: 'Your applications',
+            href: paths.applications.index()
+          }, {
+            text: "Your prison's applications",
+            href: paths.applications.prison(),
+            active: true
+          }]
+        }) }}
+
+    </div>
+  </div>
+
+{% endblock %}
