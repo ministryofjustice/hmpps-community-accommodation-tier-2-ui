@@ -1,5 +1,6 @@
 import type {
   Cas2Application as Application,
+  Cas2ApplicationSummary,
   Cas2SubmittedApplicationSummary,
   FullPerson,
 } from '@approved-premises/api'
@@ -23,7 +24,7 @@ export const inProgressApplicationTableRows = (applications: Array<Application>)
 }
 
 export const submittedApplicationTableRows = (
-  applications: Array<Application>,
+  applications: Array<Cas2ApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
   return applications.map(application => {
@@ -33,6 +34,7 @@ export const submittedApplicationTableRows = (
       textValue(person.nomsNumber),
       textValue(person.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
+      htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
 }
@@ -84,4 +86,34 @@ const nameAnchorElement = (
 
 const textValue = (value: string) => {
   return { text: value }
+}
+
+export const getStatusTag = (statusLabel: string, statusId: string) => {
+  return `<strong class="govuk-tag govuk-tag--${getStatusTagColour(statusId)}">${statusLabel || 'Received'}</strong>`
+}
+
+const getStatusTagColour = (statusId: string) => {
+  // status IDs located at https://github.com/ministryofjustice/hmpps-approved-premises-api/blob/main/src/main/kotlin/uk/gov/justice/digital/hmpps/approvedpremisesapi/model/reference/Cas2ApplicationStatusSeeding.kt
+  switch (statusId) {
+    case 'f5cd423b-08eb-4efb-96ff-5cc6bb073905':
+      return 'light-blue'
+    case 'ba4d8432-250b-4ab9-81ec-7eb4b16e5dd1':
+      return 'yellow'
+    case 'a919097d-b324-471c-9834-756f255e87ea':
+      return 'yellow'
+    case '176bbda0-0766-4d77-8d56-18ed8f9a4ef2':
+      return 'purple'
+    case 'fe254d88-ce1d-4cd8-8bd6-88de88f39019':
+      return 'green'
+    case '9a381bc6-22d3-41d6-804d-4e49f428c1de':
+      return 'orange'
+    case '004e2419-9614-4c1e-a207-a8418009f23d':
+      return 'pink'
+    case 'f13bbdd6-44f1-4362-b9d3-e6f1298b1bf9':
+      return 'pink'
+    case '89458555-3219-44a2-9584-c4f715d6b565':
+      return 'green'
+    default:
+      return 'grey'
+  }
 }
