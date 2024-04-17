@@ -1,37 +1,30 @@
-import type {
-  Cas2Application as Application,
-  Cas2SubmittedApplicationSummary,
-  FullPerson,
-} from '@approved-premises/api'
+import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary } from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
-import { nameOrPlaceholderCopy } from './utils'
 import { formatLines } from './viewUtils'
 
-export const inProgressApplicationTableRows = (applications: Array<Application>): Array<TableRow> => {
+export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
-    const person = application.person as FullPerson
     return [
-      nameAnchorElement(nameOrPlaceholderCopy(person), application.id, false, true),
-      textValue(person.nomsNumber),
-      textValue(person.crn),
+      nameAnchorElement(application.personName, application.id, false, true),
+      textValue(application.nomsNumber),
+      textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
     ]
   })
 }
 
 export const submittedApplicationTableRows = (
-  applications: Array<Application>,
+  applications: Array<Cas2ApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
   return applications.map(application => {
-    const person = application.person as FullPerson
     return [
-      nameAnchorElement(nameOrPlaceholderCopy(person), application.id, isAssessPath),
-      textValue(person.nomsNumber),
-      textValue(person.crn),
+      nameAnchorElement(application.personName, application.id, isAssessPath),
+      textValue(application.nomsNumber),
+      textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
     ]
   })
