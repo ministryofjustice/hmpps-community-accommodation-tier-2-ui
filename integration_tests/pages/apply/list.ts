@@ -1,7 +1,6 @@
 import Page from '../page'
 import paths from '../../../server/paths/apply'
-import { Cas2Application as Application, Cas2ApplicationSummary, FullPerson } from '../../../server/@types/shared'
-import { nameOrPlaceholderCopy } from '../../../server/utils/utils'
+import { Cas2Application as Application, Cas2ApplicationSummary } from '../../../server/@types/shared'
 
 export default class ListPage extends Page {
   constructor(
@@ -14,9 +13,7 @@ export default class ListPage extends Page {
   static visit(applications: Array<Cas2ApplicationSummary>): ListPage {
     cy.visit(paths.applications.index.pattern)
 
-    const person = applications[0]?.person as FullPerson
-
-    return new ListPage(applications, person?.name)
+    return new ListPage(applications, applications[0]?.personName)
   }
 
   shouldShowInProgressApplications(): void {
@@ -38,7 +35,7 @@ export default class ListPage extends Page {
 
   private shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
-      const personName = nameOrPlaceholderCopy(application.person)
+      const { personName } = application
       cy.contains(personName)
         .should(
           'have.attr',
