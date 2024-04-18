@@ -12,5 +12,8 @@ export type Cas2ApplicationSummary = (ApplicationSummary & {
     latestStatusUpdate?: LatestCas2StatusUpdate;
     risks?: PersonRisks;
     hdcEligibilityDate?: string;
+    personName?: string;
+    crn?: string;
+    nomsNumber?: string;
 });
 

@@ -18,5 +18,6 @@ export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     tier?: string;
     isWithdrawn: boolean;
     releaseType?: ReleaseTypeOption;
+    hasRequestsForPlacement: boolean;
 });
 
