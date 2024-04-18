@@ -14,9 +14,7 @@ export default class ListPage extends Page {
   static visit(applications: Array<Cas2ApplicationSummary>): ListPage {
     cy.visit(paths.applications.index.pattern)
 
-    const person = applications[0]?.person as FullPerson
-
-    return new ListPage(applications, person?.name)
+    return new ListPage(applications, applications[0]?.personName)
   }
 
   shouldShowInProgressApplications(): void {
@@ -38,7 +36,7 @@ export default class ListPage extends Page {
 
   private shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
-      const personName = nameOrPlaceholderCopy(application.person)
+      const { personName } = application
       cy.contains(personName)
         .should(
           'have.attr',

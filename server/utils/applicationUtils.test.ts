@@ -1,27 +1,17 @@
 import { QuestionAndAnswer } from '@approved-premises/ui'
-import { applicationFactory } from '../testutils/factories'
+import { applicationSummaryFactory } from '../testutils/factories'
 import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
   submittedApplicationTableRows,
   assessmentsTableRows,
 } from './applicationUtils'
-import { fullPersonFactory } from '../testutils/factories/person'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
 describe('inProgressApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
-    const personA = fullPersonFactory.build({ name: 'A' })
-    const personB = fullPersonFactory.build({ name: 'B' })
-
-    const applicationA = applicationFactory.build({
-      person: personA,
-      createdAt: '2022-11-10T21:47:28Z',
-    })
-    const applicationB = applicationFactory.build({
-      person: personB,
-      createdAt: '2022-11-11T21:47:28Z',
-    })
+    const applicationA = applicationSummaryFactory.build({ personName: 'A', createdAt: '2022-11-10T21:47:28Z' })
+    const applicationB = applicationSummaryFactory.build({ personName: 'B', createdAt: '2022-11-11T21:47:28Z' })
 
     const result = inProgressApplicationTableRows([applicationA, applicationB])
 
@@ -31,10 +21,10 @@ describe('inProgressApplicationTableRows', () => {
           html: `<a href=/applications/${applicationA.id} data-cy-id="${applicationA.id}">A</a>`,
         },
         {
-          text: personA.nomsNumber,
+          text: applicationA.nomsNumber,
         },
         {
-          text: personA.crn,
+          text: applicationA.crn,
         },
         {
           text: '10 November 2022',
@@ -45,10 +35,10 @@ describe('inProgressApplicationTableRows', () => {
           html: `<a href=/applications/${applicationB.id} data-cy-id="${applicationB.id}">B</a>`,
         },
         {
-          text: personB.nomsNumber,
+          text: applicationB.nomsNumber,
         },
         {
-          text: applicationB.person.crn,
+          text: applicationB.crn,
         },
         {
           text: '11 November 2022',
@@ -60,17 +50,8 @@ describe('inProgressApplicationTableRows', () => {
 
 describe('submittedApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
-    const personA = fullPersonFactory.build({ name: 'A' })
-    const personB = fullPersonFactory.build({ name: 'B' })
-
-    const applicationA = applicationFactory.build({
-      person: personA,
-      submittedAt: '2022-12-10T21:47:28Z',
-    })
-    const applicationB = applicationFactory.build({
-      person: personB,
-      submittedAt: '2022-12-11T21:47:28Z',
-    })
+    const applicationA = applicationSummaryFactory.build({ personName: 'A', submittedAt: '2022-12-10T21:47:28Z' })
+    const applicationB = applicationSummaryFactory.build({ personName: 'B', submittedAt: '2022-12-11T21:47:28Z' })
 
     const result = submittedApplicationTableRows([applicationA, applicationB])
 
@@ -80,10 +61,10 @@ describe('submittedApplicationTableRows', () => {
           html: `<a href=/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
         },
         {
-          text: personA.nomsNumber,
+          text: applicationA.nomsNumber,
         },
         {
-          text: personA.crn,
+          text: applicationA.crn,
         },
         {
           text: '10 December 2022',
@@ -94,10 +75,10 @@ describe('submittedApplicationTableRows', () => {
           html: `<a href=/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
         },
         {
-          text: personB.nomsNumber,
+          text: applicationB.nomsNumber,
         },
         {
-          text: personB.crn,
+          text: applicationB.crn,
         },
         {
           text: '11 December 2022',

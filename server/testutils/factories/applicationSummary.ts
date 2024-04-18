@@ -13,4 +13,7 @@ export default Factory.define<Cas2ApplicationSummary>(() => ({
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   createdByUserId: faker.string.uuid(),
   status: 'inProgress',
+  personName: faker.person.fullName(),
+  crn: `C${faker.number.int({ min: 100000, max: 999999 })}`,
+  nomsNumber: `NOMS${faker.number.int({ min: 100, max: 999 })}`,
 }))
