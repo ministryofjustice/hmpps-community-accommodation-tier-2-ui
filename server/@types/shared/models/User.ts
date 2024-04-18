@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ProbationDeliveryUnit } from './ProbationDeliveryUnit';
 import type { ProbationRegion } from './ProbationRegion';
 export type User = {
     service: string;
@@ -12,5 +13,6 @@ export type User = {
     telephoneNumber?: string;
     isActive?: boolean;
     region: ProbationRegion;
+    probationDeliveryUnit?: ProbationDeliveryUnit;
 };
 
