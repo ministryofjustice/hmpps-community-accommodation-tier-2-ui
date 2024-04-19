@@ -8,6 +8,7 @@ import type { LatestCas2StatusUpdate } from './LatestCas2StatusUpdate';
 import type { PersonRisks } from './PersonRisks';
 export type Cas2ApplicationSummary = (ApplicationSummary & {
     createdByUserId: string;
+    createdByUserName?: string;
     status: ApplicationStatus;
     latestStatusUpdate?: LatestCas2StatusUpdate;
     risks?: PersonRisks;
