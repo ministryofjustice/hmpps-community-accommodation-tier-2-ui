@@ -38,6 +38,7 @@ context('Applications dashboard', () => {
     // There are applications in the database
     const inProgressApplications = applicationSummaryFactory.buildList(5, {
       status: 'inProgress',
+      latestStatusUpdate: null,
     })
 
     cy.task('stubApplications', inProgressApplications)

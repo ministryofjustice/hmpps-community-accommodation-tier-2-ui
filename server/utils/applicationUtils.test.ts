@@ -1,10 +1,11 @@
 import { QuestionAndAnswer } from '@approved-premises/ui'
-import { applicationFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
   submittedApplicationTableRows,
   assessmentsTableRows,
+  getStatusTag,
 } from './applicationUtils'
 import { fullPersonFactory } from '../testutils/factories/person'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
@@ -63,11 +64,11 @@ describe('submittedApplicationTableRows', () => {
     const personA = fullPersonFactory.build({ name: 'A' })
     const personB = fullPersonFactory.build({ name: 'B' })
 
-    const applicationA = applicationFactory.build({
+    const applicationA = applicationSummaryFactory.build({
       person: personA,
       submittedAt: '2022-12-10T21:47:28Z',
     })
-    const applicationB = applicationFactory.build({
+    const applicationB = applicationSummaryFactory.build({
       person: personB,
       submittedAt: '2022-12-11T21:47:28Z',
     })
@@ -88,6 +89,9 @@ describe('submittedApplicationTableRows', () => {
         {
           text: '10 December 2022',
         },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
       ],
       [
         {
@@ -101,6 +105,9 @@ describe('submittedApplicationTableRows', () => {
         },
         {
           text: '11 December 2022',
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
         },
       ],
     ])
@@ -170,5 +177,17 @@ describe('documentSummaryListRows', () => {
         value: { html: 'Answer 2' },
       },
     ])
+  })
+
+  describe('getStatusTag', () => {
+    it('returns the correct HTML string', () => {
+      const expected = `<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>`
+      expect(getStatusTag('More information requested', 'f5cd423b-08eb-4efb-96ff-5cc6bb073905')).toEqual(expected)
+    })
+
+    it('returns the Received string if status is undefined', () => {
+      const expected = `<strong class="govuk-tag govuk-tag--grey">Received</strong>`
+      expect(getStatusTag(undefined, undefined)).toEqual(expected)
+    })
   })
 })

@@ -65,7 +65,7 @@ describe('ApplicationService', () => {
   describe('getAllForLoggedInUser', () => {
     const token = 'SOME_TOKEN'
     const applications: GroupedApplications = {
-      inProgress: applicationSummaryFactory.buildList(1, { status: 'inProgress' }),
+      inProgress: applicationSummaryFactory.buildList(1, { status: 'inProgress', latestStatusUpdate: null }),
       submitted: applicationSummaryFactory.buildList(1, { status: 'submitted' }),
     }
 

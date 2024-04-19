@@ -4,6 +4,7 @@ import { Cas2ApplicationSummary } from '@approved-premises/api'
 
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory } from './person'
+import latestStatusUpdateFactory from './latestStatusUpdate'
 
 export default Factory.define<Cas2ApplicationSummary>(() => ({
   id: faker.string.uuid(),
@@ -12,5 +13,6 @@ export default Factory.define<Cas2ApplicationSummary>(() => ({
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   createdByUserId: faker.string.uuid(),
-  status: 'inProgress',
+  status: 'inProgress' || 'submitted',
+  latestStatusUpdate: latestStatusUpdateFactory.build(),
 }))
