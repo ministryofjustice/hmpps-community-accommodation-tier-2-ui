@@ -31,6 +31,20 @@ export const submittedApplicationTableRows = (
   })
 }
 
+export const prisonDashboardTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+  return applications.map(application => {
+    return [
+      nameAnchorElement(application.personName, application.id),
+      textValue(application.nomsNumber),
+      textValue(application.createdByUserName),
+      application.hdcEligibilityDate
+        ? textValue(DateFormats.isoDateToUIDate(application.hdcEligibilityDate, { format: 'medium' }))
+        : null,
+      htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
+    ]
+  })
+}
+
 export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [

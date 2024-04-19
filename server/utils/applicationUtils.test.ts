@@ -8,6 +8,7 @@ import {
   submittedApplicationTableRows,
   assessmentsTableRows,
   getStatusTag,
+  prisonDashboardTableRows,
 } from './applicationUtils'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
@@ -88,6 +89,106 @@ describe('submittedApplicationTableRows', () => {
         },
         {
           text: '11 December 2022',
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
+      ],
+    ])
+  })
+})
+
+describe('prisonDashboardTableRows', () => {
+  it('returns an array of applications as table rows', async () => {
+    const applicationA = applicationSummaryFactory.build({
+      personName: 'A',
+      hdcEligibilityDate: '2024-12-10T21:47:28Z',
+    })
+    const applicationB = applicationSummaryFactory.build({
+      personName: 'B',
+      hdcEligibilityDate: '2024-12-11T21:47:28Z',
+    })
+
+    const result = prisonDashboardTableRows([applicationA, applicationB])
+
+    expect(result).toEqual([
+      [
+        {
+          html: `<a href=/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
+        },
+        {
+          text: applicationA.nomsNumber,
+        },
+        {
+          text: applicationA.createdByUserName,
+        },
+        {
+          text: '10 December 2024',
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
+      ],
+      [
+        {
+          html: `<a href=/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
+        },
+        {
+          text: applicationB.nomsNumber,
+        },
+        {
+          text: applicationB.createdByUserName,
+        },
+        {
+          text: '11 December 2024',
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
+      ],
+    ])
+  })
+
+  it('returns null for hdcEligibilityDate if it is undefined', async () => {
+    const applicationA = applicationSummaryFactory.build({
+      personName: 'A',
+      hdcEligibilityDate: null,
+    })
+    const applicationB = applicationSummaryFactory.build({
+      personName: 'B',
+      hdcEligibilityDate: '2024-12-11T21:47:28Z',
+    })
+
+    const result = prisonDashboardTableRows([applicationA, applicationB])
+
+    expect(result).toEqual([
+      [
+        {
+          html: `<a href=/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
+        },
+        {
+          text: applicationA.nomsNumber,
+        },
+        {
+          text: applicationA.createdByUserName,
+        },
+        null,
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
+      ],
+      [
+        {
+          html: `<a href=/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
+        },
+        {
+          text: applicationB.nomsNumber,
+        },
+        {
+          text: applicationB.createdByUserName,
+        },
+        {
+          text: '11 December 2024',
         },
         {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
