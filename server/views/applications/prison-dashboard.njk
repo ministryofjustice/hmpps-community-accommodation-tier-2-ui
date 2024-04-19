@@ -1,5 +1,6 @@
 {% extends "../partials/layout.njk" %}
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{% from "../partials/table.njk" import applicationsTable %}
 
 {% set pageTitle = applicationName + " - your prison's applications"  %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -8,7 +9,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">Short-Term Accommodation (CAS-2) applications</h1>
+      <h1 class="govuk-heading-l">Your prison's CAS-2 applications</h1>
 
       {{ mojSubNavigation({
           label: 'Sub navigation',
@@ -21,6 +22,30 @@
             active: true
           }]
         }) }}
+
+      <p>View recent applications from this prison for Short-Term Accommodation (CAS-2).</p>
+
+      {{applicationsTable(
+        "", 
+        [
+          {
+            text: "Person"
+          },
+          {
+            text: "Prison number"
+          },
+          {
+            text: "Application owner"
+          },
+          {
+            text: "HDC eligibility date"
+          },
+          {
+            text: "Status"
+          }
+        ],
+        prisonDashboardTableRows(applications))
+      }}
 
     </div>
   </div>
