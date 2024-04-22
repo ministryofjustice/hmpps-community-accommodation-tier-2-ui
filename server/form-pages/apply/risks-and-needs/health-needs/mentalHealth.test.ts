@@ -51,6 +51,11 @@ describe('MentalHealth', () => {
           expect(page.errors()).toHaveProperty('needsDetail', 'Describe mental health needs')
         })
       })
+      describe('and _needsPresentation_ is UNANSWERED', () => {
+        it('includes a validation error for _needsPresentation_', () => {
+          expect(page.errors()).toHaveProperty('needsPresentation', 'Describe how they are presenting')
+        })
+      })
     })
 
     describe('when _isEngagedWithCommunity_ is YES', () => {

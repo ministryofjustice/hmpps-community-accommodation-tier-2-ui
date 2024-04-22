@@ -539,6 +539,7 @@ export const getQuestions = (name: string) => {
       'mental-health': {
         hasMentalHealthNeeds: { question: 'Do they have any mental health needs?', answers: yesOrNo },
         needsDetail: { question: 'Please describe their mental health needs.' },
+        needsPresentation: { question: 'How are they presenting?' },
         isEngagedWithCommunity: {
           question: 'Are they engaged with any community mental health services?',
           answers: yesOrNo,
