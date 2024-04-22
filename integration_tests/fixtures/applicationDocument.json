@@ -314,10 +314,6 @@
             { "question": "Provide IOM details", "answer": "IOM details" },
             { "question": "Are there any comments to add about cell sharing?", "answer": "Yes" },
             { "question": "Cell sharing information", "answer": "cell sharing comments and more" },
-            {
-              "question": "Behaviour note 1",
-              "answer": "behaviour note details behaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note details\r\n\r\nbehaviour note details"
-            },
             { "question": "Is there any other risk information for Aadland Bertrand?", "answer": "Yes" },
             { "question": "Additional information", "answer": "more additional info" }
           ]

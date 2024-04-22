@@ -296,11 +296,6 @@
       "hasCellShareComments": "yes",
       "cellShareInformationDetail": "some information"
     },
-    "behaviour-notes": {},
-    "behaviour-notes-data": [
-      { "behaviourDetail": "some detail\nsome more detail on another line" },
-      { "behaviourDetail": "some other detail" }
-    ],
     "additional-risk-information": {
       "hasAdditionalInformation": "yes",
       "additionalInformationDetail": "some information"

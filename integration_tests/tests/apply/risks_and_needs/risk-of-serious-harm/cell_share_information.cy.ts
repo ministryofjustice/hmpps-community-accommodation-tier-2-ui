@@ -14,12 +14,12 @@
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I complete the 'cell share information' page
 //    And I continue to the next task / page
-//    Then I see the "behaviour notes" page
+//    Then I see the "Additional risk information" page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import CellShareInformationPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/cellShareInformationPage'
-import BehaviourNotesPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/behaviourNotesPage'
+import AdditionalRiskInformationPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/additionalRiskInformationPage'
 
 context('Visit "cell share information" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -74,7 +74,7 @@ context('Visit "cell share information" page', () => {
     //    And I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I see the "behaviour notes" page
-    Page.verifyOnPage(BehaviourNotesPage, this.application)
+    //    Then I see the "Additional risk information" page
+    Page.verifyOnPage(AdditionalRiskInformationPage, this.application)
   })
 })

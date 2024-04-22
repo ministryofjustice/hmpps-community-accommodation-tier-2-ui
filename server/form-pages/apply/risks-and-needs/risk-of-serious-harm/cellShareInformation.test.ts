@@ -13,7 +13,7 @@ describe('CellShareInformation', () => {
     })
   })
 
-  itShouldHaveNextValue(new CellShareInformation({}, application), 'behaviour-notes')
+  itShouldHaveNextValue(new CellShareInformation({}, application), 'additional-risk-information')
   itShouldHavePreviousValue(new CellShareInformation({}, application), 'risk-management-arrangements')
 
   describe('errors', () => {
