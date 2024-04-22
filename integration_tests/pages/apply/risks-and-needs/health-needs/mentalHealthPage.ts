@@ -29,6 +29,7 @@ export default class MentalHealthPage extends ApplyPage {
   describeNeeds = (): void => {
     this.checkRadioByNameAndValue('hasMentalHealthNeeds', 'yes')
     this.getTextInputByIdAndEnterDetails('needsDetail', 'Has depression')
+    this.getTextInputByIdAndEnterDetails('needsPresentation', 'Erratic behaviour')
   }
 
   describeEngagement = (): void => {

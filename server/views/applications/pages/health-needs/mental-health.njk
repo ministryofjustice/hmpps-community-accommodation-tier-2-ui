@@ -16,6 +16,18 @@
         fetchContext()
       )
     }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsPresentation',
+          label: {
+            text: page.questions.needsPresentation.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
   {% endset %}
 
   {% set communityFollowUp %}

@@ -8,6 +8,7 @@ import { getQuestions } from '../../../utils/questions'
 export type MentalHealthBody = {
   hasMentalHealthNeeds: YesOrNo
   needsDetail: string
+  needsPresentation: string
   isEngagedWithCommunity: YesOrNo
   servicesDetail: string
   isEngagedWithServicesInCustody: YesOrNo
@@ -22,6 +23,7 @@ export type MentalHealthBody = {
   bodyProperties: [
     'hasMentalHealthNeeds',
     'needsDetail',
+    'needsPresentation',
     'isEngagedWithCommunity',
     'servicesDetail',
     'isEngagedWithServicesInCustody',
@@ -67,6 +69,10 @@ export default class MentalHealth implements TaskListPage {
       errors.needsDetail = 'Describe mental health needs'
     }
 
+    if (this.body.hasMentalHealthNeeds === 'yes' && !this.body.needsPresentation) {
+      errors.needsPresentation = 'Describe how they are presenting'
+    }
+
     if (!this.body.isEngagedWithCommunity) {
       errors.isEngagedWithCommunity = 'Confirm whether they are engaged with services'
     }
@@ -93,6 +99,7 @@ export default class MentalHealth implements TaskListPage {
   onSave(): void {
     if (this.body.hasMentalHealthNeeds !== 'yes') {
       delete this.body.needsDetail
+      delete this.body.needsPresentation
     }
 
     if (this.body.isEngagedWithCommunity !== 'yes') {
