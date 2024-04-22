@@ -29,21 +29,12 @@ describe('PhysicalHealth', () => {
       })
     })
 
-    describe('isReceivingTreatment', () => {
+    describe('isReceivingMedicationOrTreatment', () => {
       it('has a question', () => {
-        expect(page.questions.isReceivingTreatment.question).toBeDefined()
+        expect(page.questions.isReceivingMedicationOrTreatment.question).toBeDefined()
       })
       it('has a follow-up question', () => {
-        expect(page.questions.treatmentDetail.question).toBeDefined()
-      })
-    })
-
-    describe('hasPhyHealthMedication', () => {
-      it('has a question', () => {
-        expect(page.questions.hasPhyHealthMedication.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.medicationDetail.question).toBeDefined()
+        expect(page.questions.medicationOrTreatmentDetail.question).toBeDefined()
       })
     })
 
@@ -74,17 +65,10 @@ describe('PhysicalHealth', () => {
         expect(page.errors()).toHaveProperty('hasPhyHealthNeeds', 'Confirm whether they have physical health needs')
       })
 
-      it('includes a validation error for _isReceivingTreatment_', () => {
+      it('includes a validation error for _isReceivingMedicationOrTreatment_', () => {
         expect(page.errors()).toHaveProperty(
-          'isReceivingTreatment',
-          'Confirm whether they currently receiving treatment',
-        )
-      })
-
-      it('includes a validation error for _hasPhyHealthMedication_', () => {
-        expect(page.errors()).toHaveProperty(
-          'hasPhyHealthMedication',
-          'Confirm whether they are currently receiving medication',
+          'isReceivingMedicationOrTreatment',
+          'Confirm whether they are currently receiving any medication or treatment',
         )
       })
 
@@ -116,22 +100,12 @@ describe('PhysicalHealth', () => {
       })
     })
 
-    describe('when _isReceivingTreatment_ is YES', () => {
-      const page = new PhysicalHealth({ isReceivingTreatment: 'yes' }, application)
+    describe('when _isReceivingMedicationOrTreatment_ is YES', () => {
+      const page = new PhysicalHealth({ isReceivingMedicationOrTreatment: 'yes' }, application)
 
-      describe('and _treatmentDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _treatmentDetail_', () => {
-          expect(page.errors()).toHaveProperty('treatmentDetail', 'Describe their treatment')
-        })
-      })
-    })
-
-    describe('when _hasPhyHealthMedication_ is YES', () => {
-      const page = new PhysicalHealth({ hasPhyHealthMedication: 'yes' }, application)
-
-      describe('and _medicationDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _medicationDetail_', () => {
-          expect(page.errors()).toHaveProperty('medicationDetail', 'Describe their medication')
+      describe('and _medicationOrTreatmentDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _medicationOrTreatmentDetail_', () => {
+          expect(page.errors()).toHaveProperty('medicationOrTreatmentDetail', 'Describe the medication or treatment')
         })
       })
     })
@@ -174,10 +148,10 @@ describe('PhysicalHealth', () => {
       })
     })
 
-    it('removes medical treatment data if the question is set to "no"', () => {
+    it('removes medication and treatment data if the question is set to "no"', () => {
       const body: Partial<PhysicalHealthBody> = {
-        isReceivingTreatment: 'no',
-        treatmentDetail: 'Treatment detail',
+        isReceivingMedicationOrTreatment: 'no',
+        medicationOrTreatmentDetail: 'Treatment detail',
       }
 
       const page = new PhysicalHealth(body, application)
@@ -185,22 +159,7 @@ describe('PhysicalHealth', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        isReceivingTreatment: 'no',
-      })
-    })
-
-    it('removes medication data if the question is set to "no"', () => {
-      const body: Partial<PhysicalHealthBody> = {
-        hasPhyHealthMedication: 'no',
-        medicationDetail: 'Medication detail',
-      }
-
-      const page = new PhysicalHealth(body, application)
-
-      page.onSave()
-
-      expect(page.body).toEqual({
-        hasPhyHealthMedication: 'no',
+        isReceivingMedicationOrTreatment: 'no',
       })
     })
 

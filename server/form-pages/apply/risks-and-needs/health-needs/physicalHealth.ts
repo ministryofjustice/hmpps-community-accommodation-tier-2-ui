@@ -9,10 +9,8 @@ export type PhysicalHealthBody = {
   hasPhyHealthNeeds: YesOrNo
   needsDetail: string
   canClimbStairs: YesOrNo
-  isReceivingTreatment: YesOrNo
-  treatmentDetail: string
-  hasPhyHealthMedication: YesOrNo
-  medicationDetail: string
+  isReceivingMedicationOrTreatment: YesOrNo
+  medicationOrTreatmentDetail: string
   canLiveIndependently: YesOrNo
   indyLivingDetail: string
   requiresAdditionalSupport: YesOrNo
@@ -25,10 +23,8 @@ export type PhysicalHealthBody = {
     'hasPhyHealthNeeds',
     'needsDetail',
     'canClimbStairs',
-    'isReceivingTreatment',
-    'treatmentDetail',
-    'hasPhyHealthMedication',
-    'medicationDetail',
+    'isReceivingMedicationOrTreatment',
+    'medicationOrTreatmentDetail',
     'canLiveIndependently',
     'indyLivingDetail',
     'requiresAdditionalSupport',
@@ -78,20 +74,13 @@ export default class PhysicalHealth implements TaskListPage {
       }
     }
 
-    if (!this.body.isReceivingTreatment) {
-      errors.isReceivingTreatment = 'Confirm whether they currently receiving treatment'
+    if (!this.body.isReceivingMedicationOrTreatment) {
+      errors.isReceivingMedicationOrTreatment =
+        'Confirm whether they are currently receiving any medication or treatment'
     }
 
-    if (this.body.isReceivingTreatment === 'yes' && !this.body.treatmentDetail) {
-      errors.treatmentDetail = 'Describe their treatment'
-    }
-
-    if (this.body.hasPhyHealthMedication === 'yes' && !this.body.medicationDetail) {
-      errors.medicationDetail = 'Describe their medication'
-    }
-
-    if (!this.body.hasPhyHealthMedication) {
-      errors.hasPhyHealthMedication = 'Confirm whether they are currently receiving medication'
+    if (this.body.isReceivingMedicationOrTreatment === 'yes' && !this.body.medicationOrTreatmentDetail) {
+      errors.medicationOrTreatmentDetail = 'Describe the medication or treatment'
     }
 
     if (!this.body.canLiveIndependently) {
@@ -119,12 +108,8 @@ export default class PhysicalHealth implements TaskListPage {
       delete this.body.canClimbStairs
     }
 
-    if (this.body.isReceivingTreatment !== 'yes') {
-      delete this.body.treatmentDetail
-    }
-
-    if (this.body.hasPhyHealthMedication !== 'yes') {
-      delete this.body.medicationDetail
+    if (this.body.isReceivingMedicationOrTreatment !== 'yes') {
+      delete this.body.medicationOrTreatmentDetail
     }
 
     if (this.body.canLiveIndependently !== 'no') {

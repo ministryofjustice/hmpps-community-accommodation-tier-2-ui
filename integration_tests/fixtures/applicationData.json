@@ -154,10 +154,8 @@
     "physical-health": {
       "hasPhyHealthNeeds": "no",
       "needsDetail": "",
-      "isReceivingTreatment": "no",
-      "treatmentDetail": "",
-      "hasPhyHealthMedication": "no",
-      "medicationDetail": "",
+      "isReceivingMedicationOrTreatment": "no",
+      "medicationOrTreatmentDetail": "",
       "canLiveIndependently": "yes",
       "indyLivingDetail": "",
       "requiresAdditionalSupport": "no",

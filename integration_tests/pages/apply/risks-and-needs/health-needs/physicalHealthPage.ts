@@ -32,14 +32,9 @@ export default class PhysicalHealthPage extends ApplyPage {
     this.checkRadioByNameAndValue('canClimbStairs', 'yes')
   }
 
-  describeTreatment = (): void => {
-    this.checkRadioByNameAndValue('isReceivingTreatment', 'yes')
-    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'Having physiotherapy')
-  }
-
-  describeMedication = (): void => {
-    this.checkRadioByNameAndValue('hasPhyHealthMedication', 'yes')
-    this.getTextInputByIdAndEnterDetails('medicationDetail', 'Is taking anti-inflammatories')
+  describeTreatmentAndMedication = (): void => {
+    this.checkRadioByNameAndValue('isReceivingMedicationOrTreatment', 'yes')
+    this.getTextInputByIdAndEnterDetails('medicationOrTreatmentDetail', 'Having physiotherapy')
   }
 
   provideIndependentLivingInfo = (): void => {

@@ -70,8 +70,7 @@ context('Visit "Physical health" page', () => {
     const page = new PhysicalHealthPage(this.application)
 
     page.describePhysicalNeeds()
-    page.describeTreatment()
-    page.describeMedication()
+    page.describeTreatmentAndMedication()
     page.provideIndependentLivingInfo()
     page.describeAdditionalSupportNeeded()
 
