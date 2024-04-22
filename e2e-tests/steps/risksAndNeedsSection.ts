@@ -39,7 +39,6 @@ async function completePhysicalHealthPage(page: Page, name: string) {
   // we can't use the normal checkRadioInGroup() helper due to follow-on yes/no radios
   // triggering Error: strict mode violation
   await page.getByRole('group', { name: 'Do they have any physical health needs?' }).locator('label').nth(4).click()
-  await physicalHealthPage.checkRadioInGroup('receiving any medical treatment', 'No')
   await physicalHealthPage.checkRadioInGroup('receiving any medication', 'No')
   await physicalHealthPage.checkRadioInGroup('live independently', 'Yes')
   await physicalHealthPage.checkRadioInGroup('additional support', 'No')
