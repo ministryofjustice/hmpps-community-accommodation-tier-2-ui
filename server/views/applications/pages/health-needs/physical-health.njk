@@ -41,28 +41,13 @@
     }}
   {% endset %}
 
-  {% set receivingTreatmentFollowUp %}
+  {% set isReceivingMedicationOrTreatmentFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'treatmentDetail',
+          fieldName: 'medicationOrTreatmentDetail',
           label: {
-            text: page.questions.treatmentDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set medicationFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'medicationDetail',
-          label: {
-            text: page.questions.medicationDetail.question,
+            text: page.questions.medicationOrTreatmentDetail.question,
             classes: "govuk-label--s"
           }
         },
@@ -139,10 +124,10 @@
   {{
     formPageRadios(
       {
-        fieldName: "isReceivingTreatment",
+        fieldName: "isReceivingMedicationOrTreatment",
         fieldset: {
           legend: {
-            text: page.questions.isReceivingTreatment.question,
+            text: page.questions.isReceivingMedicationOrTreatment.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
@@ -151,35 +136,7 @@
           value: "yes",
           text: "Yes",
           conditional: {
-            html: receivingTreatmentFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasPhyHealthMedication",
-        fieldset: {
-          legend: {
-            text: page.questions.hasPhyHealthMedication.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: medicationFollowUp
+            html: isReceivingMedicationOrTreatmentFollowUp
           }
         },
         {
