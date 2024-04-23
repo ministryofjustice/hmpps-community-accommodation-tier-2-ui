@@ -118,7 +118,7 @@ const token = (authorities: Array<string>) =>
     },
   })
 
-const stubUser = (name: string) =>
+const stubUser = (name: string, activeCaseLoadId?: string) =>
   stubFor({
     request: {
       method: 'GET',
@@ -134,6 +134,7 @@ const stubUser = (name: string) =>
         username: 'USER1',
         active: true,
         name,
+        activeCaseLoadId,
       },
     },
   })
@@ -188,9 +189,13 @@ export default {
       tokenVerification.stubVerifyToken(),
     ]),
   stubAuthUser: (
-    args: { name?: string; userId?: string; roles?: Array<UserRole> } = {},
+    args: { name?: string; activeCaseLoadId?: string; userId?: string; roles?: Array<UserRole> } = {},
   ): Promise<[Response, Response, Response]> =>
-    Promise.all([stubUser(args.name || 'john smith'), stubUserRoles(), stubProfile(args.roles || [], args.userId)]),
+    Promise.all([
+      stubUser(args.name || 'john smith', args.activeCaseLoadId || 'ABC'),
+      stubUserRoles(),
+      stubProfile(args.roles || [], args.userId),
+    ]),
   stubAssessorUser: (
     args: { name?: string; userId?: string; roles?: [] } = {},
   ): Promise<[Response, Response, Response]> =>

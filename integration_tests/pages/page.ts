@@ -5,6 +5,8 @@ import { Cas2Application as Application } from '../../server/@types/shared/model
 import { Cas2SubmittedApplication as SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
 import { FullPerson } from '../../server/@types/shared/models/FullPerson'
 import { stringToKebabCase } from '../../server/utils/utils'
+import { Cas2ApplicationSummary } from '../../server/@types/shared/models/Cas2ApplicationSummary'
+import paths from '../../server/paths/apply'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -218,5 +220,24 @@ export default abstract class Page {
   shouldShowSuccessMessage(message: string): void {
     cy.get('h2').contains('Success')
     cy.get('h3').contains(message)
+  }
+
+  shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
+    applications.forEach(application => {
+      const { personName } = application
+      cy.contains(personName)
+        .should(
+          'have.attr',
+          'href',
+          inProgress
+            ? paths.applications.show({ id: application.id })
+            : paths.applications.overview({ id: application.id }),
+        )
+        .parent()
+        .parent()
+        .within(() => {
+          cy.get('th').eq(0).contains(personName)
+        })
+    })
   }
 }

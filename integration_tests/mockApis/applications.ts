@@ -40,6 +40,18 @@ export default {
         jsonBody: applications,
       },
     }),
+  stubPrisonApplications: (args: { applications: Array<Application>; prisonCode: string }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: `/cas2/applications?prisonCode=${args.prisonCode}&isSubmitted=true`,
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.applications,
+      },
+    }),
   stubApplicationGet: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {
