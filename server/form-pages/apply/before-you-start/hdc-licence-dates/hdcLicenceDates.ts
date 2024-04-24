@@ -12,6 +12,7 @@ import {
   isBeforeDate,
   differenceInDaysFromToday,
   isMoreThanMonthsBetweenDates,
+  dateIsComplete,
 } from '../../../../utils/dateUtils'
 import { dateBodyProperties } from '../../../utils'
 
@@ -76,10 +77,12 @@ export default class HDCLicenceDates implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
-    if (!dateAndTimeInputsAreValidDates(this.body, 'hdcEligibilityDate')) {
+
+    if (dateIsComplete(this.body, 'hdcEligibilityDate')) {
       errors.hdcEligibilityDate = "Enter the applicant's HDC eligibility date"
     }
-    if (!dateAndTimeInputsAreValidDates(this.body, 'conditionalReleaseDate')) {
+
+    if (dateIsComplete(this.body, 'conditionalReleaseDate')) {
       errors.conditionalReleaseDate = "Enter the applicant's conditional release date"
     }
     if (!dateIsTodayOrInTheFuture(this.body, 'conditionalReleaseDate')) {
