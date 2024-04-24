@@ -84,6 +84,22 @@ describe('ApplicationService', () => {
     })
   })
 
+  describe('getAllByPrison', () => {
+    const token = 'SOME_TOKEN'
+
+    it('fetches all applications for a prison', async () => {
+      const applications = applicationSummaryFactory.buildList(3)
+      applicationClient.getAllByPrison.mockResolvedValue(applications)
+
+      const result = await service.getAllByPrison(token, '123')
+
+      expect(result).toEqual(applications)
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.getAllByPrison).toHaveBeenCalled()
+    })
+  })
+
   describe('save', () => {
     const application = applicationFactory.build({ data: null })
     const token = 'some-token'

@@ -701,11 +701,18 @@ describe('applicationsController', () => {
 
   describe('prisonDashboard', () => {
     it('renders the prison dashboard page', async () => {
+      response.locals.user = { activeCaseLoadId: '123' }
+      const prisonApplications = applicationSummaryFactory.buildList(5)
+
+      applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
+
       const requestHandler = applicationsController.prisonDashboard()
 
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard')
+      expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard', {
+        applications: prisonApplications,
+      })
     })
   })
 })

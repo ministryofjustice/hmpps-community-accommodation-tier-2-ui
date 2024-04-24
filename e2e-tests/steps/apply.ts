@@ -91,7 +91,7 @@ export const submitApplication = async (page: Page) => {
 
 export const viewSubmittedApplication = async (page: Page, name: string) => {
   await page.goto('/applications#submitted')
-  await expect(page.locator('h1')).toContainText('Short-Term Accommodation (CAS-2) applications')
+  await expect(page.locator('h1')).toContainText('Your CAS-2 applications')
   await page.getByRole('link', { name }).first().click()
   await expect(page.locator('h1')).toContainText(name)
   await expect(page.locator('h2').first()).toContainText('Application history')
@@ -103,4 +103,12 @@ export const addNote = async (page: Page) => {
   await page.getByTestId('submit-button').click()
   await expect(page.locator('h2').first()).toContainText('Success')
   await expect(page.locator('.moj-timeline__description').first()).toContainText(note)
+  await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
+}
+
+export const viewApplicationFromPrisonDashboard = async (applicationId: string, page: Page, name: string) => {
+  await page.goto(`/applications/prison`)
+  await page.locator(`a[href="/applications/${applicationId}/overview"]`).click()
+  await expect(page.locator('h1')).toContainText(name)
+  await expect(page.locator('h2').first()).toContainText('Application history')
 }

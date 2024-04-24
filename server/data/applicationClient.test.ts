@@ -94,6 +94,36 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
+  describe('getAllByPrison', () => {
+    it('should get all applications for a given prison', async () => {
+      const applications = applicationFactory.buildList(5)
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request for all applications for a given prison',
+        withRequest: {
+          method: 'GET',
+          path: paths.applications.index.pattern,
+          query: {
+            prisonCode: '123',
+            isSubmitted: 'true',
+          },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: applications,
+        },
+      })
+
+      const result = await applicationClient.getAllByPrison('123')
+
+      expect(result).toEqual(applications)
+    })
+  })
+
   describe('update', () => {
     it('should return an application when a PUT request is made', async () => {
       const application = applicationFactory.build()

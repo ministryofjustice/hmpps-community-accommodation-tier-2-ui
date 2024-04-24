@@ -33,6 +33,11 @@ export default class ApplicationClient {
     return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
   }
 
+  async getAllByPrison(prisonCode: string): Promise<Array<Cas2ApplicationSummary>> {
+    const path = `${paths.applications.index({})}?prisonCode=${prisonCode}&isSubmitted=true`
+    return (await this.restClient.get({ path })) as Array<Cas2ApplicationSummary>
+  }
+
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
     return (await this.restClient.put({
       path: paths.applications.update({ id: applicationId }),

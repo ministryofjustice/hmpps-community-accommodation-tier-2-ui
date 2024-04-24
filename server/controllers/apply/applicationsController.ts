@@ -285,7 +285,12 @@ export default class ApplicationsController {
 
   prisonDashboard(): RequestHandler {
     return async (req: Request, res: Response) => {
-      return res.render('applications/prison-dashboard')
+      const applications = await this.applicationService.getAllByPrison(
+        req.user.token,
+        res.locals.user.activeCaseLoadId,
+      )
+
+      return res.render('applications/prison-dashboard', { applications })
     }
   }
 }
