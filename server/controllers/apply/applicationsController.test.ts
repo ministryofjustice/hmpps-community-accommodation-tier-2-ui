@@ -676,18 +676,39 @@ describe('applicationsController', () => {
   })
 
   describe('prisonDashboard', () => {
-    it('renders the prison dashboard page', async () => {
-      response.locals.user = { activeCaseLoadId: '123' }
-      const prisonApplications = applicationSummaryFactory.buildList(5)
+    describe('when the user has the POM role', () => {
+      it('renders the prison dashboard page with isUserPom as true', async () => {
+        response.locals.user = { activeCaseLoadId: '123', roles: ['ROLE_POM'] }
+        const prisonApplications = applicationSummaryFactory.buildList(5)
 
-      applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
+        applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
 
-      const requestHandler = applicationsController.prisonDashboard()
+        const requestHandler = applicationsController.prisonDashboard()
 
-      await requestHandler(request, response, next)
+        await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard', {
-        applications: prisonApplications,
+        expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard', {
+          applications: prisonApplications,
+          isUserPom: true,
+        })
+      })
+    })
+
+    describe('when the does not have the POM role', () => {
+      it('renders the prison dashboard page with isUserPom as false', async () => {
+        response.locals.user = { activeCaseLoadId: '123', roles: ['ROLE_LICENCE_CA'] }
+        const prisonApplications = applicationSummaryFactory.buildList(5)
+
+        applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
+
+        const requestHandler = applicationsController.prisonDashboard()
+
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard', {
+          applications: prisonApplications,
+          isUserPom: false,
+        })
       })
     })
   })
