@@ -101,7 +101,7 @@ export default {
   domain: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', false),
-    isPrisonDashboardEnabled: ['local', 'dev', 'test'].includes(process.env.ENVIRONMENT || 'local'),
+    isPrisonDashboardEnabled: ['local', 'dev', 'test', 'preprod', 'prod'].includes(process.env.ENVIRONMENT || 'local'),
   },
   analytics: {
     tagManagerId: get('TAG_MANAGER_ID', null),
