@@ -78,16 +78,24 @@ export default class HDCLicenceDates implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (dateIsComplete(this.body, 'hdcEligibilityDate')) {
+    if (!dateIsComplete(this.body, 'hdcEligibilityDate')) {
       errors.hdcEligibilityDate = "Enter the applicant's HDC eligibility date"
+    } else if (!dateAndTimeInputsAreValidDates(this.body, 'hdcEligibilityDate')) {
+      errors.hdcEligibilityDate = 'Eligibility date must be a real date'
     }
 
-    if (dateIsComplete(this.body, 'conditionalReleaseDate')) {
+    if (!dateIsComplete(this.body, 'conditionalReleaseDate')) {
       errors.conditionalReleaseDate = "Enter the applicant's conditional release date"
-    }
-    if (!dateIsTodayOrInTheFuture(this.body, 'conditionalReleaseDate')) {
+    } else if (!dateAndTimeInputsAreValidDates(this.body, 'conditionalReleaseDate')) {
+      errors.conditionalReleaseDate = 'Conditional release date must be a real date'
+    } else if (!dateIsTodayOrInTheFuture(this.body, 'conditionalReleaseDate')) {
       errors.conditionalReleaseDate = 'Conditional release date cannot be in the past'
     }
+
+    if (errors.hdcEligibilityDate || errors.conditionalReleaseDate) {
+      return errors
+    }
+
     if (
       isMoreThanMonthsBetweenDates(
         this.body,

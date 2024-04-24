@@ -64,10 +64,10 @@ describe('HDCLicenceDates', () => {
   })
 
   describe('errors', () => {
-    describe('when the dates given are not valid', () => {
+    describe('when no dates are provided', () => {
       beforeEach(() => {
         jest.resetAllMocks()
-        ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
+        ;(dateIsComplete as jest.Mock).mockImplementation(() => false)
       })
 
       it('returns errors', () => {
@@ -82,7 +82,7 @@ describe('HDCLicenceDates', () => {
     describe('when false dates are provided', () => {
       beforeEach(() => {
         jest.resetAllMocks()
-        ;(dateIsComplete as jest.Mock).mockImplementation(() => false)
+        ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
         ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => false)
       })
 
@@ -98,7 +98,7 @@ describe('HDCLicenceDates', () => {
     describe('when the conditional release date (CRD) is in the past', () => {
       beforeEach(() => {
         jest.resetAllMocks()
-        ;(dateIsComplete as jest.Mock).mockImplementation(() => false)
+        ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
         ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => true)
         ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => false)
         ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => false)
@@ -116,7 +116,7 @@ describe('HDCLicenceDates', () => {
     describe('when the HDC date is more than 6 months before the CRD date', () => {
       beforeEach(() => {
         jest.resetAllMocks()
-        ;(dateIsComplete as jest.Mock).mockImplementation(() => false)
+        ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
         ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => true)
         ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => true)
         ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => true)
@@ -134,7 +134,7 @@ describe('HDCLicenceDates', () => {
     describe('when the HDC date is after the CRD date', () => {
       beforeEach(() => {
         jest.resetAllMocks()
-        ;(dateIsComplete as jest.Mock).mockImplementation(() => false)
+        ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
         ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => true)
         ;(dateIsTodayOrInTheFuture as jest.Mock).mockImplementation(() => true)
         ;(isMoreThanMonthsBetweenDates as jest.Mock).mockImplementation(() => false)
