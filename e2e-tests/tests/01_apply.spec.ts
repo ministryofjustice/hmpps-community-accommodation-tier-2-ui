@@ -36,9 +36,8 @@ test('add a note to a submitted application', async ({ page, person }) => {
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 })
 
-test(`add a note to a submitted application created by another user within user's prison`, async ({ page, person }) => {
-  const { name } = person
+test(`add a note to a submitted application created by another user within user's prison`, async ({ page }) => {
   const SEEDED_APPLICATION_ID = 'edd787eb-31a3-4fad-a473-9cf8969f1487'
-  await viewApplicationFromPrisonDashboard(SEEDED_APPLICATION_ID, page, name)
+  await viewApplicationFromPrisonDashboard(SEEDED_APPLICATION_ID, page)
   await addNote(page)
 })
