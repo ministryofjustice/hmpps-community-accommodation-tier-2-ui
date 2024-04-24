@@ -54,6 +54,9 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
     items.push(sections.newReferral)
     items.push(sections.prisonDashboard)
   }
+  if (hasRole(userRoles, 'ROLE_LICENCE_CA')) {
+    items.push(sections.prisonDashboard)
+  }
   if (hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
     items.push(sections.submittedApplications)
   }
