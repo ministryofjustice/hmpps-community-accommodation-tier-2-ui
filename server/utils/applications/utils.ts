@@ -95,8 +95,6 @@ export const generateSuccessMessage = (pageName: string): string => {
       return 'The offence has been saved'
     case 'offence-history-data':
       return 'The offence has been saved'
-    case 'behaviour-notes-data':
-      return 'The behaviour note has been saved'
     case 'acct-data':
       return 'The ACCT has been saved'
     default:

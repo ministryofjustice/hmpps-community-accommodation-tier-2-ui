@@ -70,7 +70,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
   shouldShowQuestionsAndAnswers(task: string) {
     const pageKeys = Object.keys(this.application.data[task])
     pageKeys.forEach(pageKey => {
-      const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct', 'behaviour-notes']
+      const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct']
       if (pagesWithoutQuestions.includes(pageKey)) {
         return
       }

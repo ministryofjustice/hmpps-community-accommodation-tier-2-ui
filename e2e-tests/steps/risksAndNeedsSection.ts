@@ -185,7 +185,6 @@ export const completeRoshTask = async (page: Page, name: string) => {
   await completeReducingRiskPage(page)
   await completeRiskManagementArrangementsPage(page, name)
   await completeCellShareInformationPage(page, name)
-  await completeBehaviourNotesPage(page)
   await completeAdditionalRiskPage(page, name)
 }
 
@@ -224,11 +223,6 @@ async function completeCellShareInformationPage(page: Page, name: string) {
   const riskManagementPage = await ApplyPage.initialize(page, `Cell share information for ${name}`)
   await riskManagementPage.checkRadio('No')
   await riskManagementPage.clickSave()
-}
-
-async function completeBehaviourNotesPage(page: Page) {
-  const taskListPage = new TaskListPage(page)
-  await taskListPage.clickSave()
 }
 
 async function completeAdditionalRiskPage(page: Page, name: string) {

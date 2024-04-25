@@ -180,19 +180,11 @@
             { "question": "Please describe their needs.", "answer": "some physical needs" },
             { "question": "Can they climb stairs?", "answer": "no" },
             {
-              "question": "Are they currently receiving any medical treatment for their physical health needs?",
+              "question": "Are they currently receiving any medication or treatment for their physical health?",
               "answer": "Yes"
             },
             {
-              "question": "Describe the treatment they receive for physical health needs",
-              "answer": "some medical treatment"
-            },
-            {
-              "question": "Are they currently receiving any medication for their physical health needs?",
-              "answer": "Yes"
-            },
-            {
-              "question": "Describe the medication they receive for physical health needs",
+              "question": "Describe the medication or treatment",
               "answer": "medication for physical needs"
             },
             { "question": "Can they live independently?", "answer": "No" },
@@ -204,6 +196,7 @@
             { "question": "Please describe the types of support.", "answer": "more additional support" },
             { "question": "Do they have any mental health needs?", "answer": "Yes" },
             { "question": "Please describe their mental health needs.", "answer": "some mental health needs" },
+            { "question": "How are they presenting?", "answer": "some presentation details" },
             { "question": "Are they engaged with any community mental health services?", "answer": "Yes" },
             { "question": "Please state which services.", "answer": "some community mental health services" },
             {
@@ -314,10 +307,6 @@
             { "question": "Provide IOM details", "answer": "IOM details" },
             { "question": "Are there any comments to add about cell sharing?", "answer": "Yes" },
             { "question": "Cell sharing information", "answer": "cell sharing comments and more" },
-            {
-              "question": "Behaviour note 1",
-              "answer": "behaviour note details behaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note detailsbehaviour note details\r\n\r\nbehaviour note details"
-            },
             { "question": "Is there any other risk information for Aadland Bertrand?", "answer": "Yes" },
             { "question": "Additional information", "answer": "more additional info" }
           ]

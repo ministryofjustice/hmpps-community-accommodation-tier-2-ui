@@ -34,7 +34,7 @@ export default class CellShareInformation implements TaskListPage {
   }
 
   next() {
-    return 'behaviour-notes'
+    return 'additional-risk-information'
   }
 
   errors() {

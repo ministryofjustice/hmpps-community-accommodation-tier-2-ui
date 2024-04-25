@@ -6,8 +6,6 @@ import RiskFactors from './riskFactors'
 import ReducingRisk from './reducingRisk'
 import RiskManagementArrangements from './riskManagementArrangements'
 import CellShareInformation from './cellShareInformation'
-import BehaviourNotes from './behaviourNotes'
-import BehaviourNotesData from './custom-forms/behaviourNotesData'
 import AdditionalRiskInformation from './additionalRiskInformation'
 
 @Task({
@@ -21,8 +19,6 @@ import AdditionalRiskInformation from './additionalRiskInformation'
     ReducingRisk,
     RiskManagementArrangements,
     CellShareInformation,
-    BehaviourNotesData,
-    BehaviourNotes,
     AdditionalRiskInformation,
   ],
 })

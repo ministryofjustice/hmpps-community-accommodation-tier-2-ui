@@ -32,7 +32,7 @@ export default class AdditionalRiskInformation implements TaskListPage {
   }
 
   previous() {
-    return 'behaviour-notes'
+    return 'cell-share-information'
   }
 
   next() {
