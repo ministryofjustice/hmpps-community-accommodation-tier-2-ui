@@ -7,10 +7,3 @@ export const viewSubmittedApplication = async (page: Page) => {
   await page.getByTestId('submitted-applications').getByRole('link').first().click()
   await page.getByRole('button', { name: 'View submitted application' }).click()
 }
-
-export const signInAsAdmin = async (page: Page, adminUser: { name?: string; username: string; password: string }) => {
-  await page.goto('/')
-  await page.getByLabel('Username').fill(adminUser.username)
-  await page.getByLabel('Password').fill(adminUser.password)
-  await page.getByRole('button', { name: 'Sign in' }).click()
-}

@@ -14,11 +14,11 @@ import {
   viewSubmittedApplication,
   addNote,
   viewApplicationFromPrisonDashboard,
-  signInAsPom,
 } from '../steps/apply'
+import { signIn } from '../steps/signIn'
 
 test('create a CAS-2 application', async ({ page, person, pomUser }) => {
-  await signInAsPom(page, pomUser)
+  await signIn(page, pomUser)
   await startAnApplication(page)
   await enterPrisonerNumber(page, person.nomsNumber)
   await confirmApplicant(page)
@@ -33,7 +33,7 @@ test('create a CAS-2 application', async ({ page, person, pomUser }) => {
 })
 
 test('add a note to a submitted application', async ({ page, person, pomUser }) => {
-  await signInAsPom(page, pomUser)
+  await signIn(page, pomUser)
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
@@ -44,7 +44,7 @@ test(`add a note to a submitted application created by another user within user'
   pomUser,
 }) => {
   const SEEDED_APPLICATION_ID = 'edd787eb-31a3-4fad-a473-9cf8969f1487'
-  await signInAsPom(page, pomUser)
+  await signIn(page, pomUser)
   await viewApplicationFromPrisonDashboard(SEEDED_APPLICATION_ID, page)
   await addNote(page)
 })

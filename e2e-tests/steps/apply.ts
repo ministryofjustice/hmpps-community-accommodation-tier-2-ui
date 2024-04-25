@@ -111,10 +111,3 @@ export const viewApplicationFromPrisonDashboard = async (applicationId: string, 
   await page.locator(`a[href="/applications/${applicationId}/overview"]`).click()
   await expect(page.locator('h2').first()).toContainText('Application history')
 }
-
-export const signInAsPom = async (page: Page, pomUser: { name?: string; username: string; password: string }) => {
-  await page.goto('/')
-  await page.getByLabel('Username').fill(pomUser.username)
-  await page.getByLabel('Password').fill(pomUser.password)
-  await page.getByRole('button', { name: 'Sign in' }).click()
-}

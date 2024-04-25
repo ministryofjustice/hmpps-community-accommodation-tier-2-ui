@@ -19,16 +19,6 @@ export const viewSubmittedApplication = async (page: Page) => {
   await expect(page.locator('h2').first()).toContainText('Applicant details')
 }
 
-export const signInAsAssessor = async (
-  page: Page,
-  assessorUser: { name?: string; username: string; password: string },
-) => {
-  await page.goto('/')
-  await page.getByLabel('Username').fill(assessorUser.username)
-  await page.getByLabel('Password').fill(assessorUser.password)
-  await page.getByRole('button', { name: 'Sign in' }).click()
-}
-
 export const addNote = async (page: Page) => {
   const note = faker.lorem.paragraph()
   await page.getByLabel('Add a note for the referrer', { exact: true }).fill(note)
