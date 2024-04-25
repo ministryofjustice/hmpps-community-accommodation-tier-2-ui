@@ -4,6 +4,7 @@ import {
   SubmitCas2Application,
   UpdateApplication,
 } from '@approved-premises/api'
+import { PaginatedResponse } from '@approved-premises/ui'
 import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -33,9 +34,12 @@ export default class ApplicationClient {
     return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
   }
 
-  async getAllByPrison(prisonCode: string): Promise<Array<Cas2ApplicationSummary>> {
-    const path = `${paths.applications.index({})}?prisonCode=${prisonCode}&isSubmitted=true`
-    return (await this.restClient.get({ path })) as Array<Cas2ApplicationSummary>
+  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
+      path: paths.applications.index.pattern,
+      page: pageNumber.toString(),
+      query: { prisonCode, isSubmitted: 'true' },
+    })
   }
 
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
