@@ -12,7 +12,7 @@ describe('userUtils', () => {
     })
 
     it('should return the prison dashboard for a Licence CA', () => {
-      const expected = [sections.prisonDashboard]
+      const expected = [sections.referral, sections.newReferral, sections.prisonDashboard]
       expect(sectionsForUser(['ROLE_LICENCE_CA'])).toEqual(expected)
     })
 
