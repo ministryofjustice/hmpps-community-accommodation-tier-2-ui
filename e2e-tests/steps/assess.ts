@@ -23,6 +23,7 @@ export const signInAsAssessor = async (
   page: Page,
   assessorUser: { name?: string; username: string; password: string },
 ) => {
+  await page.goto('/')
   await page.getByLabel('Username').fill(assessorUser.username)
   await page.getByLabel('Password').fill(assessorUser.password)
   await page.getByRole('button', { name: 'Sign in' }).click()

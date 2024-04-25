@@ -26,7 +26,6 @@ export default defineConfig<TestOptions>({
       name: 'dev',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'e2e-tests/playwright/.auth/user.json',
         baseURL: 'https://community-accommodation-tier-2-dev.hmpps.service.justice.gov.uk',
       },
       dependencies: ['setupDev'],
@@ -57,7 +56,6 @@ export default defineConfig<TestOptions>({
       name: 'local',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'e2e-tests/playwright/.auth/user.json',
         baseURL: 'http://localhost:3000',
         person: {
           name: 'Aadland Bertrand',
@@ -65,9 +63,9 @@ export default defineConfig<TestOptions>({
           nomsNumber: 'A1234AI',
         },
         pomUser: {
-          name: 'JIM SNOW',
-          username: 'jimsnowldap',
-          password: 'secret',
+          name: 'Pom User',
+          username: 'POM_USER',
+          password: 'password123456',
         },
         adminUser: {
           name: 'CAS2 Admin',

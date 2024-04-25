@@ -9,7 +9,6 @@ import {
 import { test } from '../test'
 
 test('view a submitted application as an assessor', async ({ page, assessorUser }) => {
-  await signOut(page)
   await signInAsAssessor(page, assessorUser)
   await viewSubmittedApplication(page)
   await updateStatus(page)
@@ -17,8 +16,3 @@ test('view a submitted application as an assessor', async ({ page, assessorUser 
   await addNote(page)
   await addAssessmentDetails(page)
 })
-
-const signOut = async (page: Page) => {
-  await page.goto('/sign-out')
-  await expect(page.locator('h1')).toContainText('Sign in')
-}

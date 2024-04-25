@@ -9,6 +9,7 @@ export const viewSubmittedApplication = async (page: Page) => {
 }
 
 export const signInAsAdmin = async (page: Page, adminUser: { name?: string; username: string; password: string }) => {
+  await page.goto('/')
   await page.getByLabel('Username').fill(adminUser.username)
   await page.getByLabel('Password').fill(adminUser.password)
   await page.getByRole('button', { name: 'Sign in' }).click()
