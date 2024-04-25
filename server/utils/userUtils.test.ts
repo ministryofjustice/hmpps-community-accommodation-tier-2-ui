@@ -11,6 +11,11 @@ describe('userUtils', () => {
       expect(sectionsForUser(['ROLE_POM'])).toEqual(expected)
     })
 
+    it('should return the prison dashboard for a Licence CA', () => {
+      const expected = [sections.prisonDashboard]
+      expect(sectionsForUser(['ROLE_LICENCE_CA'])).toEqual(expected)
+    })
+
     it('should return correct sections for an admin', () => {
       const expected = [sections.submittedApplications]
       expect(sectionsForUser(['ROLE_CAS2_ADMIN'])).toEqual(expected)

@@ -11,7 +11,9 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">Your prison's CAS-2 applications</h1>
 
-      {{ mojSubNavigation({
+      {% if isUserPom %}
+
+        {{ mojSubNavigation({
           label: 'Sub navigation',
           items: [{
             text: 'Your applications',
@@ -22,6 +24,8 @@
             active: true
           }]
         }) }}
+
+      {% endif %}
 
       <p>View recent applications from this prison for Short-Term Accommodation (CAS-2).</p>
 
