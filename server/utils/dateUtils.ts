@@ -269,3 +269,21 @@ export const getTodaysDatePlusMonthsAndDays = (monthsToAdd = 0, daysToAdd = 0): 
 }
 
 export class InvalidDateStringError extends Error {}
+
+export const dateIsComplete = <K extends string | number>(
+  dateInputObj: Partial<ObjectWithDateParts<K>>,
+  key: K,
+): boolean => {
+  const dateParts = ['year', 'month', 'day'] as const
+  let allPartsExist = true
+
+  for (const part of dateParts) {
+    const keyExists = Boolean(dateInputObj[`${key}-${part}`])
+    if (!keyExists) {
+      allPartsExist = false
+      break
+    }
+  }
+
+  return allPartsExist
+}

@@ -11,6 +11,7 @@ import {
   isMoreThanMonthsBetweenDates,
   differenceInDaysFromToday,
   isBeforeDate,
+  dateIsComplete,
 } from './dateUtils'
 
 jest.mock('date-fns', () => {
@@ -373,6 +374,51 @@ describe('DateFormats', () => {
       expect(result.month).toBeTruthy()
       expect(result.day).toBeTruthy()
       expect(result.formattedDate).toBeTruthy()
+    })
+  })
+
+  describe('dateIsComplete', () => {
+    it('returns true if the date is complete', () => {
+      const date: ObjectWithDateParts<'field'> = {
+        'field-day': '12',
+        'field-month': '1',
+        'field-year': '2022',
+      }
+
+      expect(dateIsComplete(date, 'field')).toEqual(true)
+    })
+
+    it('returns false if the date is blank', () => {
+      const date: ObjectWithDateParts<'field'> = {
+        'field-day': '',
+        'field-month': '',
+        'field-year': '',
+      }
+
+      expect(dateIsComplete(date, 'field')).toEqual(false)
+    })
+
+    it('returns false if a partial date is entered', () => {
+      const date: ObjectWithDateParts<'field'> = {
+        'field-day': '12',
+        'field-month': '1',
+        'field-year': '',
+      }
+
+      expect(dateIsComplete(date, 'field')).toEqual(false)
+    })
+
+    it('ignores irrelevant fields', () => {
+      const date: ObjectWithDateParts<'field'> & ObjectWithDateParts<'otherField'> = {
+        'field-day': '12',
+        'field-month': '1',
+        'field-year': '2022',
+        'otherField-day': undefined,
+        'otherField-month': undefined,
+        'otherField-year': undefined,
+      }
+
+      expect(dateIsComplete(date, 'field')).toEqual(true)
     })
   })
 })
