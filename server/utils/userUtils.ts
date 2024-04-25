@@ -3,7 +3,6 @@ import { ServiceSection } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportsPaths from '../paths/report'
-import config from '../config'
 
 export const sections = {
   referral: {
@@ -53,9 +52,7 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   if (hasRole(userRoles, 'ROLE_POM')) {
     items.push(sections.referral)
     items.push(sections.newReferral)
-    if (config.flags.isPrisonDashboardEnabled) {
-      items.push(sections.prisonDashboard)
-    }
+    items.push(sections.prisonDashboard)
   }
   if (hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
     items.push(sections.submittedApplications)
