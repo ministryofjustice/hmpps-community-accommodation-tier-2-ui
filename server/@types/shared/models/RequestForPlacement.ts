@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { AnyValue } from './AnyValue';
 import type { PlacementDates } from './PlacementDates';
+import type { RequestForPlacementStatus } from './RequestForPlacementStatus';
 import type { RequestForPlacementType } from './RequestForPlacementType';
 import type { WithdrawPlacementRequestReason } from './WithdrawPlacementRequestReason';
 export type RequestForPlacement = {
@@ -27,5 +28,6 @@ export type RequestForPlacement = {
     withdrawalReason?: WithdrawPlacementRequestReason;
     type: RequestForPlacementType;
     placementDates: Array<PlacementDates>;
+    status: RequestForPlacementStatus;
 };
 
