@@ -11,7 +11,7 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
-  user: [
+  pomUser: [
     {
       name: 'Approved Premises E2ETester',
       username: process.env.CAS2_HMPPS_AUTH_USERNAME as string,

@@ -36,7 +36,7 @@ export default defineConfig<TestOptions>({
       testMatch: /.*\.setup\.ts/,
       use: {
         baseURL: 'http://localhost:3000',
-        user: {
+        pomUser: {
           name: 'Pom User',
           username: 'POM_USER',
           password: 'password123456',
@@ -64,7 +64,7 @@ export default defineConfig<TestOptions>({
           crn: 'X320741',
           nomsNumber: 'A1234AI',
         },
-        user: {
+        pomUser: {
           name: 'JIM SNOW',
           username: 'jimsnowldap',
           password: 'secret',
