@@ -39,7 +39,7 @@ export default class RiskFactors implements TaskListPage {
   }
 
   previous() {
-    return 'summary'
+    return 'risk-to-others'
   }
 
   next() {

@@ -14,7 +14,7 @@ describe('AdditionalRiskInformation', () => {
   })
 
   itShouldHaveNextValue(new AdditionalRiskInformation({}, application), '')
-  itShouldHavePreviousValue(new AdditionalRiskInformation({}, application), 'risk-management-arrangements')
+  itShouldHavePreviousValue(new AdditionalRiskInformation({}, application), 'cell-share-information')
 
   describe('errors', () => {
     describe('when answer data is valid', () => {

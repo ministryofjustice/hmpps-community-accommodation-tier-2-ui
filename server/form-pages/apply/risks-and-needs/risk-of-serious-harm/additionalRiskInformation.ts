@@ -32,7 +32,7 @@ export default class AdditionalRiskInformation implements TaskListPage {
   }
 
   previous() {
-    return 'risk-management-arrangements'
+    return 'cell-share-information'
   }
 
   next() {

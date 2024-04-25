@@ -23,7 +23,7 @@ describe('RiskFactors', () => {
   })
 
   itShouldHaveNextValue(new RiskFactors({}, application), 'reducing-risk')
-  itShouldHavePreviousValue(new RiskFactors({}, application), 'summary')
+  itShouldHavePreviousValue(new RiskFactors({}, application), 'risk-to-others')
 
   describe('errors', () => {
     it('returns an error when required fields are blank', () => {
