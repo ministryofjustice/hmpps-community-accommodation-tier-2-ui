@@ -220,7 +220,7 @@
     "sass": "^1.62.0",
     "shellcheck": "^2.0.0",
     "start-server-and-test": "^2.0.0",
-    "supertest": "^6.3.3",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
     "typescript": "^5.1.6"
   },
