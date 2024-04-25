@@ -13,9 +13,17 @@ export const test = base.extend<TestOptions>({
   ],
   pomUser: [
     {
-      name: 'Approved Premises E2ETester',
+      name: 'CAS2 Pom E2ETester',
       username: process.env.CAS2_HMPPS_AUTH_USERNAME as string,
       password: process.env.CAS2_HMPPS_AUTH_PASSWORD as string,
+    },
+    { option: true },
+  ],
+  lcaUser: [
+    {
+      name: 'CAS2 Licence CA E2ETester',
+      username: process.env.CAS2_LCA_USERNAME as string,
+      password: process.env.CAS2_LCA_PASSWORD as string,
     },
     { option: true },
   ],

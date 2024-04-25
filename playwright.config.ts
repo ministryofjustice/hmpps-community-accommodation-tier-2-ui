@@ -40,6 +40,11 @@ export default defineConfig<TestOptions>({
           username: 'POM_USER',
           password: 'password123456',
         },
+        lcaUser: {
+          name: 'LCA User',
+          username: 'CAS2_LICENCE_USER',
+          password: 'password123456',
+        },
         adminUser: {
           name: 'CAS2 Admin',
           username: 'CAS2_ADMIN_USER',
@@ -67,6 +72,11 @@ export default defineConfig<TestOptions>({
           username: 'POM_USER',
           password: 'password123456',
         },
+        lcaUser: {
+          name: 'LCA User',
+          username: 'CAS2_LICENCE_USER',
+          password: 'password123456',
+        },
         adminUser: {
           name: 'CAS2 Admin',
           username: 'CAS2_ADMIN_USER',
@@ -80,7 +90,7 @@ export default defineConfig<TestOptions>({
         miUser: {
           name: 'MI User',
           username: 'CAS2_MI_USER',
-          password: 'password123456'
+          password: 'password123456',
         },
       },
       dependencies: ['setupLocal'],
