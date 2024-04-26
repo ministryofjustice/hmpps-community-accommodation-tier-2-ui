@@ -1,8 +1,8 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
-import { SubmitCas2Application } from '@approved-premises/api'
+import { Cas2ApplicationSummary, SubmitCas2Application } from '@approved-premises/api'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
-import { DataServices, GroupedApplications, TaskListErrors } from '@approved-premises/ui'
+import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
@@ -11,7 +11,7 @@ import { ValidationError } from '../utils/errors'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 
-import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory, paginatedResponseFactory } from '../testutils/factories'
 
 jest.mock('../data/applicationClient.ts')
 jest.mock('../data/personClient.ts')
@@ -89,14 +89,26 @@ describe('ApplicationService', () => {
 
     it('fetches all applications for a prison', async () => {
       const applications = applicationSummaryFactory.buildList(3)
-      applicationClient.getAllByPrison.mockResolvedValue(applications)
 
-      const result = await service.getAllByPrison(token, '123')
+      const paginatedResponse = paginatedResponseFactory.build({
+        data: applications,
+        totalPages: '50',
+        totalResults: '500',
+        pageNumber: '2',
+      }) as PaginatedResponse<Cas2ApplicationSummary>
 
-      expect(result).toEqual(applications)
+      applicationClient.getAllByPrison.mockResolvedValue(paginatedResponse)
+
+      const result = await service.getAllByPrison(token, '123', 2)
+
+      expect(result.data).toEqual(applications)
+      expect(result.pageNumber).toEqual('2')
+      expect(result.pageSize).toEqual('10')
+      expect(result.totalPages).toEqual('50')
+      expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getAllByPrison).toHaveBeenCalled()
+      expect(applicationClient.getAllByPrison).toHaveBeenCalledWith('123', 2)
     })
   })
 

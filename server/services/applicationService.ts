@@ -5,7 +5,7 @@ import {
   Cas2Application,
   Cas2ApplicationSummary,
 } from '@approved-premises/api'
-import type { DataServices, GroupedApplications } from '@approved-premises/ui'
+import type { DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
@@ -54,10 +54,14 @@ export default class ApplicationService {
     return result
   }
 
-  async getAllByPrison(token: string, prisonCode: string): Promise<Array<Cas2ApplicationSummary>> {
+  async getAllByPrison(
+    token: string,
+    prisonCode: string,
+    pageNumber: number = 1,
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const applications = applicationClient.getAllByPrison(prisonCode)
+    const applications = await applicationClient.getAllByPrison(prisonCode, pageNumber)
 
     return applications
   }
