@@ -9,7 +9,7 @@ const appendToListPath = pagesPath.path('/appendToList')
 
 const removeFromListPath = pagesPath.path(':index/removeFromList')
 
-const prisonDashboardPath = applicationsPath.path('/prison')
+const prisonDashboardPath = applicationsPath.path('prison')
 
 const paths = {
   applications: {
