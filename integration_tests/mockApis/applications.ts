@@ -40,15 +40,24 @@ export default {
         jsonBody: applications,
       },
     }),
-  stubPrisonApplications: (args: { applications: Array<Application>; prisonCode: string }): SuperAgentRequest =>
+  stubPrisonApplications: (args: {
+    applications: Array<Application>
+    prisonCode: string
+    page: number
+  }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications?prisonCode=${args.prisonCode}&isSubmitted=true`,
+        url: `/cas2/applications?page=${args.page}&prisonCode=${args.prisonCode}&isSubmitted=true`,
       },
       response: {
         status: 200,
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'X-Pagination-TotalPages': '2',
+          'X-Pagination-TotalResults': '20',
+          'X-Pagination-PageSize': '10',
+        },
         jsonBody: args.applications,
       },
     }),
