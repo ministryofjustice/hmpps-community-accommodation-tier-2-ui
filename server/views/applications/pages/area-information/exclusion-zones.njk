@@ -5,26 +5,23 @@
 
 {% block questions %}
   {% set exclusionZonesDetailHintHtml %}
-    <p class="govuk-hint">Include:</p>
+  <p class="govuk-hint">Include:</p>
 
-    <ul class="govuk-list govuk-list--bullet govuk-hint">
-      <li>
+  <ul class="govuk-list govuk-list--bullet govuk-hint">
+    <li>
         where the applicant is excluded from
       </li>
-      <li>
-        the exclusion zone's end date (if applicable)
-      </li>
-      <li>
+    <li>
         the reason for the exclusion zone. For example, domestic abuse
       </li>
-      <li>
+    <li>
         full names of any victims so we can avoid placing the applicant near them
       </li>
-    </ul>
+  </ul>
   {% endset %}
 
   {% set exclusionZonesDetailHtml %}
-    {{
+  {{
       formPageTextArea(
         {
           fieldName: 'exclusionZonesDetail',
