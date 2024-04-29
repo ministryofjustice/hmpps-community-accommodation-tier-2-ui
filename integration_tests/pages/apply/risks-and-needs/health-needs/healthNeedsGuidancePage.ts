@@ -44,18 +44,29 @@ export default class HealthNeedsGuidancePage extends ApplyPage {
   }
 
   hasHealthQuestionsTemplate = (): void => {
-    cy.get('span').contains("Ask questions about the applicant's health")
+    cy.get('span').contains("Ask questions about the applicant's physical health")
     cy.get('li').contains(
       'Do they have any physical health needs? For example, needing a mobility scooter, stair lift, wet room, grip rails in the shower or bath, or wider door frames and ramps. If yes, describe their physical health needs.',
     )
   }
 
   copyHealthQuestionsTemplateToClipboard = (): void => {
-    cy.get('span').contains("Ask questions about the applicant's health").click()
+    cy.get('span').contains("Ask questions about the applicant's physical health").click()
     cy.get('#health-questions-button').click()
     cy.assertValueCopiedToClipboardContains(
       'Do they have any physical health needs? For example, needing a mobility scooter, stair lift, wet room, grip rails in the shower or bath, or wider door frames and ramps. If yes, describe their physical health needs.',
     )
+  }
+
+  hasMentalHealthQuestionsTemplate = (): void => {
+    cy.get('span').contains("Ask questions about the applicant's mental health")
+    cy.get('li').contains('Do they have any mental health needs?')
+  }
+
+  copyMentalHealthQuestionsTemplateToClipboard = (): void => {
+    cy.get('span').contains("Ask questions about the applicant's mental health").click()
+    cy.get('#mental-health-questions-button').click()
+    cy.assertValueCopiedToClipboardContains('Do they have any mental health needs?')
   }
 
   hasDrugAndAlcoholQuestionsTemplate = (): void => {

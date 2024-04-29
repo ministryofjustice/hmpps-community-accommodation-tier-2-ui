@@ -10,6 +10,10 @@
 {% include "../../../partials/email-templates/health-questions.njk" %}
 {% endset %}
 
+{% set mentalHealthQuestionsTemplate %}
+{% include "../../../partials/email-templates/mental-health-questions.njk" %}
+{% endset %}
+
 {% set drugAlcoholQuestionsTemplate %}
 {% include "../../../partials/email-templates/drug-alcohol-questions.njk" %}
 {% endset %}
@@ -53,8 +57,14 @@
     }) }}
 
       {{ govukDetails({
-    summaryText: "Ask questions about the applicant's health",
+    summaryText: "Ask questions about the applicant's physical health",
     html: healthQuestionsTemplate,
+    classes: 'copy-text'
+    }) }}
+
+      {{ govukDetails({
+    summaryText: "Ask questions about the applicant's mental health",
+    html: mentalHealthQuestionsTemplate,
     classes: 'copy-text'
     }) }}
 
@@ -96,6 +106,10 @@
       document
         .getElementById('health-questions-button')
         .addEventListener('click', () => copyToClipboard('health-questions-template'));
+
+      document
+        .getElementById('mental-health-questions-button')
+        .addEventListener('click', () => copyToClipboard('mental-health-questions-template'));
 
       document
         .getElementById('drug-alcohol-questions-button')
