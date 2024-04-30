@@ -5,18 +5,18 @@ import assessPaths from '../paths/assess'
 import reportsPaths from '../paths/report'
 
 export const sections = {
-  referral: {
-    id: 'referrals',
-    title: 'View referrals',
-    description: 'View all in progress and submitted CAS-2 referrals.',
-    shortTitle: 'Referrals',
+  applications: {
+    id: 'applications',
+    title: 'View your applications',
+    description: 'View all of your in progress and submitted CAS-2 applications.',
+    shortTitle: 'Applications',
     href: applyPaths.applications.index({}),
   },
-  newReferral: {
-    id: 'new-referral',
-    title: 'Start a new referral',
-    description: 'Start a new CAS-2 referral for a HDC applicant.',
-    shortTitle: 'New referral',
+  newApplication: {
+    id: 'new-application',
+    title: 'Start a new application',
+    description: 'Start a new CAS-2 application for a HDC applicant.',
+    shortTitle: 'New application',
     href: applyPaths.applications.beforeYouStart({}),
   },
   submittedApplications: {
@@ -50,8 +50,8 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   const items = []
 
   if (hasRole(userRoles, 'ROLE_POM') || hasRole(userRoles, 'ROLE_LICENCE_CA')) {
-    items.push(sections.referral)
-    items.push(sections.newReferral)
+    items.push(sections.applications)
+    items.push(sections.newApplication)
     items.push(sections.prisonDashboard)
   }
   if (hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {

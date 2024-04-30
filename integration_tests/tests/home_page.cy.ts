@@ -44,7 +44,7 @@ context('Home', () => {
     const page = Page.verifyOnPage(HomePage)
 
     //  Then see the correct cards
-    page.shouldShowCards(['referrals', 'new-referral', 'prison-dashboard'])
+    page.shouldShowCards(['applications', 'new-application', 'prison-dashboard'])
 
     //  And I see the sign out button
     page.shouldShowSignOutButton()
@@ -77,7 +77,7 @@ context('Home', () => {
     const page = Page.verifyOnPage(HomePage)
 
     //  Then I see no cards
-    page.shouldNotShowCards(['referrals', 'new-referral'])
+    page.shouldNotShowCards(['applications', 'new-application'])
   })
 
   //  Scenario: viewing the home page as an Management Info user
