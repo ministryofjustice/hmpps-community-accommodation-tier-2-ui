@@ -4,7 +4,12 @@ export type TestOptions = {
     name: string
     nomsNumber: string
   }
-  user: {
+  pomUser: {
+    name: string
+    username: string
+    password: string
+  }
+  lcaUser: {
     name: string
     username: string
     password: string

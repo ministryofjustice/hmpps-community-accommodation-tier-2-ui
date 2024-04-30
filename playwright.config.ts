@@ -26,7 +26,6 @@ export default defineConfig<TestOptions>({
       name: 'dev',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'e2e-tests/playwright/.auth/user.json',
         baseURL: 'https://community-accommodation-tier-2-dev.hmpps.service.justice.gov.uk',
       },
       dependencies: ['setupDev'],
@@ -36,9 +35,14 @@ export default defineConfig<TestOptions>({
       testMatch: /.*\.setup\.ts/,
       use: {
         baseURL: 'http://localhost:3000',
-        user: {
+        pomUser: {
           name: 'Pom User',
           username: 'POM_USER',
+          password: 'password123456',
+        },
+        lcaUser: {
+          name: 'LCA User',
+          username: 'CAS2_LICENCE_USER',
           password: 'password123456',
         },
         adminUser: {
@@ -57,17 +61,21 @@ export default defineConfig<TestOptions>({
       name: 'local',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'e2e-tests/playwright/.auth/user.json',
         baseURL: 'http://localhost:3000',
         person: {
           name: 'Aadland Bertrand',
           crn: 'X320741',
           nomsNumber: 'A1234AI',
         },
-        user: {
-          name: 'JIM SNOW',
-          username: 'jimsnowldap',
-          password: 'secret',
+        pomUser: {
+          name: 'Pom User',
+          username: 'POM_USER',
+          password: 'password123456',
+        },
+        lcaUser: {
+          name: 'LCA User',
+          username: 'CAS2_LICENCE_USER',
+          password: 'password123456',
         },
         adminUser: {
           name: 'CAS2 Admin',
@@ -82,7 +90,7 @@ export default defineConfig<TestOptions>({
         miUser: {
           name: 'MI User',
           username: 'CAS2_MI_USER',
-          password: 'password123456'
+          password: 'password123456',
         },
       },
       dependencies: ['setupLocal'],

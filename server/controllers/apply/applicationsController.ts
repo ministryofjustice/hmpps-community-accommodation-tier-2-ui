@@ -288,9 +288,7 @@ export default class ApplicationsController {
         res.locals.user.activeCaseLoadId,
       )
 
-      const isUserPom = res.locals.user.roles.includes('ROLE_POM')
-
-      return res.render('applications/prison-dashboard', { applications, isUserPom })
+      return res.render('applications/prison-dashboard', { applications })
     }
   }
 }

@@ -24,6 +24,15 @@
       "@approved-premises/ui": ["server/@types/ui/index.d.ts"]
     }
   },
-  "exclude": ["node_modules", "assets/**/*.js", "integration_tests", "dist", "cypress.config.ts", "coverage/**"],
+  "exclude": [
+    "node_modules",
+    "assets/**/*.js",
+    "integration_tests",
+    "dist",
+    "cypress.config.ts",
+    "coverage/**",
+    "e2e-tests/playwright-report",
+    "e2e-tests/test_results"
+  ],
   "include": ["**/*.js", "**/*.ts"]
 }

@@ -30,12 +30,6 @@ const reportTypeMetaData = {
 
 type ReportType = keyof typeof reportTypeMetaData
 
-export const signInAsMI = async (page: Page, miUser: { name?: string; username: string; password: string }) => {
-  await page.getByLabel('Username').fill(miUser.username)
-  await page.getByLabel('Password').fill(miUser.password)
-  await page.getByRole('button', { name: 'Sign in' }).click()
-}
-
 export const manageInformationReports = async (page: Page) => {
   await page.goto('/reports')
   await expect(page.locator('h1')).toContainText('Management information reports')
