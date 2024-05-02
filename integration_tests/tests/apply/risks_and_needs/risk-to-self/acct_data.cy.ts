@@ -18,8 +18,8 @@
 //    Then I am taken to a blank "Add an ACCT" page
 //    And I see a success message
 
-import AcctPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctPage'
-import AcctDataPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctDataPage'
+import AcctPage from '../../../../pages/apply/risks_and_needs/risk-to-self/acctPage'
+import AcctDataPage from '../../../../pages/apply/risks_and_needs/risk-to-self/acctDataPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 

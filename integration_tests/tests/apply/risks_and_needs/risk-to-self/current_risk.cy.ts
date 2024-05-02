@@ -16,8 +16,8 @@
 //    And I continue to the next task / page
 //    Then I see the "historical risk" page
 
-import CurrentRiskPage from '../../../../pages/apply/risks-and-needs/risk-to-self/currentRiskPage'
-import HistoricalRiskPage from '../../../../pages/apply/risks-and-needs/risk-to-self/historicalRiskPage'
+import CurrentRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/currentRiskPage'
+import HistoricalRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/historicalRiskPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 

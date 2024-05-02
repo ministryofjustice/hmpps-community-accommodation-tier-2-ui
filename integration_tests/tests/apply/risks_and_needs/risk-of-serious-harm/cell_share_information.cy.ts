@@ -18,8 +18,8 @@
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import CellShareInformationPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/cellShareInformationPage'
-import AdditionalRiskInformationPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/additionalRiskInformationPage'
+import CellShareInformationPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/cellShareInformationPage'
+import AdditionalRiskInformationPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/additionalRiskInformationPage'
 
 context('Visit "cell share information" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })

@@ -42,10 +42,10 @@ import {
   oasysRoshFactory,
   risksFactory,
 } from '../../../../../server/testutils/factories/index'
-import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/oasysImportPage'
-import RoshSummaryPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/roshSummaryPage'
+import OasysImportPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/oasysImportPage'
+import RoshSummaryPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/roshSummaryPage'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
-import RiskToOthersPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/riskToOthersPage'
+import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })

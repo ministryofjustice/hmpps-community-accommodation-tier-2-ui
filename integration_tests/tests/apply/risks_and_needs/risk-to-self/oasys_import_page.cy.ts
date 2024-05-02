@@ -33,8 +33,8 @@
 //    When I choose to continue
 //    Then we are taken to the Vulnerability page
 
-import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-to-self/oasysImportPage'
-import VulnerabilityPage from '../../../../pages/apply/risks-and-needs/risk-to-self/vulnerabilityPage'
+import OasysImportPage from '../../../../pages/apply/risks_and_needs/risk-to-self/oasysImportPage'
+import VulnerabilityPage from '../../../../pages/apply/risks_and_needs/risk-to-self/vulnerabilityPage'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import {

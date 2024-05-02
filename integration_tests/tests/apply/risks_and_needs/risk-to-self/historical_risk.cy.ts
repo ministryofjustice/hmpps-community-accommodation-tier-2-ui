@@ -16,8 +16,8 @@
 //    And I continue to the next task / page
 //    Then I see the "ACCT" page
 
-import HistoricalRiskPage from '../../../../pages/apply/risks-and-needs/risk-to-self/historicalRiskPage'
-import AcctPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctPage'
+import HistoricalRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/historicalRiskPage'
+import AcctPage from '../../../../pages/apply/risks_and_needs/risk-to-self/acctPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 

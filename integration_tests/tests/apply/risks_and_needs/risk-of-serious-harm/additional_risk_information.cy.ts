@@ -19,7 +19,7 @@
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import AdditionalRiskInformationPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/additionalRiskInformationPage'
+import AdditionalRiskInformationPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/additionalRiskInformationPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 
 context('Visit "additional risk information" page', () => {
