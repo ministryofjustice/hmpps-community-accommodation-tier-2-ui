@@ -24,7 +24,7 @@
 //  Scenario: there is no OASys data
 //    When there is no OASys data
 //    And I choose to continue
-//    Then I am taken to the risk to others page
+//    Then I am taken to the old oasys page
 //
 //  Scenario: return to Task after importing data
 //    When I go to the task again
@@ -45,7 +45,7 @@ import {
 import OasysImportPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/oasysImportPage'
 import RoshSummaryPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/roshSummaryPage'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
-import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
+import OldOasysPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/oldOasysPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -162,7 +162,7 @@ context('Visit "Risks and needs" section', () => {
 
   //  Scenario: there is no OASys data
   // ----------------------------------------------
-  it('redirects to the risk to others page', function test() {
+  it('redirects to the old oasys page', function test() {
     const taskListPage = Page.verifyOnPage(TaskListPage)
 
     //    When there is no OASys data
@@ -173,8 +173,8 @@ context('Visit "Risks and needs" section', () => {
     const page = Page.verifyOnPage(OasysImportPage, this.application)
     page.clickContinue()
 
-    //    Then I am taken to the risk to others page
-    Page.verifyOnPage(RiskToOthersPage, this.application)
+    //    Then I am taken to the old oasys page
+    Page.verifyOnPage(OldOasysPage, this.application)
   })
 
   //    Scenario: return to Task after importing data
