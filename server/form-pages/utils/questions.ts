@@ -709,6 +709,16 @@ export const getQuestions = (name: string) => {
         riskToStaff: { question: 'Risk to staff' },
         additionalComments: { question: 'Additional comments (optional)' },
       },
+      'old-oasys': {
+        hasOldOasys: {
+          question: `Does ${name} have an older OASys with risk of serious harm (RoSH) information?`,
+          answers: { yes: 'Yes', no: 'No, they do not have an OASys' },
+        },
+        oasysCompletedDate: {
+          question: 'When was the OASys completed?',
+          hint: `For example, ${dateExample}`,
+        },
+      },
       'risk-to-others': {
         whoIsAtRisk: {
           question: 'Who is at risk?',
