@@ -24,6 +24,12 @@ export type RequestForPlacement = {
      */
     requestReviewedAt?: string;
     document?: AnyValue;
+    /**
+     * If true, the user making this request can withdraw this request for placement.
+     * If false, it may still be possible to indirectly withdraw this request for placement by withdrawing the application.
+     *
+     */
+    canBeDirectlyWithdrawn: boolean;
     isWithdrawn: boolean;
     withdrawalReason?: WithdrawPlacementRequestReason;
     type: RequestForPlacementType;
