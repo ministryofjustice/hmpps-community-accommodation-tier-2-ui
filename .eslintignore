@@ -5,3 +5,4 @@ cypress.json
 reporter-config.json
 dist/
 playwright.config.ts
+e2e-tests/playwright-report
