@@ -1,7 +1,7 @@
 import {
   Cas2SubmittedApplication as SubmittedApplication,
   Cas2ApplicationStatus as ApplicationStatus,
-  Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
+  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
   Cas2SubmittedApplicationSummary,
   Cas2ApplicationNote,
 } from '@approved-premises/api'
@@ -42,7 +42,7 @@ export default class SubmittedApplicationService {
   async updateApplicationStatus(
     token: string,
     applicationId: string,
-    newStatus: ApplicationStatusUpdate,
+    newStatus: AssessmentStatusUpdate,
   ): Promise<void> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 

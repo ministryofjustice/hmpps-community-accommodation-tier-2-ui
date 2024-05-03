@@ -1,6 +1,6 @@
 import type {
   Cas2SubmittedApplication as SubmittedApplication,
-  Cas2ApplicationStatusUpdate as ApplicationStatusUpdate,
+  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
   Cas2SubmittedApplicationSummary,
 } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
@@ -40,9 +40,9 @@ export default {
         jsonBody: args.applications,
       },
     }),
-  stubCreateApplicationStatusUpdate: (args: {
+  stubCreateAssessmentStatusUpdate: (args: {
     application: SubmittedApplication
-    status: ApplicationStatusUpdate
+    status: AssessmentStatusUpdate
   }): SuperAgentRequest =>
     stubFor({
       request: {
@@ -54,9 +54,9 @@ export default {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     }),
-  stubCreateApplicationStatusUpdateBadRequest: (args: {
+  stubCreateAssessmentStatusUpdateBadRequest: (args: {
     application: SubmittedApplication
-    status: ApplicationStatusUpdate
+    status: AssessmentStatusUpdate
   }): SuperAgentRequest =>
     stubFor({
       request: {
