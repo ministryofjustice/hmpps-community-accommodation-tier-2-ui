@@ -1,0 +1,55 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  {% set hasOldOasysDetailHtml %}
+  {{ 
+    formPageDateInput( {
+      hint: {
+        text: page.questions.oasysCompletedDate.hint
+      },
+      fieldName: "oasysCompletedDate",
+      fieldset: {
+        legend: {
+          text: page.questions.oasysCompletedDate.question,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: dateFieldValues('oasysCompletedDate', errors)
+      }, 
+      fetchContext()) 
+  }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasOldOasys",
+        fieldset: {
+          legend: {
+            text: page.questions.hasOldOasys.question,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: hasOldOasysDetailHtml
+            }
+          },
+          {
+            value: "no",
+            text: "No, they do not have an OASys"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

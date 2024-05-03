@@ -640,6 +640,16 @@ export const getQuestions = (name: string) => {
       },
     },
     'risk-to-self': {
+      'old-oasys': {
+        hasOldOasys: {
+          question: `Does ${name} have an older OASys with risk to self information?`,
+          answers: { yes: 'Yes', no: 'No, they do not have an OASys' },
+        },
+        oasysCompletedDate: {
+          question: 'When was the OASys completed?',
+          hint: `For example, ${dateExample}`,
+        },
+      },
       vulnerability: {
         vulnerabilityDetail: {
           question: `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
