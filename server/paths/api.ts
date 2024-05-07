@@ -45,8 +45,8 @@ export default {
   referenceData: {
     applicationStatuses: referenceDataPath.path('application-status'),
   },
-  applicationStatusUpdates: {
-    create: singleSubmissionPath.path('status-updates'),
+  assessmentStatusUpdates: {
+    create: singleAssessmentPath.path('status-updates'),
   },
   reports: {
     show: singleReportPath,
