@@ -4,6 +4,11 @@ export type TestOptions = {
     name: string
     nomsNumber: string
   }
+  personWithoutOasys: {
+    crn: string
+    name: string
+    nomsNumber: string
+  }
   pomUser: {
     name: string
     username: string

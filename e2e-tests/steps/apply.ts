@@ -14,7 +14,13 @@ import {
   completeEqualityAndDiversityTask,
   completePersonalInformationTask,
 } from './aboutThePersonSection'
-import { completeHealthNeedsTask, completeRiskToSelfTask, completeRoshTask } from './risksAndNeedsSection'
+import {
+  completeHealthNeedsTask,
+  completeRiskToSelfTask,
+  completeRoshTask,
+  enterOldRiskToSelfOasysDate,
+  enterOldRoshOasysDate,
+} from './risksAndNeedsSection'
 import { completeAreaInformationTask, completeFundingInformationTask } from './areaAndFundingSection'
 import {
   completeCurrentOffencesTask,
@@ -72,6 +78,11 @@ export const completeRisksAndNeedsSection = async (page: Page, name: string) => 
   await completeHealthNeedsTask(page, name)
   await completeRiskToSelfTask(page, name)
   await completeRoshTask(page, name)
+}
+
+export const enterOldOasysDates = async (page: Page, name: string) => {
+  await enterOldRiskToSelfOasysDate(page, name)
+  await enterOldRoshOasysDate(page, name)
 }
 
 export const completeOffenceAndLicenceInformationSection = async (page: Page, name: string) => {

@@ -14,6 +14,7 @@ import {
   viewSubmittedApplication,
   addNote,
   viewApplicationFromPrisonDashboard,
+  enterOldOasysDates,
 } from '../steps/apply'
 import { signIn } from '../steps/signIn'
 
@@ -47,4 +48,13 @@ test(`add a note to a submitted application created by another user within user'
   await signIn(page, pomUser)
   await viewApplicationFromPrisonDashboard(SEEDED_APPLICATION_ID, page)
   await addNote(page)
+})
+
+test('create a CAS-2 application with no OASys', async ({ page, personWithoutOasys, pomUser }) => {
+  await signIn(page, pomUser)
+  await startAnApplication(page)
+  await enterPrisonerNumber(page, personWithoutOasys.nomsNumber)
+  await confirmApplicant(page)
+  await completeBeforeYouStartSection(page, personWithoutOasys.name)
+  await enterOldOasysDates(page, personWithoutOasys.name)
 })

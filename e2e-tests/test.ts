@@ -11,6 +11,14 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
+  personWithoutOasys: [
+    {
+      name: 'Al Kozey',
+      crn: 'X698318',
+      nomsNumber: 'A5297DZ',
+    },
+    { option: true },
+  ],
   pomUser: [
     {
       name: 'CAS2 Pom E2ETester',
