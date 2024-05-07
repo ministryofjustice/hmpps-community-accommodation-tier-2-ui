@@ -31,4 +31,13 @@ describe('StaticController', () => {
       expect(response.render).toHaveBeenCalledWith('static/privacy-notice')
     })
   })
+
+  describe('cookies policy page', () => {
+    it('should render the page', () => {
+      const requestHandler = staticController.cookiesPolicyPage()
+      requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('static/cookies-policy')
+    })
+  })
 })
