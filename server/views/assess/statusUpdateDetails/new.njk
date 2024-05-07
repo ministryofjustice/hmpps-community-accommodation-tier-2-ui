@@ -23,7 +23,7 @@
 
       {{ applicationCurrentStatus(currentStatus) }}
 
-      <form action="{{ paths.statusUpdateDetails.create({id: application.id, statusName: camelToKebabCase(statusName)}) }}" method="post" autocomplete="off">
+      <form action="{{ paths.statusUpdateDetails.create({id: application.assessment.id, statusName: camelToKebabCase(statusName)}) }}?applicationId={{application.id}}" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
         <input type="hidden" name="newStatus" value="{{ statusName }}"/>
 
@@ -40,7 +40,7 @@
               }
             },
             errorMessage: errors.newStatusDetails,
-            items: applicationStatusDetailOptions(statusDetails, application.statusUpdates)
+            items: applicationStatusDetailOptions(statusDetails, application.assessment.statusUpdates)
           }) }}
         {% else %}
           {{ govukRadios({
@@ -53,7 +53,7 @@
               }
             },
             errorMessage: errors.newStatusDetails,
-            items: applicationStatusDetailOptions(statusDetails, application.statusUpdates)
+            items: applicationStatusDetailOptions(statusDetails, application.assessment.statusUpdates)
           }) }}
         {% endif %}
 

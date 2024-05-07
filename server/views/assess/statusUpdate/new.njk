@@ -24,7 +24,7 @@
 
       {{ applicationCurrentStatus(currentStatus) }}
 
-      <form action="{{ paths.statusUpdate.create({id: application.id}) }}" method="post" autocomplete="off">
+      <form action="{{ paths.statusUpdate.create({id: application.assessment.id}) }}?applicationId={{application.id}}" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{ showErrorSummary(errorSummary) }}
@@ -39,7 +39,7 @@
             }
           },
           errorMessage: errors.newStatus,
-          items: applicationStatusRadios(statuses, application.statusUpdates)
+          items: applicationStatusRadios(statuses, application.assessment.statusUpdates)
         }) }}
 
         <div class="govuk-button-group">

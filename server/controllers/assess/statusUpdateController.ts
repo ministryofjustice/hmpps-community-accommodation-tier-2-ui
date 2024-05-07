@@ -5,9 +5,13 @@ import paths from '../../paths/assess'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { camelToKebabCase } from '../../utils/utils'
 import { validateReferer } from '../../utils/viewUtils'
+import { AssessmentService } from '../../services'
 
 export default class StatusUpdateController {
-  constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
+  constructor(
+    private readonly submittedApplicationService: SubmittedApplicationService,
+    private readonly assessmentService: AssessmentService,
+  ) {}
 
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
@@ -15,7 +19,9 @@ export default class StatusUpdateController {
 
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
       const person = application.person as FullPerson
-      const currentStatus = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
+      const currentStatus = application.assessment.statusUpdates?.length
+        ? application.assessment.statusUpdates[0].label
+        : 'Received'
 
       const statuses = await this.submittedApplicationService.getApplicationStatuses(req.user.token)
 
@@ -45,7 +51,8 @@ export default class StatusUpdateController {
 
   create(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const applicationId = req.params.id
+      const assessmentId = req.params.id
+      const { applicationId } = req.query as { applicationId: string }
       const { newStatus } = req.body
 
       try {
@@ -61,7 +68,7 @@ export default class StatusUpdateController {
           )
         }
 
-        await this.submittedApplicationService.updateApplicationStatus(req.user.token, applicationId, { newStatus })
+        await this.assessmentService.updateAssessmentStatus(req.user.token, assessmentId, { newStatus })
         return res.redirect(paths.submittedApplications.overview({ id: applicationId }))
       } catch (err) {
         return catchValidationErrorOrPropogate(req, res, err, paths.statusUpdate.new({ id: applicationId }))

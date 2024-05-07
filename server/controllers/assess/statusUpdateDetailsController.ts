@@ -7,9 +7,13 @@ import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../
 import { camelToKebabCase, kebabToCamelCase } from '../../utils/utils'
 import { getStatusDetailsByStatusName, getStatusDetailQuestionText } from '../../utils/assessUtils'
 import errorLookups from '../../i18n/en/errors.json'
+import { AssessmentService } from '../../services'
 
 export default class StatusUpdateDetailsController {
-  constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
+  constructor(
+    private readonly submittedApplicationService: SubmittedApplicationService,
+    private readonly assessmentService: AssessmentService,
+  ) {}
 
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
@@ -29,7 +33,9 @@ export default class StatusUpdateDetailsController {
         const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
         const person = application.person as FullPerson
 
-        const currentStatus = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
+        const currentStatus = application.assessment.statusUpdates?.length
+          ? application.assessment.statusUpdates[0].label
+          : 'Received'
 
         return res.render('assess/statusUpdateDetails/new', {
           application,
@@ -55,7 +61,8 @@ export default class StatusUpdateDetailsController {
 
   create(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const applicationId = req.params.id
+      const assessmentId = req.params.id
+      const { applicationId } = req.query as { applicationId: string }
       const { statusName } = req.params
 
       const { newStatus } = req.body
@@ -68,7 +75,7 @@ export default class StatusUpdateDetailsController {
           throw new ValidationError({ newStatusDetails: errorLookups.newStatusDetails[newStatus]?.empty })
         }
 
-        await this.submittedApplicationService.updateApplicationStatus(req.user.token, applicationId, {
+        await this.assessmentService.updateAssessmentStatus(req.user.token, assessmentId, {
           newStatus,
           newStatusDetails,
         })

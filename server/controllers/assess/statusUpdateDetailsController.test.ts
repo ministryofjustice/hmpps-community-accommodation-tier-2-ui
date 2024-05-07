@@ -2,9 +2,9 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { FullPerson } from '@approved-premises/api'
 
-import { submittedApplicationFactory } from '../../testutils/factories'
+import { assessmentFactory, submittedApplicationFactory } from '../../testutils/factories'
 import StatusUpdateDetailsController from './statusUpdateDetailsController'
-import { SubmittedApplicationService } from '../../services'
+import { AssessmentService, SubmittedApplicationService } from '../../services'
 import paths from '../../paths/assess'
 import applicationStatuses from '../../../wiremock/stubs/application-statuses.json'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
@@ -21,13 +21,16 @@ describe('StatusUpdateDetailsController', () => {
   const next: DeepMocked<NextFunction> = jest.fn()
 
   const submittedApplicationService = createMock<SubmittedApplicationService>({})
+  const assessmentService = createMock<AssessmentService>({})
 
   let statusUpdateDetailsController: StatusUpdateDetailsController
 
-  const submittedApplication = submittedApplicationFactory.build({ statusUpdates: [] })
+  const submittedApplication = submittedApplicationFactory.build({
+    assessment: assessmentFactory.build({ statusUpdates: [] }),
+  })
 
   beforeEach(() => {
-    statusUpdateDetailsController = new StatusUpdateDetailsController(submittedApplicationService)
+    statusUpdateDetailsController = new StatusUpdateDetailsController(submittedApplicationService, assessmentService)
 
     request = createMock<Request>({ user: { token }, params: { statusName: 'moreInfoRequested' } })
     response = createMock<Response>({})
@@ -97,15 +100,19 @@ describe('StatusUpdateDetailsController', () => {
   })
 
   describe('create', () => {
-    const applicationId = 'some-id'
+    const assessmentId = 'some-id'
 
     const status = 'moreInfoRequested'
     const statusDetails = ['aboutTheApplicant', 'areaFundingAndId']
 
     it('creates a status update detail and redirects to the overview page', async () => {
       request.params = {
-        id: applicationId,
+        id: assessmentId,
         statusName: 'status-name',
+      }
+
+      request.query = {
+        applicationId: 'application-id',
       }
 
       request.body = {
@@ -116,17 +123,21 @@ describe('StatusUpdateDetailsController', () => {
       const requestHandler = statusUpdateDetailsController.create()
       await requestHandler(request, response, next)
 
-      expect(submittedApplicationService.updateApplicationStatus).toHaveBeenCalledWith(token, applicationId, {
+      expect(assessmentService.updateAssessmentStatus).toHaveBeenCalledWith(token, assessmentId, {
         newStatus: status,
         newStatusDetails: statusDetails,
       })
-      expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: applicationId }))
+      expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'application-id' }))
     })
 
     it('renders with errors if the API returns an error', async () => {
       request.params = {
-        id: applicationId,
+        id: assessmentId,
         statusName: 'status-name',
+      }
+
+      request.query = {
+        applicationId: 'application-id',
       }
 
       request.body = {
@@ -135,14 +146,14 @@ describe('StatusUpdateDetailsController', () => {
       }
 
       const err = {}
-      submittedApplicationService.updateApplicationStatus.mockImplementation(() => {
+      assessmentService.updateAssessmentStatus.mockImplementation(() => {
         throw err
       })
 
       const requestHandler = statusUpdateDetailsController.create()
       await requestHandler(request, response, next)
 
-      expect(submittedApplicationService.updateApplicationStatus).toHaveBeenCalledWith(token, applicationId, {
+      expect(assessmentService.updateAssessmentStatus).toHaveBeenCalledWith(token, assessmentId, {
         newStatus: status,
         newStatusDetails: statusDetails,
       })
@@ -150,7 +161,7 @@ describe('StatusUpdateDetailsController', () => {
         request,
         response,
         err,
-        paths.statusUpdateDetails.new({ id: applicationId, statusName: 'status-name' }),
+        paths.statusUpdateDetails.new({ id: 'application-id', statusName: 'status-name' }),
       )
     })
   })

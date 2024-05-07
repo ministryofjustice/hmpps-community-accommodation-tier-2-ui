@@ -47,7 +47,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: paths.applicationStatusUpdates.create({ id: args.application.id }),
+        url: paths.assessmentStatusUpdates.create({ id: args.application.assessment.id }),
       },
       response: {
         status: 201,
@@ -61,7 +61,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: paths.applicationStatusUpdates.create({ id: args.application.id }),
+        url: paths.assessmentStatusUpdates.create({ id: args.application.assessment.id }),
       },
       response: {
         status: 400,

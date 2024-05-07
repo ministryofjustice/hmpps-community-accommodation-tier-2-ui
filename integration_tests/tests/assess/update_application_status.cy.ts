@@ -93,7 +93,7 @@ context("Assessor updates a submitted application's status", () => {
 
     // And I choose a status update and continue
     page.checkRadioByNameAndValue('newStatus', 'awaitingDecision')
-    cy.task('stubCreateApplicationStatusUpdate', { application: submittedApplication })
+    cy.task('stubCreateAssessmentStatusUpdate', { application: submittedApplication })
     page.clickSubmit()
 
     // Then I am redirected to the application overview page
@@ -107,7 +107,7 @@ context("Assessor updates a submitted application's status", () => {
     const page = UpdateApplicationStatusPage.visit(submittedApplication)
 
     // And I press continue
-    cy.task('stubCreateApplicationStatusUpdateBadRequest', { application: submittedApplication })
+    cy.task('stubCreateAssessmentStatusUpdateBadRequest', { application: submittedApplication })
     page.clickSubmit()
 
     // Then I see that an answer is enforced

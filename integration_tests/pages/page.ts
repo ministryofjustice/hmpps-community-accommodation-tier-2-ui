@@ -184,7 +184,9 @@ export default abstract class Page {
     const person = application.person as FullPerson
     cy.get('h1').contains(person.name)
 
-    const status = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
+    const status = application.assessment?.statusUpdates?.length
+      ? application.assessment.statusUpdates[0].label
+      : 'Received'
 
     cy.get('p').contains(`Current status: ${status}`)
 
