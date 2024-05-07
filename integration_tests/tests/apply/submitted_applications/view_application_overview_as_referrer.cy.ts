@@ -12,12 +12,7 @@
 import { faker } from '@faker-js/faker'
 import { DateFormats } from '../../../../server/utils/dateUtils'
 import SubmittedApplicationOverviewPage from '../../../pages/apply/submittedApplicationOverviewPage'
-import {
-  externalUserFactory,
-  statusUpdateFactory,
-  applicationFactory,
-  timelineEventsFactory,
-} from '../../../../server/testutils/factories'
+import { applicationFactory, timelineEventsFactory, assessmentFactory } from '../../../../server/testutils/factories'
 import { fullPersonFactory } from '../../../../server/testutils/factories/person'
 import Page from '../../../pages/page'
 
@@ -38,14 +33,7 @@ context('View submitted application overview', () => {
           submittedAt: '2022-12-10T21:47:28Z',
           person: fullPersonFactory.build({ name: 'Robert Smith' }),
           telephoneNumber: '0800 123',
-          statusUpdates: [
-            statusUpdateFactory.build({
-              updatedAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),
-              updatedBy: externalUserFactory.build({ name: 'Anne Other Assessor' }),
-              name: 'awaitingDecision',
-              label: 'Awaiting decision',
-            }),
-          ],
+          assessment: assessmentFactory.build(),
           timelineEvents: [
             timelineEventsFactory.build({
               occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.future()),

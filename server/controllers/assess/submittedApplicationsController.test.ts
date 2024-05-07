@@ -5,6 +5,7 @@ import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/
 import { PaginatedResponse } from '@approved-premises/ui'
 import {
   applicationNoteFactory,
+  assessmentFactory,
   paginatedResponseFactory,
   statusUpdateFactory,
   submittedApplicationFactory,
@@ -138,7 +139,7 @@ describe('submittedApplicationsController', () => {
         const submittedApplicationWithoutStatus = submittedApplicationFactory.build({
           submittedBy: { name: 'POM Name' },
           submittedAt: '2023-10-17T08:42:38+01:00',
-          statusUpdates: [],
+          assessment: assessmentFactory.build({ statusUpdates: [] }),
         })
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplicationWithoutStatus)
 

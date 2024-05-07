@@ -43,7 +43,9 @@ export default class SubmittedApplicationsController {
 
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
 
-      const status = application.statusUpdates.length ? application.statusUpdates[0].label : 'Received'
+      const status = application.assessment.statusUpdates?.length
+        ? application.assessment.statusUpdates[0].label
+        : 'Received'
 
       return res.render('assess/applications/overview', {
         application,

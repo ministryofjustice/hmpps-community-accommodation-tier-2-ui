@@ -62,7 +62,9 @@ export default class ApplicationsController {
         return res.redirect(paths.applications.show({ id: application.id }))
       }
 
-      const status = application.statusUpdates?.length ? application.statusUpdates[0].label : 'Received'
+      const status = application.assessment?.statusUpdates?.length
+        ? application.assessment?.statusUpdates[0].label
+        : 'Received'
 
       return res.render('applications/overview', {
         application,
