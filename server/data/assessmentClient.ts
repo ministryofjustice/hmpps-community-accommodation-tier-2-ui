@@ -1,4 +1,8 @@
-import { Cas2Assessment, UpdateCas2Assessment } from '@approved-premises/api'
+import {
+  Cas2Assessment,
+  UpdateCas2Assessment,
+  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
+} from '@approved-premises/api'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
@@ -21,5 +25,12 @@ export default class AssessmentClient {
       path: paths.assessments.update({ id: assessmentId }),
       data: updateData,
     })) as Cas2Assessment
+  }
+
+  async updateStatus(assessmentId: string, newStatus: AssessmentStatusUpdate): Promise<void> {
+    await this.restClient.post({
+      path: paths.assessmentStatusUpdates.create({ id: assessmentId }),
+      data: newStatus,
+    })
   }
 }
