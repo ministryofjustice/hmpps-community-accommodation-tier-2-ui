@@ -275,6 +275,7 @@ export type { UserSortField } from './models/UserSortField';
 export type { UserWithWorkload } from './models/UserWithWorkload';
 export type { ValidationError } from './models/ValidationError';
 export type { Withdrawable } from './models/Withdrawable';
+export type { Withdrawables } from './models/Withdrawables';
 export type { WithdrawableType } from './models/WithdrawableType';
 export type { WithdrawalReason } from './models/WithdrawalReason';
 export type { WithdrawPlacementApplication } from './models/WithdrawPlacementApplication';
