@@ -1,7 +1,6 @@
 import {
   Cas2SubmittedApplication as SubmittedApplication,
   Cas2ApplicationStatus as ApplicationStatus,
-  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
   Cas2SubmittedApplicationSummary,
   Cas2ApplicationNote,
 } from '@approved-premises/api'
@@ -37,16 +36,6 @@ export default class SubmittedApplicationService {
     const statuses = await referenceDataClient.getApplicationStatuses()
 
     return statuses
-  }
-
-  async updateApplicationStatus(
-    token: string,
-    applicationId: string,
-    newStatus: AssessmentStatusUpdate,
-  ): Promise<void> {
-    const applicationClient = this.submittedApplicationClientFactory(token)
-
-    await applicationClient.updateStatus(applicationId, newStatus)
   }
 
   async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {

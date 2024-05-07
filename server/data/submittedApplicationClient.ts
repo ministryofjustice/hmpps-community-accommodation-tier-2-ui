@@ -29,13 +29,6 @@ export default class SubmittedApplicationClient {
     })) as SubmittedApplication
   }
 
-  async updateStatus(applicationId: string, newStatus: AssessmentStatusUpdate): Promise<void> {
-    await this.restClient.post({
-      path: paths.applicationStatusUpdates.create({ id: applicationId }),
-      data: newStatus,
-    })
-  }
-
   async addNote(applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
     return (await this.restClient.post({
       path: paths.submissions.applicationNotes.create({ id: applicationId }),
