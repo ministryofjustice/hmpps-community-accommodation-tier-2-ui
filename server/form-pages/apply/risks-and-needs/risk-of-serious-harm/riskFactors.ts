@@ -7,6 +7,7 @@ import { getOasysImportDateFromApplication } from '../../../utils'
 import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
+import { hasOasys } from '../../../../utils/applicationUtils'
 
 type RiskFactorsBody = {
   circumstancesLikelyToIncreaseRisk: string
@@ -31,11 +32,14 @@ export default class RiskFactors implements TaskListPage {
 
   importDate = getOasysImportDateFromApplication(this.application, 'risk-of-serious-harm')
 
+  hasOasysRecord: boolean
+
   constructor(
     body: Partial<RiskFactorsBody>,
     private readonly application: Application,
   ) {
     this.body = body as RiskFactorsBody
+    this.hasOasysRecord = hasOasys(application, 'risk-of-serious-harm')
   }
 
   previous() {

@@ -38,10 +38,11 @@
       )
   }}
 
-  {{ govukInsetText({
-    text: "If you have noticed information in OASys is out of date, you should tell the person responsible for updating OASys."
-  }) }}
-
+  {% if page.hasOasysRecord %}
+    {{ govukInsetText({
+      text: "If you have noticed information in OASys is out of date, you should tell the person responsible for updating OASys."
+    }) }}
+  {% endif %}
   {{ 
       formPageCheckboxes(
           {
