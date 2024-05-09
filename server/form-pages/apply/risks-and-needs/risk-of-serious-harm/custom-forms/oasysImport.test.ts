@@ -6,10 +6,10 @@ import { personFactory, applicationFactory, roshRisksEnvelopeFactory } from '../
 import OasysImport, { RoshTaskData } from './oasysImport'
 import PersonService from '../../../../../services/personService'
 import oasysRoshFactory from '../../../../../testutils/factories/oasysRosh'
-import RiskToOthers from '../riskToOthers'
 import Summary from '../summary'
+import OldOasys from '../oldOasys'
 
-jest.mock('../riskToOthers')
+jest.mock('../oldOasys')
 jest.mock('../summary')
 
 describe('OasysImport', () => {
@@ -162,32 +162,31 @@ describe('OasysImport', () => {
       })
 
       describe("when there is data but it hasn't been imported from OASys", () => {
-        it('returns the risk to others page', async () => {
+        it('returns the Old OASys page', async () => {
           const roshData = {
             'risk-of-serious-harm': {
-              'risk-factors': {
-                circumstancesLikelyToIncreaseRisk: 'some answer',
-                whenIsRiskLikelyToBeGreatest: 'some answer',
+              'old-oasys': {
+                hasOldOasys: 'no',
               },
             },
-          } as RoshTaskData
+          }
 
           const applicationWithData = applicationFactory.build({
             person: personFactory.build({ name: 'Roger Smith' }),
             data: roshData,
           })
 
-          const riskToOthersPageConstructor = jest.fn()
+          const oldOasysPageConstructor = jest.fn()
 
-          ;(RiskToOthers as jest.Mock).mockImplementation(() => {
-            return riskToOthersPageConstructor
+          ;(OldOasys as jest.Mock).mockImplementation(() => {
+            return oldOasysPageConstructor
           })
 
           expect(OasysImport.initialize({}, applicationWithData, 'some-token', dataServices)).resolves.toEqual(
-            riskToOthersPageConstructor,
+            oldOasysPageConstructor,
           )
 
-          expect(RiskToOthers).toHaveBeenCalledWith({}, applicationWithData)
+          expect(OldOasys).toHaveBeenCalledWith(roshData['risk-of-serious-harm']['old-oasys'], applicationWithData)
         })
       })
     })

@@ -3,10 +3,10 @@ import { Cas2Application as Application, OASysRiskOfSeriousHarm, RoshRisksEnvelo
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
-import RiskToOthers from '../riskToOthers'
 import { DateFormats } from '../../../../../utils/dateUtils'
 import Summary, { SummaryData } from '../summary'
 import { logOasysError } from '../../../../utils'
+import OldOasys from '../oldOasys'
 
 type OasysImportBody = Record<string, never>
 
@@ -100,7 +100,7 @@ export default class OasysImport implements TaskListPage {
     if (OasysImport.isRoshApplicationDataImportedFromOASys(application)) {
       return new Summary(application.data['risk-of-serious-harm'].summary ?? {}, application)
     }
-    return new RiskToOthers(application.data['risk-of-serious-harm']['risk-to-others'] ?? {}, application)
+    return new OldOasys(application.data['risk-of-serious-harm']['old-oasys'] ?? {}, application)
   }
 
   private static isRoshApplicationDataImportedFromOASys(application: Application): boolean {

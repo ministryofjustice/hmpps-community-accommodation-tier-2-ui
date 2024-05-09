@@ -6,6 +6,7 @@ import { DateFormats } from '../../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 import Vulnerability from '../vulnerability'
 import { logOasysError } from '../../../../utils'
+import OldOasys from '../oldOasys'
 
 type GuidanceBody = Record<string, never>
 
@@ -91,6 +92,9 @@ export default class OasysImport implements TaskListPage {
         oasys = null
       }
       return new OasysImport(body, application, oasys, taskDataJson)
+    }
+    if (!application.data['risk-to-self']['oasys-import']) {
+      return new OldOasys(application.data['risk-to-self']['old-oasys'] ?? {}, application)
     }
     return new Vulnerability(application.data['risk-to-self'].vulnerability ?? {}, application)
   }
