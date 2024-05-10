@@ -2,6 +2,13 @@
 {% block questions %}
   <h1 class="govuk-heading-l">{{ page.questions.hasAnyPreviousConvictions.question }}</h1>
 
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon govuk-!-margin-top-1" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">Warning</span>
+      Spent convictions are protected by law and should not be disclosed. <a href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">Check if a conviction is spent or unspent (opens in a new tab)</a>.           </strong>
+  </div>
+
   {{
     formPageRadios(
       {
