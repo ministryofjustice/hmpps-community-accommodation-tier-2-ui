@@ -12,6 +12,39 @@
     {{dateOfOasysImport(date)}}
   {% endif %}
 
+  {% set historicalRiskDetailHintHtml %}
+  <p class="govuk-hint">If known, provide details including:</p>
+
+  <ul class="govuk-list govuk-list--bullet govuk-hint">
+    <li>
+        whether they have been assessed as being at imminent risk of self harm or suicide and required ongoing monitoring to reduce the risk
+      </li>
+    <li>
+        methods of self harm
+      </li>
+    <li>
+        methods of attempted suicide
+      </li>
+    <li>
+        the last recent incident of self harm or suicide 
+      </li>
+    <li>
+        how often self harming or suicide attempts happened
+      </li>
+    <li>
+        how severe their self harming or suicide attempts were. For example, if an incident required an emergency response
+      </li>
+    <li>
+        triggers for self harm or suicide attempts
+      </li>
+    <li>
+        signs of increased risk for self harm or suicide attempts
+      </li>
+  </ul>
+
+  <p class="govuk-hint">Remove sensitive information, such as names and addresses.</p>
+  {% endset %}
+
   {{
       formPageTextArea(
         {
@@ -21,7 +54,7 @@
             classes: "govuk-label--m"
           },
           hint: {
-            text: 'Remove sensitive information, such as names and addresses.'
+            html: historicalRiskDetailHintHtml
           }
         },
         fetchContext()
