@@ -1,4 +1,6 @@
 .side-nav {
-  position: sticky;
-  top: 0.5rem;
+  @include govuk-media-query($from: tablet) {
+    position: sticky;
+    top: 0.5rem;
+  }
 }
