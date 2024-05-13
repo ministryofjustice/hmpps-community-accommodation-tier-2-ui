@@ -20,7 +20,11 @@
 //    Then I am taken to the 'Update status' page
 
 import { faker } from '@faker-js/faker'
-import { submittedApplicationFactory, timelineEventsFactory } from '../../../server/testutils/factories/index'
+import {
+  assessmentFactory,
+  submittedApplicationFactory,
+  timelineEventsFactory,
+} from '../../../server/testutils/factories/index'
 import { DateFormats } from '../../../server/utils/dateUtils'
 import SubmittedApplicationOverviewPage from '../../pages/assess/submittedApplicationOverviewPage'
 import UpdateApplicationStatusPage from '../../pages/assess/updateApplicationStatusPage'
@@ -89,7 +93,7 @@ context('Assessor views a submitted application overview', () => {
   it('displays application submission date', () => {
     // Given a submitted application exists with no status updates
     const submittedApplicationWithoutStatusUpdates = submittedApplicationFactory.build({
-      statusUpdates: [],
+      assessment: assessmentFactory.build({ statusUpdates: [] }),
     })
     cy.task('stubSubmittedApplicationGet', { application: submittedApplicationWithoutStatusUpdates })
 

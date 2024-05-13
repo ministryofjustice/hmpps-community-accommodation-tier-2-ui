@@ -2,9 +2,9 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2ApplicationStatus, Cas2ApplicationStatusDetail, FullPerson } from '@approved-premises/api'
 
-import { submittedApplicationFactory } from '../../testutils/factories'
+import { assessmentFactory, submittedApplicationFactory } from '../../testutils/factories'
 import StatusUpdateController from './statusUpdateController'
-import { SubmittedApplicationService } from '../../services'
+import { AssessmentService, SubmittedApplicationService } from '../../services'
 import paths from '../../paths/assess'
 import applicationStatuses from '../../../wiremock/stubs/application-statuses.json'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
@@ -21,13 +21,16 @@ describe('statusUpdateController', () => {
   const next: DeepMocked<NextFunction> = jest.fn()
 
   const submittedApplicationService = createMock<SubmittedApplicationService>({})
+  const assessmentService = createMock<AssessmentService>({})
 
   let statusUpdateController: StatusUpdateController
 
-  const submittedApplication = submittedApplicationFactory.build({ statusUpdates: [] })
+  const submittedApplication = submittedApplicationFactory.build({
+    assessment: assessmentFactory.build({ statusUpdates: [] }),
+  })
 
   beforeEach(() => {
-    statusUpdateController = new StatusUpdateController(submittedApplicationService)
+    statusUpdateController = new StatusUpdateController(submittedApplicationService, assessmentService)
 
     request = createMock<Request>({ user: { token }, headers: { referer: 'referer' } })
     response = createMock<Response>({})
@@ -110,14 +113,18 @@ describe('statusUpdateController', () => {
   })
 
   describe('create', () => {
-    const applicationId = 'some-id'
+    const assessmentId = 'some-id'
 
     describe('when the status does not contain status details', () => {
       it('creates a status update and redirects to the overview page', async () => {
         const status = 'awaitingDecision'
 
         request.params = {
-          id: applicationId,
+          id: assessmentId,
+        }
+
+        request.query = {
+          applicationId: 'application-id',
         }
 
         request.body = {
@@ -135,20 +142,24 @@ describe('statusUpdateController', () => {
         await requestHandler(request, response, next)
 
         expect(submittedApplicationService.getApplicationStatuses).toHaveBeenCalledWith(token)
-        expect(submittedApplicationService.updateApplicationStatus).toHaveBeenCalledWith(token, applicationId, {
+        expect(assessmentService.updateAssessmentStatus).toHaveBeenCalledWith(token, assessmentId, {
           newStatus: status,
         })
-        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: applicationId }))
+        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'application-id' }))
       })
     })
 
     it('renders with errors if the API returns an error', async () => {
       request.params = {
-        id: applicationId,
+        id: assessmentId,
+      }
+
+      request.query = {
+        applicationId: 'application-id',
       }
 
       const err = {}
-      submittedApplicationService.updateApplicationStatus.mockImplementation(() => {
+      assessmentService.updateAssessmentStatus.mockImplementation(() => {
         throw err
       })
 
@@ -156,14 +167,14 @@ describe('statusUpdateController', () => {
       await requestHandler(request, response, next)
 
       expect(submittedApplicationService.getApplicationStatuses).toHaveBeenCalledWith(token)
-      expect(submittedApplicationService.updateApplicationStatus).toHaveBeenCalledWith(token, applicationId, {
+      expect(assessmentService.updateAssessmentStatus).toHaveBeenCalledWith(token, assessmentId, {
         newStatus: undefined,
       })
       expect(catchValidationErrorOrPropogate).toHaveBeenCalledWith(
         request,
         response,
         err,
-        paths.statusUpdate.new({ id: applicationId }),
+        paths.statusUpdate.new({ id: 'application-id' }),
       )
     })
 
@@ -172,7 +183,11 @@ describe('statusUpdateController', () => {
         const status = 'moreInfoRequested'
 
         request.params = {
-          id: applicationId,
+          id: assessmentId,
+        }
+
+        request.query = {
+          applicationId: 'application-id',
         }
 
         request.body = {
@@ -196,7 +211,7 @@ describe('statusUpdateController', () => {
 
         expect(submittedApplicationService.getApplicationStatuses).toHaveBeenCalledWith(token)
         expect(response.redirect).toHaveBeenCalledWith(
-          paths.statusUpdateDetails.new({ id: applicationId, statusName: 'more-info-requested' }),
+          paths.statusUpdateDetails.new({ id: 'application-id', statusName: 'more-info-requested' }),
         )
       })
     })

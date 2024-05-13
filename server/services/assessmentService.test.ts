@@ -1,4 +1,4 @@
-import { UpdateCas2Assessment } from '@approved-premises/api'
+import { Cas2AssessmentStatusUpdate, UpdateCas2Assessment } from '@approved-premises/api'
 import AssessmentService from './assessmentService'
 import AssessmentClient from '../data/assessmentClient'
 
@@ -53,6 +53,26 @@ describe('AssessmentService', () => {
 
       expect(assessmentClientFactory).toHaveBeenCalledWith(token)
       expect(assessmentClient.update).toHaveBeenCalledWith(assessment.id, updateData)
+    })
+  })
+
+  describe('updateAssessmentstatus', () => {
+    it('calls the update status client method', async () => {
+      const assessment = assessmentFactory.build()
+
+      const token = 'SOME_TOKEN'
+
+      assessmentClient.updateStatus.mockResolvedValue(null)
+
+      const newStatus: Cas2AssessmentStatusUpdate = {
+        newStatus: 'waitingApproval',
+        newStatusDetails: ['detail'],
+      }
+
+      await service.updateAssessmentStatus(token, assessment.id, newStatus)
+
+      expect(assessmentClientFactory).toHaveBeenCalledWith(token)
+      expect(assessmentClient.updateStatus).toHaveBeenCalledWith(assessment.id, newStatus)
     })
   })
 })

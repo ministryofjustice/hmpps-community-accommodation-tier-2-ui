@@ -21,4 +21,5 @@ export default Factory.define<Application>(() => ({
   type: 'CAS2',
   telephoneNumber: null,
   statusUpdates: null,
+  assessment: null,
 }))

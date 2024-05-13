@@ -85,19 +85,6 @@ describe('SubmittedApplicationService', () => {
     })
   })
 
-  describe('updateApplicationStatus', () => {
-    it('calls the correct client method', async () => {
-      submittedApplicationClient.updateStatus.mockImplementation(() => Promise.resolve())
-
-      const data = { newStatus: 'onWaitingList' }
-
-      await service.updateApplicationStatus(token, submittedApplication.id, data)
-
-      expect(submittedApplicationClientFactory).toHaveBeenCalledWith(token)
-      expect(submittedApplicationClient.updateStatus).toHaveBeenCalledWith(submittedApplication.id, data)
-    })
-  })
-
   describe('addApplicationNote', () => {
     it('calls the correct client method and returns the created application note', async () => {
       const body = {

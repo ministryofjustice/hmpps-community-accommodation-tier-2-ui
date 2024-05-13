@@ -5,6 +5,7 @@ import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/
 import { PaginatedResponse } from '@approved-premises/ui'
 import {
   applicationNoteFactory,
+  assessmentFactory,
   paginatedResponseFactory,
   statusUpdateFactory,
   submittedApplicationFactory,
@@ -138,7 +139,7 @@ describe('submittedApplicationsController', () => {
         const submittedApplicationWithoutStatus = submittedApplicationFactory.build({
           submittedBy: { name: 'POM Name' },
           submittedAt: '2023-10-17T08:42:38+01:00',
-          statusUpdates: [],
+          assessment: assessmentFactory.build({ statusUpdates: [] }),
         })
         submittedApplicationService.findApplication.mockResolvedValue(submittedApplicationWithoutStatus)
 
@@ -181,7 +182,29 @@ describe('submittedApplicationsController', () => {
       })
     })
 
-    describe('when there is an error', () => {
+    describe('when there is a 400 error ', () => {
+      it('adds the error to the flash and redirects back to the page', async () => {
+        request.params = {
+          id: 'abc123',
+        }
+        request.body = { note: 'some notes' }
+
+        const err = { data: {}, status: 400 }
+
+        submittedApplicationService.addApplicationNote.mockImplementation(() => {
+          throw err
+        })
+
+        const requestHandler = submittedApplicationsController.addNote()
+        await requestHandler(request, response)
+        expect(request.flash).toHaveBeenCalledWith('errors', {
+          note: { text: 'Enter a note for the referrer' },
+        })
+        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'abc123' }))
+      })
+    })
+
+    describe('when there is an error that is not a 400', () => {
       it('passes the error to the error handler', async () => {
         request.params = {
           id: 'abc123',

@@ -20,8 +20,14 @@ export const controllers = (services: Services) => {
   const dashboardController = new DashboardController()
   const peopleController = new PeopleController(services.applicationService, services.personService)
   const submittedApplicationsController = new SubmittedApplicationsController(services.submittedApplicationService)
-  const statusUpdateController = new StatusUpdateController(services.submittedApplicationService)
-  const statusUpdateDetailsController = new StatusUpdateDetailsController(services.submittedApplicationService)
+  const statusUpdateController = new StatusUpdateController(
+    services.submittedApplicationService,
+    services.assessmentService,
+  )
+  const statusUpdateDetailsController = new StatusUpdateDetailsController(
+    services.submittedApplicationService,
+    services.assessmentService,
+  )
   const reportController = new ReportsController(services.reportService)
   const staticController = new StaticController()
   return {

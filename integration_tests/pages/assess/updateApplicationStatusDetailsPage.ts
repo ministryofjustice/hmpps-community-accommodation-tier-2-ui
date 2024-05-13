@@ -22,7 +22,9 @@ export default class UpdateApplicationStatusDetailsPage extends Page {
   }
 
   shouldShowCurrentApplicationStatus(): void {
-    const status = this.application.statusUpdates ? this.application.statusUpdates[0].label : 'Received'
+    const status = this.application.assessment?.statusUpdates
+      ? this.application.assessment.statusUpdates[0].label
+      : 'Received'
     cy.get('p').contains(`Current status: ${status}`)
   }
 

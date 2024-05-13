@@ -98,7 +98,7 @@ context("Assessor updates a submitted application's status", () => {
 
     // And I choose a status update and continue
     page.checkRadioByNameAndValue('newStatus', 'moreInfoRequested')
-    cy.task('stubCreateApplicationStatusUpdate', { application: submittedApplication })
+    cy.task('stubCreateAssessmentStatusUpdate', { application: submittedApplication })
     page.clickSubmit()
 
     // Then I am redirected to the status detail page
@@ -122,7 +122,7 @@ context("Assessor updates a submitted application's status", () => {
 
     // And I choose a status update and continue
     page.checkRadioByNameAndValue('newStatus', 'cancelled')
-    cy.task('stubCreateApplicationStatusUpdate', { application: submittedApplication })
+    cy.task('stubCreateAssessmentStatusUpdate', { application: submittedApplication })
     page.clickSubmit()
 
     // Then I am redirected to the status detail page
@@ -147,7 +147,7 @@ context("Assessor updates a submitted application's status", () => {
     page.uncheckAllCheckboxes()
 
     // // And I press continue
-    cy.task('stubCreateApplicationStatusUpdate', { application: submittedApplication })
+    cy.task('stubCreateAssessmentStatusUpdate', { application: submittedApplication })
     page.clickSubmit()
 
     // // Then I see that an answer is enforced
