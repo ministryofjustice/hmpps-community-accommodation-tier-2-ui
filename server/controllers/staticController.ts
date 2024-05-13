@@ -18,4 +18,10 @@ export default class StaticController {
       res.render('static/cookies-policy')
     }
   }
+
+  accessibilityStatementPage(): RequestHandler {
+    return (_req: Request, res: Response) => {
+      res.render('static/accessibility-statement')
+    }
+  }
 }
