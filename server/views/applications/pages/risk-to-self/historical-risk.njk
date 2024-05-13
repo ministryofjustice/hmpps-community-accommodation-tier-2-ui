@@ -61,9 +61,11 @@
       )
   }}
 
-  {{ govukInsetText({
-    text: "If the OASys record was out of date, you should update the record in OASys too."
-  }) }}
+  {% if page.hasOasysRecord %}
+    {{ govukInsetText({
+      text: "If you have noticed information in OASys is out of date, you should tell the person responsible for updating OASys."
+    }) }}
+  {% endif %}
 
   {{ govukCheckboxes({
         idPrefix: "confirmation",

@@ -117,9 +117,27 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
   await completeAdditionalInformationPage(page)
 }
 
+export const enterOldRiskToSelfOasysDate = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add risk to self information')
+
+  await reviewOasysImportPage(page, name)
+  await completeOldOasysPage(page, name)
+  await returnToTaskList(page)
+}
+
 async function reviewOasysImportPage(page: Page, name: string) {
   const guidancePage = await ApplyPage.initialize(page, `Import ${name}'s risk to self data from OASys`)
   await guidancePage.clickContinue()
+}
+
+async function completeOldOasysPage(page: Page, name: string) {
+  const oldOasysPage = await ApplyPage.initialize(
+    page,
+    `Does ${name} have an older OASys with risk to self information? `,
+  )
+  await oldOasysPage.checkRadio('No')
+  await oldOasysPage.clickContinue()
 }
 
 async function confirmAndSave(page: TaskListPage | ApplyPage) {
@@ -149,6 +167,11 @@ async function completeCurrentRisksPage(page: Page, name: string) {
 
 async function completeHistoricalRisksPage(page: Page, name: string) {
   const historicalRisksPage = await ApplyPage.initialize(page, `${name}'s historical risks`)
+
+  await historicalRisksPage.fillField(
+    `Describe ${name}'s historical issues and needs related to self harm and suicide`,
+    'some needs',
+  )
   await confirmAndSave(historicalRisksPage)
 }
 
@@ -186,6 +209,29 @@ export const completeRoshTask = async (page: Page, name: string) => {
   await completeRiskManagementArrangementsPage(page, name)
   await completeCellShareInformationPage(page, name)
   await completeAdditionalRiskPage(page, name)
+}
+
+export const enterOldRoshOasysDate = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add risk of serious harm (RoSH) information')
+
+  await reviewRoshOasysImportPage(page, name)
+  await completeOldOasysRoshPage(page, name)
+  await returnToTaskList(page)
+}
+
+async function completeOldOasysRoshPage(page: Page, name: string) {
+  const oldOasysPage = await ApplyPage.initialize(
+    page,
+    `Does ${name} have an older OASys with risk of serious harm (RoSH) information? `,
+  )
+  await oldOasysPage.checkRadio('No')
+  await oldOasysPage.clickContinue()
+}
+
+async function returnToTaskList(page: Page) {
+  const applyPage = new TaskListPage(page)
+  await applyPage.clickLink('Back to task list')
 }
 
 async function reviewRoshOasysImportPage(page: Page, name: string) {

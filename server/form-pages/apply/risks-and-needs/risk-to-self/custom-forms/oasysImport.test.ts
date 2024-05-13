@@ -3,12 +3,14 @@ import type { DataServices } from '@approved-premises/ui'
 import { DateFormats } from '../../../../../utils/dateUtils'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../../shared-examples'
 import { personFactory, applicationFactory, oasysRiskToSelfFactory } from '../../../../../testutils/factories/index'
-import OasysImport, { RiskToSelfTaskData } from './oasysImport'
+import OasysImport from './oasysImport'
 import PersonService from '../../../../../services/personService'
 import Vulnerability from '../vulnerability'
 import { AcctDataBody } from './acctData'
+import OldOasys from '../oldOasys'
 
 jest.mock('../vulnerability')
+jest.mock('../oldOasys')
 
 describe('OasysImport', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -112,11 +114,46 @@ describe('OasysImport', () => {
       })
     })
 
-    describe('when questions have already been answered', () => {
+    describe('when OASys has not been imported but the old OASys page has been completed', () => {
+      it('returns the Old OASys page', () => {
+        const riskToSelfData = {
+          'risk-to-self': { 'old-oasys': { hasOldOasys: 'no' } },
+        }
+
+        const applicationWithData = applicationFactory.build({
+          person: personFactory.build({ name: 'Roger Smith' }),
+          data: riskToSelfData,
+        })
+
+        const oldOasysPageConstructor = jest.fn()
+
+        ;(OldOasys as jest.Mock).mockImplementation(() => {
+          return oldOasysPageConstructor
+        })
+
+        expect(OasysImport.initialize({}, applicationWithData, 'some-token', dataServices)).resolves.toEqual(
+          oldOasysPageConstructor,
+        )
+
+        expect(OldOasys).toHaveBeenCalledWith(
+          applicationWithData.data['risk-to-self']['old-oasys'],
+          applicationWithData,
+        )
+      })
+    })
+
+    describe('when OASys has been imported', () => {
       it('returns the Vulnerability page', async () => {
         const riskToSelfData = {
-          'risk-to-self': { vulnerability: { vulnerabilityDetail: 'some answer' } },
-        } as RiskToSelfTaskData
+          'risk-to-self': {
+            'oasys-import': {
+              oasysImportedDate: '2023-09-21T15:47:51.430Z',
+              oasysStartedDate: '2023-09-10',
+              oasysCompletedDate: '2023-09-11',
+            },
+            vulnerability: { vulnerabilityDetail: 'some answer' },
+          },
+        }
 
         const applicationWithData = applicationFactory.build({
           person: personFactory.build({ name: 'Roger Smith' }),
@@ -141,7 +178,14 @@ describe('OasysImport', () => {
       describe('when the Vulnerability page has not been answered', () => {
         it('returns the Vulnerability page', async () => {
           const riskToSelfData = {
-            'risk-to-self': { 'acct-data': [{ acctDetails: 'some answer' }] },
+            'risk-to-self': {
+              'oasys-import': {
+                oasysImportedDate: '2023-09-21T15:47:51.430Z',
+                oasysStartedDate: '2023-09-10',
+                oasysCompletedDate: '2023-09-11',
+              },
+              'acct-data': [{ acctDetails: 'some answer' }],
+            },
           } as Partial<AcctDataBody>
 
           const applicationWithData = applicationFactory.build({

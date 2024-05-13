@@ -20,10 +20,10 @@
 //    When I continue to the next task/page
 //    Then I should be on the substance misuse page
 
-import SubstanceMisusePage from '../../../../pages/apply/risks-and-needs/health-needs/substanceMisusePage'
+import SubstanceMisusePage from '../../../../pages/apply/risks_and_needs/health-needs/substanceMisusePage'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import HealthNeedsGuidancePage from '../../../../pages/apply/risks-and-needs/health-needs/healthNeedsGuidancePage'
+import HealthNeedsGuidancePage from '../../../../pages/apply/risks_and_needs/health-needs/healthNeedsGuidancePage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Risks and needs" section', () => {

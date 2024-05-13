@@ -31,10 +31,10 @@
 //    Then I see the "OASys import" page
 //    And I see that there is no OASys data
 //    When I choose to continue
-//    Then we are taken to the Vulnerability page
+//    Then we are taken to the Old OASys page
 
-import OasysImportPage from '../../../../pages/apply/risks-and-needs/risk-to-self/oasysImportPage'
-import VulnerabilityPage from '../../../../pages/apply/risks-and-needs/risk-to-self/vulnerabilityPage'
+import OasysImportPage from '../../../../pages/apply/risks_and_needs/risk-to-self/oasysImportPage'
+import VulnerabilityPage from '../../../../pages/apply/risks_and_needs/risk-to-self/vulnerabilityPage'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import {
@@ -43,6 +43,7 @@ import {
   oasysRiskToSelfFactory,
 } from '../../../../../server/testutils/factories/index'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
+import OldOasysPage from '../../../../pages/apply/risks_and_needs/risk-to-self/oldOasysPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -203,7 +204,7 @@ context('Visit "Risks and needs" section', () => {
     //  When I choose to continue
     page.clickContinue()
 
-    //  Then we are taken to the Vulnerability page
-    Page.verifyOnPage(VulnerabilityPage, this.application)
+    //  Then we are taken to the Old OASys page
+    Page.verifyOnPage(OldOasysPage, this.application)
   })
 })

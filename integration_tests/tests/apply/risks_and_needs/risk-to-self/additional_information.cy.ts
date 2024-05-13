@@ -16,7 +16,7 @@
 //    And I continue to the next task / page
 //    Then I see the "task list" page
 
-import AdditionalInformationPage from '../../../../pages/apply/risks-and-needs/risk-to-self/additionalInformationPage'
+import AdditionalInformationPage from '../../../../pages/apply/risks_and_needs/risk-to-self/additionalInformationPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'

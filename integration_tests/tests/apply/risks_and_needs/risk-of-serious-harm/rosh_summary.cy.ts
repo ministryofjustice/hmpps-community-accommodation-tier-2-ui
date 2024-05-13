@@ -26,8 +26,8 @@
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import RoshSummaryPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/roshSummaryPage'
-import RiskToOthersPage from '../../../../pages/apply/risks-and-needs/risk-of-serious-harm/riskToOthersPage'
+import RoshSummaryPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/roshSummaryPage'
+import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
 import { SummaryData } from '../../../../../server/form-pages/apply/risks-and-needs/risk-of-serious-harm/summary'
 
 context('Visit "RoSH summary" page', () => {

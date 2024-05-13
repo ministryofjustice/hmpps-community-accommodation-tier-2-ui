@@ -1,6 +1,6 @@
 import { QuestionAndAnswer } from '@approved-premises/ui'
 
-import { applicationSummaryFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 
 import {
   documentSummaryListRows,
@@ -9,6 +9,7 @@ import {
   assessmentsTableRows,
   getStatusTag,
   prisonDashboardTableRows,
+  hasOasys,
 } from './applicationUtils'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
@@ -272,6 +273,54 @@ describe('documentSummaryListRows', () => {
     it('returns the Received string if status is undefined', () => {
       const expected = `<strong class="govuk-tag govuk-tag--grey">Received</strong>`
       expect(getStatusTag(undefined, undefined)).toEqual(expected)
+    })
+  })
+
+  describe('hasOasys', () => {
+    it('returns true when there is an oasys import date', () => {
+      const application = applicationFactory.build({
+        data: {
+          'risk-to-self': {
+            'oasys-import': {
+              oasysImportedDate: '2023-09-21T15:47:51.430Z',
+              oasysStartedDate: '2023-09-10',
+              oasysCompletedDate: '2023-09-11',
+            },
+          },
+        },
+      })
+
+      expect(hasOasys(application, 'risk-to-self')).toEqual(true)
+    })
+
+    it('returns true when there is an old oasys', () => {
+      const application = applicationFactory.build({
+        data: {
+          'risk-of-serious-harm': {
+            'old-oasys': {
+              hasOldOasys: 'yes',
+              oasysCompletedDate: '2023-09-11',
+            },
+          },
+        },
+      })
+
+      expect(hasOasys(application, 'risk-of-serious-harm')).toEqual(true)
+    })
+
+    it('returns false when there is no import date or old oasys', () => {
+      const application = applicationFactory.build({
+        data: {
+          'risk-of-serious-harm': {
+            'old-oasys': {
+              hasOldOasys: 'no',
+              oasysCompletedDate: '2023-09-11',
+            },
+          },
+        },
+      })
+
+      expect(hasOasys(application, 'risk-of-serious-harm')).toEqual(false)
     })
   })
 })

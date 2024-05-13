@@ -67,6 +67,11 @@ export default defineConfig<TestOptions>({
           crn: 'X320741',
           nomsNumber: 'A1234AI',
         },
+        personWithoutOasys: {
+          name: 'James Brown',
+          crn: 'C246139',
+          nomsNumber: 'A5671YZ',
+        },
         pomUser: {
           name: 'Pom User',
           username: 'POM_USER',

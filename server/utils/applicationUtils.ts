@@ -1,4 +1,4 @@
-import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary } from '@approved-premises/api'
+import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
@@ -122,4 +122,11 @@ const getStatusTagColour = (statusId: string) => {
     default:
       return 'grey'
   }
+}
+
+export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
+  if (application.data[task]?.['oasys-import'] || application.data[task]?.['old-oasys']?.hasOldOasys === 'yes') {
+    return true
+  }
+  return false
 }

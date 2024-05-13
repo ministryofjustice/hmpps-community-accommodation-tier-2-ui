@@ -17,8 +17,8 @@
 //    Then I see the "mental health" page
 
 import Page from '../../../../pages/page'
-import MentalHealthPage from '../../../../pages/apply/risks-and-needs/health-needs/mentalHealthPage'
-import PhysicalHealthPage from '../../../../pages/apply/risks-and-needs/health-needs/physicalHealthPage'
+import MentalHealthPage from '../../../../pages/apply/risks_and_needs/health-needs/mentalHealthPage'
+import PhysicalHealthPage from '../../../../pages/apply/risks_and_needs/health-needs/physicalHealthPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Physical health" page', () => {

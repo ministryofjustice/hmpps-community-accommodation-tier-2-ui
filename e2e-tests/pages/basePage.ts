@@ -21,6 +21,10 @@ export class BasePage {
     await this.page.getByRole('button', { name }).click()
   }
 
+  async clickLink(name: string) {
+    await this.page.getByRole('link', { name }).click()
+  }
+
   async fillField(label: string, value: string) {
     await this.page.getByLabel(label, { exact: true }).fill(value)
   }

@@ -24,8 +24,8 @@
 //  Scenario: When I continue to the next task / page
 //    Then I see the "Additional Information" page
 
-import AcctPage from '../../../../pages/apply/risks-and-needs/risk-to-self/acctPage'
-import AdditionalInformationPage from '../../../../pages/apply/risks-and-needs/risk-to-self/additionalInformationPage'
+import AcctPage from '../../../../pages/apply/risks_and_needs/risk-to-self/acctPage'
+import AdditionalInformationPage from '../../../../pages/apply/risks_and_needs/risk-to-self/additionalInformationPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 

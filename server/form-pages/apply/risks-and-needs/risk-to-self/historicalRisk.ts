@@ -7,6 +7,7 @@ import { getOasysImportDateFromApplication } from '../../../utils'
 import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
+import { hasOasys } from '../../../../utils/applicationUtils'
 
 type HistoricalRiskBody = { historicalRiskDetail: string; confirmation: string }
 
@@ -27,11 +28,14 @@ export default class HistoricalRisk implements TaskListPage {
 
   body: HistoricalRiskBody
 
+  hasOasysRecord: boolean
+
   constructor(
     body: Partial<HistoricalRiskBody>,
     private readonly application: Application,
   ) {
     this.body = body as HistoricalRiskBody
+    this.hasOasysRecord = hasOasys(application, 'risk-to-self')
   }
 
   previous() {

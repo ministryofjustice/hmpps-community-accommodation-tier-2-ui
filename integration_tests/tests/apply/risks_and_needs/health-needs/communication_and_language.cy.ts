@@ -17,8 +17,8 @@
 //    Then I see the "learning difficulties" page
 
 import Page from '../../../../pages/page'
-import CommunicationAndLanguage from '../../../../pages/apply/risks-and-needs/health-needs/communicationAndLanguagePage'
-import LearningDifficultiesPage from '../../../../pages/apply/risks-and-needs/health-needs/learningDifficultiesPage'
+import CommunicationAndLanguage from '../../../../pages/apply/risks_and_needs/health-needs/communicationAndLanguagePage'
+import LearningDifficultiesPage from '../../../../pages/apply/risks_and_needs/health-needs/learningDifficultiesPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "communication and language" page', () => {

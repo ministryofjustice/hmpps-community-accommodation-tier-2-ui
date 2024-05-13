@@ -8,6 +8,7 @@ import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
 import { DateFormats } from '../../../../utils/dateUtils'
+import { hasOasys } from '../../../../utils/applicationUtils'
 
 type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
 
@@ -28,11 +29,14 @@ export default class CurrentRisk implements TaskListPage {
 
   importDate = getOasysImportDateFromApplication(this.application, 'risk-to-self')
 
+  hasOasysRecord: boolean
+
   constructor(
     body: Partial<CurrentRiskBody>,
     private readonly application: Application,
   ) {
     this.body = body as CurrentRiskBody
+    this.hasOasysRecord = hasOasys(application, 'risk-to-self')
   }
 
   previous() {
