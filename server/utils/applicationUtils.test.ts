@@ -10,6 +10,7 @@ import {
   getStatusTag,
   prisonDashboardTableRows,
   hasOasys,
+  arePreTaskListTasksIncomplete,
 } from './applicationUtils'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
@@ -322,5 +323,81 @@ describe('documentSummaryListRows', () => {
 
       expect(hasOasys(application, 'risk-of-serious-harm')).toEqual(false)
     })
+  })
+})
+
+describe('arePreTaskListTasksIncomplete', () => {
+  it('returns false if all there is data for all three tasks', () => {
+    const application = applicationFactory.build({
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': {
+            isEligible: 'yes',
+          },
+        },
+        'confirm-consent': {
+          'confirm-consent': {
+            hasGivenConsent: 'yes',
+            consentDate: '2023-01-01',
+            'consentDate-year': '2023',
+            'consentDate-month': '1',
+            'consentDate-day': '1',
+          },
+        },
+        'hdc-licence-dates': {
+          'hdc-licence-dates': {
+            hdcEligibilityDate: '2026-02-22',
+            'hdcEligibilityDate-year': '2026',
+            'hdcEligibilityDate-month': '2',
+            'hdcEligibilityDate-day': '22',
+            conditionalReleaseDate: '2026-03-28',
+            'conditionalReleaseDate-year': '2026',
+            'conditionalReleaseDate-month': '3',
+            'conditionalReleaseDate-day': '28',
+          },
+          'hdc-warning': {},
+          'hdc-ineligible': {},
+        },
+      },
+    })
+
+    expect(arePreTaskListTasksIncomplete(application)).toEqual(false)
+  })
+
+  it('returns true if all there is data for none of the tasks', () => {
+    const application = applicationFactory.build({
+      data: {
+        'referrer-details': {
+          'confirm-details': { name: 'Eric Dier', email: 'eric.dier@moj.gov.uk' },
+          'job-title': { jobTitle: 'POM' },
+          'contact-number': { telephone: '1234567' },
+        },
+      },
+    })
+
+    expect(arePreTaskListTasksIncomplete(application)).toEqual(true)
+  })
+
+  it('returns true if all there is data for some of the tasks', () => {
+    const application = applicationFactory.build({
+      data: {
+        'confirm-eligibility': {
+          'confirm-eligibility': {
+            isEligible: 'yes',
+          },
+        },
+        'confirm-consent': {
+          'confirm-consent': {
+            hasGivenConsent: 'yes',
+            consentDate: '2023-01-01',
+            'consentDate-year': '2023',
+            'consentDate-month': '1',
+            'consentDate-day': '1',
+          },
+        },
+      },
+    })
+
+    expect(arePreTaskListTasksIncomplete(application)).toEqual(true)
   })
 })
