@@ -3,6 +3,24 @@
 
 {% extends "../layout.njk" %}
 
+{% block beforeContent %}
+  {% if arePreTaskListTasksIncomplete(page.application) %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.pages.show({
+        id: applicationId,
+        task: 'confirm-consent',
+        page: 'confirm-consent'
+      })
+    }) }}
+  {% elif page.previous() === 'taskList' %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.show({ id: applicationId })
+    }) }}
+  {% endif %}
+{% endblock %}
+
 {% block questions %}
 
   <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>

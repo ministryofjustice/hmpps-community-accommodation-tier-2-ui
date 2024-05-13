@@ -1,4 +1,14 @@
 {% extends "../layout.njk" %}
+
+{% block beforeContent %}
+  {% if not arePreTaskListTasksIncomplete(page.application)and page.previous() === 'taskList' %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.show({ id: applicationId })
+    }) }}
+  {% endif %}
+{% endblock %}
+
 {% block questions %}
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 

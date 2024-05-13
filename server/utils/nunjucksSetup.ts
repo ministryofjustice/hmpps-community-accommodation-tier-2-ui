@@ -17,6 +17,7 @@ import {
   submittedApplicationTableRows,
   assessmentsTableRows,
   prisonDashboardTableRows,
+  arePreTaskListTasksIncomplete,
 } from './applicationUtils'
 import {
   getApplicationTimelineEvents,
@@ -125,4 +126,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('camelToKebabCase', camelToKebabCase)
 
   njkEnv.addGlobal('pagination', pagination)
+
+  njkEnv.addGlobal('arePreTaskListTasksIncomplete', arePreTaskListTasksIncomplete)
 }
