@@ -632,5 +632,80 @@ describe('getPage', () => {
 
       expect(getApplicantDetails(application)).toEqual(expected)
     })
+
+    it('should return applicant details with nationality as unknown', () => {
+      const person = personFactory.build({ nationality: null })
+
+      const application = applicationFactory.build({ person })
+
+      const expected = [
+        {
+          key: {
+            text: 'Full name',
+          },
+          value: {
+            html: person.name,
+          },
+        },
+        {
+          key: {
+            text: 'Date of birth',
+          },
+          value: {
+            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          },
+        },
+        {
+          key: {
+            text: 'Nationality',
+          },
+          value: {
+            html: 'Unknown',
+          },
+        },
+        {
+          key: {
+            text: 'Sex',
+          },
+          value: {
+            html: person.sex,
+          },
+        },
+        {
+          key: {
+            text: 'Prison number',
+          },
+          value: {
+            html: person.nomsNumber,
+          },
+        },
+        {
+          key: {
+            text: 'Prison',
+          },
+          value: {
+            html: person.prisonName,
+          },
+        },
+        {
+          key: {
+            text: 'PNC number',
+          },
+          value: {
+            html: person.pncNumber,
+          },
+        },
+        {
+          key: {
+            text: 'CRN from nDelius',
+          },
+          value: {
+            html: person.crn,
+          },
+        },
+      ]
+
+      expect(getApplicantDetails(application)).toEqual(expected)
+    })
   })
 })

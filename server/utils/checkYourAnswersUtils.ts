@@ -248,7 +248,7 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
         text: 'Nationality',
       },
       value: {
-        html: nationality,
+        html: nationality || 'Unknown',
       },
     },
     {
