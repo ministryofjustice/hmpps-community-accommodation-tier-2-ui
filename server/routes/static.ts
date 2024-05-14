@@ -15,6 +15,7 @@ export default function staticRoutes(controllers: Controllers, router: Router, s
   get(paths.static.maintenancePage.pattern, staticController.maintenancePage(), {})
   get(paths.static.privacyNotice.pattern, staticController.privacyNoticePage(), {})
   get(paths.static.cookiesPolicy.pattern, staticController.cookiesPolicyPage(), {})
+  get(paths.static.accessibilityStatement.pattern, staticController.accessibilityStatementPage(), {})
 
   return router
 }
