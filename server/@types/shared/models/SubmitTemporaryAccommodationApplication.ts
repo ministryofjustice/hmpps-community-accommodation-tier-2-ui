@@ -20,6 +20,7 @@ export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     isHistoryOfSexualOffence?: boolean;
     isConcerningSexualBehaviour?: boolean;
     isConcerningArsonBehaviour?: boolean;
+    prisonReleaseTypes?: Array<string>;
     summaryData: AnyValue;
 });
 
