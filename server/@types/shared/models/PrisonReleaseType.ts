@@ -5,6 +5,7 @@
 export type PrisonReleaseType = {
     id: string;
     name: string;
+    abbreviation?: string;
     serviceScope: string;
     isActive: boolean;
 };

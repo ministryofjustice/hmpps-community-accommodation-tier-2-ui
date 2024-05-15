@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { AnyValue } from './AnyValue';
 import type { SubmitApplication } from './SubmitApplication';
+import type { UUID } from './UUID';
 export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     arrivalDate: string;
     isRegisteredSexOffender?: boolean;
@@ -20,6 +21,7 @@ export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
     isHistoryOfSexualOffence?: boolean;
     isConcerningSexualBehaviour?: boolean;
     isConcerningArsonBehaviour?: boolean;
+    prisonReleaseTypes?: Array<UUID>;
     summaryData: AnyValue;
 });
 

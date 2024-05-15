@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type RequestForPlacementStatus = 'request_rejected' | 'request_submitted' | 'awaiting_match' | 'request_withdrawn' | 'placement_booked' | 'person_arrived' | 'person_not_arrived' | 'person_departed';
+export type RequestForPlacementStatus = 'request_unsubmitted' | 'request_rejected' | 'request_submitted' | 'awaiting_match' | 'request_withdrawn' | 'placement_booked' | 'person_arrived' | 'person_not_arrived' | 'person_departed';
