@@ -117,8 +117,18 @@ export const addNote = async (page: Page) => {
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 }
 
-export const viewApplicationFromPrisonDashboard = async (applicationId: string, page: Page) => {
+export const goToPrisonDashboard = async (page: Page) => {
   await page.goto(`/applications/prison`)
-  await page.locator(`a[href="/applications/${applicationId}/overview"]`).click()
+}
+
+export const checkAnApplicationByUserExists = async (page: Page, name: string) => {
+  const tableRows = page.locator('.govuk-table__row')
+  expect(tableRows.filter({ hasText: name }).first()).toBeVisible()
+}
+
+export const viewApplicationMadeByAnotherUser = async (page: Page, name: string) => {
+  const tableRows = page.locator('.govuk-table__row')
+  const rowWithOtherUser = tableRows.filter({ hasNotText: name }).last()
+  await rowWithOtherUser.getByRole('link').click()
   await expect(page.locator('h2').first()).toContainText('Application history')
 }

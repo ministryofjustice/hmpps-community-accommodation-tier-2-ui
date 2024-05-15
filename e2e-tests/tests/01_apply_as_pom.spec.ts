@@ -13,8 +13,10 @@ import {
   submitApplication,
   viewSubmittedApplication,
   addNote,
-  viewApplicationFromPrisonDashboard,
+  viewApplicationMadeByAnotherUser,
   enterOldOasysDates,
+  goToPrisonDashboard,
+  checkAnApplicationByUserExists,
 } from '../steps/apply'
 import { signIn } from '../steps/signIn'
 
@@ -44,9 +46,10 @@ test(`add a note to a submitted application created by another user within user'
   page,
   pomUser,
 }) => {
-  const SEEDED_APPLICATION_ID = 'edd787eb-31a3-4fad-a473-9cf8969f1487'
   await signIn(page, pomUser)
-  await viewApplicationFromPrisonDashboard(SEEDED_APPLICATION_ID, page)
+  await goToPrisonDashboard(page)
+  await checkAnApplicationByUserExists(page, pomUser.name)
+  await viewApplicationMadeByAnotherUser(page, pomUser.name)
   await addNote(page)
 })
 
