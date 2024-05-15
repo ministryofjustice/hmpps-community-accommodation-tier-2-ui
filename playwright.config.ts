@@ -36,7 +36,7 @@ export default defineConfig<TestOptions>({
       use: {
         baseURL: 'http://localhost:3000',
         pomUser: {
-          name: 'Pom User',
+          name: 'Prison Officer',
           username: 'POM_USER',
           password: 'password123456',
         },
@@ -73,12 +73,12 @@ export default defineConfig<TestOptions>({
           nomsNumber: 'A5671YZ',
         },
         pomUser: {
-          name: 'Pom User',
+          name: 'Prison Officer',
           username: 'POM_USER',
           password: 'password123456',
         },
         lcaUser: {
-          name: 'LCA User',
+          name: 'Licence Case-Admin',
           username: 'CAS2_LICENCE_USER',
           password: 'password123456',
         },
