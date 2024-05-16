@@ -15,6 +15,7 @@ import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
+import { getPaginationDetails } from '../../utils/getPaginationDetails'
 
 export default class ApplicationsController {
   constructor(
@@ -285,12 +286,20 @@ export default class ApplicationsController {
 
   prisonDashboard(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const applications = await this.applicationService.getAllByPrison(
+      const { pageNumber, hrefPrefix } = getPaginationDetails(req, paths.applications.prison({}))
+
+      const result = await this.applicationService.getAllByPrison(
         req.user.token,
         res.locals.user.activeCaseLoadId,
+        pageNumber,
       )
 
-      return res.render('applications/prison-dashboard', { applications })
+      return res.render('applications/prison-dashboard', {
+        applications: result.data,
+        pageNumber: Number(result.pageNumber),
+        totalPages: Number(result.totalPages),
+        hrefPrefix,
+      })
     }
   }
 }

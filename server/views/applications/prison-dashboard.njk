@@ -1,5 +1,6 @@
 {% extends "../partials/layout.njk" %}
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from "../partials/table.njk" import applicationsTable %}
 
 {% set pageTitle = applicationName + " - your prison's applications"  %}
@@ -46,6 +47,8 @@
         ],
         prisonDashboardTableRows(applications))
       }}
+
+      {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
 
     </div>
   </div>

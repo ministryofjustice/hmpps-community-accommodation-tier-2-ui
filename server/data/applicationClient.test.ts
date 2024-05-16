@@ -107,6 +107,7 @@ describeClient('ApplicationClient', provider => {
           query: {
             prisonCode: '123',
             isSubmitted: 'true',
+            page: '1',
           },
           headers: {
             authorization: `Bearer ${token}`,
@@ -115,12 +116,23 @@ describeClient('ApplicationClient', provider => {
         willRespondWith: {
           status: 200,
           body: applications,
+          headers: {
+            'X-Pagination-TotalPages': '10',
+            'X-Pagination-TotalResults': '100',
+            'X-Pagination-PageSize': '10',
+          },
         },
       })
 
-      const result = await applicationClient.getAllByPrison('123')
+      const result = await applicationClient.getAllByPrison('123', 1)
 
-      expect(result).toEqual(applications)
+      expect(result).toEqual({
+        data: applications,
+        pageNumber: '1',
+        totalPages: '10',
+        totalResults: '100',
+        pageSize: '10',
+      })
     })
   })
 

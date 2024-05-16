@@ -15,4 +15,9 @@ export default class PrisonDashboardPage extends Page {
   shouldShowMyApplicationsTab(): void {
     cy.contains(`Your applications`).should('have.attr', 'href', paths.applications.index.pattern)
   }
+
+  clickPageNumber(pageNumber: string): void {
+    const linkText = new RegExp(`^\\s+${pageNumber}\\s+$`)
+    cy.get('a').contains(linkText).click()
+  }
 }

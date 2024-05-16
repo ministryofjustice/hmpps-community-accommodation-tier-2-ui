@@ -23,12 +23,15 @@ context('PrisonDashboard', () => {
 
     //  And there are applications for my prison in the database
     const applications = applicationSummaryFactory.buildList(5)
-    cy.task('stubPrisonApplications', { applications, prisonCode })
+    cy.task('stubPrisonApplications', { applications, prisonCode, page: 1 })
 
     //  When I visit the prison dashboard
     const page = PrisonDashboardPage.visit()
 
     //  Then I can see a list of applications for my prison
+    page.shouldShowApplications(applications)
+    cy.task('stubPrisonApplications', { applications, prisonCode, page: 2 })
+    page.clickPageNumber('2')
     page.shouldShowApplications(applications)
 
     //  And I can tab back to my applications
