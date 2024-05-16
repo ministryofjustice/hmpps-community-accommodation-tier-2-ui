@@ -70,7 +70,7 @@ export default defineConfig<TestOptions>({
         personWithoutOasys: {
           name: 'James Brown',
           crn: 'C246139',
-          nomsNumber: 'A5671YZ',
+          nomsNumber: 'A1234AJ',
         },
         pomUser: {
           name: 'Prison Officer',
