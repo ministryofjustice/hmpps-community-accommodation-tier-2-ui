@@ -5,7 +5,7 @@ export class DashboardPage extends BasePage {
     await this.page.goto('/')
   }
 
-  async makeNewReferral() {
-    await this.page.getByText('New referral').click()
+  async makeNewApplication() {
+    await this.page.getByText('Start a new application').click()
   }
 }

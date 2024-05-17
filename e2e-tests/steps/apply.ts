@@ -36,8 +36,8 @@ export const startAnApplication = async (page: Page) => {
   const dashboardPage = new DashboardPage(page)
   await dashboardPage.goto()
 
-  // Follow link to 'new referral'
-  await dashboardPage.makeNewReferral()
+  // Follow link to 'new application'
+  await dashboardPage.makeNewApplication()
 
   // // confirm that I'm ready to start
   const beforeYouStartPage = new BeforeYouStartPage(page)
