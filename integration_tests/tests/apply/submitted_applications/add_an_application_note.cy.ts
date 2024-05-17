@@ -38,7 +38,6 @@ context('Referrer adds a note to a submitted application', () => {
           submittedAt: '2022-12-10T21:47:28Z',
           person: fullPersonFactory.build({ name: 'Robert Smith' }),
           telephoneNumber: '0800 123',
-          statusUpdates: [],
         })
         cy.wrap(submittedApplication).as('application')
       })
