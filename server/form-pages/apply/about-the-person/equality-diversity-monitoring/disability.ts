@@ -63,7 +63,11 @@ export default class Disability implements TaskListPage {
     if (this.body.hasDisability === 'yes' && !this.body.typeOfDisability) {
       errors.typeOfDisability = errorLookups.hasDisability.typeOfDisability
     }
-    if (this.body.typeOfDisability?.includes('other') && !this.body.otherDisability) {
+    if (
+      this.body.hasDisability === 'yes' &&
+      this.body.typeOfDisability?.includes('other') &&
+      !this.body.otherDisability
+    ) {
       errors.otherDisability = errorLookups.hasDisability.otherDisability
     }
     return errors

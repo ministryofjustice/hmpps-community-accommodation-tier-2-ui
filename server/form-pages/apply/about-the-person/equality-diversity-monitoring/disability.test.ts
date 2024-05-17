@@ -158,6 +158,18 @@ describe('Disability', () => {
         otherDisability: 'Enter the other disability',
       })
     })
+
+    it('should not return errors when user has selected other disability but then selects no to hasDisability', () => {
+      const page = new Disability(
+        {
+          hasDisability: 'no',
+          typeOfDisability: ['other'],
+        },
+        application,
+      )
+
+      expect(page.errors()).toEqual({})
+    })
   })
 
   describe('onSave', () => {
