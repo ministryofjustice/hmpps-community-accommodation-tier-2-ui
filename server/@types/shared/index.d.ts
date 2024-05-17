@@ -195,7 +195,6 @@ export type { Premises } from './models/Premises';
 export type { PremisesBooking } from './models/PremisesBooking';
 export type { PremisesSummary } from './models/PremisesSummary';
 export type { PrisonCaseNote } from './models/PrisonCaseNote';
-export type { PrisonReleaseType } from './models/PrisonReleaseType';
 export type { ProbationDeliveryUnit } from './models/ProbationDeliveryUnit';
 export type { ProbationRegion } from './models/ProbationRegion';
 export type { Problem } from './models/Problem';
