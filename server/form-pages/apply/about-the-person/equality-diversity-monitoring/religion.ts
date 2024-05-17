@@ -39,7 +39,20 @@ export default class Religion implements TaskListPage {
   }
 
   previous() {
-    return 'ethnic-group'
+    switch (this.application.data?.['equality-and-diversity-monitoring']?.['ethnic-group']?.ethnicGroup) {
+      case 'white':
+        return 'white-background'
+      case 'mixed':
+        return 'mixed-background'
+      case 'asian':
+        return 'asian-background'
+      case 'black':
+        return 'black-background'
+      case 'other':
+        return 'other-background'
+      default:
+        return 'ethnic-group'
+    }
   }
 
   next() {
