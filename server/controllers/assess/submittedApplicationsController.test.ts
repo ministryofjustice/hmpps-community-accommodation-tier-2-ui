@@ -7,7 +7,6 @@ import {
   applicationNoteFactory,
   assessmentFactory,
   paginatedResponseFactory,
-  statusUpdateFactory,
   submittedApplicationFactory,
 } from '../../testutils/factories'
 import SubmittedApplicationsController from './submittedApplicationsController'
@@ -33,12 +32,9 @@ describe('submittedApplicationsController', () => {
 
   let submittedApplicationsController: SubmittedApplicationsController
 
-  const statusUpdate = statusUpdateFactory.build()
-
   const submittedApplication = submittedApplicationFactory.build({
     submittedBy: { name: 'POM Name' },
     submittedAt: '2023-10-17T08:42:38+01:00',
-    statusUpdates: [statusUpdate],
   })
 
   beforeEach(() => {
@@ -125,7 +121,7 @@ describe('submittedApplicationsController', () => {
 
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplication,
-          status: statusUpdate.label,
+          status: 'On waiting list',
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,

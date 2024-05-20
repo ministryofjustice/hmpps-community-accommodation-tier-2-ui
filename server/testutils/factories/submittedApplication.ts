@@ -4,7 +4,6 @@ import { Cas2SubmittedApplication as SubmittedApplication } from '@approved-prem
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory } from './person'
 import nomisUserFactory from './nomisUser'
-import statusUpdateFactory from './statusUpdate'
 import timelineEvents from './timelineEvents'
 import assessmentFactory from './assessment'
 
@@ -17,7 +16,6 @@ export default Factory.define<SubmittedApplication>(() => ({
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   document: {},
   outdatedSchema: faker.datatype.boolean(),
-  statusUpdates: statusUpdateFactory.buildList(2),
   telephoneNumber: faker.string.numeric({ length: 8 }),
   timelineEvents: [timelineEvents.build()],
   assessment: assessmentFactory.build(),
