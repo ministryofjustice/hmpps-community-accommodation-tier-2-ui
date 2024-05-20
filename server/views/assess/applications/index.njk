@@ -8,6 +8,7 @@
 {% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../../partials/table.njk" import applicationsTable %}
 {% from "../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "../../partials/applicationSoftDeleteGuidance.njk" import softDeleteGuidance %}
 
 {% extends "../../partials/layout.njk" %}
 
@@ -46,6 +47,8 @@
       </div>
 
       {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
+
+      {{ softDeleteGuidance() }}
 
     </div>
   </div>
