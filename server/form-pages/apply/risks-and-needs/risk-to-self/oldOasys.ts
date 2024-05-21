@@ -5,7 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { dateBodyProperties } from '../../../utils'
 import { getQuestions } from '../../../utils/questions'
-import { DateFormats, dateIsComplete } from '../../../../utils/dateUtils'
+import { DateFormats, dateAndTimeInputsAreValidDates, dateIsComplete } from '../../../../utils/dateUtils'
 
 type OldOasysBody = {
   hasOldOasys: YesOrNo
@@ -59,8 +59,14 @@ export default class OldOasys implements TaskListPage {
     if (!this.body.hasOldOasys) {
       errors.hasOldOasys = 'Confirm whether they have an older OASys with risk to self information'
     }
-    if (this.body.hasOldOasys === 'yes' && !dateIsComplete(this.body, 'oasysCompletedDate')) {
-      errors.oasysCompletedDate = 'Enter the date the OASys was completed'
+    if (this.body.hasOldOasys === 'yes') {
+      if (!dateIsComplete(this.body, 'oasysCompletedDate')) {
+        errors.oasysCompletedDate = 'Enter the date the OASys was completed'
+        return errors
+      }
+      if (!dateAndTimeInputsAreValidDates(this.body, 'oasysCompletedDate')) {
+        errors.oasysCompletedDate = 'OASys completed date must be a real date'
+      }
     }
 
     return errors
