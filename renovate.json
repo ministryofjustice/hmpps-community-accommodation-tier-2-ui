@@ -1,3 +1,4 @@
 {
-  "extends": ["github>ministryofjustice/arn-renovate-config"]
+  "extends": ["github>ministryofjustice/arn-renovate-config"],
+  "ignoreDeps": ["applicationinsights"]
 }
