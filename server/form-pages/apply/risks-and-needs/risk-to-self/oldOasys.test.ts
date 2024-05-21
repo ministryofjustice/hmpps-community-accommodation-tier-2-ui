@@ -1,6 +1,16 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import OldOasys from './oldOasys'
+import { dateAndTimeInputsAreValidDates, dateIsComplete } from '../../../../utils/dateUtils'
+
+jest.mock('../../../../utils/dateUtils', () => {
+  const actual = jest.requireActual('../../../../utils/dateUtils')
+  return {
+    ...actual,
+    dateAndTimeInputsAreValidDates: jest.fn(),
+    dateIsComplete: jest.fn(),
+  }
+})
 
 describe('OldOasys', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -23,10 +33,26 @@ describe('OldOasys', () => {
         hasOldOasys: 'Confirm whether they have an older OASys with risk to self information',
       })
     })
-    it('returns an error when hasOldOasys is yes but oasysCompletedDate is blank', () => {
-      const page = new OldOasys({ hasOldOasys: 'yes' }, application)
-      expect(page.errors()).toEqual({
-        oasysCompletedDate: 'Enter the date the OASys was completed',
+    describe('when hasOldOasys is yes', () => {
+      it('returns an error when oasysCompletedDate is blank', () => {
+        const page = new OldOasys({ hasOldOasys: 'yes' }, application)
+        expect(page.errors()).toEqual({
+          oasysCompletedDate: 'Enter the date the OASys was completed',
+        })
+      })
+
+      describe('when the date is not valid', () => {
+        beforeEach(() => {
+          jest.resetAllMocks()
+          ;(dateAndTimeInputsAreValidDates as jest.Mock).mockImplementation(() => false)
+          ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
+        })
+        it('returns an error ', () => {
+          const page = new OldOasys({ hasOldOasys: 'yes' }, application)
+          expect(page.errors()).toEqual({
+            oasysCompletedDate: 'OASys completed date must be a real date',
+          })
+        })
       })
     })
   })
