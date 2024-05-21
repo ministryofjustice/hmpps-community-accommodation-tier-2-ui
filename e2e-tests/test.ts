@@ -13,9 +13,9 @@ export const test = base.extend<TestOptions>({
   ],
   personWithoutOasys: [
     {
-      name: 'Al Kozey',
-      crn: 'X698318',
-      nomsNumber: 'A5297DZ',
+      name: 'Leslie Fahey',
+      crn: 'X698232',
+      nomsNumber: 'A5275DZ',
     },
     { option: true },
   ],
