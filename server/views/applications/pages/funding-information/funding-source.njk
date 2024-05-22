@@ -1,12 +1,32 @@
 {% extends "../layout.njk" %}
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.questions.fundingSource }}</h1>
-
   {{
     formPageRadios(
       {
+       fieldset: {
+          legend: {
+            text: page.questions.fundingSource.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
         fieldName: "fundingSource",
-        items: page.items()
+        hint: {
+            text: page.questions.fundingSource.hint
+        },
+        items: [
+          {
+            value: "personalSavings",
+            text: page.questions.fundingSource.answers.personalSavings,
+            hint: { text: "Proof of personal money or wages is required to show the applicant can afford the accommodation and service charge" }
+          },
+          {
+            value: "benefits",
+            text: page.questions.fundingSource.answers.benefits,
+            hint: { text: "Applicants must have recourse to public funds to claim Housing Benefit. Proof of personal money or wages is required" }
+
+          }
+        ]
       },
       fetchContext()
     )

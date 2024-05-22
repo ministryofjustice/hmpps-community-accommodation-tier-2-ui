@@ -6,12 +6,10 @@ describe('FundingInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
-    it('sets the question title as the page title', () => {
+    it('sets the title', () => {
       const page = new FundingInformation({ fundingSource: 'personalSavings' }, application)
 
-      expect(page.questions).toEqual({
-        fundingSource: 'How will Roger Smith pay for their accommodation and service charge?',
-      })
+      expect(page.title).toEqual('Funding information for Roger Smith')
     })
   })
 
@@ -25,30 +23,6 @@ describe('FundingInformation', () => {
 
     expect(page.body).toEqual({
       fundingSource: 'personalSavings',
-    })
-  })
-
-  describe('items', () => {
-    it('returns the items as expected', () => {
-      const page = new FundingInformation({ fundingSource: 'personalSavings' }, application)
-
-      expect(page.items()).toEqual([
-        { checked: true, text: 'Personal money or savings', value: 'personalSavings' },
-        {
-          checked: false,
-          text: 'Benefits',
-          value: 'benefits',
-          hint: {
-            text: 'This includes Housing Benefit and Universal Credit, Disability Living Allowance, and Employment and Support Allowance',
-          },
-        },
-        { divider: 'or' },
-        {
-          value: 'both',
-          text: 'Both',
-          checked: false,
-        },
-      ])
     })
   })
 
