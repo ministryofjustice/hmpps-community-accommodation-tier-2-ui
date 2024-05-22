@@ -26,11 +26,6 @@ export default class CommunicationAndLanguagePage extends ApplyPage {
     )
   }
 
-  describeAdditionalNeeds = (): void => {
-    this.checkRadioByNameAndValue('hasCommunicationNeeds', 'yes')
-    this.getTextInputByIdAndEnterDetails('communicationDetail', 'Is hard of hearing')
-  }
-
   specifyInterpretationNeeds = (): void => {
     this.checkRadioByNameAndValue('requiresInterpreter', 'yes')
     this.getTextInputByIdAndEnterDetails('interpretationDetail', 'Welsh')

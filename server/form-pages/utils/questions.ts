@@ -568,11 +568,6 @@ export const getQuestions = (name: string) => {
         },
       },
       'communication-and-language': {
-        hasCommunicationNeeds: {
-          question: 'Do they have any additional communication needs?',
-          answers: yesOrNo,
-        },
-        communicationDetail: { question: 'Please describe their communication needs.' },
         requiresInterpreter: { question: 'Do they need an interpreter?', answers: yesOrNo },
         interpretationDetail: { question: 'What language do they need an interpreter for?' },
         hasSupportNeeds: {

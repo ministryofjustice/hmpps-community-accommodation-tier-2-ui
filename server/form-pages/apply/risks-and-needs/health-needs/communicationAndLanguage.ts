@@ -6,8 +6,6 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type CommunicationAndLanguageBody = {
-  hasCommunicationNeeds: YesOrNo
-  communicationDetail: string
   requiresInterpreter: YesOrNo
   interpretationDetail: string
   hasSupportNeeds: YesOrNo
@@ -16,14 +14,7 @@ export type CommunicationAndLanguageBody = {
 
 @Page({
   name: 'communication-and-language',
-  bodyProperties: [
-    'hasCommunicationNeeds',
-    'communicationDetail',
-    'requiresInterpreter',
-    'interpretationDetail',
-    'hasSupportNeeds',
-    'supportDetail',
-  ],
+  bodyProperties: ['requiresInterpreter', 'interpretationDetail', 'hasSupportNeeds', 'supportDetail'],
 })
 export default class CommunicationAndLanguage implements TaskListPage {
   documentTitle = 'Communication and language needs for the person'
@@ -54,13 +45,6 @@ export default class CommunicationAndLanguage implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.hasCommunicationNeeds) {
-      errors.hasCommunicationNeeds = `Confirm whether they have additional communication needs`
-    }
-    if (this.body.hasCommunicationNeeds === 'yes' && !this.body.communicationDetail) {
-      errors.communicationDetail = 'Describe their communication needs'
-    }
-
     if (!this.body.requiresInterpreter) {
       errors.requiresInterpreter = `Confirm whether they need an interpreter`
     }
@@ -79,10 +63,6 @@ export default class CommunicationAndLanguage implements TaskListPage {
   }
 
   onSave(): void {
-    if (this.body.hasCommunicationNeeds !== 'yes') {
-      delete this.body.communicationDetail
-    }
-
     if (this.body.requiresInterpreter !== 'yes') {
       delete this.body.interpretationDetail
     }

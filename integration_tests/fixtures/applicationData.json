@@ -174,8 +174,6 @@
       "cantManageMedicationNotes": ""
     },
     "communication-and-language": {
-      "hasCommunicationNeeds": "no",
-      "communicationDetail": "",
       "requiresInterpreter": "no",
       "interpretationDetail": "",
       "hasSupportNeeds": "no",
