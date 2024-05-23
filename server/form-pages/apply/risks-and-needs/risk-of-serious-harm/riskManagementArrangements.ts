@@ -45,7 +45,7 @@ export default class RiskManagementArrangements implements TaskListPage {
   }
 
   previous() {
-    return 'reducing-risk'
+    return 'risk-factors'
   }
 
   next() {

@@ -90,9 +90,6 @@ describe('OasysImport', () => {
               whenIsRiskLikelyToBeGreatest: 'risk likely to be greatest answer',
               circumstancesLikelyToIncreaseRisk: 'circumstances likely to increase risk answer',
             },
-            'reducing-risk': {
-              factorsLikelyToReduceRisk: 'circumstances likely to reduce risk answer',
-            },
             'oasys-import': { oasysImportedDate: now },
           },
         }

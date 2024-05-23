@@ -18,12 +18,12 @@
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I continue to the next task / page
-//    Then I see the "reducing risk" page
+//    Then I see the "risk management arrangements" page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import RiskFactorsPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskFactorsPage'
-import ReducingRiskPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/reducingRiskPage'
+import RiskManagementArrangementsPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskManagementArrangementsPage'
 
 context('Visit "risk factors" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -100,7 +100,7 @@ context('Visit "risk factors" page', () => {
     page.clickConfirm()
     page.clickSubmit()
 
-    //    Then I see the "reducing risk" page
-    Page.verifyOnPage(ReducingRiskPage, this.application)
+    //    Then I see the "risk management arrangements" page
+    Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
   })
 })

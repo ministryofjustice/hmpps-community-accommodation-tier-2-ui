@@ -220,7 +220,6 @@ context('Visit "Risks and needs" section', () => {
         'summary-data',
         'risk-factors',
         'oasys-import',
-        'reducing-risk',
         'risk-to-others',
       )
       expect(body.data['risk-of-serious-harm']['summary-data']).to.have.keys(
