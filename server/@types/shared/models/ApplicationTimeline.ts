@@ -8,8 +8,9 @@ import type { User } from './User';
 export type ApplicationTimeline = {
     id: string;
     createdAt: string;
-    status: ApprovedPremisesApplicationStatus;
-    createdBy: User;
+    isOfflineApplication: boolean;
+    status?: ApprovedPremisesApplicationStatus;
+    createdBy?: User;
     timelineEvents: Array<TimelineEvent>;
 };
 
