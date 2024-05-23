@@ -12,7 +12,7 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
   const { pages } = Apply
   const { get, post, put } = actions(router, services.auditService)
 
-  const { applicationsController, pagesController } = controllers
+  const { applicationsController, pagesController, cancelController } = controllers
 
   get(
     paths.applications.beforeYouStart.pattern,
@@ -81,6 +81,14 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
 
   post(paths.applications.addNote.pattern, applicationsController.addNote(), {
     auditEvent: 'CREATE_APPLICATION_NOTE_AS_REFERRER',
+  })
+
+  get(paths.applications.cancel.pattern, cancelController.new(), {
+    auditEvent: 'VIEW_CANCEL_APPLICATION_PAGE',
+  })
+
+  post(paths.applications.cancel.pattern, cancelController.update(), {
+    auditEvent: 'CANCEL_APPLICATION_AS_REFERRER',
   })
 
   return router
