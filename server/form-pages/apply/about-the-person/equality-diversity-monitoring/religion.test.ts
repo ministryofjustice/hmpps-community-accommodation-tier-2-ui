@@ -14,7 +14,30 @@ describe('Religion', () => {
   })
 
   itShouldHaveNextValue(new Religion({}, application), 'military-veteran')
-  itShouldHavePreviousValue(new Religion({}, application), 'ethnic-group')
+  itShouldHavePreviousValue(
+    new Religion(
+      {},
+      { ...application, data: { 'equality-and-diversity-monitoring': { 'ethnic-group': { ethnicGroup: 'white' } } } },
+    ),
+    'white-background',
+  )
+  itShouldHavePreviousValue(
+    new Religion(
+      {},
+      { ...application, data: { 'equality-and-diversity-monitoring': { 'ethnic-group': { ethnicGroup: 'asian' } } } },
+    ),
+    'asian-background',
+  )
+  itShouldHavePreviousValue(
+    new Religion(
+      {},
+      {
+        ...application,
+        data: { 'equality-and-diversity-monitoring': { 'ethnic-group': { ethnicGroup: 'preferNotToSay' } } },
+      },
+    ),
+    'ethnic-group',
+  )
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
