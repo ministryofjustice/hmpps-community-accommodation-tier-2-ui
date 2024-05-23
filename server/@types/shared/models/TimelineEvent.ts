@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { TimelineEventAssociatedUrl } from './TimelineEventAssociatedUrl';
 import type { TimelineEventType } from './TimelineEventType';
+import type { TriggerSourceType } from './TriggerSourceType';
 import type { User } from './User';
 export type TimelineEvent = {
     type?: TimelineEventType;
@@ -12,5 +13,6 @@ export type TimelineEvent = {
     content?: string;
     createdBy?: User;
     associatedUrls?: Array<TimelineEventAssociatedUrl>;
+    triggerSource?: TriggerSourceType;
 };
 

@@ -25,5 +25,7 @@ export type SubmitApprovedPremisesApplication = (SubmitApplication & {
     caseManagerIsNotApplicant?: boolean;
     caseManagerUserDetails?: Cas1ApplicationUserDetails;
     noticeType?: Cas1ApplicationTimelinessCategory;
+    reasonForShortNotice?: string;
+    reasonForShortNoticeOther?: string;
 });
 
