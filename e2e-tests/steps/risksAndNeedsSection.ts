@@ -50,8 +50,9 @@ async function completeMentalHealthPage(page: Page, name: string) {
   const mentalHealthPage = await ApplyPage.initialize(page, `Mental health needs for ${name}`)
 
   await mentalHealthPage.checkRadioInGroup('any mental health needs', 'No')
-  await mentalHealthPage.checkRadioInGroup('community mental health services', 'No')
+  await mentalHealthPage.checkRadioInGroup('mental health services before custody', 'No')
   await mentalHealthPage.checkRadioInGroup('mental health services in custody', 'No')
+  await mentalHealthPage.checkRadioInGroup('mental health services after custody', 'No')
   await mentalHealthPage.checkRadioInGroup(
     'mental health medication',
     'They are not prescribed medication for their mental health',

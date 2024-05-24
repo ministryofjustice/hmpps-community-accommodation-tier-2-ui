@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -12,6 +12,7 @@ export type MentalHealthBody = {
   isEngagedWithCommunity: YesOrNo
   servicesDetail: string
   isEngagedWithServicesInCustody: YesOrNo
+  areIntendingToEngageWithServicesAfterCustody: YesNoOrDontKnow
   canManageMedication: YesOrNo | 'notPrescribedMedication'
   canManageMedicationNotes: string
   medicationIssues: string
@@ -26,6 +27,7 @@ export type MentalHealthBody = {
     'needsPresentation',
     'isEngagedWithCommunity',
     'servicesDetail',
+    'areIntendingToEngageWithServicesAfterCustody',
     'isEngagedWithServicesInCustody',
     'canManageMedication',
     'canManageMedicationNotes',
@@ -82,6 +84,11 @@ export default class MentalHealth implements TaskListPage {
 
     if (!this.body.isEngagedWithServicesInCustody) {
       errors.isEngagedWithServicesInCustody = 'Confirm whether they are engaged with mental health services in custody'
+    }
+
+    if (!this.body.areIntendingToEngageWithServicesAfterCustody) {
+      errors.areIntendingToEngageWithServicesAfterCustody =
+        'Confirm whether they are intending to engage with mental health services after custody'
     }
 
     if (!this.body.canManageMedication) {

@@ -547,6 +547,10 @@ export const getQuestions = (name: string) => {
           question: 'Are they engaged with any mental health services in custody?',
           answers: yesOrNo,
         },
+        areIntendingToEngageWithServicesAfterCustody: {
+          question: 'Are they intending to engage with mental health services after custody?',
+          answers: yesNoOrIDontKnow,
+        },
         canManageMedication: {
           question: 'Can they manage their own mental health medication on release?',
           answers: {

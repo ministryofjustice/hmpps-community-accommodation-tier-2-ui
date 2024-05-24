@@ -177,6 +177,38 @@
   {{
     formPageRadios(
       {
+        fieldName: "areIntendingToEngageWithServicesAfterCustody",
+        fieldset: {
+          legend: {
+            text: page.questions.areIntendingToEngageWithServicesAfterCustody.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
         fieldName: "canManageMedication",
         fieldset: {
           legend: {
