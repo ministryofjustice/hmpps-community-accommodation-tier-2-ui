@@ -22,7 +22,7 @@ describe('RiskFactors', () => {
     })
   })
 
-  itShouldHaveNextValue(new RiskFactors({}, application), 'reducing-risk')
+  itShouldHaveNextValue(new RiskFactors({}, application), 'risk-management-arrangements')
   itShouldHavePreviousValue(new RiskFactors({}, application), 'risk-to-others')
 
   describe('errors', () => {

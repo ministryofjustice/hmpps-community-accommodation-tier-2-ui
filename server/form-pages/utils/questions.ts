@@ -749,16 +749,6 @@ export const getQuestions = (name: string) => {
           answers: { confirmed: 'Confirmed' },
         },
       },
-      'reducing-risk': {
-        factorsLikelyToReduceRisk: {
-          question: 'What factors are likely to reduce risk?',
-          hint: 'Describe factors, actions and events which might reduce or contain the level of risk now and in the future.',
-        },
-        confirmation: {
-          question: 'I confirm this information is relevant and up to date.',
-          answers: { confirmed: 'Confirmed' },
-        },
-      },
       'risk-management-arrangements': {
         arrangements: {
           question: `Is ${name} subject to any of these multi-agency risk management arrangements upon release?`,

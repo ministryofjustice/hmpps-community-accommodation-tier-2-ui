@@ -280,10 +280,6 @@
       "whenIsRiskLikelyToBeGreatest": "a time",
       "confirmation": "confirmed"
     },
-    "reducing-risk": {
-      "factorsLikelyToReduceRisk": "a factor",
-      "confirmation": "confirmed"
-    },
     "risk-management-arrangements": {
       "arrangements": ["mappa", "marac", "iom"],
       "mappaDetails": "mappa details",

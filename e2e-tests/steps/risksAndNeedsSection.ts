@@ -204,7 +204,6 @@ export const completeRoshTask = async (page: Page, name: string) => {
   await completeRoshSummaryPage(page, name)
   await completeRiskToOthersPage(page)
   await completeRiskFactorsPage(page)
-  await completeReducingRiskPage(page)
   await completeRiskManagementArrangementsPage(page, name)
   await completeCellShareInformationPage(page, name)
   await completeAdditionalRiskPage(page, name)
@@ -251,11 +250,6 @@ async function completeRiskToOthersPage(page: Page) {
 async function completeRiskFactorsPage(page: Page) {
   const riskFactorsPage = new TaskListPage(page)
   await confirmAndSave(riskFactorsPage)
-}
-
-async function completeReducingRiskPage(page: Page) {
-  const reducingRiskPage = new TaskListPage(page)
-  await confirmAndSave(reducingRiskPage)
 }
 
 async function completeRiskManagementArrangementsPage(page: Page, name: string) {
