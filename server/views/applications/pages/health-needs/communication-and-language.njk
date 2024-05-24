@@ -3,21 +3,6 @@
 
 {% block questions %}
 
-  {% set communicationFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'communicationDetail',
-          label: {
-            text: page.questions.communicationDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
   {% set interpretationFollowUp %}
   {{
       formPageInput(
@@ -48,33 +33,6 @@
     }}
   {% endset %}
 
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasCommunicationNeeds",
-        fieldset: {
-          legend: {
-            text: page.questions.hasCommunicationNeeds.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: communicationFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
   {{
     formPageRadios(
       {

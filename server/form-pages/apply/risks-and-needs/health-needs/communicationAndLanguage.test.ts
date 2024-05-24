@@ -16,15 +16,6 @@ describe('CommunicationAndLanguage', () => {
   describe('questions', () => {
     const page = new CommunicationAndLanguage({}, application)
 
-    describe('hasCommunicationNeeds', () => {
-      it('has a question', () => {
-        expect(page.questions.hasCommunicationNeeds.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.communicationDetail.question).toBeDefined()
-      })
-    })
-
     describe('requiresInterpreter', () => {
       it('has a question', () => {
         expect(page.questions.requiresInterpreter.question).toBeDefined()
@@ -51,29 +42,12 @@ describe('CommunicationAndLanguage', () => {
     describe('when top-level questions are unanswered', () => {
       const page = new CommunicationAndLanguage({}, application)
 
-      it('includes a validation error for _hasCommunicationNeeds_', () => {
-        expect(page.errors()).toHaveProperty(
-          'hasCommunicationNeeds',
-          'Confirm whether they have additional communication needs',
-        )
-      })
-
       it('includes a validation error for _requiresInterpreter_', () => {
         expect(page.errors()).toHaveProperty('requiresInterpreter', 'Confirm whether they need an interpreter')
       })
 
       it('includes a validation error for _hasSupportNeeds_', () => {
         expect(page.errors()).toHaveProperty('hasSupportNeeds', 'Confirm they they need support')
-      })
-    })
-
-    describe('when _hasCommunicationNeeds_ is YES', () => {
-      const page = new CommunicationAndLanguage({ hasCommunicationNeeds: 'yes' }, application)
-
-      describe('and _communicationDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _communicationDetail_', () => {
-          expect(page.errors()).toHaveProperty('communicationDetail', 'Describe their communication needs')
-        })
       })
     })
 
@@ -105,21 +79,6 @@ describe('CommunicationAndLanguage', () => {
   })
 
   describe('onSave', () => {
-    it('removes communication needs data when the question is set to "no"', () => {
-      const body: Partial<CommunicationAndLanguageBody> = {
-        hasCommunicationNeeds: 'no',
-        communicationDetail: 'Communication needs detail',
-      }
-
-      const page = new CommunicationAndLanguage(body, application)
-
-      page.onSave()
-
-      expect(page.body).toEqual({
-        hasCommunicationNeeds: 'no',
-      })
-    })
-
     it('removes interpreter data when the question is set to "no"', () => {
       const body: Partial<CommunicationAndLanguageBody> = {
         requiresInterpreter: 'no',

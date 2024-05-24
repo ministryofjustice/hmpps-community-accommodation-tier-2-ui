@@ -69,7 +69,6 @@ context('Visit "communication and language" page', () => {
     CommunicationAndLanguage.visit(this.application)
     const page = new CommunicationAndLanguage(this.application)
 
-    page.describeAdditionalNeeds()
     page.specifyInterpretationNeeds()
     page.describeSupportNeeded()
 
