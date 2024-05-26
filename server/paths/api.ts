@@ -41,6 +41,9 @@ export default {
   assessments: {
     show: singleAssessmentPath,
     update: singleAssessmentPath,
+    assessmentNotes: {
+      create: singleAssessmentPath.path('notes'),
+    },
   },
   referenceData: {
     applicationStatuses: referenceDataPath.path('application-status'),
