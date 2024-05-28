@@ -5,6 +5,7 @@
 {% from "../partials/showErrorSummary.njk" import showErrorSummary %}
 {% from "../components/formFields/form-page-input/macro.njk" import formPageInput %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "../partials/table.njk" import applicationsTable %}
 
 {% extends "../partials/layout.njk" %}
@@ -17,6 +18,16 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">Your CAS-2 applications</h1>
+      {% if successMessages %}
+        {% for message in successMessages %}
+          {{ govukNotificationBanner({
+                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                type: 'success',
+                titleId: 'success-title'
+              }) }}
+        {% endfor %}
+      {% endif %}
+
       {{ showErrorSummary(errorSummary) }}
 
       {{ mojSubNavigation({
