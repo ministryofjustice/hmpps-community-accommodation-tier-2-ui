@@ -90,7 +90,13 @@ export default class CheckYourAnswersPage extends ApplyPage {
             if (!pageData[questionKey]) {
               return
             }
-            const { question } = questions[questionKey]
+
+            const questionText = questions[questionKey]?.question
+
+            if (!questionText) {
+              return
+            }
+
             const predefinedAnswers = questions[questionKey].answers
             let expectedAnswer = ''
 
@@ -106,11 +112,15 @@ export default class CheckYourAnswersPage extends ApplyPage {
               expectedAnswer = pageData[questionKey]
             }
 
-            this.checkTermAndDescription(question, expectedAnswer)
+            this.checkTermAndDescription(questionText, expectedAnswer)
           })
         })
       }
     })
+  }
+
+  shouldNotShowAnswersWithoutQuestions() {
+    cy.get('main').should('not.contain', 'this answer should not appear')
   }
 
   shouldShowSideNavBar() {

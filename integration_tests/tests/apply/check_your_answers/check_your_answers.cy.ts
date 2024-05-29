@@ -55,6 +55,7 @@ context('Check your answers page', () => {
     page.hasExpectedSummaryData()
     page.hasApplicantDetails(this.application)
     page.shouldShowSideNavBar()
+    page.shouldNotShowAnswersWithoutQuestions()
     page.shouldShowConfirmEligibilityAnswers()
     page.shouldShowFundingInformationAnswers()
     page.shouldShowEqualityAndDiversityAnswers()
