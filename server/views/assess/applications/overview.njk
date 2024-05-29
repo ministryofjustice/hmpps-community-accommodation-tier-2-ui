@@ -112,7 +112,7 @@ printButtonScript %}
         Application history
       </h2>
 
-      <form action="{{ paths.submittedApplications.addNote({ id: application.id }) }}" method="post">
+      <form action="{{ paths.submittedApplications.addNote({ id: application.assessment.id }) }}?applicationId={{application.id}}" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
         {{ govukTextarea({
