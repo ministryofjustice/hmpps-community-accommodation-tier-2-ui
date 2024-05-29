@@ -41,16 +41,14 @@ export const getTaskAnswersAsSummaryListItems = (
   const pagesKeys = getPages(application, task)
 
   pagesKeys.forEach(pageKey => {
-    if (!['behaviour-notes', 'behaviour-notes-data', 'reducing-risk'].includes(pageKey)) {
-      addPageAnswersToItemsArray({
-        items,
-        application,
-        task,
-        pageKey,
-        questions,
-        outputFormat,
-      })
-    }
+    addPageAnswersToItemsArray({
+      items,
+      application,
+      task,
+      pageKey,
+      questions,
+      outputFormat,
+    })
   })
 
   return items
