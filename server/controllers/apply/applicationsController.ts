@@ -264,21 +264,22 @@ export default class ApplicationsController {
   addNote() {
     return async (req: Request, res: Response) => {
       const { id } = req.params
+      const { applicationId } = req.query as { applicationId: string }
       const { note } = req.body
 
       try {
         await this.submittedApplicationService.addApplicationNote(req.user.token, id, note)
         req.flash('success', 'Your note was saved.')
-        res.redirect(paths.applications.overview({ id }))
+        res.redirect(paths.applications.overview({ id: applicationId }))
       } catch (err) {
         if (err.status === 400) {
           req.flash('errors', {
             note: { text: 'Enter a note for the assessor' },
           })
           req.flash('errorSummary', [{ text: 'Enter a note for the assessor', href: '#note' }])
-          res.redirect(paths.applications.overview({ id }))
+          res.redirect(paths.applications.overview({ id: applicationId }))
         } else {
-          catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id }))
+          catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id: applicationId }))
         }
       }
     }

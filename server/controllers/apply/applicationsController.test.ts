@@ -640,6 +640,11 @@ describe('applicationsController', () => {
         request.params = {
           id: 'abc123',
         }
+
+        request.query = {
+          applicationId: 'application-id',
+        }
+
         request.body = { note: 'some notes' }
 
         const note = applicationNoteFactory.build()
@@ -650,7 +655,7 @@ describe('applicationsController', () => {
         await requestHandler(request, response)
 
         expect(request.flash).toHaveBeenCalledWith('success', 'Your note was saved.')
-        expect(response.redirect).toHaveBeenCalledWith(paths.applications.overview({ id: 'abc123' }))
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.overview({ id: 'application-id' }))
       })
     })
 
@@ -659,6 +664,11 @@ describe('applicationsController', () => {
         request.params = {
           id: 'abc123',
         }
+
+        request.query = {
+          applicationId: 'application-id',
+        }
+
         request.body = { note: 'some notes' }
 
         const err = new Error()
@@ -672,7 +682,7 @@ describe('applicationsController', () => {
           request,
           response,
           err,
-          paths.applications.overview({ id: 'abc123' }),
+          paths.applications.overview({ id: 'application-id' }),
         )
       })
     })
@@ -682,6 +692,11 @@ describe('applicationsController', () => {
         request.params = {
           id: 'abc123',
         }
+
+        request.query = {
+          applicationId: 'application-id',
+        }
+
         request.body = { note: 'some notes' }
 
         const err = { data: {}, status: 400 }
@@ -695,7 +710,7 @@ describe('applicationsController', () => {
         expect(request.flash).toHaveBeenCalledWith('errors', {
           note: { text: 'Enter a note for the assessor' },
         })
-        expect(response.redirect).toHaveBeenCalledWith(paths.applications.overview({ id: 'abc123' }))
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.overview({ id: 'application-id' }))
       })
     })
   })
