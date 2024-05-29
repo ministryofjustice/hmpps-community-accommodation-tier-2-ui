@@ -231,6 +231,43 @@ describe('checkYourAnswersUtils', () => {
         expect(items).toEqual([])
       })
 
+      it('does not add to the items array if there is no corresponding question for the answer data', () => {
+        jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValueOnce(jest.fn())
+
+        const mockApplicationRemovedQuestion = applicationFactory.build({
+          data: {
+            'confirm-eligibility': {
+              page1: {
+                question1: '',
+                question2: '',
+              },
+            },
+          },
+        })
+
+        const mockedQuestions = {
+          'confirm-eligibility': {
+            page2: {
+              question3: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+              question4: { question: 'Another question' },
+            },
+          },
+        }
+
+        const items: Array<SummaryListItem> = []
+
+        addPageAnswersToItemsArray({
+          items,
+          application: mockApplicationRemovedQuestion,
+          task: 'confirm-eligibility',
+          pageKey: 'page1',
+          questions: mockedQuestions,
+          outputFormat: 'checkYourAnswers',
+        })
+
+        expect(items).toEqual([])
+      })
+
       it('if there is a page response method, items are generated from its return value', () => {
         const ApplyPage = jest.fn()
 

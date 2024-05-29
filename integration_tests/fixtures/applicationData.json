@@ -177,7 +177,8 @@
       "requiresInterpreter": "no",
       "interpretationDetail": "",
       "hasSupportNeeds": "no",
-      "supportDetail": ""
+      "supportDetail": "",
+      "oldQuestion": "this answer should not appear"
     },
     "learning-difficulties": {
       "hasLearningNeeds": "no",
