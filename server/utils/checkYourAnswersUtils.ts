@@ -38,7 +38,7 @@ export const getTaskAnswersAsSummaryListItems = (
 
   const questions = getQuestions(nameOrPlaceholderCopy(application.person))
 
-  const pagesKeys = getPages(application, task)
+  const pagesKeys = getKeysForPages(application, task)
 
   pagesKeys.forEach(pageKey => {
     if (!['behaviour-notes', 'behaviour-notes-data', 'reducing-risk'].includes(pageKey)) {
@@ -173,7 +173,7 @@ export const getSections = (): Array<FormSection> => {
   return sections.filter(section => section.name !== CheckYourAnswers.name)
 }
 
-export const getPages = (application: Application, task: string) => {
+export const getKeysForPages = (application: Application, task: string) => {
   const pagesWithoutQuestions = ['summary-data', 'oasys-import']
   const pages = application.data[task]
 

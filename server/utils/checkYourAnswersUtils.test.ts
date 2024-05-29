@@ -1,12 +1,12 @@
 import { SummaryListItem } from '@approved-premises/ui'
-import { applicationFactory, personFactory } from '../testutils/factories'
-import * as checkYourAnswersUtils from './checkYourAnswersUtils'
-import * as getQuestionsUtil from '../form-pages/utils/questions'
-import { formatLines } from './viewUtils'
 import applicationData from '../../integration_tests/fixtures/applicationData.json'
 import Apply from '../form-pages/apply'
-import { UnknownPageError } from './errors'
+import * as getQuestionsUtil from '../form-pages/utils/questions'
+import { applicationFactory, personFactory } from '../testutils/factories'
+import * as checkYourAnswersUtils from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
+import { UnknownPageError } from './errors'
+import { formatLines } from './viewUtils'
 
 jest.mock('./formUtils')
 jest.mock('./viewUtils')
@@ -20,7 +20,7 @@ const {
   checkYourAnswersSections,
   getSections,
   getPage,
-  getPages,
+  getKeysForPages,
   getApplicantDetails,
 } = checkYourAnswersUtils
 
@@ -522,9 +522,9 @@ describe('checkYourAnswersUtils', () => {
     })
   })
 
-  describe('getPages', () => {
-    it('returns an array of page keys without oasys-import for risk to self', () => {
-      expect(getPages(application, 'risk-to-self')).toEqual([
+  describe('getKeysForPages', () => {
+    it('returns an array of page keys for risk to self', () => {
+      expect(getKeysForPages(application, 'risk-to-self')).toEqual([
         'current-risk',
         'vulnerability',
         'historical-risk',
