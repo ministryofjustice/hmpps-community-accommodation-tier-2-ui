@@ -12,6 +12,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2Applicati
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
+      cancelAnchorElement(application.id),
     ]
   })
 }
@@ -89,6 +90,9 @@ const nameAnchorElement = (
   }
   return htmlValue(`<a href=${href} data-cy-id="${applicationId}">${name}</a>`)
 }
+
+const cancelAnchorElement = (applicationId: string) =>
+  htmlValue(`<a id="cancel-${applicationId}" href=${applyPaths.applications.cancel({ id: applicationId })}>Cancel</a>`)
 
 const textValue = (value: string) => {
   return { text: value }

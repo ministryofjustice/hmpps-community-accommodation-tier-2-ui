@@ -45,11 +45,15 @@ export default abstract class Page {
 
   shouldShowErrorMessagesForFields(fields: Array<string>, error?: string): void {
     fields.forEach(field => {
-      const errorMessagesLookup = errorLookups[error || field].empty
+      const errorMessagesLookup = error || errorLookups[error || field].empty
 
       cy.get('.govuk-error-summary').should('contain', errorMessagesLookup)
       cy.get(`[data-cy-error-${field}]`).should('contain', errorMessagesLookup)
     })
+  }
+
+  shouldShowErrorSummaryForId(id: string, errorMessage: string): void {
+    cy.get('a').contains(errorMessage).should('have.attr', 'href', `#${id}`)
   }
 
   checkRadioByNameAndValue(name: string, option: string): void {
