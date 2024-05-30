@@ -12,7 +12,7 @@
 
     {% for acct in page.accts %}
 
-    {{ govukSummaryList({
+      {{ govukSummaryList({
       card: {
         title: {
           text: acct.title
@@ -61,4 +61,12 @@
     }) }}
   </div>
 
+{% endblock %}
+
+{% block button %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+        text: "Save and continue"
+        })}}
+  </div>
 {% endblock %}

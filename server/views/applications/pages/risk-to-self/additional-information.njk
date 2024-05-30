@@ -1,4 +1,4 @@
-{% extends "./_risk-to-self-screen.njk" %}
+{% extends "../layout.njk" %}
 {% set pageName = "additional-information" %}
 
 {% block questions %}
@@ -24,7 +24,8 @@
         fieldset: {
           legend: {
             text: page.questions.hasAdditionalInformation.question,
-            classes: "govuk-fieldset__legend--m"
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
           }
         },
         hint: {
