@@ -113,7 +113,7 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
   await completeCurrentRisksPage(page, name)
   await completeHistoricalRisksPage(page, name)
   await addAnAcct(page)
-  await completeAdditionalInformationPage(page)
+  await completeAdditionalInformationPage(page, name)
 }
 
 export const enterOldRiskToSelfOasysDate = async (page: Page, name: string) => {
@@ -190,8 +190,11 @@ async function completeAcctDataPage(page: Page) {
   await acctDataPage.clickButton('Save and add ACCT')
 }
 
-async function completeAdditionalInformationPage(page: Page) {
-  const additionalInformationPage = await ApplyPage.initialize(page, 'Additional Information')
+async function completeAdditionalInformationPage(page: Page, name: string) {
+  const additionalInformationPage = await ApplyPage.initialize(
+    page,
+    `Is there anything else to include about ${name}'s risk to self?`,
+  )
   await additionalInformationPage.checkRadio('No')
   await additionalInformationPage.clickSave()
 }
