@@ -45,7 +45,7 @@ context('Assessor adds a note to a submitted application', () => {
     //  And I add a note
     const note = applicationNoteFactory.build()
     const page = Page.verifyOnPage(SubmittedApplicationOverviewPage, submittedApplication)
-    cy.task('stubAddNote', { applicationId: submittedApplication.id, note })
+    cy.task('stubAddNote', { assessmentId: submittedApplication.assessment.id, note })
     page.addANote()
 
     //  Then I see a success message
@@ -56,7 +56,7 @@ context('Assessor adds a note to a submitted application', () => {
   it('shows an error message', function test() {
     //  And I add a note
     const page = Page.verifyOnPage(SubmittedApplicationOverviewPage, submittedApplication)
-    cy.task('stubAddNoteBadRequest', { applicationId: submittedApplication.id })
+    cy.task('stubAddNoteBadRequest', { assessmentId: submittedApplication.assessment.id })
     page.addANote()
 
     //   Then I see an error message

@@ -29,9 +29,9 @@ export default class SubmittedApplicationClient {
     })) as SubmittedApplication
   }
 
-  async addNote(applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
+  async addNote(assessmentId: string, newNote: string): Promise<Cas2ApplicationNote> {
     return (await this.restClient.post({
-      path: paths.submissions.applicationNotes.create({ id: applicationId }),
+      path: paths.assessments.applicationNotes.create({ id: assessmentId }),
       data: { note: newNote },
     })) as Cas2ApplicationNote
   }

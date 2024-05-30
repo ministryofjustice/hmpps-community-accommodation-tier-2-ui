@@ -17,7 +17,7 @@
 //    Then I see an error message
 
 import SubmittedApplicationOverviewPage from '../../../pages/apply/submittedApplicationOverviewPage'
-import { applicationFactory, applicationNoteFactory } from '../../../../server/testutils/factories'
+import { applicationFactory, applicationNoteFactory, assessmentFactory } from '../../../../server/testutils/factories'
 import { fullPersonFactory } from '../../../../server/testutils/factories/person'
 import Page from '../../../pages/page'
 
@@ -38,6 +38,7 @@ context('Referrer adds a note to a submitted application', () => {
           submittedAt: '2022-12-10T21:47:28Z',
           person: fullPersonFactory.build({ name: 'Robert Smith' }),
           telephoneNumber: '0800 123',
+          assessment: assessmentFactory.build(),
         })
         cy.wrap(submittedApplication).as('application')
       })
@@ -58,7 +59,7 @@ context('Referrer adds a note to a submitted application', () => {
     //  And I add a note
     const note = applicationNoteFactory.build()
     const page = Page.verifyOnPage(SubmittedApplicationOverviewPage, this.application)
-    cy.task('stubAddNote', { applicationId: this.application.id, note })
+    cy.task('stubAddNote', { assessmentId: this.application.assessment.id, note })
     page.addANote()
 
     //  Then I see a success message
@@ -69,7 +70,7 @@ context('Referrer adds a note to a submitted application', () => {
   it('shows an error message', function test() {
     //  And I add a note
     const page = Page.verifyOnPage(SubmittedApplicationOverviewPage, this.application)
-    cy.task('stubAddNoteBadRequest', { applicationId: this.application.id })
+    cy.task('stubAddNoteBadRequest', { assessmentId: this.application.assessment.id })
     page.addANote()
 
     //   Then I see an error message

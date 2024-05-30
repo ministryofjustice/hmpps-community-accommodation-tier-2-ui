@@ -28,9 +28,6 @@ export default {
     index: submissionsPath,
     create: submissionsPath,
     show: singleSubmissionPath,
-    applicationNotes: {
-      create: singleSubmissionPath.path('notes'),
-    },
   },
   applications: {
     new: applicationsPath,
@@ -41,6 +38,9 @@ export default {
   assessments: {
     show: singleAssessmentPath,
     update: singleAssessmentPath,
+    applicationNotes: {
+      create: singleAssessmentPath.path('notes'),
+    },
   },
   referenceData: {
     applicationStatuses: referenceDataPath.path('application-status'),

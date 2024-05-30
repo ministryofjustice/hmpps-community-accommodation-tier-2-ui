@@ -103,11 +103,11 @@ export default {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     }),
-  stubAddNote: (args: { applicationId: string; note: ApplicationNote }): SuperAgentRequest =>
+  stubAddNote: (args: { assessmentId: string; note: ApplicationNote }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'POST',
-        url: paths.submissions.applicationNotes.create({ id: args.applicationId }),
+        url: paths.assessments.applicationNotes.create({ id: args.assessmentId }),
       },
       response: {
         status: 201,
@@ -115,11 +115,11 @@ export default {
         jsonBody: args.note,
       },
     }),
-  stubAddNoteBadRequest: (args: { applicationId: string }): SuperAgentRequest =>
+  stubAddNoteBadRequest: (args: { assessmentId: string }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'POST',
-        url: paths.submissions.applicationNotes.create({ id: args.applicationId }),
+        url: paths.assessments.applicationNotes.create({ id: args.assessmentId }),
       },
       response: {
         status: 400,

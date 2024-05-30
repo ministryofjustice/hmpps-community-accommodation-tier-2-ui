@@ -164,6 +164,11 @@ describe('submittedApplicationsController', () => {
         request.params = {
           id: 'abc123',
         }
+
+        request.query = {
+          applicationId: 'application-id',
+        }
+
         request.body = { note: 'some notes' }
 
         const note = applicationNoteFactory.build()
@@ -174,7 +179,7 @@ describe('submittedApplicationsController', () => {
         await requestHandler(request, response)
 
         expect(request.flash).toHaveBeenCalledWith('success', 'Your note was saved.')
-        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'abc123' }))
+        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'application-id' }))
       })
     })
 
@@ -183,6 +188,11 @@ describe('submittedApplicationsController', () => {
         request.params = {
           id: 'abc123',
         }
+
+        request.query = {
+          applicationId: 'application-id',
+        }
+
         request.body = { note: 'some notes' }
 
         const err = { data: {}, status: 400 }
@@ -196,7 +206,7 @@ describe('submittedApplicationsController', () => {
         expect(request.flash).toHaveBeenCalledWith('errors', {
           note: { text: 'Enter a note for the referrer' },
         })
-        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'abc123' }))
+        expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'application-id' }))
       })
     })
 
@@ -205,6 +215,11 @@ describe('submittedApplicationsController', () => {
         request.params = {
           id: 'abc123',
         }
+
+        request.query = {
+          applicationId: 'application-id',
+        }
+
         request.body = { note: 'some notes' }
 
         const err = new Error()
@@ -218,7 +233,7 @@ describe('submittedApplicationsController', () => {
           request,
           response,
           err,
-          paths.submittedApplications.overview({ id: 'abc123' }),
+          paths.submittedApplications.overview({ id: 'application-id' }),
         )
       })
     })

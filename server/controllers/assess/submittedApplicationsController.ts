@@ -61,21 +61,27 @@ export default class SubmittedApplicationsController {
   addNote() {
     return async (req: Request, res: Response) => {
       const { id } = req.params
+      const { applicationId } = req.query as { applicationId: string }
       const { note } = req.body
 
       try {
         await this.submittedApplicationService.addApplicationNote(req.user.token, id, note)
         req.flash('success', 'Your note was saved.')
-        res.redirect(assessPaths.submittedApplications.overview({ id }))
+        res.redirect(assessPaths.submittedApplications.overview({ id: applicationId }))
       } catch (err) {
         if (err.status === 400) {
           req.flash('errors', {
             note: { text: 'Enter a note for the referrer' },
           })
           req.flash('errorSummary', [{ text: 'Enter a note for the referrer', href: '#note' }])
-          res.redirect(assessPaths.submittedApplications.overview({ id }))
+          res.redirect(assessPaths.submittedApplications.overview({ id: applicationId }))
         } else {
-          catchValidationErrorOrPropogate(req, res, err, assessPaths.submittedApplications.overview({ id }))
+          catchValidationErrorOrPropogate(
+            req,
+            res,
+            err,
+            assessPaths.submittedApplications.overview({ id: applicationId }),
+          )
         }
       }
     }

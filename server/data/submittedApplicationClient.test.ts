@@ -90,7 +90,7 @@ describeClient('SubmittedApplicationClient', provider => {
         uponReceiving: 'A request to add a note to an application',
         withRequest: {
           method: 'POST',
-          path: paths.submissions.applicationNotes.create({ id: application.id }),
+          path: paths.assessments.applicationNotes.create({ id: application.id }),
           body,
           headers: {
             authorization: `Bearer ${token}`,
