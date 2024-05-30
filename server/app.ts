@@ -54,8 +54,8 @@ export default function createApp(controllers: Controllers, services: Services):
 
   app.use(setUpMaintenancePageRedirect())
   app.use((req, res, next) => {
-    res.app.locals.infoMessages = req.flash('info')
-    res.app.locals.successMessages = req.flash('success')
+    res.locals.infoMessages = req.flash('info')
+    res.locals.successMessages = req.flash('success')
     return next()
   })
   app.use(flash())
