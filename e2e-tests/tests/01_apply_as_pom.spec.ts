@@ -17,8 +17,10 @@ import {
   enterOldOasysDates,
   goToPrisonDashboard,
   checkAnApplicationByUserExists,
+  viewInProgressDashboard,
 } from '../steps/apply'
 import { signIn } from '../steps/signIn'
+import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
 
 test('create a CAS-2 application', async ({ page, person, pomUser }) => {
   await signIn(page, pomUser)
@@ -60,4 +62,15 @@ test('create a CAS-2 application with no OASys', async ({ page, personWithoutOas
   await confirmApplicant(page)
   await completeBeforeYouStartSection(page, personWithoutOasys.name)
   await enterOldOasysDates(page, personWithoutOasys.name)
+})
+
+test('cancel an in progress application from the task list', async ({ page, pomUser, person }) => {
+  await signIn(page, pomUser)
+  await viewInProgressDashboard(page)
+  const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
+  await clickCancel(page)
+  await cancelAnApplication(page, person.name)
+  const numberOfApplicationsAfterCancellation = (await page.locator('tr').all()).length
+  await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
+  expect(numberOfApplicationsBeforeCancellation - numberOfApplicationsAfterCancellation).toEqual(1)
 })

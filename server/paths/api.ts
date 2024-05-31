@@ -4,6 +4,7 @@ const peoplePath = path('/cas2/people')
 const personPath = peoplePath.path(':crn')
 const oasysPath = personPath.path('oasys')
 const applicationsPath = path('/cas2/applications')
+const abandonPath = applicationsPath.path(':id').path('abandon')
 const singleApplicationPath = applicationsPath.path(':id')
 const singleAssessmentPath = path('/cas2/assessments/:id')
 const submissionsPath = path('/cas2/submissions')
@@ -32,6 +33,7 @@ export default {
   applications: {
     new: applicationsPath,
     index: applicationsPath,
+    abandon: abandonPath,
     show: singleApplicationPath,
     update: singleApplicationPath,
   },

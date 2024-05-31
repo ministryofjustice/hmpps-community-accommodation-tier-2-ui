@@ -35,6 +35,9 @@ describe('inProgressApplicationTableRows', () => {
         {
           text: '10 November 2022',
         },
+        {
+          html: `<a id="cancel-${applicationA.id}" href=/applications/${applicationA.id}/cancel>Cancel</a>`,
+        },
       ],
       [
         {
@@ -48,6 +51,9 @@ describe('inProgressApplicationTableRows', () => {
         },
         {
           text: '11 November 2022',
+        },
+        {
+          html: `<a id="cancel-${applicationB.id}" href=/applications/${applicationB.id}/cancel>Cancel</a>`,
         },
       ],
     ])

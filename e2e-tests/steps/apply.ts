@@ -108,6 +108,10 @@ export const viewSubmittedApplication = async (page: Page, name: string) => {
   await expect(page.locator('h2').first()).toContainText('Application history')
 }
 
+export const viewInProgressDashboard = async (page: Page) => {
+  await page.goto('/applications')
+}
+
 export const addNote = async (page: Page) => {
   const note = faker.lorem.paragraph()
   await page.getByLabel('Add a note for the assessor', { exact: true }).fill(note)

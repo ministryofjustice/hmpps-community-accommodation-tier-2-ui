@@ -201,4 +201,10 @@ export default class ApplicationService {
 
     await client.submit(application.id, getApplicationSubmissionData(application))
   }
+
+  async cancel(token: string, application: Cas2Application) {
+    const client = this.applicationClientFactory(token)
+
+    await client.abandon(application.id)
+  }
 }

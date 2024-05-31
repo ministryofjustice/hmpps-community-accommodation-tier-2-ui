@@ -55,4 +55,10 @@ export default class ApplicationClient {
       data: { ...submissionData, applicationId },
     })
   }
+
+  async abandon(applicationId: string): Promise<void> {
+    await this.restClient.put({
+      path: paths.applications.abandon({ id: applicationId }),
+    })
+  }
 }

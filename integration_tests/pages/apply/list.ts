@@ -32,4 +32,8 @@ export default class ListPage extends Page {
   clickApplication(application: Application) {
     cy.get(`a[data-cy-id="${application.id}"]`).click()
   }
+
+  clickCancel = (): void => {
+    cy.get('a').contains('Cancel').click()
+  }
 }

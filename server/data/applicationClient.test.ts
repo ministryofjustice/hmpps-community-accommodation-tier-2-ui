@@ -195,4 +195,27 @@ describeClient('ApplicationClient', provider => {
       await applicationClient.submit(application.id, data)
     })
   })
+
+  describe('abandon', () => {
+    it('should return response when a PUT request is made', async () => {
+      const application = applicationFactory.build()
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'Request to abandon an application',
+        withRequest: {
+          method: 'PUT',
+          path: paths.applications.abandon({ id: application.id }),
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+        },
+      })
+
+      await applicationClient.abandon(application.id)
+    })
+  })
 })

@@ -103,6 +103,34 @@ export default {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     }),
+  stubApplicationAbandon: (args: { application: Application }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'PUT',
+        url: `/cas2/applications/${args.application.id}/abandon`,
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.application,
+      },
+    }),
+  stubApplicationAbandonBadRequest: (args: { application: Application }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'PUT',
+        url: `/cas2/applications/${args.application.id}/abandon`,
+      },
+      response: {
+        status: 400,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          type: 'https://example.net/validation-error',
+          title: 'Application has already been submitted',
+          code: 400,
+        },
+      },
+    }),
   stubAddNote: (args: { assessmentId: string; note: ApplicationNote }): SuperAgentRequest =>
     stubFor({
       request: {

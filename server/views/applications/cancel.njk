@@ -1,0 +1,64 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "../partials/layout.njk" %}
+{% from "../partials/showErrorSummary.njk" import showErrorSummary %}
+
+{% set pageTitle = applicationName + " - " + pageHeading %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {% if previousPath %}
+    {{ govukBackLink({
+      text: "Back",
+      href: previousPath
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="{{ paths.applications.cancel({id: application.id }) }}" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ showErrorSummary(errorSummary) }}
+
+        {{ 
+
+          govukRadios(
+            {
+              name: "cancelYesOrNo",
+              fieldset: {
+                legend: {
+                  text: questionCopy,
+                  isPageHeading: true,
+                  classes: "govuk-fieldset__legend--l"
+                }
+              },
+              hint: {
+                html: 'Cancelling an application will remove all application data and cannot be undone. </br> You will need to start a new application for any future referrals.'
+              },
+              errorMessage: errors.cancelYesOrNo,
+              items: [
+                {
+                  value: "yes",
+                  text: "Yes, cancel the application"
+                },
+                {
+                  value: "no",
+                  text: "No, keep the application"
+                }
+              ]
+            }
+          ) 
+        }}
+
+        {{ govukButton({ text: "Confirm" }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
