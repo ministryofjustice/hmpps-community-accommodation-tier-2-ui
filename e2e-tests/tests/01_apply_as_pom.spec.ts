@@ -66,9 +66,12 @@ test('create a CAS-2 application with no OASys', async ({ page, personWithoutOas
 
 test('cancel an in progress application from the task list', async ({ page, pomUser, person }) => {
   await signIn(page, pomUser)
+  await startAnApplication(page)
+  await enterPrisonerNumber(page, person.nomsNumber)
+  await confirmApplicant(page)
   await viewInProgressDashboard(page)
   const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
-  await clickCancel(page)
+  await clickCancel(page, person.name)
   await cancelAnApplication(page, person.name)
   const numberOfApplicationsAfterCancellation = (await page.locator('tr').all()).length
   await expect(page.getByText('Your CAS-2 applications')).toBeVisible()

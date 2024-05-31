@@ -7,6 +7,8 @@ export const cancelAnApplication = async (page: Page, name: string) => {
   await cancelPage.clickButton('Confirm')
 }
 
-export const clickCancel = async (page: Page) => {
-  await page.getByRole('link', { name: 'Cancel' }).last().click()
+export const clickCancel = async (page: Page, name: string) => {
+  const tableRows = page.locator('.govuk-table__row')
+  const rowWithPersonIn = tableRows.filter({ hasText: name }).first()
+  await rowWithPersonIn.getByRole('link', { name: 'Cancel' }).click()
 }

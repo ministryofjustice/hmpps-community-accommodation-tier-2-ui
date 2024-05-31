@@ -52,7 +52,7 @@ export const enterPrisonerNumber = async (page: Page, prisonNumber: string) => {
 
 export const confirmApplicant = async (page: Page) => {
   const confirmApplicantPage = new TaskListPage(page)
-  confirmApplicantPage.clickButton('Confirm and continue')
+  await confirmApplicantPage.clickButton('Confirm and continue')
 }
 
 export const completeBeforeYouStartSection = async (page: Page, name: string) => {
