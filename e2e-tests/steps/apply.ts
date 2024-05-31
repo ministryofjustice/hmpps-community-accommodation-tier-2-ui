@@ -28,6 +28,7 @@ import {
   completeOffenceHistoryTask,
 } from './offenceAndLicenceInformationSection'
 import { completeCheckAnswersTask } from './checkAnswersSection'
+import { TestOptions } from '../testOptions'
 
 export const startAnApplication = async (page: Page) => {
   // Start page
@@ -52,7 +53,7 @@ export const enterPrisonerNumber = async (page: Page, prisonNumber: string) => {
 
 export const confirmApplicant = async (page: Page) => {
   const confirmApplicantPage = new TaskListPage(page)
-  confirmApplicantPage.clickButton('Confirm and continue')
+  await confirmApplicantPage.clickButton('Confirm and continue')
 }
 
 export const completeBeforeYouStartSection = async (page: Page, name: string) => {
@@ -135,4 +136,10 @@ export const viewApplicationMadeByAnotherUser = async (page: Page, name: string)
   const rowWithOtherUser = tableRows.filter({ hasNotText: name }).last()
   await rowWithOtherUser.getByRole('link').click()
   await expect(page.locator('h2').first()).toContainText('Application history')
+}
+
+export const createAnInProgressApplication = async (page: Page, person: TestOptions['person']) => {
+  await startAnApplication(page)
+  await enterPrisonerNumber(page, person.nomsNumber)
+  await confirmApplicant(page)
 }

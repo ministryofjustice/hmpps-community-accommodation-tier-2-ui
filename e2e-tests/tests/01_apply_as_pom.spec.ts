@@ -18,6 +18,7 @@ import {
   goToPrisonDashboard,
   checkAnApplicationByUserExists,
   viewInProgressDashboard,
+  createAnInProgressApplication,
 } from '../steps/apply'
 import { signIn } from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
@@ -66,9 +67,10 @@ test('create a CAS-2 application with no OASys', async ({ page, personWithoutOas
 
 test('cancel an in progress application from the task list', async ({ page, pomUser, person }) => {
   await signIn(page, pomUser)
+  await createAnInProgressApplication(page, person)
   await viewInProgressDashboard(page)
   const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
-  await clickCancel(page)
+  await clickCancel(page, person.name)
   await cancelAnApplication(page, person.name)
   const numberOfApplicationsAfterCancellation = (await page.locator('tr').all()).length
   await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
