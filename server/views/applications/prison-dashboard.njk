@@ -2,6 +2,7 @@
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from "../partials/table.njk" import applicationsTable %}
+{% from "../partials/applicationSoftDeleteGuidance.njk" import softDeleteGuidance %}
 
 {% set pageTitle = applicationName + " - your prison's applications"  %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -49,6 +50,8 @@
       }}
 
       {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
+
+      {{ softDeleteGuidance() }}
 
     </div>
   </div>
