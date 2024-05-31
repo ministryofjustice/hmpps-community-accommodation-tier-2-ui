@@ -6,6 +6,7 @@ import { formatLines } from './viewUtils'
 import applicationData from '../../integration_tests/fixtures/applicationData.json'
 import Apply from '../form-pages/apply'
 import { UnknownPageError } from './errors'
+import { DateFormats } from './dateUtils'
 
 jest.mock('./formUtils')
 jest.mock('./viewUtils')
@@ -20,6 +21,7 @@ const {
   getSections,
   getPage,
   getPages,
+  getApplicantDetails,
 } = checkYourAnswersUtils
 
 const { getQuestions } = getQuestionsUtil
@@ -553,5 +555,157 @@ describe('getPage', () => {
     expect(() => {
       getPage('confirm-eligibility', 'bar')
     }).toThrow(UnknownPageError)
+  })
+
+  describe('getApplicantDetails', () => {
+    it('should return applicant details in the correct format', () => {
+      const person = personFactory.build({})
+
+      const application = applicationFactory.build({ person })
+
+      const expected = [
+        {
+          key: {
+            text: 'Full name',
+          },
+          value: {
+            html: person.name,
+          },
+        },
+        {
+          key: {
+            text: 'Date of birth',
+          },
+          value: {
+            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          },
+        },
+        {
+          key: {
+            text: 'Nationality',
+          },
+          value: {
+            html: person.nationality,
+          },
+        },
+        {
+          key: {
+            text: 'Sex',
+          },
+          value: {
+            html: person.sex,
+          },
+        },
+        {
+          key: {
+            text: 'Prison number',
+          },
+          value: {
+            html: person.nomsNumber,
+          },
+        },
+        {
+          key: {
+            text: 'Prison',
+          },
+          value: {
+            html: person.prisonName,
+          },
+        },
+        {
+          key: {
+            text: 'PNC number',
+          },
+          value: {
+            html: person.pncNumber,
+          },
+        },
+        {
+          key: {
+            text: 'CRN from nDelius',
+          },
+          value: {
+            html: person.crn,
+          },
+        },
+      ]
+
+      expect(getApplicantDetails(application)).toEqual(expected)
+    })
+
+    it('should return applicant details with nationality as unknown', () => {
+      const person = personFactory.build({ nationality: null })
+
+      const application = applicationFactory.build({ person })
+
+      const expected = [
+        {
+          key: {
+            text: 'Full name',
+          },
+          value: {
+            html: person.name,
+          },
+        },
+        {
+          key: {
+            text: 'Date of birth',
+          },
+          value: {
+            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          },
+        },
+        {
+          key: {
+            text: 'Nationality',
+          },
+          value: {
+            html: 'Unknown',
+          },
+        },
+        {
+          key: {
+            text: 'Sex',
+          },
+          value: {
+            html: person.sex,
+          },
+        },
+        {
+          key: {
+            text: 'Prison number',
+          },
+          value: {
+            html: person.nomsNumber,
+          },
+        },
+        {
+          key: {
+            text: 'Prison',
+          },
+          value: {
+            html: person.prisonName,
+          },
+        },
+        {
+          key: {
+            text: 'PNC number',
+          },
+          value: {
+            html: person.pncNumber,
+          },
+        },
+        {
+          key: {
+            text: 'CRN from nDelius',
+          },
+          value: {
+            html: person.crn,
+          },
+        },
+      ]
+
+      expect(getApplicantDetails(application)).toEqual(expected)
+    })
   })
 })
