@@ -35,6 +35,13 @@ describe('MentalHealth', () => {
         )
       })
 
+      it('includes a validation error for _areIntendingToEngageWithServicesAfterCustody_', () => {
+        expect(page.errors()).toHaveProperty(
+          'areIntendingToEngageWithServicesAfterCustody',
+          'Confirm whether they are intending to engage with mental health services after custody',
+        )
+      })
+
       it('includes a validation error for _canManageMedication_', () => {
         expect(page.errors()).toHaveProperty(
           'canManageMedication',

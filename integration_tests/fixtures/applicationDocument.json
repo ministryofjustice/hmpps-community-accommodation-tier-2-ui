@@ -197,7 +197,7 @@
             { "question": "Do they have any mental health needs?", "answer": "Yes" },
             { "question": "Please describe their mental health needs.", "answer": "some mental health needs" },
             { "question": "How are they presenting?", "answer": "some presentation details" },
-            { "question": "Are they engaged with any community mental health services?", "answer": "Yes" },
+            { "question": "Were they engaged in mental health services before custody?", "answer": "Yes" },
             { "question": "Please state which services.", "answer": "some community mental health services" },
             {
               "question": "Are they engaged with any mental health services in custody?",

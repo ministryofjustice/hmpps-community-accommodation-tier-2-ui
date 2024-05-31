@@ -539,13 +539,17 @@ export const getQuestions = (name: string) => {
         needsDetail: { question: 'Please describe their mental health needs.' },
         needsPresentation: { question: 'How are they presenting?' },
         isEngagedWithCommunity: {
-          question: 'Are they engaged with any community mental health services?',
+          question: 'Were they engaged in mental health services before custody?',
           answers: yesOrNo,
         },
         servicesDetail: { question: 'Please state which services.' },
         isEngagedWithServicesInCustody: {
           question: 'Are they engaged with any mental health services in custody?',
           answers: yesOrNo,
+        },
+        areIntendingToEngageWithServicesAfterCustody: {
+          question: 'Are they intending to engage with mental health services after custody?',
+          answers: yesNoOrIDontKnow,
         },
         canManageMedication: {
           question: 'Can they manage their own mental health medication on release?',

@@ -126,6 +126,49 @@ describe('checkYourAnswersUtils', () => {
 
       expect(getTaskAnswersAsSummaryListItems('task1', mockApplication)).toEqual(expected)
     })
+
+    it('ignores page keys for pages that have been removed', () => {
+      jest.spyOn(getQuestionsUtil, 'getQuestions').mockImplementationOnce(jest.fn(() => mockQuestions))
+
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValue(jest.fn())
+
+      const mockApplication = applicationFactory.build({
+        data: {
+          task1: {
+            page1: {
+              question1: 'no',
+            },
+            'behaviour-notes': {
+              question1: 'no',
+            },
+            'behaviour-notes-data': {
+              question2: 'some answer',
+            },
+            'reducing-risk': {
+              question3: '',
+            },
+          },
+        },
+      })
+
+      const expected = [
+        {
+          key: { html: 'A question' },
+          value: { html: 'No' },
+          actions: {
+            items: [
+              {
+                href: `/applications/${mockApplication.id}/tasks/task1/pages/page1`,
+                text: 'Change',
+                visuallyHiddenText: 'A question',
+              },
+            ],
+          },
+        },
+      ]
+
+      expect(getTaskAnswersAsSummaryListItems('task1', mockApplication)).toEqual(expected)
+    })
   })
 
   describe('addPageAnswersToItemsArray', () => {
