@@ -51,7 +51,7 @@ export default class FundingSource implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
-    if (!this.body.fundingSource) {
+    if (this.body.fundingSource !== 'personalSavings' && this.body.fundingSource !== 'benefits') {
       errors.fundingSource = 'Select a funding source'
     }
     return errors

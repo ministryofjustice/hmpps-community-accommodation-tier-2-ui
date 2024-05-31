@@ -1,5 +1,5 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
-import FundingInformation from './fundingInformation'
+import FundingInformation, { FundingSources } from './fundingInformation'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('FundingInformation', () => {
@@ -33,6 +33,19 @@ describe('FundingInformation', () => {
   describe('errors', () => {
     it('should return errors when yes/no questions are blank', () => {
       const page = new FundingInformation({}, application)
+
+      expect(page.errors()).toEqual({
+        fundingSource: 'Select a funding source',
+      })
+    })
+
+    it('should return an error when the answer is both', () => {
+      const page = new FundingInformation(
+        {
+          fundingSource: 'both' as FundingSources,
+        },
+        application,
+      )
 
       expect(page.errors()).toEqual({
         fundingSource: 'Select a funding source',
