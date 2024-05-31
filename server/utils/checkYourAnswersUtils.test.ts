@@ -22,6 +22,7 @@ const {
   getPage,
   getKeysForPages,
   getApplicantDetails,
+  removeAnyOldPageKeys,
 } = checkYourAnswersUtils
 
 const { getQuestions } = getQuestionsUtil
@@ -78,10 +79,6 @@ describe('checkYourAnswersUtils', () => {
 
   describe('getTaskAnswersAsSummaryListItems', () => {
     it('returns an array of summary list items for a given task', () => {
-      jest.spyOn(getQuestionsUtil, 'getQuestions').mockImplementationOnce(jest.fn(() => mockQuestions))
-
-      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValue(jest.fn())
-
       const mockApplication = applicationFactory.build({
         data: {
           task1: {
@@ -94,6 +91,10 @@ describe('checkYourAnswersUtils', () => {
           },
         },
       })
+
+      jest.spyOn(getQuestionsUtil, 'getQuestions').mockImplementationOnce(jest.fn(() => mockQuestions))
+
+      jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValue(jest.fn())
 
       const expected = [
         {
@@ -123,14 +124,16 @@ describe('checkYourAnswersUtils', () => {
           },
         },
       ]
-
       expect(getTaskAnswersAsSummaryListItems('task1', mockApplication)).toEqual(expected)
     })
 
-    it('ignores page keys for pages that have been removed', () => {
+    it('ignores irrelevant page keys', () => {
       jest.spyOn(getQuestionsUtil, 'getQuestions').mockImplementationOnce(jest.fn(() => mockQuestions))
 
       jest.spyOn(checkYourAnswersUtils, 'getPage').mockReturnValue(jest.fn())
+
+      const removeAnyOldTaskKeysSpy = jest.spyOn(checkYourAnswersUtils, 'removeAnyOldPageKeys')
+      const addPageAnswersToItemsArraySpy = jest.spyOn(checkYourAnswersUtils, 'addPageAnswersToItemsArray')
 
       const mockApplication = applicationFactory.build({
         data: {
@@ -138,14 +141,14 @@ describe('checkYourAnswersUtils', () => {
             page1: {
               question1: 'no',
             },
-            'behaviour-notes': {
+            oldPageKey: {
               question1: 'no',
             },
-            'behaviour-notes-data': {
-              question2: 'some answer',
+            'oasys-import': {
+              question1: 'no',
             },
-            'reducing-risk': {
-              question3: '',
+            'summary-data': {
+              question2: 'some answer',
             },
           },
         },
@@ -168,6 +171,16 @@ describe('checkYourAnswersUtils', () => {
       ]
 
       expect(getTaskAnswersAsSummaryListItems('task1', mockApplication)).toEqual(expected)
+
+      expect(removeAnyOldTaskKeysSpy).toHaveBeenCalledWith(mockQuestions, 'task1', ['page1', 'oldPageKey'])
+      expect(addPageAnswersToItemsArraySpy).not.toHaveBeenCalledWith(
+        expect.anything(),
+        expect.anything(),
+        expect.anything(),
+        'oldPageKey',
+        expect.anything(),
+        expect.anything(),
+      )
     })
   })
 
@@ -525,6 +538,7 @@ describe('checkYourAnswersUtils', () => {
   describe('getKeysForPages', () => {
     it('returns an array of page keys for risk to self', () => {
       expect(getKeysForPages(application, 'risk-to-self')).toEqual([
+        'oasys-import',
         'current-risk',
         'vulnerability',
         'historical-risk',
@@ -749,6 +763,23 @@ describe('getPage', () => {
       ]
 
       expect(getApplicantDetails(application)).toEqual(expected)
+    })
+  })
+
+  describe('removeAnyOldPageKeys', () => {
+    it('should remove any task keys that appear in the application but are no longer part of the latest set of questions', () => {
+      const questions = {
+        task1: {
+          page1: { question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } } },
+          page2: { question2: { question: 'Another question' } },
+        },
+      } as unknown as Questions
+
+      const applicationPageKeys = ['page1', 'page2', 'oldPageKey']
+
+      const expected = ['page1', 'page2']
+
+      expect(removeAnyOldPageKeys(questions, 'task1', applicationPageKeys)).toEqual(expected)
     })
   })
 })

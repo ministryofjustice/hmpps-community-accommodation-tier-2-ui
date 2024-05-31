@@ -36,23 +36,26 @@ export const getTaskAnswersAsSummaryListItems = (
 ): Array<SummaryListItem | QuestionAndAnswer> => {
   const items: Array<SummaryListItem | QuestionAndAnswer> = []
 
+  // Get the latest question schema
   const questions = getQuestions(nameOrPlaceholderCopy(application.person))
 
-  const pagesKeys = getKeysForPages(application, task)
+  // Get the page keys stored on the application at creation
+  const applicationPageKeys = getKeysForPages(application, task).filter(key => pagesWeNeverWantToPresent(key) === false)
 
-  pagesKeys.forEach(pageKey => {
-    if (!['behaviour-notes', 'behaviour-notes-data', 'reducing-risk'].includes(pageKey)) {
-      addPageAnswersToItemsArray({
-        items,
-        application,
-        task,
-        pageKey,
-        questions,
-        outputFormat,
-      })
-    }
+  // Filter out any keys that are no longer in the latest question schema
+  const relevantPagesKeys = removeAnyOldPageKeys(questions, task, applicationPageKeys)
+
+  // For each page key we know we have a matching question for, prepare it for display
+  relevantPagesKeys.forEach(pageKey => {
+    addPageAnswersToItemsArray({
+      items,
+      application,
+      task,
+      pageKey,
+      questions,
+      outputFormat,
+    })
   })
-
   return items
 }
 
@@ -174,7 +177,6 @@ export const getSections = (): Array<FormSection> => {
 }
 
 export const getKeysForPages = (application: Application, task: string) => {
-  const pagesWithoutQuestions = ['summary-data', 'oasys-import']
   const pages = application.data[task]
 
   // Allow viewing of the CYA page with incomplete tasks
@@ -184,7 +186,7 @@ export const getKeysForPages = (application: Application, task: string) => {
 
   const pagesKeys = Object.keys(pages)
 
-  return pagesKeys.filter(pageKey => !pagesWithoutQuestions.includes(pageKey))
+  return pagesKeys
 }
 
 const containsQuestions = (questionKeys: Array<string>): boolean => {
@@ -292,4 +294,15 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
       },
     },
   ]
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const removeAnyOldPageKeys = (questions: any, task: string, applicationPageKeys: string[]): string[] => {
+  const latestPageKeys = Object.keys(questions[task])
+  const matchedKeys = latestPageKeys.filter(key => applicationPageKeys.includes(key))
+  return matchedKeys
+}
+
+const pagesWeNeverWantToPresent = (key: string): boolean => {
+  return ['summary-data', 'oasys-import'].includes(key)
 }
