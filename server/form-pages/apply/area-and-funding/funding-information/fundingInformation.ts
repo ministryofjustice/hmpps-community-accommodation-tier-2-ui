@@ -1,13 +1,9 @@
-import type { Radio, TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
-
-const benefitsHint =
-  'This includes Housing Benefit and Universal Credit, Disability Living Allowance, and Employment and Support Allowance'
 
 export type FundingSources = 'personalSavings' | 'benefits'
 
@@ -26,7 +22,7 @@ export default class FundingSource implements TaskListPage {
 
   title = `Funding information for ${this.personName}`
 
-  questions: Record<string, string>
+  questions
 
   options: Record<string, string>
 
@@ -39,10 +35,7 @@ export default class FundingSource implements TaskListPage {
     this.body = body as FundingSourceBody
 
     const applicationQuestions = getQuestions(this.personName)
-    this.questions = {
-      fundingSource: applicationQuestions['funding-information']['funding-source'].fundingSource.question,
-    }
-    this.options = applicationQuestions['funding-information']['funding-source'].fundingSource.answers
+    this.questions = applicationQuestions['funding-information']['funding-source']
   }
 
   previous() {
@@ -58,22 +51,9 @@ export default class FundingSource implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
-    if (!this.body.fundingSource) {
+    if (this.body.fundingSource !== 'personalSavings' && this.body.fundingSource !== 'benefits') {
       errors.fundingSource = 'Select a funding source'
     }
     return errors
-  }
-
-  items() {
-    const items = convertKeyValuePairToRadioItems(this.options, this.body.fundingSource) as [Radio]
-    items.forEach(radio => {
-      if (radio.value === 'benefits') {
-        radio.hint = { text: benefitsHint }
-      }
-    })
-
-    const both = items.pop()
-
-    return [...items, { divider: 'or' }, { ...both }]
   }
 }

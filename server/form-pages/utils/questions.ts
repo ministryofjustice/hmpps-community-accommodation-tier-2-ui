@@ -411,10 +411,10 @@ export const getQuestions = (name: string) => {
       'funding-source': {
         fundingSource: {
           question: `How will ${name} pay for their accommodation and service charge?`,
+          hint: 'Applicants must pay for a weekly service charge using their personal money or wages. This service charge is not eligible to be covered by Housing Benefit.',
           answers: {
-            personalSavings: 'Personal money or savings',
-            benefits: 'Benefits',
-            both: 'Both',
+            personalSavings: 'Personal money or wages',
+            benefits: 'Housing Benefit and personal money or wages',
           },
         },
       },

@@ -122,11 +122,8 @@ context('Visit area and funding section', () => {
     cy.get('h1').contains('How will Roger Smith pay for their accommodation and service charge')
 
     // And I see the expected answers
-    cy.get('label').contains('Personal money or savings')
-    cy.get('label').contains('Benefits')
-    cy.get('.govuk-hint.govuk-radios__hint').contains(
-      'This includes Housing Benefit and Universal Credit, Disability Living Allowance, and Employment and Support Allowance',
-    )
+    cy.get('label').contains('Personal money or wages')
+    cy.get('label').contains('Housing Benefit and personal money or wages')
   })
 
   // Scenario: answer is enforced
