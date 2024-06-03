@@ -767,19 +767,27 @@ describe('getPage', () => {
   })
 
   describe('removeAnyOldPageKeys', () => {
-    it('should remove any task keys that appear in the application but are no longer part of the latest set of questions', () => {
+    it('should remove any page keys that appear in the application but are no longer part of the latest set of questions', () => {
       const questions = {
         task1: {
           page1: { question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } } },
           page2: { question2: { question: 'Another question' } },
         },
       } as unknown as Questions
-
       const applicationPageKeys = ['page1', 'page2', 'oldPageKey']
-
       const expected = ['page1', 'page2']
-
       expect(removeAnyOldPageKeys(questions, 'task1', applicationPageKeys)).toEqual(expected)
     })
+  })
+  it('should retain ACCT, current offences and historic offences even where they do not appear in the question schema', () => {
+    const questions = {
+      task1: {
+        page1: { question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } } },
+        page2: { question2: { question: 'Another question' } },
+      },
+    } as unknown as Questions
+    const applicationPageKeys = ['page1', 'page2', 'oldPageKey', 'acct', 'current-offences', 'offence-history']
+    const expected = ['page1', 'page2', 'acct', 'current-offences', 'offence-history']
+    expect(removeAnyOldPageKeys(questions, 'task1', applicationPageKeys)).toEqual(expected)
   })
 })

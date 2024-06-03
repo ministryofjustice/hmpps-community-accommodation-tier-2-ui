@@ -299,10 +299,11 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const removeAnyOldPageKeys = (questions: any, task: string, applicationPageKeys: string[]): string[] => {
   const latestPageKeys = Object.keys(questions[task])
-  const matchedKeys = latestPageKeys.filter(key => applicationPageKeys.includes(key))
+  const matchedKeys = applicationPageKeys.filter(
+    key => latestPageKeys.includes(key) || ['acct', 'current-offences', 'offence-history'].includes(key),
+  )
   return matchedKeys
 }
-
 const pagesWeNeverWantToPresent = (key: string): boolean => {
   return ['summary-data', 'oasys-import'].includes(key)
 }
