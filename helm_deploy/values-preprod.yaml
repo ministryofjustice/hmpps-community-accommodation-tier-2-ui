@@ -23,7 +23,5 @@ generic-service:
       AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
       AUDIT_SQS_QUEUE_NAME: 'sqs_queue_name'
 
-  allowlist: null
-
 generic-prometheus-alerts:
   alertSeverity: digital-prison-service-dev

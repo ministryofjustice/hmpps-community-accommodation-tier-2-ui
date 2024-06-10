@@ -56,9 +56,8 @@ generic-service:
       REDIS_HOST: "primary_endpoint_address"
       REDIS_AUTH_TOKEN: "auth_token"
 
-  allowlist:
-    groups:
-      - internal
+  # CAS2 relies on MFA for managing access and therefore does not require allowlists, see: https://dsdmoj.atlassian.net/wiki/x/R4G2DgE
+  allowlist: null
 
 generic-prometheus-alerts:
   targetApplication: hmpps-community-accommodation-tier-2-ui
