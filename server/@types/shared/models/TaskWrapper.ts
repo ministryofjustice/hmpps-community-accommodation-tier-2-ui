@@ -6,6 +6,9 @@ import type { Task } from './Task';
 import type { UserWithWorkload } from './UserWithWorkload';
 export type TaskWrapper = {
     task: Task;
+    /**
+     * Users to which this task can be allocated
+     */
     users: Array<UserWithWorkload>;
 };
 
