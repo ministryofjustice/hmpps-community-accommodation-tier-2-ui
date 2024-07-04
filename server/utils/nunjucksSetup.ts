@@ -34,6 +34,7 @@ import * as TaskListUtils from './taskListUtils'
 import { initialiseName, removeBlankSummaryListItems, stringToKebabCase, camelToKebabCase } from './utils'
 import { pagination } from './pagination'
 import { formatLines } from './viewUtils'
+import * as PhaseBannerUtils from './phaseBannerUtils'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -128,4 +129,5 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('pagination', pagination)
 
   njkEnv.addGlobal('arePreTaskListTasksIncomplete', arePreTaskListTasksIncomplete)
+  njkEnv.addGlobal('PhaseBannerUtils', PhaseBannerUtils)
 }

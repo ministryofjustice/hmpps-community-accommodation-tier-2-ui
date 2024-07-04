@@ -49,5 +49,6 @@ context('Applications dashboard', () => {
     // And I see a confirmation page
     const applicationSubmittedPage = Page.verifyOnPage(ApplicationSubmittedPage, this.application)
     applicationSubmittedPage.shouldShowApplicationDetails()
+    applicationSubmittedPage.shouldShowLinkToFeedbackSurvey()
   })
 })
