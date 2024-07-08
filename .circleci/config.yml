@@ -10,12 +10,12 @@ parameters:
     type: string
     # Normally team specific alert channel e.g. hmpps_tech_alerts, syscon-alerts, dps_sed_alerts
     # This is to avoid a general alert dumping ground that no-one then monitors
-    default: hmpps-cas-2-team-events
+    default: cas-events
 
   releases-slack-channel:
     type: string
     # Normally dps-releases for most teams / projects
-    default: hmpps-cas-2-team-events
+    default: cas-events
 
   node-version:
     type: string
@@ -188,6 +188,10 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: test-results
+      - slack/notify:
+          event: fail
+          channel: << pipeline.parameters.alerts-slack-channel >>
+          template: basic_fail_1
 
 workflows:
   build-test-and-deploy:
@@ -267,19 +271,19 @@ workflows:
           requires:
             - request-preprod-approval
       - request-prod-approval:
-           type: approval
-           requires:
-             - deploy_preprod
+          type: approval
+          requires:
+            - deploy_preprod
       - hmpps/deploy_env:
-           name: deploy_prod
-           env: "prod"
-           slack_notification: true
-           slack_channel_name: << pipeline.parameters.releases-slack-channel >>
-           context:
-             - hmpps-common-vars
-             - hmpps-community-accommodation-tier-2-ui-prod
-           requires:
-             - request-prod-approval
+          name: deploy_prod
+          env: "prod"
+          slack_notification: true
+          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
+          context:
+            - hmpps-common-vars
+            - hmpps-community-accommodation-tier-2-ui-prod
+          requires:
+            - request-prod-approval
 
   security:
     triggers:
