@@ -11,5 +11,6 @@ export type Cancellation = {
     notes?: string;
     createdAt: string;
     premisesName: string;
+    otherReason?: string;
 };
 
