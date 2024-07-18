@@ -2,4 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PersonType = 'FullPerson' | 'RestrictedPerson' | 'UnknownPerson';
+import type { PersonSummary } from './PersonSummary';
+export type RestrictedPersonSummary = PersonSummary;
+
