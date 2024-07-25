@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PersonType = 'FullPerson' | 'RestrictedPerson' | 'UnknownPerson';
+export type Cas1OutOfServiceBedStatus = 'active' | 'cancelled';
