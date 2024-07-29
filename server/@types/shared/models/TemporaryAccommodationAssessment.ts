@@ -12,5 +12,7 @@ export type TemporaryAccommodationAssessment = (Assessment & {
     allocatedToStaffMember?: TemporaryAccommodationUser;
     status?: TemporaryAccommodationAssessmentStatus;
     summaryData: AnyValue;
+    releaseDate?: string;
+    accommodationRequiredFromDate?: string;
 });
 
