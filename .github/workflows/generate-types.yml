@@ -30,5 +30,4 @@ jobs:
           commit-message: 'Updating hmpps-approved-premises-api models from OpenAPI specification'
           body: 'Updating hmpps-approved-premises-api models from OpenAPI specification.  This PR was created automatically from the generate-types.yml Workflow'
           delete-branch: true
-          branch-suffix: timestamp
           branch: update-api-types
