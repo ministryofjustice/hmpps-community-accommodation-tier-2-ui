@@ -2,9 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AnyValue } from './AnyValue';
-export type SubmitApplication = {
-    type: string;
-    translatedDocument?: AnyValue;
+/**
+ * A generic stub for an object with a name and an ID.
+ */
+export type NamedId = {
+    id: string;
+    name: string;
 };
 
