@@ -2,7 +2,11 @@
 
 {% extends "../layout.njk" %}
 {% block questions %}
-  <span class="govuk-caption-l">{{ page.title }}</span>
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.asianBackground.question }}
+  {% endset%}
+  
 
   {% set optionalAsianBackground %}
   {{
@@ -23,7 +27,7 @@
         fieldName: "asianBackground",
         fieldset: {
           legend: {
-            text: page.questions.asianBackground.question,
+            html: pageTitleHTML,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }

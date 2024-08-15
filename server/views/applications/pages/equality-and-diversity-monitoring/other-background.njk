@@ -2,10 +2,13 @@
 
 {% extends "../layout.njk" %}
 {% block questions %}
-  <span class="govuk-caption-l">{{ page.title }}</span>
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.otherBackground.question }}
+  {% endset%}
 
   {% set optionalOtherBackground %}
-  {{
+    {{
       formPageInput(
         {
           label: { text: page.questions.optionalOtherBackground.question},
@@ -23,7 +26,7 @@
         fieldName: "otherBackground",
         fieldset: {
           legend: {
-            text: page.questions.otherBackground.question,
+            html: pageTitleHTML,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }

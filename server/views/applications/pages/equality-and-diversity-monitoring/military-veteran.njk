@@ -2,7 +2,10 @@
 
 {% extends "../layout.njk" %}
 {% block questions %}
-  <span class="govuk-caption-l">{{ page.title }}</span>
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.isVeteran.question }}
+  {% endset%}
 
   {{
     formPageRadios(
@@ -10,7 +13,7 @@
         fieldName: "isVeteran",
         fieldset: {
           legend: {
-            text: page.questions.isVeteran.question,
+            html: pageTitleHTML,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }

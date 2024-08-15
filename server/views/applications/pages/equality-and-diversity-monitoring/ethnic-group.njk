@@ -2,13 +2,23 @@
 
 {% extends "../layout.njk" %}
 {% block questions %}
-  <span class="govuk-caption-l">{{ page.title }}</span>
-  <h1 class="govuk-heading-l">{{ page.questions.ethnicGroup.question }}</h1>
+
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.ethnicGroup.question }}
+  {% endset%}
 
   {{
     formPageRadios(
       {
         fieldName: "ethnicGroup",
+        fieldset: {
+          legend: {
+            html: pageTitleHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
         items: page.items()
       },
       fetchContext()
