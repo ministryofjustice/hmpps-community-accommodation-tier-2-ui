@@ -3,11 +3,14 @@
 {% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
 
 {% block questions %}
-  <span class="govuk-caption-l">{{ page.title }}</span>
-  <h1 class="govuk-heading-l">{{ page.questions.hasDisability.question }}</h1>
+
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.hasDisability.question }}
+  {% endset%}
 
   {% set otherDisability %}
-  {{
+    {{
       formPageInput(
         {
           label: { text: page.questions.otherDisability.question},
@@ -20,7 +23,7 @@
   {% endset -%}
 
   {% set typeOfDisability %}
-  {{ 
+    {{ 
       formPageCheckboxes(
           {
             fieldName: "typeOfDisability",
@@ -44,6 +47,13 @@
     formPageRadios(
       {
         fieldName: "hasDisability",
+        fieldset: {
+          legend: {
+            html: pageTitleHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
         items: page.items(typeOfDisability)
       },
       fetchContext()

@@ -3,8 +3,6 @@
 {% extends "../layout.njk" %}
 
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.questions.hasPreviousAddress.question }}</h1>
-
   {% set knownAddress %}
   {% call govukFieldset({
         legend: {
@@ -157,12 +155,17 @@
   {% endset -%}
 
   {{
-    formPageRadios(
-      {
-        fieldName: "hasPreviousAddress",
-        items: page.items(knownAddress, lastKnownAddress)
+    formPageRadios({
+      fieldName: "hasPreviousAddress",
+      fieldset: {
+        legend: {
+          text: page.questions.hasPreviousAddress.question,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
       },
-      fetchContext()
-    )
-  }}
+      items: page.items(knownAddress, lastKnownAddress)
+    },
+    fetchContext()
+  )}}
 {% endblock %}

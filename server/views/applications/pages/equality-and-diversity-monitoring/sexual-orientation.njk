@@ -2,8 +2,10 @@
 
 {% extends "../layout.njk" %}
 {% block questions %}
-  <span class="govuk-caption-l">{{ page.title }}</span>
-  <h1 class="govuk-heading-l">{{ page.questions.orientation.question }}</h1>
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.orientation.question }}
+  {% endset%}
 
   {% set otherOrientation %}
   {{
@@ -22,6 +24,13 @@
     formPageRadios(
       {
         fieldName: "orientation",
+        fieldset: {
+          legend: {
+            html: pageTitleHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
         items: page.items(otherOrientation)
       },
       fetchContext()
