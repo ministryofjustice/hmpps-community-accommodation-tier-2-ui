@@ -31,6 +31,7 @@ describe('AlternativeIdentification', () => {
       const conditional = 'some html'
 
       const expected = [
+        { divider: 'Work and employment' },
         { checked: false, text: 'Employer letter/contract of employment', value: 'contract' },
         { checked: false, text: 'Trade union membership card', value: 'tradeUnion' },
         { checked: false, text: 'Invoices (self-employed)', value: 'invoice' },

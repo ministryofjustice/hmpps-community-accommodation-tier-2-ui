@@ -4,8 +4,6 @@
 {% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
 
 {% block questions %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ page.title }}</h1>
-
   {% set otherID %}
   {{  
     formPageInput(
@@ -23,6 +21,13 @@
     formPageCheckboxes(
         {
           fieldName: "alternativeIDDocuments",
+          fieldset: {
+            legend: {
+              text: page.title,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
           hint: {
             html: page.hintHtml
           },
@@ -59,17 +64,17 @@
     document.addEventListener('DOMContentLoaded', function () {
       // 'no' checkbox sets the others to unchecked
       document
-        .getElementById('alternativeIDDocuments-34')
+        .getElementById('alternativeIDDocuments-35')
         .addEventListener('click', () => {
           document
-            .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-34)')
+            .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-35)')
             .forEach(checkbox => checkbox.checked = false)
         });
       // clicking any arrangement checkbox sets 'no' to unchecked
       document
-        .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-34)')
+        .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-35)')
         .forEach(checkbox => {
-          checkbox.addEventListener('click', () => setCheckedToFalseById('alternativeIDDocuments-34'));
+          checkbox.addEventListener('click', () => setCheckedToFalseById('alternativeIDDocuments-35'));
         })
     });
   </script>
