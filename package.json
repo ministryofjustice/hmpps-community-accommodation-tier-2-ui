@@ -21,6 +21,7 @@
     "record-build-info": "node ./bin/record-build-info",
     "shellcheck": "node_modules/.bin/shellcheck ./script/*[^utils][^data] ./script/utils/**",
     "lint": "eslint . --cache --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix",
     "typecheck": "tsc && tsc -p integration_tests",
     "test": "jest --collectCoverage",
     "test:ci": "jest --collectCoverage --runInBand --coverageThreshold=\"{}\"",
