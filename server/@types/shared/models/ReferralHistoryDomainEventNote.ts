@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * Any object that conforms to the current JSON schema for an application
- */
-export type AnyValue = Record<string, any>;
+import type { ReferralHistoryNote } from './ReferralHistoryNote';
+export type ReferralHistoryDomainEventNote = ReferralHistoryNote;
+

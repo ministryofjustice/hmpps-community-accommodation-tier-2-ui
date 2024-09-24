@@ -10,6 +10,8 @@ export type BedSearchResultPremisesSummary = {
     addressLine2?: string;
     town?: string;
     postcode: string;
+    probationDeliveryUnitName?: string;
+    notes?: string;
     characteristics: Array<CharacteristicPair>;
     /**
      * the total number of Beds in the Premises

@@ -3,6 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Any object that conforms to the current JSON schema for an application
+ * A generic stub for an object with a name and an ID.
  */
-export type AnyValue = Record<string, any>;
+export type NamedId = {
+    id: string;
+    name: string;
+};
+

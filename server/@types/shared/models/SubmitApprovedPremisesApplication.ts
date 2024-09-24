@@ -20,6 +20,9 @@ export type SubmitApprovedPremisesApplication = (SubmitApplication & {
     sentenceType: SentenceTypeOption;
     situation?: SituationOption;
     arrivalDate?: string;
+    /**
+     * If the user's ap area id is incorrect, they can optionally override it for the application
+     */
     apAreaId?: string;
     applicantUserDetails?: Cas1ApplicationUserDetails;
     caseManagerIsNotApplicant?: boolean;
