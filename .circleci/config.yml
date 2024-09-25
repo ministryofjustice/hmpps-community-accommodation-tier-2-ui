@@ -183,11 +183,8 @@ jobs:
           name: Run E2E tests
           command: npm run test:e2e
       - store_artifacts:
-          path: playwright-report
-          destination: playwright-report
-      - store_artifacts:
-          path: test-results
-          destination: test-results
+          path: test_results/playwright-report
+          destination: test_results/playwright-report
       - slack/notify:
           event: fail
           channel: << pipeline.parameters.alerts-slack-channel >>
