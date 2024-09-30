@@ -25,7 +25,7 @@
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
-import RiskFactorsPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskFactorsPage'
+import RiskManagementArrangementsPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskManagementArrangementsPage'
 
 context('Visit "risk to others" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -108,7 +108,7 @@ context('Visit "risk to others" page', () => {
     //    When I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I see the "Risk factors" page
-    Page.verifyOnPage(RiskFactorsPage, this.application)
+    //    Then I see the "risk management arrangements" page
+    Page.verifyOnPage(RiskManagementArrangementsPage, this.application)
   })
 })

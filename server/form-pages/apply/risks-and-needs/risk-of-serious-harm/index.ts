@@ -2,7 +2,6 @@ import { Task } from '../../../utils/decorators'
 import OasysImport from './custom-forms/oasysImport'
 import Summary from './summary'
 import RiskToOthers from './riskToOthers'
-import RiskFactors from './riskFactors'
 import RiskManagementArrangements from './riskManagementArrangements'
 import CellShareInformation from './cellShareInformation'
 import AdditionalRiskInformation from './additionalRiskInformation'
@@ -16,7 +15,6 @@ import OldOasys from './oldOasys'
     Summary,
     OldOasys,
     RiskToOthers,
-    RiskFactors,
     RiskManagementArrangements,
     CellShareInformation,
     AdditionalRiskInformation,

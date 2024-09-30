@@ -740,19 +740,6 @@ export const getQuestions = (name: string) => {
           answers: { confirmed: 'Confirmed' },
         },
       },
-      'risk-factors': {
-        circumstancesLikelyToIncreaseRisk: {
-          question: 'What circumstances are likely to increase risk?',
-        },
-        whenIsRiskLikelyToBeGreatest: {
-          question: 'When is the risk likely to be greatest?',
-          hint: 'Consider the timescale and indicate whether risk is immediate or not.',
-        },
-        confirmation: {
-          question: 'I confirm this information is relevant and up to date.',
-          answers: { confirmed: 'Confirmed' },
-        },
-      },
       'risk-management-arrangements': {
         arrangements: {
           question: `Is ${name} subject to any of these multi-agency risk management arrangements upon release?`,

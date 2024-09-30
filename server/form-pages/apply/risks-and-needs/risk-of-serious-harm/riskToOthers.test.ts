@@ -21,7 +21,7 @@ describe('RiskToOthers', () => {
     })
   })
 
-  itShouldHaveNextValue(new RiskToOthers({}, application), 'risk-factors')
+  itShouldHaveNextValue(new RiskToOthers({}, application), 'risk-management-arrangements')
   itShouldHavePreviousValue(new RiskToOthers({}, application), 'summary')
 
   describe('errors', () => {

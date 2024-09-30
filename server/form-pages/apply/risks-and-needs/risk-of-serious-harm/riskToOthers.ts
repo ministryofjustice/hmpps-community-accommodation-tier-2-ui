@@ -43,7 +43,7 @@ export default class RiskToOthers implements TaskListPage {
   }
 
   next() {
-    return 'risk-factors'
+    return 'risk-management-arrangements'
   }
 
   errors() {
