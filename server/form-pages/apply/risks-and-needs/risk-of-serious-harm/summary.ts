@@ -67,7 +67,7 @@ export default class Summary implements TaskListPage {
   }
 
   next() {
-    return 'risk-to-others'
+    return 'who-is-at-risk'
   }
 
   errors() {

@@ -38,7 +38,7 @@ export default class OldOasys implements TaskListPage {
   }
 
   next() {
-    return 'risk-to-others'
+    return 'who-is-at-risk'
   }
 
   response() {

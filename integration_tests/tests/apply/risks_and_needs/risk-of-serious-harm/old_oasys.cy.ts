@@ -14,12 +14,12 @@
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I give a valid answer
 //    And I continue to the next task / page
-//    Then I see the "Risk to others" page
+//    Then I see the "Who is at risk" page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import OldOasysPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/oldOasysPage'
-import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
+import WhoIsAtRiskPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/whoIsAtRiskPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -72,7 +72,7 @@ context('Visit "Risks and needs" section', () => {
     //  And I continue to the next task / page
     page.clickSubmit()
 
-    //  Then I see the "Risk to others" page
-    Page.verifyOnPage(RiskToOthersPage, this.application)
+    //  Then I see the "Who is at risk" page
+    Page.verifyOnPage(WhoIsAtRiskPage, this.application)
   })
 })

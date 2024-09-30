@@ -23,7 +23,7 @@ describe('OldOasys', () => {
     })
   })
 
-  itShouldHaveNextValue(new OldOasys({}, application), 'risk-to-others')
+  itShouldHaveNextValue(new OldOasys({}, application), 'who-is-at-risk')
   itShouldHavePreviousValue(new OldOasys({}, application), 'taskList')
 
   describe('errors', () => {

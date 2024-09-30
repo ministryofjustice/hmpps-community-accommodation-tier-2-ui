@@ -9,48 +9,48 @@ import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
 import { hasOasys } from '../../../../utils/applicationUtils'
 
-type RiskToOthersBody = { whoIsAtRisk: string; natureOfRisk: string; confirmation: string }
+type WhoIsAtRiskBody = { whoIsAtRisk: string; confirmation: string }
 
 @Page({
-  name: 'risk-to-others',
-  bodyProperties: ['whoIsAtRisk', 'natureOfRisk', 'confirmation'],
+  name: 'who-is-at-risk',
+  bodyProperties: ['whoIsAtRisk', 'confirmation'],
 })
-export default class RiskToOthers implements TaskListPage {
-  documentTitle = 'Risk to others for the person'
+export default class WhoIsAtRisk implements TaskListPage {
+  documentTitle = 'People at risk from the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Risk to others for ${this.personName}`
+  title = `People at risk from ${this.personName}`
 
-  body: RiskToOthersBody
+  body: WhoIsAtRiskBody
 
-  questions = getQuestions(this.personName)['risk-of-serious-harm']['risk-to-others']
+  questions = getQuestions(this.personName)['risk-of-serious-harm']['who-is-at-risk']
 
   importDate = getOasysImportDateFromApplication(this.application, 'risk-of-serious-harm')
 
   hasOasysRecord: boolean
 
   constructor(
-    body: Partial<RiskToOthersBody>,
+    body: Partial<WhoIsAtRiskBody>,
     private readonly application: Application,
   ) {
-    this.body = body as RiskToOthersBody
+    this.body = body as WhoIsAtRiskBody
     this.hasOasysRecord = hasOasys(application, 'risk-of-serious-harm')
   }
 
   previous() {
-    return 'who-is-at-risk'
+    return 'summary'
   }
 
   next() {
-    return 'risk-management-arrangements'
+    return 'risk-to-others'
   }
 
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.natureOfRisk) {
-      errors.natureOfRisk = errorLookups.natureOfRisk.empty
+    if (!this.body.whoIsAtRisk) {
+      errors.whoIsAtRisk = errorLookups.whoIsAtRisk.empty
     }
     if (!this.body.confirmation) {
       errors.confirmation = errorLookups.oasysConfirmation.empty

@@ -728,10 +728,16 @@ export const getQuestions = (name: string) => {
           hint: `For example, ${dateExample}`,
         },
       },
-      'risk-to-others': {
+      'who-is-at-risk': {
         whoIsAtRisk: {
-          question: 'Who is at risk?',
+          question: `Who is at risk?`,
         },
+        confirmation: {
+          question: 'I confirm this information is relevant and up to date.',
+          answers: { confirmed: 'Confirmed' },
+        },
+      },
+      'risk-to-others': {
         natureOfRisk: {
           question: 'What is the nature of the risk?',
         },

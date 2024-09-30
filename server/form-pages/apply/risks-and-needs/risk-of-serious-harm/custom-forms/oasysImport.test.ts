@@ -72,8 +72,10 @@ describe('OasysImport', () => {
               oasysStartedDate: oasys.dateStarted,
               oasysCompletedDate: oasys.dateCompleted,
             },
-            'risk-to-others': {
+            'who-is-at-risk': {
               whoIsAtRisk: 'who is at risk answer',
+            },
+            'risk-to-others': {
               natureOfRisk: 'nature of risk answer',
             },
             'oasys-import': { oasysImportedDate: now },

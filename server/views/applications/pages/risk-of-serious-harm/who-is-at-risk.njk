@@ -2,19 +2,31 @@
 {% extends "./_risk-of-serious-harm-screen.njk" %}
 {% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
 
-{% set pageName = "risk-to-others" %}
+{% set pageName = "who-is-at-risk" %}
 
 {% block questions %}
   {% if page.importDate %}
     {{dateOfOasysImport(page.importDate)}}
   {% endif %}
 
+
+
+  <p class="govuk-body">The risk to children, the public, known adults or staff.</p>
+  <p class="govuk-body">You should include:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>full names of anyone at risk, if known and currently at risk</li>
+    <li>their relationship to the applicant where appropriate, their location, or state if this is not known</li>
+  </ul>
+
+  <p class="govuk-body">For example: “The applicant's ex-partner, Tina Hopkins, is considered at risk. They live with their mother in Lewes.”</p>
+
   {{
       formPageTextArea(
         {
-          fieldName: 'natureOfRisk',
+          fieldName: 'whoIsAtRisk',
           label: {
-            text: page.questions.natureOfRisk.question,
+            text: page.questions.whoIsAtRisk.question,
             classes: "govuk-label--m"
           }
         },

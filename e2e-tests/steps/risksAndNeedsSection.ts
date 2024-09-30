@@ -206,6 +206,7 @@ export const completeRoshTask = async (page: Page, name: string) => {
 
   await reviewRoshOasysImportPage(page, name)
   await completeRoshSummaryPage(page, name)
+  await completeWhoIsAtRiskPage(page)
   await completeRiskToOthersPage(page)
   await completeRiskManagementArrangementsPage(page, name)
   await completeCellShareInformationPage(page, name)
@@ -243,6 +244,11 @@ async function reviewRoshOasysImportPage(page: Page, name: string) {
 async function completeRoshSummaryPage(page: Page, name: string) {
   const summaryPage = await ApplyPage.initialize(page, `Risk of serious harm (RoSH) summary for ${name}`)
   await summaryPage.clickSave()
+}
+
+async function completeWhoIsAtRiskPage(page: Page) {
+  const whoIsAtRiskPage = new TaskListPage(page)
+  await confirmAndSave(whoIsAtRiskPage)
 }
 
 async function completeRiskToOthersPage(page: Page) {

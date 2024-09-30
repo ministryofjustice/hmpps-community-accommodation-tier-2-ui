@@ -18,8 +18,10 @@ export type RoshTaskData = {
     summary: RoshRisksEnvelope & {
       oasysImportedDate: Date
     }
-    'risk-to-others': {
+    'who-is-at-risk': {
       whoIsAtRisk: string
+    }
+    'risk-to-others': {
       natureOfRisk: string
     }
   }
@@ -119,8 +121,8 @@ export default class OasysImport implements TaskListPage {
     oasysSections.rosh.forEach(question => {
       switch (question.questionNumber) {
         case 'R10.1':
-          taskData['risk-of-serious-harm']['risk-to-others'] = {
-            ...taskData['risk-of-serious-harm']['risk-to-others'],
+          taskData['risk-of-serious-harm']['who-is-at-risk'] = {
+            ...taskData['risk-of-serious-harm']['who-is-at-risk'],
             whoIsAtRisk: question.answer,
           }
           break

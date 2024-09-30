@@ -22,13 +22,13 @@
 //  Scenario: navigate to next page in "Risk of serious harm" task
 //    When I add an additional comment
 //    And I continue to the next task / page
-//    Then I see the "Risk to others" page
+//    Then I see the "Who is at risk" page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import RoshSummaryPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/roshSummaryPage'
-import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
 import { SummaryData } from '../../../../../server/form-pages/apply/risks-and-needs/risk-of-serious-harm/summary'
+import WhoIsAtRiskPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/whoIsAtRiskPage'
 
 context('Visit "RoSH summary" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -130,7 +130,7 @@ context('Visit "RoSH summary" page', () => {
     //    When I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I see the "Risk to others" page
-    Page.verifyOnPage(RiskToOthersPage, this.application)
+    //    Then I see the "Who is at risk" page
+    Page.verifyOnPage(WhoIsAtRiskPage, this.application)
   })
 })

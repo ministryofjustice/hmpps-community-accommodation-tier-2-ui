@@ -272,8 +272,11 @@
     "summary": {
       "additionalComments": "some rosh comments"
     },
-    "risk-to-others": {
+    "who-is-at-risk": {
       "whoIsAtRisk": "a person",
+      "confirmation": "confirmed"
+    },
+    "risk-to-others": {
       "natureOfRisk": "a nature",
       "confirmation": "confirmed"
     },

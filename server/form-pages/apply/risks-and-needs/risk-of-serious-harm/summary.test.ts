@@ -99,7 +99,7 @@ describe('Summary', () => {
     })
   })
 
-  itShouldHaveNextValue(new Summary({}, applicationWithSummaryData), 'risk-to-others')
+  itShouldHaveNextValue(new Summary({}, applicationWithSummaryData), 'who-is-at-risk')
   itShouldHavePreviousValue(new Summary({}, applicationWithSummaryData), 'taskList')
 
   describe('response', () => {
