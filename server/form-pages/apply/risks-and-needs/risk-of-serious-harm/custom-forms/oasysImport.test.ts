@@ -55,16 +55,6 @@ describe('OasysImport', () => {
             answer: 'nature of risk answer',
           },
           {
-            label: 'When is the risk likely to be the greatest',
-            questionNumber: 'R10.3',
-            answer: 'risk likely to be greatest answer',
-          },
-          {
-            label: 'What circumstances are likely to increase risk',
-            questionNumber: 'R10.4',
-            answer: 'circumstances likely to increase risk answer',
-          },
-          {
             label: 'What circumstances are likely to reduce the risk',
             questionNumber: 'R10.5',
             answer: 'circumstances likely to reduce risk answer',
@@ -85,10 +75,6 @@ describe('OasysImport', () => {
             'risk-to-others': {
               whoIsAtRisk: 'who is at risk answer',
               natureOfRisk: 'nature of risk answer',
-            },
-            'risk-factors': {
-              whenIsRiskLikelyToBeGreatest: 'risk likely to be greatest answer',
-              circumstancesLikelyToIncreaseRisk: 'circumstances likely to increase risk answer',
             },
             'oasys-import': { oasysImportedDate: now },
           },
@@ -136,7 +122,6 @@ describe('OasysImport', () => {
         const roshData = {
           'risk-of-serious-harm': {
             'oasys-import': { oasysImportedDate: now },
-            'risk-factors': { circumstancesLikelyToIncreaseRisk: 'some answer' },
           },
         } as RoshTaskData
 

@@ -68,16 +68,6 @@ context('Visit "Risks and needs" section', () => {
           answer: 'what answer',
         },
         {
-          questionNumber: 'R10.3',
-          label: 'When is the risk likely to be the greatest',
-          answer: 'when answer',
-        },
-        {
-          questionNumber: 'R10.4',
-          label: 'What circumstances are likely to increase risk',
-          answer: 'circumstances increase answer',
-        },
-        {
           questionNumber: 'R10.5',
           label: 'What circumstances are likely to reduce the risk',
           answer: 'circumstances reduce answer',
@@ -218,7 +208,6 @@ context('Visit "Risks and needs" section', () => {
       expect(body.data['risk-of-serious-harm']).to.have.keys(
         'summary',
         'summary-data',
-        'risk-factors',
         'oasys-import',
         'risk-to-others',
       )

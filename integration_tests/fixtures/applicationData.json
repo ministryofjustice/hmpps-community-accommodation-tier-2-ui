@@ -277,11 +277,6 @@
       "natureOfRisk": "a nature",
       "confirmation": "confirmed"
     },
-    "risk-factors": {
-      "circumstancesLikelyToIncreaseRisk": "a circumstance",
-      "whenIsRiskLikelyToBeGreatest": "a time",
-      "confirmation": "confirmed"
-    },
     "risk-management-arrangements": {
       "arrangements": ["mappa", "marac", "iom"],
       "mappaDetails": "mappa details",

@@ -22,10 +22,6 @@ export type RoshTaskData = {
       whoIsAtRisk: string
       natureOfRisk: string
     }
-    'risk-factors': {
-      circumstancesLikelyToIncreaseRisk: string
-      whenIsRiskLikelyToBeGreatest: string
-    }
   }
 }
 
@@ -132,18 +128,6 @@ export default class OasysImport implements TaskListPage {
           taskData['risk-of-serious-harm']['risk-to-others'] = {
             ...taskData['risk-of-serious-harm']['risk-to-others'],
             natureOfRisk: question.answer,
-          }
-          break
-        case 'R10.3':
-          taskData['risk-of-serious-harm']['risk-factors'] = {
-            ...taskData['risk-of-serious-harm']['risk-factors'],
-            whenIsRiskLikelyToBeGreatest: question.answer,
-          }
-          break
-        case 'R10.4':
-          taskData['risk-of-serious-harm']['risk-factors'] = {
-            ...taskData['risk-of-serious-harm']['risk-factors'],
-            circumstancesLikelyToIncreaseRisk: question.answer,
           }
           break
         default:
