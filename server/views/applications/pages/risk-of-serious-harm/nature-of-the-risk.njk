@@ -1,0 +1,56 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "./_risk-of-serious-harm-screen.njk" %}
+{% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
+
+{% set pageName = "nature-of-the-risk" %}
+
+{% block questions %}
+  {% if page.importDate %}
+    {{dateOfOasysImport(page.importDate)}}
+  {% endif %}
+
+  <p class="govuk-body">The property supplier needs to know</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>what the type of risk is for children, the public, known adults or staff, for example physical or psychological abuse</li>
+    <li>details of the last incident, if known</li>
+    <li>factors that could increase the risk</li>
+    <li>if social services or domestic abuse agencies have been involved</li>
+    <li>if there are any safeguarding measures in place</li>
+  </ul>
+
+  <p class="govuk-body">
+    For example: “Current or ex-partners: psychological and physical abuse when the applicant has been drinking alcohol.
+    Domestic abuse services have never been involved. The applicant has been abstinent and will continue to engage with
+    drug and alcohol services.”
+  </p>
+
+  {{
+    formPageTextArea(
+      {
+        fieldName: 'natureOfRisk',
+        label: {
+          text: page.questions.natureOfRisk.question,
+          classes: "govuk-label--m"
+        }
+      },
+      fetchContext()
+    )
+  }}
+
+  {% if page.hasOasysRecord %}
+    {{ govukInsetText({
+      text: "If you have noticed information in OASys is out of date, you should tell the person responsible for updating OASys."
+    }) }}
+  {% endif %}
+
+  {{ 
+      formPageCheckboxes(
+          {
+            fieldName: "confirmation",
+            items: page.items()
+          }, 
+          fetchContext()
+      ) 
+  }}
+
+{% endblock %}

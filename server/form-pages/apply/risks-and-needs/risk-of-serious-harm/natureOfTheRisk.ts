@@ -9,32 +9,32 @@ import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
 import { hasOasys } from '../../../../utils/applicationUtils'
 
-type RiskToOthersBody = { whoIsAtRisk: string; natureOfRisk: string; confirmation: string }
+type NatureOfTheRisksBody = { natureOfRisk: string; confirmation: string }
 
 @Page({
-  name: 'risk-to-others',
-  bodyProperties: ['whoIsAtRisk', 'natureOfRisk', 'confirmation'],
+  name: 'nature-of-the-risk',
+  bodyProperties: ['natureOfRisk', 'confirmation'],
 })
-export default class RiskToOthers implements TaskListPage {
-  documentTitle = 'Risk to others for the person'
+export default class NatureOfTheRisk implements TaskListPage {
+  documentTitle = 'Nature of the risk from the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Risk to others for ${this.personName}`
+  title = `Nature of the risk from ${this.personName}`
 
-  body: RiskToOthersBody
+  body: NatureOfTheRisksBody
 
-  questions = getQuestions(this.personName)['risk-of-serious-harm']['risk-to-others']
+  questions = getQuestions(this.personName)['risk-of-serious-harm']['nature-of-the-risk']
 
   importDate = getOasysImportDateFromApplication(this.application, 'risk-of-serious-harm')
 
   hasOasysRecord: boolean
 
   constructor(
-    body: Partial<RiskToOthersBody>,
+    body: Partial<NatureOfTheRisksBody>,
     private readonly application: Application,
   ) {
-    this.body = body as RiskToOthersBody
+    this.body = body as NatureOfTheRisksBody
     this.hasOasysRecord = hasOasys(application, 'risk-of-serious-harm')
   }
 

@@ -43,7 +43,7 @@ export default class WhoIsAtRisk implements TaskListPage {
   }
 
   next() {
-    return 'risk-to-others'
+    return 'nature-of-the-risk'
   }
 
   errors() {

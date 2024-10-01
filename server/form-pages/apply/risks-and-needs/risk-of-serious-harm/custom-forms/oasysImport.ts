@@ -21,7 +21,7 @@ export type RoshTaskData = {
     'who-is-at-risk': {
       whoIsAtRisk: string
     }
-    'risk-to-others': {
+    'nature-of-the-risk': {
       natureOfRisk: string
     }
   }
@@ -127,8 +127,8 @@ export default class OasysImport implements TaskListPage {
           }
           break
         case 'R10.2':
-          taskData['risk-of-serious-harm']['risk-to-others'] = {
-            ...taskData['risk-of-serious-harm']['risk-to-others'],
+          taskData['risk-of-serious-harm']['nature-of-the-risk'] = {
+            ...taskData['risk-of-serious-harm']['nature-of-the-risk'],
             natureOfRisk: question.answer,
           }
           break

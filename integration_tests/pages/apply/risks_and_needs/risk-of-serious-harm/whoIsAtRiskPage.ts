@@ -9,7 +9,7 @@ export default class WhoIsAtRiskPage extends ApplyPage {
       `People at risk from ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'risk-of-serious-harm',
-      'risk-to-others',
+      'who-is-at-risk',
     )
   }
 

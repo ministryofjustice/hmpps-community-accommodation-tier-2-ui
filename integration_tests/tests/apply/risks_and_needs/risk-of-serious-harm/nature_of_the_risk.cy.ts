@@ -1,33 +1,33 @@
-//  Feature: Referrer completes 'risk to others' page
+//  Feature: Referrer completes 'nature of the risk' page
 //    So that I can complete the "Risk of serious harm" task
 //    As a referrer
-//    I want to complete the 'risk to others' page
+//    I want to complete the 'nature of the risk' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I visit the 'risk to others' page
+//    And I visit the 'nature of the risk' page
 //
-//  Scenario: view 'risk to others' page
-//    Then I see the "risk to others" page
+//  Scenario: view 'nature of the risk' page
+//    Then I see the "nature of the risk" page
 //    And I can click through to the RoSH summary
 //
 //  Scenario: view 'risk to others' page with auto-populated OASyS data
-//    Then I see the "risk to others" page
+//    Then I see the "nature of the risk" page
 //    With an OASyS import date
 //    And pre-filled questions
 //
 //  Scenario: navigate to next page in "Risk of serious harm" task
-//    When I complete the 'risk to others' page
+//    When I complete the 'nature of the risk' page
 //    When I continue to the next task / page
-//    Then I see the "Risk factors" page
+//    Then I see the "Risk management arrangements" page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
+import NatureOfTheRiskPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/natureOfTheRiskPage'
 import RiskManagementArrangementsPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskManagementArrangementsPage'
 
-context('Visit "risk to others" page', () => {
+context('Visit "nature of the risk" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
@@ -65,30 +65,30 @@ context('Visit "risk to others" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the 'risk to others' page
+    // And I visit the 'nature of the risk' page
     // --------------------------------
-    RiskToOthersPage.visit(this.application)
+    NatureOfTheRiskPage.visit(this.application)
   })
 
-  //  Scenario: view 'risk to others' page
+  //  Scenario: view 'nature of the risk' page
   // ----------------------------------------------
 
-  it('presents risk to others page', function test() {
-    //    Then I see the "risk to others" page
-    const page = Page.verifyOnPage(RiskToOthersPage, this.application)
+  it('presents nature of the risk page', function test() {
+    //    Then I see the "nature of the risk" page
+    const page = Page.verifyOnPage(NatureOfTheRiskPage, this.application)
 
     // And I can click through to the RoSH summary
     page.shouldContainRoshSummaryLink()
   })
 
-  //  Scenario: view 'risk to others' page with auto-populated OASyS data
+  //  Scenario: view 'nature of the risk' page with auto-populated OASyS data
   // ----------------------------------------------
 
-  it('presents auto-populated risk to others page', function test() {
+  it('presents auto-populated nature of the risk page', function test() {
     cy.task('stubApplicationGet', { application: this.applicationWithData })
-    RiskToOthersPage.visit(this.application)
-    //    Then I see the "risk to others" page
-    const page = Page.verifyOnPage(RiskToOthersPage, this.applicationWithData)
+    NatureOfTheRiskPage.visit(this.application)
+    //    Then I see the "nature of the risk" page
+    const page = Page.verifyOnPage(NatureOfTheRiskPage, this.applicationWithData)
     //    With an OASyS import date
     page.shouldShowOasysImportDate(this.applicationWithData, 'risk-of-serious-harm')
     //    And pre-filled questions
@@ -99,7 +99,7 @@ context('Visit "risk to others" page', () => {
   // ----------------------------------------------
   it('navigates to the next page', function test() {
     // When I complete the 'risk to others' page
-    const page = Page.verifyOnPage(RiskToOthersPage, this.application)
+    const page = Page.verifyOnPage(NatureOfTheRiskPage, this.application)
     page.getTextInputByIdAndEnterDetails('natureOfRisk', 'nature of risk')
     page.clickConfirm()
 

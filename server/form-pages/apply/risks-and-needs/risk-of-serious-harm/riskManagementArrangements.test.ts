@@ -14,7 +14,7 @@ describe('RiskManagementArrangements', () => {
   })
 
   itShouldHaveNextValue(new RiskManagementArrangements({}, application), 'cell-share-information')
-  itShouldHavePreviousValue(new RiskManagementArrangements({}, application), 'risk-to-others')
+  itShouldHavePreviousValue(new RiskManagementArrangements({}, application), 'nature-of-the-risk')
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {

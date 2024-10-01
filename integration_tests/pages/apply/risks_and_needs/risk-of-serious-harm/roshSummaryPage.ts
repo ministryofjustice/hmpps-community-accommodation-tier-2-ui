@@ -11,7 +11,7 @@ export default class RoshSummaryPage extends ApplyPage {
       `Risk of serious harm (RoSH) summary for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'risk-of-serious-harm',
-      'who-is-at-risk',
+      'summary',
     )
   }
 

@@ -21,7 +21,7 @@ describe('whoIsAtRisk', () => {
     })
   })
 
-  itShouldHaveNextValue(new WhoIsAtRisk({}, application), 'risk-to-others')
+  itShouldHaveNextValue(new WhoIsAtRisk({}, application), 'nature-of-the-risk')
   itShouldHavePreviousValue(new WhoIsAtRisk({}, application), 'summary')
 
   describe('errors', () => {

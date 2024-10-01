@@ -25,7 +25,7 @@
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import WhoIsAtRiskPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/whoIsAtRiskPage'
-import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
+import NatureOfTheRiskPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/natureOfTheRiskPage'
 
 context('Visit "who is at risk" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -107,6 +107,6 @@ context('Visit "who is at risk" page', () => {
     page.clickSubmit()
 
     //    Then I see the "risk to others" page
-    Page.verifyOnPage(RiskToOthersPage, this.application)
+    Page.verifyOnPage(NatureOfTheRiskPage, this.application)
   })
 })

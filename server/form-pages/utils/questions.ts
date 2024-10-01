@@ -737,7 +737,7 @@ export const getQuestions = (name: string) => {
           answers: { confirmed: 'Confirmed' },
         },
       },
-      'risk-to-others': {
+      'nature-of-the-risk': {
         natureOfRisk: {
           question: 'What is the nature of the risk?',
         },

@@ -204,12 +204,15 @@ context('Visit "Risks and needs" section', () => {
 
       const body = JSON.parse(requests[0].body)
 
+      cy.task('log', body.data['risk-of-serious-harm'])
+
       expect(body.data['risk-of-serious-harm']['oasys-import']).to.have.keys('oasysImportedDate')
       expect(body.data['risk-of-serious-harm']).to.have.keys(
         'summary',
         'summary-data',
         'oasys-import',
-        'risk-to-others',
+        'nature-of-the-risk',
+        'who-is-at-risk',
       )
       expect(body.data['risk-of-serious-harm']['summary-data']).to.have.keys(
         'status',

@@ -75,7 +75,7 @@ describe('OasysImport', () => {
             'who-is-at-risk': {
               whoIsAtRisk: 'who is at risk answer',
             },
-            'risk-to-others': {
+            'nature-of-the-risk': {
               natureOfRisk: 'nature of risk answer',
             },
             'oasys-import': { oasysImportedDate: now },
