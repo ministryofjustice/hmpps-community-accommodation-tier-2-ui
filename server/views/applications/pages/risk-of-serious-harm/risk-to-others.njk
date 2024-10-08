@@ -4,6 +4,36 @@
 
 {% set pageName = "risk-to-others" %}
 
+{% set whoIsAtRiskHintHTML %}
+  <p class="govuk-body">The risk to children, the public, known adults or staff.</p>
+  <p class="govuk-body">You should include:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>full names of anyone at risk, if known and currently at risk</li>
+    <li>their relationship to the applicant where appropriate, their location, or state if this is not known</li>
+  </ul>
+
+  <p class="govuk-body">For example: “The applicant's ex-partner, Tina Hopkins, is considered at risk. They live with their mother in Lewes.”</p>
+{% endset %}
+
+{% set natureOfRiskHintHTML %}
+		<p class="govuk-body">The property supplier needs to know</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>what the type of risk is for children, the public, known adults or staff, for example physical or psychological abuse</li>
+    <li>details of the last incident, if known</li>
+    <li>factors that could increase the risk</li>
+    <li>if social services or domestic abuse agencies have been involved</li>
+    <li>if there are any safeguarding measures in place</li>
+  </ul>
+
+  <p class="govuk-body">
+    For example: “Current or ex-partners: psychological and physical abuse when the applicant has been drinking alcohol.
+    Domestic abuse services have never been involved. The applicant has been abstinent and will continue to engage with
+    drug and alcohol services.”
+  </p>
+{% endset %}
+
 {% block questions %}
   {% if page.importDate %}
     {{dateOfOasysImport(page.importDate)}}
@@ -16,6 +46,9 @@
           label: {
             text: page.questions.whoIsAtRisk.question,
             classes: "govuk-label--m"
+          },
+          hint: {
+            html: whoIsAtRiskHintHTML
           }
         },
         fetchContext()
@@ -29,6 +62,9 @@
           label: {
             text: page.questions.natureOfRisk.question,
             classes: "govuk-label--m"
+          },
+          hint: {
+            html: natureOfRiskHintHTML
           }
         },
         fetchContext()
