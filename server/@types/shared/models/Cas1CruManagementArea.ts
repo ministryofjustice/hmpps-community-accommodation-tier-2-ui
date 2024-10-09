@@ -2,4 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserQualification = 'pipe' | 'lao' | 'emergency' | 'esap' | 'recovery_focused' | 'mental_health_specialist';
+export type Cas1CruManagementArea = {
+    id: string;
+    name: string;
+};
+

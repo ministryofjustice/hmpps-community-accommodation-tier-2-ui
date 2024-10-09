@@ -9,13 +9,22 @@ import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplic
 import type { ApType } from './ApType';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
+import type { Cas1CruManagementArea } from './Cas1CruManagementArea';
 import type { GenderForAp } from './GenderForAp';
 import type { PersonRisks } from './PersonRisks';
 import type { PersonStatus } from './PersonStatus';
 export type ApprovedPremisesApplication = (Application & {
     isWomensApplication?: boolean;
+    /**
+     * Use apType
+     * @deprecated
+     */
     isPipeApplication?: boolean;
     isEmergencyApplication?: boolean;
+    /**
+     * Use apType
+     * @deprecated
+     */
     isEsapApplication?: boolean;
     apType?: ApType;
     arrivalDate?: string;
@@ -32,6 +41,7 @@ export type ApprovedPremisesApplication = (Application & {
     submittedAt?: string;
     personStatusOnSubmission?: PersonStatus;
     apArea?: ApArea;
+    cruManagementArea?: Cas1CruManagementArea;
     applicantUserDetails?: Cas1ApplicationUserDetails;
     /**
      * If true, caseManagerUserDetails will provide case manager details. Otherwise, applicantUserDetails can be used for case manager details
