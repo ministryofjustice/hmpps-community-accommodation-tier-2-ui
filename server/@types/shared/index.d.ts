@@ -85,6 +85,7 @@ export type { Cancellation } from './models/Cancellation';
 export type { CancellationReason } from './models/CancellationReason';
 export type { Cas1ApplicationTimelinessCategory } from './models/Cas1ApplicationTimelinessCategory';
 export type { Cas1ApplicationUserDetails } from './models/Cas1ApplicationUserDetails';
+export type { Cas1CruManagementArea } from './models/Cas1CruManagementArea';
 export type { Cas1OutOfServiceBed } from './models/Cas1OutOfServiceBed';
 export type { Cas1OutOfServiceBedCancellation } from './models/Cas1OutOfServiceBedCancellation';
 export type { Cas1OutOfServiceBedReason } from './models/Cas1OutOfServiceBedReason';
