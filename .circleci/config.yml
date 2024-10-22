@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   hmpps: ministryofjustice/hmpps@7
   slack: circleci/slack@4.12.1
-  node: circleci/node@5.1.0
+  node: circleci/node@6.2.0
 
 parameters:
   alerts-slack-channel:
@@ -19,7 +19,7 @@ parameters:
 
   node-version:
     type: string
-    default: 18.17-browsers
+    default: 20.18-browsers
 
 executors:
   integration-tests:
@@ -39,7 +39,7 @@ jobs:
       - checkout
       - run:
           name: Update npm
-          command: 'sudo npm install -g npm@10.1.0'
+          command: 'sudo npm install -g npm@10.8.2'
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
