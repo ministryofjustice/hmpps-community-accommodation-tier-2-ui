@@ -679,7 +679,7 @@ describe('getPage', () => {
         },
         {
           key: {
-            text: 'CRN from nDelius',
+            text: 'CRN from NDelius',
           },
           value: {
             html: person.crn,
@@ -754,7 +754,7 @@ describe('getPage', () => {
         },
         {
           key: {
-            text: 'CRN from nDelius',
+            text: 'CRN from NDelius',
           },
           value: {
             html: person.crn,

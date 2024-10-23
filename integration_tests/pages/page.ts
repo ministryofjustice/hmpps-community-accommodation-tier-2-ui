@@ -168,7 +168,7 @@ export default abstract class Page {
           cy.get('dd').invoke('text').should('contain', person.prisonName)
         })
       this.checkTermAndDescription('PNC number', person.pncNumber)
-      this.checkTermAndDescription('CRN from nDelius', person.crn)
+      this.checkTermAndDescription('CRN from NDelius', person.crn)
     })
   }
 

@@ -22,7 +22,7 @@ export default class ConfirmApplicantPage extends Page {
       ['Prison number', applicant.nomsNumber],
       ['Prison', applicant.prisonName],
       ['PNC number', applicant.pncNumber],
-      ['CRN from nDelius', applicant.crn],
+      ['CRN from NDelius', applicant.crn],
       ['Status', applicant.status === 'InCommunity' ? 'In Community' : 'In Custody'],
     ]
     cy.get('.govuk-summary-list').within(() => {

@@ -849,7 +849,7 @@ export const getQuestions = (name: string) => {
         nonStandardLicenceConditions: {
           question: `Does ${name} have any non-standard licence conditions?`,
           answers: yesNoOrIDontKnow,
-          hint: 'Check with their Community Probation Practitioner (CPP), also known as Community Offender Manager (COM). Non-standard licence conditions may also be in nDelius.',
+          hint: 'Check with their Community Probation Practitioner (CPP), also known as Community Offender Manager (COM). Non-standard licence conditions may also be in NDelius.',
         },
         nonStandardLicenceConditionsDetail: {
           question: 'Describe the conditions',
