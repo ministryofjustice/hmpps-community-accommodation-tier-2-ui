@@ -17,5 +17,9 @@ export type BedSearchResultPremisesSummary = {
      * the total number of Beds in the Premises
      */
     bedCount: number;
+    /**
+     * the total number of booked Beds in the Premises
+     */
+    bookedBedCount?: number;
 };
 
