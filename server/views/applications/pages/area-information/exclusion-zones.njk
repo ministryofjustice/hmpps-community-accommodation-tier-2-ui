@@ -4,21 +4,6 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block questions %}
-  {% set exclusionZonesDetailHintHtml %}
-  <p class="govuk-hint">Include:</p>
-
-  <ul class="govuk-list govuk-list--bullet govuk-hint">
-    <li>
-        where the applicant is excluded from
-      </li>
-    <li>
-        the reason for the exclusion zone. For example, domestic abuse
-      </li>
-    <li>
-        full names of any victims so we can avoid placing the applicant near them
-      </li>
-  </ul>
-  {% endset %}
 
   {% set exclusionZonesDetailHtml %}
   {{
@@ -42,6 +27,16 @@
 
   <p>You must include all of {{ page.personName }}'s exclusion zones from licence conditions, restraining orders and injunctions.</p>
 
+  <p>If there is an exclusion zone, include the following safeguarding details:</p>
+    
+  <ul class="govuk-list govuk-list--bullet">
+    <li>which area(s) the applicant is excluded from</li>
+    <li>the reason for the exclusion, for example domestic abuse</li>
+    <li>how long it lasts</li>
+    <li>full names of people it's protecting, to avoid placing the applicant near them </li>
+    <li>what the conditions are</li>
+  </ul>
+  
   <p>Check with {{ page.personName }}'s Community Probation Practitioner (CPP), also known as Community Offender Manager (COM), for exclusion zone details.</p>
 
   {{ govukInsetText({

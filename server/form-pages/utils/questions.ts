@@ -382,7 +382,7 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
         exclusionZonesDetail: {
-          question: 'Provide details about the exclusion zone',
+          question: 'Provide the required safeguarding details about the exclusion zone',
         },
       },
       'gang-affiliations': {
