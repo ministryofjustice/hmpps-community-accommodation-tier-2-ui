@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BedSearchAttributes = 'sharedProperty' | 'singleOccupancy';
+export type BedSearchAttributes = 'sharedProperty' | 'singleOccupancy' | 'wheelchairAccessible';
