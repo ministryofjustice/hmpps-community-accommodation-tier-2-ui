@@ -17,5 +17,6 @@ export type TemporaryAccommodationApplication = (Application & {
     submittedAt?: string;
     arrivalDate?: string;
     offenceId: string;
+    assessmentId?: string;
 });
 
