@@ -42,5 +42,6 @@ export type SubmitApprovedPremisesApplication = (SubmitApplication & {
     noticeType?: Cas1ApplicationTimelinessCategory;
     reasonForShortNotice?: string;
     reasonForShortNoticeOther?: string;
+    licenseExpiryDate?: string;
 });
 

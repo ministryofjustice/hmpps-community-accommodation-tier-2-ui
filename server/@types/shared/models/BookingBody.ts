@@ -14,6 +14,10 @@ export type BookingBody = {
     departureDate: string;
     originalDepartureDate: string;
     createdAt: string;
+    /**
+     * KeyWorker is a legacy field only used by CAS1. It is not longer being captured or populated
+     * @deprecated
+     */
     keyWorker?: StaffMember;
     serviceName: ServiceName;
     bed?: Bed;
