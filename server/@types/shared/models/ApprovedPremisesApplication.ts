@@ -10,7 +10,6 @@ import type { ApType } from './ApType';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { Cas1CruManagementArea } from './Cas1CruManagementArea';
-import type { GenderForAp } from './GenderForAp';
 import type { PersonRisks } from './PersonRisks';
 import type { PersonStatus } from './PersonStatus';
 export type ApprovedPremisesApplication = (Application & {
@@ -48,6 +47,6 @@ export type ApprovedPremisesApplication = (Application & {
      */
     caseManagerIsNotApplicant?: boolean;
     caseManagerUserDetails?: Cas1ApplicationUserDetails;
-    genderForAp?: GenderForAp;
+    licenceExpiryDate?: string;
 });
 

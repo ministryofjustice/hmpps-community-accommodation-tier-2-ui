@@ -9,5 +9,6 @@ export type BookingSummary = {
     arrivalDate: string;
     departureDate: string;
     createdAt: string;
+    type: 'space' | 'legacy';
 };
 
