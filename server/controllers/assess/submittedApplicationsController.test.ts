@@ -125,7 +125,21 @@ describe('submittedApplicationsController', () => {
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
-          assessmentHasExistingData: false,
+          actions: [
+            {
+              text: 'Download as a PDF',
+              classes: 'govuk-!-display-none-print',
+              attributes: { 'data-print-btn': true },
+            },
+            {
+              text: 'Add assessment details',
+              href: paths.assessmentDetails.show({ id: submittedApplication.id }),
+              classes: 'govuk-!-display-none-print',
+              attributes: {
+                'data-testid': 'add-assessment-details',
+              },
+            },
+          ],
         })
       })
     })
@@ -152,7 +166,65 @@ describe('submittedApplicationsController', () => {
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
-          assessmentHasExistingData: false,
+          actions: [
+            {
+              text: 'Download as a PDF',
+              classes: 'govuk-!-display-none-print',
+              attributes: { 'data-print-btn': true },
+            },
+            {
+              text: 'Add assessment details',
+              href: paths.assessmentDetails.show({ id: submittedApplicationWithoutStatus.id }),
+              classes: 'govuk-!-display-none-print',
+              attributes: {
+                'data-testid': 'add-assessment-details',
+              },
+            },
+          ],
+        })
+      })
+    })
+
+    describe('when the assessment has existing data', () => {
+      it('renders template', async () => {
+        const submittedApplicationWithoutStatus = submittedApplicationFactory.build({
+          submittedBy: { name: 'POM Name' },
+          submittedAt: '2023-10-17T08:42:38+01:00',
+          assessment: assessmentFactory.build({ statusUpdates: [] }),
+        })
+        submittedApplicationService.findApplication.mockResolvedValue(submittedApplicationWithoutStatus)
+        ;(assessmentHasExistingData as jest.Mock).mockImplementation(() => {
+          return true
+        })
+
+        const requestHandler = submittedApplicationsController.overview()
+        await requestHandler(request, response, next)
+
+        expect(paths.submittedApplications.overview({ id: submittedApplicationWithoutStatus.id })).toEqual(
+          `/assess/applications/${submittedApplicationWithoutStatus.id}/overview`,
+        )
+
+        expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
+          application: submittedApplicationWithoutStatus,
+          status: 'Received',
+          errors: {},
+          errorSummary: [],
+          pageHeading: `Overview of application`,
+          actions: [
+            {
+              text: 'Download as a PDF',
+              classes: 'govuk-!-display-none-print',
+              attributes: { 'data-print-btn': true },
+            },
+            {
+              text: 'Change assessment details',
+              href: paths.assessmentDetails.show({ id: submittedApplicationWithoutStatus.id }),
+              classes: 'govuk-!-display-none-print',
+              attributes: {
+                'data-testid': 'add-assessment-details',
+              },
+            },
+          ],
         })
       })
     })

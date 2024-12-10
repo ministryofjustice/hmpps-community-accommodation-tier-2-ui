@@ -47,13 +47,33 @@ export default class SubmittedApplicationsController {
         ? application.assessment.statusUpdates[0].label
         : 'Received'
 
+      const assessmentLinkText = assessmentHasExistingData(application.assessment)
+        ? 'Change assessment details'
+        : 'Add assessment details'
+
+      const actions = [
+        {
+          text: 'Download as a PDF',
+          classes: 'govuk-!-display-none-print',
+          attributes: { 'data-print-btn': true },
+        },
+        {
+          text: assessmentLinkText,
+          href: assessPaths.assessmentDetails.show({ id: application.id }),
+          classes: 'govuk-!-display-none-print',
+          attributes: {
+            'data-testid': 'add-assessment-details',
+          },
+        },
+      ]
+
       return res.render('assess/applications/overview', {
         application,
         status,
         errors,
         errorSummary,
         pageHeading: 'Overview of application',
-        assessmentHasExistingData: assessmentHasExistingData(application.assessment),
+        actions,
       })
     }
   }
