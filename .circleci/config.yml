@@ -41,12 +41,12 @@ jobs:
           name: Update npm
           command: 'sudo npm install -g npm@10.8.2'
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}-1
       - run:
           name: Install Dependencies
           command: npm ci --no-audit
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}-1
           paths:
             - node_modules
             - ~/.cache
@@ -86,7 +86,7 @@ jobs:
       - attach_workspace:
           at: ~/app
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}-1
       - run:
           name: Run unit tests
           command: |
@@ -134,7 +134,7 @@ jobs:
           name: Install missing OS dependency
           command: sudo apt-get install libxss1
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}-1
       - run:
           name: Get wiremock
           command: curl -o wiremock.jar https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.1.0/wiremock-standalone-3.1.0.jar
