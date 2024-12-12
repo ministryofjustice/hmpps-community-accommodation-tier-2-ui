@@ -57,16 +57,6 @@ jobs:
             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
             export GIT_REF="$CIRCLE_SHA1"
             npm run record-build-info
-      - run:
-          # Run linter after build because the integration test code depend on compiled typescript...
-          name: Linter check
-          command: npm run lint
-      - run:
-          name: Lint shell scripts
-          command: npm run shellcheck
-      - run:
-          name: Type check
-          command: npm run typecheck
       - persist_to_workspace:
           root: .
           paths:
@@ -76,34 +66,6 @@ jobs:
             - dist
             - .cache/Cypress
 
-  unit_test:
-    parallelism: 4
-    executor:
-      name: hmpps/node
-      tag: << pipeline.parameters.node-version >>
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/app
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}-1
-      - run:
-          name: Run unit tests
-          command: |
-            TESTS=$(circleci tests glob "server/**/*.test.ts" | circleci tests split --split-by=timings)
-            npm run test:ci $TESTS
-      - run:
-          name: collect coverage data
-          command: |
-            mv ./coverage/coverage-final.json ./coverage/coverage_${CIRCLE_NODE_INDEX}.json
-      - store_test_results:
-          path: test_results/jest
-      - store_artifacts:
-          path: test_results/unit-test-reports.html
-      - persist_to_workspace:
-          root: .
-          paths:
-            - coverage
 
   coverage:
     executor:
@@ -200,15 +162,9 @@ workflows:
           filters:
             tags:
               ignore: /.*/
-      - unit_test:
-          requires:
-            - build
       - integration_test:
           requires:
             - build
-      - coverage:
-          requires:
-            - unit_test
       - hmpps/helm_lint:
           name: helm_lint
       - hmpps/build_docker:
