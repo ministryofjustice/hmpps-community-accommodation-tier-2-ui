@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  pull_request:
+
+env:
+  NODE_ENV: test
+  API_CLIENT_ID: approved-premises
+  API_CLIENT_SECRET: clientsecret
+
+jobs:
+  type_checking:
+    name: "Type check 🔎"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Pulling the latest type from the API repo
+        run: npm run generate-types
+
+      - name: Typechecking the code
+        run: npm run typecheck
+
+  linting:
+    name: "Linting 🔎"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running Lint checks 🔎
+        run: npm run lint
+
+      - name: Running shellcheck checks 🔎
+        run: npm run shellcheck
+
+  unit_test:
+    name: "Unit testing 🧪"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running Unit tests
+        run: npm run test:ci
+
+  integration_test:
+    name: "Integration testing 🧪"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Building source
+        run: npm run build
+
+      - name: Running Integration tests
+        run: npm run test:integration
