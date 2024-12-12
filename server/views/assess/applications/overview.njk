@@ -45,7 +45,8 @@
       <div class="actions-menu">
         {{ mojButtonMenu({
           "button": {
-              "text": "Actions"
+              "text": "Actions",
+              "classes": "govuk-!-display-none-print"
           },
           "items": actions
         }) }}
@@ -127,9 +128,5 @@
 
 {% block extraScripts %}
 {{ printButtonScript(cspNonce) }}
-
-<script type="text/javascript" nonce="{{ cspNonce }}">
-new MOJFrontend.ButtonMenu({container: $('.moj-button-menu'), mq: "(min-width: 200em)", buttonText: "Actions", buttonClasses: "govuk-!-display-none-print"});
-</script>
 
 {% endblock %}
