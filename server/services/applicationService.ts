@@ -1,10 +1,5 @@
 import type { Request } from 'express'
-import {
-  AnyValue,
-  Cas2Application as Application,
-  Cas2Application,
-  Cas2ApplicationSummary,
-} from '@approved-premises/api'
+import { Unit, Cas2Application as Application, Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
 import type { DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -92,23 +87,18 @@ export default class ApplicationService {
   }
 
   private addPageDataToApplicationData(
-    applicationData: AnyValue,
+    applicationData: Unit,
     taskName: string,
     pageName: string,
     page: TaskListPage,
-  ): AnyValue {
+  ): Unit {
     const newApplicationData = applicationData || {}
     newApplicationData[taskName] = newApplicationData[taskName] || {}
     newApplicationData[taskName][pageName] = page.body
     return newApplicationData
   }
 
-  private deleteCheckYourAnswersIfPageChange(
-    applicationData: AnyValue,
-    pageName: string,
-    oldBody: AnyValue,
-    newBody: AnyValue,
-  ) {
+  private deleteCheckYourAnswersIfPageChange(applicationData: Unit, pageName: string, oldBody: Unit, newBody: Unit) {
     const checkYourAnswersTaskName = getTaskName(CheckYourAnswers)
     const checkYourAnswersPageName = getPageName(CheckYourAnswers)
 
@@ -125,7 +115,7 @@ export default class ApplicationService {
     return applicationData
   }
 
-  async saveData(taskData: AnyValue, request: Request) {
+  async saveData(taskData: Unit, request: Request) {
     const application = await this.findApplication(request.user.token, request.params.id)
     const client = this.applicationClientFactory(request.user.token)
 
