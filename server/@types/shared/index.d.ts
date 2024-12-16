@@ -259,6 +259,7 @@ export type { TimelineEventType } from './models/TimelineEventType';
 export type { TimelineEventUrlType } from './models/TimelineEventUrlType';
 export type { TriggerSourceType } from './models/TriggerSourceType';
 export type { Turnaround } from './models/Turnaround';
+export type { Unit } from './models/Unit';
 export type { UnknownPerson } from './models/UnknownPerson';
 export type { UnknownPersonSummary } from './models/UnknownPersonSummary';
 export type { UpdateApplication } from './models/UpdateApplication';
