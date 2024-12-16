@@ -1,8 +1,8 @@
-import { AnyValue } from '@approved-premises/api'
+import { Unit } from '@approved-premises/api'
 import { lastKnownKeys, previousKeys } from '../../form-pages/apply/about-the-person/address-history/previousAddress'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-and-licence-information/offending-history/anyPreviousConvictions'
 
-export default function deleteOrphanedFollowOnAnswers(applicationData: AnyValue): AnyValue {
+export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
   const deleteOrphanedFundingInformation = () => {
     delete applicationData['funding-information'].identification
     delete applicationData['funding-information']['alternative-identification']
