@@ -28,7 +28,7 @@
     "test:nocov": "jest --collectCoverage=false",
     "test:full": "script/test",
     "security_audit": "npx audit-ci --config audit-ci.json",
-    "int-test": "cypress run --config video=false",
+    "int-test": "cypress run --config video=true",
     "int-test-ui": "cypress open",
     "checks": "script/checks",
     "generate-types": "script/generate-types",
