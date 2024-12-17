@@ -44,7 +44,7 @@ export interface AuditConfig {
 export default {
   production,
   https: production,
-  staticResourceCacheDuration: '1h',
+  staticResourceCacheDuration: 20,
   redis: {
     host: get('REDIS_HOST', 'localhost', requiredInProduction),
     port: parseInt(process.env.REDIS_PORT, 10) || 6379,

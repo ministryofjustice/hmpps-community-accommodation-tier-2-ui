@@ -14,6 +14,7 @@ export default defineConfig({
   screenshotsFolder: 'integration_tests/screenshots',
   trashAssetsBeforeRuns: true,
   downloadsFolder: 'integration_tests/downloads',
+  video: true,
   videosFolder: 'integration_tests/videos',
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
