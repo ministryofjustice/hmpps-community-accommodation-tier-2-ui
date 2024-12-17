@@ -2,14 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ArrayOfOASysRiskOfSeriousHarmSummaryQuestions } from './ArrayOfOASysRiskOfSeriousHarmSummaryQuestions';
 import type { OASysAssessmentId } from './OASysAssessmentId';
 import type { OASysAssessmentState } from './OASysAssessmentState';
+import type { OASysQuestion } from './OASysQuestion';
 export type OASysRiskOfSeriousHarm = {
     assessmentId: OASysAssessmentId;
     assessmentState: OASysAssessmentState;
     dateStarted: string;
     dateCompleted?: string;
-    rosh: ArrayOfOASysRiskOfSeriousHarmSummaryQuestions;
+    rosh: Array<OASysQuestion>;
 };
 
