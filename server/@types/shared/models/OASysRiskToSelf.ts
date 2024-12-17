@@ -2,14 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ArrayOfOASysRiskToSelfQuestions } from './ArrayOfOASysRiskToSelfQuestions';
 import type { OASysAssessmentId } from './OASysAssessmentId';
 import type { OASysAssessmentState } from './OASysAssessmentState';
+import type { OASysQuestion } from './OASysQuestion';
 export type OASysRiskToSelf = {
     assessmentId: OASysAssessmentId;
     assessmentState: OASysAssessmentState;
     dateStarted: string;
     dateCompleted?: string;
-    riskToSelf: ArrayOfOASysRiskToSelfQuestions;
+    riskToSelf: Array<OASysQuestion>;
 };
 

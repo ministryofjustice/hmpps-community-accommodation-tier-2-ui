@@ -2,22 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ArrayOfOASysOffenceDetailsQuestions } from './ArrayOfOASysOffenceDetailsQuestions';
-import type { ArrayOfOASysRiskManagementPlanQuestions } from './ArrayOfOASysRiskManagementPlanQuestions';
-import type { ArrayOfOASysRiskOfSeriousHarmSummaryQuestions } from './ArrayOfOASysRiskOfSeriousHarmSummaryQuestions';
-import type { ArrayOfOASysRiskToSelfQuestions } from './ArrayOfOASysRiskToSelfQuestions';
-import type { ArrayOfOASysSupportingInformationQuestions } from './ArrayOfOASysSupportingInformationQuestions';
 import type { OASysAssessmentId } from './OASysAssessmentId';
 import type { OASysAssessmentState } from './OASysAssessmentState';
+import type { OASysQuestion } from './OASysQuestion';
+import type { OASysSupportingInformationQuestion } from './OASysSupportingInformationQuestion';
 export type OASysSections = {
     assessmentId: OASysAssessmentId;
     assessmentState: OASysAssessmentState;
     dateStarted: string;
     dateCompleted?: string;
-    offenceDetails: ArrayOfOASysOffenceDetailsQuestions;
-    roshSummary: ArrayOfOASysRiskOfSeriousHarmSummaryQuestions;
-    supportingInformation: ArrayOfOASysSupportingInformationQuestions;
-    riskToSelf: ArrayOfOASysRiskToSelfQuestions;
-    riskManagementPlan: ArrayOfOASysRiskManagementPlanQuestions;
+    offenceDetails: Array<OASysQuestion>;
+    roshSummary: Array<OASysQuestion>;
+    supportingInformation: Array<OASysSupportingInformationQuestion>;
+    riskToSelf: Array<OASysQuestion>;
+    riskManagementPlan: Array<OASysQuestion>;
 };
 
