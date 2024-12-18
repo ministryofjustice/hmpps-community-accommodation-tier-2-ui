@@ -211,6 +211,8 @@ export type { Room } from './models/Room';
 export type { RoshRisks } from './models/RoshRisks';
 export type { RoshRisksEnvelope } from './models/RoshRisksEnvelope';
 export type { SeedFileType } from './models/SeedFileType';
+export type { SeedFromExcelFileType } from './models/SeedFromExcelFileType';
+export type { SeedFromExcelRequest } from './models/SeedFromExcelRequest';
 export type { SeedRequest } from './models/SeedRequest';
 export type { SentenceTypeOption } from './models/SentenceTypeOption';
 export type { ServiceName } from './models/ServiceName';
