@@ -142,7 +142,7 @@
     "connect-redis": "^7.0.1",
     "csrf-sync": "^4.0.3",
     "date-fns": "^3.0.0",
-    "express": "^4.20.0",
+    "express": "^4.21.2",
     "express-prom-bundle": "^7.0.0",
     "express-session": "^1.17.3",
     "fishery": "^2.2.2",
