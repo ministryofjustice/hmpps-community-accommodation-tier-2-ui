@@ -170,7 +170,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "^12.0.0",
+    "@pact-foundation/pact": "^13.0.0",
     "@playwright/test": "^1.36.2",
     "@types/bunyan": "^1.8.8",
     "@types/bunyan-format": "^0.2.5",
