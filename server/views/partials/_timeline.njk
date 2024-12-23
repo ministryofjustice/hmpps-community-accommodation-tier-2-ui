@@ -8,10 +8,6 @@
     {% for event in timelineEvents %}
       <div class="moj-timeline__item">
         <div class="moj-timeline__header">
-          {% if loop.first %}
-            <span class="moj-timeline__latest">Latest activity</span>
-            <br>
-          {% endif %}
           <h3 class="moj-timeline__title">{{event.label.text}}</h3>
           <p class="moj-timeline__byline">by {{event.byline.text}}</p>
         </div>
