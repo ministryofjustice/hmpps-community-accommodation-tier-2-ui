@@ -9,7 +9,7 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% from "../partials/showErrorSummary.njk" import showErrorSummary %}
-{% from "../partials/_timeline.njk" import timeline %}
+{%- from "moj/components/timeline/macro.njk" import mojTimeline -%}
 {% from "../partials/submittedApplicationDetails.njk" import submittedApplicationDetails%}
 
 {% extends "../partials/layout.njk" %}
@@ -76,7 +76,10 @@
 
       </form>
 
-      {{ timeline(getApplicationTimelineEvents(application)) }}
+						{{ mojTimeline({
+								headingLevel: 3,
+								items: getApplicationTimelineEvents(application) })
+						}}
     </div>
   </div>
 

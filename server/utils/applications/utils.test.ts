@@ -152,12 +152,10 @@ describe('utils', () => {
               text: 'A Nacro',
             },
             datetime: {
-              date: '22 June 2023 at 08:54am',
               timestamp: '2023-06-22T08:54:50',
+              type: 'datetime',
             },
-            description: {
-              text: 'the status description',
-            },
+            text: 'the status description',
             label: {
               text: 'a status update',
             },
@@ -167,12 +165,10 @@ describe('utils', () => {
               text: 'Anne Nomis',
             },
             datetime: {
-              date: '21 June 2023 at 07:54am',
               timestamp: '2023-06-21T07:54:50',
+              type: 'datetime',
             },
-            description: {
-              text: 'The application was received by an assessor.',
-            },
+            text: 'The application was received by an assessor.',
             label: {
               text: 'Application submitted',
             },
@@ -244,7 +240,7 @@ describe('utils', () => {
               }),
             ],
           })
-          expect(getApplicationTimelineEvents(application)[0].description.text).toEqual(
+          expect(getApplicationTimelineEvents(application)[0].text).toEqual(
             'the status description<br>and another<br>and another',
           )
         })

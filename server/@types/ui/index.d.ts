@@ -174,8 +174,8 @@ export type ApplicationDocument = {
 export type UiTimelineEvent = {
   label: { text: string }
   byline: { text: string }
-  datetime: { timestamp: string; date: string }
-  description: { text: string }
+  datetime: { timestamp: string; type: string }
+  text: string
 }
 
 export type PersonStatus = 'InCustody' | 'InCommunity'
