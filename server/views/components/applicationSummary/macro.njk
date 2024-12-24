@@ -47,12 +47,12 @@
         {{ govukButton({
             text: "Update application status",
             href: paths.statusUpdate.new({id: summary.id}),
-            classes: "govuk-button govuk-!-margin-bottom-0 submitted-application-panel__update-status-button"
+            classes: "govuk-button govuk-button--inverse govuk-!-margin-bottom-0 govuk-!-display-none-print"
           })
         }}
       {% endif %}
 
-      {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary govuk-!-margin-bottom-0 submitted-application-panel__download-pdf-button') }}
+      {{ printButton('Download as a PDF', 'govuk-button govuk-button--inverse govuk-!-margin-bottom-0 govuk-!-display-none-print') }}
     </div>
   </div>
 {% endmacro %}
