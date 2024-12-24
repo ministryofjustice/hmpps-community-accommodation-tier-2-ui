@@ -152,6 +152,7 @@ export const summaryListItemForQuestion = (
   const { question, answer } = questionAndAnswer
 
   const actions = {
+    classes: 'govuk-!-display-none-print',
     items: [
       {
         href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),

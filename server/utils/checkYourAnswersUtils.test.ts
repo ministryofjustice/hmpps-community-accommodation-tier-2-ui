@@ -101,6 +101,7 @@ describe('checkYourAnswersUtils', () => {
           key: { html: 'A question' },
           value: { html: 'No' },
           actions: {
+            classes: 'govuk-!-display-none-print',
             items: [
               {
                 href: `/applications/${mockApplication.id}/tasks/task1/pages/page1`,
@@ -114,6 +115,7 @@ describe('checkYourAnswersUtils', () => {
           key: { html: 'Another question' },
           value: { html: 'some answer' },
           actions: {
+            classes: 'govuk-!-display-none-print',
             items: [
               {
                 href: `/applications/${mockApplication.id}/tasks/task1/pages/page2`,
@@ -159,6 +161,7 @@ describe('checkYourAnswersUtils', () => {
           key: { html: 'A question' },
           value: { html: 'No' },
           actions: {
+            classes: 'govuk-!-display-none-print',
             items: [
               {
                 href: `/applications/${mockApplication.id}/tasks/task1/pages/page1`,
@@ -216,6 +219,7 @@ describe('checkYourAnswersUtils', () => {
             key: { html: 'A question' },
             value: { html: 'No' },
             actions: {
+              classes: 'govuk-!-display-none-print',
               items: [
                 {
                   href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
@@ -229,6 +233,7 @@ describe('checkYourAnswersUtils', () => {
             key: { html: 'Another question' },
             value: { html: 'an answer' },
             actions: {
+              classes: 'govuk-!-display-none-print',
               items: [
                 {
                   href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
@@ -349,6 +354,7 @@ describe('checkYourAnswersUtils', () => {
             key: { html: 'foo' },
             value: { html: 'bar' },
             actions: {
+              classes: 'govuk-!-display-none-print',
               items: [
                 {
                   href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
@@ -500,6 +506,7 @@ describe('checkYourAnswersUtils', () => {
         key: { html: 'a question' },
         value: { html: 'an answer' },
         actions: {
+          classes: 'govuk-!-display-none-print',
           items: [
             {
               href: `/applications/${application.id}/tasks/task1/pages/page1`,
