@@ -7,5 +7,5 @@ test('view a submitted application as an admin', async ({ page, adminUser }) => 
   await signIn(page, adminUser)
   await viewSubmittedApplication(page)
   await expect(page.locator('h1')).toContainText('application')
-  await expect(page.locator('h2').first()).toContainText('Applicant details')
+  await expect(page.locator('h2.govuk-summary-card__title').first()).toContainText('Applicant details')
 })
