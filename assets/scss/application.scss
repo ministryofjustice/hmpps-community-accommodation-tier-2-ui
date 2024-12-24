@@ -53,10 +53,6 @@ $govuk-page-width: $moj-page-width;
 }
 
 @media print {
-  .print__hidden {
-    display: none;
-  }
-
   .print__show {
     display: block;
   }
