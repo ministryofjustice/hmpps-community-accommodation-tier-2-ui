@@ -3,12 +3,13 @@
 {% macro documentSummaryList(application) %}
 
   {% for section in application.document.sections %}
-    <h2 class="govuk-heading-l">{{section.title}}</h2>
+    <h2 class="govuk-heading-m">{{section.title}}</h2>
     {% for task in section.tasks %}
       {{
                   govukSummaryList({
                     card: {
                             title: {
+                              headingLevel: 3,
                               text: task.title
                             },
                             attributes: { id: stringToKebabCase(task.title) }

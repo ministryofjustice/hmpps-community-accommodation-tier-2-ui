@@ -108,7 +108,7 @@ export default abstract class Page {
     sections.forEach(section => {
       cy.get('h2').contains(section.title)
       section.tasks.forEach(task => {
-        cy.get('h2').contains(task.title)
+        cy.get('h3').contains(task.title)
         task.questionsAndAnswers.forEach(question => {
           this.checkTermAndDescription(question.question, question.answer)
         })
