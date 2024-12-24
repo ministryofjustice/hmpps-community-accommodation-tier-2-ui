@@ -12,6 +12,7 @@
 
 {% block beforeContent %}
   {{ govukBackLink({
+    classes: 'govuk-!-display-none-print',
     text: "Back",
     href: paths.applications.overview({id: application.id})
   }) }}

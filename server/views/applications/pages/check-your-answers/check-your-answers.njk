@@ -16,7 +16,7 @@
   {{ govukBackLink({
       text: "Back",
       href: paths.applications.show({ id: page.application.id }),
-      classes: "print__hidden"
+      classes: "govuk-!-display-none-print"
   }) }}
 {% endblock %}
 
@@ -61,7 +61,7 @@
           {% endfor %}
 
           <div class="govuk-grid-row">
-            <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8 print__hidden">
+            <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" class="govuk-!-margin-top-8 govuk-!-display-none-print">
               <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
               {{

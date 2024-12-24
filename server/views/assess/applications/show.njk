@@ -17,6 +17,7 @@
 
 {% block beforeContent %}
   {{ govukBackLink({
+    classes: 'govuk-!-display-none-print',
     text: "Back",
     href: paths.submittedApplications.overview({id: application.id})
   }) }}
