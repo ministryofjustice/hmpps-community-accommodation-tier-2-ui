@@ -3,13 +3,26 @@
   background: govuk-colour('blue');
   color: govuk-colour('white');
 
-  &__text {
-    color: govuk-colour('white') !important;
+  & &__text {
+    color: govuk-colour('white');
+    @include govuk-media-query($media-type: print) {
+      color: govuk-colour('black');
+    }
+
+    &:focus {
+      color: govuk-colour('black');
+    }
   }
 
-  &__update-status-button {
-    background-color: govuk-colour('white') !important;
-    color: $govuk-link-colour !important;
-    box-shadow: 0 2px 0 govuk-colour('dark-grey');
+  @include govuk-media-query($media-type: print) {
+    padding-left: 0;
+
+    h1 {
+      @include govuk-font($size: 36);
+    }
+
+    * {
+      color: govuk-colour('black');
+    }
   }
 }
