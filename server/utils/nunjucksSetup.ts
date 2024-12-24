@@ -36,6 +36,9 @@ import { pagination } from './pagination'
 import { formatLines } from './viewUtils'
 import * as PhaseBannerUtils from './phaseBannerUtils'
 
+// eslint-disable-next-line
+const getMojFilters = require('@ministryofjustice/frontend/moj/filters/all')
+
 const production = process.env.NODE_ENV === 'production'
 
 export default function nunjucksSetup(app: express.Express, path: pathModule.PlatformPath): void {
@@ -91,6 +94,12 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('assessmentsTableRows', assessmentsTableRows)
   njkEnv.addGlobal('documentSummaryListRows', documentSummaryListRows)
   njkEnv.addGlobal('prisonDashboardTableRows', prisonDashboardTableRows)
+
+  const mojFilters = getMojFilters()
+
+  Object.keys({ ...mojFilters, mojDate: DateFormats.isoDateTimeToUIDateTime }).forEach(filter => {
+    njkEnv.addFilter(filter, mojFilters[filter])
+  })
 
   const {
     analytics: { tagManagerId },

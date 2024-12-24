@@ -74,11 +74,9 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
           },
           datetime: {
             timestamp: sortedTimelineEvents.occurredAt,
-            date: DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents.occurredAt),
+            type: 'datetime',
           },
-          description: {
-            text: description,
-          },
+          text: description,
         }
       })
   }
