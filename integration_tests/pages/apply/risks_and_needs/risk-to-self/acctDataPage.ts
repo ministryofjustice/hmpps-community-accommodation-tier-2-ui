@@ -30,7 +30,7 @@ export default class AcctDataPage extends ApplyPage {
   }
 
   clickAddAnother(): void {
-    cy.get('button').contains('Save and add another').click()
+    cy.get('button').contains('Save ACCT note and add another').click()
   }
 
   assertFormisEmpty(): void {
