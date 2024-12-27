@@ -188,7 +188,7 @@
     "@types/passport-oauth2": "^1.4.12",
     "@types/superagent": "^8.0.0",
     "@types/supertest": "^6.0.0",
-    "@types/uuid": "^9.0.1",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "audit-ci": "^7.1.0",
