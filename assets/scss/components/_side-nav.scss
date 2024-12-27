@@ -1,6 +1,14 @@
 .side-nav {
-  @include govuk-media-query($from: tablet) {
+  @include govuk-media-query($from: desktop) {
     position: sticky;
     top: 0.5rem;
+  }
+
+  @include govuk-media-query($media-type: print) {
+    position: unset;
+    display: block;
+    float: none;
+    width: 100%;
+    top: unset;
   }
 }
