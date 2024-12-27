@@ -26,7 +26,7 @@ export default class AcctDataPage extends ApplyPage {
   }
 
   clickSubmit(): void {
-    cy.get('button').contains('Save and add ACCT').click()
+    cy.get('button').contains('Save and continue').click()
   }
 
   clickAddAnother(): void {

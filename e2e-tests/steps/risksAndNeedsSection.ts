@@ -188,7 +188,7 @@ async function completeAcctDataPage(page: Page) {
   await acctDataPage.checkRadio('Yes')
   await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
   await acctDataPage.fillField('Details about the ACCT', 'some details')
-  await acctDataPage.clickButton('Save and add ACCT')
+  await acctDataPage.clickButton('Save and continue')
 }
 
 async function completeAdditionalInformationPage(page: Page, name: string) {
