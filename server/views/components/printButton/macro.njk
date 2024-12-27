@@ -1,6 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% macro printButton(text = 'Download as a PDF', styles = 'govuk-button print__hidden') %}
+{% macro printButton(text = 'Download as a PDF', styles = 'govuk-button govuk-!-display-none-print') %}
   {{ govukButton({
     text: text,
     classes: styles,
