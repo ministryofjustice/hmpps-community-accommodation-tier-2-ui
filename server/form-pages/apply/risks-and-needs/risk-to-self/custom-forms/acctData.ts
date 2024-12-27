@@ -34,7 +34,7 @@ export type AcctDataBody = {
   ],
 })
 export default class AcctData implements TaskListPage {
-  title = 'Add an ACCT entry'
+  title = 'Add an ACCT note'
 
   documentTitle = this.title
 

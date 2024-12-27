@@ -23,7 +23,7 @@ describe('AcctData', () => {
     it('has a page title', () => {
       const page = new AcctData({}, application)
 
-      expect(page.title).toEqual('Add an ACCT entry')
+      expect(page.title).toEqual('Add an ACCT note')
     })
   })
 

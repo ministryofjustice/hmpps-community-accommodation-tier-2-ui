@@ -183,7 +183,7 @@ async function addAnAcct(page: Page) {
 }
 
 async function completeAcctDataPage(page: Page) {
-  const acctDataPage = await ApplyPage.initialize(page, 'Add an ACCT entry')
+  const acctDataPage = await ApplyPage.initialize(page, 'Add an ACCT note')
   await acctDataPage.fillDateFieldInGroup('When was the ACCT created?', { year: '2022', month: '3', day: '1' })
   await acctDataPage.checkRadio('Yes')
   await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
