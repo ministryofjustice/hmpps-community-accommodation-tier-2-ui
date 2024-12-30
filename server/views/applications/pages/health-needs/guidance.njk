@@ -1,5 +1,5 @@
 {% extends "../layout.njk" %}
-
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% set introduceYourselfTemplate %}
@@ -15,7 +15,7 @@
 {% endset %}
 
 {% set drugAlcoholQuestionsTemplate %}
-{% include "../../../partials/email-templates/drug-alcohol-questions.njk" %}
+		{% include "../../../partials/email-templates/drug-alcohol-questions.njk" %}
 {% endset %}
 
 {% block content %}

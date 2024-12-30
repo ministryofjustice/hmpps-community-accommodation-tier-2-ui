@@ -1,3 +1,5 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 <div class='copy-text__container'>
   <div id="introduce-yourself-template">
     <p>Hello,</p>
@@ -11,5 +13,9 @@
     <p>Without their health needs, their application cannot be processed. Please respond with the following details as soon as possible:</p>
   </div> 
 
-  <button data-target-id="introduce-yourself-template" class="govuk-button copy-text__button">Copy text</button>
+		{{ govukButton({
+				classes: 'copy-text__button',
+    text: 'Copy text',
+    attributes: { 'data-target-id': 'introduce-yourself-template' }
+		}) }}
 </div>
