@@ -139,7 +139,7 @@
     "case": "^1.6.3",
     "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
-    "connect-redis": "^7.0.1",
+    "connect-redis": "^8.0.0",
     "cross-spawn": "^7.0.5",
     "csrf-sync": "^4.0.3",
     "date-fns": "^3.0.0",
