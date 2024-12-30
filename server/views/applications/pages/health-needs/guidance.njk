@@ -96,6 +96,18 @@
       selection.addRange(range)
       document.execCommand('copy');
       selection.removeAllRanges()
+
+      notifyScreenReaders(copyTextButton)
+    }
+
+    function notifyScreenReaders(copyTextButton) {
+      const originalCopyButtonText = copyTextButton.innerHTML
+      copyTextButton.innerHTML = "Text is copied"
+
+      // After 5 seconds, hide the message
+      setTimeout(() => {
+        copyTextButton.innerHTML = originalCopyButtonText
+      }, 5000);
     }
 
 				document.querySelectorAll('.copy-text button').forEach((copyTextButton) => {

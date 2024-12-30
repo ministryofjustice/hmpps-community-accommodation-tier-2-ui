@@ -39,7 +39,9 @@ export default class HealthNeedsGuidancePage extends ApplyPage {
 
   copyIntroduceYourselfTemplateToClipboard = (): void => {
     cy.get('span').contains('Introduce yourself to a team/officer').click()
-    cy.get('#introduce-yourself-button').click()
+
+    cy.get('button[data-target-id="introduce-yourself-template"]').contains('Copy text').click()
+    cy.get('button[data-target-id="introduce-yourself-template"]').contains('Text is copied')
     cy.assertValueCopiedToClipboardContains('My name is {Name}, a {Role} working at HMP {prison name}.')
   }
 
@@ -52,7 +54,9 @@ export default class HealthNeedsGuidancePage extends ApplyPage {
 
   copyHealthQuestionsTemplateToClipboard = (): void => {
     cy.get('span').contains("Ask questions about the applicant's physical health").click()
-    cy.get('#health-questions-button').click()
+
+    cy.get('button[data-target-id="health-questions-template"]').contains('Copy text').click()
+    cy.get('button[data-target-id="health-questions-template"]').contains('Text is copied')
     cy.assertValueCopiedToClipboardContains(
       'Do they have any physical health needs? For example, needing a mobility scooter, stair lift, wet room, grip rails in the shower or bath, or wider door frames and ramps. If yes, describe their physical health needs.',
     )
@@ -65,7 +69,8 @@ export default class HealthNeedsGuidancePage extends ApplyPage {
 
   copyMentalHealthQuestionsTemplateToClipboard = (): void => {
     cy.get('span').contains("Ask questions about the applicant's mental health").click()
-    cy.get('#mental-health-questions-button').click()
+    cy.get('button[data-target-id="mental-health-questions-template"]').contains('Copy text').click()
+    cy.get('button[data-target-id="mental-health-questions-template"]').contains('Text is copied')
     cy.assertValueCopiedToClipboardContains('Do they have any mental health needs?')
   }
 
@@ -76,7 +81,8 @@ export default class HealthNeedsGuidancePage extends ApplyPage {
 
   copyDrugAndAlcoholTemplateToClipboard = (): void => {
     cy.get('span').contains("Ask questions about the applicant's drug and alcohol needs").click()
-    cy.get('#drug-alcohol-questions-button').click()
+    cy.get('button[data-target-id="drug-alcohol-questions-template"]').contains('Copy text').click()
+    cy.get('button[data-target-id="drug-alcohol-questions-template"]').contains('Text is copied')
     cy.assertValueCopiedToClipboardContains(
       'The applicant has indicated that they are engaged with support for a drug or alcohol need.',
     )
