@@ -4,7 +4,7 @@ import paths from '../../../../../server/paths/apply'
 
 export default class AcctDataPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Add an ACCT entry', application, 'risk-to-self', 'acct-data')
+    super('Add an ACCT note', application, 'risk-to-self', 'acct-data')
   }
 
   static visit(application: Application): void {
@@ -26,11 +26,11 @@ export default class AcctDataPage extends ApplyPage {
   }
 
   clickSubmit(): void {
-    cy.get('button').contains('Save and add ACCT').click()
+    cy.get('button').contains('Save and continue').click()
   }
 
   clickAddAnother(): void {
-    cy.get('button').contains('Save and add another').click()
+    cy.get('button').contains('Save ACCT note and add another').click()
   }
 
   assertFormisEmpty(): void {

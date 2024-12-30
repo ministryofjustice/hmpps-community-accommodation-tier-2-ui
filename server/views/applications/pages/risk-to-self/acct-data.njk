@@ -122,7 +122,7 @@
         <div>
           {{ govukButton({
             id: "add-another",
-            text: "Save and add another",
+            text: "Save ACCT note and add another",
             classes: "govuk-button--secondary"
           }) }}
         </div>
@@ -130,7 +130,7 @@
         {% block button %}
           <div class="govuk-button-group">
             {{ govukButton({
-                text: "Save and add ACCT"
+                text: "Save and continue"
             }) }}
 
             <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct' }) }}">
