@@ -88,9 +88,9 @@
 
 {% block extraScripts %}
   <script type="text/javascript" nonce="{{ cspNonce }}">
-    function copyToClipboard(divId) {
+    function copyToClipboard(copyTextButton) {
       const range = document.createRange()
-      range.selectNodeContents(document.getElementById(divId));
+      range.selectNodeContents(document.getElementById(copyTextButton.dataset.targetId));
       const selection = window.getSelection();
       selection.removeAllRanges()
       selection.addRange(range)
@@ -98,22 +98,8 @@
       selection.removeAllRanges()
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document
-        .getElementById('introduce-yourself-button')
-        .addEventListener('click', () => copyToClipboard('introduce-yourself-template'));
-
-      document
-        .getElementById('health-questions-button')
-        .addEventListener('click', () => copyToClipboard('health-questions-template'));
-
-      document
-        .getElementById('mental-health-questions-button')
-        .addEventListener('click', () => copyToClipboard('mental-health-questions-template'));
-
-      document
-        .getElementById('drug-alcohol-questions-button')
-        .addEventListener('click', () => copyToClipboard('drug-alcohol-questions-template'));
-    });
+				document.querySelectorAll('.copy-text button').forEach((copyTextButton) => {
+						copyTextButton.addEventListener('click', () => copyToClipboard(copyTextButton));
+				});
   </script>
 {% endblock %}
