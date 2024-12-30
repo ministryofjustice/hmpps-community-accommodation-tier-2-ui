@@ -126,6 +126,9 @@ export default class CheckYourAnswersPage extends ApplyPage {
   shouldShowSideNavBar() {
     const sections = getSections()
 
+    // First nav link should have an id for "back to top" functionality
+    cy.get('.side-nav ul li').first().find('a').should('have.attr', 'id', 'top')
+
     sections.forEach(section => {
       section.tasks.forEach(task => {
         cy.get(`a[href="#${stringToKebabCase(task.title)}"]`)

@@ -5,7 +5,7 @@
   <ul class="govuk-list govuk-list--spaced">
     {% for item in navItems %}
       <li class="govuk-!-font-size-16">
-        <a href="{{ item.href }}" class="govuk-link govuk-link--no-visited-state">{{ item.text }}</a>
+        <a href="{{ item.href }}" {% if loop.first %} id="top" {% endif %} class="govuk-link govuk-link--no-visited-state">{{ item.text }}</a>
       </li>
     {% endfor %}
     <li class="govuk-!-font-size-16">
