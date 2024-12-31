@@ -1,3 +1,5 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 <div class='copy-text__container'>
   <div id="health-questions-template">
     <ol>
@@ -10,5 +12,9 @@
     </ol>
   </div>
 
-  <button id="health-questions-button" class="govuk-button copy-text__button">Copy text</button>
+				{{ govukButton({
+						classes: 'copy-text__button',
+		    text: 'Copy text',
+		    attributes: { 'data-target-id': 'health-questions-template', 'aria-live': 'assertive'}
+				}) }}
 </div>
