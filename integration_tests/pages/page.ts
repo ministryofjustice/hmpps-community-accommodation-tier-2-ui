@@ -7,6 +7,8 @@ import { FullPerson } from '../../server/@types/shared/models/FullPerson'
 import { stringToKebabCase } from '../../server/utils/utils'
 import { Cas2ApplicationSummary } from '../../server/@types/shared/models/Cas2ApplicationSummary'
 import paths from '../../server/paths/apply'
+import 'cypress-axe'
+import { Result } from 'axe-core'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -25,6 +27,8 @@ export default abstract class Page {
 
   checkOnPage(): void {
     cy.get('h1').contains(this.title)
+    cy.injectAxe()
+    cy.checkA11y(undefined, undefined, this.logAccessibilityViolations)
   }
 
   checkNameIsNotInDocumentTitle(): void {
@@ -245,5 +249,19 @@ export default abstract class Page {
           cy.get('th').eq(0).contains(personName)
         })
     })
+  }
+
+  logAccessibilityViolations(violations: Result[]): void {
+    cy.task('logAccessibilityViolationsSummary', `Accessibility violations detected: ${violations.length}`)
+
+    const violationData = violations.map(({ id, impact, description, nodes }) => ({
+      id,
+      impact,
+      description,
+      nodes: nodes.length,
+      nodeTargets: nodes.map(node => node.target).join(' - '),
+    }))
+
+    cy.task('logAccessibilityViolationsTable', violationData)
   }
 }
