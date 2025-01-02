@@ -32,7 +32,7 @@ export default class RoshSummaryPage extends ApplyPage {
       })}`,
     )
 
-    cy.get('h3').contains(`${risks.value.overallRisk.toLocaleUpperCase()} RoSH`)
+    cy.get('h2').contains(`${risks.value.overallRisk.toLocaleUpperCase()} RoSH`)
 
     cy.get('.rosh-widget__table').within($row => {
       cy.wrap($row).get('th').contains('Children').get('td').contains(risks.value.riskToChildren, { matchCase: false })
@@ -47,7 +47,7 @@ export default class RoshSummaryPage extends ApplyPage {
   }
 
   shouldShowUnknownRoshCard = (): void => {
-    cy.get('h3').contains('UNKNOWN LEVEL RoSH')
+    cy.get('h2').contains('UNKNOWN LEVEL RoSH')
     cy.get('p').contains('Something went wrong. We are unable to show RoSH information.')
   }
 

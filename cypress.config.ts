@@ -7,6 +7,7 @@ import applications from './integration_tests/mockApis/applications'
 import submissions from './integration_tests/mockApis/submissions'
 import referenceData from './integration_tests/mockApis/referenceData'
 import assessments from './integration_tests/mockApis/assessments'
+import accessibilityViolations from './integration_tests/tasks/accessibilityViolations'
 
 export default defineConfig({
   chromeWebSecurity: false,
@@ -37,6 +38,7 @@ export default defineConfig({
         ...submissions,
         ...referenceData,
         ...assessments,
+        ...accessibilityViolations,
       })
     },
     baseUrl: 'http://localhost:3007',

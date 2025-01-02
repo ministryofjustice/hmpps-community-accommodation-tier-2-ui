@@ -32,8 +32,6 @@
 
   {% if page.tableRows() | length %}
 
-    {% from "govuk/components/table/macro.njk" import govukTable %}
-
     {{ govukTable({
         firstCellIsHeader: true,
         head: [
@@ -47,7 +45,7 @@
             text: "Number of offences"
           },
           {
-            text: ""
+						html: '<span class="govuk-visually-hidden">Actions</span>'
           }
         ],
         rows: page.tableRows()

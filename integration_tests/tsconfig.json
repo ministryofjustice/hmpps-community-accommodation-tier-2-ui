@@ -3,7 +3,7 @@
     "target": "es5",
     "noEmit": true,
     "lib": ["es5", "dom", "es2015.promise"],
-    "types": ["cypress"],
+    "types": ["cypress", "cypress-axe"],
     "esModuleInterop": true,
     "typeRoots": ["../node_modules", "../server/@types", "../node_modules/@types"],
     "resolveJsonModule": true,
