@@ -1,4 +1,5 @@
 import { ApplicationDocument } from '@approved-premises/ui'
+import { Result } from 'axe-core'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
 import { Cas2Application as Application } from '../../server/@types/shared/models/Cas2Application'
@@ -7,6 +8,7 @@ import { FullPerson } from '../../server/@types/shared/models/FullPerson'
 import { stringToKebabCase } from '../../server/utils/utils'
 import { Cas2ApplicationSummary } from '../../server/@types/shared/models/Cas2ApplicationSummary'
 import paths from '../../server/paths/apply'
+import 'cypress-axe'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -25,6 +27,16 @@ export default abstract class Page {
 
   checkOnPage(): void {
     cy.get('h1').contains(this.title)
+    cy.injectAxe()
+    cy.configureAxe({
+      rules: [
+        // Temporary rule whilst this issue is resolved https://github.com/w3c/aria/issues/1404
+        { id: 'aria-allowed-attr', reviewOnFail: true },
+        // Ignore the "All page content should be contained by landmarks", which conflicts with GOV.UK guidance (https://design-system.service.gov.uk/components/back-link/#how-it-works)
+        { id: 'region', reviewOnFail: true, selector: '.govuk-back-link' },
+      ],
+    })
+    cy.checkA11y(undefined, undefined, this.logAccessibilityViolations)
   }
 
   checkNameIsNotInDocumentTitle(): void {
@@ -245,5 +257,19 @@ export default abstract class Page {
           cy.get('th').eq(0).contains(personName)
         })
     })
+  }
+
+  logAccessibilityViolations(violations: Result[]): void {
+    cy.task('logAccessibilityViolationsSummary', `Accessibility violations detected: ${violations.length}`)
+
+    const violationData = violations.map(({ id, impact, description, nodes }) => ({
+      id,
+      impact,
+      description,
+      nodes: nodes.length,
+      nodeTargets: nodes.map(node => node.target).join(' - '),
+    }))
+
+    cy.task('logAccessibilityViolationsTable', violationData)
   }
 }
