@@ -175,7 +175,7 @@ export type UiTimelineEvent = {
   label: { text: string }
   byline: { text: string }
   datetime: { timestamp: string; type: string }
-  text: string
+  html: string
 }
 
 export type PersonStatus = 'InCustody' | 'InCommunity'
