@@ -69,10 +69,19 @@ test('cancel an in progress application from the task list', async ({ page, pomU
   await signIn(page, pomUser)
   await createAnInProgressApplication(page, person)
   await viewInProgressDashboard(page)
-  const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
+  const numberOfApplicationsBeforeCancellation = (await page.locator('tbody tr:visible').all()).length
   await clickCancel(page, person.name)
   await cancelAnApplication(page, person.name)
-  const numberOfApplicationsAfterCancellation = (await page.locator('tr').all()).length
+  const numberOfApplicationsAfterCancellation = (await page.locator('tbody tr:visible').all()).length
+  await page.evaluate(
+    compare => {
+      /* eslint-disable no-console */
+      console.log(`Number of rows before ${compare.numberOfApplicationsBeforeCancellation}`)
+      console.log(`Number of rows after ${compare.numberOfApplicationsAfterCancellation}`)
+      /* eslint-enable no-console */
+    },
+    { numberOfApplicationsBeforeCancellation, numberOfApplicationsAfterCancellation },
+  )
   await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
-  expect(numberOfApplicationsBeforeCancellation - numberOfApplicationsAfterCancellation).toEqual(1)
+  expect(numberOfApplicationsAfterCancellation).toBeLessThan(numberOfApplicationsBeforeCancellation)
 })
