@@ -76,7 +76,7 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
             timestamp: sortedTimelineEvents.occurredAt,
             type: 'datetime',
           },
-          text: description,
+          html: description,
         }
       })
   }
