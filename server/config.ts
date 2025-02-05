@@ -102,7 +102,4 @@ export default {
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', false),
   },
-  analytics: {
-    tagManagerId: get('TAG_MANAGER_ID', null),
-  },
 }

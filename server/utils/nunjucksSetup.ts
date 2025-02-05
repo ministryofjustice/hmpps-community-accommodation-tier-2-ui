@@ -28,6 +28,7 @@ import { applicationStatusRadios, applicationStatusDetailOptions } from './asses
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { dateFieldValues } from './formUtils'
+
 import * as OasysImportUtils from './oasysImportUtils'
 import { statusTag } from './personUtils'
 import * as TaskListUtils from './taskListUtils'
@@ -101,13 +102,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
     njkEnv.addFilter(filter, mojFilters[filter])
   })
 
-  const {
-    analytics: { tagManagerId },
-  } = config
-  if (tagManagerId) {
-    njkEnv.addGlobal('tagManagerId', tagManagerId.trim())
-    njkEnv.addGlobal('tagManagerUrl', `https://www.googletagmanager.com/ns.html?id=${tagManagerId.trim()}`)
-  }
 
   njkEnv.addGlobal('dateFieldValues', function sendContextToDateFieldValues(fieldName: string, errors: ErrorMessages) {
     return dateFieldValues(fieldName, this.ctx, errors)
