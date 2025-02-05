@@ -6,7 +6,6 @@ import nunjucks from 'nunjucks'
 import * as pathModule from 'path'
 
 import { ErrorMessages, PersonStatus } from '@approved-premises/ui'
-import config from '../config'
 import applicationPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportPaths from '../paths/report'
@@ -101,7 +100,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   Object.keys({ ...mojFilters, mojDate: DateFormats.isoDateTimeToUIDateTime }).forEach(filter => {
     njkEnv.addFilter(filter, mojFilters[filter])
   })
-
 
   njkEnv.addGlobal('dateFieldValues', function sendContextToDateFieldValues(fieldName: string, errors: ErrorMessages) {
     return dateFieldValues(fieldName, this.ctx, errors)
