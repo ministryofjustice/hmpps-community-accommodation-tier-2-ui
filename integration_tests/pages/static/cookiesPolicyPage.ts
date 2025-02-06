@@ -25,9 +25,5 @@ export default class CookiesPolicyPage extends Page {
     ;['connect.sid', 'Keeps you logged into the service', '2 hours'].forEach(cell => {
       cy.get('table td').contains(cell)
     })
-    cy.get('h2').contains('Analytical Cookies (Google Analytics)')
-    cy.contains('a', 'opt out of Google Analytics cookies')
-      .should('have.attr', 'rel', 'noreferrer noopener')
-      .should('have.attr', 'target', '_blank')
   }
 }

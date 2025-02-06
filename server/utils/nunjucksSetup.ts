@@ -6,7 +6,6 @@ import nunjucks from 'nunjucks'
 import * as pathModule from 'path'
 
 import { ErrorMessages, PersonStatus } from '@approved-premises/ui'
-import config from '../config'
 import applicationPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportPaths from '../paths/report'
@@ -28,6 +27,7 @@ import { applicationStatusRadios, applicationStatusDetailOptions } from './asses
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { dateFieldValues } from './formUtils'
+
 import * as OasysImportUtils from './oasysImportUtils'
 import { statusTag } from './personUtils'
 import * as TaskListUtils from './taskListUtils'
@@ -100,14 +100,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   Object.keys({ ...mojFilters, mojDate: DateFormats.isoDateTimeToUIDateTime }).forEach(filter => {
     njkEnv.addFilter(filter, mojFilters[filter])
   })
-
-  const {
-    analytics: { tagManagerId },
-  } = config
-  if (tagManagerId) {
-    njkEnv.addGlobal('tagManagerId', tagManagerId.trim())
-    njkEnv.addGlobal('tagManagerUrl', `https://www.googletagmanager.com/ns.html?id=${tagManagerId.trim()}`)
-  }
 
   njkEnv.addGlobal('dateFieldValues', function sendContextToDateFieldValues(fieldName: string, errors: ErrorMessages) {
     return dateFieldValues(fieldName, this.ctx, errors)
