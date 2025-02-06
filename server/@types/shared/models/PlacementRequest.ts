@@ -4,10 +4,10 @@
 /* eslint-disable */
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
 import type { AssessmentDecision } from './AssessmentDecision';
-import type { BookingSummary } from './BookingSummary';
 import type { Person } from './Person';
 import type { PersonRisks } from './PersonRisks';
 import type { PlacementDates } from './PlacementDates';
+import type { PlacementRequestBookingSummary } from './PlacementRequestBookingSummary';
 import type { PlacementRequestRequestType } from './PlacementRequestRequestType';
 import type { PlacementRequestStatus } from './PlacementRequestStatus';
 import type { PlacementRequirements } from './PlacementRequirements';
@@ -30,7 +30,7 @@ export type PlacementRequest = (PlacementRequirements & PlacementDates & {
      * Notes from the assessor for the CRU Manager
      */
     notes?: string;
-    booking?: BookingSummary;
+    booking?: PlacementRequestBookingSummary;
     requestType?: PlacementRequestRequestType;
     isWithdrawn: boolean;
     withdrawalReason?: WithdrawPlacementRequestReason;
