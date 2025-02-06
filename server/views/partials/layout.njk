@@ -42,8 +42,9 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {# Run JavaScript at end of the
-  <body>, to avoid blocking the initial render. #}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script nonce="{{ cspNonce }}" type="module" src="/assets/govukFrontendInit.js"></script>
   <script src="/assets/moj/all.js"></script>
+  <script type="module" src="/assets/mojFrontEndInit.js"></script>
+  {% block extraScripts %}{% endblock %}
 {% endblock %}
