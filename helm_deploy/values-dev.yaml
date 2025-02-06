@@ -19,8 +19,6 @@ generic-service:
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
 
   namespace_secrets:
-    hmpps-community-accommodation-tier-2-ui:
-      TAG_MANAGER_ID: 'TAG_MANAGER_ID'
     sqs-hmpps-audit-secret:
       AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
       AUDIT_SQS_QUEUE_NAME: 'sqs_queue_name'
