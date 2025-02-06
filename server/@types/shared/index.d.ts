@@ -50,7 +50,6 @@ export type { BedSummary } from './models/BedSummary';
 export type { Booking } from './models/Booking';
 export type { BookingAppealTask } from './models/BookingAppealTask';
 export type { BookingBody } from './models/BookingBody';
-export type { BookingChangedContentPayload } from './models/BookingChangedContentPayload';
 export type { BookingNotMade } from './models/BookingNotMade';
 export type { BookingPremisesSummary } from './models/BookingPremisesSummary';
 export type { BookingSearchResult } from './models/BookingSearchResult';
@@ -62,7 +61,6 @@ export type { BookingSearchResultRoomSummary } from './models/BookingSearchResul
 export type { BookingSearchResults } from './models/BookingSearchResults';
 export type { BookingSearchSortField } from './models/BookingSearchSortField';
 export type { BookingStatus } from './models/BookingStatus';
-export type { BookingSummary } from './models/BookingSummary';
 export type { CacheType } from './models/CacheType';
 export type { Cancellation } from './models/Cancellation';
 export type { CancellationReason } from './models/CancellationReason';
@@ -172,6 +170,7 @@ export type { PlacementApplicationType } from './models/PlacementApplicationType
 export type { PlacementCriteria } from './models/PlacementCriteria';
 export type { PlacementDates } from './models/PlacementDates';
 export type { PlacementRequest } from './models/PlacementRequest';
+export type { PlacementRequestBookingSummary } from './models/PlacementRequestBookingSummary';
 export type { PlacementRequestDetail } from './models/PlacementRequestDetail';
 export type { PlacementRequestRequestType } from './models/PlacementRequestRequestType';
 export type { PlacementRequestSortField } from './models/PlacementRequestSortField';
@@ -248,7 +247,6 @@ export type { TemporaryAccommodationUser } from './models/TemporaryAccommodation
 export type { TemporaryAccommodationUserRole } from './models/TemporaryAccommodationUserRole';
 export type { TimelineEvent } from './models/TimelineEvent';
 export type { TimelineEventAssociatedUrl } from './models/TimelineEventAssociatedUrl';
-export type { TimelineEventContentPayload } from './models/TimelineEventContentPayload';
 export type { TimelineEventType } from './models/TimelineEventType';
 export type { TimelineEventUrlType } from './models/TimelineEventUrlType';
 export type { TriggerSourceType } from './models/TriggerSourceType';
