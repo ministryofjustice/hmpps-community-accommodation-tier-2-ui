@@ -1,0 +1,279 @@
+name: Build, Test, and Deploy
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment
+        type: choice
+        required: true
+        options:
+          - dev
+        #   - preprod
+        #   - staging
+        #   - prod
+        default: 'dev'
+      version:
+        description: Image version
+        type: string
+        required: true
+      docker_registry:
+        description: Docker registry
+        required: true
+        default: 'ghcr.io'
+        type: choice
+        options:
+          - 'ghcr.io'
+          - 'quay.io'
+      registry_org:
+        description: Docker registry organisation
+        required: true
+        default: 'ministryofjustice'
+        type: choice
+        options:
+          - 'ministryofjustice'
+          - 'hmpps'
+      additional_docker_tag:
+        description: Additional docker tag that can be used to specify stable tags
+        required: false
+        default: ''
+        type: string
+      push:
+        description: Push docker image to registry flag
+        required: true
+        default: true
+        type: boolean
+      docker_multiplatform:
+        description: docker multiplatform build or not
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: "Build 🏗️"
+    runs-on: [self-hosted, hmpps-github-actions-runner]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+      - name: Update npm
+        run: 'npm install -g npm@10.8.2'
+      - name: Install Dependencies
+        run: npm ci --no-audit
+      - name: Build
+        run: |
+          npm run build
+          echo "BUILD_NUMBER=$(date +'%Y-%m-%d').${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+          echo "GIT_REF=$GITHUB_SHA" >> $GITHUB_ENV
+          npm run record-build-info
+      - name: Lint
+        run: npm run lint
+      - name: Shell check
+        run: npm run shellcheck
+      - name: Type check
+        run: npm run typecheck
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            node_modules
+            build-info.json
+            build
+            dist
+            .cache/Cypress
+
+  unit_test:
+    name: "Unit Tests 🧪"
+    needs: build
+    runs-on: [self-hosted, hmpps-github-actions-runner]
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+      - name: Run unit tests
+        run: |
+          TESTS=$(find server -name "*.test.ts" | sort | sed -n "$((${MATRIX_SHARD}-1))~4p")
+          npm run test:ci $TESTS
+      - name: Collect coverage
+        run: |
+          mv ./coverage/coverage-final.json ./coverage/coverage_${{ matrix.shard }}.json
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results-${{ matrix.shard }}
+          path: |
+            test_results/jest
+            coverage
+
+  coverage:
+    name: "Coverage Report 📊"
+    needs: unit_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download coverage results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unit-test-results-*
+          path: coverage
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+      - name: Merge coverage
+        run: npx nyc merge ./coverage/ ./coverage/.nyc_output
+      - name: Check coverage
+        run: |
+          npx nyc report -t ./coverage --reporter=text --reporter=text-summary
+          npx nyc check-coverage -t ./coverage
+
+  integration_test:
+    name: "Integration Tests 🧪"
+    needs: build
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7.0
+        ports:
+          - 6380:6379
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+      - name: Install system dependencies
+        run: sudo apt-get install libxss1
+      - name: Setup Wiremock
+        run: |
+          curl -o wiremock.jar https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.1.0/wiremock-standalone-3.1.0.jar
+          java -jar wiremock.jar --port 9999 &
+      - name: Start application
+        run: |
+          npm run compile-sass
+          npm run start-feature &
+          until curl http://localhost:3007/health > /dev/null 2>&1; do
+            sleep 1
+          done
+      - name: Run integration tests
+        run: |
+          TESTS=$(find integration_tests/tests -name "*.cy.ts" | sort | sed -n "$((${MATRIX_SHARD}-1))~4p")
+          npm run int-test -- --spec $TESTS
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-artifacts-${{ matrix.shard }}
+          path: |
+            test_results/cypress
+            integration_tests/videos
+            integration_tests/screenshots
+
+  e2e_test:
+    name: "E2E Tests 🚀"
+    needs: deploy_dev
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+      - name: Install Playwright
+        run: npx playwright install
+      - name: Run E2E tests
+        run: npm run test:e2e
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
+          path: |
+            e2e-tests/playwright-report
+            e2e-tests/test_results
+
+  deploy_dev:
+    name: "Deploy to Dev 🚀"
+    needs: [build, unit_test, integration_test]
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+    with:
+      environment: 'development'
+    secrets: inherit
+
+#   deploy_test:
+#     name: "Deploy to Test 🚀"
+#     needs: [deploy_dev, e2e_test]
+#     environment:
+#       name: test
+#       url: ${{ steps.deploy.outputs.url }}
+#     uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+#     with:
+#       environment: 'test'
+#     secrets: inherit
+
+#   deploy_preprod:
+#     name: "Deploy to PreProd 🚀"
+#     needs: deploy_test
+#     environment:
+#       name: preprod
+#       url: ${{ steps.deploy.outputs.url }}
+#     uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+#     with:
+#       environment: 'preprod'
+#     secrets: inherit
+
+#   deploy_prod:
+#     name: "Deploy to Production 🚀"
+#     needs: deploy_preprod
+#     environment:
+#       name: production
+#       url: ${{ steps.deploy.outputs.url }}
+#     uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+#     with:
+#       environment: 'prod'
+#     secrets: inherit
+
+  security:
+    name: "Security Checks 🔒"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run npm audit
+        run: npm audit
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          security-checks: 'vuln,secret,config'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
