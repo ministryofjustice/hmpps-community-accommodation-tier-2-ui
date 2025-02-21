@@ -2,4 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PlacementRequestTaskOutcome = 'matched' | 'unable_to_match';
+export type Cas2v2StatusUpdateDetail = {
+    id: string;
+    name: string;
+    label: string;
+};
+

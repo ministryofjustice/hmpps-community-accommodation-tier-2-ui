@@ -12,5 +12,8 @@ export type AssessmentAcceptance = {
     placementDates?: PlacementDates;
     apType?: ApType;
     notes?: string;
+    agreeWithShortNoticeReason?: boolean;
+    agreeWithShortNoticeReasonComments?: string;
+    reasonForLateApplication?: string;
 };
 

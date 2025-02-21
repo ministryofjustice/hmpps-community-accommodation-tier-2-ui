@@ -9,5 +9,8 @@ export type AssessmentRejection = {
     referralRejectionReasonId?: string;
     referralRejectionReasonDetail?: string;
     isWithdrawn?: boolean;
+    agreeWithShortNoticeReason?: boolean;
+    agreeWithShortNoticeReasonComments?: string;
+    reasonForLateApplication?: string;
 };
 
