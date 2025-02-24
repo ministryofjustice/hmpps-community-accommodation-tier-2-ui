@@ -12,5 +12,6 @@ export type TemporaryAccommodationBedSearchResultOverlap = {
     bookingId: string;
     roomId: string;
     assessmentId?: string;
+    isSexualRisk: boolean;
 };
 

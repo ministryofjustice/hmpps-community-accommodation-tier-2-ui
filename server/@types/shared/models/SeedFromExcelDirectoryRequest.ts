@@ -3,8 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { SeedFromExcelFileType } from './SeedFromExcelFileType';
-export type SeedFromExcelRequest = {
+export type SeedFromExcelDirectoryRequest = {
     seedType: SeedFromExcelFileType;
-    fileName: string;
+    /**
+     * Directory within the pre-configured seed directory
+     */
+    directoryName: string;
 };
 

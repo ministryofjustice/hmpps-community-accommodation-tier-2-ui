@@ -2,9 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SupervisingProvider = {
+export type Cas2v2User = {
     id: string;
     name: string;
+    username: string;
+    authSource: 'nomis' | 'delius' | 'auth';
+    email?: string;
     isActive: boolean;
 };
 
