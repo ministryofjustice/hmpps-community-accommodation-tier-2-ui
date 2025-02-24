@@ -4,7 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { DateFormats } from '../../../../utils/dateUtils'
-import { getOasysImportDateFromApplication } from '../../../utils'
+import { getRiskDataCreatedDate, getRiskDetails, getRiskDataSource } from '../../../utils'
 import { getQuestions } from '../../../utils/questions'
 
 export type SummaryBody = {
@@ -15,6 +15,7 @@ export type SummaryData = RoshRisksEnvelope & {
   oasysImportedDate: Date
   oasysStartedDate: string
   oasysCompletedDate?: string
+  method?: string
 }
 
 @Page({
@@ -30,13 +31,13 @@ export default class Summary implements TaskListPage {
 
   body: SummaryBody
 
-  risks: SummaryData
+  risks?: SummaryData
 
   questions: {
     additionalComments: string
   }
 
-  importDate = getOasysImportDateFromApplication(this.application, 'risk-of-serious-harm')
+  riskDataCreatedDate = getRiskDataCreatedDate(this.application, 'risk-of-serious-harm', 'OASys')
 
   constructor(
     body: Partial<SummaryBody>,
@@ -45,21 +46,28 @@ export default class Summary implements TaskListPage {
     this.body = body as SummaryBody
     this.application = application
 
-    if (this.isSummaryDataRetrieved(application)) {
-      const summaryData = application.data['risk-of-serious-harm']['summary-data'] as SummaryData
+    const riskData = getRiskDataSource(this.application)
+
+    if (riskData) {
       this.risks = {
-        ...summaryData,
+        ...riskData,
+        value:
+          riskData.value && Object.keys(riskData.value).length > 0
+            ? {
+                overallRisk: getRiskDetails(riskData.value?.overallRisk ?? ''),
+                riskToChildren: getRiskDetails(riskData.value?.riskToChildren ?? ''),
+                riskToPublic: getRiskDetails(riskData.value?.riskToPublic ?? ''),
+                riskToKnownAdult: getRiskDetails(riskData.value?.riskToKnownAdult ?? ''),
+                riskToStaff: getRiskDetails(riskData.value?.riskToStaff ?? ''),
+              }
+            : undefined,
       }
     }
-    const roshQuestions = getQuestions(this.personName)['risk-of-serious-harm']
 
+    const roshQuestions = getQuestions(this.personName)['risk-of-serious-harm']
     this.questions = {
       additionalComments: roshQuestions.summary.additionalComments.question,
     }
-  }
-
-  private isSummaryDataRetrieved(application: Application) {
-    return application.data['risk-of-serious-harm']?.['summary-data']?.status === 'retrieved'
   }
 
   previous() {
@@ -72,30 +80,31 @@ export default class Summary implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
-
     return errors
   }
 
   response() {
-    let response = {}
-    if (this.isSummaryDataRetrieved(this.application)) {
-      const oasysData = this.application.data['risk-of-serious-harm']['summary-data']
+    let response: Record<string, string | undefined> = {}
+
+    if (this.risks) {
       response = {
-        'OASys created': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
-        'OASys completed': oasysData.oasysCompletedDate
-          ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
+        'OASys created': DateFormats.isoDateToUIDate(this.risks.oasysStartedDate, { format: 'medium' }),
+        'OASys completed': this.risks.oasysCompletedDate
+          ? DateFormats.isoDateToUIDate(this.risks.oasysCompletedDate, { format: 'medium' })
           : 'Unknown',
-        'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
-        'Overall risk rating': oasysData.value.overallRisk,
-        'Risk to children': oasysData.value.riskToChildren,
-        'Risk to known adult': oasysData.value.riskToKnownAdult,
-        'Risk to public': oasysData.value.riskToPublic,
-        'Risk to staff': oasysData.value.riskToStaff,
+        'OASys imported': DateFormats.dateObjtoUIDate(this.risks.oasysImportedDate, { format: 'medium' }),
+        'Overall risk rating': this.risks.value.overallRisk,
+        'Risk to children': this.risks.value.riskToChildren,
+        'Risk to known adult': this.risks.value.riskToKnownAdult,
+        'Risk to public': this.risks.value.riskToPublic,
+        'Risk to staff': this.risks.value.riskToStaff,
       }
     }
+
     if (this.body.additionalComments) {
-      response[this.questions.additionalComments] = this.body.additionalComments
+      response['Additional comments (optional)'] = this.body.additionalComments
     }
+
     return response
   }
 }

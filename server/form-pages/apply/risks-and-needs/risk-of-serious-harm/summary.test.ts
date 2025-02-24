@@ -40,7 +40,7 @@ describe('Summary', () => {
     it('sets importDate to null where application contains no OASys import date', () => {
       const page = new Summary({}, applicationWithSummaryData)
 
-      expect(page.importDate).toEqual(null)
+      expect(page.riskDataCreatedDate).toEqual(null)
     })
   })
 
