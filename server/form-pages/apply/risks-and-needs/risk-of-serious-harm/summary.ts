@@ -37,7 +37,7 @@ export default class Summary implements TaskListPage {
     additionalComments: string
   }
 
-  riskCDataCreatedDate = getRiskDataCreatedDate(this.application, 'risk-of-serious-harm', 'OASys')
+  riskDataCreatedDate = getRiskDataCreatedDate(this.application, 'risk-of-serious-harm', 'OASys')
 
   constructor(
     body: Partial<SummaryBody>,
