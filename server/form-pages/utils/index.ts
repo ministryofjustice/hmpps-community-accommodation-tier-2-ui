@@ -146,5 +146,9 @@ export function getRiskDataSource(application: Application): SummaryData | null 
     return riskData['summary-data']
   }
 
+  if (riskData?.['manual-rosh-information']) {
+    return riskData['manual-rosh-information']
+  }
+
   return null
 }

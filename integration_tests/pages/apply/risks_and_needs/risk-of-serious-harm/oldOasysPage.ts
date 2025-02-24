@@ -29,4 +29,8 @@ export default class OldOasysPage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('oasysCompletedDate-month', '1')
     this.getTextInputByIdAndEnterDetails('oasysCompletedDate-year', '2023')
   }
+
+  completeFormForNoOASysData(): void {
+    this.checkRadioByNameAndValue('hasOldOasys', 'no')
+  }
 }

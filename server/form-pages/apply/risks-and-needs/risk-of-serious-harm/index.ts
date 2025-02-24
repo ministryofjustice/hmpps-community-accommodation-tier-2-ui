@@ -6,6 +6,7 @@ import RiskManagementArrangements from './riskManagementArrangements'
 import CellShareInformation from './cellShareInformation'
 import AdditionalRiskInformation from './additionalRiskInformation'
 import OldOasys from './oldOasys'
+import ManualRoshInformation from './custom-forms/manualRoshInformation'
 
 @Task({
   name: 'Add risk of serious harm (RoSH) information',
@@ -14,6 +15,7 @@ import OldOasys from './oldOasys'
     OasysImport,
     Summary,
     OldOasys,
+    ManualRoshInformation,
     RiskToOthers,
     RiskManagementArrangements,
     CellShareInformation,

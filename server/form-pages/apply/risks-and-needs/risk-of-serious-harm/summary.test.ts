@@ -1,3 +1,4 @@
+import { RoshRisks } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import Summary, { SummaryData } from './summary'
@@ -17,11 +18,24 @@ describe('Summary', () => {
     },
   } as SummaryData
 
+  const manualRoSHSummaryData = {
+    overallRisk: 'Very high',
+    riskToChildren: 'Medium',
+    riskToPublic: 'Low',
+    riskToKnownAdult: 'High',
+    riskToStaff: 'Low',
+  } as RoshRisks
+
   const person = personFactory.build({ name: 'Roger Smith' })
 
   const applicationWithSummaryData = applicationFactory.build({
     person,
     data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryData } },
+  })
+
+  const applicationWithManualRoSHSummaryData = applicationFactory.build({
+    person,
+    data: { 'risk-of-serious-harm': { 'manual-rosh-information': manualRoSHSummaryData } },
   })
 
   const applicationWithoutSummaryData = applicationFactory.build({
@@ -45,56 +59,65 @@ describe('Summary', () => {
   })
 
   describe('risks', () => {
-    describe('if the risks have not been found', () => {
-      it('sets the risks to undefined', () => {
-        const roshSummaryDataWithoutValue = {
-          status: 'not_found' as const,
-          oasysImportedDate: new Date('2023-09-15'),
-        } as SummaryData
+    describe('imported OASys data', () => {
+      describe('if the risks have not been found', () => {
+        it('sets the risks to undefined', () => {
+          const roshSummaryDataWithoutValue = {
+            status: 'not_found' as const,
+            oasysImportedDate: new Date('2023-09-15'),
+          } as SummaryData
 
-        const page = new Summary(
-          {},
-          {
-            ...applicationWithSummaryData,
-            data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutValue } },
-          },
-        )
+          const page = new Summary(
+            {},
+            {
+              ...applicationWithSummaryData,
+              data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutValue } },
+            },
+          )
 
-        expect(page.risks).toBe(undefined)
+          expect(page.risks).toBe(undefined)
+        })
+      })
+
+      describe('if the risks have been found but there are no values', () => {
+        it('sets the risks to undefined', () => {
+          const roshSummaryDataWithoutValue = {
+            status: 'retrieved' as const,
+            oasysImportedDate: new Date('2023-09-15'),
+          } as SummaryData
+
+          const page = new Summary(
+            {},
+            {
+              ...applicationWithSummaryData,
+              data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutValue } },
+            },
+          )
+
+          expect(page.risks.value).toBe(undefined)
+        })
+      })
+
+      describe('if risk values exists', () => {
+        it('sets the risks', () => {
+          const page = new Summary({}, applicationWithSummaryData)
+          expect(page.risks).toEqual(roshSummaryData)
+        })
+      })
+
+      describe('if there is no summary data', () => {
+        it('sets the risks to undefined', () => {
+          const page = new Summary({}, applicationWithoutSummaryData)
+
+          expect(page.risks).toBe(undefined)
+        })
       })
     })
 
-    describe('if the risks have been found but there are no values', () => {
-      it('sets the risks to undefined', () => {
-        const roshSummaryDataWithoutValue = {
-          status: 'retrieved' as const,
-          oasysImportedDate: new Date('2023-09-15'),
-        } as SummaryData
-
-        const page = new Summary(
-          {},
-          {
-            ...applicationWithSummaryData,
-            data: { 'risk-of-serious-harm': { 'summary-data': roshSummaryDataWithoutValue } },
-          },
-        )
-
-        expect(page.risks.value).toBe(undefined)
-      })
-    })
-
-    describe('if risk values exists', () => {
-      it('sets the risks', () => {
-        const page = new Summary({}, applicationWithSummaryData)
-        expect(page.risks).toEqual(roshSummaryData)
-      })
-    })
-
-    describe('if there is no summary data', () => {
-      it('sets the risks to undefined', () => {
-        const page = new Summary({}, applicationWithoutSummaryData)
-
-        expect(page.risks).toBe(undefined)
+    describe('manually entered RoSH data', () => {
+      it('sets the risks in the same format as OASys value format', () => {
+        const page = new Summary({}, applicationWithManualRoSHSummaryData)
+        expect(page.risks.value).toEqual(manualRoSHSummaryData)
       })
     })
   })

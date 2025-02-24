@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, RoshRisksEnvelope } from '@approved-premises/api'
+import { Cas2Application as Application, RoshRisks, RoshRisksEnvelope } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -12,8 +12,8 @@ export type SummaryBody = {
 }
 
 export type SummaryData = RoshRisksEnvelope & {
-  oasysImportedDate: Date
-  oasysStartedDate: string
+  oasysImportedDate?: Date
+  oasysStartedDate?: string
   oasysCompletedDate?: string
   method?: string
 }
@@ -72,16 +72,7 @@ export default class Summary implements TaskListPage {
 
       this.risks = {
         ...riskData,
-        value:
-          riskData.value && Object.keys(riskData.value).length > 0
-            ? {
-                overallRisk: getRiskDetails(riskData.value?.overallRisk ?? ''),
-                riskToChildren: getRiskDetails(riskData.value?.riskToChildren ?? ''),
-                riskToPublic: getRiskDetails(riskData.value?.riskToPublic ?? ''),
-                riskToKnownAdult: getRiskDetails(riskData.value?.riskToKnownAdult ?? ''),
-                riskToStaff: getRiskDetails(riskData.value?.riskToStaff ?? ''),
-              }
-            : undefined,
+        value: this.getRiskValues(riskData),
       }
     }
 
@@ -184,6 +175,37 @@ export default class Summary implements TaskListPage {
         ],
       }
     }
+    return undefined
+  }
+
+  getRiskValues(riskData: SummaryData | RoshRisks | never) {
+    // Function to extract risk details from a risk object
+    const getRiskValue = (data: RoshRisks | SummaryData, key: keyof RoshRisks | keyof SummaryData) => {
+      return getRiskDetails((data as any)?.value?.[key] ?? (data as any)[key] ?? '')
+    }
+
+    // If riskData is SummaryData with a 'value' property
+    if ('value' in riskData && riskData.value && Object.keys(riskData.value).length > 0) {
+      return {
+        overallRisk: getRiskValue(riskData, 'overallRisk'),
+        riskToChildren: getRiskValue(riskData, 'riskToChildren'),
+        riskToPublic: getRiskValue(riskData, 'riskToPublic'),
+        riskToKnownAdult: getRiskValue(riskData, 'riskToKnownAdult'),
+        riskToStaff: getRiskValue(riskData, 'riskToStaff'),
+      }
+    }
+
+    // If riskData is RoshRisks or contains keys
+    if (Object.keys(riskData).length > 0) {
+      return {
+        overallRisk: getRiskValue(riskData, 'overallRisk'),
+        riskToChildren: getRiskValue(riskData, 'riskToChildren'),
+        riskToPublic: getRiskValue(riskData, 'riskToPublic'),
+        riskToKnownAdult: getRiskValue(riskData, 'riskToKnownAdult'),
+        riskToStaff: getRiskValue(riskData, 'riskToStaff'),
+      }
+    }
+
     return undefined
   }
 }

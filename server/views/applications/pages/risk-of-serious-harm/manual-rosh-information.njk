@@ -1,0 +1,51 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% extends "../layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ showErrorSummary(errorSummary) }}
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+      <p class="govuk-body">{{ page.selectText }}</p>
+      <p class="govuk-body">If you do not have this information, contact the relevant probation officer.</p>
+
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+        <input type="hidden" name="pageName" value="{{ page.name }}"/>
+        <input type="hidden" name="taskName" value="{{ page.taskName }}"/>
+        <input type="hidden" name="createdAt" value="{{ page.createdAt }}"/>
+
+        {% block questions %}
+          {% for fieldName, questionData in page.questions %}
+            {{
+              formPageRadios(
+                {
+                  fieldName: fieldName,
+                  fieldset: {
+                    legend: {
+                      text: questionData.question,
+                      classes: "govuk-fieldset__legend--m"
+                    }
+                  },
+                  items: page.items(fieldName)
+                },
+                fetchContext()
+              )
+            }}
+          {% endfor %}
+
+          {% block button %}
+            <div class="govuk-button-group">
+              {{ govukButton({ text: "Save and continue"})}}
+
+              <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+            </div>
+          {% endblock %}
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+{% endblock %}

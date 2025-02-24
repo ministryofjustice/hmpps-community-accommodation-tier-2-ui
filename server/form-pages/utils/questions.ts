@@ -1,6 +1,7 @@
 export const getQuestions = (name: string) => {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
+  const riskLevel = { low: 'Low', medium: 'Medium', high: 'High', veryHigh: 'Very High' }
 
   const dateExample = '27 3 2023'
 
@@ -717,6 +718,28 @@ export const getQuestions = (name: string) => {
         riskToKnownAdult: { question: 'Risk to a known adult' },
         riskToStaff: { question: 'Risk to staff' },
         additionalComments: { question: 'Additional comments (optional)' },
+      },
+      'manual-rosh-information': {
+        riskToChildren: {
+          question: `What risk do they pose to children?`,
+          answers: riskLevel,
+        },
+        riskToPublic: {
+          question: `What risk do they pose to the public?`,
+          answers: riskLevel,
+        },
+        riskToKnownAdult: {
+          question: `What risk do they pose to a known adult?`,
+          answers: riskLevel,
+        },
+        riskToStaff: {
+          question: `What risk do they pose to staff?`,
+          answers: riskLevel,
+        },
+        overallRisk: {
+          question: `What’s the overall risk?`,
+          answers: riskLevel,
+        },
       },
       'old-oasys': {
         hasOldOasys: {
