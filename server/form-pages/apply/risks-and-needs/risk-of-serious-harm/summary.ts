@@ -12,8 +12,8 @@ export type SummaryBody = {
 }
 
 export type SummaryData = RoshRisksEnvelope & {
-  oasysImportedDate: Date
-  oasysStartedDate: string
+  oasysImportedDate?: Date
+  oasysStartedDate?: string
   oasysCompletedDate?: string
 }
 
@@ -45,12 +45,33 @@ export default class Summary implements TaskListPage {
     this.body = body as SummaryBody
     this.application = application
 
+    console.log('applicaton data from summary page: ', this.application.data)
+
     if (this.isSummaryDataRetrieved(application)) {
+      console.log('Use imported OASys data')
+      // Use imported OASys data
       const summaryData = application.data['risk-of-serious-harm']['summary-data'] as SummaryData
+      this.risks = { ...summaryData }
+    } else if (this.isManualDataAvailable(application)) {
+      // Use manually entered data, transformed into the same format
+      const manualData = application.data['risk-of-serious-harm']['manual-rosh-information']
+
+      // Need a new type created here maybe 'ManualData'
       this.risks = {
-        ...summaryData,
+        oasysImportedDate: manualData.lastUpdated,
+        oasysStartedDate: undefined,
+        oasysCompletedDate: undefined,
+        value: {
+          overallRisk: manualData.overallRisk,
+          riskToChildren: manualData.riskToChildren,
+          riskToKnownAdult: manualData.riskToKnownAdult,
+          riskToPublic: manualData.riskToPublic,
+          riskToStaff: manualData.riskToStaff,
+        },
+        status: 'manual', // use method
       }
     }
+
     const roshQuestions = getQuestions(this.personName)['risk-of-serious-harm']
 
     this.questions = {
@@ -60,6 +81,10 @@ export default class Summary implements TaskListPage {
 
   private isSummaryDataRetrieved(application: Application) {
     return application.data['risk-of-serious-harm']?.['summary-data']?.status === 'retrieved'
+  }
+
+  private isManualDataAvailable(application: Application) {
+    return !!application.data['risk-of-serious-harm']?.['manual-rosh-information']
   }
 
   previous() {
@@ -78,24 +103,32 @@ export default class Summary implements TaskListPage {
 
   response() {
     let response = {}
-    if (this.isSummaryDataRetrieved(this.application)) {
-      const oasysData = this.application.data['risk-of-serious-harm']['summary-data']
+    if (this.isSummaryDataRetrieved(this.application) || this.isManualDataAvailable(this.application)) {
+      const riskData = this.risks
+      console.log('in response')
+
+      // have an overall format that can be used for response
       response = {
-        'OASys created': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
-        'OASys completed': oasysData.oasysCompletedDate
-          ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
-          : 'Unknown',
-        'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
-        'Overall risk rating': oasysData.value.overallRisk,
-        'Risk to children': oasysData.value.riskToChildren,
-        'Risk to known adult': oasysData.value.riskToKnownAdult,
-        'Risk to public': oasysData.value.riskToPublic,
-        'Risk to staff': oasysData.value.riskToStaff,
+        'Overall risk rating': riskData.value.overallRisk,
+        'Risk to children': riskData.value.riskToChildren,
+        'Risk to known adult': riskData.value.riskToKnownAdult,
+        'Risk to public': riskData.value.riskToPublic,
+        'Risk to staff': riskData.value.riskToStaff,
+      }
+
+      // depending on the source for rik data, append extra fields
+
+      if (riskData.oasysImportedDate) {
+        this.importDate = DateFormats.dateObjtoUIDate(riskData.oasysImportedDate, {
+          format: 'medium',
+        })
       }
     }
-    if (this.body.additionalComments) {
-      response[this.questions.additionalComments] = this.body.additionalComments
-    }
+
+    // if (this.body.additionalComments) {
+    //   response[this.questions.additionalComments] = this.body.additionalComments
+    // }
+
     return response
   }
 }

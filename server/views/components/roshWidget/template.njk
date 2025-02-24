@@ -34,7 +34,7 @@ rosh-widget__risk--low
 {% endif %}
 {% endmacro %}
 
-{% if params and params.status == 'retrieved' %}
+{% if params %}
   <div class="rosh-widget {{ getOverallRiskLevelClass(params.value.overallRisk) }}">
     <h2 class="govuk-heading-m">
       <strong>{{ getRiskLevelText(params.value.overallRisk) | upper }}</strong> RoSH
