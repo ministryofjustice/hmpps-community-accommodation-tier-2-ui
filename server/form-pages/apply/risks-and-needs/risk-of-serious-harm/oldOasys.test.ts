@@ -23,7 +23,6 @@ describe('OldOasys', () => {
     })
   })
 
-  itShouldHaveNextValue(new OldOasys({}, application), 'risk-to-others')
   itShouldHavePreviousValue(new OldOasys({}, application), 'taskList')
 
   describe('errors', () => {
@@ -90,5 +89,13 @@ describe('OldOasys', () => {
         'No, they do not have an OASys',
     }
     expect(page.response()).toEqual(expected)
+  })
+
+  describe('next', () => {
+    itShouldHaveNextValue(new OldOasys({}, application), 'manual-rosh-information')
+
+    describe('when hasOldOasys is yes', () => {
+      itShouldHaveNextValue(new OldOasys({ hasOldOasys: 'yes' }, application), 'risk-to-others')
+    })
   })
 })

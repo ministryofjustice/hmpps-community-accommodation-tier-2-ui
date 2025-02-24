@@ -12,8 +12,8 @@ export type SummaryBody = {
 }
 
 export type SummaryData = RoshRisksEnvelope & {
-  oasysImportedDate: Date
-  oasysStartedDate: string
+  oasysImportedDate?: Date
+  oasysStartedDate?: string
   oasysCompletedDate?: string
   method?: string
 }
