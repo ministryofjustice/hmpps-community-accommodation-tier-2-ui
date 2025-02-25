@@ -19,7 +19,7 @@ parameters:
 
   node-version:
     type: string
-    default: 20.18-browsers
+    default: 22.14-browsers
 
 executors:
   integration-tests:
@@ -37,9 +37,6 @@ jobs:
       tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@10.8.2'
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
