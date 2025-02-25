@@ -5,10 +5,12 @@
 import type { Cas1KeyWorkerAllocation } from './Cas1KeyWorkerAllocation';
 import type { Cas1SpaceBookingSummaryStatus } from './Cas1SpaceBookingSummaryStatus';
 import type { Cas1SpaceCharacteristic } from './Cas1SpaceCharacteristic';
+import type { NamedId } from './NamedId';
 import type { PersonSummary } from './PersonSummary';
 export type Cas1SpaceBookingSummary = {
     id: string;
     person: PersonSummary;
+    premises: NamedId;
     /**
      * actual arrival date or, if not known, the expected arrival date
      */
