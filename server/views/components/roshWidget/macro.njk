@@ -1,3 +1,4 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% macro roshWidget(params) %}
   {% if params %}
@@ -5,34 +6,59 @@
       <h2 class="govuk-heading-m">
         <strong>{{ params.value.overallRisk | upper }}</strong> RoSH
       </h2>
-      <p class="govuk-body-m">Risk of serious harm</p>
 
-      <table class="govuk-table rosh-widget__table">
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th class="govuk-table__header">Risk to</th>
-            <th class="govuk-table__header">Community</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
-            <th class="govuk-table__header">Children</th>
-            <td class="govuk-table__cell rosh-widget__risk--{{ params.value.riskToChildren | lower | replace(' ', '-') }}">{{ params.value.riskToChildren }}</td>
-          </tr>
-          <tr>
-            <th class="govuk-table__header">Public</th>
-            <td class="govuk-table__cell rosh-widget__risk--{{ params.value.riskToPublic | lower | replace(' ', '-') }}">{{ params.value.riskToPublic }}</td>
-          </tr>
-          <tr>
-            <th class="govuk-table__header">Known adult</th>
-            <td class="govuk-table__cell rosh-widget__risk--{{ params.value.riskToKnownAdult | lower | replace(' ', '-') }}">{{ params.value.riskToKnownAdult }}</td>
-          </tr>
-          <tr>
-            <th class="govuk-table__header">Staff</th>
-            <td class="govuk-table__cell rosh-widget__risk--{{ params.value.riskToStaff | lower | replace(' ', '-') }}">{{ params.value.riskToStaff }}</td>
-          </tr>
-        </tbody>
-      </table>
+      {{ govukTable({
+        caption: "Risk of serious harm",
+        captionClasses: "govuk-table__caption--s govuk-!-font-weight-regular",
+        classes: "rosh-widget__table",
+        firstCellIsHeader: true,
+        head: [
+          {
+            text: "Risk to"
+          },
+          {
+            text: "Community"
+          }
+        ],
+        rows: [
+          [
+            {
+              text: "Children"
+            },
+            {
+              text: params.value.riskToChildren,
+              classes: "rosh-widget__risk--" + params.value.riskToChildren | lower | replace(' ', '-')
+            }
+          ],
+          [
+            {
+              text: "Public"
+            },
+            {
+              text: params.value.riskToPublic,
+              classes: "rosh-widget__risk--" + params.value.riskToPublic | lower | replace(' ', '-')
+            }
+          ],
+          [
+            {
+              text: "Known adult"
+            },
+            {
+              text: params.value.riskToKnownAdult,
+              classes: "rosh-widget__risk--" + params.value.riskToKnownAdult | lower | replace(' ', '-')
+            }
+          ],
+          [
+            {
+              text: "Staff"
+            },
+            {
+              text: params.value.riskToStaff,
+              classes: "rosh-widget__risk--" + params.value.riskToStaff | lower | replace(' ', '-')
+            }
+          ]
+        ]
+      }) }}
     </div>
   {% else %}
     <div class="rosh-widget rosh-widget--unknown">
