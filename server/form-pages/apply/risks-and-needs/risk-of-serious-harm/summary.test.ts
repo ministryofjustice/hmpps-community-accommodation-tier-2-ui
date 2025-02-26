@@ -99,6 +99,58 @@ describe('Summary', () => {
     })
   })
 
+  describe('riskWidgetData', () => {
+    describe('if risk values exists', () => {
+      it('sets the risks', () => {
+        const page = new Summary({}, applicationWithSummaryData)
+        expect(page.riskWidgetData).toEqual({
+          overallRisk: {
+            text: 'A RISK',
+            classes: `rosh-widget--a-risk`,
+          },
+          rows: [
+            [
+              {
+                text: 'Children',
+              },
+              {
+                text: 'another risk',
+                classes: `rosh-widget__risk--another-risk`,
+              },
+            ],
+            [
+              {
+                text: 'Public',
+              },
+              {
+                text: 'a third risk',
+                classes: `rosh-widget__risk--a-third-risk`,
+              },
+            ],
+            [
+              {
+                text: 'Known adult',
+              },
+              {
+                text: 'a fourth risk',
+                classes: `rosh-widget__risk--a-fourth-risk`,
+              },
+            ],
+            [
+              {
+                text: 'Staff',
+              },
+              {
+                text: 'a fifth risk',
+                classes: `rosh-widget__risk--a-fifth-risk`,
+              },
+            ],
+          ],
+        })
+      })
+    })
+  })
+
   itShouldHaveNextValue(new Summary({}, applicationWithSummaryData), 'risk-to-others')
   itShouldHavePreviousValue(new Summary({}, applicationWithSummaryData), 'taskList')
 

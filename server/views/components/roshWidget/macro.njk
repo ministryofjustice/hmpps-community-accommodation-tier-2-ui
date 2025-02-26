@@ -1,10 +1,10 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% macro roshWidget(params) %}
-  {% if params %}
-    <div class="rosh-widget rosh-widget--{{ params.value.overallRisk | lower | replace(' ', '-') }}">
+{% macro roshWidget(riskWidgetData) %}
+  {% if riskWidgetData %}
+    <div class="rosh-widget {{riskWidgetData.overallRisk.classes }}">
       <h2 class="govuk-heading-m">
-        <strong>{{ params.value.overallRisk | upper }}</strong> RoSH
+        <strong>{{ riskWidgetData.overallRisk.text }}</strong> RoSH
       </h2>
 
       {{ govukTable({
@@ -20,44 +20,7 @@
             text: "Community"
           }
         ],
-        rows: [
-          [
-            {
-              text: "Children"
-            },
-            {
-              text: params.value.riskToChildren,
-              classes: "rosh-widget__risk--" + params.value.riskToChildren | lower | replace(' ', '-')
-            }
-          ],
-          [
-            {
-              text: "Public"
-            },
-            {
-              text: params.value.riskToPublic,
-              classes: "rosh-widget__risk--" + params.value.riskToPublic | lower | replace(' ', '-')
-            }
-          ],
-          [
-            {
-              text: "Known adult"
-            },
-            {
-              text: params.value.riskToKnownAdult,
-              classes: "rosh-widget__risk--" + params.value.riskToKnownAdult | lower | replace(' ', '-')
-            }
-          ],
-          [
-            {
-              text: "Staff"
-            },
-            {
-              text: params.value.riskToStaff,
-              classes: "rosh-widget__risk--" + params.value.riskToStaff | lower | replace(' ', '-')
-            }
-          ]
-        ]
+        rows: riskWidgetData.rows
       }) }}
     </div>
   {% else %}
