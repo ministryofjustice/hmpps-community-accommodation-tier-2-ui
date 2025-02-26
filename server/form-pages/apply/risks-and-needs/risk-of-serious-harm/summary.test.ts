@@ -108,6 +108,14 @@ describe('Summary', () => {
             text: 'A RISK',
             classes: `rosh-widget--a-risk`,
           },
+          head: [
+            {
+              text: 'Risk to',
+            },
+            {
+              text: 'Community',
+            },
+          ],
           rows: [
             [
               {

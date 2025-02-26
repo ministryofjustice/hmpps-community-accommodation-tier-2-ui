@@ -18,6 +18,9 @@ export type SummaryData = RoshRisksEnvelope & {
   method?: string
 }
 
+interface Column {
+  text: string
+}
 interface Row {
   text: string
   classes?: string
@@ -28,6 +31,7 @@ interface RiskWidgetData {
     text: string
     classes: string
   }
+  head: Column[]
   rows: Row[][]
 }
 
@@ -132,6 +136,14 @@ export default class Summary implements TaskListPage {
           text: riskData.value.overallRisk.toUpperCase(),
           classes: `rosh-widget--${riskData.value.overallRisk.toLowerCase().replace(/ /g, '-')}`,
         },
+        head: [
+          {
+            text: 'Risk to',
+          },
+          {
+            text: 'Community',
+          },
+        ],
         rows: [
           [
             {
