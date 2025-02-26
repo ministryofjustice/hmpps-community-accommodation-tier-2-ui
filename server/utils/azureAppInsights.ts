@@ -1,6 +1,13 @@
 /* istanbul ignore file */
 
-import { setup, defaultClient, TelemetryClient, DistributedTracingModes } from 'applicationinsights'
+import {
+  DistributedTracingModes,
+  type TelemetryClient,
+  defaultClient,
+  getCorrelationContext,
+  setup,
+} from 'applicationinsights'
+import { RequestHandler } from 'express'
 import applicationVersion from '../applicationVersion'
 
 function defaultName(): string {
@@ -28,7 +35,28 @@ export function buildAppInsightsClient(name = defaultName()): TelemetryClient {
   if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
     defaultClient.context.tags['ai.cloud.role'] = name
     defaultClient.context.tags['ai.application.ver'] = version()
+
+    defaultClient.addTelemetryProcessor(({ tags, data }, contextObjects) => {
+      const operationNameOverride = contextObjects.correlationContext?.customProperties?.getProperty('operationName')
+      if (operationNameOverride) {
+        tags['ai.operation.name'] = data.baseData.name = operationNameOverride // eslint-disable-line no-param-reassign,no-multi-assign
+      }
+      return true
+    })
+
     return defaultClient
   }
   return null
+}
+
+export function appInsightsMiddleware(): RequestHandler {
+  return (req, res, next) => {
+    res.prependOnceListener('finish', () => {
+      const context = getCorrelationContext()
+      if (context && req.route) {
+        context.customProperties.setProperty('operationName', `${req.method} ${req.route?.path}`)
+      }
+    })
+    next()
+  }
 }
