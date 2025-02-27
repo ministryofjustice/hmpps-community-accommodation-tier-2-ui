@@ -58,7 +58,7 @@ describe('Summary', () => {
     })
   })
 
-  describe('risks', () => {
+  describe('riskData', () => {
     describe('imported OASys data', () => {
       describe('if the risks have not been found', () => {
         it('sets the risks to undefined', () => {
@@ -75,7 +75,7 @@ describe('Summary', () => {
             },
           )
 
-          expect(page.risks).toBe(undefined)
+          expect(page.riskData).toBe(undefined)
         })
       })
 
@@ -94,14 +94,14 @@ describe('Summary', () => {
             },
           )
 
-          expect(page.risks.value).toBe(undefined)
+          expect(page.riskData).toBe(roshSummaryDataWithoutValue)
         })
       })
 
       describe('if risk values exists', () => {
         it('sets the risks', () => {
           const page = new Summary({}, applicationWithSummaryData)
-          expect(page.risks).toEqual(roshSummaryData)
+          expect(page.riskData).toEqual(roshSummaryData)
         })
       })
 
@@ -109,7 +109,7 @@ describe('Summary', () => {
         it('sets the risks to undefined', () => {
           const page = new Summary({}, applicationWithoutSummaryData)
 
-          expect(page.risks).toBe(undefined)
+          expect(page.riskData).toBe(undefined)
         })
       })
     })
@@ -117,7 +117,7 @@ describe('Summary', () => {
     describe('manually entered RoSH data', () => {
       it('sets the risks in the same format as OASys value format', () => {
         const page = new Summary({}, applicationWithManualRoSHSummaryData)
-        expect(page.risks.value).toEqual(manualRoSHSummaryData)
+        expect(page.riskData).toEqual(manualRoSHSummaryData)
       })
     })
   })

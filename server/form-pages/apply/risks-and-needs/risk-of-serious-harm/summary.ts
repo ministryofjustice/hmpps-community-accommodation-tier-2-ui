@@ -1,10 +1,10 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, RoshRisks, RoshRisksEnvelope } from '@approved-premises/api'
+import { Cas2Application as Application, RoshRisks, RoshRisksEnvelope, Unit } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { DateFormats } from '../../../../utils/dateUtils'
-import { getRiskDataCreatedDate, getRiskDetails, getRiskDataSource } from '../../../utils'
+import { getRiskDataCreatedDate } from '../../../utils'
 import { getQuestions } from '../../../utils/questions'
 
 export type SummaryBody = {
@@ -15,8 +15,11 @@ export type SummaryData = RoshRisksEnvelope & {
   oasysImportedDate?: Date
   oasysStartedDate?: string
   oasysCompletedDate?: string
-  method?: string
 }
+
+type OASysSummaryData = SummaryData
+
+type ManualRoshData = RoshRisks
 
 interface Column {
   text: string
@@ -48,7 +51,7 @@ export default class Summary implements TaskListPage {
 
   body: SummaryBody
 
-  risks?: SummaryData
+  riskData: OASysSummaryData | ManualRoshData
 
   riskWidgetData: RiskWidgetData
 
@@ -65,14 +68,14 @@ export default class Summary implements TaskListPage {
     this.body = body as SummaryBody
     this.application = application
 
-    const riskData = getRiskDataSource(this.application)
+    // Get All RoSH Data if it exists else returns undefined
+    const roshData = this.getRoSHData(this.application)
 
-    if (riskData) {
-      this.riskWidgetData = this.getRiskWidgetData(riskData)
+    if (roshData) {
+      this.riskData = this.getRiskDataSource(roshData)
 
-      this.risks = {
-        ...riskData,
-        value: this.getRiskValues(riskData),
+      if (this.riskData) {
+        this.riskWidgetData = this.getRiskWidgetData(this.riskData)
       }
     }
 
@@ -98,18 +101,22 @@ export default class Summary implements TaskListPage {
   response() {
     let response: Record<string, string | undefined> = {}
 
-    if (this.risks) {
+    if (this.riskData) {
       response = {
-        'OASys created': DateFormats.isoDateToUIDate(this.risks.oasysStartedDate, { format: 'medium' }),
-        'OASys completed': this.risks.oasysCompletedDate
-          ? DateFormats.isoDateToUIDate(this.risks.oasysCompletedDate, { format: 'medium' })
+        'OASys created': DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysStartedDate, {
+          format: 'medium',
+        }),
+        'OASys completed': (this.riskData as OASysSummaryData).oasysCompletedDate
+          ? DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysCompletedDate, { format: 'medium' })
           : 'Unknown',
-        'OASys imported': DateFormats.dateObjtoUIDate(this.risks.oasysImportedDate, { format: 'medium' }),
-        'Overall risk rating': this.risks.value.overallRisk,
-        'Risk to children': this.risks.value.riskToChildren,
-        'Risk to known adult': this.risks.value.riskToKnownAdult,
-        'Risk to public': this.risks.value.riskToPublic,
-        'Risk to staff': this.risks.value.riskToStaff,
+        'OASys imported': DateFormats.dateObjtoUIDate((this.riskData as OASysSummaryData).oasysImportedDate, {
+          format: 'medium',
+        }),
+        'Overall risk rating': (this.riskData as OASysSummaryData).value.overallRisk,
+        'Risk to children': (this.riskData as OASysSummaryData).value.riskToChildren,
+        'Risk to known adult': (this.riskData as OASysSummaryData).value.riskToKnownAdult,
+        'Risk to public': (this.riskData as OASysSummaryData).value.riskToPublic,
+        'Risk to staff': (this.riskData as OASysSummaryData).value.riskToStaff,
       }
     }
 
@@ -121,11 +128,13 @@ export default class Summary implements TaskListPage {
   }
 
   getRiskWidgetData(riskData: Pick<RoshRisksEnvelope, 'value'>): RiskWidgetData {
-    if (riskData.value) {
+    const source = (riskData.value || riskData) as RoshRisks
+
+    if (source) {
       return {
         overallRisk: {
-          text: riskData.value.overallRisk.toUpperCase(),
-          classes: `rosh-widget--${riskData.value.overallRisk.toLowerCase().replace(/ /g, '-')}`,
+          text: source.overallRisk?.toUpperCase(),
+          classes: `rosh-widget--${source.overallRisk?.toLowerCase().replace(/ /g, '-')}`,
         },
         head: [
           {
@@ -141,8 +150,8 @@ export default class Summary implements TaskListPage {
               text: 'Children',
             },
             {
-              text: riskData.value.riskToChildren,
-              classes: `rosh-widget__risk--${riskData.value.riskToChildren.toLowerCase().replace(/ /g, '-')}`,
+              text: source.riskToChildren || 'No Data',
+              classes: `rosh-widget__risk--${source.riskToChildren?.toLowerCase().replace(/ /g, '-')}`,
             },
           ],
           [
@@ -150,8 +159,8 @@ export default class Summary implements TaskListPage {
               text: 'Public',
             },
             {
-              text: riskData.value.riskToPublic,
-              classes: `rosh-widget__risk--${riskData.value.riskToPublic.toLowerCase().replace(/ /g, '-')}`,
+              text: source.riskToPublic || 'No Data',
+              classes: `rosh-widget__risk--${source.riskToPublic?.toLowerCase().replace(/ /g, '-')}`,
             },
           ],
           [
@@ -159,8 +168,8 @@ export default class Summary implements TaskListPage {
               text: 'Known adult',
             },
             {
-              text: riskData.value.riskToKnownAdult,
-              classes: `rosh-widget__risk--${riskData.value.riskToKnownAdult.toLowerCase().replace(/ /g, '-')}`,
+              text: source.riskToKnownAdult || 'No Data',
+              classes: `rosh-widget__risk--${source.riskToKnownAdult?.toLowerCase().replace(/ /g, '-')}`,
             },
           ],
           [
@@ -168,8 +177,8 @@ export default class Summary implements TaskListPage {
               text: 'Staff',
             },
             {
-              text: riskData.value.riskToStaff,
-              classes: `rosh-widget__risk--${riskData.value.riskToStaff.toLowerCase().replace(/ /g, '-')}`,
+              text: source.riskToStaff || 'No Data',
+              classes: `rosh-widget__risk--${source.riskToStaff?.toLowerCase().replace(/ /g, '-')}`,
             },
           ],
         ],
@@ -178,34 +187,20 @@ export default class Summary implements TaskListPage {
     return undefined
   }
 
-  getRiskValues(riskData: SummaryData | RoshRisks | never) {
-    // Function to extract risk details from a risk object
-    const getRiskValue = (data: RoshRisks | SummaryData, key: keyof RoshRisks | keyof SummaryData) => {
-      return getRiskDetails((data as any)?.value?.[key] ?? (data as any)[key] ?? '')
+  private getRoSHData(application: Application) {
+    return application.data['risk-of-serious-harm']
+  }
+
+  private getRiskDataSource(roshData: Unit): SummaryData | null {
+    const riskData = roshData
+
+    if (riskData['summary-data']?.status === 'retrieved') {
+      return riskData['summary-data']
     }
 
-    // If riskData is SummaryData with a 'value' property
-    if ('value' in riskData && riskData.value && Object.keys(riskData.value).length > 0) {
-      return {
-        overallRisk: getRiskValue(riskData, 'overallRisk'),
-        riskToChildren: getRiskValue(riskData, 'riskToChildren'),
-        riskToPublic: getRiskValue(riskData, 'riskToPublic'),
-        riskToKnownAdult: getRiskValue(riskData, 'riskToKnownAdult'),
-        riskToStaff: getRiskValue(riskData, 'riskToStaff'),
-      }
+    if (riskData['manual-rosh-information']) {
+      return riskData['manual-rosh-information']
     }
-
-    // If riskData is RoshRisks or contains keys
-    if (Object.keys(riskData).length > 0) {
-      return {
-        overallRisk: getRiskValue(riskData, 'overallRisk'),
-        riskToChildren: getRiskValue(riskData, 'riskToChildren'),
-        riskToPublic: getRiskValue(riskData, 'riskToPublic'),
-        riskToKnownAdult: getRiskValue(riskData, 'riskToKnownAdult'),
-        riskToStaff: getRiskValue(riskData, 'riskToStaff'),
-      }
-    }
-
     return undefined
   }
 }
