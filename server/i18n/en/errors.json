@@ -91,5 +91,22 @@
     "cancelled": {
       "empty": "Select why the referral was cancelled"
     }
+  },
+  "manualRoshInformation": {
+    "riskToChildren": {
+      "empty": "Select the risk they pose to children"
+    },
+    "riskToPublic": {
+      "empty": "Select the risk they pose to the public"
+    },
+    "riskToKnownAdult": {
+      "empty": "Select they risk they pose to a known adult"
+    },
+    "riskToStaff": {
+      "empty": "Select they risk they pose to staff"
+    },
+    "overallRisk": {
+      "empty": "Select they risk they pose overall"
+    }
   }
 }

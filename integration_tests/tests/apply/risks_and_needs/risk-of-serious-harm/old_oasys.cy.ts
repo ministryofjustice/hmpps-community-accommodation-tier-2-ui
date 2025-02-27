@@ -20,6 +20,7 @@ import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import OldOasysPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/oldOasysPage'
 import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
+import ManualRoshInformationPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/manualRoshInformationPage'
 
 context('Visit "Risks and needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -62,17 +63,35 @@ context('Visit "Risks and needs" section', () => {
     Page.verifyOnPage(OldOasysPage, this.application)
   })
 
-  //  Scenario: navigate to next page in "Risk of serious harm" task
-  // ----------------------------------------------
-  it('navigates to the next page', function test() {
-    //  When I give a valid answer
-    const page = Page.verifyOnPage(OldOasysPage, this.application)
-    page.completeForm()
+  describe('when offender has older OASys ROsh Info', () => {
+    //  Scenario: navigate to next page in "Risk of serious harm" task
+    // ----------------------------------------------
+    it('navigates to the next page', function test() {
+      //  When I give a valid answer
+      const page = Page.verifyOnPage(OldOasysPage, this.application)
+      page.completeForm()
 
-    //  And I continue to the next task / page
-    page.clickSubmit()
+      //  And I continue to the next task / page
+      page.clickSubmit()
 
-    //  Then I see the "Risk to others" page
-    Page.verifyOnPage(RiskToOthersPage, this.application)
+      //  Then I see the "Risk to others" page
+      Page.verifyOnPage(RiskToOthersPage, this.application)
+    })
+  })
+
+  describe('when offender does not have older OASys ROsh Info', () => {
+    //  Scenario: navigate to next page in "Risk of serious harm" task
+    // ----------------------------------------------
+    it('navigates to the next page', function test() {
+      //  When I give a valid answer
+      const page = Page.verifyOnPage(OldOasysPage, this.application)
+      page.completeFormForNoOASysData()
+
+      //  And I continue to the next task / page
+      page.clickSubmit()
+
+      //  Then I see the "Manual Rosh Info" page
+      Page.verifyOnPage(ManualRoshInformationPage, this.application)
+    })
   })
 })

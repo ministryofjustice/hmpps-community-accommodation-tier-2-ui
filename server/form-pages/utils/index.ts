@@ -4,7 +4,6 @@ import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
 import logger from '../../../logger'
 import { TaskListPageInterface } from '../taskListPage'
 import { DateFormats } from '../../utils/dateUtils'
-import type { SummaryData } from '../apply/risks-and-needs/risk-of-serious-harm/summary'
 
 export const getTask = <T>(task: T) => {
   const taskPages = {}
@@ -130,21 +129,4 @@ export function pageBodyShallowEquals(body1: Record<string, unknown>, body2: Rec
 
 export const dateBodyProperties = (root: string) => {
   return [root, `${root}-year`, `${root}-month`, `${root}-day`]
-}
-
-export function getRiskDetails(level: string) {
-  if (level === 'Very High') {
-    return 'Very high'
-  }
-  return level || 'No data'
-}
-
-export function getRiskDataSource(application: Application): SummaryData | null {
-  const riskData = application.data['risk-of-serious-harm']
-
-  if (riskData?.['summary-data']?.status === 'retrieved') {
-    return riskData['summary-data']
-  }
-
-  return null
 }
