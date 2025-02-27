@@ -18,6 +18,23 @@ export type SummaryData = RoshRisksEnvelope & {
   method?: string
 }
 
+interface Column {
+  text: string
+}
+interface Row {
+  text: string
+  classes?: string
+}
+
+interface RiskWidgetData {
+  overallRisk: {
+    text: string
+    classes: string
+  }
+  head: Column[]
+  rows: Row[][]
+}
+
 @Page({
   name: 'summary',
   bodyProperties: ['additionalComments'],
@@ -32,6 +49,8 @@ export default class Summary implements TaskListPage {
   body: SummaryBody
 
   risks?: SummaryData
+
+  riskWidgetData: RiskWidgetData
 
   questions: {
     additionalComments: string
@@ -49,6 +68,8 @@ export default class Summary implements TaskListPage {
     const riskData = getRiskDataSource(this.application)
 
     if (riskData) {
+      this.riskWidgetData = this.getRiskWidgetData(riskData)
+
       this.risks = {
         ...riskData,
         value:
@@ -106,5 +127,63 @@ export default class Summary implements TaskListPage {
     }
 
     return response
+  }
+
+  getRiskWidgetData(riskData: Pick<RoshRisksEnvelope, 'value'>): RiskWidgetData {
+    if (riskData.value) {
+      return {
+        overallRisk: {
+          text: riskData.value.overallRisk.toUpperCase(),
+          classes: `rosh-widget--${riskData.value.overallRisk.toLowerCase().replace(/ /g, '-')}`,
+        },
+        head: [
+          {
+            text: 'Risk to',
+          },
+          {
+            text: 'Community',
+          },
+        ],
+        rows: [
+          [
+            {
+              text: 'Children',
+            },
+            {
+              text: riskData.value.riskToChildren,
+              classes: `rosh-widget__risk--${riskData.value.riskToChildren.toLowerCase().replace(/ /g, '-')}`,
+            },
+          ],
+          [
+            {
+              text: 'Public',
+            },
+            {
+              text: riskData.value.riskToPublic,
+              classes: `rosh-widget__risk--${riskData.value.riskToPublic.toLowerCase().replace(/ /g, '-')}`,
+            },
+          ],
+          [
+            {
+              text: 'Known adult',
+            },
+            {
+              text: riskData.value.riskToKnownAdult,
+              classes: `rosh-widget__risk--${riskData.value.riskToKnownAdult.toLowerCase().replace(/ /g, '-')}`,
+            },
+          ],
+          [
+            {
+              text: 'Staff',
+            },
+            {
+              text: riskData.value.riskToStaff,
+              classes: `rosh-widget__risk--${riskData.value.riskToStaff.toLowerCase().replace(/ /g, '-')}`,
+            },
+          ],
+        ],
+      }
+    }
+    return undefined
   }
 }

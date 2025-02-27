@@ -1,3 +1,29 @@
-{% macro roshWidget(params) %}
-  {%- include "./template.njk" -%}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% macro roshWidget(riskWidgetData) %}
+  {% if riskWidgetData %}
+    <div class="rosh-widget {{riskWidgetData.overallRisk.classes }}">
+      <h2 class="govuk-heading-m">
+        <strong>{{ riskWidgetData.overallRisk.text }}</strong> RoSH
+      </h2>
+
+      {{ govukTable({
+        caption: "Risk of serious harm",
+        captionClasses: "govuk-table__caption--s govuk-!-font-weight-regular",
+        classes: "rosh-widget__table",
+        firstCellIsHeader: true,
+        head: riskWidgetData.head,
+        rows: riskWidgetData.rows
+      }) }}
+    </div>
+  {% else %}
+    <div class="rosh-widget rosh-widget--unknown">
+      <h2 class="govuk-heading-m">
+        <strong>UNKNOWN LEVEL</strong> RoSH
+      </h2>
+      <p class="govuk-body-m">Risk of serious harm</p>
+      <p class="govuk-hint govuk-body-m">Something went wrong. We are unable to show RoSH information.</p>
+    </div>
+  {% endif %}
+
 {% endmacro %}
