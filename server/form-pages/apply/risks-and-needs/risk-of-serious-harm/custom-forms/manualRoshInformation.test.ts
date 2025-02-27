@@ -81,34 +81,36 @@ describe('ManualRoshInformation', () => {
   })
 
   describe('items', () => {
-    Object.keys(new ManualRoshInformation({}, application).body).forEach((fieldName: keyof ManualRoshBody) => {
-      it(`returns the radio with the expected label text for ${fieldName} `, () => {
-        const data = { [fieldName]: 'Low' }
-        const page = new ManualRoshInformation(data, application)
+    Object.keys(new ManualRoshInformation({}, application).body)
+      .filter(item => item !== 'createdAt')
+      .forEach((fieldName: keyof ManualRoshBody) => {
+        it(`returns the radio with the expected label text for ${fieldName} `, () => {
+          const data = { [fieldName]: 'Low' }
+          const page = new ManualRoshInformation(data, application)
 
-        expect(page.items(fieldName)).toEqual([
-          {
-            checked: true,
-            text: 'Low',
-            value: 'Low',
-          },
-          {
-            checked: false,
-            text: 'Medium',
-            value: 'Medium',
-          },
-          {
-            checked: false,
-            text: 'High',
-            value: 'High',
-          },
-          {
-            checked: false,
-            text: 'Very High',
-            value: 'Very High',
-          },
-        ])
+          expect(page.items(fieldName)).toEqual([
+            {
+              checked: true,
+              text: 'Low',
+              value: 'Low',
+            },
+            {
+              checked: false,
+              text: 'Medium',
+              value: 'Medium',
+            },
+            {
+              checked: false,
+              text: 'High',
+              value: 'High',
+            },
+            {
+              checked: false,
+              text: 'Very High',
+              value: 'Very High',
+            },
+          ])
+        })
       })
-    })
   })
 })
