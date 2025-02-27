@@ -22,9 +22,9 @@
 
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-  {% if page.riskDataCreatedDate %}
+  {% if page.auditInfo %}
     <p class="govuk-hint">
-        Imported from OASys on <strong>{{page.riskDataCreatedDate}}</strong>
+        {{ page.auditInfo | safe }}
     </p>
   {% endif %}
 

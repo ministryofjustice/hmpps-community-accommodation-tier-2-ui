@@ -1,7 +1,7 @@
-import { RoshRisks } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import Summary, { SummaryData } from './summary'
+
+import Summary, { ManualRoshData, SummaryData } from './summary'
 
 describe('Summary', () => {
   const roshSummaryData = {
@@ -24,7 +24,8 @@ describe('Summary', () => {
     riskToPublic: 'Low',
     riskToKnownAdult: 'High',
     riskToStaff: 'Low',
-  } as RoshRisks
+    createdAt: new Date('2025-02-27T13:15:00.245Z'),
+  } as ManualRoshData
 
   const person = personFactory.build({ name: 'Roger Smith' })
 
@@ -50,11 +51,21 @@ describe('Summary', () => {
     })
   })
 
-  describe('import date', () => {
-    it('sets importDate to null where application contains no OASys import date', () => {
-      const page = new Summary({}, applicationWithSummaryData)
+  describe('auditInfo', () => {
+    describe('OASys import date', () => {
+      it('sets importDate to null where application contains no OASys import date', () => {
+        const page = new Summary({}, applicationWithSummaryData)
 
-      expect(page.riskDataCreatedDate).toEqual(null)
+        expect(page.auditInfo).toEqual(`Imported from OASys on <strong>15 September 2023</strong>`)
+      })
+    })
+
+    describe('manual rosh information created date copy', () => {
+      it('returns information on when the RoSh information was created/updated last', () => {
+        const page = new Summary({}, applicationWithManualRoSHSummaryData)
+
+        expect(page.auditInfo).toEqual(`Created by prison offender manager on <strong>27 February 2025</strong>`)
+      })
     })
   })
 

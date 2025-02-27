@@ -96,13 +96,6 @@ export function getOasysImportDateFromApplication(application: Application, task
   return null
 }
 
-export function getRiskDataCreatedDate(application: Application, taskName: string, method: string): string | null {
-  if (method === 'OASys') {
-    return getOasysImportDateFromApplication(application, 'risk-of-serious-harm')
-  }
-  return null
-}
-
 export function logOasysError(e: Error, crn: string) {
   logger.error(`Error retrieving Oasys for crn ${crn}`)
   logger.error(e)
