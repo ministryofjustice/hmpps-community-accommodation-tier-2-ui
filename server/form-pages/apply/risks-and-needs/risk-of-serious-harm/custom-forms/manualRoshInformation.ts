@@ -21,7 +21,7 @@ export const options = applicationQuestions['risk-of-serious-harm']['manual-rosh
 
 @Page({
   name: 'manual-rosh-information',
-  bodyProperties: ['riskToChildren', 'riskToPublic', 'riskToKnownAdult', 'riskToStaff', 'overallRisk'],
+  bodyProperties: ['riskToChildren', 'riskToPublic', 'riskToKnownAdult', 'riskToStaff', 'overallRisk', 'createdAt'],
 })
 export default class ManualRoshInformation implements TaskListPage {
   documentTitle = `Create a RoSH summary for this person`
