@@ -1,6 +1,7 @@
 import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
+import { faker } from '@faker-js/faker/locale/en_GB'
 import ApplicationClient from './applicationClient'
-import { applicationFactory } from '../testutils/factories'
+import { applicationFactory, assessmentFactory } from '../testutils/factories'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -15,7 +16,10 @@ describeClient('ApplicationClient', provider => {
 
   describe('find', () => {
     it('should return an application', async () => {
-      const application = applicationFactory.build()
+      const application = applicationFactory.build({
+        assessment: assessmentFactory.build(),
+        telephoneNumber: faker.phone.number(),
+      })
 
       provider.addInteraction({
         state: 'Server is healthy',
@@ -41,7 +45,10 @@ describeClient('ApplicationClient', provider => {
 
   describe('create', () => {
     it('should return an application when a crn is posted', async () => {
-      const application = applicationFactory.build()
+      const application = applicationFactory.build({
+        assessment: assessmentFactory.build(),
+        telephoneNumber: faker.phone.number(),
+      })
 
       provider.addInteraction({
         state: 'Server is healthy',
@@ -138,7 +145,10 @@ describeClient('ApplicationClient', provider => {
 
   describe('update', () => {
     it('should return an application when a PUT request is made', async () => {
-      const application = applicationFactory.build()
+      const application = applicationFactory.build({
+        assessment: assessmentFactory.build(),
+        telephoneNumber: faker.phone.number(),
+      })
       const data = {
         data: application.data,
         type: 'CAS2',
