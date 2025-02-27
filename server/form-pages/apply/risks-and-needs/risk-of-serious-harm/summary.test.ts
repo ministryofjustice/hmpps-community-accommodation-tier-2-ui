@@ -127,9 +127,12 @@ describe('Summary', () => {
       it('sets the risks', () => {
         const page = new Summary({}, applicationWithSummaryData)
         expect(page.riskWidgetData).toEqual({
+          widget: {
+            classes: 'rosh-widget--a-risk',
+          },
           overallRisk: {
             text: 'A RISK',
-            classes: `rosh-widget--a-risk`,
+            classes: `rosh-widget__risk--another-risk`,
           },
           head: [
             {

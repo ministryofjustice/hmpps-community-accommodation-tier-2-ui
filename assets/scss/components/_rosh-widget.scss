@@ -12,11 +12,6 @@ $very-high-score-border-colour: #942514;
   padding: govuk-spacing(4);
   margin-bottom: govuk-spacing(4);
 
-  & h3 {
-    margin-bottom: govuk-spacing(1);
-    font-weight: 400;
-  }
-
   & :nth-child(2) {
     margin-bottom: govuk-spacing(2);
   }
@@ -25,36 +20,25 @@ $very-high-score-border-colour: #942514;
   }
 }
 
+.rosh-widget__heading {
+  margin-bottom: govuk-spacing(4);
+  font-weight: 400;
+}
+
 .rosh-widget--low {
   border: 2px solid $low-score-border-colour;
-
-  & h3 {
-    color: $low-score-colour;
-  }
 }
 
 .rosh-widget--medium {
   border: 2px solid $medium-score-border-colour;
-
-  & h3 {
-    color: $medium-score-colour;
-  }
 }
 
 .rosh-widget--high {
   border: 2px solid $high-score-border-colour;
-
-  & h3 {
-    color: $high-score-colour;
-  }
 }
 
 .rosh-widget--very-high {
   border: 2px solid $very-high-score-border-colour;
-
-  & h3 {
-    color: $very-high-score-colour;
-  }
 }
 
 .rosh-widget__table {

@@ -2,8 +2,8 @@
 
 {% macro roshWidget(riskWidgetData) %}
   {% if riskWidgetData %}
-    <div class="rosh-widget {{riskWidgetData.overallRisk.classes }}">
-      <h2 class="govuk-heading-m">
+    <div class="rosh-widget {{riskWidgetData.widget.classes }}">
+      <h2 class="govuk-heading-m rosh-widget__heading {{riskWidgetData.overallRisk.classes }}">
         <strong>{{ riskWidgetData.overallRisk.text }}</strong> RoSH
       </h2>
 
