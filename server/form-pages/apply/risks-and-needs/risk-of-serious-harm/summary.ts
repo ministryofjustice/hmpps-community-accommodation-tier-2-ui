@@ -30,6 +30,9 @@ interface Row {
 }
 
 interface RiskWidgetData {
+  widget: {
+    classes: string
+  }
   overallRisk: {
     text: string
     classes: string
@@ -132,9 +135,12 @@ export default class Summary implements TaskListPage {
 
     if (source) {
       return {
+        widget: {
+          classes: `rosh-widget--${source.overallRisk?.toLowerCase().replace(/ /g, '-')}`,
+        },
         overallRisk: {
           text: source.overallRisk?.toUpperCase(),
-          classes: `rosh-widget--${source.overallRisk?.toLowerCase().replace(/ /g, '-')}`,
+          classes: `rosh-widget__risk--${source.riskToChildren?.toLowerCase().replace(/ /g, '-')}`,
         },
         head: [
           {
