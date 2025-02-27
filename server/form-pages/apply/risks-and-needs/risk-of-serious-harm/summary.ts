@@ -19,7 +19,9 @@ export type SummaryData = RoshRisksEnvelope & {
 
 type OASysSummaryData = SummaryData
 
-type ManualRoshData = RoshRisks
+export type ManualRoshData = RoshRisks & {
+  createdAt?: Date
+}
 
 interface Column {
   text: string
@@ -59,7 +61,7 @@ export default class Summary implements TaskListPage {
     additionalComments: string
   }
 
-  riskDataCreatedDate = getRiskDataCreatedDate(this.application, 'risk-of-serious-harm', 'OASys')
+  auditInfo: string
 
   constructor(
     body: Partial<SummaryBody>,
@@ -73,6 +75,8 @@ export default class Summary implements TaskListPage {
 
     if (roshData) {
       this.riskData = this.getRiskDataSource(roshData)
+
+      this.auditInfo = this.getAuditInfo(this.riskData)
 
       if (this.riskData) {
         this.riskWidgetData = this.getRiskWidgetData(this.riskData)
@@ -201,6 +205,26 @@ export default class Summary implements TaskListPage {
     if (riskData['manual-rosh-information']) {
       return riskData['manual-rosh-information']
     }
+    return undefined
+  }
+
+  private getAuditInfo(roshData: Unit): string | never {
+    if ((roshData as OASysSummaryData).oasysImportedDate) {
+      return `Imported from OASys on <strong>${DateFormats.dateObjtoUIDate(
+        (roshData as OASysSummaryData).oasysImportedDate,
+        { format: 'medium' },
+      )}</strong>`
+    }
+
+    if ((roshData as ManualRoshData).createdAt) {
+      return `Created by prison offender manager on <strong>${DateFormats.dateObjtoUIDate(
+        (roshData as ManualRoshData).createdAt,
+        {
+          format: 'medium',
+        },
+      )}</strong>`
+    }
+
     return undefined
   }
 }
