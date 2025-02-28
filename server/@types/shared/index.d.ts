@@ -101,7 +101,6 @@ export type { DepartureReason } from './models/DepartureReason';
 export type { DestinationProvider } from './models/DestinationProvider';
 export type { Document } from './models/Document';
 export type { DocumentLevel } from './models/DocumentLevel';
-export type { ExtendedPremisesSummary } from './models/ExtendedPremisesSummary';
 export type { Extension } from './models/Extension';
 export type { ExternalUser } from './models/ExternalUser';
 export type { FlagsEnvelope } from './models/FlagsEnvelope';
