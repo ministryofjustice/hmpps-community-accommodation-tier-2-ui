@@ -51,9 +51,14 @@ export default class CheckYourAnswersPage extends ApplyPage {
     this.shouldShowQuestionsAndAnswers('risk-to-self')
   }
 
-  shouldShowRoshAnswers(): void {
+  shouldShowRoshAnswers(manualRosh: boolean): void {
     this.shouldShowCheckYourAnswersTitle('risk-of-serious-harm', 'Add risk of serious harm (RoSH) information')
-    this.shouldShowQuestionsAndAnswers('risk-of-serious-harm')
+    if (manualRosh) {
+      const pageToExclude = ['risk-management-arrangements']
+      this.shouldShowQuestionsAndAnswers('risk-of-serious-harm', pageToExclude)
+    } else {
+      this.shouldShowQuestionsAndAnswers('risk-of-serious-harm')
+    }
   }
 
   shouldShowOffendingHistoryAnswers() {
@@ -67,11 +72,12 @@ export default class CheckYourAnswersPage extends ApplyPage {
     })
   }
 
-  shouldShowQuestionsAndAnswers(task: string) {
+  shouldShowQuestionsAndAnswers(task: string, pagesWithQuestionsToExclude: Array<string> = []) {
+    const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct']
+    const pagesToExclude = pagesWithoutQuestions.concat(pagesWithQuestionsToExclude)
     const pageKeys = Object.keys(this.application.data[task])
     pageKeys.forEach(pageKey => {
-      const pagesWithoutQuestions = ['summary', 'summary-data', 'oasys-import', 'acct']
-      if (pagesWithoutQuestions.includes(pageKey)) {
+      if (pagesToExclude.includes(pageKey)) {
         return
       }
       const PageClass = getPage(task, pageKey)

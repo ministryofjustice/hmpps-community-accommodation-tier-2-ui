@@ -113,4 +113,25 @@ describe('ManualRoshInformation', () => {
         })
       })
   })
+
+  describe('response', () => {
+    const body: ManualRoshBody = {
+      overallRisk: 'Very high',
+      riskToChildren: 'Medium',
+      riskToPublic: 'Low',
+      riskToKnownAdult: 'High',
+      riskToStaff: 'Low',
+    }
+
+    it('returns manual-rosh data', () => {
+      const page = new ManualRoshInformation(body, application)
+      expect(page.response()).toEqual({
+        'Overall risk rating': body.overallRisk,
+        'Risk to children': body.riskToChildren,
+        'Risk to known adult': body.riskToKnownAdult,
+        'Risk to public': body.riskToPublic,
+        'Risk to staff': body.riskToStaff,
+      })
+    })
+  })
 })

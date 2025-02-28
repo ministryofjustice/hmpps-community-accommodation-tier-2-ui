@@ -78,4 +78,14 @@ export default class ManualRoshInformation implements TaskListPage {
 
     return convertKeyValuePairToRadioItems(transformedOptions, this.body[fieldName])
   }
+
+  response() {
+    return {
+      'Overall risk rating': this.body.overallRisk,
+      'Risk to children': this.body.riskToChildren,
+      'Risk to known adult': this.body.riskToKnownAdult,
+      'Risk to public': this.body.riskToPublic,
+      'Risk to staff': this.body.riskToStaff,
+    }
+  }
 }
