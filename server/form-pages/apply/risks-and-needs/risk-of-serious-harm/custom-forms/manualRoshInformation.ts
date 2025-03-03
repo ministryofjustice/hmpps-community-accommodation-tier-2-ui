@@ -81,6 +81,6 @@ export default class ManualRoshInformation implements TaskListPage {
   }
 
   response() {
-    return { Hello: 'world' }
+    return {}
   }
 }
