@@ -107,35 +107,36 @@ export default class Summary implements TaskListPage {
   response() {
     let response: Record<string, string | undefined> = {}
 
+    const formatDate = (date: string | undefined, format: 'short' | 'long' | 'medium') => {
+      return date ? DateFormats.isoDateToUIDate(date, { format }) : 'Unknown'
+    }
+
     if (this.riskData) {
-      if ((this.riskData as OASysSummaryData).value) {
+      const isOasysData = (this.riskData as OASysSummaryData).value !== undefined
+
+      const commonData = {
+        'Overall risk rating': 'overallRisk',
+        'Risk to children': 'riskToChildren',
+        'Risk to known adult': 'riskToKnownAdult',
+        'Risk to public': 'riskToPublic',
+        'Risk to staff': 'riskToStaff',
+      }
+
+      if (isOasysData) {
+        const oasysData = this.riskData as OASysSummaryData
         response = {
-          'OASys created': DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysStartedDate, {
-            format: 'medium',
-          }),
-          'OASys completed': (this.riskData as OASysSummaryData).oasysCompletedDate
-            ? DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysCompletedDate, { format: 'medium' })
+          'OASys created': formatDate(oasysData.oasysStartedDate, 'medium'),
+          'OASys completed': oasysData.oasysCompletedDate
+            ? formatDate(oasysData.oasysCompletedDate, 'medium')
             : 'Unknown',
-          'OASys imported': DateFormats.dateObjtoUIDate((this.riskData as OASysSummaryData).oasysImportedDate, {
-            format: 'medium',
-          }),
-          'Overall risk rating': (this.riskData as OASysSummaryData).value.overallRisk,
-          'Risk to children': (this.riskData as OASysSummaryData).value.riskToChildren,
-          'Risk to known adult': (this.riskData as OASysSummaryData).value.riskToKnownAdult,
-          'Risk to public': (this.riskData as OASysSummaryData).value.riskToPublic,
-          'Risk to staff': (this.riskData as OASysSummaryData).value.riskToStaff,
+          'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
+          ...Object.fromEntries(Object.entries(commonData).map(([label, key]) => [label, oasysData.value[key]])),
         }
       } else {
+        const manualData = this.riskData as ManualRoshData
         response = {
-          'Created by prison offender manager': DateFormats.dateObjtoUIDate(
-            (this.riskData as ManualRoshData).createdAt,
-            { format: 'medium' },
-          ),
-          'Overall risk rating': (this.riskData as ManualRoshData).overallRisk,
-          'Risk to children': (this.riskData as ManualRoshData).riskToChildren,
-          'Risk to known adult': (this.riskData as ManualRoshData).riskToKnownAdult,
-          'Risk to public': (this.riskData as ManualRoshData).riskToPublic,
-          'Risk to staff': (this.riskData as ManualRoshData).riskToStaff,
+          'Created by prison offender manager': DateFormats.dateObjtoUIDate(manualData.createdAt, { format: 'medium' }),
+          ...Object.fromEntries(Object.entries(commonData).map(([label, key]) => [label, manualData[key]])),
         }
       }
     }
