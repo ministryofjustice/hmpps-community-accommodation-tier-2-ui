@@ -48,5 +48,6 @@ export type Cas1SpaceBookingSummary = {
      * Room and premise characteristics
      */
     characteristics: Array<Cas1SpaceCharacteristic>;
+    deliusEventNumber?: string;
 };
 
