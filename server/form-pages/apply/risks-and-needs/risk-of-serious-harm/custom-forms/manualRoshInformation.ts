@@ -79,4 +79,8 @@ export default class ManualRoshInformation implements TaskListPage {
 
     return convertKeyValuePairToRadioItems(transformedOptions, this.body[fieldName])
   }
+
+  response() {
+    return { Hello: 'world' }
+  }
 }
