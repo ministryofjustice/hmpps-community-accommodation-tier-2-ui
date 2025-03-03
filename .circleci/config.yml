@@ -239,11 +239,8 @@ workflows:
       - request-test-approval:
           type: approval
           requires:
+            - helm_lint
             - build_docker
-          filters:
-            branches:
-              only:
-                - cas-1221-final-tweaks
       - hmpps/deploy_env:
           name: deploy_test
           env: 'test'
@@ -255,6 +252,7 @@ workflows:
             branches:
               only:
                 - main
+                - cas-1221-final-tweaks
           requires:
             - helm_lint
             - build_docker
