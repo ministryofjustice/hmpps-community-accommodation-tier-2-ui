@@ -108,21 +108,35 @@ export default class Summary implements TaskListPage {
     let response: Record<string, string | undefined> = {}
 
     if (this.riskData) {
-      response = {
-        'OASys created': DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysStartedDate, {
-          format: 'medium',
-        }),
-        'OASys completed': (this.riskData as OASysSummaryData).oasysCompletedDate
-          ? DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysCompletedDate, { format: 'medium' })
-          : 'Unknown',
-        'OASys imported': DateFormats.dateObjtoUIDate((this.riskData as OASysSummaryData).oasysImportedDate, {
-          format: 'medium',
-        }),
-        'Overall risk rating': (this.riskData as OASysSummaryData).value.overallRisk,
-        'Risk to children': (this.riskData as OASysSummaryData).value.riskToChildren,
-        'Risk to known adult': (this.riskData as OASysSummaryData).value.riskToKnownAdult,
-        'Risk to public': (this.riskData as OASysSummaryData).value.riskToPublic,
-        'Risk to staff': (this.riskData as OASysSummaryData).value.riskToStaff,
+      if ((this.riskData as OASysSummaryData).value) {
+        response = {
+          'OASys created': DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysStartedDate, {
+            format: 'medium',
+          }),
+          'OASys completed': (this.riskData as OASysSummaryData).oasysCompletedDate
+            ? DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysCompletedDate, { format: 'medium' })
+            : 'Unknown',
+          'OASys imported': DateFormats.dateObjtoUIDate((this.riskData as OASysSummaryData).oasysImportedDate, {
+            format: 'medium',
+          }),
+          'Overall risk rating': (this.riskData as OASysSummaryData).value.overallRisk,
+          'Risk to children': (this.riskData as OASysSummaryData).value.riskToChildren,
+          'Risk to known adult': (this.riskData as OASysSummaryData).value.riskToKnownAdult,
+          'Risk to public': (this.riskData as OASysSummaryData).value.riskToPublic,
+          'Risk to staff': (this.riskData as OASysSummaryData).value.riskToStaff,
+        }
+      } else {
+        response = {
+          'Created by prison offender manager': DateFormats.dateObjtoUIDate(
+            (this.riskData as ManualRoshData).createdAt,
+            { format: 'medium' },
+          ),
+          'Overall risk rating': (this.riskData as ManualRoshData).overallRisk,
+          'Risk to children': (this.riskData as ManualRoshData).riskToChildren,
+          'Risk to known adult': (this.riskData as ManualRoshData).riskToKnownAdult,
+          'Risk to public': (this.riskData as ManualRoshData).riskToPublic,
+          'Risk to staff': (this.riskData as ManualRoshData).riskToStaff,
+        }
       }
     }
 
