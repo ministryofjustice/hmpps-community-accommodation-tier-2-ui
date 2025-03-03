@@ -109,15 +109,16 @@ export default class Summary implements TaskListPage {
 
     if (this.riskData) {
       response = {
-        'OASys created': DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysStartedDate, {
-          format: 'medium',
-        }),
-        'OASys completed': (this.riskData as OASysSummaryData).oasysCompletedDate
-          ? DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysCompletedDate, { format: 'medium' })
-          : 'Unknown',
-        'OASys imported': DateFormats.dateObjtoUIDate((this.riskData as OASysSummaryData).oasysImportedDate, {
-          format: 'medium',
-        }),
+        //
+        // 'OASys created': DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysStartedDate, {
+        //   format: 'medium',
+        // }),
+        // 'OASys completed': (this.riskData as OASysSummaryData).oasysCompletedDate
+        //   ? DateFormats.isoDateToUIDate((this.riskData as OASysSummaryData).oasysCompletedDate, { format: 'medium' })
+        //   : 'Unknown',
+        // 'OASys imported': DateFormats.dateObjtoUIDate((this.riskData as OASysSummaryData).oasysImportedDate, {
+        //   format: 'medium',
+        // }),
         'Overall risk rating': (this.riskData as OASysSummaryData).value.overallRisk,
         'Risk to children': (this.riskData as OASysSummaryData).value.riskToChildren,
         'Risk to known adult': (this.riskData as OASysSummaryData).value.riskToKnownAdult,
