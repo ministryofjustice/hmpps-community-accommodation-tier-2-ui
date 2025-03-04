@@ -6,7 +6,6 @@ import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 import { getQuestions } from '../../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../../utils/formUtils'
 import errorLookups from '../../../../../i18n/en/errors.json'
-import { DateFormats } from '../../../../../utils/dateUtils'
 
 export type ManualRoshBody = {
   riskToChildren: string
@@ -81,13 +80,7 @@ export default class ManualRoshInformation implements TaskListPage {
   }
 
   response() {
-    return {
-      'Created by prison offender manager': DateFormats.isoDateToUIDate(this.createdAt, { format: 'medium' }),
-      'Overall risk rating': this.body.overallRisk,
-      'Risk to children': this.body.riskToChildren,
-      'Risk to known adult': this.body.riskToKnownAdult,
-      'Risk to public': this.body.riskToPublic,
-      'Risk to staff': this.body.riskToStaff,
-    }
+    // See summary.ts for manual-rosh-information response
+    return {}
   }
 }

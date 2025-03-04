@@ -2,7 +2,6 @@ import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../../sh
 import { personFactory, applicationFactory } from '../../../../../testutils/factories/index'
 import ManualRoshInformation from './manualRoshInformation'
 import type { ManualRoshBody } from './manualRoshInformation'
-import { DateFormats } from '../../../../../utils/dateUtils'
 
 describe('ManualRoshInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -124,16 +123,9 @@ describe('ManualRoshInformation', () => {
       riskToStaff: 'Low',
     }
 
-    it('returns manual-rosh data', () => {
+    it('returns empty object as the data for manual rosh is handled by RiskOfSeriousHarm response', () => {
       const page = new ManualRoshInformation(body, application)
-      expect(page.response()).toEqual({
-        'Created by prison offender manager': DateFormats.isoDateToUIDate(page.createdAt, { format: 'medium' }),
-        'Overall risk rating': body.overallRisk,
-        'Risk to children': body.riskToChildren,
-        'Risk to known adult': body.riskToKnownAdult,
-        'Risk to public': body.riskToPublic,
-        'Risk to staff': body.riskToStaff,
-      })
+      expect(page.response()).toEqual({})
     })
   })
 })

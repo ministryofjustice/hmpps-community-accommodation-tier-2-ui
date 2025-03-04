@@ -234,6 +234,32 @@ describe('Summary', () => {
 
       expect(page.response()).toEqual({})
     })
+
+    describe('when manual data has been supplied', () => {
+      const expectedManualRoSHDataResponse = {
+        'Created by prison offender manager': '27 February 2025',
+        'Overall risk rating': manualRoSHSummaryData.overallRisk,
+        'Risk to children': manualRoSHSummaryData.riskToChildren,
+        'Risk to known adult': manualRoSHSummaryData.riskToKnownAdult,
+        'Risk to public': manualRoSHSummaryData.riskToPublic,
+        'Risk to staff': manualRoSHSummaryData.riskToStaff,
+      }
+
+      it('returns page body if no additional comments have been added', () => {
+        const page = new Summary({}, applicationWithManualRoSHSummaryData)
+
+        expect(page.response()).toEqual(expectedManualRoSHDataResponse)
+      })
+
+      it('returns page body and additional comments if a comment is added', () => {
+        const page = new Summary(body, applicationWithManualRoSHSummaryData)
+
+        expect(page.response()).toEqual({
+          ...expectedManualRoSHDataResponse,
+          'Additional comments (optional)': 'some additional comments',
+        })
+      })
+    })
   })
 
   describe('errors', () => {
