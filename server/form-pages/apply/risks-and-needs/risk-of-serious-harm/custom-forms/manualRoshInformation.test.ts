@@ -106,8 +106,8 @@ describe('ManualRoshInformation', () => {
             },
             {
               checked: false,
-              text: 'Very High',
-              value: 'Very High',
+              text: 'Very high',
+              value: 'Very high',
             },
           ])
         })

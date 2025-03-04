@@ -5,7 +5,7 @@ import type { PersonRisks, RiskEnvelopeStatus } from '@approved-premises/api'
 import { RiskLevel, RiskTierLevel, TierLetter, TierNumber } from '@approved-premises/ui'
 import { DateFormats } from '../../utils/dateUtils'
 
-const riskLevels: Array<RiskLevel> = ['Low', 'Medium', 'High', 'Very High']
+const riskLevels: Array<RiskLevel> = ['Low', 'Medium', 'High', 'Very high']
 const riskEnvelopeStatuses: Array<RiskEnvelopeStatus> = ['retrieved', 'not_found', 'error']
 
 export default Factory.define<PersonRisks>(() => ({
