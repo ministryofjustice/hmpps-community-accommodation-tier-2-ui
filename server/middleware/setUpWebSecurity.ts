@@ -13,6 +13,13 @@ export default function setUpWebSecurity(): Router {
     res.locals.cspNonce = crypto.randomBytes(16).toString('hex')
     next()
   })
+
+  const scriptSrc = [
+    "'self'",
+    (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`,
+    'js.monitor.azure.com',
+  ] as Array<string>
+
   router.use(
     helmet({
       contentSecurityPolicy: {
@@ -24,8 +31,14 @@ export default function setUpWebSecurity(): Router {
           // <link href="http://example.com/" rel="stylesheet" nonce="{{ cspNonce }}">
           // This ensures only scripts we trust are loaded, and not anything injected into the
           // page by an attacker.
-          connectSrc: ["'self'", (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`],
-          scriptSrc: ["'self'", (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`],
+          connectSrc: [
+            "'self'",
+            (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`,
+            'https://dc.services.visualstudio.com/v2/track',
+            'https://northeurope-0.in.applicationinsights.azure.com/v2/track',
+            'https://js.monitor.azure.com',
+          ],
+          scriptSrc,
           styleSrc: ["'self'", (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`],
           fontSrc: ["'self'"],
           formAction: [`'self' ${config.apis.hmppsAuth.externalUrl}`],
