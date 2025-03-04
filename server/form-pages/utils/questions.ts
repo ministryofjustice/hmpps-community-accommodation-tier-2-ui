@@ -1,7 +1,7 @@
 export const getQuestions = (name: string) => {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
-  const riskLevel = { low: 'Low', medium: 'Medium', high: 'High', veryHigh: 'Very High' }
+  const riskLevel = { low: 'Low', medium: 'Medium', high: 'High', veryHigh: 'Very high' }
 
   const dateExample = '27 3 2023'
 

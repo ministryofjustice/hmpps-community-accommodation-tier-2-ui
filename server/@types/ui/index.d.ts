@@ -93,7 +93,7 @@ export type UserDetails = {
 
 export type OasysImportArrays = ArrayOfOASysRiskOfSeriousHarmSummaryQuestions
 
-export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Very High'
+export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Very high'
 
 export type TierNumber = '1' | '2' | '3' | '4'
 export type TierLetter = 'A' | 'B' | 'C' | 'D'
