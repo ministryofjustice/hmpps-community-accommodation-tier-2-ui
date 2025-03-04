@@ -19,6 +19,7 @@ export default function setUpStaticResources(): Router {
     '/assets/js',
     '/node_modules/govuk-frontend/dist',
     '/node_modules/govuk-frontend/dist/govuk/assets',
+    '/node_modules/@microsoft',
     '/node_modules/@ministryofjustice/frontend/moj/assets',
     '/node_modules/@ministryofjustice/frontend',
   ).forEach(dir => {
