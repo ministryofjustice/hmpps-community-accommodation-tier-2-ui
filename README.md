@@ -22,10 +22,6 @@ This will create .env files and install dependencies.
 
 ## Running the application
 
-To run the application there are two options.
-
-### 1. Using AP Tools
-
 In order to spin up a full stack of a working API and other [dependant
 services](./docker-compose.yml) we recommend using the [AP
 Tools](https://github.com/ministryofjustice/hmpps-approved-premises-tools).
@@ -54,10 +50,6 @@ ap-tools server stop
 
 [Log in credentials are documented within AP
 tools](https://github.com/ministryofjustice/hmpps-approved-premises-tools#start-server).
-
-### 2. Manually
-
-TBD
 
 ## Run linter
 

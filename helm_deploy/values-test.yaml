@@ -22,4 +22,4 @@ generic-service:
   allowlist: null
 
 generic-prometheus-alerts:
-  alertSeverity: digital-prison-service-dev
+  alertSeverity: hmpps-approved-premises
