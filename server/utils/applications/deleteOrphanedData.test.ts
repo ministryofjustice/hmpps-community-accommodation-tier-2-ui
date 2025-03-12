@@ -275,18 +275,3 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 })
-
-//
-// const applicationData = {
-//   'risk-of-serious-harm': {
-//     'old-oasys': { hasOldOasys: 'no' },
-//     'manual-rosh-information': {
-//       riskToChildren: 'Low',
-//       riskToPublic: 'Medium',
-//       riskToKnownAdult: 'High',
-//       riskToStaff: 'Very high',
-//       overallRisk: 'Very high',
-//       createdAt: '2025-03-12T12:25:29.337Z',
-//     },
-//   },
-// }
