@@ -212,4 +212,66 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       })
     })
   })
+
+  describe('risk-of-serious-harm', () => {
+    describe('when hasOldOasys is set to no', () => {
+      const applicationData = {
+        'risk-of-serious-harm': {
+          'old-oasys': {
+            hasOldOasys: 'no',
+            oasysCompletedDate: '2025-02-03',
+            'oasysCompletedDate-year': '2025',
+            'oasysCompletedDate-month': '2',
+            'oasysCompletedDate-day': '3',
+          },
+        },
+      }
+
+      it('removes previous old oasys data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'risk-of-serious-harm': {
+            'old-oasys': {
+              hasOldOasys: 'no',
+            },
+          },
+        })
+      })
+    })
+
+    describe('when hasOldOasys is set to yes and there is existing manual RoSH Summary information', () => {
+      const applicationData = {
+        'risk-of-serious-harm': {
+          'old-oasys': {
+            hasOldOasys: 'yes',
+            oasysCompletedDate: '2025-02-03',
+            'oasysCompletedDate-year': '2025',
+            'oasysCompletedDate-month': '2',
+            'oasysCompletedDate-day': '3',
+          },
+          'manual-rosh-information': {
+            riskToChildren: 'Low',
+            riskToPublic: 'Medium',
+            riskToKnownAdult: 'High',
+            riskToStaff: 'Very high',
+            overallRisk: 'Very high',
+            createdAt: '2025-03-12T12:25:29.337Z',
+          },
+        },
+      }
+
+      it('removes previous manual RoSH summary information', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'risk-of-serious-harm': {
+            'old-oasys': {
+              hasOldOasys: 'yes',
+              oasysCompletedDate: '2025-02-03',
+              'oasysCompletedDate-year': '2025',
+              'oasysCompletedDate-month': '2',
+              'oasysCompletedDate-day': '3',
+            },
+          },
+        })
+      })
+    })
+  })
 })

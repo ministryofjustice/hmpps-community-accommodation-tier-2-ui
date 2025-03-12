@@ -28,6 +28,17 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     }
   }
 
+  const deleteOrphanedRoSHSummaryAnswers = () => {
+    if (applicationData['risk-of-serious-harm']['old-oasys']?.hasOldOasys === 'no') {
+      delete applicationData['risk-of-serious-harm']['old-oasys'].oasysCompletedDate
+      delete applicationData['risk-of-serious-harm']['old-oasys']['oasysCompletedDate-year']
+      delete applicationData['risk-of-serious-harm']['old-oasys']['oasysCompletedDate-month']
+      delete applicationData['risk-of-serious-harm']['old-oasys']['oasysCompletedDate-day']
+    } else if (applicationData['risk-of-serious-harm']['old-oasys']?.hasOldOasys === 'yes') {
+      delete applicationData['risk-of-serious-harm']['manual-rosh-information']
+    }
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -90,5 +101,8 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     deleteAddressHistoryInformation()
   }
 
+  if (applicationData['risk-of-serious-harm']) {
+    deleteOrphanedRoSHSummaryAnswers()
+  }
   return applicationData
 }
