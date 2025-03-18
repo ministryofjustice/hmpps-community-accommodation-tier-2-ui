@@ -1,11 +1,11 @@
 import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
-import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
+import type { GroupedApplications, QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
 
-export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, false, true),
@@ -17,7 +17,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2Applicati
   })
 }
 
-export const submittedApplicationTableRows = (
+const submittedApplicationTableRows = (
   applications: Array<Cas2ApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
@@ -30,6 +30,63 @@ export const submittedApplicationTableRows = (
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
+}
+
+export const indexTabItems = (groupedApplications: GroupedApplications) => {
+  return {
+    inProgressTab: indexInProgressTab(groupedApplications.inProgress as Array<Cas2ApplicationSummary>),
+    submittedTab: indexSubmittedTab(groupedApplications.submitted as Array<Cas2ApplicationSummary>),
+  }
+}
+
+const indexInProgressTab = (applications: Array<Cas2ApplicationSummary>) => {
+  return {
+    label: 'In progress',
+    id: 'applications',
+    headings: [
+      {
+        text: 'Person',
+      },
+      {
+        text: 'Prison number',
+      },
+      {
+        text: 'Case reference number (CRN)',
+      },
+      {
+        text: 'Date started',
+      },
+      {
+        text: 'Actions',
+      },
+    ],
+    rows: inProgressApplicationTableRows(applications),
+  }
+}
+
+const indexSubmittedTab = (applications: Array<Cas2ApplicationSummary>) => {
+  return {
+    label: 'Submitted',
+    id: 'submitted',
+    headings: [
+      {
+        text: 'Person',
+      },
+      {
+        text: 'Prison number',
+      },
+      {
+        text: 'Case reference number (CRN)',
+      },
+      {
+        text: 'Date submitted',
+      },
+      {
+        text: 'Status',
+      },
+    ],
+    rows: submittedApplicationTableRows(applications),
+  }
 }
 
 export const prisonDashboardTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {

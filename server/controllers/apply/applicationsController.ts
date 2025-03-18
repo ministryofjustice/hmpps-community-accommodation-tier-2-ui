@@ -16,6 +16,7 @@ import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
+import { indexTabItems } from '../../utils/applicationUtils'
 
 export default class ApplicationsController {
   constructor(
@@ -29,6 +30,8 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const applications = await this.applicationService.getAllForLoggedInUser(req.user.token)
 
+      const tabData = indexTabItems(applications)
+
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
       return res.render('applications/index', {
@@ -37,6 +40,7 @@ export default class ApplicationsController {
         ...userInput,
         applications,
         pageHeading: 'Applications',
+        tabData,
       })
     }
   }

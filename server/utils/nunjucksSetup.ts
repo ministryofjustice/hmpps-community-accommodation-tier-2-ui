@@ -12,8 +12,6 @@ import reportPaths from '../paths/report'
 import staticPaths from '../paths/static'
 import {
   documentSummaryListRows,
-  inProgressApplicationTableRows,
-  submittedApplicationTableRows,
   assessmentsTableRows,
   prisonDashboardTableRows,
   arePreTaskListTasksIncomplete,
@@ -90,8 +88,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('paths', { ...applicationPaths, ...assessPaths, ...reportPaths, ...staticPaths })
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)
 
-  njkEnv.addGlobal('inProgressApplicationTableRows', inProgressApplicationTableRows)
-  njkEnv.addGlobal('submittedApplicationTableRows', submittedApplicationTableRows)
   njkEnv.addGlobal('assessmentsTableRows', assessmentsTableRows)
   njkEnv.addGlobal('documentSummaryListRows', documentSummaryListRows)
   njkEnv.addGlobal('prisonDashboardTableRows', prisonDashboardTableRows)

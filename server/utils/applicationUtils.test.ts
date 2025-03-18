@@ -4,105 +4,151 @@ import { applicationFactory, applicationSummaryFactory } from '../testutils/fact
 
 import {
   documentSummaryListRows,
-  inProgressApplicationTableRows,
-  submittedApplicationTableRows,
   assessmentsTableRows,
   getStatusTag,
   prisonDashboardTableRows,
   hasOasys,
   arePreTaskListTasksIncomplete,
+  indexTabItems,
 } from './applicationUtils'
+
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
-describe('inProgressApplicationTableRows', () => {
-  it('returns an array of applications as table rows', async () => {
-    const applicationA = applicationSummaryFactory.build({ personName: 'A', createdAt: '2022-11-10T21:47:28Z' })
-    const applicationB = applicationSummaryFactory.build({ personName: 'B', createdAt: '2022-11-11T21:47:28Z' })
-
-    const result = inProgressApplicationTableRows([applicationA, applicationB])
-
-    expect(result).toEqual([
-      [
-        {
-          html: `<a href=/applications/${applicationA.id} data-cy-id="${applicationA.id}">A</a>`,
-        },
-        {
-          text: applicationA.nomsNumber,
-        },
-        {
-          text: applicationA.crn,
-        },
-        {
-          text: '10 November 2022',
-        },
-        {
-          html: `<a id="cancel-${applicationA.id}" href=/applications/${applicationA.id}/cancel>Cancel</a>`,
-        },
-      ],
-      [
-        {
-          html: `<a href=/applications/${applicationB.id} data-cy-id="${applicationB.id}">B</a>`,
-        },
-        {
-          text: applicationB.nomsNumber,
-        },
-        {
-          text: applicationB.crn,
-        },
-        {
-          text: '11 November 2022',
-        },
-        {
-          html: `<a id="cancel-${applicationB.id}" href=/applications/${applicationB.id}/cancel>Cancel</a>`,
-        },
-      ],
-    ])
+describe('indexTabItems', () => {
+  const inProgressApplicationA = applicationSummaryFactory.build({ personName: 'A', createdAt: '2022-11-10T21:47:28Z' })
+  const inProgressApplicationB = applicationSummaryFactory.build({ personName: 'B', createdAt: '2022-11-11T21:47:28Z' })
+  const submittedApplicationA = applicationSummaryFactory.build({
+    personName: 'A',
+    submittedAt: '2022-12-10T21:47:28Z',
   })
-})
+  const submittedApplicationB = applicationSummaryFactory.build({
+    personName: 'B',
+    submittedAt: '2022-12-11T21:47:28Z',
+  })
 
-describe('submittedApplicationTableRows', () => {
-  it('returns an array of applications as table rows', async () => {
-    const applicationA = applicationSummaryFactory.build({ personName: 'A', submittedAt: '2022-12-10T21:47:28Z' })
-    const applicationB = applicationSummaryFactory.build({ personName: 'B', submittedAt: '2022-12-11T21:47:28Z' })
+  const result = indexTabItems({
+    inProgress: [inProgressApplicationA, inProgressApplicationB],
+    submitted: [submittedApplicationA, submittedApplicationB],
+  })
 
-    const result = submittedApplicationTableRows([applicationA, applicationB])
-
-    expect(result).toEqual([
-      [
+  it('returns data for In Progress tab', () => {
+    expect(result.inProgressTab).toEqual({
+      label: 'In progress',
+      id: 'applications',
+      headings: [
         {
-          html: `<a href=/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
+          text: 'Person',
         },
         {
-          text: applicationA.nomsNumber,
+          text: 'Prison number',
         },
         {
-          text: applicationA.crn,
+          text: 'Case reference number (CRN)',
         },
         {
-          text: '10 December 2022',
+          text: 'Date started',
         },
         {
-          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+          text: 'Actions',
         },
       ],
-      [
+      rows: [
+        [
+          {
+            html: `<a href=/applications/${inProgressApplicationA.id} data-cy-id="${inProgressApplicationA.id}">A</a>`,
+          },
+          {
+            text: inProgressApplicationA.nomsNumber,
+          },
+          {
+            text: inProgressApplicationA.crn,
+          },
+          {
+            text: '10 November 2022',
+          },
+          {
+            html: `<a id="cancel-${inProgressApplicationA.id}" href=/applications/${inProgressApplicationA.id}/cancel>Cancel</a>`,
+          },
+        ],
+        [
+          {
+            html: `<a href=/applications/${inProgressApplicationB.id} data-cy-id="${inProgressApplicationB.id}">B</a>`,
+          },
+          {
+            text: inProgressApplicationB.nomsNumber,
+          },
+          {
+            text: inProgressApplicationB.crn,
+          },
+          {
+            text: '11 November 2022',
+          },
+          {
+            html: `<a id="cancel-${inProgressApplicationB.id}" href=/applications/${inProgressApplicationB.id}/cancel>Cancel</a>`,
+          },
+        ],
+      ],
+    })
+  })
+
+  it('returns data for submitted tab', () => {
+    expect(result.submittedTab).toEqual({
+      label: 'Submitted',
+      id: 'submitted',
+      headings: [
         {
-          html: `<a href=/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
+          text: 'Person',
         },
         {
-          text: applicationB.nomsNumber,
+          text: 'Prison number',
         },
         {
-          text: applicationB.crn,
+          text: 'Case reference number (CRN)',
         },
         {
-          text: '11 December 2022',
+          text: 'Date submitted',
         },
         {
-          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+          text: 'Status',
         },
       ],
-    ])
+      rows: [
+        [
+          {
+            html: `<a href=/applications/${submittedApplicationA.id}/overview data-cy-id="${submittedApplicationA.id}">A</a>`,
+          },
+          {
+            text: submittedApplicationA.nomsNumber,
+          },
+          {
+            text: submittedApplicationA.crn,
+          },
+          {
+            text: '10 December 2022',
+          },
+          {
+            html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+          },
+        ],
+        [
+          {
+            html: `<a href=/applications/${submittedApplicationB.id}/overview data-cy-id="${submittedApplicationB.id}">B</a>`,
+          },
+          {
+            text: submittedApplicationB.nomsNumber,
+          },
+          {
+            text: submittedApplicationB.crn,
+          },
+          {
+            text: '11 December 2022',
+          },
+          {
+            html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+          },
+        ],
+      ],
+    })
   })
 })
 
