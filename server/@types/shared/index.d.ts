@@ -85,7 +85,6 @@ export type { Cas2v2Assessment } from './models/Cas2v2Assessment';
 export type { Cas2v2StatusUpdate } from './models/Cas2v2StatusUpdate';
 export type { Cas2v2StatusUpdateDetail } from './models/Cas2v2StatusUpdateDetail';
 export type { Cas2v2User } from './models/Cas2v2User';
-export type { Cas3ReportType } from './models/Cas3ReportType';
 export type { Characteristic } from './models/Characteristic';
 export type { CharacteristicPair } from './models/CharacteristicPair';
 export type { ClarificationNote } from './models/ClarificationNote';
