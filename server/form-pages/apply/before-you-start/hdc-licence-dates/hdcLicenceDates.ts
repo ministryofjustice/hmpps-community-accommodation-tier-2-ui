@@ -18,7 +18,7 @@ import { dateBodyProperties } from '../../../utils'
 
 type HDCLicenceDatesBody = ObjectWithDateParts<'hdcEligibilityDate'> & ObjectWithDateParts<'conditionalReleaseDate'>
 
-const MAX_MONTHS_BETWEEN_HDC_AND_CRD = 6
+const MAX_MONTHS_BETWEEN_HDC_AND_CRD = 12
 const MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_WARNING = 21
 const MAX_DAYS_BETWEEN_TODAY_AND_CRD_FOR_INELIGIBILITY = 10
 @Page({
@@ -105,7 +105,7 @@ export default class HDCLicenceDates implements TaskListPage {
       )
     ) {
       errors.hdcEligibilityDate =
-        'HDC eligibility date cannot be more than 6 months before the conditional release date'
+        'HDC eligibility date cannot be more than 12 months before the conditional release date'
     }
     if (!isBeforeDate(this.body, 'hdcEligibilityDate', 'conditionalReleaseDate')) {
       errors.hdcEligibilityDate = 'HDC eligibility date must be before the conditional release date'

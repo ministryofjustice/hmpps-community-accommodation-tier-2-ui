@@ -113,7 +113,7 @@ describe('HDCLicenceDates', () => {
       })
     })
 
-    describe('when the HDC date is more than 6 months before the CRD date', () => {
+    describe('when the HDC date is more than 12 months before the CRD date', () => {
       beforeEach(() => {
         jest.resetAllMocks()
         ;(dateIsComplete as jest.Mock).mockImplementation(() => true)
@@ -126,7 +126,7 @@ describe('HDCLicenceDates', () => {
       it('returns errors', () => {
         const page = new HDCLicenceDates({}, application)
         expect(page.errors()).toEqual({
-          hdcEligibilityDate: 'HDC eligibility date cannot be more than 6 months before the conditional release date',
+          hdcEligibilityDate: 'HDC eligibility date cannot be more than 12 months before the conditional release date',
         })
       })
     })
