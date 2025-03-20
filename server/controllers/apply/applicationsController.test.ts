@@ -27,7 +27,9 @@ import config from '../../config'
 import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
+import { indexTabItems } from '../../utils/applicationUtils'
 
+jest.mock('../../utils/applicationUtils')
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getPage')
@@ -74,6 +76,10 @@ describe('applicationsController', () => {
   })
 
   describe('index', () => {
+    beforeEach(() => {
+      ;(indexTabItems as jest.Mock).mockReturnValue([{ tab1: 'Tab 1 data' }, { tab2: 'Tab 2 data' }])
+    })
+
     it('renders existing applications', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
@@ -88,7 +94,10 @@ describe('applicationsController', () => {
         errorSummary: [],
         applications,
         pageHeading: 'Applications',
+        tabData: [{ tab1: 'Tab 1 data' }, { tab2: 'Tab 2 data' }],
       })
+
+      expect(indexTabItems).toHaveBeenCalledWith(applications)
     })
   })
 

@@ -46,57 +46,25 @@
       {{ govukTabs({
         items: [
           {
-            label: "In progress",
-            id: "applications",
+            label: tabData.inProgressTab.label,
+            id: tabData.inProgressTab.id,
             panel: {
               html: applicationsTable(
-                "In progress", 
-                [
-                  {
-                    text: "Person"
-                  },
-                  {
-                  text: "Prison number"
-                  },
-                  {
-                    text: "Case reference number (CRN)"
-                  },
-                  {
-                    text: "Date started"
-                  },
-                  {
-                    text: "Actions"
-                  }
-                ],
-                inProgressApplicationTableRows(applications.inProgress)
+                tabData.inProgressTab.label,
+                tabData.inProgressTab.headings,
+                tabData.inProgressTab.rows
               )
             }
           },
           {
-            label: "Submitted",
-            id: "submitted",
+            label: tabData.submittedTab.label,
+            id: tabData.submittedTab.id,
             panel: {
               html: applicationsTable(
-              "Submitted", 
-              [
-                {
-                  text: "Person"
-                },
-                {
-                  text: "Prison number"
-                },
-                {
-                  text: "Case reference number (CRN)"
-                },
-                {
-                  text: "Date submitted"
-                }
-                ,
-                {
-                  text: "Status"
-                }
-              ],
-              submittedApplicationTableRows(applications.submitted))
+                tabData.submittedTab.label,
+                tabData.submittedTab.headings,
+                tabData.submittedTab.rows
+              )
             }
           }
         ]
