@@ -25,6 +25,7 @@ export type Task = {
      */
     dueDate: string;
     dueAt: string;
+    expectedArrivalDate?: string;
     allocatedToStaffMember?: ApprovedPremisesUser;
     status: TaskStatus;
     apArea?: ApArea;
