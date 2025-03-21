@@ -1,6 +1,11 @@
 import type { Request } from 'express'
 import { Unit, Cas2Application as Application, Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
-import type { DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
+import {
+  DataServices,
+  GroupedApplications,
+  PaginatedResponse,
+  PaginatedResponseWithFormattedData,
+} from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
@@ -8,6 +13,9 @@ import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 import { ValidationError } from '../utils/errors'
 import deleteOrphanedFollowOnAnswers from '../utils/applications/deleteOrphanedData'
+import { DateFormats } from '../utils/dateUtils'
+import { getStatusTag } from '../utils/applicationUtils'
+import applyPaths from '../paths/apply'
 
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
@@ -63,10 +71,25 @@ export default class ApplicationService {
     token: string,
     prisonCode: string,
     pageNumber: number = 1,
-  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+  ): Promise<PaginatedResponseWithFormattedData> {
     const applicationClient = this.applicationClientFactory(token)
 
-    return applicationClient.getPrisonNewTransferredIn(prisonCode, pageNumber)
+    const applications = await applicationClient.getPrisonNewTransferredIn(prisonCode, pageNumber)
+
+    const newData = applications.data.map(application => {
+      return [
+        {
+          html: `<a href=${applyPaths.applications.overview({ id: application.id })} data-cy-id="unallocatedId-${application.id}">${application.personName}</a>`,
+        },
+        { text: application.nomsNumber },
+        application.hdcEligibilityDate
+          ? { text: DateFormats.isoDateToUIDate(application.hdcEligibilityDate, { format: 'medium' }) }
+          : { text: undefined },
+        { html: getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId) },
+      ]
+    })
+
+    return { ...applications, data: newData }
   }
 
   async save(page: TaskListPage, request: Request) {

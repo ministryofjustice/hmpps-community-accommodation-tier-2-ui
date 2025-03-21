@@ -202,3 +202,7 @@ export type PaginatedResponse<T> = {
   totalResults: string
   pageSize: string
 }
+
+export type PaginatedResponseWithFormattedData = Omit<PaginatedResponse, 'data'> & {
+  data: ({ html: string; text?: undefined } | { text: string; html?: undefined })[][]
+}

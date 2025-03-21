@@ -12,6 +12,9 @@ import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 
 import { applicationFactory, applicationSummaryFactory, paginatedResponseFactory } from '../testutils/factories'
+import applyPaths from '../paths/apply'
+import { DateFormats } from '../utils/dateUtils'
+import { getStatusTag } from '../utils/applicationUtils'
 
 jest.mock('../data/applicationClient.ts')
 jest.mock('../data/personClient.ts')
@@ -118,6 +121,19 @@ describe('ApplicationService', () => {
     it('fetches all transferred in applications that are not allocated to a POM for a given prison', async () => {
       const applications = applicationSummaryFactory.buildList(3)
 
+      const newData = applications.map(application => {
+        return [
+          {
+            html: `<a href=${applyPaths.applications.overview({ id: application.id })} data-cy-id="unallocatedId-${application.id}">${application.personName}</a>`,
+          },
+          { text: application.nomsNumber },
+          application.hdcEligibilityDate
+            ? { text: DateFormats.isoDateToUIDate(application.hdcEligibilityDate, { format: 'medium' }) }
+            : { text: undefined },
+          { html: getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId) },
+        ]
+      })
+
       const paginatedResponse = paginatedResponseFactory.build({
         data: applications,
         totalPages: '50',
@@ -129,7 +145,7 @@ describe('ApplicationService', () => {
 
       const result = await service.getPrisonNewTransferredIn(token, '123', 2)
 
-      expect(result.data).toEqual(applications)
+      expect(result.data).toEqual(newData)
       expect(result.pageNumber).toEqual('2')
       expect(result.pageSize).toEqual('10')
       expect(result.totalPages).toEqual('50')

@@ -1,7 +1,12 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
-import { ErrorsAndUserInput, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
+import {
+  ErrorsAndUserInput,
+  GroupedApplications,
+  PaginatedResponse,
+  PaginatedResponseWithFormattedData,
+} from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -728,6 +733,7 @@ describe('applicationsController', () => {
     it('renders the prison dashboard page ', async () => {
       response.locals.user = { activeCaseLoadId: '123' }
       const prisonApplications = applicationSummaryFactory.buildList(5)
+      const unallocatedApplications = applicationSummaryFactory.buildList(5)
 
       const paginatedResponse = paginatedResponseFactory.build({
         data: prisonApplications,
@@ -735,11 +741,18 @@ describe('applicationsController', () => {
         totalResults: '500',
       }) as PaginatedResponse<Cas2ApplicationSummary>
 
+      const paginatedUnallocatedApplicationsResponse = paginatedResponseFactory.build({
+        data: unallocatedApplications,
+        totalPages: '50',
+        totalResults: '500',
+      }) as PaginatedResponseWithFormattedData
+
       const paginationDetails = {
         hrefPrefix: paths.applications.prison({}),
         pageNumber: 1,
       }
       ;(getPaginationDetails as jest.Mock).mockReturnValue(paginationDetails)
+      applicationService.getPrisonNewTransferredIn.mockResolvedValue(paginatedUnallocatedApplicationsResponse)
       applicationService.getAllByPrison.mockResolvedValue(paginatedResponse)
 
       const requestHandler = applicationsController.prisonDashboard()
@@ -751,6 +764,7 @@ describe('applicationsController', () => {
         pageNumber: 1,
         totalPages: 50,
         hrefPrefix: paths.applications.prison({}),
+        transferredIn: unallocatedApplications,
       })
     })
   })
