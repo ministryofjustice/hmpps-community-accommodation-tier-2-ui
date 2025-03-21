@@ -56,9 +56,17 @@ export default class ApplicationService {
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const applications = await applicationClient.getAllByPrison(prisonCode, pageNumber)
+    return applicationClient.getAllByPrison(prisonCode, pageNumber)
+  }
 
-    return applications
+  async getPrisonNewTransferredIn(
+    token: string,
+    prisonCode: string,
+    pageNumber: number = 1,
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+    const applicationClient = this.applicationClientFactory(token)
+
+    return applicationClient.getPrisonNewTransferredIn(prisonCode, pageNumber)
   }
 
   async save(page: TaskListPage, request: Request) {
