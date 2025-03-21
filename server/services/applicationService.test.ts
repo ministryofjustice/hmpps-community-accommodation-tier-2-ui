@@ -112,6 +112,34 @@ describe('ApplicationService', () => {
     })
   })
 
+  describe('getPrisonNewTransferredIn', () => {
+    const token = 'SOME_TOKEN'
+
+    it('fetches all transferred in applications that are not allocated to a POM for a given prison', async () => {
+      const applications = applicationSummaryFactory.buildList(3)
+
+      const paginatedResponse = paginatedResponseFactory.build({
+        data: applications,
+        totalPages: '50',
+        totalResults: '500',
+        pageNumber: '2',
+      }) as PaginatedResponse<Cas2ApplicationSummary>
+
+      applicationClient.getPrisonNewTransferredIn.mockResolvedValue(paginatedResponse)
+
+      const result = await service.getPrisonNewTransferredIn(token, '123', 2)
+
+      expect(result.data).toEqual(applications)
+      expect(result.pageNumber).toEqual('2')
+      expect(result.pageSize).toEqual('10')
+      expect(result.totalPages).toEqual('50')
+      expect(result.totalResults).toEqual('500')
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.getPrisonNewTransferredIn).toHaveBeenCalledWith('123', 2)
+    })
+  })
+
   describe('save', () => {
     const application = applicationFactory.build({ data: null })
     const token = 'some-token'
