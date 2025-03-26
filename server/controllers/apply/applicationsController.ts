@@ -293,6 +293,12 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const { pageNumber, hrefPrefix } = getPaginationDetails(req, paths.applications.prison({}))
 
+      const transferredIn = await this.applicationService.getPrisonNewTransferredIn(
+        req.user.token,
+        res.locals.user.activeCaseLoadId,
+        pageNumber,
+      )
+
       const result = await this.applicationService.getAllByPrison(
         req.user.token,
         res.locals.user.activeCaseLoadId,
@@ -304,6 +310,7 @@ export default class ApplicationsController {
         pageNumber: Number(result.pageNumber),
         totalPages: Number(result.totalPages),
         hrefPrefix,
+        transferredIn: transferredIn.data,
       })
     }
   }

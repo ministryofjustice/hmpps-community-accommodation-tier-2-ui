@@ -42,6 +42,17 @@ export default class ApplicationClient {
     })
   }
 
+  async getPrisonNewTransferredIn(
+    prisonCode: string,
+    pageNumber: number,
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
+      path: paths.applications.index.pattern,
+      page: pageNumber.toString(),
+      query: { prisonCode, assignmentType: 'UNALLOCATED' },
+    })
+  }
+
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
     return (await this.restClient.put({
       path: paths.applications.update({ id: applicationId }),
