@@ -85,7 +85,33 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
 
 export const getApplicationTimelineEvents = (
   application: Cas2Application | Cas2SubmittedApplication,
-): Array<UiTimelineEvent> => getTimelineEvents(application.timelineEvents)
+): Array<UiTimelineEvent> => {
+  const timelineEvents = application.timelineEvents
+  
+  if (timelineEvents) {
+    return timelineEvents
+      .sort((a, b) => Number(DateFormats.isoToDateObj(b.occurredAt)) - Number(DateFormats.isoToDateObj(a.occurredAt)))
+      .map(sortedTimelineEvents => {
+        const description =
+          sortedTimelineEvents.type === 'cas2_status_update' && sortedTimelineEvents.body
+            ? formatCommaToLinebreak(sortedTimelineEvents.body)
+            : formatLines(sortedTimelineEvents.body)
+
+        return {
+          label: { text: sortedTimelineEvents.label },
+          byline: {
+            text: sortedTimelineEvents.createdByName,
+          },
+          datetime: {
+            timestamp: sortedTimelineEvents.occurredAt,
+            type: 'datetime',
+          },
+          html: description,
+        }
+      })
+  }
+  return []
+}
 
 export const generateSuccessMessage = (pageName: string): string => {
   switch (pageName) {
