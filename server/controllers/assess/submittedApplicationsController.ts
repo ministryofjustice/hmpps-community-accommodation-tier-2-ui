@@ -5,6 +5,7 @@ import assessPaths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { assessmentHasExistingData } from '../../utils/assessmentUtils'
+import { getApplicationTimelineEvents } from '../../utils/applications/utils'
 
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
@@ -47,6 +48,8 @@ export default class SubmittedApplicationsController {
         ? application.assessment.statusUpdates[0].label
         : 'Received'
 
+      const timelineEvents = getApplicationTimelineEvents(application)
+
       const assessmentLinkText = assessmentHasExistingData(application.assessment)
         ? 'Change assessment details'
         : 'Add assessment details'
@@ -70,6 +73,7 @@ export default class SubmittedApplicationsController {
       return res.render('assess/applications/overview', {
         application,
         status,
+        timelineEvents,
         errors,
         errorSummary,
         pageHeading: 'Overview of application',
