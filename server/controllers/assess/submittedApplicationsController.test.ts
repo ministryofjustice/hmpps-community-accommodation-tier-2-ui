@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
 
-import { PaginatedResponse } from '@approved-premises/ui'
+import { PaginatedResponse, UiTimelineEvent } from '@approved-premises/ui'
 import {
   applicationNoteFactory,
   assessmentFactory,
@@ -36,6 +36,15 @@ describe('submittedApplicationsController', () => {
     submittedBy: { name: 'POM Name' },
     submittedAt: '2023-10-17T08:42:38+01:00',
   })
+
+  function createTimelineEvent(occurredAt: string): UiTimelineEvent {
+    return {
+      label: { text: 'More information requested' },
+      byline: {text: "CAS2 Assessor (NACRO)"},
+      datetime: { timestamp: occurredAt, type: 'datetime' },
+      html: 'More information requested body',
+    }
+  }
 
   beforeEach(() => {
     submittedApplicationsController = new SubmittedApplicationsController(submittedApplicationService)
@@ -115,6 +124,10 @@ describe('submittedApplicationsController', () => {
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
 
+        const timelineEvents = [
+          createTimelineEvent(submittedApplication.timelineEvents[0].occurredAt),
+        ] as UiTimelineEvent[]
+
         expect(paths.submittedApplications.overview({ id: submittedApplication.id })).toEqual(
           `/assess/applications/${submittedApplication.id}/overview`,
         )
@@ -122,6 +135,7 @@ describe('submittedApplicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplication,
           status: 'On waiting list',
+          timelineEvents,
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
@@ -156,6 +170,10 @@ describe('submittedApplicationsController', () => {
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
 
+        const timelineEvents = [
+          createTimelineEvent(submittedApplicationWithoutStatus.timelineEvents[0].occurredAt),
+        ] as UiTimelineEvent[]
+
         expect(paths.submittedApplications.overview({ id: submittedApplicationWithoutStatus.id })).toEqual(
           `/assess/applications/${submittedApplicationWithoutStatus.id}/overview`,
         )
@@ -163,6 +181,7 @@ describe('submittedApplicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplicationWithoutStatus,
           status: 'Received',
+          timelineEvents,
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
@@ -196,6 +215,10 @@ describe('submittedApplicationsController', () => {
         ;(assessmentHasExistingData as jest.Mock).mockImplementation(() => {
           return true
         })
+        
+        const timelineEvents = [
+          createTimelineEvent(submittedApplicationWithoutStatus.timelineEvents[0].occurredAt),
+        ] as UiTimelineEvent[]
 
         const requestHandler = submittedApplicationsController.overview()
         await requestHandler(request, response, next)
@@ -207,6 +230,7 @@ describe('submittedApplicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplicationWithoutStatus,
           status: 'Received',
+          timelineEvents,
           errors: {},
           errorSummary: [],
           pageHeading: `Overview of application`,
