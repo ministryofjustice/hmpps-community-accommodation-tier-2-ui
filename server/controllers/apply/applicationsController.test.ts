@@ -18,7 +18,7 @@ import {
   personFactory,
   applicationNoteFactory,
   paginatedResponseFactory,
-	timelineEventsFactory,
+  timelineEventsFactory,
 } from '../../testutils/factories'
 import {
   catchValidationErrorOrPropogate,
@@ -154,14 +154,14 @@ describe('applicationsController', () => {
     const submittedApplication = applicationFactory.build({
       person: personFactory.build({ name: 'Roger Smith' }),
       submittedAt: '2024-02-05',
-      timelineEvents:  [
-				timelineEventsFactory.build({
-					type: 'cas2_prison_transfer',
+      timelineEvents: [
+        timelineEventsFactory.build({
+          type: 'cas2_prison_transfer',
           label: 'Prison transfer',
-					body: 'the status description',
-					createdByName: 'A Nacro',
-					occurredAt: '2025-03-15T15:07:42Z',
-				}),
+          body: 'the status description',
+          createdByName: 'A Nacro',
+          occurredAt: '2025-03-15T15:07:42Z',
+        }),
       ],
     })
 
@@ -173,7 +173,7 @@ describe('applicationsController', () => {
       const timelineEvents = [
         {
           label: { text: 'Prison transfer' },
-          byline: {text: "A Nacro"},
+          byline: { text: 'A Nacro' },
           datetime: { timestamp: '2025-03-15T15:07:42Z', type: 'datetime' },
         },
       ] as UiTimelineEvent[]

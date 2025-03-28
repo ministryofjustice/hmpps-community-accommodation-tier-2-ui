@@ -16,10 +16,7 @@ import {
   prisonDashboardTableRows,
   arePreTaskListTasksIncomplete,
 } from './applicationUtils'
-import {
-  getSideNavLinksForApplication,
-  getSideNavLinksForDocument,
-} from './applications/utils'
+import { getSideNavLinksForApplication, getSideNavLinksForDocument } from './applications/utils'
 import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
