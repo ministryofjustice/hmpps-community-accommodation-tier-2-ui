@@ -86,8 +86,8 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
 export const getApplicationTimelineEvents = (
   application: Cas2Application | Cas2SubmittedApplication,
 ): Array<UiTimelineEvent> => {
-  const timelineEvents = application.timelineEvents
-  
+  const { timelineEvents } = application
+
   if (timelineEvents) {
     return timelineEvents
       .sort((a, b) => Number(DateFormats.isoToDateObj(b.occurredAt)) - Number(DateFormats.isoToDateObj(a.occurredAt)))

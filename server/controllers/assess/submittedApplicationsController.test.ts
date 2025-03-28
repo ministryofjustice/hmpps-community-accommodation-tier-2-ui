@@ -40,7 +40,7 @@ describe('submittedApplicationsController', () => {
   function createTimelineEvent(occurredAt: string): UiTimelineEvent {
     return {
       label: { text: 'More information requested' },
-      byline: {text: "CAS2 Assessor (NACRO)"},
+      byline: { text: 'CAS2 Assessor (NACRO)' },
       datetime: { timestamp: occurredAt, type: 'datetime' },
       html: 'More information requested body',
     }
@@ -215,7 +215,7 @@ describe('submittedApplicationsController', () => {
         ;(assessmentHasExistingData as jest.Mock).mockImplementation(() => {
           return true
         })
-        
+
         const timelineEvents = [
           createTimelineEvent(submittedApplicationWithoutStatus.timelineEvents[0].occurredAt),
         ] as UiTimelineEvent[]
