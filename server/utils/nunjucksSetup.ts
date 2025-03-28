@@ -16,11 +16,7 @@ import {
   prisonDashboardTableRows,
   arePreTaskListTasksIncomplete,
 } from './applicationUtils'
-import {
-  getApplicationTimelineEvents,
-  getSideNavLinksForApplication,
-  getSideNavLinksForDocument,
-} from './applications/utils'
+import { getSideNavLinksForApplication, getSideNavLinksForDocument } from './applications/utils'
 import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
@@ -106,7 +102,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
   njkEnv.addGlobal('getApplicantDetails', getApplicantDetails)
 
-  njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)
   njkEnv.addGlobal('applicationStatusDetailOptions', applicationStatusDetailOptions)
 

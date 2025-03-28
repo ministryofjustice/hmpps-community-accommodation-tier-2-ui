@@ -9,7 +9,11 @@ import {
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
-import { generateSuccessMessage, showMissingRequiredTasksOrTaskList } from '../../utils/applications/utils'
+import {
+  generateSuccessMessage,
+  getApplicationTimelineEvents,
+  showMissingRequiredTasksOrTaskList,
+} from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
@@ -71,9 +75,12 @@ export default class ApplicationsController {
         ? application.assessment?.statusUpdates[0].label
         : 'Received'
 
+      const timelineEvents = getApplicationTimelineEvents(application)
+
       return res.render('applications/overview', {
         application,
         status,
+        timelineEvents,
         errors,
         errorSummary,
         pageHeading: 'Overview of application',

@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
-import { ErrorsAndUserInput, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
+import { ErrorsAndUserInput, GroupedApplications, PaginatedResponse, UiTimelineEvent } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -12,6 +12,7 @@ import {
   personFactory,
   applicationNoteFactory,
   paginatedResponseFactory,
+  timelineEventsFactory,
 } from '../../testutils/factories'
 import {
   catchValidationErrorOrPropogate,
@@ -34,7 +35,14 @@ jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getPage')
 jest.mock('../../utils/applications/documentUtils')
-jest.mock('../../utils/applications/utils')
+jest.mock('../../utils/applications/utils', () => {
+  const actualUtils = jest.requireActual('../../utils/applications/utils')
+  return {
+    ...actualUtils,
+    showMissingRequiredTasksOrTaskList: jest.fn(),
+    generateSuccessMessage: jest.fn(),
+  }
+})
 jest.mock('../../utils/viewUtils')
 jest.mock('../../utils/getPaginationDetails')
 
@@ -140,12 +148,29 @@ describe('applicationsController', () => {
     const submittedApplication = applicationFactory.build({
       person: personFactory.build({ name: 'Roger Smith' }),
       submittedAt: '2024-02-05',
+      timelineEvents: [
+        timelineEventsFactory.build({
+          type: 'cas2_prison_transfer',
+          label: 'Prison transfer',
+          body: 'the status description',
+          createdByName: 'A Nacro',
+          occurredAt: '2025-03-15T15:07:42Z',
+        }),
+      ],
     })
 
     it('renders the overview page', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
+
+      const timelineEvents = [
+        {
+          label: { text: 'Prison transfer' },
+          byline: { text: 'A Nacro' },
+          datetime: { timestamp: '2025-03-15T15:07:42Z', type: 'datetime' },
+        },
+      ] as UiTimelineEvent[]
 
       applicationService.findApplication.mockResolvedValue(submittedApplication)
 
@@ -155,6 +180,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/overview', {
         application: submittedApplication,
         status: 'Received',
+        timelineEvents,
         pageHeading: 'Overview of application',
         errors: {},
         errorSummary: [],

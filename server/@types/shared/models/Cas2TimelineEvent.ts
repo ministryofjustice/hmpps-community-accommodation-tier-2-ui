@@ -8,6 +8,6 @@ export type Cas2TimelineEvent = {
     occurredAt: string;
     label: string;
     body?: string;
-    createdByName: string;
+    createdByName?: string;
 };
 
