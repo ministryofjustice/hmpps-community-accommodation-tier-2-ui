@@ -101,6 +101,32 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
+  describe('getTransferredOut', () => {
+    it('should get all transferred out applications for given user', async () => {
+      const transferredOutApplications = applicationFactory.buildList(5)
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request for all applications that have been transferred out for a user',
+        withRequest: {
+          method: 'GET',
+          path: paths.applications.index.pattern,
+          query: { assignmentType: 'DEALLOCATED' },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: transferredOutApplications,
+        },
+      })
+
+      const result = await applicationClient.getTransferredOut()
+      expect(result).toEqual(transferredOutApplications)
+    })
+  })
+
   describe('getAllByPrison', () => {
     it('should get all applications for a given prison', async () => {
       const applications = applicationFactory.buildList(5)

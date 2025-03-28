@@ -9,6 +9,7 @@ import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Applica
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
+import { createQueryString } from '../utils/utils'
 
 export default class ApplicationClient {
   restClient: RestClient
@@ -32,6 +33,13 @@ export default class ApplicationClient {
 
   async all(): Promise<Array<Cas2ApplicationSummary>> {
     return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
+  }
+
+  async getTransferredOut(): Promise<Array<Cas2ApplicationSummary>> {
+    return (await this.restClient.get({
+      path: paths.applications.index.pattern,
+      query: createQueryString({ assignmentType: 'DEALLOCATED' }),
+    })) as Array<Cas2ApplicationSummary>
   }
 
   async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
