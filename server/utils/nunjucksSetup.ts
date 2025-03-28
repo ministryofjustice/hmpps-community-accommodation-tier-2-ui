@@ -17,7 +17,6 @@ import {
   arePreTaskListTasksIncomplete,
 } from './applicationUtils'
 import {
-  getApplicationTimelineEvents,
   getSideNavLinksForApplication,
   getSideNavLinksForDocument,
 } from './applications/utils'
@@ -106,7 +105,6 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
   njkEnv.addGlobal('getApplicantDetails', getApplicantDetails)
 
-  njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)
   njkEnv.addGlobal('applicationStatusDetailOptions', applicationStatusDetailOptions)
 
