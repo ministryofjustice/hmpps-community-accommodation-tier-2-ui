@@ -96,12 +96,13 @@ export const getApplicationTimelineEvents = (
           sortedTimelineEvents.type === 'cas2_status_update' && sortedTimelineEvents.body
             ? formatCommaToLinebreak(sortedTimelineEvents.body)
             : formatLines(sortedTimelineEvents.body)
+        const byline = sortedTimelineEvents.createdByName && {
+          text: sortedTimelineEvents.createdByName,
+        }
 
         return {
           label: { text: sortedTimelineEvents.label },
-          byline: {
-            text: sortedTimelineEvents.createdByName,
-          },
+          byline,
           datetime: {
             timestamp: sortedTimelineEvents.occurredAt,
             type: 'datetime',
