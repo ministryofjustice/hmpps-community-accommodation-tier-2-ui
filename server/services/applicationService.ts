@@ -44,6 +44,7 @@ export default class ApplicationService {
     const result = {
       inProgress: [],
       submitted: [],
+      transferredOut: [],
     } as GroupedApplications
 
     allApplications.map(async application => {
@@ -53,6 +54,8 @@ export default class ApplicationService {
         result.submitted.push(application)
       }
     })
+
+    result.transferredOut = await applicationClient.getTransferredOut()
 
     return result
   }
