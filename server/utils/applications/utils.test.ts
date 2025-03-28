@@ -204,6 +204,17 @@ describe('utils', () => {
               createdByName: 'Anne Nomis',
               occurredAt: '2023-06-19T07:54:50',
             }),
+            timelineEventsFactory.build({
+              type: 'cas2_prison_transfer',
+              label: 'Prison transfer',
+              createdByName: 'Anne Assessor',
+              occurredAt: '2023-06-15T07:54:50',
+            }),
+            timelineEventsFactory.build({
+              type: 'cas2_new_pom_assigned',
+              label: 'New prison offender manager assigned',
+              occurredAt: '2023-06-21T07:54:50',
+            }),
           ],
         })
 
