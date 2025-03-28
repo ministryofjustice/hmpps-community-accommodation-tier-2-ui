@@ -61,6 +61,17 @@ context('View submitted application overview', () => {
               label: 'Application submitted',
               body: null,
             }),
+            timelineEventsFactory.build({
+              occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+              type: 'cas2_prison_transfer',
+              createdByName: 'Anne Assessor',
+              label: 'Prison transfer',
+            }),
+            timelineEventsFactory.build({
+              occurredAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+              type: 'cas2_new_pom_assigned',
+              label: 'New prison offender manager assigned',
+            }),
           ],
         })
         cy.wrap(submittedApplication).as('application')
