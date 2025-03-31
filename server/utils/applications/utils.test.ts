@@ -176,6 +176,30 @@ describe('utils', () => {
         ])
       })
 
+      it('returns them without byline when createdByName is absent', () => {
+        const application = submittedApplicationFactory.build({
+          timelineEvents: [
+            timelineEventsFactory.build({
+              label: 'a status update',
+              body: 'the status description',
+              createdByName: undefined,
+              occurredAt: '2023-06-22T08:54:50',
+            }),
+          ],
+        })
+
+        expect(getApplicationTimelineEvents(application)).toEqual([
+          {
+            label: { text: 'a status update' },
+            datetime: {
+              timestamp: '2023-06-22T08:54:50',
+              type: 'datetime',
+            },
+            html: 'the status description',
+          },
+        ])
+      })
+
       it('sorts the events in ascending order', () => {
         const application = submittedApplicationFactory.build({
           timelineEvents: [

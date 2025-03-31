@@ -30,7 +30,11 @@ import { PersonService, ApplicationService, SubmittedApplicationService } from '
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
-import { showMissingRequiredTasksOrTaskList, generateSuccessMessage, getApplicationTimelineEvents } from '../../utils/applications/utils'
+import {
+  showMissingRequiredTasksOrTaskList,
+  generateSuccessMessage,
+  getApplicationTimelineEvents,
+} from '../../utils/applications/utils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { indexTabItems } from '../../utils/applicationUtils'
@@ -159,8 +163,9 @@ describe('applicationsController', () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
-      ;(getApplicationTimelineEvents as jest.Mock).mockImplementation(() => {return timelineEvents})
-
+      ;(getApplicationTimelineEvents as jest.Mock).mockImplementation(() => {
+        return timelineEvents
+      })
 
       applicationService.findApplication.mockResolvedValue(submittedApplication)
 
