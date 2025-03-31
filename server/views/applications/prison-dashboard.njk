@@ -25,7 +25,36 @@
           }]
         }) }}
 
-      <p>View recent applications from this prison for Short-Term Accommodation (CAS-2).</p>
+      {% if transferredIn and transferredIn.length > 0 %}
+        <h2 class="govuk-heading-m">Transferred-in applications</h2>
+
+        <p>View Short-Term Accommodation (CAS2) applications recently transferred to your prison, which need to be allocated to a prison offender manager.</p>
+
+				<div class="govuk-!-margin-bottom-9">
+	        {{applicationsTable(
+	          "",
+	          [
+	            {
+	              text: "Person"
+	            },
+	            {
+	              text: "Prison number"
+	            },
+	            {
+	              text: "HDC eligibility date"
+	            },
+	            {
+	              text: "Status"
+	            }
+	          ],
+	          transferredIn)
+	        }}
+				</div>
+      {% endif %}
+
+			<h2 class="govuk-heading-m">All allocated applications</h2>
+
+      <p>View recent allocated applications.</p>
 
       {{applicationsTable(
         "", 

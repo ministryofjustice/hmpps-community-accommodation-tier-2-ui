@@ -264,6 +264,25 @@ export default abstract class Page {
     })
   }
 
+  shouldHideTransferredIn(): void {
+    cy.get('h2').should('not.contain.text', 'Transferred-in applications')
+  }
+
+  shouldShowTransferredIn(applications: Array<Cas2ApplicationSummary>): void {
+    cy.get('h2').should('contain.text', 'Transferred-in applications')
+
+    applications.forEach(application => {
+      const { personName } = application
+      cy.contains(personName)
+        .should('have.attr', 'href', paths.applications.overview({ id: application.id }))
+        .parent()
+        .parent()
+        .within(() => {
+          cy.get('th').eq(0).contains(personName)
+        })
+    })
+  }
+
   logAccessibilityViolations(violations: Result[]): void {
     cy.task('logAccessibilityViolationsSummary', `Accessibility violations detected: ${violations.length}`)
 
