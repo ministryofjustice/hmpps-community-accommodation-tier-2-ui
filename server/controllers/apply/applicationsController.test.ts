@@ -18,7 +18,6 @@ import {
   personFactory,
   applicationNoteFactory,
   paginatedResponseFactory,
-  timelineEventsFactory,
 } from '../../testutils/factories'
 import {
   catchValidationErrorOrPropogate,
@@ -31,7 +30,7 @@ import { PersonService, ApplicationService, SubmittedApplicationService } from '
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
-import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
+import { showMissingRequiredTasksOrTaskList, generateSuccessMessage, getApplicationTimelineEvents } from '../../utils/applications/utils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { indexTabItems } from '../../utils/applicationUtils'
@@ -41,14 +40,7 @@ jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
 jest.mock('../../utils/applications/getPage')
 jest.mock('../../utils/applications/documentUtils')
-jest.mock('../../utils/applications/utils', () => {
-  const actualUtils = jest.requireActual('../../utils/applications/utils')
-  return {
-    ...actualUtils,
-    showMissingRequiredTasksOrTaskList: jest.fn(),
-    generateSuccessMessage: jest.fn(),
-  }
-})
+jest.mock('../../utils/applications/utils')
 jest.mock('../../utils/viewUtils')
 jest.mock('../../utils/getPaginationDetails')
 
@@ -154,22 +146,9 @@ describe('applicationsController', () => {
     const submittedApplication = applicationFactory.build({
       person: personFactory.build({ name: 'Roger Smith' }),
       submittedAt: '2024-02-05',
-      timelineEvents: [
-        timelineEventsFactory.build({
-          type: 'cas2_prison_transfer',
-          label: 'Prison transfer',
-          body: 'the status description',
-          createdByName: 'A Nacro',
-          occurredAt: '2025-03-15T15:07:42Z',
-        }),
-      ],
     })
 
     it('renders the overview page', async () => {
-      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-        return { errors: {}, errorSummary: [], userInput: {} }
-      })
-
       const timelineEvents = [
         {
           label: { text: 'Prison transfer' },
@@ -177,6 +156,11 @@ describe('applicationsController', () => {
           datetime: { timestamp: '2025-03-15T15:07:42Z', type: 'datetime' },
         },
       ] as UiTimelineEvent[]
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+      ;(getApplicationTimelineEvents as jest.Mock).mockImplementation(() => {return timelineEvents})
+
 
       applicationService.findApplication.mockResolvedValue(submittedApplication)
 
