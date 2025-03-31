@@ -5,6 +5,7 @@ import {
   ErrorsAndUserInput,
   GroupedApplications,
   PaginatedResponse,
+  UiTimelineEvent,
   PaginatedResponseWithFormattedData,
 } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
@@ -29,7 +30,11 @@ import { PersonService, ApplicationService, SubmittedApplicationService } from '
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
-import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
+import {
+  showMissingRequiredTasksOrTaskList,
+  generateSuccessMessage,
+  getApplicationTimelineEvents,
+} from '../../utils/applications/utils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { indexTabItems } from '../../utils/applicationUtils'
@@ -148,8 +153,18 @@ describe('applicationsController', () => {
     })
 
     it('renders the overview page', async () => {
+      const timelineEvents = [
+        {
+          label: { text: 'Prison transfer' },
+          byline: { text: 'A Nacro' },
+          datetime: { timestamp: '2025-03-15T15:07:42Z', type: 'datetime' },
+        },
+      ] as UiTimelineEvent[]
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
+      })
+      ;(getApplicationTimelineEvents as jest.Mock).mockImplementation(() => {
+        return timelineEvents
       })
 
       applicationService.findApplication.mockResolvedValue(submittedApplication)
@@ -160,6 +175,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/overview', {
         application: submittedApplication,
         status: 'Received',
+        timelineEvents,
         pageHeading: 'Overview of application',
         errors: {},
         errorSummary: [],

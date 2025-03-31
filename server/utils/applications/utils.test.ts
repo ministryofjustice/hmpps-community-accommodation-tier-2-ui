@@ -176,6 +176,30 @@ describe('utils', () => {
         ])
       })
 
+      it('returns them without byline when createdByName is absent', () => {
+        const application = submittedApplicationFactory.build({
+          timelineEvents: [
+            timelineEventsFactory.build({
+              label: 'a status update',
+              body: 'the status description',
+              createdByName: undefined,
+              occurredAt: '2023-06-22T08:54:50',
+            }),
+          ],
+        })
+
+        expect(getApplicationTimelineEvents(application)).toEqual([
+          {
+            label: { text: 'a status update' },
+            datetime: {
+              timestamp: '2023-06-22T08:54:50',
+              type: 'datetime',
+            },
+            html: 'the status description',
+          },
+        ])
+      })
+
       it('sorts the events in ascending order', () => {
         const application = submittedApplicationFactory.build({
           timelineEvents: [
@@ -203,6 +227,17 @@ describe('utils', () => {
               body: 'The application was received by an assessor.',
               createdByName: 'Anne Nomis',
               occurredAt: '2023-06-19T07:54:50',
+            }),
+            timelineEventsFactory.build({
+              type: 'cas2_prison_transfer',
+              label: 'Prison transfer',
+              createdByName: 'Anne Assessor',
+              occurredAt: '2023-06-15T07:54:50',
+            }),
+            timelineEventsFactory.build({
+              type: 'cas2_new_pom_assigned',
+              label: 'New prison offender manager assigned',
+              occurredAt: '2023-06-21T07:54:50',
             }),
           ],
         })
