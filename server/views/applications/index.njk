@@ -15,6 +15,43 @@
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+	{% set tabItems =  [{
+		label: tabData.inProgressTab.label,
+	    id: tabData.inProgressTab.id,
+	    panel: {
+	      html: applicationsTable(
+	        tabData.inProgressTab.label,
+	        tabData.inProgressTab.headings,
+	        tabData.inProgressTab.rows
+	      )
+	    }
+	  },
+	  {
+	    label: tabData.submittedTab.label,
+	    id: tabData.submittedTab.id,
+	    panel: {
+	      html: applicationsTable(
+	        tabData.submittedTab.label,
+	        tabData.submittedTab.headings,
+	        tabData.submittedTab.rows
+	      )
+	    }
+	  }]
+	%}
+
+	{% if tabData.transferredOutTab and tabData.transferredOutTab.rows and tabData.transferredOutTab.rows.length > 0 %}
+		{% set tabItems = (tabItems.push({
+			label: tabData.transferredOutTab.label,
+			id: tabData.transferredOutTab.id,
+			panel: {
+				html: applicationsTable(
+					tabData.transferredOutTab.label,
+					tabData.transferredOutTab.headings,
+					tabData.transferredOutTab.rows
+				)
+			}
+		}), tabItems) %}
+	{% endif %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -43,33 +80,7 @@
           }]
         }) }}
 
-      {{ govukTabs({
-        items: [
-          {
-            label: tabData.inProgressTab.label,
-            id: tabData.inProgressTab.id,
-            panel: {
-              html: applicationsTable(
-                tabData.inProgressTab.label,
-                tabData.inProgressTab.headings,
-                tabData.inProgressTab.rows
-              )
-            }
-          },
-          {
-            label: tabData.submittedTab.label,
-            id: tabData.submittedTab.id,
-            panel: {
-              html: applicationsTable(
-                tabData.submittedTab.label,
-                tabData.submittedTab.headings,
-                tabData.submittedTab.rows
-              )
-            }
-          }
-        ]
-        })
-      }}
+      {{ govukTabs({ items: tabItems }) }}
 
       {{ softDeleteGuidance() }}
 

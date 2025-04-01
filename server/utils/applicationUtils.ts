@@ -32,10 +32,24 @@ const submittedApplicationTableRows = (
   })
 }
 
+const transferredOutApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+  return applications?.map(application => {
+    return [
+      textValue(application.personName),
+      textValue(application.nomsNumber),
+      textValue(application.crn),
+      textValue(DateFormats.isoDateToUIDate(application.assignmentDate, { format: 'medium' })),
+      textValue(application.currentPrisonName),
+      htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
+    ]
+  })
+}
+
 export const indexTabItems = (groupedApplications: GroupedApplications) => {
   return {
     inProgressTab: indexInProgressTab(groupedApplications.inProgress as Array<Cas2ApplicationSummary>),
     submittedTab: indexSubmittedTab(groupedApplications.submitted as Array<Cas2ApplicationSummary>),
+    transferredOutTab: indexTransferredOutTab(groupedApplications.transferredOut as Array<Cas2ApplicationSummary>),
   }
 }
 
@@ -86,6 +100,34 @@ const indexSubmittedTab = (applications: Array<Cas2ApplicationSummary>) => {
       },
     ],
     rows: submittedApplicationTableRows(applications),
+  }
+}
+
+const indexTransferredOutTab = (applications: Array<Cas2ApplicationSummary>) => {
+  return {
+    label: 'Transferred out',
+    id: 'transferred-out',
+    headings: [
+      {
+        text: 'Person',
+      },
+      {
+        text: 'Prison number',
+      },
+      {
+        text: 'Case reference number (CRN)',
+      },
+      {
+        text: 'Date transferred',
+      },
+      {
+        text: 'Prison transferred to',
+      },
+      {
+        text: 'Status',
+      },
+    ],
+    rows: transferredOutApplicationTableRows(applications),
   }
 }
 
