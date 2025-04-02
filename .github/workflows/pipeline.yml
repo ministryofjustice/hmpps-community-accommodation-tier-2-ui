@@ -1,0 +1,313 @@
+name: Pipeline [test -> build -> deploy]
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment
+        type: choice
+        required: true
+        options:
+          - test
+          - dev
+          - preprod
+          - prod
+        default: 'dev'
+      version:
+        description: Image version
+        type: string
+        required: true
+      docker_registry:
+        description: Docker registry
+        required: true
+        default: 'ghcr.io'
+        type: choice
+        options:
+          - 'ghcr.io'
+          - 'quay.io'
+      registry_org:
+        description: Docker registry organisation
+        required: true
+        default: 'ministryofjustice'
+        type: choice
+        options:
+          - 'ministryofjustice'
+          - 'hmpps'
+      additional_docker_tag:
+        description: Additional docker tag that can be used to specify stable tags
+        required: false
+        default: ''
+        type: string
+      push:
+        description: Push docker image to registry flag
+        required: true
+        default: true
+        type: boolean
+      docker_multiplatform:
+        description: docker multiplatform build or not
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  node_build:
+    name: "Node Build 🛠️"
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@v1
+    secrets: inherit
+
+  type_checking:
+    name: "Type check 🔎"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Typechecking the code
+        run: npm run typecheck
+
+  linting:
+    name: "Linting 🔎"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running Lint checks
+        run: npm run lint
+
+      - name: Running shell scripts linting checks
+        run: npm run shellcheck
+
+  helm_lint:
+    name: "Helm config linting 🔎"
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@v2
+    strategy:
+      matrix:
+        environments: [ 'dev', 'test', 'preprod', 'prod' ]
+
+  unit_test:
+    name: "Unit testing 🧪"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running Unit tests
+        run: npm run test:ci
+
+      - name: Check coverage
+        run: |
+          npx nyc report -t ./coverage --reporter=text --reporter=text-summary
+          npx nyc check-coverage -t ./coverage
+
+  integration_test:
+    name: "Integration testing 🧪"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ci_node_index: [ 0, 1, 2, 3 ]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Building source
+        run: npm run build
+
+      - name: Downloading test reports from previous runs
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          branch: main
+          if_no_artifact_found: 'ignore'
+          allow_forks: false
+          name: integration-test-junit-xml-reports-.*
+          name_is_regexp: true
+          path: tmp/junit-xml-reports-downloaded
+        continue-on-error: true
+
+      - name: Determining tests splitting by timing
+        uses: r7kamura/split-tests-by-timings@v0
+        id: split-tests
+        with:
+          reports: tmp/junit-xml-reports-downloaded
+          glob: integration_tests/tests/**/*.cy.ts
+          index: ${{ matrix.ci_node_index }}
+          total: 4
+
+      - name: Running Integration tests
+        run: TEST_RUN_ARGS="--spec $(echo ${{ steps.split-tests.outputs.paths }} | sed -E 's/ /,/g')" npm run test:integration
+
+      - name: Fix Cypress JUnit XML reports
+        run: script/fix-cypress-junit-xml
+
+      - name: Store Integration tests reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-junit-xml-reports-${{ matrix.ci_node_index }}
+          path: test_results/cypress
+
+      - name: Store Integration tests videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-tests-videos-${{ matrix.ci_node_index }}
+          path: integration_tests/videos
+
+      - name: Store Integration tests screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-tests-screenshots-${{ matrix.ci_node_index }}
+          path: integration_tests/screenshots
+
+#  build:
+#    name: Build docker image from hmpps-github-actions
+#    needs:
+#      - node_build
+#      - linting
+#      - helm_lint
+#      - unit_test
+#      - integration_test
+#    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@v1
+#    with:
+#      docker_registry: ${{ inputs.docker_registry || 'ghcr.io' }}
+#      registry_org: ${{ inputs.registry_org || 'ministryofjustice' }}
+#      additional_docker_tag: ${{ inputs.additional_docker_tag }}
+#      push: ${{ inputs.push || true }}
+#      docker_multiplatform: ${{ inputs.docker_multiplatform || false }}
+#
+#  deploy_test:
+#    name: Deploy to the test environment
+#    needs:
+#      - build
+#    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/feature-test/') || startsWith(github.head_ref, 'feature-test/')
+#    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+#    secrets: inherit
+#    with:
+#      environment: 'test'
+#      app_version: '${{ needs.build.outputs.app_version }}'
+#
+#  deploy_dev:
+#    name: Deploy to the development environment
+#    needs:
+#      - build
+#    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/feature-dev-') || startsWith(github.head_ref, 'feature-dev-')
+#    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+#    secrets: inherit
+#    with:
+#      environment: 'development'
+#      app_version: '${{ needs.build.outputs.app_version }}'
+#
+#  e2e_test:
+#    name: "E2E Environment Tests 🧪"
+#    needs:
+#      - build
+#      - deploy_test
+#    runs-on: [self-hosted, james-bootstrap]
+#    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/feature-test/') || startsWith(github.head_ref, 'feature-test/')
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        shard: [1, 2, 3, 4]
+#    steps:
+#      - name: Check out code
+#        uses: actions/checkout@v4.1.7
+#
+#      - name: Setup Node.js environment
+#        uses: actions/setup-node@v4.0.3
+#        with:
+#          node-version-file: '.node-version'
+#          cache: 'npm'
+#
+#      - name: Run E2E Tests
+#        env:
+#          HMPPS_AUTH_USERNAME: ${{ secrets[format('HMPPS_AUTH_USERNAME_{0}', matrix.shard)] }}
+#          HMPPS_AUTH_PASSWORD: ${{ secrets[format('HMPPS_AUTH_PASSWORD_{0}', matrix.shard)] }}
+#          HMPPS_AUTH_EMAIL: ${{ secrets[format('HMPPS_AUTH_EMAIL_{0}', matrix.shard)] }}
+#          HMPPS_AUTH_NAME: ${{ secrets[format('HMPPS_AUTH_NAME_{0}', matrix.shard)] }}
+#        run: npm run test:e2e:ci -- --shard=${{ matrix.shard }}/4
+#
+#      - name: Upload Playwright Report
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: playwright-report-${{ matrix.shard }}
+#          path: playwright-report
+#          retention-days: 30
+#
+#      - name: Upload Test Results
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: test-results-${{ matrix.shard }}
+#          path: test-results
+#          retention-days: 30
+  # TODO - uncomment when e2e tests run successfully
+  # deploy_preprod:
+  #   name: Deploy to pre-production environment
+  #   needs:
+  #     - build
+  #     - deploy_dev
+  #     - e2e_test
+  #   if: github.ref == 'refs/heads/main'
+  #   uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1 # WORKFLOW_VERSION
+  #   secrets: inherit
+  #   with:
+  #     environment: 'preprod'
+  #     app_version: '${{ needs.build.outputs.app_version }}'
+
+  # deploy_prod:
+  #   name: Deploy to production environment
+  #   needs:
+  #     - build
+  #     - deploy_preprod
+  #   if: github.ref == 'refs/heads/main'
+  #   uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1 # WORKFLOW_VERSION
+  #   secrets: inherit
+  #   with:
+  #     environment: 'prod'
+  #     app_version: '${{ needs.build.outputs.app_version }}'
