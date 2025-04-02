@@ -35,7 +35,7 @@
     "clean": "rm -rf dist build node_modules stylesheets",
     "test:integration": "npm run start-test-wiremock && start-server-and-test start-feature http://localhost:3007/ping int-test",
     "test:integration:ui": "npm run start-test-wiremock && start-server-and-test start-feature:dev http://localhost:3007/ping int-test-ui",
-    "start-test-wiremock": "docker-compose -f docker-compose-test.yml up -d",
+    "start-test-wiremock": "docker compose -f docker-compose-test.yml up -d",
     "test:e2e": "npx playwright test --project=setupDev --project=dev",
     "test:e2e:ui": "npm run test:e2e -- --ui",
     "test:e2e:local": "npx playwright test --project=setupLocal --project=local",
