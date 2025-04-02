@@ -54,16 +54,6 @@ jobs:
             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
             export GIT_REF="$CIRCLE_SHA1"
             npm run record-build-info
-      - run:
-          # Run linter after build because the integration test code depend on compiled typescript...
-          name: Linter check
-          command: npm run lint
-      - run:
-          name: Lint shell scripts
-          command: npm run shellcheck
-      - run:
-          name: Type check
-          command: npm run typecheck
       - persist_to_workspace:
           root: .
           paths:
@@ -72,95 +62,6 @@ jobs:
             - build
             - dist
             - .cache/Cypress
-
-  unit_test:
-    parallelism: 4
-    executor:
-      name: hmpps/node
-      tag: << pipeline.parameters.node-version >>
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/app
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Run unit tests
-          command: |
-            TESTS=$(circleci tests glob "server/**/*.test.ts" | circleci tests split --split-by=timings)
-            npm run test:ci $TESTS
-      - run:
-          name: collect coverage data
-          command: |
-            mv ./coverage/coverage-final.json ./coverage/coverage_${CIRCLE_NODE_INDEX}.json
-      - store_test_results:
-          path: test_results/jest
-      - store_artifacts:
-          path: test_results/unit-test-reports.html
-      - persist_to_workspace:
-          root: .
-          paths:
-            - coverage
-
-  coverage:
-    executor:
-      name: hmpps/node
-      tag: << pipeline.parameters.node-version >>
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/app
-      - run:
-          name: Merge coverage reports
-          command: npx nyc merge ./coverage/ ./coverage/.nyc_output
-      - run:
-          name: Check Coverage
-          command: |
-            npx nyc report -t ./coverage --reporter=text --reporter=text-summary
-            npx nyc check-coverage -t ./coverage
-
-  integration_test:
-    parallelism: 4
-    executor:
-      name: integration-tests
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/app
-      - run:
-          name: Install missing OS dependency
-          command: sudo apt-get install libxss1
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Get wiremock
-          command: curl -o wiremock.jar https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.1.0/wiremock-standalone-3.1.0.jar
-      - run:
-          name: Run wiremock
-          command: java -jar wiremock.jar --port 9999
-          background: true
-      - run:
-          name: Run the node app.
-          command: npm run compile-sass && npm run start-feature
-          background: true
-      - run:
-          name: Wait for node app to start
-          command: |
-            until curl http://localhost:3007/health > /dev/null 2>&1; do
-              printf '.'
-              sleep 1
-            done
-      - run:
-          name: integration tests
-          command: |
-            TESTS=$(circleci tests glob "integration_tests/tests/**/*.cy.ts" | circleci tests split --split-by=timings | paste -sd ',')
-            npm run int-test -- --spec $TESTS
-      - store_test_results:
-          path: test_results/cypress
-      - store_artifacts:
-          path: integration_tests/videos
-      - store_artifacts:
-          path: integration_tests/screenshots
 
   e2e_environment_test:
     executor:
@@ -195,19 +96,15 @@ workflows:
     jobs:
       - build:
           filters:
-            tags:
-              ignore: /.*/
-      - unit_test:
-          requires:
-            - build
-      - integration_test:
-          requires:
-            - build
-      - coverage:
-          requires:
-            - unit_test
+            branches:
+              only:
+                - main
       - hmpps/helm_lint:
           name: helm_lint
+          filters:
+            branches:
+              only:
+                - main
       - hmpps/build_docker:
           name: build_docker
           filters:
