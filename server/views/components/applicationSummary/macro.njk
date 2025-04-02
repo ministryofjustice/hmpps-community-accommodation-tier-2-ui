@@ -18,23 +18,12 @@
 
     <ul class="govuk-list govuk-list--spaced submitted-application-panel__text">
       <li>
-        <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ summary.referrerName }}
+        <span class="govuk-!-font-weight-bold">{{ summary.pomAllocationLabel }}</span>{{ summary.pomAllocation }}
       </li>
-      {% if summary.prisonName %}
-        <li>
-          <span class="govuk-!-font-weight-bold">Referring institution: </span>{{ summary.prisonName }}
-        </li>
-      {% endif %}
       {% if summary.contactEmail %}
         <li>
-          <span class="govuk-!-font-weight-bold">Contact email address:</span>
+          <span class="govuk-!-font-weight-bold">{{ summary.emailLabel }}</span>
           <a href="mailto:{{ summary.contactEmail }}" class="submitted-application-panel__text">{{ summary.contactEmail }}</a>
-        </li>
-      {% endif %}
-      {% if summary.contactNumber %}
-        <li>
-          <span class="govuk-!-font-weight-bold">Contact number: </span>
-          <a class="submitted-application-panel__text" href="tel:{{ summary.contactNumber }}">{{ summary.contactNumber }}</a>
         </li>
       {% endif %}
       <li>
