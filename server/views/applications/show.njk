@@ -22,16 +22,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
-      {{ applicationSummary({
-        id: application.id,
-        name: application.person.name,
-        prisonNumber: application.person.nomsNumber,
-        prisonName: application.person.prisonName,
-        referrerName: application.createdBy.name,
-        contactEmail: application.createdBy.email,
-        contactNumber: application.telephoneNumber,
-        view: 'referrerSubmission'
-      })}}
+      {{ applicationSummary(summary)}}
 
 
       <div class="govuk-grid-column-one-quarter side-nav">
