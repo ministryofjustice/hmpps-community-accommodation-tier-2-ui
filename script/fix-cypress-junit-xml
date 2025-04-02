@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# script/fix-cypress-junit-xml: adds the `file` attribute found in the 'Root Suite' testsuite node to all other
+#  testuite nodes, so the split-test utility can correctly identify test run times.
+
+# Directory containing Junit XML files
+directory="./test_results/cypress"
+
+cd "$(dirname "$0")/.." || exit
+
+# Iterate over all XML files in the directory
+find "$directory" -name "*.xml" | while read -r xml_file; do
+  # Extract the 'file' attribute (from the "Root Suite" testsuite)
+  file=$(grep -o 'file="[^"]*"' "$xml_file")
+
+  # If the 'file' attribute was found, apply it to all other testsuite nodes
+  if [ -n "$file" ]; then
+    # Use sed to add the 'file' attribute to all testsuite nodes except 'Root Suite'
+    sed -i'' -e "/<testsuite [^>]*name=\"Root Suite\"[^>]*>/!s|<testsuite |<testsuite $file |" "$xml_file"
+  else
+    echo "No 'file' attribute found in $xml_file, skipping..."
+  fi
+done
