@@ -10,6 +10,7 @@ import {
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
 import {
+  createApplicationSummary,
   generateSuccessMessage,
   getApplicationTimelineEvents,
   showMissingRequiredTasksOrTaskList,
@@ -52,9 +53,10 @@ export default class ApplicationsController {
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+      const summary = createApplicationSummary(application)
 
       if (application.submittedAt) {
-        return res.render('applications/show', { application })
+        return res.render('applications/show', { application, summary })
       }
 
       return showMissingRequiredTasksOrTaskList(req, res, application)
