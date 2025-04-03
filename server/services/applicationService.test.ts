@@ -104,7 +104,7 @@ describe('ApplicationService', () => {
         pageNumber: '2',
       }) as PaginatedResponse<Cas2ApplicationSummary>
 
-      applicationClient.getAllByPrison.mockResolvedValue(paginatedResponse)
+      applicationClient.getAllAllocatedForPrison.mockResolvedValue(paginatedResponse)
 
       const result = await service.getAllByPrison(token, '123', 2)
 
@@ -115,7 +115,7 @@ describe('ApplicationService', () => {
       expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getAllByPrison).toHaveBeenCalledWith('123', 2)
+      expect(applicationClient.getAllAllocatedForPrison).toHaveBeenCalledWith('123', 2)
     })
   })
 

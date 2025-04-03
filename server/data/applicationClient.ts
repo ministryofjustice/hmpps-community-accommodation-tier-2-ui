@@ -42,11 +42,14 @@ export default class ApplicationClient {
     })) as Array<Cas2ApplicationSummary>
   }
 
-  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+  async getAllAllocatedForPrison(
+    prisonCode: string,
+    pageNumber: number,
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
-      query: { prisonCode, isSubmitted: 'true' },
+      query: { prisonCode, assignmentType: 'ALLOCATED' },
     })
   }
 
