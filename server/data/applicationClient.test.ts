@@ -75,32 +75,6 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
-  describe('all', () => {
-    it('should get all previous applications', async () => {
-      const previousApplications = applicationFactory.buildList(5)
-
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request for all applications',
-        withRequest: {
-          method: 'GET',
-          path: paths.applications.index.pattern,
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          body: previousApplications,
-        },
-      })
-
-      const result = await applicationClient.all()
-
-      expect(result).toEqual(previousApplications)
-    })
-  })
-
   describe('getApplicationsForUser', () => {
     describe('when returning a list of transferred out applications for the user', () => {
       it('should get all transferred out applications for given user', async () => {
