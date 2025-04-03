@@ -127,8 +127,8 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
-  describe('getAllByPrison', () => {
-    it('should get all applications for a given prison', async () => {
+  describe('getAllAllocatedForPrison', () => {
+    it('should get all allocated applications for a given prison', async () => {
       const applications = applicationFactory.buildList(5)
 
       provider.addInteraction({
@@ -139,7 +139,7 @@ describeClient('ApplicationClient', provider => {
           path: paths.applications.index.pattern,
           query: {
             prisonCode: '123',
-            isSubmitted: 'true',
+            assignmentType: 'ALLOCATED',
             page: '1',
           },
           headers: {
@@ -157,7 +157,7 @@ describeClient('ApplicationClient', provider => {
         },
       })
 
-      const result = await applicationClient.getAllByPrison('123', 1)
+      const result = await applicationClient.getAllAllocatedForPrison('123', 1)
 
       expect(result).toEqual({
         data: applications,

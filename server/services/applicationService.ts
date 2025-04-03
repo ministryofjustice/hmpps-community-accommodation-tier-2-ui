@@ -67,7 +67,7 @@ export default class ApplicationService {
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
-    return applicationClient.getAllByPrison(prisonCode, pageNumber)
+    return applicationClient.getAllAllocatedForPrison(prisonCode, pageNumber)
   }
 
   async getPrisonNewTransferredIn(
