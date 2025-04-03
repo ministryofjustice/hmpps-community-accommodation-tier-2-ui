@@ -19,5 +19,9 @@ export type Cas2ApplicationSummary = {
     personName: string;
     crn: string;
     nomsNumber: string;
+    allocatedPomUserId: string;
+    allocatedPomName: string;
+    currentPrisonName?: string;
+    assignmentDate: string;
 };
 
