@@ -1,6 +1,7 @@
 import Page from '../page'
 import paths from '../../../server/paths/apply'
 import { Cas2Application, FullPerson } from '../../../server/@types/shared'
+import { createApplicationSummary } from '../../../server/utils/utils'
 
 export default class SubmissionPage extends Page {
   constructor(
@@ -20,13 +21,14 @@ export default class SubmissionPage extends Page {
 
   hasExpectedSummaryData(): void {
     const person = this.application.person as FullPerson
+    const summary = createApplicationSummary(this.application)
 
     cy.get('#application-summary').within(() => {
       cy.get('span').contains(person.nomsNumber)
-      cy.get('li').contains(this.application.createdBy.name)
-      cy.get('li').contains(person.prisonName)
-      cy.get('li').contains(this.application.createdBy.email)
-      cy.get('li').contains(this.application.telephoneNumber)
+      cy.get('li').contains(summary.pomAllocationLabel)
+      cy.get('li').contains(summary.pomAllocation)
+      cy.get('li').contains(summary.contactEmail)
+      cy.get('li').contains(summary.emailLabel)
       cy.get('li').contains(this.application.id)
     })
   }
