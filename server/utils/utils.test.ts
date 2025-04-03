@@ -7,7 +7,10 @@ import {
   kebabToCamelCase,
   formatCommaToLinebreak,
   htmlToPlainText,
+  createApplicationSummary,
 } from './utils'
+import { applicationFactory } from '../testutils/factories'
+import { FullPerson } from '@approved-premises/api'
 
 describe('convert to title case', () => {
   it.each([
@@ -160,5 +163,71 @@ describe('htmlToPlainText', () => {
 
   it('returns the string unchanged if no HTML is present', () => {
     expect(htmlToPlainText('Health needs')).toEqual('Health needs')
+  })
+})
+
+describe('createApplicationSummary', () => {
+  it('returns the correct summary when allocatedPomName is present', () => {
+    const application = applicationFactory.build({
+      id: '123',
+      person: {
+        name: 'John Doe',
+        nomsNumber: 'A1234BC',
+        prisonName: 'HMP Example',
+      } as FullPerson,
+      createdBy: {
+        name: 'Referrer Name',
+        email: 'referrer@example.com',
+      },
+      allocatedPomName: 'Joey Jo-Jo Junior Shabadoo',
+      allocatedPomEmailAddress: 'joey.jojo@junior.gov.uk',
+      currentPrisonName: 'Example Prison',
+      assignmentDate: '2021-06-01',
+    })
+
+    const result = createApplicationSummary(application)
+
+    expect(result).toEqual({
+      id: '123',
+      name: 'John Doe',
+      prisonNumber: 'A1234BC',
+      prisonName: 'HMP Example',
+      referrerName: 'Referrer Name',
+      contactEmail: 'joey.jojo@junior.gov.uk',
+      emailLabel: 'Email address:',
+      pomAllocation: 'Joey Jo-Jo Junior Shabadoo, Example Prison',
+      pomAllocationLabel: 'Prison offender manager (POM) from 1 June 2021:',
+      view: 'referrerSubmission',
+    })
+  })
+
+  it('returns the correct summary when allocatedPomName is not present', () => {
+    const application = applicationFactory.build({
+      id: '123',
+      person: {
+        name: 'Robert Smith',
+        nomsNumber: 'A1234BC',
+        prisonName: 'HMP Example',
+      } as FullPerson,
+      createdBy: {
+        name: 'Referrer Name',
+        email: 'referrer@example.com',
+      },
+    })
+
+    const result = createApplicationSummary(application)
+
+    expect(result).toEqual({
+      id: '123',
+      name: 'Robert Smith',
+      prisonNumber: 'A1234BC',
+      prisonName: 'HMP Example',
+      referrerName: 'Referrer Name',
+      contactEmail: 'referrer@example.com',
+      emailLabel: 'Offender management unit email address:',
+      pomAllocation: 'To be allocated',
+      pomAllocationLabel: 'Prison offender manager (POM):',
+      view: 'referrerSubmission',
+    })
   })
 })
