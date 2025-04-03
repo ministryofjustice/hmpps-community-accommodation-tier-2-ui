@@ -70,15 +70,19 @@ describe('ApplicationService', () => {
     const applications: GroupedApplications = {
       inProgress: applicationSummaryFactory.buildList(1, { status: 'inProgress', latestStatusUpdate: null }),
       submitted: applicationSummaryFactory.buildList(1, { status: 'submitted' }),
-      transferredOut: [],
+      transferredOut: applicationSummaryFactory.buildList(1, { status: 'submitted' }),
     }
-    const transferredOutApplications = applicationSummaryFactory.buildList(1, { status: 'submitted' })
 
     it('fetches all applications', async () => {
-      applicationClient.all.mockResolvedValue(Object.values([applications.inProgress, applications.submitted]).flat())
       applicationClient.getApplicationsForUser.mockImplementation(arg => {
+        if (arg === 'CREATED') {
+          return Promise.resolve(Object.values(applications.inProgress).flat())
+        }
+        if (arg === 'ALLOCATED') {
+          return Promise.resolve(Object.values(applications.submitted).flat())
+        }
         if (arg === 'DEALLOCATED') {
-          return Promise.resolve(Object.values(transferredOutApplications).flat())
+          return Promise.resolve(Object.values(applications.transferredOut).flat())
         }
         return Promise.resolve([])
       })
@@ -88,11 +92,10 @@ describe('ApplicationService', () => {
       expect(result).toEqual({
         inProgress: applications.inProgress,
         submitted: applications.submitted,
-        transferredOut: transferredOutApplications,
+        transferredOut: applications.transferredOut,
       })
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.all).toHaveBeenCalled()
     })
   })
 
@@ -109,7 +112,7 @@ describe('ApplicationService', () => {
         pageNumber: '2',
       }) as PaginatedResponse<Cas2ApplicationSummary>
 
-      applicationClient.getAllAllocatedForPrison.mockResolvedValue(paginatedResponse)
+      applicationClient.getApplicationsForPrison.mockResolvedValue(paginatedResponse)
 
       const result = await service.getAllByPrison(token, '123', 2)
 
@@ -120,7 +123,7 @@ describe('ApplicationService', () => {
       expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getAllAllocatedForPrison).toHaveBeenCalledWith('123', 2)
+      expect(applicationClient.getApplicationsForPrison).toHaveBeenCalledWith('123', 2, 'ALLOCATED')
     })
   })
 
@@ -150,7 +153,7 @@ describe('ApplicationService', () => {
         pageNumber: '2',
       }) as PaginatedResponse<Cas2ApplicationSummary>
 
-      applicationClient.getPrisonNewTransferredIn.mockResolvedValue(paginatedResponse)
+      applicationClient.getApplicationsForPrison.mockResolvedValue(paginatedResponse)
 
       const result = await service.getPrisonNewTransferredIn(token, '123', 2)
 
@@ -161,7 +164,7 @@ describe('ApplicationService', () => {
       expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getPrisonNewTransferredIn).toHaveBeenCalledWith('123', 2)
+      expect(applicationClient.getApplicationsForPrison).toHaveBeenCalledWith('123', 2, 'UNALLOCATED')
     })
   })
 

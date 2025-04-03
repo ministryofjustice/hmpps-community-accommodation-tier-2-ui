@@ -39,25 +39,15 @@ export default class ApplicationClient {
     })) as Array<Cas2ApplicationSummary>
   }
 
-  async getAllAllocatedForPrison(
+  async getApplicationsForPrison(
     prisonCode: string,
     pageNumber: number,
+    assignmentType: AssignmentType,
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
-      query: { prisonCode, assignmentType: 'ALLOCATED' },
-    })
-  }
-
-  async getPrisonNewTransferredIn(
-    prisonCode: string,
-    pageNumber: number,
-  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
-      path: paths.applications.index.pattern,
-      page: pageNumber.toString(),
-      query: { prisonCode, assignmentType: 'UNALLOCATED' },
+      query: { prisonCode, assignmentType },
     })
   }
 
