@@ -20,4 +20,8 @@ export default Factory.define<Cas2ApplicationSummary>(() => ({
   nomsNumber: `NOMS${faker.number.int({ min: 100, max: 999 })}`,
   hdcEligibilityDate: DateFormats.dateObjToIsoDateTime(faker.date.soon()),
   createdByUserName: faker.person.fullName(),
+  allocatedPomName: faker.person.fullName(),
+  allocatedPomUserId: faker.string.uuid(),
+  currentPrisonName: faker.location.city(),
+  assignmentDate: DateFormats.dateObjToIsoDateTime(faker.date.past()),
 }))
