@@ -1,4 +1,4 @@
-import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
+import { AssignmentType, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 import { faker } from '@faker-js/faker/locale/en_GB'
 import ApplicationClient from './applicationClient'
 import { applicationFactory, assessmentFactory } from '../testutils/factories'
@@ -101,29 +101,31 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
-  describe('getTransferredOut', () => {
-    it('should get all transferred out applications for given user', async () => {
-      const transferredOutApplications = applicationFactory.buildList(5)
+  describe('getApplicationsForUser', () => {
+    describe('when returning a list of transferred out applications for the user', () => {
+      it('should get all transferred out applications for given user', async () => {
+        const transferredOutApplications = applicationFactory.buildList(5)
 
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request for all applications that have been transferred out for a user',
-        withRequest: {
-          method: 'GET',
-          path: paths.applications.index.pattern,
-          query: { assignmentType: 'DEALLOCATED' },
-          headers: {
-            authorization: `Bearer ${token}`,
+        provider.addInteraction({
+          state: 'Server is healthy',
+          uponReceiving: 'A request for all applications that have been transferred out for a user',
+          withRequest: {
+            method: 'GET',
+            path: paths.applications.index.pattern,
+            query: { assignmentType: 'DEALLOCATED' },
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
           },
-        },
-        willRespondWith: {
-          status: 200,
-          body: transferredOutApplications,
-        },
-      })
+          willRespondWith: {
+            status: 200,
+            body: transferredOutApplications,
+          },
+        })
 
-      const result = await applicationClient.getTransferredOut()
-      expect(result).toEqual(transferredOutApplications)
+        const result = await applicationClient.getApplicationsForUser('DEALLOCATED' as AssignmentType)
+        expect(result).toEqual(transferredOutApplications)
+      })
     })
   })
 

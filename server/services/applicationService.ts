@@ -55,7 +55,7 @@ export default class ApplicationService {
       }
     })
 
-    result.transferredOut = await applicationClient.getTransferredOut()
+    result.transferredOut = await applicationClient.getApplicationsForUser('DEALLOCATED')
 
     return result
   }

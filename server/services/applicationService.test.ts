@@ -76,7 +76,12 @@ describe('ApplicationService', () => {
 
     it('fetches all applications', async () => {
       applicationClient.all.mockResolvedValue(Object.values([applications.inProgress, applications.submitted]).flat())
-      applicationClient.getTransferredOut.mockResolvedValue(Object.values(transferredOutApplications).flat())
+      applicationClient.getApplicationsForUser.mockImplementation(arg => {
+        if (arg === 'DEALLOCATED') {
+          return Promise.resolve(Object.values(transferredOutApplications).flat())
+        }
+        return Promise.resolve([])
+      })
 
       const result = await service.getAllForLoggedInUser(token)
 

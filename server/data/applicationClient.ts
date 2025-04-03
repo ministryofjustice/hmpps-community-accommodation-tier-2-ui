@@ -3,6 +3,7 @@ import {
   Cas2ApplicationSummary,
   SubmitCas2Application,
   UpdateApplication,
+  AssignmentType,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
@@ -35,10 +36,10 @@ export default class ApplicationClient {
     return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
   }
 
-  async getTransferredOut(): Promise<Array<Cas2ApplicationSummary>> {
+  async getApplicationsForUser(assignmentType: AssignmentType): Promise<Array<Cas2ApplicationSummary>> {
     return (await this.restClient.get({
       path: paths.applications.index.pattern,
-      query: createQueryString({ assignmentType: 'DEALLOCATED' }),
+      query: createQueryString({ assignmentType }),
     })) as Array<Cas2ApplicationSummary>
   }
 
