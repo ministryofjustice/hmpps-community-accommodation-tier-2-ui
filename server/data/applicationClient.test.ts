@@ -77,8 +77,10 @@ describeClient('ApplicationClient', provider => {
 
   describe('getApplicationsForUser', () => {
     describe('when returning a list of transferred out applications for the user', () => {
-      it('should get all transferred out applications for given user', async () => {
-        const transferredOutApplications = applicationFactory.buildList(5)
+      const assignmentTypes: Array<AssignmentType> = ['CREATED', 'ALLOCATED', 'DEALLOCATED']
+
+      it.each(assignmentTypes)('should return applications for given user', async assignmentType => {
+        const applicationsForUser = applicationFactory.buildList(5)
 
         provider.addInteraction({
           state: 'Server is healthy',
@@ -86,19 +88,19 @@ describeClient('ApplicationClient', provider => {
           withRequest: {
             method: 'GET',
             path: paths.applications.index.pattern,
-            query: { assignmentType: 'DEALLOCATED' },
+            query: { assignmentType },
             headers: {
               authorization: `Bearer ${token}`,
             },
           },
           willRespondWith: {
             status: 200,
-            body: transferredOutApplications,
+            body: applicationsForUser,
           },
         })
 
-        const result = await applicationClient.getApplicationsForUser('DEALLOCATED' as AssignmentType)
-        expect(result).toEqual(transferredOutApplications)
+        const result = await applicationClient.getApplicationsForUser(assignmentType)
+        expect(result).toEqual(applicationsForUser)
       })
     })
   })

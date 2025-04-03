@@ -70,15 +70,19 @@ describe('ApplicationService', () => {
     const applications: GroupedApplications = {
       inProgress: applicationSummaryFactory.buildList(1, { status: 'inProgress', latestStatusUpdate: null }),
       submitted: applicationSummaryFactory.buildList(1, { status: 'submitted' }),
-      transferredOut: [],
+      transferredOut: applicationSummaryFactory.buildList(1, { status: 'submitted' }),
     }
-    const transferredOutApplications = applicationSummaryFactory.buildList(1, { status: 'submitted' })
 
     it('fetches all applications', async () => {
-      applicationClient.all.mockResolvedValue(Object.values([applications.inProgress, applications.submitted]).flat())
       applicationClient.getApplicationsForUser.mockImplementation(arg => {
+        if (arg === 'CREATED') {
+          return Promise.resolve(Object.values(applications.inProgress).flat())
+        }
+        if (arg === 'ALLOCATED') {
+          return Promise.resolve(Object.values(applications.submitted).flat())
+        }
         if (arg === 'DEALLOCATED') {
-          return Promise.resolve(Object.values(transferredOutApplications).flat())
+          return Promise.resolve(Object.values(applications.transferredOut).flat())
         }
         return Promise.resolve([])
       })
@@ -88,11 +92,10 @@ describe('ApplicationService', () => {
       expect(result).toEqual({
         inProgress: applications.inProgress,
         submitted: applications.submitted,
-        transferredOut: transferredOutApplications,
+        transferredOut: applications.transferredOut,
       })
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.all).toHaveBeenCalled()
     })
   })
 

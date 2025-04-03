@@ -39,25 +39,11 @@ export default class ApplicationService {
   async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const allApplications = await applicationClient.all()
-
-    const result = {
-      inProgress: [],
-      submitted: [],
-      transferredOut: [],
+    return {
+      inProgress: await applicationClient.getApplicationsForUser('CREATED'),
+      submitted: await applicationClient.getApplicationsForUser('ALLOCATED'),
+      transferredOut: await applicationClient.getApplicationsForUser('DEALLOCATED'),
     } as GroupedApplications
-
-    allApplications.map(async application => {
-      if (application.status === 'inProgress') {
-        result.inProgress.push(application)
-      } else if (application.status === 'submitted') {
-        result.submitted.push(application)
-      }
-    })
-
-    result.transferredOut = await applicationClient.getApplicationsForUser('DEALLOCATED')
-
-    return result
   }
 
   async getAllByPrison(
