@@ -179,8 +179,8 @@ describe('createApplicationSummary', () => {
         name: 'Referrer Name',
         email: 'referrer@example.com',
       },
-      allocatedPomName: 'Joey Jo-Jo Junior Shabadoo',
-      allocatedPomEmailAddress: 'joey.jojo@junior.gov.uk',
+      allocatedPomName: 'Pom User',
+      allocatedPomEmailAddress: 'pom_user@example.com',
       currentPrisonName: 'Example Prison',
       assignmentDate: '2021-06-01',
     })
@@ -193,9 +193,9 @@ describe('createApplicationSummary', () => {
       prisonNumber: 'A1234BC',
       prisonName: 'HMP Example',
       referrerName: 'Referrer Name',
-      contactEmail: 'joey.jojo@junior.gov.uk',
+      contactEmail: 'pom_user@example.com',
       emailLabel: 'Email address:',
-      pomAllocation: 'Joey Jo-Jo Junior Shabadoo, Example Prison',
+      pomAllocation: 'Pom User, Example Prison',
       pomAllocationLabel: 'Prison offender manager (POM) from 1 June 2021:',
       view: 'referrerSubmission',
     })
