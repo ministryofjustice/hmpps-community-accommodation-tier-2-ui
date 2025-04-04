@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2ApplicationSummary, FullPerson } from '@approved-premises/api'
 import {
   ErrorsAndUserInput,
   GroupedApplications,
@@ -116,12 +116,20 @@ describe('applicationsController', () => {
       it('renders the submitted view', async () => {
         const submittedApplication = applicationFactory.build({ submittedAt: new Date().toISOString() })
         applicationService.findApplication.mockResolvedValue(submittedApplication)
+        const person = submittedApplication.person as FullPerson
 
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
         expect(response.render).toHaveBeenCalledWith('applications/show', {
           application: submittedApplication,
+          summary: expect.objectContaining({
+            contactEmail: submittedApplication.createdBy.email,
+            emailLabel: 'Offender management unit email address:',
+            pomAllocation: 'To be allocated',
+            pomAllocationLabel: 'Prison offender manager (POM):',
+            prisonNumber: person.nomsNumber,
+          }),
         })
       })
     })
