@@ -19,5 +19,9 @@ export type Cas2Application = (Application & {
     telephoneNumber?: string;
     assessment?: Cas2Assessment;
     timelineEvents?: Array<Cas2TimelineEvent>;
+    allocatedPomName?: string;
+    currentPrisonName?: string;
+    allocatedPomEmailAddress?: string;
+    assignmentDate?: string;
 });
 
