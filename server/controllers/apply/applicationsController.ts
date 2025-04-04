@@ -10,14 +10,13 @@ import {
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
 import {
-  createApplicationSummary,
   generateSuccessMessage,
   getApplicationTimelineEvents,
   showMissingRequiredTasksOrTaskList,
 } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
-import { nameOrPlaceholderCopy } from '../../utils/utils'
+import { nameOrPlaceholderCopy, createApplicationSummary } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
