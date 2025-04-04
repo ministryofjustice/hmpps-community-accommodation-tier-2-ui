@@ -5,7 +5,6 @@ import type {
   Cas2Application,
   Cas2SubmittedApplication,
   Cas2TimelineEvent,
-  FullPerson,
 } from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
 import { stringToKebabCase, formatCommaToLinebreak } from '../utils'

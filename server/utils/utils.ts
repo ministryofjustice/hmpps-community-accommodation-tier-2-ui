@@ -112,29 +112,33 @@ export const htmlToPlainText = (str: string) => {
   return str.replace(/(<([^>]+)>)/gi, '')
 }
 
+type ApplicationSummary = {
+  id: string
+  name: string
+  prisonNumber: string
+  prisonName: string
+  referrerName: string
+  contactEmail: string
+  emailLabel: string
+  pomAllocation: string
+  pomAllocationLabel: string
+  view: string
+}
 
-export const createApplicationSummary = (
-  application: Cas2Application,
-): Record<string, any> => {
+export const createApplicationSummary = (application: Cas2Application): ApplicationSummary => {
   const { name, nomsNumber, prisonName } = application.person as FullPerson
   const { allocatedPomName, allocatedPomEmailAddress, assignmentDate, currentPrisonName } = application
 
-  const date = assignmentDate
-    ? DateFormats.dateObjtoUIDate(new Date(assignmentDate), { format: 'medium' })
-    : null
+  const date = assignmentDate ? DateFormats.dateObjtoUIDate(new Date(assignmentDate), { format: 'medium' }) : null
 
-  const pomAllocation = allocatedPomName
-    ? `${allocatedPomName}, ${currentPrisonName}`
-    : 'To be allocated'
+  const pomAllocation = allocatedPomName ? `${allocatedPomName}, ${currentPrisonName}` : 'To be allocated'
 
   const pomAllocationLabel = allocatedPomName
     ? `Prison offender manager (POM) from ${date}:`
     : 'Prison offender manager (POM):'
 
   const contactEmail = allocatedPomName ? allocatedPomEmailAddress : application.createdBy.email
-  const emailLabel = allocatedPomName
-    ? 'Email address:'
-    : 'Offender management unit email address:'
+  const emailLabel = allocatedPomName ? 'Email address:' : 'Offender management unit email address:'
 
   return {
     id: application.id,

@@ -1,4 +1,5 @@
 import { SummaryListItem } from '@approved-premises/ui'
+import { FullPerson } from '@approved-premises/api'
 import {
   convertToTitleCase,
   initialiseName,
@@ -10,7 +11,6 @@ import {
   createApplicationSummary,
 } from './utils'
 import { applicationFactory } from '../testutils/factories'
-import { FullPerson } from '@approved-premises/api'
 
 describe('convert to title case', () => {
   it.each([
