@@ -126,7 +126,7 @@
     "@faker-js/faker": "^8.0.0",
     "@golevelup/ts-jest": "^0.5.0",
     "@microsoft/applicationinsights-web": "^3.3.5",
-    "@ministryofjustice/frontend": "^3.2.0",
+    "@ministryofjustice/frontend": "^4.0.0",
     "@sentry/node": "^7.57.0",
     "@types/jsonpath": "^0.2.0",
     "@types/method-override": "^0.0.35",
