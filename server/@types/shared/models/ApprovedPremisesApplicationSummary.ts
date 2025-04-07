@@ -6,6 +6,10 @@ import type { ApplicationSummary } from './ApplicationSummary';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { PersonRisks } from './PersonRisks';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
+/**
+ * Use Cas1ApplicationSummary
+ * @deprecated
+ */
 export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
     isWomensApplication?: boolean;
     isPipeApplication?: boolean;
