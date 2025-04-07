@@ -1,26 +1,21 @@
 version: 2.1
-
 orbs:
   hmpps: ministryofjustice/hmpps@7
   slack: circleci/slack@4.12.1
   node: circleci/node@6.2.0
-
 parameters:
   alerts-slack-channel:
     type: string
     # Normally team specific alert channel e.g. hmpps_tech_alerts, syscon-alerts, dps_sed_alerts
     # This is to avoid a general alert dumping ground that no-one then monitors
     default: cas-events
-
   releases-slack-channel:
     type: string
     # Normally dps-releases for most teams / projects
     default: cas-events
-
   node-version:
     type: string
     default: 22.14-browsers
-
 executors:
   integration-tests:
     docker:
@@ -29,7 +24,6 @@ executors:
         command: redis-server --port 6380
     resource_class: medium+
     working_directory: ~/app
-
 jobs:
   build:
     executor:
@@ -62,7 +56,6 @@ jobs:
             - build
             - dist
             - .cache/Cypress
-
   e2e_environment_test:
     executor:
       name: hmpps/node
@@ -90,7 +83,6 @@ jobs:
           event: fail
           channel: << pipeline.parameters.alerts-slack-channel >>
           template: basic_fail_1
-
 workflows:
   build-test-and-deploy:
     jobs:
@@ -178,40 +170,3 @@ workflows:
             - hmpps-community-accommodation-tier-2-ui-prod
           requires:
             - request-prod-approval
-
-  security:
-    triggers:
-      - schedule:
-          cron: '33 7 * * 1-5'
-          filters:
-            branches:
-              only:
-                - main
-    jobs:
-      - hmpps/npm_security_audit:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
-          context:
-            - hmpps-common-vars
-      - hmpps/trivy_latest_scan:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
-          context:
-            - hmpps-common-vars
-      - hmpps/veracode_pipeline_scan:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
-          context:
-            - veracode-credentials
-            - hmpps-common-vars
-  security-weekly:
-    triggers:
-      - schedule:
-          cron: '9 7 * * 1'
-          filters:
-            branches:
-              only:
-                - main
-    jobs:
-      - hmpps/veracode_policy_scan:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
-          context:
-            - veracode-credentials
-            - hmpps-common-vars
