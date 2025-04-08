@@ -16,7 +16,7 @@ import {
 } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
-import { nameOrPlaceholderCopy } from '../../utils/utils'
+import { nameOrPlaceholderCopy, createApplicationSummary } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
@@ -52,9 +52,10 @@ export default class ApplicationsController {
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
+      const summary = createApplicationSummary(application)
 
       if (application.submittedAt) {
-        return res.render('applications/show', { application })
+        return res.render('applications/show', { application, summary })
       }
 
       return showMissingRequiredTasksOrTaskList(req, res, application)
