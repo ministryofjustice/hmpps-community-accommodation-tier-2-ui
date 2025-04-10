@@ -222,7 +222,7 @@
     "shellcheck": "^3.0.0",
     "start-server-and-test": "^2.0.0",
     "supertest": "^7.0.0",
-    "ts-jest": "^29.1.0",
+    "ts-jest": "^29.3.1",
     "typescript": "^5.1.6"
   },
   "overrides": {
