@@ -264,6 +264,17 @@ export default abstract class Page {
     })
   }
 
+  shouldShowPreviousApplications(applications: Array<Cas2ApplicationSummary>): void {
+    applications.forEach(application => {
+      const { personName } = application
+      cy.get('#transferred-out tbody tr').contains('th', personName).should('exist')
+    })
+  }
+
+  shouldNotShowTransferredOutTab(): void {
+    cy.get('a.govuk-tabs__tab').should('not.contain.text', 'Transferred out')
+  }
+
   shouldHideTransferredIn(): void {
     cy.get('h2').should('not.contain.text', 'Transferred-in applications')
   }

@@ -1,4 +1,8 @@
-import type { Cas2Application as Application, Cas2ApplicationNote as ApplicationNote } from '@approved-premises/api'
+import type {
+  AssignmentType,
+  Cas2Application as Application,
+  Cas2ApplicationNote as ApplicationNote,
+} from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from '../../wiremock'
 import paths from '../../server/paths/api'
@@ -28,48 +32,28 @@ export default {
         jsonBody: args.application,
       },
     }),
-  stubApplications: (applications: Array<Application>): SuperAgentRequest =>
+  stubApplications: (args: { applications: Array<Application>; assignmentType: AssignmentType }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications`,
+        url: `/cas2/applications?assignmentType=${args.assignmentType}`,
       },
       response: {
         status: 200,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        jsonBody: applications,
+        jsonBody: args.applications,
       },
     }),
   stubPrisonApplications: (args: {
     applications: Array<Application>
     prisonCode: string
     page: number
+    assignmentType: AssignmentType
   }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications?page=${args.page}&prisonCode=${args.prisonCode}&isSubmitted=true`,
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'X-Pagination-TotalPages': '2',
-          'X-Pagination-TotalResults': '20',
-          'X-Pagination-PageSize': '10',
-        },
-        jsonBody: args.applications,
-      },
-    }),
-  stubPrisonUnallocatedApplications: (args: {
-    applications: Array<Application>
-    prisonCode: string
-    page: number
-  }): SuperAgentRequest =>
-    stubFor({
-      request: {
-        method: 'GET',
-        url: `/cas2/applications?page=${args.page}&prisonCode=${args.prisonCode}&assignmentType=UNALLOCATED`,
+        url: `/cas2/applications?page=${args.page}&prisonCode=${args.prisonCode}&assignmentType=${args.assignmentType}`,
       },
       response: {
         status: 200,

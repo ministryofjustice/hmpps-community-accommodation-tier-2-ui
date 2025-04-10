@@ -38,23 +38,17 @@ export default class ApplicationService {
 
   async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
     const applicationClient = this.applicationClientFactory(token)
+    const [inProgress, submitted, transferredOut] = await Promise.all([
+      applicationClient.getApplicationsForUser('CREATED'),
+      applicationClient.getApplicationsForUser('ALLOCATED'),
+      applicationClient.getApplicationsForUser('DEALLOCATED'),
+    ])
 
-    const allApplications = await applicationClient.all()
-
-    const result = {
-      inProgress: [],
-      submitted: [],
+    return {
+      inProgress,
+      submitted,
+      transferredOut,
     } as GroupedApplications
-
-    allApplications.map(async application => {
-      if (application.status === 'inProgress') {
-        result.inProgress.push(application)
-      } else if (application.status === 'submitted') {
-        result.submitted.push(application)
-      }
-    })
-
-    return result
   }
 
   async getAllByPrison(
@@ -64,7 +58,7 @@ export default class ApplicationService {
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
-    return applicationClient.getAllByPrison(prisonCode, pageNumber)
+    return applicationClient.getApplicationsForPrison(prisonCode, pageNumber, 'ALLOCATED')
   }
 
   async getPrisonNewTransferredIn(
@@ -74,7 +68,7 @@ export default class ApplicationService {
   ): Promise<PaginatedResponseWithFormattedData> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const applications = await applicationClient.getPrisonNewTransferredIn(prisonCode, pageNumber)
+    const applications = await applicationClient.getApplicationsForPrison(prisonCode, pageNumber, 'UNALLOCATED')
 
     const newData = applications.data.map(application => {
       return [

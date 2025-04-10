@@ -26,9 +26,15 @@ describe('indexTabItems', () => {
     submittedAt: '2022-12-11T21:47:28Z',
   })
 
+  const transferredApplication = applicationSummaryFactory.build({
+    personName: 'B',
+    submittedAt: '2022-12-11T21:47:28Z',
+  })
+
   const result = indexTabItems({
     inProgress: [inProgressApplicationA, inProgressApplicationB],
     submitted: [submittedApplicationA, submittedApplicationB],
+    transferredOut: [transferredApplication],
   })
 
   it('returns data for In Progress tab', () => {

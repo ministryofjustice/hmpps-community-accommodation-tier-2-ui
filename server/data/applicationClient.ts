@@ -3,12 +3,14 @@ import {
   Cas2ApplicationSummary,
   SubmitCas2Application,
   UpdateApplication,
+  AssignmentType,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
+import { createQueryString } from '../utils/utils'
 
 export default class ApplicationClient {
   restClient: RestClient
@@ -30,26 +32,22 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async all(): Promise<Array<Cas2ApplicationSummary>> {
-    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
-  }
-
-  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
+  async getApplicationsForUser(assignmentType: AssignmentType): Promise<Array<Cas2ApplicationSummary>> {
+    return (await this.restClient.get({
       path: paths.applications.index.pattern,
-      page: pageNumber.toString(),
-      query: { prisonCode, isSubmitted: 'true' },
-    })
+      query: createQueryString({ assignmentType }),
+    })) as Array<Cas2ApplicationSummary>
   }
 
-  async getPrisonNewTransferredIn(
+  async getApplicationsForPrison(
     prisonCode: string,
     pageNumber: number,
+    assignmentType: AssignmentType,
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
-      query: { prisonCode, assignmentType: 'UNALLOCATED' },
+      query: { prisonCode, assignmentType },
     })
   }
 

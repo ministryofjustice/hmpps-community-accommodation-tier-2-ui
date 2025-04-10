@@ -33,8 +33,8 @@ context('PrisonDashboard', () => {
 
     //  And there are applications for my prison in the database
     const applications = applicationSummaryFactory.buildList(5)
-    cy.task('stubPrisonApplications', { applications, prisonCode, page: 1 })
-    cy.task('stubPrisonUnallocatedApplications', { applications: [], prisonCode, page: 1 })
+    cy.task('stubPrisonApplications', { applications, prisonCode, assignmentType: 'ALLOCATED', page: 1 })
+    cy.task('stubPrisonApplications', { applications: [], prisonCode, assignmentType: 'UNALLOCATED', page: 1 })
 
     //  When I visit the prison dashboard
     const page = PrisonDashboardPage.visit()
@@ -45,8 +45,9 @@ context('PrisonDashboard', () => {
     //  And no Transferred In applications
     page.shouldHideTransferredIn()
 
-    cy.task('stubPrisonUnallocatedApplications', { applications: [], prisonCode, page: 2 })
-    cy.task('stubPrisonApplications', { applications, prisonCode, page: 2 })
+    cy.task('stubPrisonApplications', { applications, prisonCode, assignmentType: 'ALLOCATED', page: 2 })
+    cy.task('stubPrisonApplications', { applications: [], prisonCode, assignmentType: 'UNALLOCATED', page: 2 })
+
     page.clickPageNumber('2')
     page.shouldShowApplications(applications)
 
@@ -64,11 +65,16 @@ context('PrisonDashboard', () => {
 
     // And there are unallocated applications for my prison in the database
     const transferredInApplication = applicationSummaryFactory.buildList(5)
-    cy.task('stubPrisonUnallocatedApplications', { applications: transferredInApplication, prisonCode, page: 1 })
+    cy.task('stubPrisonApplications', {
+      applications: transferredInApplication,
+      prisonCode,
+      assignmentType: 'UNALLOCATED',
+      page: 1,
+    })
 
     // And there are allocated applications for my prison in the database
     const applications = applicationSummaryFactory.buildList(5)
-    cy.task('stubPrisonApplications', { applications, prisonCode, page: 1 })
+    cy.task('stubPrisonApplications', { applications, prisonCode, assignmentType: 'ALLOCATED', page: 1 })
 
     // When I visit the prison dashboard
     const page = PrisonDashboardPage.visit()
@@ -79,8 +85,13 @@ context('PrisonDashboard', () => {
     // And I can see a list of allocated applications for my prison
     page.shouldShowApplications(applications)
 
-    cy.task('stubPrisonUnallocatedApplications', { applications: transferredInApplication, prisonCode, page: 2 })
-    cy.task('stubPrisonApplications', { applications, prisonCode, page: 2 })
+    cy.task('stubPrisonApplications', {
+      applications: transferredInApplication,
+      prisonCode,
+      assignmentType: 'UNALLOCATED',
+      page: 2,
+    })
+    cy.task('stubPrisonApplications', { applications, prisonCode, assignmentType: 'ALLOCATED', page: 2 })
     page.clickPageNumber('2')
     page.shouldShowApplications(applications)
 

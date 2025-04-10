@@ -1,4 +1,4 @@
-import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
+import { AssignmentType, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 import { faker } from '@faker-js/faker/locale/en_GB'
 import ApplicationClient from './applicationClient'
 import { applicationFactory, assessmentFactory } from '../testutils/factories'
@@ -75,112 +75,118 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
-  describe('all', () => {
-    it('should get all previous applications', async () => {
-      const previousApplications = applicationFactory.buildList(5)
+  describe('getApplicationsForUser', () => {
+    describe('when returning a list of transferred out applications for the user', () => {
+      const assignmentTypes: Array<AssignmentType> = ['CREATED', 'ALLOCATED', 'DEALLOCATED']
 
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request for all applications',
-        withRequest: {
-          method: 'GET',
-          path: paths.applications.index.pattern,
-          headers: {
-            authorization: `Bearer ${token}`,
+      it.each(assignmentTypes)('should return applications for given user', async assignmentType => {
+        const applicationsForUser = applicationFactory.buildList(5)
+
+        provider.addInteraction({
+          state: 'Server is healthy',
+          uponReceiving: 'A request for all applications that have been transferred out for a user',
+          withRequest: {
+            method: 'GET',
+            path: paths.applications.index.pattern,
+            query: { assignmentType },
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
           },
-        },
-        willRespondWith: {
-          status: 200,
-          body: previousApplications,
-        },
-      })
-
-      const result = await applicationClient.all()
-
-      expect(result).toEqual(previousApplications)
-    })
-  })
-
-  describe('getAllByPrison', () => {
-    it('should get all applications for a given prison', async () => {
-      const applications = applicationFactory.buildList(5)
-
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request for all applications for a given prison',
-        withRequest: {
-          method: 'GET',
-          path: paths.applications.index.pattern,
-          query: {
-            prisonCode: '123',
-            isSubmitted: 'true',
-            page: '1',
+          willRespondWith: {
+            status: 200,
+            body: applicationsForUser,
           },
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          body: applications,
-          headers: {
-            'X-Pagination-TotalPages': '10',
-            'X-Pagination-TotalResults': '100',
-            'X-Pagination-PageSize': '10',
-          },
-        },
-      })
+        })
 
-      const result = await applicationClient.getAllByPrison('123', 1)
-
-      expect(result).toEqual({
-        data: applications,
-        pageNumber: '1',
-        totalPages: '10',
-        totalResults: '100',
-        pageSize: '10',
+        const result = await applicationClient.getApplicationsForUser(assignmentType)
+        expect(result).toEqual(applicationsForUser)
       })
     })
   })
 
-  describe('getPrisonNewTransferredIn', () => {
-    it('should get all applications transferred to a prison but not allocated', async () => {
-      const applications = applicationFactory.buildList(5)
+  describe('getApplicationsForPrison', () => {
+    describe('when returning a list of allocated applications for a given prison', () => {
+      it('should get all allocated applications for a given prison', async () => {
+        const applications = applicationFactory.buildList(5)
 
-      provider.addInteraction({
-        state: 'Server is healthy',
-        uponReceiving: 'A request for all applications for a given prison',
-        withRequest: {
-          method: 'GET',
-          path: paths.applications.index.pattern,
-          query: {
-            prisonCode: '123',
-            assignmentType: 'UNALLOCATED',
-            page: '1',
+        provider.addInteraction({
+          state: 'Server is healthy',
+          uponReceiving: 'A request for all applications for a given prison',
+          withRequest: {
+            method: 'GET',
+            path: paths.applications.index.pattern,
+            query: {
+              prisonCode: '123',
+              assignmentType: 'ALLOCATED',
+              page: '1',
+            },
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
           },
-          headers: {
-            authorization: `Bearer ${token}`,
+          willRespondWith: {
+            status: 200,
+            body: applications,
+            headers: {
+              'X-Pagination-TotalPages': '10',
+              'X-Pagination-TotalResults': '100',
+              'X-Pagination-PageSize': '10',
+            },
           },
-        },
-        willRespondWith: {
-          status: 200,
-          body: applications,
-          headers: {
-            'X-Pagination-TotalPages': '10',
-            'X-Pagination-TotalResults': '100',
-            'X-Pagination-PageSize': '10',
-          },
-        },
+        })
+
+        const result = await applicationClient.getApplicationsForPrison('123', 1, 'ALLOCATED')
+
+        expect(result).toEqual({
+          data: applications,
+          pageNumber: '1',
+          totalPages: '10',
+          totalResults: '100',
+          pageSize: '10',
+        })
       })
+    })
 
-      const result = await applicationClient.getPrisonNewTransferredIn('123', 1)
+    describe('when returning a list of unallocated applications for a given prison (i.e recent transferred in', () => {
+      it('should get all applications transferred to a prison but not allocated', async () => {
+        const applications = applicationFactory.buildList(5)
 
-      expect(result).toEqual({
-        data: applications,
-        pageNumber: '1',
-        totalPages: '10',
-        totalResults: '100',
-        pageSize: '10',
+        provider.addInteraction({
+          state: 'Server is healthy',
+          uponReceiving: 'A request for all applications for a given prison',
+          withRequest: {
+            method: 'GET',
+            path: paths.applications.index.pattern,
+            query: {
+              prisonCode: '123',
+              assignmentType: 'UNALLOCATED',
+              page: '1',
+            },
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          },
+          willRespondWith: {
+            status: 200,
+            body: applications,
+            headers: {
+              'X-Pagination-TotalPages': '10',
+              'X-Pagination-TotalResults': '100',
+              'X-Pagination-PageSize': '10',
+            },
+          },
+        })
+
+        const result = await applicationClient.getApplicationsForPrison('123', 1, 'UNALLOCATED')
+
+        expect(result).toEqual({
+          data: applications,
+          pageNumber: '1',
+          totalPages: '10',
+          totalResults: '100',
+          pageSize: '10',
+        })
       })
     })
   })
