@@ -30,8 +30,13 @@ echo "script dir $SCRIPT_DIR"
 
 echo "==> Creating .env file and resolving secrets"
 
-secret_names=("hmpps-cas-test-users")
+secret_names=("hmpps-cas-test-users" "hmpps-community-accommodation-tier-2-ui")
 resolve_secrets "$SCRIPT_DIR/../.env.template" \
                 "$SCRIPT_DIR/../.env" \
+                "hmpps-community-accommodation-dev" \
+                "${secret_names[@]}"
+
+resolve_secrets "$SCRIPT_DIR/../e2e.env.template" \
+                "$SCRIPT_DIR/../e2e.env" \
                 "hmpps-community-accommodation-dev" \
                 "${secret_names[@]}"

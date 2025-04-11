@@ -42,7 +42,7 @@ resolve_secrets() {
       # get value in format 'key=value' which can then be used with the 'export' command, setting them as env vars
       for secret in $(echo "$secrets" | jq -r "to_entries | map(\"\(.key)=\(.value|tostring)\") | .[]" ); do
         # shellcheck disable=SC2163
-        export "$secret"
+        export "$secret" || echo "Cannot export secret"
       done
 
     done
