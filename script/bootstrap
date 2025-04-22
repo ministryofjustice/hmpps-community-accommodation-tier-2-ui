@@ -1,4 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+set -e
+# shellcheck disable=SC3040
+set -o pipefail
+
+cd "$(dirname "$0")"
+SCRIPT_DIR="$(pwd)"
+# shellcheck source=script/utils/resolve_secrets.sh
+. "$SCRIPT_DIR"/utils/resolve_secrets.sh
 
 # script/bootstrap: Resolve all dependencies that the application requires to
 #                   run.
@@ -16,3 +25,13 @@ npm install
 
 echo "==> Installing E2E testing dependencies..."
 npx playwright install
+
+echo "script dir $SCRIPT_DIR"
+
+echo "==> Creating .env file and resolving secrets"
+
+secret_names=("hmpps-cas-test-users")
+resolve_secrets "$SCRIPT_DIR/../.env.template" \
+                "$SCRIPT_DIR/../.env" \
+                "hmpps-community-accommodation-dev" \
+                "${secret_names[@]}"
