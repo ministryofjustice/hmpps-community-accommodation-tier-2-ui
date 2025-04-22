@@ -18,7 +18,7 @@ __Test chart template rendering:__
 This will out the fully rendered kubernetes resources in raw yaml.
 
 ```sh
-helm template [path to chart] --values=values-dev.yaml
+helm template [path to chart] --values=values-development.yaml
 ```
 
 __List releases:__
@@ -43,14 +43,16 @@ Note: replace _revision number_ with one from listed in the `history` command)
 
 __Example deploy command:__
 
-The following example is `--dry-run` mode - which will allow for testing. CircleCI normally runs this command with actual secret values (from AWS secret manager), and also updated the chart's application version to match the release version:
+The following example is `--dry-run` mode - which will allow for testing. CircleCI normally runs this command with
+actual secret values (from AWS secret manager), and also updated the chart's application version to match the release
+version:
 
 ```sh
 helm upgrade [release name] [path to chart]. \
   --install --wait --force --reset-values --timeout 5m --history-max 10 \
   --dry-run \
   --namespace [namespace] \
-  --values values-dev.yaml \
+  --values values-development.yaml \
   --values example-secrets.yaml
 ```
 
@@ -66,4 +68,5 @@ cloud-platform-environments/namespaces/live-1.cloud-platform.service.justice.gov
 
 Ensure the certificate is created and ready for use.
 
-The name of the kubernetes secret where the certificate is stored is used as a value to the helm chart - this is used to configure the ingress.
+The name of the kubernetes secret where the certificate is stored is used as a value to the helm chart - this is used to
+configure the ingress.
