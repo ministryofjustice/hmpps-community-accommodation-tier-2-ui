@@ -22,6 +22,8 @@ export type Cas2Application = (Application & {
     allocatedPomName?: string;
     currentPrisonName?: string;
     allocatedPomEmailAddress?: string;
+    omuEmailAddress?: string;
+    isTransferredApplication: boolean;
     assignmentDate?: string;
 });
 
