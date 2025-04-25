@@ -49,5 +49,8 @@ export type Cas1SpaceBookingSummary = {
      */
     characteristics: Array<Cas1SpaceCharacteristic>;
     deliusEventNumber?: string;
+    isCancelled: boolean;
+    plannedTransferRequested: boolean;
+    appealRequested: boolean;
 };
 

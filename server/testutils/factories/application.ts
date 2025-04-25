@@ -22,4 +22,6 @@ export default Factory.define<Application>(() => ({
   telephoneNumber: null,
   statusUpdates: null,
   assessment: null,
+  isTransferredApplication: faker.datatype.boolean(),
+  omuEmailAddress: faker.internet.email(),
 }))
