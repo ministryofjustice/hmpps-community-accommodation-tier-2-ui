@@ -17,7 +17,7 @@
     </h1>
 
     <ul class="govuk-list govuk-list--spaced submitted-application-panel__text">
-      {% if summary.view == 'referrerSubmission' %} 
+      {% if summary.isTransferredApplication === true %}
         <li>
           <span class="govuk-!-font-weight-bold">{{ summary.pomAllocationLabel or 'Prison offender manager (POM):' }} </span>{{ summary.pomAllocation }}
         </li>
