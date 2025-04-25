@@ -1,7 +1,7 @@
+import { Cas2Application, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 import paths from '../../../server/paths/apply'
-import { Cas2Application, FullPerson } from '../../../server/@types/shared'
-import { createApplicationSummary } from '../../../server/utils/utils'
+import { getTransferredApplicationSummaryData } from '../../../server/utils/applications/getApplicationSummaryData'
 
 export default class SubmissionPage extends Page {
   constructor(
@@ -21,7 +21,20 @@ export default class SubmissionPage extends Page {
 
   hasExpectedSummaryData(): void {
     const person = this.application.person as FullPerson
-    const summary = createApplicationSummary(this.application)
+
+    cy.get('#application-summary').within(() => {
+      cy.get('span').contains(person.nomsNumber)
+      cy.get('li').contains(this.application.createdBy.name)
+      cy.get('li').contains(person.prisonName)
+      cy.get('li').contains(this.application.createdBy.email)
+      cy.get('li').contains(this.application.telephoneNumber)
+      cy.get('li').contains(this.application.id)
+    })
+  }
+
+  hasExpectedSummaryDataForTransferredApplication(): void {
+    const person = this.application.person as FullPerson
+    const summary = getTransferredApplicationSummaryData(this.application)
 
     cy.get('#application-summary').within(() => {
       cy.get('span').contains(person.nomsNumber)

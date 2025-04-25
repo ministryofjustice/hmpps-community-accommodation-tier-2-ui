@@ -114,7 +114,10 @@ describe('applicationsController', () => {
   describe('show', () => {
     describe('when application is submitted', () => {
       it('renders the submitted view', async () => {
-        const submittedApplication = applicationFactory.build({ submittedAt: new Date().toISOString() })
+        const submittedApplication = applicationFactory.build({
+          submittedAt: new Date().toISOString(),
+          isTransferredApplication: false,
+        })
         applicationService.findApplication.mockResolvedValue(submittedApplication)
         const person = submittedApplication.person as FullPerson
 
@@ -124,11 +127,41 @@ describe('applicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('applications/show', {
           application: submittedApplication,
           summary: expect.objectContaining({
+            id: submittedApplication.id,
+            name: person.name,
+            prisonNumber: person.nomsNumber,
+            referrerName: submittedApplication.createdBy.name,
             contactEmail: submittedApplication.createdBy.email,
+            contactNumber: submittedApplication.telephoneNumber,
+            isTransferredApplication: false,
+            view: 'referrerSubmission',
+          }),
+        })
+      })
+
+      it('renders the submitted view when application is transferred', async () => {
+        const submittedApplication = applicationFactory.build({
+          submittedAt: new Date().toISOString(),
+          isTransferredApplication: true,
+        })
+        applicationService.findApplication.mockResolvedValue(submittedApplication)
+        const person = submittedApplication.person as FullPerson
+
+        const requestHandler = applicationsController.show()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/show', {
+          application: submittedApplication,
+          summary: expect.objectContaining({
+            id: submittedApplication.id,
+            name: person.name,
+            contactEmail: submittedApplication.omuEmailAddress,
             emailLabel: 'Offender management unit email address:',
             pomAllocation: 'To be allocated',
             pomAllocationLabel: 'Prison offender manager (POM):',
             prisonNumber: person.nomsNumber,
+            isTransferredApplication: true,
+            view: 'referrerSubmission',
           }),
         })
       })
