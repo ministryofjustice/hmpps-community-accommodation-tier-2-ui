@@ -180,7 +180,7 @@ describe('prisonDashboardTableRows', () => {
           text: applicationA.nomsNumber,
         },
         {
-          text: applicationA.createdByUserName,
+          text: applicationA.allocatedPomName,
         },
         {
           text: '10 December 2024',
@@ -197,7 +197,7 @@ describe('prisonDashboardTableRows', () => {
           text: applicationB.nomsNumber,
         },
         {
-          text: applicationB.createdByUserName,
+          text: applicationB.allocatedPomName,
         },
         {
           text: '11 December 2024',
@@ -230,7 +230,7 @@ describe('prisonDashboardTableRows', () => {
           text: applicationA.nomsNumber,
         },
         {
-          text: applicationA.createdByUserName,
+          text: applicationA.allocatedPomName,
         },
         null,
         {
@@ -245,7 +245,7 @@ describe('prisonDashboardTableRows', () => {
           text: applicationB.nomsNumber,
         },
         {
-          text: applicationB.createdByUserName,
+          text: applicationB.allocatedPomName,
         },
         {
           text: '11 December 2024',
