@@ -175,7 +175,7 @@ jobs:
         continue-on-error: true
 
       - name: Determining tests splitting by timing
-        uses: r7kamura/split-tests-by-timings@v0
+        uses: r7kamura/split-tests-by-timings@v0.3.0
         id: split-tests
         with:
           reports: tmp/junit-xml-reports-downloaded
