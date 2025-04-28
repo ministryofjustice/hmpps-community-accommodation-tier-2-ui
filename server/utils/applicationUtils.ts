@@ -136,7 +136,7 @@ export const prisonDashboardTableRows = (applications: Array<Cas2ApplicationSumm
     return [
       nameAnchorElement(application.personName, application.id),
       textValue(application.nomsNumber),
-      textValue(application.createdByUserName),
+      textValue(application.allocatedPomName),
       application.hdcEligibilityDate
         ? textValue(DateFormats.isoDateToUIDate(application.hdcEligibilityDate, { format: 'medium' }))
         : null,
