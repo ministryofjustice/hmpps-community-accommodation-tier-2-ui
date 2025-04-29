@@ -1,0 +1,177 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  codeQL:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'javascript'
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:javascript'
+
+  helm_lint:
+    name: "Helm config linting 🔎"
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@v2
+    strategy:
+      matrix:
+        environments: [ 'development', 'test', 'preprod', 'prod' ]
+    with:
+      environment: ${{ matrix.environments }}
+
+  node_build:
+    name: "Build 🛠️"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-audit
+
+      - name: Run build
+        run: npm run build
+
+  type_checking:
+    name: "Type check 🔎"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Pulling the latest type from the API repo
+        run: npm run generate-types
+
+      - name: Typechecking the code
+        run: npm run typecheck
+
+  linting:
+    name: "Linting 🔎"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Running Lint checks
+        run: npm run lint
+
+      - name: Running shell scripts linting checks
+        run: npm run shellcheck
+
+  unit_test:
+    name: "Unit testing 🧪"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Run Unit tests
+        run: npm run test:ci
+
+      - name: Check coverage
+        run: |
+          npx nyc report -t ./coverage --reporter=text --reporter=text-summary
+          npx nyc check-coverage -t ./coverage
+
+  integration_test:
+    name: "Integration testing 🧪"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [ 1, 2, 3, 4 ]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Build source
+        run: npm run build
+
+      - name: Determine tests splitting
+        uses: chaosaffe/split-tests@v1
+        id: split-tests
+        with:
+          glob: integration_tests/tests/**/*.cy.ts
+          split-index: ${{ strategy.job-index }}
+          split-total: ${{ strategy.job-total }}
+
+      - name: Run Integration tests
+        run: TEST_RUN_ARGS="--spec $(echo ${{ steps.split-tests.outputs.test-suite }} | sed -E 's/ /,/g')" npm run test:integration
+
+      - name: Upload Integration test artefacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-artefacts-${{ matrix.shard }}-of-${{ strategy.job-total }}
+          path: |
+            integration_tests/videos
+            integration_tests/screenshots
+          retention-days: 30
+          if-no-files-found: ignore
