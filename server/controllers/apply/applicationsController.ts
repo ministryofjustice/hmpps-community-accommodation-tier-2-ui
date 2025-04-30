@@ -75,7 +75,7 @@ export default class ApplicationsController {
         : 'Received'
 
       const timelineEvents = getApplicationTimelineEvents(application)
-      const backLink = req.session.navigation?.previousURL
+      const backLink = this.getBackLink(req)
 
       return res.render('applications/overview', {
         application,
@@ -321,5 +321,11 @@ export default class ApplicationsController {
         transferredIn: transferredIn.data,
       })
     }
+  }
+
+  private getBackLink(req: Request): string {
+    const backLink = req.session.navigation?.previousURL || paths.applications.index({})
+  
+    return backLink.endsWith('/applications') ? `${backLink}#submitted` : backLink
   }
 }
