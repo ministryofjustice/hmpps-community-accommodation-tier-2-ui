@@ -22,6 +22,7 @@ import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
+import { trackNavigation } from './middleware/trackNavigation'
 import { appInsightsMiddleware } from './utils/azureAppInsights'
 
 import { Controllers } from './controllers'
@@ -53,6 +54,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(authorisationMiddleware())
   app.use(setUpCsrf())
   app.use(setUpCurrentUser(services))
+  app.use(trackNavigation)
 
   app.use(setUpMaintenancePageRedirect())
   app.use((req, res, next) => {
