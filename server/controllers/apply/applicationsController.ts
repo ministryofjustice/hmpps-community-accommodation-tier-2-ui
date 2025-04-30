@@ -75,6 +75,7 @@ export default class ApplicationsController {
         : 'Received'
 
       const timelineEvents = getApplicationTimelineEvents(application)
+      const backLink = req.session.navigation?.previousURL
 
       return res.render('applications/overview', {
         application,
@@ -83,6 +84,7 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         pageHeading: 'Overview of application',
+        backLink,
       })
     }
   }
