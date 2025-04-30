@@ -6,6 +6,10 @@ declare module 'express-session' {
     returnTo: string
     nowInMinutes: number
     previousPage: string
+    navigation: {
+      currentURL?: string
+      previousURL?: string
+    }
   }
 }
 
