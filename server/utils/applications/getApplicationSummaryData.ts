@@ -1,4 +1,4 @@
-import { Cas2Application, FullPerson } from '@approved-premises/api'
+import { Cas2Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
 
 import { DateFormats } from '../dateUtils'
 
@@ -23,22 +23,40 @@ export type TransferredApplicationSummary = ApplicationSummary & {
   emailLabel: string
 }
 
-export const getApplicationSummaryData = (application: Cas2Application): StandardApplicationSummary => {
+type ViewType = 'assessor' | 'referrerSubmission'
+
+export const getApplicationSummaryData = (
+  viewType: ViewType,
+  application: Cas2Application | Cas2SubmittedApplication,
+): StandardApplicationSummary | TransferredApplicationSummary => {
+  if (application.isTransferredApplication) {
+    return getTransferredApplicationSummaryData(application, viewType)
+  }
+  return getStandardApplicationSummaryData(application, viewType)
+}
+
+const getStandardApplicationSummaryData = (
+  application: Cas2Application | Cas2SubmittedApplication,
+  viewType: ViewType,
+): StandardApplicationSummary => {
   const { name, nomsNumber, prisonName } = application.person as FullPerson
   return {
     id: application.id,
     name,
     prisonNumber: nomsNumber,
     prisonName,
-    referrerName: application.createdBy.name,
-    contactEmail: application.createdBy.email,
+    referrerName: application.allocatedPomName,
+    contactEmail: application.allocatedPomEmailAddress,
     contactNumber: application.telephoneNumber,
     isTransferredApplication: false,
-    view: 'referrerSubmission',
+    view: viewType,
   }
 }
 
-export const getTransferredApplicationSummaryData = (application: Cas2Application): TransferredApplicationSummary => {
+const getTransferredApplicationSummaryData = (
+  application: Cas2Application | Cas2SubmittedApplication,
+  view: string,
+): TransferredApplicationSummary => {
   const { name, nomsNumber } = application.person as FullPerson
   const { allocatedPomName, allocatedPomEmailAddress, assignmentDate, currentPrisonName, omuEmailAddress } = application
   const date = assignmentDate ? DateFormats.dateObjtoUIDate(new Date(assignmentDate), { format: 'medium' }) : ''
@@ -62,7 +80,7 @@ export const getTransferredApplicationSummaryData = (application: Cas2Applicatio
     pomAllocation,
     pomAllocationLabel,
     isTransferredApplication: true,
-    view: 'referrerSubmission',
+    view,
   }
 }
 

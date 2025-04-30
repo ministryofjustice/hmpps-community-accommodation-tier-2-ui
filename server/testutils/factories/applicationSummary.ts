@@ -23,5 +23,5 @@ export default Factory.define<Cas2ApplicationSummary>(() => ({
   allocatedPomName: faker.person.fullName(),
   allocatedPomUserId: faker.string.uuid(),
   currentPrisonName: faker.location.city(),
-  assignmentDate: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+  assignmentDate: DateFormats.dateObjToIsoDate(faker.date.past()),
 }))

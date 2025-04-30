@@ -1,10 +1,6 @@
 import { FullPerson } from '@approved-premises/api'
 import { applicationFactory } from '../../testutils/factories'
-import {
-  getApplicationSummaryData,
-  getTransferredApplicationSummaryData,
-  TransferredApplicationSummary,
-} from './getApplicationSummaryData'
+import { getApplicationSummaryData, TransferredApplicationSummary } from './getApplicationSummaryData'
 
 describe('getApplicationSummaryData', () => {
   it('returns the correct summary', () => {
@@ -24,17 +20,18 @@ describe('getApplicationSummaryData', () => {
       allocatedPomEmailAddress: 'pom_user@example.com',
       currentPrisonName: 'Example Prison',
       assignmentDate: '2021-06-01',
+      isTransferredApplication: false,
     })
 
-    const result = getApplicationSummaryData(application)
+    const result = getApplicationSummaryData('referrerSubmission', application)
 
     expect(result).toEqual({
       id: '123',
       name: 'John Doe',
       prisonNumber: 'A1234BC',
       prisonName: 'HMP Example',
-      referrerName: 'Referrer Name',
-      contactEmail: 'referrer@example.com',
+      referrerName: 'Pom User',
+      contactEmail: 'pom_user@example.com',
       contactNumber: '07456 111777',
       isTransferredApplication: false,
       view: 'referrerSubmission',
@@ -198,7 +195,7 @@ describe('getTransferredApplicationSummaryData', () => {
         isTransferredApplication: true,
         omuEmailAddress: 'omu@example.com',
       })
-      const result = getTransferredApplicationSummaryData(application)
+      const result = getApplicationSummaryData('referrerSubmission', application)
       expect(result).toEqual(expectedResult)
     },
   )

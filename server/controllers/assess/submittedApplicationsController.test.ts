@@ -32,11 +32,6 @@ describe('submittedApplicationsController', () => {
 
   let submittedApplicationsController: SubmittedApplicationsController
 
-  const submittedApplication = submittedApplicationFactory.build({
-    submittedBy: { name: 'POM Name' },
-    submittedAt: '2023-10-17T08:42:38+01:00',
-  })
-
   function createTimelineEvent(occurredAt: string): UiTimelineEvent {
     return {
       label: { text: 'More information requested' },
@@ -54,6 +49,12 @@ describe('submittedApplicationsController', () => {
   })
 
   describe('index', () => {
+    const submittedApplication = submittedApplicationFactory.build({
+      submittedBy: { name: 'POM Name' },
+      submittedAt: '2023-10-17T08:42:38+01:00',
+      isTransferredApplication: false,
+    })
+
     it('renders existing applications', async () => {
       const applications = [submittedApplication]
 
@@ -87,6 +88,12 @@ describe('submittedApplicationsController', () => {
 
   describe('show', () => {
     it('renders the submitted application _show_ template', async () => {
+      const submittedApplication = submittedApplicationFactory.build({
+        submittedBy: { name: 'POM Name' },
+        submittedAt: '2023-10-17T08:42:38+01:00',
+        isTransferredApplication: false,
+      })
+
       submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
       const person = submittedApplication.person as FullPerson
 
@@ -99,6 +106,47 @@ describe('submittedApplicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('assess/applications/show', {
         application: submittedApplication,
+        summary: expect.objectContaining({
+          id: submittedApplication.id,
+          name: person.name,
+          prisonNumber: person.nomsNumber,
+          prisonName: person.prisonName,
+          referrerName: submittedApplication.allocatedPomName,
+          contactEmail: submittedApplication.allocatedPomEmailAddress,
+          contactNumber: submittedApplication.telephoneNumber,
+          isTransferredApplication: false,
+          view: 'assessor',
+        }),
+        pageHeading: `Application for ${person.nomsNumber}`,
+      })
+    })
+
+    it('renders the submitted application _show_ template when application is transferred', async () => {
+      const submittedApplication = submittedApplicationFactory.build({
+        submittedBy: { name: 'POM Name' },
+        submittedAt: '2023-10-17T08:42:38+01:00',
+        assignmentDate: '2025-04-30T10:22:11+01:00',
+        isTransferredApplication: true,
+      })
+      submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
+      const person = submittedApplication.person as FullPerson
+
+      const requestHandler = submittedApplicationsController.show()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('assess/applications/show', {
+        application: submittedApplication,
+        summary: expect.objectContaining({
+          id: submittedApplication.id,
+          name: person.name,
+          contactEmail: submittedApplication.allocatedPomEmailAddress,
+          emailLabel: 'Email address:',
+          pomAllocation: `${submittedApplication.allocatedPomName}, ${submittedApplication.currentPrisonName}`,
+          pomAllocationLabel: 'Prison offender manager (POM) from 30 April 2025:',
+          prisonNumber: person.nomsNumber,
+          isTransferredApplication: true,
+          view: 'assessor',
+        }),
         pageHeading: `Application for ${person.nomsNumber}`,
       })
     })
@@ -115,6 +163,12 @@ describe('submittedApplicationsController', () => {
     })
 
     describe('when there is a status update', () => {
+      const submittedApplication = submittedApplicationFactory.build({
+        submittedBy: { name: 'POM Name' },
+        submittedAt: '2023-10-17T08:42:38+01:00',
+        assignmentDate: '2025-04-30T10:22:11+01:00',
+        isTransferredApplication: true,
+      })
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
