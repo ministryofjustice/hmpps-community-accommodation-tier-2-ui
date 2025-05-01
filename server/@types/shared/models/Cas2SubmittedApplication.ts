@@ -19,5 +19,11 @@ export type Cas2SubmittedApplication = {
     telephoneNumber?: string;
     timelineEvents: Array<Cas2TimelineEvent>;
     assessment: Cas2Assessment;
+    allocatedPomName?: string;
+    currentPrisonName?: string;
+    allocatedPomEmailAddress?: string;
+    omuEmailAddress?: string;
+    isTransferredApplication: boolean;
+    assignmentDate?: string;
 };
 
