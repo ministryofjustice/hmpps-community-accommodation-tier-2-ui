@@ -19,4 +19,10 @@ export default Factory.define<SubmittedApplication>(() => ({
   telephoneNumber: faker.string.numeric({ length: 8 }),
   timelineEvents: [timelineEvents.build()],
   assessment: assessmentFactory.build(),
+  allocatedPomName: faker.person.fullName(),
+  currentPrisonName: faker.location.city(),
+  allocatedPomEmailAddress: faker.internet.email(),
+  isTransferredApplication: faker.datatype.boolean(),
+  omuEmailAddress: faker.internet.email(),
+  assignmentDate: DateFormats.dateObjToIsoDate(faker.date.past()),
 }))
