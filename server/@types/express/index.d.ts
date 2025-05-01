@@ -7,6 +7,7 @@ declare module 'express-session' {
     nowInMinutes: number
     previousPage: string
     navigation: {
+      history: string[]
       currentURL?: string
       previousURL?: string
     }
