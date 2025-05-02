@@ -315,16 +315,14 @@ describe('utils', () => {
       it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
         const application = applicationFactory.build({ data: {} })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, "/")
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'confirm-eligibility',
-              page: 'confirm-eligibility',
-            }),
-          ),
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'confirm-eligibility',
+            page: 'confirm-eligibility',
+          }),
         )
       })
     })
@@ -339,9 +337,11 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, "/")
 
-        expect(actual).toEqual(response.redirect(paths.applications.ineligible({ id: application.id })))
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.ineligible({ id: application.id}),
+        )
       })
     })
 
@@ -361,9 +361,11 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, "/")
 
-        expect(actual).toEqual(response.redirect(paths.applications.consentRefused({ id: application.id })))
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.consentRefused({ id: application.id }),
+        )
       })
     })
 
@@ -377,16 +379,14 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, "/")
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'confirm-consent',
-              page: 'confirm-consent',
-            }),
-          ),
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'confirm-consent',
+            page: 'confirm-consent',
+          }),
         )
       })
     })
@@ -460,16 +460,14 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, "/")
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'hdc-licence-dates',
-              page: 'hdc-licence-dates',
-            }),
-          ),
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'hdc-licence-dates',
+            page: 'hdc-licence-dates',
+          }),
         )
       })
     })
