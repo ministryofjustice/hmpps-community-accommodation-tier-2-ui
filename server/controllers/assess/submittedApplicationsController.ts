@@ -6,6 +6,7 @@ import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { assessmentHasExistingData } from '../../utils/assessmentUtils'
 import { getApplicationTimelineEvents } from '../../utils/applications/utils'
+import { getApplicationSummaryData } from '../../utils/applications/getApplicationSummaryData'
 
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
@@ -29,10 +30,11 @@ export default class SubmittedApplicationsController {
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
+      const summary = getApplicationSummaryData('assessor', application)
       const person = application.person as FullPerson
-
       return res.render('assess/applications/show', {
         application,
+        summary,
         pageHeading: `Application for ${person.nomsNumber}`,
       })
     }

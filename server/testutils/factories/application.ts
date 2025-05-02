@@ -13,6 +13,8 @@ export default Factory.define<Application>(() => ({
   schemaVersion: faker.string.uuid(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: undefined,
+  allocatedPomName: faker.person.fullName(),
+  allocatedPomEmailAddress: faker.internet.email(),
   data: {},
   document: {},
   outdatedSchema: faker.datatype.boolean(),

@@ -15,6 +15,7 @@
 //    When I click the 'Update status' button
 //    Then I am taken to the 'Update status' page
 
+import { Cas2SubmittedApplication } from '@approved-premises/api'
 import { submittedApplicationFactory } from '../../../server/testutils/factories/index'
 import paths from '../../../server/paths/assess'
 import Page from '../../pages/page'
@@ -34,12 +35,13 @@ context('Assessor views submitted application', () => {
     // I have submitted an application
 
     cy.fixture('applicationDocument.json').then(applicationDocument => {
-      const submittedApplication = submittedApplicationFactory.build({
+      const submittedApplication: Cas2SubmittedApplication = submittedApplicationFactory.build({
         id: 'abc123',
         document: applicationDocument,
         submittedAt: '2022-12-10T21:47:28Z',
         person: fullPersonFactory.build({ name: 'Robert Smith' }),
         telephoneNumber: '0800 123',
+        isTransferredApplication: false,
       })
       cy.wrap(submittedApplication).as('submittedApplication')
       cy.task('stubSubmittedApplicationGet', { application: submittedApplication })
@@ -62,6 +64,33 @@ context('Assessor views submitted application', () => {
     page.hasUpdateStatusButton()
     page.hasApplicantDetails(this.submittedApplication)
     page.hasSideNavBar(this.submittedApplication)
+    page.hasQuestionsAndAnswersFromDocument(this.submittedApplication.document)
+
+    //  And I see a print button
+    page.shouldShowPrintButton()
+
+    // And visually hidden PDF navigation links are on the page
+    page.shouldContainHiddenPDFNavigationLinks()
+  })
+
+  //  Scenario: follows an external link to the submitted transferred application
+  // ----------------------------------------------
+  it('follows an external link to the submitted transferred application', function test() {
+    const transferredApplication: Cas2SubmittedApplication = {
+      ...this.submittedApplication,
+      isTransferredApplication: true,
+    }
+    cy.task('stubSubmittedApplicationGet', { application: transferredApplication })
+    // When I navigate to the url of the submitted application
+    cy.visit(paths.submittedApplications.show({ id: transferredApplication.id }))
+
+    // Then I see the assessor's read-only view of the submitted application
+    Page.verifyOnPage(SubmittedApplicationPage, transferredApplication)
+    const page = new SubmittedApplicationPage(transferredApplication)
+    page.hasExpectedSummaryDataForTransferredApplication(transferredApplication)
+    page.hasUpdateStatusButton()
+    page.hasApplicantDetails(transferredApplication)
+    page.hasSideNavBar(transferredApplication)
     page.hasQuestionsAndAnswersFromDocument(this.submittedApplication.document)
 
     //  And I see a print button

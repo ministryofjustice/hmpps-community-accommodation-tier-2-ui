@@ -8,15 +8,10 @@ import CancelController from './applications/cancelController'
 
 export const controllers = (services: Services) => {
   const { applicationService, personService, submittedApplicationService } = services
-  const applicationsController = new ApplicationsController(
+  const applicationsController = new ApplicationsController(applicationService, submittedApplicationService, {
     personService,
     applicationService,
-    submittedApplicationService,
-    {
-      personService,
-      applicationService,
-    },
-  )
+  })
   const pagesController = new PagesController(applicationService, { personService, applicationService })
   const cancelController = new CancelController(applicationService)
 

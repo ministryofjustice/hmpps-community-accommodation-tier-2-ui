@@ -1,7 +1,6 @@
 import { Request, RequestHandler, Response } from 'express'
 import { DataServices } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
-import PersonService from '../../services/personService'
 import {
   catchValidationErrorOrPropogate,
   errorMessage,
@@ -21,14 +20,10 @@ import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { indexTabItems } from '../../utils/applicationUtils'
-import {
-  getApplicationSummaryData,
-  getTransferredApplicationSummaryData,
-} from '../../utils/applications/getApplicationSummaryData'
+import { getApplicationSummaryData } from '../../utils/applications/getApplicationSummaryData'
 
 export default class ApplicationsController {
   constructor(
-    private readonly _personService: PersonService,
     private readonly applicationService: ApplicationService,
     private readonly submittedApplicationService: SubmittedApplicationService,
     private readonly dataServices: DataServices,
@@ -56,14 +51,8 @@ export default class ApplicationsController {
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
-      let summary
-      if (application.isTransferredApplication) {
-        summary = getTransferredApplicationSummaryData(application)
-      } else {
-        summary = getApplicationSummaryData(application)
-      }
-
       if (application.submittedAt) {
+        const summary = getApplicationSummaryData('referrerSubmission', application)
         return res.render('applications/show', { application, summary })
       }
 

@@ -66,15 +66,10 @@ describe('applicationsController', () => {
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 
   beforeEach(() => {
-    applicationsController = new ApplicationsController(
+    applicationsController = new ApplicationsController(applicationService, submittedApplicationService, {
       personService,
       applicationService,
-      submittedApplicationService,
-      {
-        personService,
-        applicationService,
-      },
-    )
+    })
 
     request = createMock<Request>({
       user: { token },
@@ -130,8 +125,8 @@ describe('applicationsController', () => {
             id: submittedApplication.id,
             name: person.name,
             prisonNumber: person.nomsNumber,
-            referrerName: submittedApplication.createdBy.name,
-            contactEmail: submittedApplication.createdBy.email,
+            referrerName: submittedApplication.allocatedPomName,
+            contactEmail: submittedApplication.allocatedPomEmailAddress,
             contactNumber: submittedApplication.telephoneNumber,
             isTransferredApplication: false,
             view: 'referrerSubmission',
@@ -143,6 +138,8 @@ describe('applicationsController', () => {
         const submittedApplication = applicationFactory.build({
           submittedAt: new Date().toISOString(),
           isTransferredApplication: true,
+          allocatedPomName: undefined,
+          allocatedPomEmailAddress: undefined,
         })
         applicationService.findApplication.mockResolvedValue(submittedApplication)
         const person = submittedApplication.person as FullPerson
