@@ -67,7 +67,7 @@ describe('applicationsController', () => {
   const applications = { inProgress: applicationSummaryFactory.buildList(3), submitted: [] } as GroupedApplications
 
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
-  sessionService.getPageBackLink.mockReturnValue('/applications#submitted');
+  sessionService.getPageBackLink.mockReturnValue('/applications');
 
   beforeEach(() => {
     applicationsController = new ApplicationsController(applicationService, submittedApplicationService, {
@@ -179,7 +179,7 @@ describe('applicationsController', () => {
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
-        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(request, response, unsubmittedApplication)
+        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(request, response, unsubmittedApplication, "/applications")
       })
     })
   })

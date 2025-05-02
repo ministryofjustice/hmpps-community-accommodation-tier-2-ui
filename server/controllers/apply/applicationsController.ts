@@ -57,7 +57,11 @@ export default class ApplicationsController {
         return res.render('applications/show', { application, summary })
       }
 
-      return showMissingRequiredTasksOrTaskList(req, res, application)
+      const backLink = this.sessionService.getPageBackLink(paths.applications.show.pattern, req, [
+        paths.applications.index.pattern,
+      ])
+
+      return showMissingRequiredTasksOrTaskList(req, res, application, backLink)
     }
   }
 
