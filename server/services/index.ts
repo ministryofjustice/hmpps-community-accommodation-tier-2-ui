@@ -11,6 +11,7 @@ import TaskListService from './taskListService'
 import AuditService from './auditService'
 import config from '../config'
 import ReportService from './reportService'
+import SessionService from './sessionService'
 
 export const services = () => {
   const {
@@ -30,6 +31,7 @@ export const services = () => {
   const submittedApplicationService = new SubmittedApplicationService(submittedApplicationClient, referenceDataClient)
   const auditService = new AuditService(config.apis.audit)
   const reportService = new ReportService(reportClient)
+  const sessionService = new SessionService()
 
   return {
     userService,
@@ -39,6 +41,7 @@ export const services = () => {
     submittedApplicationService,
     auditService,
     reportService,
+    sessionService,
   }
 }
 
@@ -51,4 +54,5 @@ export {
   AssessmentService,
   SubmittedApplicationService,
   TaskListService,
+  SessionService,
 }

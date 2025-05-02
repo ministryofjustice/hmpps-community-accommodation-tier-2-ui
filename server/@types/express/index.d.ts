@@ -6,11 +6,7 @@ declare module 'express-session' {
     returnTo: string
     nowInMinutes: number
     previousPage: string
-    navigation: {
-      history: string[]
-      currentURL?: string
-      previousURL?: string
-    }
+    pageReferers: Record<string, string>
   }
 }
 

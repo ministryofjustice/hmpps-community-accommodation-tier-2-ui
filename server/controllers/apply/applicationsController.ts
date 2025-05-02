@@ -7,7 +7,7 @@ import {
   errorSummary as buildErrorSummary,
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
-import { ApplicationService, SubmittedApplicationService } from '../../services'
+import { ApplicationService, SubmittedApplicationService, SessionService } from '../../services'
 import {
   generateSuccessMessage,
   getApplicationTimelineEvents,
@@ -27,6 +27,7 @@ export default class ApplicationsController {
     private readonly applicationService: ApplicationService,
     private readonly submittedApplicationService: SubmittedApplicationService,
     private readonly dataServices: DataServices,
+    private readonly sessionService: SessionService,
   ) {}
 
   index(): RequestHandler {
@@ -324,8 +325,19 @@ export default class ApplicationsController {
   }
 
   private getBackLink(req: Request): string {
-    const backLink = req.session.navigation?.previousURL || paths.applications.index({})
+    const url = this.sessionService.getPageBackLink(
+      paths.applications.overview.pattern,
+      req,
+      [
+        paths.applications.index.pattern,
+        paths.applications.prison.pattern,
+      ],
+    )
+
+    if (url.endsWith('/applications')) {
+      return `${url}#submitted`;
+    }
   
-    return backLink.endsWith('/applications') ? `${backLink}#submitted` : backLink
-  }
+    return url
+  }  
 }
