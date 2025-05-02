@@ -60,21 +60,21 @@ describe('applicationsController', () => {
   const submittedApplicationService = createMock<SubmittedApplicationService>({})
   const sessionService = createMock<SessionService>({
     getPageBackLink: jest.fn(),
-  });
+  })
 
   let applicationsController: ApplicationsController
 
   const applications = { inProgress: applicationSummaryFactory.buildList(3), submitted: [] } as GroupedApplications
 
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
-  sessionService.getPageBackLink.mockReturnValue('/applications');
+  sessionService.getPageBackLink.mockReturnValue('/applications')
 
   beforeEach(() => {
     applicationsController = new ApplicationsController(applicationService, submittedApplicationService, {
         personService,
         applicationService,
       },
-      sessionService
+      sessionService,
     )
 
     request = createMock<Request>({
@@ -179,7 +179,12 @@ describe('applicationsController', () => {
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
-        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(request, response, unsubmittedApplication, "/applications")
+        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(
+          request,
+          response,
+          unsubmittedApplication,
+          '/applications',
+        )
       })
     })
   })
@@ -223,7 +228,7 @@ describe('applicationsController', () => {
         pageHeading: 'Overview of application',
         errors: {},
         errorSummary: [],
-        backLink: "/applications#submitted"
+        backLink: '/applications#submitted',
       })
     })
 

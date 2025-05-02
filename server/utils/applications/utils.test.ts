@@ -315,7 +315,7 @@ describe('utils', () => {
       it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
         const application = applicationFactory.build({ data: {} })
 
-        showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
         expect(response.redirect).toHaveBeenCalledWith(
           paths.applications.pages.show({
@@ -337,11 +337,9 @@ describe('utils', () => {
           },
         })
 
-        showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(response.redirect).toHaveBeenCalledWith(
-          paths.applications.ineligible({ id: application.id}),
-        )
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.ineligible({ id: application.id }))
       })
     })
 
@@ -361,11 +359,9 @@ describe('utils', () => {
           },
         })
 
-        showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(response.redirect).toHaveBeenCalledWith(
-          paths.applications.consentRefused({ id: application.id }),
-        )
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.consentRefused({ id: application.id }))
       })
     })
 
@@ -379,7 +375,7 @@ describe('utils', () => {
           },
         })
 
-        showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
         expect(response.redirect).toHaveBeenCalledWith(
           paths.applications.pages.show({
@@ -429,7 +425,7 @@ describe('utils', () => {
           return { errors: {}, errorSummary: [], userInput: {} }
         })
 
-        showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
         expect(response.render).toHaveBeenCalledWith('applications/taskList', {
           application,
@@ -437,7 +433,7 @@ describe('utils', () => {
           errors: {},
           errorSummary: [],
           backLink: '/',
-        });
+        })
       })
     })
 
@@ -460,7 +456,7 @@ describe('utils', () => {
           },
         })
 
-        showMissingRequiredTasksOrTaskList(request, response, application, "/")
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
         expect(response.redirect).toHaveBeenCalledWith(
           paths.applications.pages.show({

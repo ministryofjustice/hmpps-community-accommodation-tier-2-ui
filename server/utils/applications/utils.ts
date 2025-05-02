@@ -149,7 +149,12 @@ export const getSideNavLinksForApplication = () => {
   return tasks
 }
 
-export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, application: Application, backLink: string) => {
+export const showMissingRequiredTasksOrTaskList = (
+  req: Request,
+  res: Response,
+  application: Application,
+  backLink: string,
+) => {
   if (eligibilityIsConfirmed(application)) {
     if (consentIsConfirmed(application)) {
       if (hdcDatesHaveBeenEntered(application)) {

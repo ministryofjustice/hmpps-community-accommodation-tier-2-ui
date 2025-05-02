@@ -15,7 +15,7 @@ export const controllers = (services: Services) => {
       personService,
       applicationService,
     },
-    sessionService
+    sessionService,
   )
   const pagesController = new PagesController(applicationService, { personService, applicationService })
   const cancelController = new CancelController(applicationService)
