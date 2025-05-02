@@ -325,19 +325,15 @@ export default class ApplicationsController {
   }
 
   private getBackLink(req: Request): string {
-    const url = this.sessionService.getPageBackLink(
-      paths.applications.overview.pattern,
-      req,
-      [
-        paths.applications.index.pattern,
-        paths.applications.prison.pattern,
-      ],
-    )
+    const url = this.sessionService.getPageBackLink(paths.applications.overview.pattern, req, [
+      paths.applications.index.pattern,
+      paths.applications.prison.pattern,
+    ])
 
-    if (url.endsWith('/applications')) {
-      return `${url}#submitted`;
+    if (url.endsWith('/applications') || url === '/') {
+      return `${paths.applications.index({})}#submitted`
     }
-  
+
     return url
-  }  
+  }
 }
