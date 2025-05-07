@@ -70,7 +70,10 @@ describe('applicationsController', () => {
   sessionService.getPageBackLink.mockReturnValue('/applications')
 
   beforeEach(() => {
-    applicationsController = new ApplicationsController(applicationService, submittedApplicationService, {
+    applicationsController = new ApplicationsController(
+      applicationService,
+      submittedApplicationService,
+      {
         personService,
         applicationService,
       },
