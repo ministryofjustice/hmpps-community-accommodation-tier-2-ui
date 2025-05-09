@@ -77,7 +77,7 @@ describeClient('ApplicationClient', provider => {
 
   describe('getApplicationsForUser', () => {
     describe('when returning a list of transferred out applications for the user', () => {
-      const assignmentTypes: Array<AssignmentType> = ['CREATED', 'ALLOCATED', 'DEALLOCATED']
+      const assignmentTypes: Array<AssignmentType> = ['IN_PROGRESS', 'PRISON', 'DEALLOCATED']
 
       it.each(assignmentTypes)('should return applications for given user', async assignmentType => {
         const applicationsForUser = applicationFactory.buildList(5)
@@ -108,6 +108,7 @@ describeClient('ApplicationClient', provider => {
   describe('getApplicationsForPrison', () => {
     describe('when returning a list of allocated applications for a given prison', () => {
       it('should get all allocated applications for a given prison', async () => {
+        const assignmentType = 'IN_PROGRESS'
         const applications = applicationFactory.buildList(5)
 
         provider.addInteraction({
@@ -118,7 +119,7 @@ describeClient('ApplicationClient', provider => {
             path: paths.applications.index.pattern,
             query: {
               prisonCode: '123',
-              assignmentType: 'ALLOCATED',
+              assignmentType,
               page: '1',
             },
             headers: {
@@ -136,7 +137,7 @@ describeClient('ApplicationClient', provider => {
           },
         })
 
-        const result = await applicationClient.getApplicationsForPrison('123', 1, 'ALLOCATED')
+        const result = await applicationClient.getApplicationsForPrison('123', 1, assignmentType)
 
         expect(result).toEqual({
           data: applications,

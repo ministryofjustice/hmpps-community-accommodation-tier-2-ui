@@ -39,8 +39,8 @@ export default class ApplicationService {
   async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
     const applicationClient = this.applicationClientFactory(token)
     const [inProgress, submitted, transferredOut] = await Promise.all([
-      applicationClient.getApplicationsForUser('CREATED'),
-      applicationClient.getApplicationsForUser('ALLOCATED'),
+      applicationClient.getApplicationsForUser('IN_PROGRESS'),
+      applicationClient.getApplicationsForUser('PRISON'),
       applicationClient.getApplicationsForUser('DEALLOCATED'),
     ])
 
@@ -58,7 +58,7 @@ export default class ApplicationService {
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
-    return applicationClient.getApplicationsForPrison(prisonCode, pageNumber, 'ALLOCATED')
+    return applicationClient.getApplicationsForPrison(prisonCode, pageNumber, 'PRISON')
   }
 
   async getPrisonNewTransferredIn(

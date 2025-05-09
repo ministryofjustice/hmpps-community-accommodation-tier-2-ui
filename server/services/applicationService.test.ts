@@ -75,10 +75,10 @@ describe('ApplicationService', () => {
 
     it('fetches all applications', async () => {
       applicationClient.getApplicationsForUser.mockImplementation(arg => {
-        if (arg === 'CREATED') {
+        if (arg === 'IN_PROGRESS') {
           return Promise.resolve(Object.values(applications.inProgress).flat())
         }
-        if (arg === 'ALLOCATED') {
+        if (arg === 'PRISON') {
           return Promise.resolve(Object.values(applications.submitted).flat())
         }
         if (arg === 'DEALLOCATED') {
@@ -123,7 +123,7 @@ describe('ApplicationService', () => {
       expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getApplicationsForPrison).toHaveBeenCalledWith('123', 2, 'ALLOCATED')
+      expect(applicationClient.getApplicationsForPrison).toHaveBeenCalledWith('123', 2, 'PRISON')
     })
   })
 

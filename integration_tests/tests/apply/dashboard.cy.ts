@@ -55,8 +55,8 @@ context('Applications dashboard', () => {
       latestStatusUpdate: null,
     })
 
-    cy.task('stubApplications', { applications: inProgressApplications, assignmentType: 'CREATED' })
-    cy.task('stubApplications', { applications: [], assignmentType: 'ALLOCATED' })
+    cy.task('stubApplications', { applications: inProgressApplications, assignmentType: 'IN_PROGRESS' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'PRISON' })
     cy.task('stubApplications', { applications: [], assignmentType: 'DEALLOCATED' })
 
     // I visit the Previous Applications page
@@ -75,8 +75,8 @@ context('Applications dashboard', () => {
       status: 'submitted',
     })
 
-    cy.task('stubApplications', { applications: [], assignmentType: 'CREATED' })
-    cy.task('stubApplications', { applications: submittedApplications, assignmentType: 'ALLOCATED' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'IN_PROGRESS' })
+    cy.task('stubApplications', { applications: submittedApplications, assignmentType: 'PRISON' })
     cy.task('stubApplications', { applications: [], assignmentType: 'DEALLOCATED' })
 
     // I visit the submitted applications tab
@@ -96,8 +96,8 @@ context('Applications dashboard', () => {
       status: 'submitted',
     })
 
-    cy.task('stubApplications', { applications: [], assignmentType: 'CREATED' })
-    cy.task('stubApplications', { applications: [], assignmentType: 'ALLOCATED' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'IN_PROGRESS' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'PRISON' })
     cy.task('stubApplications', { applications: transferredOutApplications, assignmentType: 'DEALLOCATED' })
 
     // I visit the Transferred Applications tab
@@ -110,8 +110,8 @@ context('Applications dashboard', () => {
   //  Scenario: hide submitted applications
   it('hides submitted applications', () => {
     //  There are no transferred out applications in the database
-    cy.task('stubApplications', { applications: [], assignmentType: 'CREATED' })
-    cy.task('stubApplications', { applications: [], assignmentType: 'ALLOCATED' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'IN_PROGRESS' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'PRISON' })
     cy.task('stubApplications', { applications: [], assignmentType: 'DEALLOCATED' })
 
     // I visit the Your Applications page
@@ -128,8 +128,8 @@ context('Applications dashboard', () => {
       status: 'submitted',
     })
 
-    cy.task('stubApplications', { applications: [], assignmentType: 'CREATED' })
-    cy.task('stubApplications', { applications: submittedApplications, assignmentType: 'ALLOCATED' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'IN_PROGRESS' })
+    cy.task('stubApplications', { applications: submittedApplications, assignmentType: 'PRISON' })
     cy.task('stubApplications', { applications: [], assignmentType: 'DEALLOCATED' })
 
     // Then I see a tab for my prison's applications
