@@ -7,7 +7,7 @@ import {
   errorSummary as buildErrorSummary,
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
-import { ApplicationService, SubmittedApplicationService } from '../../services'
+import { ApplicationService, SubmittedApplicationService, SessionService } from '../../services'
 import {
   generateSuccessMessage,
   getApplicationTimelineEvents,
@@ -27,6 +27,7 @@ export default class ApplicationsController {
     private readonly applicationService: ApplicationService,
     private readonly submittedApplicationService: SubmittedApplicationService,
     private readonly dataServices: DataServices,
+    private readonly sessionService: SessionService,
   ) {}
 
   index(): RequestHandler {
@@ -56,7 +57,11 @@ export default class ApplicationsController {
         return res.render('applications/show', { application, summary })
       }
 
-      return showMissingRequiredTasksOrTaskList(req, res, application)
+      const backLink = this.sessionService.getPageBackLink(paths.applications.show.pattern, req, [
+        paths.applications.index.pattern,
+      ])
+
+      return showMissingRequiredTasksOrTaskList(req, res, application, backLink)
     }
   }
 
@@ -75,6 +80,7 @@ export default class ApplicationsController {
         : 'Received'
 
       const timelineEvents = getApplicationTimelineEvents(application)
+      const backLink = this.getBackLink(req)
 
       return res.render('applications/overview', {
         application,
@@ -83,6 +89,7 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         pageHeading: 'Overview of application',
+        backLink,
       })
     }
   }
@@ -319,5 +326,18 @@ export default class ApplicationsController {
         transferredIn: transferredIn.data,
       })
     }
+  }
+
+  private getBackLink(req: Request): string {
+    const url = this.sessionService.getPageBackLink(paths.applications.overview.pattern, req, [
+      paths.applications.index.pattern,
+      paths.applications.prison.pattern,
+    ])
+
+    if (url.endsWith('/applications') || url === '/') {
+      return `${paths.applications.index({})}#submitted`
+    }
+
+    return url
   }
 }

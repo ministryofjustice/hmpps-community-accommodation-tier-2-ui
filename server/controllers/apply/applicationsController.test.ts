@@ -26,7 +26,7 @@ import {
   errorSummary as errorSummaryMock,
 } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
-import { PersonService, ApplicationService, SubmittedApplicationService } from '../../services'
+import { PersonService, ApplicationService, SubmittedApplicationService, SessionService } from '../../services'
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
@@ -58,18 +58,27 @@ describe('applicationsController', () => {
   const personService = createMock<PersonService>({})
   const applicationService = createMock<ApplicationService>({})
   const submittedApplicationService = createMock<SubmittedApplicationService>({})
+  const sessionService = createMock<SessionService>({
+    getPageBackLink: jest.fn(),
+  })
 
   let applicationsController: ApplicationsController
 
   const applications = { inProgress: applicationSummaryFactory.buildList(3), submitted: [] } as GroupedApplications
 
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
+  sessionService.getPageBackLink.mockReturnValue('/applications')
 
   beforeEach(() => {
-    applicationsController = new ApplicationsController(applicationService, submittedApplicationService, {
-      personService,
+    applicationsController = new ApplicationsController(
       applicationService,
-    })
+      submittedApplicationService,
+      {
+        personService,
+        applicationService,
+      },
+      sessionService,
+    )
 
     request = createMock<Request>({
       user: { token },
@@ -173,7 +182,12 @@ describe('applicationsController', () => {
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
-        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(request, response, unsubmittedApplication)
+        expect(showMissingRequiredTasksOrTaskList).toHaveBeenCalledWith(
+          request,
+          response,
+          unsubmittedApplication,
+          '/applications',
+        )
       })
     })
   })
@@ -217,6 +231,7 @@ describe('applicationsController', () => {
         pageHeading: 'Overview of application',
         errors: {},
         errorSummary: [],
+        backLink: '/applications#submitted',
       })
     })
 

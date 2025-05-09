@@ -15,7 +15,7 @@ import { getSections } from '../checkYourAnswersUtils'
 import config from '../../config'
 import paths from '../../paths/apply'
 import { TaskListService } from '../../services'
-import { formatLines, validateReferer } from '../viewUtils'
+import { formatLines } from '../viewUtils'
 
 jest.mock('../../services/taskListService')
 jest.mock('../checkYourAnswersUtils')
@@ -315,16 +315,14 @@ describe('utils', () => {
       it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
         const application = applicationFactory.build({ data: {} })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'confirm-eligibility',
-              page: 'confirm-eligibility',
-            }),
-          ),
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'confirm-eligibility',
+            page: 'confirm-eligibility',
+          }),
         )
       })
     })
@@ -339,9 +337,9 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(actual).toEqual(response.redirect(paths.applications.ineligible({ id: application.id })))
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.ineligible({ id: application.id }))
       })
     })
 
@@ -361,9 +359,9 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(actual).toEqual(response.redirect(paths.applications.consentRefused({ id: application.id })))
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.consentRefused({ id: application.id }))
       })
     })
 
@@ -377,16 +375,14 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'confirm-consent',
-              page: 'confirm-consent',
-            }),
-          ),
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'confirm-consent',
+            page: 'confirm-consent',
+          }),
         )
       })
     })
@@ -428,19 +424,16 @@ describe('utils', () => {
         ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
           return { errors: {}, errorSummary: [], userInput: {} }
         })
-        ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(actual).toEqual(
-          response.render('applications/taskList', {
-            application,
-            taskList: stubTaskList,
-            errors: {},
-            errorSummary: [],
-            referrer: 'some-validated-referer',
-          }),
-        )
+        expect(response.render).toHaveBeenCalledWith('applications/taskList', {
+          application,
+          taskList: stubTaskList,
+          errors: {},
+          errorSummary: [],
+          backLink: '/',
+        })
       })
     })
 
@@ -463,16 +456,14 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application, '/')
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'hdc-licence-dates',
-              page: 'hdc-licence-dates',
-            }),
-          ),
+        expect(response.redirect).toHaveBeenCalledWith(
+          paths.applications.pages.show({
+            id: application.id,
+            task: 'hdc-licence-dates',
+            page: 'hdc-licence-dates',
+          }),
         )
       })
     })

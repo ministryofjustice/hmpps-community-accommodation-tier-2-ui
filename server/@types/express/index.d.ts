@@ -6,6 +6,7 @@ declare module 'express-session' {
     returnTo: string
     nowInMinutes: number
     previousPage: string
+    pageReferers: Record<string, string>
   }
 }
 
