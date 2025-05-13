@@ -63,13 +63,16 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
   //  Then I see the 'Job title' page
   it('submits the correct fields and continues to next page', function test() {
     const page = Page.verifyOnPage(ConfirmDetailsPage, this.application)
-  
+
     // Stub the application update API call
-    cy.intercept('POST', `/applications/${this.application.id}/tasks/referrer-details/pages/confirm-details?_method=PUT`).as('applicationUpdate')
-  
+    cy.intercept(
+      'POST',
+      `/applications/${this.application.id}/tasks/referrer-details/pages/confirm-details?_method=PUT`,
+    ).as('applicationUpdate')
+
     // When I click 'Save and continue'
     page.clickSubmit()
-  
+
     // Wait for the application update API call and assert the body contains the expected fields
     cy.wait('@applicationUpdate').then(interception => {
       const requestBody = interception.request.body
