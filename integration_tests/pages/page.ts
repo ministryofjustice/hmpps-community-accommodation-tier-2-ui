@@ -173,7 +173,7 @@ export default abstract class Page {
       this.checkTermAndDescription('Full name', person.name)
       this.checkTermAndDescription(
         'Date of birth',
-        DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+        DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'medium' }),
       )
       this.checkTermAndDescription('Nationality', person.nationality)
       this.checkTermAndDescription('Sex', person.sex)
