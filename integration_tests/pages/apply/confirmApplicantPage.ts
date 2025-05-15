@@ -16,7 +16,7 @@ export default class ConfirmApplicantPage extends Page {
   hasApplicantInformation = (applicant: FullPerson): void => {
     const expectedApplicantData = [
       ['Full name', applicant.name],
-      ['Date of birth', DateFormats.isoDateToUIDate(applicant.dateOfBirth, { format: 'short' })],
+      ['Date of birth', DateFormats.isoDateToUIDate(applicant.dateOfBirth, { format: 'medium' })],
       ['Nationality', applicant.nationality],
       ['Sex', applicant.sex],
       ['Prison number', applicant.nomsNumber],

@@ -243,7 +243,7 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
         text: 'Date of birth',
       },
       value: {
-        html: DateFormats.isoDateToUIDate(dateOfBirth, { format: 'short' }),
+        html: DateFormats.isoDateToUIDate(dateOfBirth, { format: 'medium' }),
       },
     },
     {

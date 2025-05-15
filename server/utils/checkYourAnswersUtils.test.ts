@@ -641,7 +641,7 @@ describe('getPage', () => {
             text: 'Date of birth',
           },
           value: {
-            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'medium' }),
           },
         },
         {
@@ -716,7 +716,7 @@ describe('getPage', () => {
             text: 'Date of birth',
           },
           value: {
-            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'medium' }),
           },
         },
         {

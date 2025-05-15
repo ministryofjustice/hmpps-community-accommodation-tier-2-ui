@@ -60,7 +60,7 @@ describe('peopleController', () => {
           pageHeading: `Confirm ${person.name}'s details`,
           person,
           date: DateFormats.dateObjtoUIDate(new Date()),
-          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'medium' }),
         })
       })
 
