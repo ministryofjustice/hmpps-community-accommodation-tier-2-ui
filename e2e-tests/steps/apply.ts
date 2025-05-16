@@ -56,12 +56,14 @@ export const confirmApplicant = async (page: Page) => {
   await confirmApplicantPage.clickButton('Confirm and continue')
 }
 
-export const completeBeforeYouStartSection = async (page: Page, name: string) => {
+export const completeBeforeYouStartSection = async (page: Page, name: string): Promise<string> => {
   await completeEligibilityTask(page, name)
   await completeConsentTask(page, name)
   await completeHDCLicenceDatesTask(page, name)
-  await completeReferrerDetailsTask(page)
+  const userEmail = await completeReferrerDetailsTask(page)
   await completeCheckInformationTask(page)
+
+  return userEmail
 }
 
 export const completeAreaAndFundingSection = async (page: Page, name: string) => {
@@ -92,8 +94,8 @@ export const completeOffenceAndLicenceInformationSection = async (page: Page, na
   await completeCPPDetailsAndHDCLicenceConditionsTask(page, name)
 }
 
-export const completeCheckAnswersSection = async (page: Page, name: string) => {
-  await completeCheckAnswersTask(page, name)
+export const completeCheckAnswersSection = async (page: Page, name: string, user: TestOptions['user']) => {
+  await completeCheckAnswersTask(page, name, user)
 }
 
 export const submitApplication = async (page: Page) => {

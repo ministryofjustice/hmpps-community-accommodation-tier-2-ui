@@ -28,12 +28,14 @@ test('create a CAS-2 application', async ({ page, person, pomUser }) => {
   await startAnApplication(page)
   await enterPrisonerNumber(page, person.nomsNumber)
   await confirmApplicant(page)
-  await completeBeforeYouStartSection(page, person.name)
+  const userEmail = await completeBeforeYouStartSection(page, person.name)
+  const updatedPomUser = { ...pomUser, email: userEmail }
+
   await completeAreaAndFundingSection(page, person.name)
   await completeAboutThePersonSection(page, person.name)
   await completeRisksAndNeedsSection(page, person.name)
   await completeOffenceAndLicenceInformationSection(page, person.name)
-  await completeCheckAnswersSection(page, person.name)
+  await completeCheckAnswersSection(page, person.name, updatedPomUser)
   await expect(page.getByText('You have completed 17 of 17 tasks')).toBeVisible()
   await submitApplication(page)
 })

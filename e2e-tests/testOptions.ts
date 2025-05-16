@@ -18,11 +18,13 @@ export type TestOptions = {
     name: string
     username: string
     password: string
+    email?: string
   }
   lcaUser: {
     name: string
     username: string
     password: string
+    email?: string
   }
   adminUser: {
     name: string
@@ -39,4 +41,5 @@ export type TestOptions = {
     username: string
     password: string
   }
+  user: TestOptions['pomUser'] | TestOptions['lcaUser']
 }

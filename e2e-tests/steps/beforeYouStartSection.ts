@@ -45,19 +45,23 @@ export const completeHDCLicenceDatesTask = async (page: Page, name: string) => {
   await hdcLicenceDatesPage.clickSave()
 }
 
-export const completeReferrerDetailsTask = async (page: Page) => {
+export const completeReferrerDetailsTask = async (page: Page): Promise<string> => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add referrer details')
 
-  await completeConfirmDetailsPage(page)
+  const userEmail = await completeConfirmDetailsPage(page)
   await completeJobTitlePage(page)
   await completeContactNumberPage(page)
+
+  return userEmail
 }
 
-async function completeConfirmDetailsPage(page: Page) {
+async function completeConfirmDetailsPage(page: Page): Promise<string> {
   const confirmDetailsPage = await ApplyPage.initialize(page, `Confirm your details`)
+  const email = await page.locator(`dt:has-text("Email address") + dd`).textContent()
 
   await confirmDetailsPage.clickSave()
+  return email?.trim() || ''
 }
 
 async function completeJobTitlePage(page: Page) {
