@@ -6,7 +6,7 @@ import logger from '../logger'
 
 export default function createErrorHandler(isDevelopment: boolean) {
   return (error: HTTPError, req: Request, res: Response, next: NextFunction): void => {
-    logger.error(`Error handling request for '${req.originalUrl}', user '${res.locals.user?.username}'`, error)
+    logger.error(`Error handling request for '${req.originalUrl}', user '${res.locals.user?.id}'`, error)
 
     if (error.status === 401 || error.status === 403) {
       logger.info('Logging user out')
