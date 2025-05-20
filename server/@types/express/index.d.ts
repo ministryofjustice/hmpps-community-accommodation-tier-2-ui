@@ -16,12 +16,15 @@ export declare global {
       username: string
       token: string
       authSource: string
+      staffId?: string
     }
 
     interface Request {
       verified?: boolean
       id: string
+
       flash(type: string, message: string | ErrorMessages | Array<ErrorSummary> | Record<string, unknown>): number
+
       logout(done: (err: unknown) => void): void
     }
   }
