@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Application } from './Application';
+import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { ApplicationStatus } from './ApplicationStatus';
 import type { Cas2Assessment } from './Cas2Assessment';
 import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
@@ -25,5 +26,7 @@ export type Cas2Application = (Application & {
     omuEmailAddress?: string;
     isTransferredApplication: boolean;
     assignmentDate?: string;
+    applicationOrigin?: ApplicationOrigin;
+    bailHearingDate?: string;
 });
 
