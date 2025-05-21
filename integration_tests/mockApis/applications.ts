@@ -46,14 +46,13 @@ export default {
     }),
   stubPrisonApplications: (args: {
     applications: Array<Application>
-    prisonCode: string
     page: number
     assignmentType: AssignmentType
   }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications?page=${args.page}&prisonCode=${args.prisonCode}&assignmentType=${args.assignmentType}`,
+        url: `/cas2/applications?page=${args.page}&assignmentType=${args.assignmentType}`,
       },
       response: {
         status: 200,
