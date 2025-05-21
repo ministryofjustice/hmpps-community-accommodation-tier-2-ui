@@ -74,11 +74,11 @@ describe('ApplicationService', () => {
     }
 
     it('fetches all applications', async () => {
-      applicationClient.getApplicationsForUser.mockImplementation(arg => {
+      applicationClient.getApplications.mockImplementation(arg => {
         if (arg === 'IN_PROGRESS') {
           return Promise.resolve(Object.values(applications.inProgress).flat())
         }
-        if (arg === 'PRISON') {
+        if (arg === 'ALLOCATED') {
           return Promise.resolve(Object.values(applications.submitted).flat())
         }
         if (arg === 'DEALLOCATED') {
@@ -112,9 +112,9 @@ describe('ApplicationService', () => {
         pageNumber: '2',
       }) as PaginatedResponse<Cas2ApplicationSummary>
 
-      applicationClient.getApplicationsForPrison.mockResolvedValue(paginatedResponse)
+      applicationClient.getPagedApplications.mockResolvedValue(paginatedResponse)
 
-      const result = await service.getAllByPrison(token, '123', 2)
+      const result = await service.getAllByPrison(token, 2)
 
       expect(result.data).toEqual(applications)
       expect(result.pageNumber).toEqual('2')
@@ -123,11 +123,11 @@ describe('ApplicationService', () => {
       expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getApplicationsForPrison).toHaveBeenCalledWith('123', 2, 'PRISON')
+      expect(applicationClient.getPagedApplications).toHaveBeenCalledWith(2, 'PRISON')
     })
   })
 
-  describe('getPrisonNewTransferredIn', () => {
+  describe('getPagedApplications', () => {
     const token = 'SOME_TOKEN'
 
     it('fetches all transferred in applications that are not allocated to a POM for a given prison', async () => {
@@ -153,9 +153,9 @@ describe('ApplicationService', () => {
         pageNumber: '2',
       }) as PaginatedResponse<Cas2ApplicationSummary>
 
-      applicationClient.getApplicationsForPrison.mockResolvedValue(paginatedResponse)
+      applicationClient.getPagedApplications.mockResolvedValue(paginatedResponse)
 
-      const result = await service.getPrisonNewTransferredIn(token, '123', 2)
+      const result = await service.getPrisonNewTransferredIn(token, 2)
 
       expect(result.data).toEqual(newData)
       expect(result.pageNumber).toEqual('2')
@@ -164,7 +164,7 @@ describe('ApplicationService', () => {
       expect(result.totalResults).toEqual('500')
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.getApplicationsForPrison).toHaveBeenCalledWith('123', 2, 'UNALLOCATED')
+      expect(applicationClient.getPagedApplications).toHaveBeenCalledWith(2, 'UNALLOCATED')
     })
   })
 

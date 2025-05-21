@@ -75,7 +75,7 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
-  describe('getApplicationsForUser', () => {
+  describe('getApplications', () => {
     describe('when returning a list of transferred out applications for the user', () => {
       const assignmentTypes: Array<AssignmentType> = ['IN_PROGRESS', 'PRISON', 'DEALLOCATED']
 
@@ -99,16 +99,16 @@ describeClient('ApplicationClient', provider => {
           },
         })
 
-        const result = await applicationClient.getApplicationsForUser(assignmentType)
+        const result = await applicationClient.getApplications(assignmentType)
         expect(result).toEqual(applicationsForUser)
       })
     })
   })
 
-  describe('getApplicationsForPrison', () => {
+  describe('getPagedApplications', () => {
     describe('when returning a list of allocated applications for a given prison', () => {
       it('should get all allocated applications for a given prison', async () => {
-        const assignmentType = 'IN_PROGRESS'
+        const assignmentType = 'PRISON'
         const applications = applicationFactory.buildList(5)
 
         provider.addInteraction({
@@ -118,7 +118,6 @@ describeClient('ApplicationClient', provider => {
             method: 'GET',
             path: paths.applications.index.pattern,
             query: {
-              prisonCode: '123',
               assignmentType,
               page: '1',
             },
@@ -137,7 +136,7 @@ describeClient('ApplicationClient', provider => {
           },
         })
 
-        const result = await applicationClient.getApplicationsForPrison('123', 1, assignmentType)
+        const result = await applicationClient.getPagedApplications(1, assignmentType)
 
         expect(result).toEqual({
           data: applications,
@@ -160,7 +159,6 @@ describeClient('ApplicationClient', provider => {
             method: 'GET',
             path: paths.applications.index.pattern,
             query: {
-              prisonCode: '123',
               assignmentType: 'UNALLOCATED',
               page: '1',
             },
@@ -179,7 +177,7 @@ describeClient('ApplicationClient', provider => {
           },
         })
 
-        const result = await applicationClient.getApplicationsForPrison('123', 1, 'UNALLOCATED')
+        const result = await applicationClient.getPagedApplications(1, 'UNALLOCATED')
 
         expect(result).toEqual({
           data: applications,

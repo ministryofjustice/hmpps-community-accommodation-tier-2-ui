@@ -32,22 +32,21 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async getApplicationsForUser(assignmentType: AssignmentType): Promise<Array<Cas2ApplicationSummary>> {
+  async getApplications(assignmentType: AssignmentType): Promise<Array<Cas2ApplicationSummary>> {
     return (await this.restClient.get({
       path: paths.applications.index.pattern,
       query: createQueryString({ assignmentType }),
     })) as Array<Cas2ApplicationSummary>
   }
 
-  async getApplicationsForPrison(
-    prisonCode: string,
+  async getPagedApplications(
     pageNumber: number,
     assignmentType: AssignmentType,
   ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
-      query: { prisonCode, assignmentType },
+      query: { assignmentType },
     })
   }
 

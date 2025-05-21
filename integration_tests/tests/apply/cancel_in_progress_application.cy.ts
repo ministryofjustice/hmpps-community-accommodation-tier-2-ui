@@ -79,7 +79,7 @@ context('Cancel an in progress application', () => {
     cy.task('stubFindPerson', { person })
     cy.task('stubApplicationAbandon', { application })
     cy.task('stubApplications', { applications: inProgressApplicationSummaries, assignmentType: 'IN_PROGRESS' })
-    cy.task('stubApplications', { applications: [], assignmentType: 'PRISON' })
+    cy.task('stubApplications', { applications: [], assignmentType: 'ALLOCATED' })
     cy.task('stubApplications', { applications: [], assignmentType: 'DEALLOCATED' })
     cy.task('stubApplicationGet', { application })
   })
