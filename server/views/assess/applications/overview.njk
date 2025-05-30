@@ -52,7 +52,7 @@
         }) }}
       </div>
 
-      {{submittedApplicationDetails(application, status)}}
+      {{submittedApplicationDetails(application, status, statusTagColour)}}
 
       <p data-testid="cas2-ref-number">CAS-2 reference number:
         {% if application.assessment.nacroReferralId %}
