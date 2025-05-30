@@ -6,6 +6,7 @@ import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { assessmentHasExistingData } from '../../utils/assessmentUtils'
 import { getApplicationTimelineEvents } from '../../utils/applications/utils'
+import { getStatusTagColourByName } from '../../utils/applicationUtils'
 import { getApplicationSummaryData } from '../../utils/applications/getApplicationSummaryData'
 
 export default class SubmittedApplicationsController {
@@ -50,6 +51,8 @@ export default class SubmittedApplicationsController {
         ? application.assessment.statusUpdates[0].label
         : 'Received'
 
+      const statusTagColour = getStatusTagColourByName(application.assessment?.statusUpdates[0]?.name)
+
       const timelineEvents = getApplicationTimelineEvents(application)
 
       const assessmentLinkText = assessmentHasExistingData(application.assessment)
@@ -75,6 +78,7 @@ export default class SubmittedApplicationsController {
       return res.render('assess/applications/overview', {
         application,
         status,
+        statusTagColour,
         timelineEvents,
         errors,
         errorSummary,

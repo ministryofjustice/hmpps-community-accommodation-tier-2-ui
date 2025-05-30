@@ -6,6 +6,7 @@ import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../
 import { camelToKebabCase } from '../../utils/utils'
 import { validateReferer } from '../../utils/viewUtils'
 import { AssessmentService } from '../../services'
+import { getStatusTagColourByName } from '../../utils/applicationUtils'
 
 export default class StatusUpdateController {
   constructor(
@@ -22,6 +23,7 @@ export default class StatusUpdateController {
       const currentStatus = application.assessment.statusUpdates?.length
         ? application.assessment.statusUpdates[0].label
         : 'Received'
+      const statusTagColour = getStatusTagColourByName(application.assessment?.statusUpdates[0]?.name)
 
       const statuses = await this.submittedApplicationService.getApplicationStatuses(req.user.token)
 
@@ -31,6 +33,7 @@ export default class StatusUpdateController {
         application,
         person,
         currentStatus,
+        statusTagColour,
         statuses,
         previousPath,
         errors,

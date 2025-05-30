@@ -19,7 +19,7 @@ import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
-import { indexTabItems } from '../../utils/applicationUtils'
+import { indexTabItems, getStatusTagColourByName } from '../../utils/applicationUtils'
 import { getApplicationSummaryData } from '../../utils/applications/getApplicationSummaryData'
 
 export default class ApplicationsController {
@@ -79,12 +79,15 @@ export default class ApplicationsController {
         ? application.assessment?.statusUpdates[0].label
         : 'Received'
 
+      const statusTagColour = getStatusTagColourByName(application.assessment?.statusUpdates[0]?.name)
+
       const timelineEvents = getApplicationTimelineEvents(application)
       const backLink = this.getBackLink(req)
 
       return res.render('applications/overview', {
         application,
         status,
+        statusTagColour,
         timelineEvents,
         errors,
         errorSummary,
