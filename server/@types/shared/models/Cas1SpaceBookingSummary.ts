@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Cas1ChangeRequestType } from './Cas1ChangeRequestType';
 import type { Cas1KeyWorkerAllocation } from './Cas1KeyWorkerAllocation';
 import type { Cas1SpaceBookingSummaryStatus } from './Cas1SpaceBookingSummaryStatus';
 import type { Cas1SpaceCharacteristic } from './Cas1SpaceCharacteristic';
@@ -50,7 +51,16 @@ export type Cas1SpaceBookingSummary = {
     characteristics: Array<Cas1SpaceCharacteristic>;
     deliusEventNumber?: string;
     isCancelled: boolean;
-    plannedTransferRequested: boolean;
-    appealRequested: boolean;
+    /**
+     * Use 'openChangeRequestTypes'
+     * @deprecated
+     */
+    plannedTransferRequested?: boolean;
+    /**
+     * Use 'openChangeRequestTypes'
+     * @deprecated
+     */
+    appealRequested?: boolean;
+    openChangeRequestTypes: Array<Cas1ChangeRequestType>;
 };
 
