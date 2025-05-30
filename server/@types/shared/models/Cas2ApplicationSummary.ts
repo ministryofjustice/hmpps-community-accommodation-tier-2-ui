@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { ApplicationStatus } from './ApplicationStatus';
 import type { LatestCas2StatusUpdate } from './LatestCas2StatusUpdate';
 import type { PersonRisks } from './PersonRisks';
@@ -23,5 +24,7 @@ export type Cas2ApplicationSummary = {
     allocatedPomName: string;
     currentPrisonName?: string;
     assignmentDate: string;
+    applicationOrigin?: ApplicationOrigin;
+    bailHearingDate?: string;
 };
 
