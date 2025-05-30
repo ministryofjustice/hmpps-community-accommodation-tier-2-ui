@@ -227,6 +227,31 @@ const getStatusTagColour = (statusId: string) => {
   }
 }
 
+export const getStatusTagColourByName = (statusName: string) => {
+  switch (statusName) {
+    case 'moreInfoRequested':
+      return 'light-blue'
+    case 'awaitingDecision':
+      return 'yellow'
+    case 'onWaitingList':
+      return 'yellow'
+    case 'placeOffered':
+      return 'purple'
+    case 'offerAccepted':
+      return 'green'
+    case 'offerDeclined':
+      return 'orange'
+    case 'withdrawn':
+      return 'pink'
+    case 'cancelled':
+      return 'pink'
+    case 'awaitingArrival':
+      return 'green'
+    default:
+      return 'grey'
+  }
+}
+
 export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
   if (application.data[task]?.['oasys-import'] || application.data[task]?.['old-oasys']?.hasOldOasys === 'yes') {
     return true

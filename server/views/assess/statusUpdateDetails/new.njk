@@ -21,7 +21,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {{ applicationCurrentStatus(currentStatus) }}
+      {{ applicationCurrentStatus(currentStatus, statusTagColour) }}
 
       <form action="{{ paths.statusUpdateDetails.create({id: application.assessment.id, statusName: camelToKebabCase(statusName)}) }}?applicationId={{application.id}}" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>

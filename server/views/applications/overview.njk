@@ -39,8 +39,7 @@
         {% endfor %}
       {% endif %}
 
-      {{submittedApplicationDetails(application, status)}}
-
+      {{submittedApplicationDetails(application, status, statusTagColour)}}   
       <div class="govuk-button-group govuk-!-margin-top-5">
         {{ govukButton({
       text: "View submitted application",

@@ -1,5 +1,6 @@
 import { Cas2SubmittedApplication as SubmittedApplication, FullPerson } from '@approved-premises/api'
 import Page from '../page'
+import { getStatusTagColourByName } from '../../../server/utils/applicationUtils'
 
 export default class UpdateApplicationStatusPage extends Page {
   constructor(private readonly application: SubmittedApplication) {
@@ -17,5 +18,8 @@ export default class UpdateApplicationStatusPage extends Page {
       ? this.application.assessment.statusUpdates[0].label
       : 'Received'
     cy.get('p').contains(`Current status: ${status}`)
+
+    const statusTagColour = getStatusTagColourByName(this.application.assessment?.statusUpdates[0]?.name)
+    cy.get('strong').should('have.class', `govuk-tag--${statusTagColour}`)
   }
 }

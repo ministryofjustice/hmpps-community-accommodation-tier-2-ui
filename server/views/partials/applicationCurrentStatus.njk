@@ -1,10 +1,10 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
-{% macro applicationCurrentStatus(status) %}
+{% macro applicationCurrentStatus(status, statusTagColour) %}
 
   <div class="status-box govuk-!-margin-bottom-5">
     <p class="govuk-!-display-inline">Current status: 
-        <strong class="govuk-tag--blue status-box-tag">
+      <strong class="govuk-tag--{{ statusTagColour or 'grey' }} status-box-tag">
         {{status}}
       </strong>
     </p>
