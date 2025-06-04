@@ -37,7 +37,7 @@ import {
 } from '../../utils/applications/utils'
 import { validateReferer } from '../../utils/viewUtils'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
-import { indexTabItems } from '../../utils/applicationUtils'
+import { indexTabItems, getStatusTagColourByName } from '../../utils/applicationUtils'
 
 jest.mock('../../utils/applicationUtils')
 jest.mock('../../utils/validation')
@@ -92,6 +92,7 @@ describe('applicationsController', () => {
   describe('index', () => {
     beforeEach(() => {
       ;(indexTabItems as jest.Mock).mockReturnValue([{ tab1: 'Tab 1 data' }, { tab2: 'Tab 2 data' }])
+      ;(getStatusTagColourByName as jest.Mock).mockReturnValue('grey')
     })
 
     it('renders existing applications', async () => {
@@ -227,6 +228,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/overview', {
         application: submittedApplication,
         status: 'Received',
+        statusTagColour: 'grey',
         timelineEvents,
         pageHeading: 'Overview of application',
         errors: {},

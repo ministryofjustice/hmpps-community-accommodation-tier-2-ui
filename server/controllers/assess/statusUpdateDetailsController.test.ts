@@ -65,6 +65,7 @@ describe('StatusUpdateDetailsController', () => {
         application: submittedApplication,
         person,
         currentStatus: 'Received',
+        statusTagColour: 'grey',
         statusName: 'moreInfoRequested',
         statusDetails: ['statusDetails'],
         errorSummary: [],

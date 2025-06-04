@@ -10,6 +10,7 @@ import {
   hasOasys,
   arePreTaskListTasksIncomplete,
   indexTabItems,
+  getStatusTagColourByName,
 } from './applicationUtils'
 
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
@@ -332,6 +333,60 @@ describe('documentSummaryListRows', () => {
     it('returns the Received string if status is undefined', () => {
       const expected = `<strong class="govuk-tag govuk-tag--grey">Received</strong>`
       expect(getStatusTag(undefined, undefined)).toEqual(expected)
+    })
+  })
+
+  describe('getStatusTagColourByName', () => {
+    it('returns "light-blue" for "moreInfoRequested"', () => {
+      expect(getStatusTagColourByName('moreInfoRequested')).toEqual('light-blue')
+    })
+
+    it('returns "yellow" for "awaitingDecision"', () => {
+      expect(getStatusTagColourByName('awaitingDecision')).toEqual('yellow')
+    })
+
+    it('returns "yellow" for "onWaitingList"', () => {
+      expect(getStatusTagColourByName('onWaitingList')).toEqual('yellow')
+    })
+
+    it('returns "purple" for "placeOffered"', () => {
+      expect(getStatusTagColourByName('placeOffered')).toEqual('purple')
+    })
+
+    it('returns "green" for "offerAccepted"', () => {
+      expect(getStatusTagColourByName('offerAccepted')).toEqual('green')
+    })
+
+    it('returns "orange" for "offerDeclined"', () => {
+      expect(getStatusTagColourByName('offerDeclined')).toEqual('orange')
+    })
+
+    it('returns "pink" for "withdrawn"', () => {
+      expect(getStatusTagColourByName('withdrawn')).toEqual('pink')
+    })
+
+    it('returns "pink" for "cancelled"', () => {
+      expect(getStatusTagColourByName('cancelled')).toEqual('pink')
+    })
+
+    it('returns "green" for "awaitingArrival"', () => {
+      expect(getStatusTagColourByName('awaitingArrival')).toEqual('green')
+    })
+
+    it('returns "grey" for an unknown status', () => {
+      expect(getStatusTagColourByName('unknownStatus')).toEqual('grey')
+    })
+
+    it('returns "grey" for an empty string', () => {
+      expect(getStatusTagColourByName('')).toEqual('grey')
+    })
+
+    it('returns "grey" for undefined', () => {
+      expect(getStatusTagColourByName(undefined)).toEqual('grey')
+    })
+
+    it('returns "grey" for null', () => {
+      expect(getStatusTagColourByName(null)).toEqual('grey')
     })
   })
 

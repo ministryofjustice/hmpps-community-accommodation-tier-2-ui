@@ -1,13 +1,13 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 {% from "./applicationCurrentStatus.njk" import applicationCurrentStatus %}
 
-{% macro submittedApplicationDetails(application, status) %}
+{% macro submittedApplicationDetails(application, status, statusTagColour) %}
 
   <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
     {{ application.person.name }}
   </h1>
 
-  {{ applicationCurrentStatus(status) }}
+  {{ applicationCurrentStatus(status, statusTagColour) }}
 
   <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
 

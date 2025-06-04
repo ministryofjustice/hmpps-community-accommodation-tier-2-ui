@@ -8,6 +8,7 @@ import { camelToKebabCase, kebabToCamelCase } from '../../utils/utils'
 import { getStatusDetailsByStatusName, getStatusDetailQuestionText } from '../../utils/assessUtils'
 import errorLookups from '../../i18n/en/errors.json'
 import { AssessmentService } from '../../services'
+import { getStatusTagColourByName } from '../../utils/applicationUtils'
 
 export default class StatusUpdateDetailsController {
   constructor(
@@ -37,10 +38,13 @@ export default class StatusUpdateDetailsController {
           ? application.assessment.statusUpdates[0].label
           : 'Received'
 
+        const statusTagColour = getStatusTagColourByName(application.assessment?.statusUpdates[0]?.name)
+
         return res.render('assess/statusUpdateDetails/new', {
           application,
           person,
           currentStatus,
+          statusTagColour,
           statusName,
           statusDetails,
           errors,

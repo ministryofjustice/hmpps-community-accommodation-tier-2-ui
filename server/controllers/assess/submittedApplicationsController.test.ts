@@ -189,6 +189,7 @@ describe('submittedApplicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplication,
           status: 'On waiting list',
+          statusTagColour: 'yellow',
           timelineEvents,
           errors: {},
           errorSummary: [],
@@ -235,6 +236,7 @@ describe('submittedApplicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplicationWithoutStatus,
           status: 'Received',
+          statusTagColour: 'grey',
           timelineEvents,
           errors: {},
           errorSummary: [],
@@ -284,6 +286,7 @@ describe('submittedApplicationsController', () => {
         expect(response.render).toHaveBeenCalledWith('assess/applications/overview', {
           application: submittedApplicationWithoutStatus,
           status: 'Received',
+          statusTagColour: 'grey',
           timelineEvents,
           errors: {},
           errorSummary: [],
