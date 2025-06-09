@@ -12,6 +12,7 @@ jobs:
       registry_org: 'ministryofjustice'
       push: true
       docker_multiplatform: false
+      tag_latest: false
 
   deploy_test:
     name: Deploy to the test environment
