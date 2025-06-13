@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ApArea } from './ApArea';
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
+import type { ApType } from './ApType';
 import type { PersonSummary } from './PersonSummary';
 import type { ProbationDeliveryUnit } from './ProbationDeliveryUnit';
 import type { TaskStatus } from './TaskStatus';
@@ -31,5 +32,6 @@ export type Task = {
     apArea?: ApArea;
     probationDeliveryUnit?: ProbationDeliveryUnit;
     outcomeRecordedAt?: string;
+    apType: ApType;
 };
 
