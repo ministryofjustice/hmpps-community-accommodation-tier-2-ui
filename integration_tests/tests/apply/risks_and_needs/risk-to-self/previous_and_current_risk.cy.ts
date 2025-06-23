@@ -1,23 +1,24 @@
-//  Feature: Referrer completes 'Risk to self: historical risk' page
+//  Feature: Referrer completes 'Risk to self: current risk' page
 //    So that I can complete the "Risk to self" task
 //    As a referrer
-//    I want to complete the 'historical risk' page
+//    I want to complete the 'current risk' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I am on the historical risk page
+//    And I am on the current risk page
 //
-//  Scenario: view historical risk questions
-//    Then I see the "historical risk" page
+//  Scenario: view current risk questions
+//    Then I see the "current risk" page
 //
 //  Scenario: complete page and navigate to next page in health needs task
-//    When I complete the historical risk page
+//    When I complete the current risk page
 //    And I continue to the next task / page
-//    Then I see the "ACCT" page
+//    Then I see the "historical risk" page
 
-import HistoricalRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/historicalRiskPage'
 import AcctPage from '../../../../pages/apply/risks_and_needs/risk-to-self/acctPage'
+import PreviousAndCurrentRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/previousAndCurrentRiskPage'
+
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -49,28 +50,28 @@ context('Visit "Risks and needs" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the historical risk page
+    // And I am on the current risk page
     // --------------------------------
-    HistoricalRiskPage.visit(this.application)
+    PreviousAndCurrentRiskPage.visit(this.application)
   })
 
-  //  Scenario: view historical risk questions
-  //    Then I see the "historical risk" page
-  it('presents historical risk page', function test() {
-    const page = Page.verifyOnPage(HistoricalRiskPage, this.application)
+  //  Scenario: view previous and current risk questions
+  //    Then I see the "previous and current risk" page
+  it('presents previous and current risk page', function test() {
+    const page = Page.verifyOnPage(PreviousAndCurrentRiskPage, this.application)
 
     page.shouldShowOasysImportDate(this.application, 'risk-to-self')
   })
 
   //  Scenario: complete page and navigate to next page in health needs task
-  //    When I complete the historical risk page
+  //    When I complete the previous and current risk page
   //    And I continue to the next task / page
-  //    Then I see the "ACCT" page
-  it('navigates to the next page (ACCT)', function test() {
-    HistoricalRiskPage.visit(this.application)
-    const page = new HistoricalRiskPage(this.application)
+  //    Then I see the "acct" page
+  it('navigates to the next page (acct)', function test() {
+    PreviousAndCurrentRiskPage.visit(this.application)
+    const page = new PreviousAndCurrentRiskPage(this.application)
 
-    page.getTextInputByIdAndEnterDetails('historicalRiskDetail', 'additional comments')
+    page.getTextInputByIdAndEnterDetails('previousAndCurrentRiskDetail', 'example answer')
     page.clickConfirm()
     page.clickSubmit()
 

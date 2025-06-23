@@ -250,18 +250,13 @@
           "title": "Add risk to self information",
           "questionsAndAnswers": [
             {
-              "question": "Describe Aadland Bertrand's current issues and needs related to self harm and suicide",
-              "answer": "[R8.1.1] Review 06.10.21:\r\n\r\n        There have been numerous ACCTs opened since 2013 and every subsequent year he has been in custody.  In 2021..."
-            },
-            { "question": "I confirm this information is relevant and up to date.", "answer": "Confirmed" },
-            {
               "question": "Describe Aadland Bertrand's current circumstances, issues and needs related to vulnerability",
               "answer": "[R8.3.1] Review 06.10.21:\r\n\r\n        A previous assessor opined that Mr Smith was displaying all the characteristics of someone..."
             },
             { "question": "I confirm this information is relevant and up to date.", "answer": "Confirmed" },
             {
-              "question": "Describe Aadland Bertrand's historical issues and needs related to self harm and suicide",
-              "answer": "[R8.1.4] Review 06.10.21:\r\n\r\n        There have been numerous ACCTs opened since 2013 and every subsequent year he has been in custody.  In 2021 there..."
+              "question": "Describe Aadland Bertrand's current issues and needs related to self harm and suicide",
+              "answer": "[FA62] Review 06.10.21:\r\n\r\n He has self harmed, there have been Code Red incidents and open ACCT’s."
             },
             { "question": "I confirm this information is relevant and up to date.", "answer": "Confirmed" },
             {

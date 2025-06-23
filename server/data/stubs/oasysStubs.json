@@ -140,11 +140,6 @@
   ],
   "riskToSelf": [
     {
-      "label": "Current concerns about self-harm or suicide",
-      "questionNumber": "R8.1.1",
-      "answer": ""
-    },
-    {
       "label": "Current concerns about Coping in Custody or Hostel",
       "questionNumber": "R8.2.1",
       "answer": ""

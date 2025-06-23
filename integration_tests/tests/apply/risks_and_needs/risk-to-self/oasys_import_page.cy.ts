@@ -56,20 +56,15 @@ context('Visit "Risks and needs" section', () => {
     const oasys = oasysRiskToSelfFactory.build({
       riskToSelf: [
         {
-          questionNumber: 'R8.1.1',
-          label: 'Current concerns of self harm and suicide',
-          answer: 'current answer',
-        },
-        {
           questionNumber: 'R8.3.1',
           label: 'Current concerns about Vulnerability',
           answer: 'vulnerability answer',
         },
         {
-          questionNumber: 'R8.1.4',
-          label: 'Previous concerns of self harm and suicide',
-          answer: 'previous answer',
-        },
+          questionNumber: "FA62",
+          label: "Previous and current risk",
+          answer: "previous and current risk answer",
+        }
       ],
     })
 
@@ -153,7 +148,7 @@ context('Visit "Risks and needs" section', () => {
 
       const body = JSON.parse(requests[0].body)
 
-      expect(body.data['risk-to-self']).to.have.keys('oasys-import', 'current-risk', 'historical-risk', 'vulnerability')
+      expect(body.data['risk-to-self']).to.have.keys('oasys-import', 'previous-and-current-risk', 'vulnerability')
       expect(body.data['risk-to-self']['oasys-import']).to.have.keys(
         'oasysImportedDate',
         'oasysStartedDate',
