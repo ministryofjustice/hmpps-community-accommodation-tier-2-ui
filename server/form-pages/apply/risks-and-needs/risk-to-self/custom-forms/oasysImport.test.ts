@@ -45,11 +45,6 @@ describe('OasysImport', () => {
       it('instantiates the class with the task data in the correct format', async () => {
         oasys.riskToSelf = [
           {
-            label: 'Current concerns about self-harm or suicide',
-            questionNumber: 'R8.1.1',
-            answer: 'self harm answer',
-          },
-          {
             label: 'Current concerns about Coping in Custody or Hostel',
             questionNumber: 'R8.2.1',
             answer: 'coping in custody answer',
@@ -60,17 +55,16 @@ describe('OasysImport', () => {
             answer: 'vulnerability answer',
           },
           {
-            label: 'Historical concerns about self-harm or suicide',
-            questionNumber: 'R8.1.4',
-            answer: 'historical answer',
-          },
+            label: "Previous and current risk",
+            questionNumber: "FA62",
+            answer: "previous and current risk answer",
+          }
         ]
 
         const taskData = {
           'risk-to-self': {
-            'current-risk': { currentRiskDetail: 'self harm answer' },
             vulnerability: { vulnerabilityDetail: 'vulnerability answer' },
-            'historical-risk': { historicalRiskDetail: 'historical answer' },
+            'previous-and-current-risk': { previousAndCurrentRiskDetail: 'previous and current risk answer' },
             'oasys-import': {
               oasysImportedDate: now,
               oasysStartedDate: oasys.dateStarted,
