@@ -61,10 +61,10 @@ context('Visit "Risks and needs" section', () => {
           answer: 'vulnerability answer',
         },
         {
-          questionNumber: "FA62",
-          label: "Previous and current risk",
-          answer: "previous and current risk answer",
-        }
+          questionNumber: 'FA62',
+          label: 'Previous and current risk',
+          answer: 'previous and current risk answer',
+        },
       ],
     })
 

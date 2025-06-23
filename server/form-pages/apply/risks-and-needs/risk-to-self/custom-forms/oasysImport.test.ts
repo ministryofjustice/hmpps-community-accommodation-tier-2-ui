@@ -55,10 +55,10 @@ describe('OasysImport', () => {
             answer: 'vulnerability answer',
           },
           {
-            label: "Previous and current risk",
-            questionNumber: "FA62",
-            answer: "previous and current risk answer",
-          }
+            label: 'Previous and current risk',
+            questionNumber: 'FA62',
+            answer: 'previous and current risk answer',
+          },
         ]
 
         const taskData = {
