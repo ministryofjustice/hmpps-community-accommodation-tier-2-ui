@@ -88,7 +88,13 @@ describe('DateFormats', () => {
     it('converts a ISO8601 date string to a GOV.UK formatted date', () => {
       const date = '2022-11-11T10:00:00.000Z'
 
-      expect(DateFormats.isoDateTimeToUIDateTime(date)).toEqual('11 November 2022 at 10:00am')
+      expect(DateFormats.isoDateTimeToUIDateTime(date)).toEqual('11 November 2022 at 10am')
+    })
+
+    it('converts a ISO8601 date string with minutes to a GOV.UK formatted date with minutes', () => {
+      const date = '2022-11-11T11:31:00.000Z'
+
+      expect(DateFormats.isoDateTimeToUIDateTime(date)).toEqual('11 November 2022 at 11:31am')
     })
 
     it('raises an error if the date is not a valid ISO8601 date string', () => {

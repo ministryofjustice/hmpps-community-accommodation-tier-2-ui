@@ -74,10 +74,14 @@ export class DateFormats {
 
   /**
    * @param isoDate an ISO date string.
-   * @returns the date in the to be shown in the UI: "Thursday, 20 December 2012".
+   * @returns the date in the to be shown in the UI: "24 June 2025 at 11am".
    */
   static isoDateTimeToUIDateTime(isoDate: string) {
-    return format(DateFormats.isoToDateObj(isoDate), "d MMMM y 'at' h:mmaaa")
+    const dateObj = DateFormats.isoToDateObj(isoDate)
+    const minutes = dateObj.getMinutes()
+    const timeFormat = minutes === 0 ? "haaa" : "h:mmaaa"
+
+    return format(dateObj, `d MMMM y 'at' ${timeFormat}`)
   }
 
   /**
