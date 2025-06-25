@@ -79,9 +79,9 @@ export class DateFormats {
   static isoDateTimeToUIDateTime(isoDate: string) {
     const dateObj = DateFormats.isoToDateObj(isoDate)
     const minutes = dateObj.getMinutes()
-    const timeFormat = minutes === 0 ? "ha" : "h:mmaaa"
+    const timeFormat = minutes === 0 ? "haaa" : "h:mmaaa"
 
-    return format(dateObj, `d MMMM y 'at' ${timeFormat}`).replace('AM', 'am').replace('PM', 'pm')
+    return format(dateObj, `d MMMM y 'at' ${timeFormat}`)
   }
 
   /**
