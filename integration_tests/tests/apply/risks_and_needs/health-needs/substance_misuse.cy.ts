@@ -55,7 +55,7 @@ context('Visit "Substance misuse" page', () => {
     // --------------------------------
     HealthNeedsGuidancePage.visit(this.application)
     const guidancePage = new HealthNeedsGuidancePage(this.application)
-    guidancePage.clickContinue()
+    guidancePage.clickSubmit('Continue')
   })
 
   //  Scenario: view substance misuse questions

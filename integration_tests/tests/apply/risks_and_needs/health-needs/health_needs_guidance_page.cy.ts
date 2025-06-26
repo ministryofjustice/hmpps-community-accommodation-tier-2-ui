@@ -100,7 +100,7 @@ context('Visit "Risks and needs" section', () => {
 
     // When I continue to the next task/page
     const page = new HealthNeedsGuidancePage(this.application)
-    page.clickContinue()
+    page.clickSubmit('Continue')
 
     //  Then I should be on the substance misuse page
     Page.verifyOnPage(SubstanceMisusePage, this.application)
