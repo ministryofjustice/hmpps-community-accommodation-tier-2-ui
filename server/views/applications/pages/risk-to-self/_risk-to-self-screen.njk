@@ -19,13 +19,9 @@
             href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'vulnerability' }),
             active: (pageName === 'vulnerability')
           }, {
-            text: 'Current risk',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'current-risk' }),
-            active: (pageName === 'current-risk')
-          }, {
-            text: 'Historical risk',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'historical-risk' }),
-            active: (pageName === 'historical-risk')
+            text: 'Current and previous risk',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'current-and-previous-risk' }),
+            active: (pageName === 'current-and-previous-risk')
           }, {
             text: 'ACCT',
             href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct' }),

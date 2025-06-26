@@ -3,13 +3,13 @@ import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class CurrentRiskPage extends ApplyPage {
+export default class CurrentAndPreviousRiskPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `${nameOrPlaceholderCopy(application.person, 'The person')}'s current risks`,
+      `${nameOrPlaceholderCopy(application.person, 'The person')}'s current and previous risks`,
       application,
       'risk-to-self',
-      'current-risk',
+      'current-and-previous-risk',
     )
   }
 
@@ -18,7 +18,7 @@ export default class CurrentRiskPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'risk-to-self',
-        page: 'current-risk',
+        page: 'current-and-previous-risk',
       }),
     )
   }

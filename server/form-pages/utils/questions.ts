@@ -660,19 +660,9 @@ export const getQuestions = (name: string) => {
           answers: { confirmed: 'Confirmed' },
         },
       },
-      'current-risk': {
-        currentRiskDetail: {
-          question: `Describe ${name}'s current issues and needs related to self harm and suicide`,
-          hint: 'Include all current risk information and remove sensitive information, such as names and addresses.',
-        },
-        confirmation: {
-          question: 'I confirm this information is relevant and up to date.',
-          answers: { confirmed: 'Confirmed' },
-        },
-      },
-      'historical-risk': {
-        historicalRiskDetail: {
-          question: `Describe ${name}'s historical issues and needs related to self harm and suicide`,
+      'current-and-previous-risk': {
+        currentAndPreviousRiskDetail: {
+          question: `Describe ${name}'s current and previous issues and needs related to self harm and suicide`,
           hint: 'Remove sensitive information, such as names and addresses.',
         },
         confirmation: {

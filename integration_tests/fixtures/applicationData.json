@@ -215,16 +215,12 @@
       "oasysStartedDate": "2023-09-10",
       "oasysCompletedDate": "2023-09-11"
     },
-    "current-risk": {
-      "currentRiskDetail": "[R8.1.1] Review 06.10.21:\r\n\r\n        There have been numerous ACCTs opened since 2013 and every subsequent year he has been in custody.  In 2021...",
-      "confirmation": "confirmed"
-    },
     "vulnerability": {
       "vulnerabilityDetail": "example answer vulnerability",
       "confirmation": "confirmed"
     },
-    "historical-risk": {
-      "historicalRiskDetail": "example answer historical risk",
+    "current-and-previous-risk": {
+      "currentAndPreviousRiskDetail": "example answer current and previous risk",
       "confirmation": "confirmed"
     },
     "acct": {},

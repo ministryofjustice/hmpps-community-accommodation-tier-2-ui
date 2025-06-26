@@ -111,8 +111,7 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
 
   await reviewOasysImportPage(page, name)
   await completeVulnerabilityPage(page, name)
-  await completeCurrentRisksPage(page, name)
-  await completeHistoricalRisksPage(page, name)
+  await completeCurrentAndPreviousRisksPage(page, name)
   await addAnAcct(page)
   await completeAdditionalInformationPage(page, name)
 }
@@ -155,24 +154,14 @@ async function completeVulnerabilityPage(page: Page, name: string) {
   await confirmAndSave(vulnerabilityPage)
 }
 
-async function completeCurrentRisksPage(page: Page, name: string) {
-  const currentRisksPage = await ApplyPage.initialize(page, `${name}'s current risks`)
+async function completeCurrentAndPreviousRisksPage(page: Page, name: string) {
+  const currentAndPreviousRisksPage = await ApplyPage.initialize(page, `${name}'s current and previous risks`)
 
-  await currentRisksPage.fillField(
-    `Describe ${name}'s current issues and needs related to self harm and suicide`,
+  await currentAndPreviousRisksPage.fillField(
+    `Describe ${name}'s current and previous issues and needs related to self harm and suicide`,
     'some needs',
   )
-  await confirmAndSave(currentRisksPage)
-}
-
-async function completeHistoricalRisksPage(page: Page, name: string) {
-  const historicalRisksPage = await ApplyPage.initialize(page, `${name}'s historical risks`)
-
-  await historicalRisksPage.fillField(
-    `Describe ${name}'s historical issues and needs related to self harm and suicide`,
-    'some needs',
-  )
-  await confirmAndSave(historicalRisksPage)
+  await confirmAndSave(currentAndPreviousRisksPage)
 }
 
 async function addAnAcct(page: Page) {
