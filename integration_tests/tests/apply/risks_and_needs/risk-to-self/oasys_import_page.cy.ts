@@ -62,8 +62,8 @@ context('Visit "Risks and needs" section', () => {
         },
         {
           questionNumber: 'FA62',
-          label: 'Previous and current risk',
-          answer: 'previous and current risk answer',
+          label: 'Current and previous risk',
+          answer: 'current and previous risk answer',
         },
       ],
     })
@@ -148,7 +148,7 @@ context('Visit "Risks and needs" section', () => {
 
       const body = JSON.parse(requests[0].body)
 
-      expect(body.data['risk-to-self']).to.have.keys('oasys-import', 'previous-and-current-risk', 'vulnerability')
+      expect(body.data['risk-to-self']).to.have.keys('oasys-import', 'current-and-previous-risk', 'vulnerability')
       expect(body.data['risk-to-self']['oasys-import']).to.have.keys(
         'oasysImportedDate',
         'oasysStartedDate',

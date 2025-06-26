@@ -547,7 +547,7 @@ describe('checkYourAnswersUtils', () => {
       expect(getKeysForPages(application, 'risk-to-self')).toEqual([
         'oasys-import',
         'vulnerability',
-        'previous-and-current-risk',
+        'current-and-previous-risk',
         'acct',
         'acct-data',
         'additional-information',

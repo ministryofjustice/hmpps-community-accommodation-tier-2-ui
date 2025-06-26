@@ -4,7 +4,7 @@
 {% extends "./_risk-to-self-screen.njk" %}
 {% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
 
-{% set pageName = "previous-and-current-risk" %}
+{% set pageName = "current-and-previous-risk" %}
 
 {% block questions %}
   {% if page.importDate %}
@@ -12,7 +12,7 @@
     {{dateOfOasysImport(date)}}
   {% endif %}
 
-  {% set previousAndCurrentRiskDetailHintHtml %}
+  {% set currentAndPreviousRiskDetailHintHtml %}
   <p class="govuk-hint">If known, provide details including:</p>
 
   <ul class="govuk-list govuk-list--bullet govuk-hint">
@@ -48,13 +48,13 @@
   {{
       formPageTextArea(
         {
-          fieldName: 'previousAndCurrentRiskDetail',
+          fieldName: 'currentAndPreviousRiskDetail',
           label: {
-            text: page.questions.previousAndCurrentRiskDetail.question,
+            text: page.questions.currentAndPreviousRiskDetail.question,
             classes: "govuk-label--m"
           },
           hint: {
-            html: previousAndCurrentRiskDetailHintHtml
+            html: currentAndPreviousRiskDetailHintHtml
           }
         },
         fetchContext()

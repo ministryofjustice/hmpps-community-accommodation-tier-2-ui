@@ -55,16 +55,16 @@ describe('OasysImport', () => {
             answer: 'vulnerability answer',
           },
           {
-            label: 'Previous and current risk',
+            label: 'Current and previous risk',
             questionNumber: 'FA62',
-            answer: 'previous and current risk answer',
+            answer: 'current and previous risk answer',
           },
         ]
 
         const taskData = {
           'risk-to-self': {
             vulnerability: { vulnerabilityDetail: 'vulnerability answer' },
-            'previous-and-current-risk': { previousAndCurrentRiskDetail: 'previous and current risk answer' },
+            'current-and-previous-risk': { currentAndPreviousRiskDetail: 'current and previous risk answer' },
             'oasys-import': {
               oasysImportedDate: now,
               oasysStartedDate: oasys.dateStarted,

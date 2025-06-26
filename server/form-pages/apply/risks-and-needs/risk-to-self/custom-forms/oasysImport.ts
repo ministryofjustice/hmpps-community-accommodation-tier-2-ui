@@ -20,8 +20,8 @@ export type RiskToSelfTaskData = {
     vulnerability: {
       vulnerabilityDetail: string
     }
-    'previous-and-current-risk': {
-      previousAndCurrentRiskDetail: string
+    'current-and-previous-risk': {
+      currentAndPreviousRiskDetail: string
     }
   }
 }
@@ -106,8 +106,8 @@ export default class OasysImport implements TaskListPage {
           taskData['risk-to-self'].vulnerability = { vulnerabilityDetail: question.answer }
           break
         case 'FA62':
-          taskData['risk-to-self']['previous-and-current-risk'] = {
-            previousAndCurrentRiskDetail: question.answer,
+          taskData['risk-to-self']['current-and-previous-risk'] = {
+            currentAndPreviousRiskDetail: question.answer,
           }
           break
         default:

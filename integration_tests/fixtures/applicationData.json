@@ -219,8 +219,8 @@
       "vulnerabilityDetail": "example answer vulnerability",
       "confirmation": "confirmed"
     },
-    "previous-and-current-risk": {
-      "previousAndCurrentRiskDetail": "example answer previous and current risk",
+    "current-and-previous-risk": {
+      "currentAndPreviousRiskDetail": "example answer current and previous risk",
       "confirmation": "confirmed"
     },
     "acct": {},

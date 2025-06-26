@@ -17,7 +17,7 @@
 //    Then I see the "historical risk" page
 
 import AcctPage from '../../../../pages/apply/risks_and_needs/risk-to-self/acctPage'
-import PreviousAndCurrentRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/previousAndCurrentRiskPage'
+import CurrentAndPreviousRiskPage from '../../../../pages/apply/risks_and_needs/risk-to-self/currentAndPreviousRiskPage'
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -52,26 +52,26 @@ context('Visit "Risks and needs" section', () => {
 
     // And I am on the current risk page
     // --------------------------------
-    PreviousAndCurrentRiskPage.visit(this.application)
+    CurrentAndPreviousRiskPage.visit(this.application)
   })
 
-  //  Scenario: view previous and current risk questions
-  //    Then I see the "previous and current risk" page
-  it('presents previous and current risk page', function test() {
-    const page = Page.verifyOnPage(PreviousAndCurrentRiskPage, this.application)
+  //  Scenario: view current and previous risk questions
+  //    Then I see the "current and previous risk" page
+  it('presents current and previous risk page', function test() {
+    const page = Page.verifyOnPage(CurrentAndPreviousRiskPage, this.application)
 
     page.shouldShowOasysImportDate(this.application, 'risk-to-self')
   })
 
   //  Scenario: complete page and navigate to next page in health needs task
-  //    When I complete the previous and current risk page
+  //    When I complete the current and previous risk page
   //    And I continue to the next task / page
   //    Then I see the "acct" page
   it('navigates to the next page (acct)', function test() {
-    PreviousAndCurrentRiskPage.visit(this.application)
-    const page = new PreviousAndCurrentRiskPage(this.application)
+    CurrentAndPreviousRiskPage.visit(this.application)
+    const page = new CurrentAndPreviousRiskPage(this.application)
 
-    page.getTextInputByIdAndEnterDetails('previousAndCurrentRiskDetail', 'example answer')
+    page.getTextInputByIdAndEnterDetails('currentAndPreviousRiskDetail', 'example answer')
     page.clickConfirm()
     page.clickSubmit()
 

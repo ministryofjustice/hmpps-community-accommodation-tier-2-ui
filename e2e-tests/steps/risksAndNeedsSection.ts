@@ -111,7 +111,7 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
 
   await reviewOasysImportPage(page, name)
   await completeVulnerabilityPage(page, name)
-  await completePreviousAndCurrentRisksPage(page, name)
+  await completeCurrentAndPreviousRisksPage(page, name)
   await addAnAcct(page)
   await completeAdditionalInformationPage(page, name)
 }
@@ -154,14 +154,14 @@ async function completeVulnerabilityPage(page: Page, name: string) {
   await confirmAndSave(vulnerabilityPage)
 }
 
-async function completePreviousAndCurrentRisksPage(page: Page, name: string) {
-  const previousAndCurrentRisksPage = await ApplyPage.initialize(page, `${name}'s previous and current risks`)
+async function completeCurrentAndPreviousRisksPage(page: Page, name: string) {
+  const currentAndPreviousRisksPage = await ApplyPage.initialize(page, `${name}'s current and previous risks`)
 
-  await previousAndCurrentRisksPage.fillField(
-    `Describe ${name}'s previous and current issues and needs related to self harm and suicide`,
+  await currentAndPreviousRisksPage.fillField(
+    `Describe ${name}'s current and previous issues and needs related to self harm and suicide`,
     'some needs',
   )
-  await confirmAndSave(previousAndCurrentRisksPage)
+  await confirmAndSave(currentAndPreviousRisksPage)
 }
 
 async function addAnAcct(page: Page) {

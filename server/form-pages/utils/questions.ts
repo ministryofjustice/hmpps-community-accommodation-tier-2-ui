@@ -660,9 +660,9 @@ export const getQuestions = (name: string) => {
           answers: { confirmed: 'Confirmed' },
         },
       },
-      'previous-and-current-risk': {
-        previousAndCurrentRiskDetail: {
-          question: `Describe ${name}'s previous and current issues and needs related to self harm and suicide`,
+      'current-and-previous-risk': {
+        currentAndPreviousRiskDetail: {
+          question: `Describe ${name}'s current and previous issues and needs related to self harm and suicide`,
           hint: 'Remove sensitive information, such as names and addresses.',
         },
         confirmation: {

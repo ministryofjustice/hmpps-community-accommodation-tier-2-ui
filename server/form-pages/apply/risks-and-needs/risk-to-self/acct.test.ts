@@ -70,7 +70,7 @@ describe('Acct', () => {
   })
 
   itShouldHaveNextValue(new Acct({}, application), 'additional-information')
-  itShouldHavePreviousValue(new Acct({}, application), 'previous-and-current-risk')
+  itShouldHavePreviousValue(new Acct({}, application), 'current-and-previous-risk')
 
   describe('response', () => {
     it('returns formatted ACCTs', () => {

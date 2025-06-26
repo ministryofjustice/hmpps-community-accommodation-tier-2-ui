@@ -10,32 +10,32 @@ import { getQuestions } from '../../../utils/questions'
 import { DateFormats } from '../../../../utils/dateUtils'
 import { hasOasys } from '../../../../utils/applicationUtils'
 
-type PreviousAndCurrentRiskBody = { previousAndCurrentRiskDetail: string; confirmation: string }
+type CurrentAndPreviousRiskBody = { currentAndPreviousRiskDetail: string; confirmation: string }
 
 @Page({
-  name: 'previous-and-current-risk',
-  bodyProperties: ['previousAndCurrentRiskDetail', 'confirmation'],
+  name: 'current-and-previous-risk',
+  bodyProperties: ['currentAndPreviousRiskDetail', 'confirmation'],
 })
-export default class PreviousAndCurrentRisk implements TaskListPage {
-  documentTitle = "The person's previous and current risks"
+export default class CurrentAndPreviousRisk implements TaskListPage {
+  documentTitle = "The person's current and previous risks"
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `${this.personName}'s previous and current risks`
+  title = `${this.personName}'s current and previous risks`
 
-  questions = getQuestions(this.personName)['risk-to-self']['previous-and-current-risk']
+  questions = getQuestions(this.personName)['risk-to-self']['current-and-previous-risk']
 
-  body: PreviousAndCurrentRiskBody
+  body: CurrentAndPreviousRiskBody
 
   importDate = getOasysImportDateFromApplication(this.application, 'risk-to-self')
 
   hasOasysRecord: boolean
 
   constructor(
-    body: Partial<PreviousAndCurrentRiskBody>,
+    body: Partial<CurrentAndPreviousRiskBody>,
     private readonly application: Application,
   ) {
-    this.body = body as PreviousAndCurrentRiskBody
+    this.body = body as CurrentAndPreviousRiskBody
     this.hasOasysRecord = hasOasys(application, 'risk-to-self')
   }
 
@@ -50,8 +50,8 @@ export default class PreviousAndCurrentRisk implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.previousAndCurrentRiskDetail) {
-      errors.previousAndCurrentRiskDetail = `Describe ${this.personName}'s previous and current issues and needs related to self harm and suicide`
+    if (!this.body.currentAndPreviousRiskDetail) {
+      errors.currentAndPreviousRiskDetail = `Describe ${this.personName}'s current and previous issues and needs related to self harm and suicide`
     }
     if (!this.body.confirmation) {
       errors.confirmation = errorLookups.oasysConfirmation.empty
@@ -76,13 +76,13 @@ export default class PreviousAndCurrentRisk implements TaskListPage {
           ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
           : 'Unknown',
         'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
-        [this.questions.previousAndCurrentRiskDetail.question]: this.body.previousAndCurrentRiskDetail,
+        [this.questions.currentAndPreviousRiskDetail.question]: this.body.currentAndPreviousRiskDetail,
         [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
       }
     }
 
     return {
-      [this.questions.previousAndCurrentRiskDetail.question]: this.body.previousAndCurrentRiskDetail,
+      [this.questions.currentAndPreviousRiskDetail.question]: this.body.currentAndPreviousRiskDetail,
       [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
     }
   }

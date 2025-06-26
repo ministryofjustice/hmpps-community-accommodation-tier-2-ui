@@ -64,7 +64,7 @@ export default class Acct implements TaskListPage {
   }
 
   previous() {
-    return 'previous-and-current-risk'
+    return 'current-and-previous-risk'
   }
 
   next() {
