@@ -74,14 +74,12 @@
     classes: 'copy-text'
     }) }}
 
-      {{ govukButton({
-    text: "Continue",
-    href: paths.applications.pages.show({
-          id: page.application.id,
-          task: 'health-needs',
-          page: 'substance-misuse'
-        })
-    }) }}
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: 'health-needs', page: 'guidance' }) }}?_method=PUT" method="post" autocomplete="off">
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+      </form>
     </div>
   </div>
 {% endblock %}
