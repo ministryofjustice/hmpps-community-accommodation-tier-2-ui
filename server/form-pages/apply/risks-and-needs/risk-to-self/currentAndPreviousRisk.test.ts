@@ -93,4 +93,54 @@ describe('CurrentAndPreviousRisk', () => {
       })
     })
   })
+
+  describe('populateFromLegacyRiskSections', () => {
+    it('populates currentAndPreviousRiskDetail with both current and historical risk if blank', () => {
+      const applicationWithLegacy = applicationFactory.build({
+        person,
+        data: {
+          'risk-to-self': {
+            'current-risk': { currentRiskDetail: 'Current risk detail' },
+            'historical-risk': { historicalRiskDetail: 'Historical risk detail' },
+          },
+        },
+      })
+
+      const page = new CurrentAndPreviousRisk({}, applicationWithLegacy)
+      page.populateFromLegacyRiskSections()
+
+      expect(page.body.currentAndPreviousRiskDetail).toEqual('Current risk detail\n\nHistorical risk detail')
+    })
+
+    it('does not overwrite currentAndPreviousRiskDetail if already populated', () => {
+      const applicationWithLegacy = applicationFactory.build({
+        person,
+        data: {
+          'risk-to-self': {
+            'current-risk': { currentRiskDetail: 'Current risk detail' },
+            'historical-risk': { historicalRiskDetail: 'Historical risk detail' },
+          },
+        },
+      })
+
+      const page = new CurrentAndPreviousRisk({ currentAndPreviousRiskDetail: 'Some detail' }, applicationWithLegacy)
+      page.populateFromLegacyRiskSections()
+
+      expect(page.body.currentAndPreviousRiskDetail).toEqual('Some detail')
+    })
+
+    it('leaves currentAndPreviousRiskDetail blank if neither current-risk nor historical-risk exist', () => {
+      const applicationWithoutLegacy = applicationFactory.build({
+        person,
+        data: {
+          'risk-to-self': {},
+        },
+      })
+
+      const page = new CurrentAndPreviousRisk({}, applicationWithoutLegacy)
+      page.populateFromLegacyRiskSections()
+
+      expect(page.body.currentAndPreviousRiskDetail).toEqual('')
+    })
+  })
 })
