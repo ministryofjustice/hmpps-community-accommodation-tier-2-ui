@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type AssignmentType = 'ALLOCATED' | 'CREATED' | 'DEALLOCATED' | 'IN_PROGRESS' | 'PRISON' | 'UNALLOCATED';
+export type AssignmentType = 'ALLOCATED' | 'DEALLOCATED' | 'IN_PROGRESS' | 'PRISON' | 'UNALLOCATED';
