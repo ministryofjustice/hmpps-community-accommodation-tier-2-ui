@@ -10,18 +10,27 @@ env:
 
 jobs:
   generate-types:
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, hmpps-github-actions-runner ]
     steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
       - name: Generate Token
         uses: tibdex/github-app-token@v2
         id: generate-token
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
-      - name: Check out code
-        uses: actions/checkout@v4
+
       - name: Generate Types
-        run: ./script/generate-types
+        run: ./script/generate-types ${{ vars.CAS2_API_SPEC_URL }}
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
