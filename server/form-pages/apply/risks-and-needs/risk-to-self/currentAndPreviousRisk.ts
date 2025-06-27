@@ -37,6 +37,7 @@ export default class CurrentAndPreviousRisk implements TaskListPage {
   ) {
     this.body = body as CurrentAndPreviousRiskBody
     this.hasOasysRecord = hasOasys(application, 'risk-to-self')
+    this.populateFromLegacyRiskSections()
   }
 
   previous() {
@@ -84,6 +85,19 @@ export default class CurrentAndPreviousRisk implements TaskListPage {
     return {
       [this.questions.currentAndPreviousRiskDetail.question]: this.body.currentAndPreviousRiskDetail,
       [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
+    }
+  }
+
+  populateFromLegacyRiskSections() {
+    if (typeof this.body !== 'object' || this.body === null) {
+      this.body = { currentAndPreviousRiskDetail: '', confirmation: '' }
+    }
+
+    if (!this.body.currentAndPreviousRiskDetail || this.body.currentAndPreviousRiskDetail.trim() === '') {
+      const currentRisk = this.application.data?.['risk-to-self']?.['current-risk']?.currentRiskDetail || ''
+      const historicalRisk = this.application.data?.['risk-to-self']?.['historical-risk']?.historicalRiskDetail || ''
+
+      this.body.currentAndPreviousRiskDetail = [currentRisk, historicalRisk].filter(Boolean).join('\n\n')
     }
   }
 }
