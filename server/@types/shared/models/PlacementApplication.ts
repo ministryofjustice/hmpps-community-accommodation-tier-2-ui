@@ -13,8 +13,6 @@ export type PlacementApplication = (NewPlacementApplication & {
      */
     id: string;
     createdByUserId: string;
-    schemaVersion: string;
-    outdatedSchema?: boolean;
     createdAt: string;
     submittedAt?: string;
     /**
