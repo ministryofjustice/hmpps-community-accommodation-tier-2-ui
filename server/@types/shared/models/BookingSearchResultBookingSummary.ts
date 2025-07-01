@@ -4,10 +4,10 @@
 /* eslint-disable */
 import type { BookingStatus } from './BookingStatus';
 export type BookingSearchResultBookingSummary = {
-    id: string;
-    status: BookingStatus;
-    startDate: string;
-    endDate: string;
     createdAt: string;
+    endDate: string;
+    id: string;
+    startDate: string;
+    status: BookingStatus;
 };
 

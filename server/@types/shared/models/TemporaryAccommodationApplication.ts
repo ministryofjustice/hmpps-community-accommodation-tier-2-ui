@@ -5,18 +5,29 @@
 import type { Application } from './Application';
 import type { ApplicationStatus } from './ApplicationStatus';
 import type { PersonRisks } from './PersonRisks';
-import type { Unit } from './Unit';
 export type TemporaryAccommodationApplication = (Application & {
-    createdByUserId: string;
-    schemaVersion: string;
-    outdatedSchema: boolean;
-    data?: Unit;
-    document?: Unit;
-    status: ApplicationStatus;
-    risks?: PersonRisks;
-    submittedAt?: string;
     arrivalDate?: string;
-    offenceId: string;
     assessmentId?: string;
+    createdByUserId?: string;
+    /**
+     * Any object
+     */
+    data?: any;
+    /**
+     * Any object
+     */
+    document?: any;
+    offenceId?: string;
+    outdatedSchema?: boolean;
+    risks?: PersonRisks;
+    schemaVersion?: string;
+    status?: ApplicationStatus;
+    submittedAt?: string;
+} & {
+    createdByUserId: string;
+    offenceId: string;
+    outdatedSchema: boolean;
+    schemaVersion: string;
+    status: ApplicationStatus;
 });
 

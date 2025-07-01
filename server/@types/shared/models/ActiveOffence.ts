@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ActiveOffence = {
+    convictionId: number;
     deliusEventNumber: string;
+    offenceDate?: string;
     offenceDescription: string;
     offenceId: string;
-    convictionId: number;
-    offenceDate?: string;
 };
 

@@ -2,11 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ModelScope } from './ModelScope';
+import type { ServiceScope } from './ServiceScope';
 export type Characteristic = {
     id: string;
+    modelScope: ModelScope;
     name: string;
     propertyName?: string;
-    serviceScope: 'approved-premises' | 'temporary-accommodation' | '*';
-    modelScope: 'premises' | 'room' | '*';
+    serviceScope: ServiceScope;
 };
 

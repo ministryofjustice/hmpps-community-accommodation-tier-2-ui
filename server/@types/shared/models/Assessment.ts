@@ -4,18 +4,20 @@
 /* eslint-disable */
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { ClarificationNote } from './ClarificationNote';
-import type { Unit } from './Unit';
 export type Assessment = {
-    service: string;
-    id: string;
-    schemaVersion: string;
-    outdatedSchema: boolean;
-    createdAt: string;
     allocatedAt?: string;
-    submittedAt?: string;
-    decision?: AssessmentDecision;
-    rejectionRationale?: string;
-    data?: Unit;
     clarificationNotes: Array<ClarificationNote>;
+    createdAt: string;
+    /**
+     * Any object
+     */
+    data?: any;
+    decision?: AssessmentDecision;
+    id: string;
+    outdatedSchema: boolean;
+    rejectionRationale?: string;
+    schemaVersion: string;
+    service: string;
+    submittedAt?: string;
 };
 

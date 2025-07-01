@@ -3,42 +3,48 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
+import type { ApType } from './ApType';
 import type { AssessmentDecision } from './AssessmentDecision';
-import type { Person } from './Person';
+import type { FullPerson } from './FullPerson';
 import type { PersonRisks } from './PersonRisks';
-import type { PlacementDates } from './PlacementDates';
+import type { PlacementCriteria } from './PlacementCriteria';
 import type { PlacementRequestBookingSummary } from './PlacementRequestBookingSummary';
 import type { PlacementRequestRequestType } from './PlacementRequestRequestType';
 import type { PlacementRequestStatus } from './PlacementRequestStatus';
-import type { PlacementRequirements } from './PlacementRequirements';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
+import type { RestrictedPerson } from './RestrictedPerson';
+import type { UnknownPerson } from './UnknownPerson';
 import type { WithdrawPlacementRequestReason } from './WithdrawPlacementRequestReason';
-/**
- * This type is to broad for use in search results, and as such we're moving towards using Cas1PlacementRequestSummary instead for that purpose.
- */
-export type PlacementRequest = (PlacementRequirements & PlacementDates & {
-    id: string;
-    person: Person;
-    risks: PersonRisks;
-    applicationId: string;
-    assessmentId: string;
-    releaseType: ReleaseTypeOption;
-    status: PlacementRequestStatus;
-    assessmentDecision: AssessmentDecision;
-    assessmentDate: string;
+export type PlacementRequest = {
     applicationDate: string;
+    applicationId: string;
+    assessmentDate: string;
+    assessmentDecision: AssessmentDecision;
+    assessmentId: string;
     assessor: ApprovedPremisesUser;
+    booking?: PlacementRequestBookingSummary;
+    desirableCriteria: Array<PlacementCriteria>;
+    duration: number;
+    essentialCriteria: Array<PlacementCriteria>;
+    expectedArrival: string;
+    id: string;
     isParole: boolean;
+    isWithdrawn: boolean;
+    /**
+     * Postcode outcode
+     */
+    location: string;
     /**
      * Notes from the assessor for the CRU Manager
      */
     notes?: string;
-    /**
-     * Information about the legacy booking or space booking associated with the placement request
-     */
-    booking?: PlacementRequestBookingSummary;
+    person: (FullPerson | RestrictedPerson | UnknownPerson);
+    radius: number;
+    releaseType: ReleaseTypeOption;
     requestType?: PlacementRequestRequestType;
-    isWithdrawn: boolean;
+    risks: PersonRisks;
+    status: PlacementRequestStatus;
+    type: ApType;
     withdrawalReason?: WithdrawPlacementRequestReason;
-});
+};
 

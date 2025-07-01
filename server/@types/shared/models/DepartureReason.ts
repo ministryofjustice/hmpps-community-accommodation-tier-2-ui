@@ -4,9 +4,9 @@
 /* eslint-disable */
 export type DepartureReason = {
     id: string;
-    name: string;
-    serviceScope: string;
-    parentReasonId?: string;
     isActive: boolean;
+    name: string;
+    parentReasonId?: string;
+    serviceScope: string;
 };
 

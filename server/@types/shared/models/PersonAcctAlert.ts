@@ -4,10 +4,10 @@
 /* eslint-disable */
 export type PersonAcctAlert = {
     alertId: number;
+    alertTypeDescription?: string;
     comment?: string;
-    description?: string;
     dateCreated: string;
     dateExpires?: string;
-    alertTypeDescription?: string;
+    description?: string;
 };
 

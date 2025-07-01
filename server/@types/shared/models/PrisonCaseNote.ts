@@ -3,13 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export type PrisonCaseNote = {
-    id: string;
-    sensitive: boolean;
-    createdAt: string;
-    occurredAt: string;
     authorName: string;
-    type: string;
-    subType: string;
+    createdAt: string;
+    id: string;
     note: string;
+    occurredAt: string;
+    sensitive: boolean;
+    subType: string;
+    type: string;
 };
 

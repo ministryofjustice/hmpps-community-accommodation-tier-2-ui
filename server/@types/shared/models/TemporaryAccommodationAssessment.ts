@@ -6,13 +6,21 @@ import type { Assessment } from './Assessment';
 import type { TemporaryAccommodationApplication } from './TemporaryAccommodationApplication';
 import type { TemporaryAccommodationAssessmentStatus } from './TemporaryAccommodationAssessmentStatus';
 import type { TemporaryAccommodationUser } from './TemporaryAccommodationUser';
-import type { Unit } from './Unit';
 export type TemporaryAccommodationAssessment = (Assessment & {
-    application: TemporaryAccommodationApplication;
-    allocatedToStaffMember?: TemporaryAccommodationUser;
-    status?: TemporaryAccommodationAssessmentStatus;
-    summaryData: Unit;
-    releaseDate?: string;
     accommodationRequiredFromDate?: string;
+    allocatedToStaffMember?: TemporaryAccommodationUser;
+    application?: TemporaryAccommodationApplication;
+    releaseDate?: string;
+    status?: TemporaryAccommodationAssessmentStatus;
+    /**
+     * Any object
+     */
+    summaryData?: any;
+} & {
+    application: TemporaryAccommodationApplication;
+    /**
+     * Any object
+     */
+    summaryData: any;
 });
 

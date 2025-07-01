@@ -4,9 +4,9 @@
 /* eslint-disable */
 import type { Cas2v2StatusUpdate } from './Cas2v2StatusUpdate';
 export type Cas2v2Assessment = {
+    assessorName?: string;
     id: string;
     nacroReferralId?: string;
-    assessorName?: string;
     statusUpdates?: Array<Cas2v2StatusUpdate>;
 };
 

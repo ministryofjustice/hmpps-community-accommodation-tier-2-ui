@@ -4,10 +4,10 @@
 /* eslint-disable */
 import type { SeedFromExcelFileType } from './SeedFromExcelFileType';
 export type SeedFromExcelFileRequest = {
-    seedType: SeedFromExcelFileType;
     /**
      * File within the pre-configured seed directory
      */
     fileName: string;
+    seedType: SeedFromExcelFileType;
 };
 

@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type RoshRisks = {
+    lastUpdated?: string;
     overallRisk: string;
     riskToChildren: string;
-    riskToPublic: string;
     riskToKnownAdult: string;
+    riskToPublic: string;
     riskToStaff: string;
-    lastUpdated?: string;
 };
 

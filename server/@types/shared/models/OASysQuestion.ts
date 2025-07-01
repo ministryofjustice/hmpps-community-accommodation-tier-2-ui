@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type OASysQuestion = {
+    answer?: string;
     label: string;
     questionNumber: string;
-    answer?: string;
 };
 

@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Bed = {
-    id: string;
-    name: string;
-    code?: string;
     /**
      * End date of the bed availability, open for availability if not specified
      */
     bedEndDate?: string;
+    code?: string;
+    id: string;
+    name: string;
 };
 

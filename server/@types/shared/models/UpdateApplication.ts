@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Unit } from './Unit';
 import type { UpdateApplicationType } from './UpdateApplicationType';
 export type UpdateApplication = {
+    data: Record<string, any>;
     type: UpdateApplicationType;
-    data: Record<string, Unit>;
 };
 

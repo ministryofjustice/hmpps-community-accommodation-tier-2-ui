@@ -8,10 +8,10 @@ import type { BookingSearchResultPersonSummary } from './BookingSearchResultPers
 import type { BookingSearchResultPremisesSummary } from './BookingSearchResultPremisesSummary';
 import type { BookingSearchResultRoomSummary } from './BookingSearchResultRoomSummary';
 export type BookingSearchResult = {
-    person: BookingSearchResultPersonSummary;
+    bed: BookingSearchResultBedSummary;
     booking: BookingSearchResultBookingSummary;
+    person: BookingSearchResultPersonSummary;
     premises: BookingSearchResultPremisesSummary;
     room: BookingSearchResultRoomSummary;
-    bed: BookingSearchResultBedSummary;
 };
 

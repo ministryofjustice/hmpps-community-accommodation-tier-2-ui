@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Cas1ApplicationUserDetails = {
-    name: string;
     email?: string;
+    name: string;
     telephoneNumber?: string;
 };
 

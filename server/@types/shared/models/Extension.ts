@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Extension = {
-    id: string;
     bookingId: string;
-    previousDepartureDate: string;
+    createdAt: string;
+    id: string;
     newDepartureDate: string;
     notes?: string;
-    createdAt: string;
+    previousDepartureDate: string;
 };
 

@@ -3,24 +3,33 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { SubmitApplication } from './SubmitApplication';
-import type { Unit } from './Unit';
 export type SubmitTemporaryAccommodationApplication = (SubmitApplication & {
-    arrivalDate: string;
+    arrivalDate?: string;
+    dutyToReferLocalAuthorityAreaName?: string;
+    dutyToReferOutcome?: string;
+    dutyToReferSubmissionDate?: string;
+    eligibilityReason?: string;
+    hasHistoryOfArson?: boolean;
+    isApplicationEligible?: boolean;
+    isConcerningArsonBehaviour?: boolean;
+    isConcerningSexualBehaviour?: boolean;
+    isDutyToReferSubmitted?: boolean;
+    isHistoryOfSexualOffence?: boolean;
     isRegisteredSexOffender?: boolean;
     needsAccessibleProperty?: boolean;
-    hasHistoryOfArson?: boolean;
-    isDutyToReferSubmitted?: boolean;
-    dutyToReferSubmissionDate?: string;
-    dutyToReferOutcome?: string;
-    isApplicationEligible?: boolean;
-    eligibilityReason?: string;
-    dutyToReferLocalAuthorityAreaName?: string;
     personReleaseDate?: string;
-    probationDeliveryUnitId: string;
-    isHistoryOfSexualOffence?: boolean;
-    isConcerningSexualBehaviour?: boolean;
-    isConcerningArsonBehaviour?: boolean;
     prisonReleaseTypes?: Array<string>;
-    summaryData: Unit;
+    probationDeliveryUnitId?: string;
+    /**
+     * Any object
+     */
+    summaryData?: any;
+} & {
+    arrivalDate: string;
+    probationDeliveryUnitId: string;
+    /**
+     * Any object
+     */
+    summaryData: any;
 });
 

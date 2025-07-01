@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DatePeriod = {
-    startDate: string;
     endDate: string;
+    startDate: string;
 };
 

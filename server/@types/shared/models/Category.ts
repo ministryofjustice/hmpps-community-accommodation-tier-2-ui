@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Gender = 'male' | 'female';
+export type Category = 'submitted' | 'unallocated' | 'in_review' | 'ready_to_place' | 'rejected' | 'completed';

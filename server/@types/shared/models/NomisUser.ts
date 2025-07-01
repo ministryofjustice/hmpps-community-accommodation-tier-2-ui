@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type NomisUser = {
+    email?: string;
     id: string;
+    isActive: boolean;
     name: string;
     nomisUsername: string;
-    email?: string;
-    isActive: boolean;
 };
 

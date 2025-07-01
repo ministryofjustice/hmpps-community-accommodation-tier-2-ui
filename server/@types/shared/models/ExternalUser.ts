@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ExternalUser = {
-    id: string;
-    username: string;
-    name: string;
     email: string;
+    id: string;
+    name: string;
     origin?: string;
+    username: string;
 };
 

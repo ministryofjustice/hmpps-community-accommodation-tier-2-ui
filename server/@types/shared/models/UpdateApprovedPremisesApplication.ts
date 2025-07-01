@@ -7,17 +7,16 @@ import type { Cas1ApplicationTimelinessCategory } from './Cas1ApplicationTimelin
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
 import type { UpdateApplication } from './UpdateApplication';
 export type UpdateApprovedPremisesApplication = (UpdateApplication & {
-    isInapplicable?: boolean;
-    isWomensApplication?: boolean;
+    apType?: ApType;
+    arrivalDate?: string;
     /**
      * noticeType should be used to indicate if an emergency application
-     * @deprecated
      */
     isEmergencyApplication?: boolean;
-    apType?: ApType;
-    targetLocation?: string;
-    releaseType?: ReleaseTypeOption;
-    arrivalDate?: string;
+    isInapplicable?: boolean;
+    isWomensApplication?: boolean;
     noticeType?: Cas1ApplicationTimelinessCategory;
+    releaseType?: ReleaseTypeOption;
+    targetLocation?: string;
 });
 

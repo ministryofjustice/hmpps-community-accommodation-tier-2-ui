@@ -9,26 +9,37 @@ import type { Cas2Assessment } from './Cas2Assessment';
 import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
 import type { Cas2User } from './Cas2User';
 import type { NomisUser } from './NomisUser';
-import type { Unit } from './Unit';
 export type Cas2Application = (Application & {
-    createdBy: NomisUser;
+    allocatedPomEmailAddress?: string;
+    allocatedPomName?: string;
+    applicationOrigin?: ApplicationOrigin;
+    assessment?: Cas2Assessment;
+    assignmentDate?: string;
+    bailHearingDate?: string;
     cas2CreatedBy?: Cas2User;
-    schemaVersion: string;
-    outdatedSchema: boolean;
-    data?: Unit;
-    document?: Unit;
-    status: ApplicationStatus;
+    createdBy?: NomisUser;
+    currentPrisonName?: string;
+    /**
+     * Any object
+     */
+    data?: any;
+    /**
+     * Any object
+     */
+    document?: any;
+    isTransferredApplication?: boolean;
+    omuEmailAddress?: string;
+    outdatedSchema?: boolean;
+    schemaVersion?: string;
+    status?: ApplicationStatus;
     submittedAt?: string;
     telephoneNumber?: string;
-    assessment?: Cas2Assessment;
     timelineEvents?: Array<Cas2TimelineEvent>;
-    allocatedPomName?: string;
-    currentPrisonName?: string;
-    allocatedPomEmailAddress?: string;
-    omuEmailAddress?: string;
+} & {
+    createdBy: NomisUser;
     isTransferredApplication: boolean;
-    assignmentDate?: string;
-    applicationOrigin?: ApplicationOrigin;
-    bailHearingDate?: string;
+    outdatedSchema: boolean;
+    schemaVersion: string;
+    status: ApplicationStatus;
 });
 

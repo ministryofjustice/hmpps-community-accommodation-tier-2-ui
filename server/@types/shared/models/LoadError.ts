@@ -2,11 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SubmitApplication = {
-    /**
-     * Any object
-     */
-    translatedDocument?: any;
-    type: string;
-};
-
+export type LoadError = 'staff_record_not_found';

@@ -2,4 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Temporality = 'past' | 'current' | 'future';
+export type RetryDlqResult = {
+    messagesFoundCount: number;
+};
+

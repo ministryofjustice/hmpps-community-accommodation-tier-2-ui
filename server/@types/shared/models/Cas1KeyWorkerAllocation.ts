@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { StaffMember } from './StaffMember';
 export type Cas1KeyWorkerAllocation = {
-    keyWorker: StaffMember;
     allocatedAt?: string;
+    keyWorker: StaffMember;
 };
 

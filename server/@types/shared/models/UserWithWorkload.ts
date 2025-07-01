@@ -5,22 +5,29 @@
 import type { ApArea } from './ApArea';
 import type { ApprovedPremisesUserRole } from './ApprovedPremisesUserRole';
 import type { NamedId } from './NamedId';
-import type { User } from './User';
+import type { ProbationDeliveryUnit } from './ProbationDeliveryUnit';
+import type { ProbationRegion } from './ProbationRegion';
 import type { UserQualification } from './UserQualification';
-/**
- * This should be changed to embed the user as a property of this type, instead of 'extending' User. Currently this causes unmarshalling issues in integration tests, if using Jackson, due to discriminators not being logically correct
- */
-export type UserWithWorkload = (User & {
-    numTasksPending?: number;
-    numTasksCompleted7Days?: number;
-    numTasksCompleted30Days?: number;
-    qualifications?: Array<UserQualification>;
-    roles?: Array<ApprovedPremisesUserRole>;
+export type UserWithWorkload = {
     /**
      * This is deprecated. Used cruManagementArea instead as this is used to group task management
      * @deprecated
      */
     apArea?: ApArea;
     cruManagementArea?: NamedId;
-});
+    deliusUsername: string;
+    email?: string;
+    id: string;
+    isActive?: boolean;
+    name: string;
+    numTasksCompleted30Days?: number;
+    numTasksCompleted7Days?: number;
+    numTasksPending?: number;
+    probationDeliveryUnit?: ProbationDeliveryUnit;
+    qualifications?: Array<UserQualification>;
+    region: ProbationRegion;
+    roles?: Array<ApprovedPremisesUserRole>;
+    service: string;
+    telephoneNumber?: string;
+};
 

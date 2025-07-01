@@ -2,11 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SubmitApplication = {
+export type HmppsSubjectAccessRequestContent = {
     /**
-     * Any object
+     * The content of the subject access request response
      */
-    translatedDocument?: any;
-    type: string;
+    content: any;
 };
 

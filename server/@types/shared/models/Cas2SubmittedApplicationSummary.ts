@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Cas2SubmittedApplicationSummary = {
-    id: string;
+    createdAt: string;
     createdByUserId: string;
     crn: string;
+    id: string;
     nomsNumber: string;
     personName: string;
-    createdAt: string;
     submittedAt?: string;
 };
 

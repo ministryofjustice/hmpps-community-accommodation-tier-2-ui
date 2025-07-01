@@ -5,15 +5,20 @@
 import type { ApType } from './ApType';
 import type { PlacementDates } from './PlacementDates';
 import type { PlacementRequirements } from './PlacementRequirements';
-import type { Unit } from './Unit';
+/**
+ * Information needed to accept an assessment
+ */
 export type AssessmentAcceptance = {
-    document: Unit;
-    requirements?: PlacementRequirements;
-    placementDates?: PlacementDates;
-    apType?: ApType;
-    notes?: string;
     agreeWithShortNoticeReason?: boolean;
     agreeWithShortNoticeReasonComments?: string;
+    apType?: ApType;
+    /**
+     * Any object
+     */
+    document: any;
+    notes?: string;
+    placementDates?: PlacementDates;
     reasonForLateApplication?: string;
+    requirements?: PlacementRequirements;
 };
 

@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type DestinationProvider = {
     id: string;
-    name: string;
     isActive: boolean;
+    name: string;
 };
 
