@@ -1,8 +1,10 @@
-import { Unit } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { lastKnownKeys, previousKeys } from '../../form-pages/apply/about-the-person/address-history/previousAddress'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-and-licence-information/offending-history/anyPreviousConvictions'
 
-export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
+export default function deleteOrphanedFollowOnAnswers(
+  applicationData: Cas2Application['data'],
+): Cas2Application['data'] {
   const deleteOrphanedFundingInformation = () => {
     delete applicationData['funding-information'].identification
     delete applicationData['funding-information']['alternative-identification']
