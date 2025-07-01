@@ -10,20 +10,10 @@ export type UpdateApprovedPremisesApplication = (UpdateApplication & {
     isInapplicable?: boolean;
     isWomensApplication?: boolean;
     /**
-     * Use apType
-     * @deprecated
-     */
-    isPipeApplication?: boolean;
-    /**
      * noticeType should be used to indicate if an emergency application
      * @deprecated
      */
     isEmergencyApplication?: boolean;
-    /**
-     * Use apType
-     * @deprecated
-     */
-    isEsapApplication?: boolean;
     apType?: ApType;
     targetLocation?: string;
     releaseType?: ReleaseTypeOption;
