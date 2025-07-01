@@ -10,23 +10,13 @@ import type { SentenceTypeOption } from './SentenceTypeOption';
 import type { SituationOption } from './SituationOption';
 import type { SubmitApplication } from './SubmitApplication';
 export type SubmitApprovedPremisesApplication = (SubmitApplication & {
-    /**
-     * Use apType
-     * @deprecated
-     */
-    isPipeApplication?: boolean;
     isWomensApplication?: boolean;
     /**
      * noticeType should be used to indicate if this an emergency application
      * @deprecated
      */
     isEmergencyApplication?: boolean;
-    /**
-     * Use apType
-     * @deprecated
-     */
-    isEsapApplication?: boolean;
-    apType?: ApType;
+    apType: ApType;
     targetLocation: string;
     releaseType: ReleaseTypeOption;
     sentenceType: SentenceTypeOption;
