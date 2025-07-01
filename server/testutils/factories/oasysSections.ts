@@ -42,14 +42,9 @@ export const offenceDetailsFactory = Factory.define<OASysQuestion>(options => ({
 }))
 
 export const supportingInformationFactory = Factory.define<OASysSupportingInformationQuestion>(options => {
-  const oasysSelection = oasysSelectionFactory.build()
-
-  return {
-    ...oasysSelection,
+  return oasysSelectionFactory.build({
     questionNumber: options.sequence.toString(),
-    label: oasysSelection.name,
-    answer: faker.lorem.paragraph(),
-  }
+  })
 })
 
 const riskManagementPlanFactory = Factory.define<OASysQuestion>(options => ({
@@ -64,14 +59,10 @@ const riskManagementPlanFactory = Factory.define<OASysQuestion>(options => ({
     'Contingency plans',
     'Additional comments',
   ]),
-  answer: faker.lorem.paragraph(),
 }))
 
 export const riskToSelfFactory = Factory.define<OASysSupportingInformationQuestion>(options => {
-  const oasysSelection = oasysSelectionFactory.build()
-
-  return {
-    ...oasysSelection,
+  return oasysSelectionFactory.build({
     questionNumber: options.sequence.toString(),
     label: faker.helpers.arrayElement([
       'Current concerns of self harm and suicide',
@@ -80,6 +71,5 @@ export const riskToSelfFactory = Factory.define<OASysSupportingInformationQuesti
       'Previous concerns about coping in a hostel setting',
       'Risk of serious harm',
     ]),
-    answer: faker.lorem.paragraph(),
-  }
+  })
 })

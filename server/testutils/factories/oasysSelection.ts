@@ -1,9 +1,8 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker/locale/en_GB'
+import { OASysSupportingInformationQuestion } from '@approved-premises/api'
 
-import type { OASysSection } from '@approved-premises/api'
-
-class OasysSelectionFactory extends Factory<OASysSection> {
+class OasysSelectionFactory extends Factory<OASysSupportingInformationQuestion> {
   needsLinkedToHarm() {
     return this.params({ linkedToHarm: true, linkedToReOffending: true })
   }
@@ -17,9 +16,9 @@ class OasysSelectionFactory extends Factory<OASysSection> {
   }
 }
 
-export default OasysSelectionFactory.define(() => ({
+export default OasysSelectionFactory.define(({ params }) => ({
   section: faker.number.int({ min: 1, max: 20 }),
-  name: faker.helpers.arrayElement([
+  label: faker.helpers.arrayElement([
     'accommodation',
     'relationships',
     'emotional',
@@ -29,6 +28,8 @@ export default OasysSelectionFactory.define(() => ({
     'health',
     'attitudes',
   ]),
-  linkedToHarm: faker.datatype.boolean(),
-  linkedToReOffending: faker.datatype.boolean(),
+  linkedToHarm: params.linkedToHarm ?? faker.datatype.boolean(),
+  linkedToReOffending: params.linkedToReOffending ?? faker.datatype.boolean(),
+  questionNumber: (params.questionNumber ?? faker.number.int()).toString(),
+  answer: params.answer ?? faker.lorem.paragraph(),
 }))
