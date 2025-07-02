@@ -34,7 +34,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-audit
+        run: npm ci --no-audit
 
       - name: Run build
         run: npm run build
@@ -52,13 +52,10 @@ jobs:
           node-version-file: '.node-version'
           cache: 'npm'
 
-      - name: Installing dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: npm ci --no-audit
 
-      - name: Pulling the latest type from the API repo
-        run: npm run generate-types
-
-      - name: Typechecking the code
+      - name: Run type check
         run: npm run typecheck
 
   linting:
