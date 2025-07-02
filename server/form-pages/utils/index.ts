@@ -72,7 +72,7 @@ export const viewPath = <T>(page: T, journeyType: JourneyType) => {
   return `${journeyType}/pages/${taskName}/${pageName}`
 }
 
-export const getPageName = <T>(page: T) => {
+export const getPageName = <T>(page: T): string => {
   return Reflect.getMetadata('page:name', page)
 }
 

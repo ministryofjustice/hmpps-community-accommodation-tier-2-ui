@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, RoshRisks, RoshRisksEnvelope, Unit } from '@approved-premises/api'
+import { Cas2Application, RoshRisks, RoshRisksEnvelope } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -67,7 +67,7 @@ export default class Summary implements TaskListPage {
 
   constructor(
     body: Partial<SummaryBody>,
-    private readonly application: Application,
+    private readonly application: Cas2Application,
   ) {
     this.body = body as SummaryBody
     this.application = application
@@ -211,11 +211,11 @@ export default class Summary implements TaskListPage {
     return undefined
   }
 
-  private getRoSHData(application: Application) {
+  private getRoSHData(application: Cas2Application) {
     return application.data['risk-of-serious-harm']
   }
 
-  private getRiskDataSource(roshData: Unit): SummaryData | null {
+  private getRiskDataSource(roshData: unknown): SummaryData | null {
     const riskData = roshData
 
     if (riskData['summary-data']?.status === 'retrieved') {
@@ -228,7 +228,7 @@ export default class Summary implements TaskListPage {
     return undefined
   }
 
-  private getAuditInfo(roshData: Unit): string | never {
+  private getAuditInfo(roshData: unknown): string | never {
     if ((roshData as OASysSummaryData)?.oasysImportedDate) {
       return `Imported from OASys on <strong>${DateFormats.dateObjtoUIDate(
         (roshData as OASysSummaryData).oasysImportedDate,
