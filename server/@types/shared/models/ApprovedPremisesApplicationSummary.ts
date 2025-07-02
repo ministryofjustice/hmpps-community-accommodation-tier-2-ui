@@ -6,22 +6,23 @@ import type { ApplicationSummary } from './ApplicationSummary';
 import type { ApprovedPremisesApplicationStatus } from './ApprovedPremisesApplicationStatus';
 import type { PersonRisks } from './PersonRisks';
 import type { ReleaseTypeOption } from './ReleaseTypeOption';
-/**
- * Use Cas1ApplicationSummary
- * @deprecated
- */
 export type ApprovedPremisesApplicationSummary = (ApplicationSummary & {
-    isWomensApplication?: boolean;
-    isPipeApplication?: boolean;
+    arrivalDate?: string;
+    createdByUserId?: string;
+    hasRequestsForPlacement?: boolean;
     isEmergencyApplication?: boolean;
     isEsapApplication?: boolean;
-    arrivalDate?: string;
-    risks?: PersonRisks;
-    createdByUserId: string;
-    status: ApprovedPremisesApplicationStatus;
-    tier?: string;
-    isWithdrawn: boolean;
+    isPipeApplication?: boolean;
+    isWithdrawn?: boolean;
+    isWomensApplication?: boolean;
     releaseType?: ReleaseTypeOption;
+    risks?: PersonRisks;
+    status?: ApprovedPremisesApplicationStatus;
+    tier?: string;
+} & {
+    createdByUserId: string;
     hasRequestsForPlacement: boolean;
+    isWithdrawn: boolean;
+    status: ApprovedPremisesApplicationStatus;
 });
 

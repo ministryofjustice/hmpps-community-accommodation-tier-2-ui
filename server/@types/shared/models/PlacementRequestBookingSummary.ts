@@ -3,14 +3,15 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Cas1SpaceCharacteristic } from './Cas1SpaceCharacteristic';
+import type { Type } from './Type';
 export type PlacementRequestBookingSummary = {
+    arrivalDate: string;
+    characteristics?: Array<Cas1SpaceCharacteristic>;
+    createdAt: string;
+    departureDate: string;
     id: string;
     premisesId: string;
     premisesName: string;
-    arrivalDate: string;
-    departureDate: string;
-    createdAt: string;
-    type: 'space' | 'legacy';
-    characteristics?: Array<Cas1SpaceCharacteristic>;
+    type: Type;
 };
 

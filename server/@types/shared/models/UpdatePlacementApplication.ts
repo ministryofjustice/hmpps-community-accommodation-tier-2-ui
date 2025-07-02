@@ -2,8 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Unit } from './Unit';
+/**
+ * Details about the application
+ */
 export type UpdatePlacementApplication = {
-    data: Record<string, Unit>;
+    data: Record<string, any>;
 };
 

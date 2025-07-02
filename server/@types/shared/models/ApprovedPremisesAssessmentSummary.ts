@@ -4,12 +4,11 @@
 /* eslint-disable */
 import type { ApprovedPremisesAssessmentStatus } from './ApprovedPremisesAssessmentStatus';
 import type { AssessmentSummary } from './AssessmentSummary';
-/**
- * Please use the Cas1AssessmentSummary endpoint instead
- * @deprecated
- */
 export type ApprovedPremisesAssessmentSummary = (AssessmentSummary & {
-    status: ApprovedPremisesAssessmentStatus;
+    dueAt?: string;
+    status?: ApprovedPremisesAssessmentStatus;
+} & {
     dueAt: string;
+    status: ApprovedPremisesAssessmentStatus;
 });
 

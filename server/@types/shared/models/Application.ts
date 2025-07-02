@@ -2,11 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Person } from './Person';
+import type { FullPerson } from './FullPerson';
+import type { RestrictedPerson } from './RestrictedPerson';
+import type { UnknownPerson } from './UnknownPerson';
 export type Application = {
-    type: string;
-    id: string;
-    person: Person;
     createdAt: string;
+    id: string;
+    person: (FullPerson | RestrictedPerson | UnknownPerson);
+    type: string;
 };
 

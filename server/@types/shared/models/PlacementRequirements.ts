@@ -5,13 +5,13 @@
 import type { ApType } from './ApType';
 import type { PlacementCriteria } from './PlacementCriteria';
 export type PlacementRequirements = {
-    type: ApType;
+    desirableCriteria: Array<PlacementCriteria>;
+    essentialCriteria: Array<PlacementCriteria>;
     /**
      * Postcode outcode
      */
     location: string;
     radius: number;
-    essentialCriteria: Array<PlacementCriteria>;
-    desirableCriteria: Array<PlacementCriteria>;
+    type: ApType;
 };
 

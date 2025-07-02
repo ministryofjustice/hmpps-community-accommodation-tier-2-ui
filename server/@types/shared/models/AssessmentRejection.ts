@@ -2,21 +2,26 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Unit } from './Unit';
+/**
+ * Rejection info
+ */
 export type AssessmentRejection = {
-    document: Unit;
-    rejectionRationale: string;
+    agreeWithShortNoticeReason?: boolean;
+    agreeWithShortNoticeReasonComments?: string;
     /**
-     * Only used by CAS3
+     * Any object
      */
-    referralRejectionReasonId?: string;
+    document: any;
+    isWithdrawn?: boolean;
+    reasonForLateApplication?: string;
     /**
      * Only used by CAS3
      */
     referralRejectionReasonDetail?: string;
-    isWithdrawn?: boolean;
-    agreeWithShortNoticeReason?: boolean;
-    agreeWithShortNoticeReasonComments?: string;
-    reasonForLateApplication?: string;
+    /**
+     * Only used by CAS3
+     */
+    referralRejectionReasonId?: string;
+    rejectionRationale: string;
 };
 

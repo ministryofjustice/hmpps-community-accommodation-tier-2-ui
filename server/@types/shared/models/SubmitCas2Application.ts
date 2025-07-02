@@ -2,19 +2,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Unit } from './Unit';
+/**
+ * Information needed to submit an application
+ */
 export type SubmitCas2Application = {
-    translatedDocument: Unit;
     /**
      * Id of the application being submitted
      */
     applicationId: string;
+    conditionalReleaseDate?: string;
+    hdcEligibilityDate?: string;
     /**
      * First and second preferences for where the accommodation should be located, pipe-separated
      */
     preferredAreas?: string;
-    hdcEligibilityDate?: string;
-    conditionalReleaseDate?: string;
     telephoneNumber: string;
+    /**
+     * Any object
+     */
+    translatedDocument: any;
 };
 

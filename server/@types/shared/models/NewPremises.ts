@@ -4,18 +4,18 @@
 /* eslint-disable */
 import type { PropertyStatus } from './PropertyStatus';
 export type NewPremises = {
-    name: string;
     addressLine1: string;
     addressLine2?: string;
-    town?: string;
-    postcode: string;
-    notes?: string;
-    localAuthorityAreaId?: string;
-    probationRegionId: string;
     characteristicIds: Array<string>;
-    status: PropertyStatus;
+    localAuthorityAreaId?: string;
+    name: string;
+    notes?: string;
     pdu?: string;
+    postcode: string;
     probationDeliveryUnitId?: string;
+    probationRegionId: string;
+    status: PropertyStatus;
+    town?: string;
     turnaroundWorkingDayCount?: number;
 };
 

@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Adjudication = {
-    id: number;
-    reportedAt: string;
     establishment: string;
-    offenceDescription: string;
-    hearingHeld: boolean;
     finding?: string;
+    hearingHeld: boolean;
+    id: number;
+    offenceDescription: string;
+    reportedAt: string;
 };
 

@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { SeedFileType } from './SeedFileType';
 export type SeedRequest = {
-    seedType: SeedFileType;
     fileName: string;
+    seedType: SeedFileType;
 };
 

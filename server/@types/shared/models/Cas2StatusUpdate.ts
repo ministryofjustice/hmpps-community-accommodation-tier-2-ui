@@ -5,12 +5,12 @@
 import type { Cas2StatusUpdateDetail } from './Cas2StatusUpdateDetail';
 import type { ExternalUser } from './ExternalUser';
 export type Cas2StatusUpdate = {
-    id: string;
-    name: string;
-    label: string;
     description: string;
-    updatedBy?: ExternalUser;
-    updatedAt?: string;
+    id: string;
+    label: string;
+    name: string;
     statusUpdateDetails?: Array<Cas2StatusUpdateDetail>;
+    updatedAt?: string;
+    updatedBy?: ExternalUser;
 };
 

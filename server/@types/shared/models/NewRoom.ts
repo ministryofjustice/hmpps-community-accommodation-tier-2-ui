@@ -2,13 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+/**
+ * details of the new room
+ */
 export type NewRoom = {
-    name: string;
-    notes?: string;
-    characteristicIds: Array<string>;
     /**
      * End date of the bed availability, open for availability if not specified.
      */
     bedEndDate?: string;
+    characteristicIds: Array<string>;
+    name: string;
+    notes?: string;
 };
 

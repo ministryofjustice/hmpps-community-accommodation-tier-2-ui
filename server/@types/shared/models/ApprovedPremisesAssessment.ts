@@ -6,12 +6,17 @@ import type { ApprovedPremisesApplication } from './ApprovedPremisesApplication'
 import type { ApprovedPremisesAssessmentStatus } from './ApprovedPremisesAssessmentStatus';
 import type { ApprovedPremisesUser } from './ApprovedPremisesUser';
 import type { Assessment } from './Assessment';
-import type { Unit } from './Unit';
 export type ApprovedPremisesAssessment = (Assessment & {
-    application: ApprovedPremisesApplication;
     allocatedToStaffMember?: ApprovedPremisesUser;
+    application?: ApprovedPremisesApplication;
+    createdFromAppeal?: boolean;
+    /**
+     * Any object
+     */
+    document?: any;
     status?: ApprovedPremisesAssessmentStatus;
+} & {
+    application: ApprovedPremisesApplication;
     createdFromAppeal: boolean;
-    document?: Unit;
 });
 

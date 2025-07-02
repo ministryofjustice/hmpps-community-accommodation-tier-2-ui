@@ -2,19 +2,21 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { OASysAssessmentId } from './OASysAssessmentId';
 import type { OASysAssessmentState } from './OASysAssessmentState';
 import type { OASysQuestion } from './OASysQuestion';
 import type { OASysSupportingInformationQuestion } from './OASysSupportingInformationQuestion';
 export type OASysSections = {
-    assessmentId: OASysAssessmentId;
+    /**
+     * The ID of assessment being used. This should always be the latest Layer 3 assessment, regardless of state.
+     */
+    assessmentId: number;
     assessmentState: OASysAssessmentState;
-    dateStarted: string;
     dateCompleted?: string;
+    dateStarted: string;
     offenceDetails: Array<OASysQuestion>;
+    riskManagementPlan: Array<OASysQuestion>;
+    riskToSelf: Array<OASysQuestion>;
     roshSummary: Array<OASysQuestion>;
     supportingInformation: Array<OASysSupportingInformationQuestion>;
-    riskToSelf: Array<OASysQuestion>;
-    riskManagementPlan: Array<OASysQuestion>;
 };
 

@@ -4,8 +4,8 @@
 /* eslint-disable */
 export type ReferralRejectionReason = {
     id: string;
+    isActive: boolean;
     name: string;
     serviceScope: string;
-    isActive: boolean;
 };
 

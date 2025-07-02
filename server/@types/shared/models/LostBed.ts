@@ -6,16 +6,16 @@ import type { LostBedCancellation } from './LostBedCancellation';
 import type { LostBedReason } from './LostBedReason';
 import type { LostBedStatus } from './LostBedStatus';
 export type LostBed = {
-    id: string;
-    startDate: string;
-    endDate: string;
     bedId: string;
     bedName: string;
-    roomName: string;
+    cancellation?: LostBedCancellation;
+    endDate: string;
+    id: string;
+    notes?: string;
     reason: LostBedReason;
     referenceNumber?: string;
-    notes?: string;
+    roomName: string;
+    startDate: string;
     status: LostBedStatus;
-    cancellation?: LostBedCancellation | null;
 };
 

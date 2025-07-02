@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type OASysSupportingInformationQuestion = {
+    answer?: string;
     label: string;
-    sectionNumber?: number;
-    questionNumber: string;
     linkedToHarm?: boolean;
     linkedToReOffending?: boolean;
-    answer?: string;
+    questionNumber: string;
+    sectionNumber?: number;
 };
 

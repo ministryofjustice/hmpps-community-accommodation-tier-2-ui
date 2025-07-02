@@ -4,10 +4,15 @@
 /* eslint-disable */
 import type { PlacementDates } from './PlacementDates';
 import type { PlacementType } from './PlacementType';
-import type { Unit } from './Unit';
+/**
+ * Information needed to submit a placement application
+ */
 export type SubmitPlacementApplication = {
-    translatedDocument: Unit;
-    placementType: PlacementType;
     placementDates: Array<PlacementDates>;
+    placementType: PlacementType;
+    /**
+     * Any object
+     */
+    translatedDocument: any;
 };
 

@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DateChange = {
-    id: string;
     bookingId: string;
-    previousArrivalDate: string;
-    newArrivalDate: string;
-    previousDepartureDate: string;
-    newDepartureDate: string;
     createdAt: string;
+    id: string;
+    newArrivalDate: string;
+    newDepartureDate: string;
+    previousArrivalDate: string;
+    previousDepartureDate: string;
 };
 

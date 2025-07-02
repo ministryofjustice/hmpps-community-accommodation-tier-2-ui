@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ClarificationNote = {
-    id: string;
     createdAt: string;
-    responseReceivedOn?: string;
     createdByStaffMemberId: string;
+    id: string;
     query: string;
     response?: string;
+    responseReceivedOn?: string;
 };
 

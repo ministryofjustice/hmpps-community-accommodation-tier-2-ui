@@ -5,17 +5,22 @@
 import type { Person } from './Person';
 import type { PersonStatus } from './PersonStatus';
 export type FullPerson = (Person & {
-    name: string;
-    dateOfBirth: string;
+    dateOfBirth?: string;
+    ethnicity?: string;
+    genderIdentity?: string;
+    isRestricted?: boolean;
+    name?: string;
+    nationality?: string;
     nomsNumber?: string;
     pncNumber?: string;
-    ethnicity?: string;
-    nationality?: string;
-    religionOrBelief?: string;
-    sex: string;
-    genderIdentity?: string;
-    status: PersonStatus;
     prisonName?: string;
-    isRestricted?: boolean;
+    religionOrBelief?: string;
+    sex?: string;
+    status?: PersonStatus;
+} & {
+    dateOfBirth: string;
+    name: string;
+    sex: string;
+    status: PersonStatus;
 });
 

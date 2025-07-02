@@ -4,13 +4,13 @@
 /* eslint-disable */
 import type { ServiceName } from './ServiceName';
 export type NewBooking = {
-    crn: string;
     arrivalDate: string;
-    departureDate: string;
-    bedId?: string;
-    serviceName: ServiceName;
-    enableTurnarounds?: boolean;
     assessmentId?: string;
+    bedId?: string;
+    crn: string;
+    departureDate: string;
+    enableTurnarounds?: boolean;
     eventNumber?: string;
+    serviceName: ServiceName;
 };
 

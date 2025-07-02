@@ -8,19 +8,30 @@ import type { ApplicationStatus } from './ApplicationStatus';
 import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
 import type { Cas2v2Assessment } from './Cas2v2Assessment';
 import type { Cas2v2User } from './Cas2v2User';
-import type { Unit } from './Unit';
 export type Cas2v2Application = (Application & {
-    createdBy: Cas2v2User;
-    schemaVersion: string;
-    outdatedSchema: boolean;
-    data?: Unit;
-    document?: Unit;
-    status: ApplicationStatus;
+    applicationOrigin?: ApplicationOrigin;
+    assessment?: Cas2v2Assessment;
+    bailHearingDate?: string;
+    createdBy?: Cas2v2User;
+    /**
+     * Any object
+     */
+    data?: any;
+    /**
+     * Any object
+     */
+    document?: any;
+    outdatedSchema?: boolean;
+    schemaVersion?: string;
+    status?: ApplicationStatus;
     submittedAt?: string;
     telephoneNumber?: string;
-    assessment?: Cas2v2Assessment;
     timelineEvents?: Array<Cas2TimelineEvent>;
+} & {
     applicationOrigin: ApplicationOrigin;
-    bailHearingDate?: string;
+    createdBy: Cas2v2User;
+    outdatedSchema: boolean;
+    schemaVersion: string;
+    status: ApplicationStatus;
 });
 

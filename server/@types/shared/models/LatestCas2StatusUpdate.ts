@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type LatestCas2StatusUpdate = {
-    statusId: string;
     label: string;
+    statusId: string;
 };
 

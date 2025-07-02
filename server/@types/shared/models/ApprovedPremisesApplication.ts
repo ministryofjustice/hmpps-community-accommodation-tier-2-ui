@@ -11,42 +11,50 @@ import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { Cas1CruManagementArea } from './Cas1CruManagementArea';
 import type { PersonRisks } from './PersonRisks';
 import type { PersonStatus } from './PersonStatus';
-import type { Unit } from './Unit';
 export type ApprovedPremisesApplication = (Application & {
-    isWomensApplication?: boolean;
-    /**
-     * Use apType
-     * @deprecated
-     */
-    isPipeApplication?: boolean;
-    isEmergencyApplication?: boolean;
-    /**
-     * Use apType
-     * @deprecated
-     */
-    isEsapApplication?: boolean;
+    apArea?: ApArea;
     apType?: ApType;
+    applicantUserDetails?: Cas1ApplicationUserDetails;
     arrivalDate?: string;
-    risks?: PersonRisks;
-    createdByUserId: string;
-    schemaVersion: string;
-    outdatedSchema: boolean;
-    data?: Unit;
-    document?: Unit;
-    status: ApprovedPremisesApplicationStatus;
-    assessmentId?: string;
     assessmentDecision?: AssessmentDecision;
     assessmentDecisionDate?: string;
-    submittedAt?: string;
-    personStatusOnSubmission?: PersonStatus;
-    apArea?: ApArea;
-    cruManagementArea?: Cas1CruManagementArea;
-    applicantUserDetails?: Cas1ApplicationUserDetails;
+    assessmentId?: string;
     /**
      * If true, caseManagerUserDetails will provide case manager details. Otherwise, applicantUserDetails can be used for case manager details
      */
     caseManagerIsNotApplicant?: boolean;
     caseManagerUserDetails?: Cas1ApplicationUserDetails;
+    createdByUserId?: string;
+    cruManagementArea?: Cas1CruManagementArea;
+    /**
+     * Any object
+     */
+    data?: any;
+    /**
+     * Any object
+     */
+    document?: any;
+    isEmergencyApplication?: boolean;
+    /**
+     * Use apType
+     */
+    isEsapApplication?: boolean;
+    /**
+     * Use apType
+     */
+    isPipeApplication?: boolean;
+    isWomensApplication?: boolean;
     licenceExpiryDate?: string;
+    outdatedSchema?: boolean;
+    personStatusOnSubmission?: PersonStatus;
+    risks?: PersonRisks;
+    schemaVersion?: string;
+    status?: ApprovedPremisesApplicationStatus;
+    submittedAt?: string;
+} & {
+    createdByUserId: string;
+    outdatedSchema: boolean;
+    schemaVersion: string;
+    status: ApprovedPremisesApplicationStatus;
 });
 

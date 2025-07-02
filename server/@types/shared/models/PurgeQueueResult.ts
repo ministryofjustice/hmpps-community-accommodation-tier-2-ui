@@ -2,11 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SubmitApplication = {
-    /**
-     * Any object
-     */
-    translatedDocument?: any;
-    type: string;
+export type PurgeQueueResult = {
+    messagesFoundCount: number;
 };
 
