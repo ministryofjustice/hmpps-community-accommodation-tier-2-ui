@@ -13,6 +13,7 @@ export type RequestForPlacement = {
     canBeDirectlyWithdrawn: boolean;
     createdAt: string;
     createdByUserId: string;
+    dates: PlacementDates;
     /**
      * Any object
      */
@@ -22,6 +23,9 @@ export type RequestForPlacement = {
      */
     id: string;
     isWithdrawn: boolean;
+    /**
+     * Requests for placements only have one set of placement dates, use 'dates' instead
+     */
     placementDates: Array<PlacementDates>;
     /**
      * If `type` is `"manual"`, provides the value of `PlacementApplication.decisionMadeAt`. If `type` is `"automatic"` this field provides the value of `PlacementRequest.assessmentCompletedAt`.
