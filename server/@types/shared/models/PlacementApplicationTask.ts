@@ -9,12 +9,17 @@ import type { ReleaseTypeOption } from './ReleaseTypeOption';
 import type { RiskTierEnvelope } from './RiskTierEnvelope';
 import type { Task } from './Task';
 export type PlacementApplicationTask = (Task & {
+    dates?: PlacementDates;
     outcome?: PlacementApplicationDecision;
+    /**
+     * Placement apps only have one set of placement dates, use 'dates' instead
+     */
     placementDates?: Array<PlacementDates>;
     placementType?: PlacementType;
     releaseType?: ReleaseTypeOption;
     tier?: RiskTierEnvelope;
 } & {
+    dates: PlacementDates;
     placementType: PlacementType;
     releaseType: ReleaseTypeOption;
     tier: RiskTierEnvelope;
