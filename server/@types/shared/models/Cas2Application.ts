@@ -7,8 +7,9 @@ import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { ApplicationStatus } from './ApplicationStatus';
 import type { Cas2Assessment } from './Cas2Assessment';
 import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
-import type { Cas2User } from './Cas2User';
+import type { ExternalUserEntity } from './ExternalUserEntity';
 import type { NomisUser } from './NomisUser';
+import type { NomisUserEntity } from './NomisUserEntity';
 export type Cas2Application = (Application & {
     allocatedPomEmailAddress?: string;
     allocatedPomName?: string;
@@ -16,7 +17,7 @@ export type Cas2Application = (Application & {
     assessment?: Cas2Assessment;
     assignmentDate?: string;
     bailHearingDate?: string;
-    cas2CreatedBy?: Cas2User;
+    cas2CreatedBy?: (ExternalUserEntity | NomisUserEntity);
     createdBy?: NomisUser;
     currentPrisonName?: string;
     /**
@@ -29,8 +30,6 @@ export type Cas2Application = (Application & {
     document?: any;
     isTransferredApplication?: boolean;
     omuEmailAddress?: string;
-    outdatedSchema?: boolean;
-    schemaVersion?: string;
     status?: ApplicationStatus;
     submittedAt?: string;
     telephoneNumber?: string;
@@ -38,8 +37,6 @@ export type Cas2Application = (Application & {
 } & {
     createdBy: NomisUser;
     isTransferredApplication: boolean;
-    outdatedSchema: boolean;
-    schemaVersion: string;
     status: ApplicationStatus;
 });
 

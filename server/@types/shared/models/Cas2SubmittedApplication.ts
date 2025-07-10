@@ -22,9 +22,7 @@ export type Cas2SubmittedApplication = {
     id: string;
     isTransferredApplication: boolean;
     omuEmailAddress?: string;
-    outdatedSchema: boolean;
     person: (FullPerson | RestrictedPerson | UnknownPerson);
-    schemaVersion: string;
     submittedAt?: string;
     submittedBy?: NomisUser;
     telephoneNumber?: string;
