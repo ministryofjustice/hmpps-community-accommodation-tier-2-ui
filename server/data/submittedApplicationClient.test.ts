@@ -16,7 +16,7 @@ describeClient('SubmittedApplicationClient', provider => {
     it('should return all submitted applications', async () => {
       const submittedApplications = submittedApplicationFactory.buildList(2)
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for a submitted application',
         withRequest: {
@@ -54,7 +54,7 @@ describeClient('SubmittedApplicationClient', provider => {
     it('should return a submitted application', async () => {
       const submittedApplication = submittedApplicationFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for a submitted application',
         withRequest: {
@@ -85,7 +85,7 @@ describeClient('SubmittedApplicationClient', provider => {
 
       const applicationNote = applicationNoteFactory.build({ body: body.note })
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to add a note to an application',
         withRequest: {

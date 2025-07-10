@@ -1,18 +1,44 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable-next-line import/no-extraneous-dependencies */
-import { execSync } from 'child_process'
+// @ts-expect-error types for @pactflow/openapi-pact-comparator aren't automatically resolved
+import { Comparator } from '@pactflow/openapi-pact-comparator'
 import path from 'path'
 import { diffStringsUnified } from 'jest-diff'
+import fs from 'fs'
 
 export {}
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toMatchStringIgnoringWhitespace(expected: string): R
-      toMatchOpenAPISpec(): R
+
+      toMatchOpenAPISpec(): Promise<R>
     }
   }
+}
+
+const apiSpecPath = path.join(__dirname, '..', '..', 'tmp', 'cas2-api.json')
+const apiSpecUrl = 'https://approved-premises-api-dev.hmpps.service.justice.gov.uk/v3/api-docs/CAS2Shared'
+
+/**
+ * Returns a local file if it exists, or downloads it and saves it then returns it if it doesn't.
+ * @param filePath  The path to the file
+ * @param url       The Url to download the file from. If this is not specified, and the file is not found, an error is thrown.
+ * @returns         Contents of the file as a Buffer
+ */
+async function getFileContents(filePath: string, url?: string): Promise<Buffer> {
+  if (fs.existsSync(filePath)) {
+    return fs.readFileSync(filePath)
+  }
+
+  if (!url) throw new Error(`File does not exist: ${filePath}`)
+
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`Error fetching file from ${url}: HTTP ${response.status}`)
+
+  const buffer = new Uint8Array(await response.arrayBuffer())
+  fs.writeFileSync(filePath, buffer)
+  return Buffer.from(buffer)
 }
 
 expect.extend({
@@ -26,33 +52,42 @@ expect.extend({
         : () => `expected received to match expected ${diffStringsUnified(expected, received)}`,
     }
   },
-  toMatchOpenAPISpec(pactPath) {
-    const openAPIUrl =
-      'https://raw.githubusercontent.com/ministryofjustice/hmpps-approved-premises-api/main/src/main/resources/static/codegen/built-cas2-api-spec.yml'
-
-    const openAPIPath = path.join(__dirname, '..', '..', 'tmp', 'cas2-api.yml')
-
+  async toMatchOpenAPISpec(pactPath) {
     try {
-      execSync(`
-        if [ ! -f ${openAPIPath} ]; then
-          curl -s "${openAPIUrl}" |
-          sed -E 's@/applications@/cas2/applications@g' |
-          sed -E 's@/submissions@/cas2/submissions@g' |
-          sed -E 's@/assessments@/cas2/assessments@g' |
-          sed -E 's@/people@/cas2/people@g' |
-          sed -E 's@/reports@/cas2/reports@g' |
-          sed -E 's@/reference-data/@/cas2/reference-data/@g' > ${openAPIPath}
-        fi
-      `)
+      const openApiSpec = JSON.parse((await getFileContents(apiSpecPath, apiSpecUrl)).toString())
+      const pact = JSON.parse((await getFileContents(pactPath)).toString())
 
-      execSync(`npx swagger-mock-validator ${openAPIPath} ${pactPath}`)
+      const comparator = new Comparator(openApiSpec)
+      const results = []
+
+      try {
+        // eslint-disable-next-line no-restricted-syntax
+        for await (const result of comparator.compare(pact)) {
+          results.push(result)
+        }
+      } catch (error) {
+        // log compare errors for reference
+        // eslint-disable-next-line no-console
+        console.warn(error.message)
+      }
+
+      if (results.length) {
+        // Map errors for a more readable log
+        const errorsLog = results.map(result => JSON.stringify(result, null, 2)).join('\n-------------\n')
+
+        return {
+          message: () => `OpenAPI Validation errors for ${pactPath}: \n${errorsLog}`,
+          pass: false,
+        }
+      }
+
       return {
-        message: () => `Swagger mock validator for ${pactPath} did not fail`,
+        message: () => `OpenAPI validation successful for ${pactPath}`,
         pass: true,
       }
-    } catch (err) {
+    } catch (error) {
       return {
-        message: () => err.output.toString(),
+        message: () => `Error while attempting to validate ${pactPath}: ${error.message}`,
         pass: false,
       }
     }

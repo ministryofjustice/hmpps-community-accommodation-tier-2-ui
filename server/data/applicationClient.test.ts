@@ -1,7 +1,7 @@
 import { AssignmentType, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 import { faker } from '@faker-js/faker/locale/en_GB'
 import ApplicationClient from './applicationClient'
-import { applicationFactory, assessmentFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory, assessmentFactory } from '../testutils/factories'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -21,7 +21,7 @@ describeClient('ApplicationClient', provider => {
         telephoneNumber: faker.phone.number(),
       })
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for an application',
         withRequest: {
@@ -50,7 +50,7 @@ describeClient('ApplicationClient', provider => {
         telephoneNumber: faker.phone.number(),
       })
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to create an Application with risks',
         withRequest: {
@@ -80,9 +80,9 @@ describeClient('ApplicationClient', provider => {
       const assignmentTypes: Array<AssignmentType> = ['IN_PROGRESS', 'PRISON', 'DEALLOCATED']
 
       it.each(assignmentTypes)('should return applications for given user', async assignmentType => {
-        const applicationsForUser = applicationFactory.buildList(5)
+        const applicationsForUser = applicationSummaryFactory.buildList(5)
 
-        provider.addInteraction({
+        await provider.addInteraction({
           state: 'Server is healthy',
           uponReceiving: 'A request for all applications that have been transferred out for a user',
           withRequest: {
@@ -109,9 +109,9 @@ describeClient('ApplicationClient', provider => {
     describe('when returning a list of allocated applications for a given prison', () => {
       it('should get all allocated applications for a given prison', async () => {
         const assignmentType = 'PRISON'
-        const applications = applicationFactory.buildList(5)
+        const applications = applicationSummaryFactory.buildList(5)
 
-        provider.addInteraction({
+        await provider.addInteraction({
           state: 'Server is healthy',
           uponReceiving: 'A request for all applications for a given prison',
           withRequest: {
@@ -150,9 +150,9 @@ describeClient('ApplicationClient', provider => {
 
     describe('when returning a list of unallocated applications for a given prison (i.e recent transferred in', () => {
       it('should get all applications transferred to a prison but not allocated', async () => {
-        const applications = applicationFactory.buildList(5)
+        const applications = applicationSummaryFactory.buildList(5)
 
-        provider.addInteraction({
+        await provider.addInteraction({
           state: 'Server is healthy',
           uponReceiving: 'A request for all applications for a given prison',
           withRequest: {
@@ -201,7 +201,7 @@ describeClient('ApplicationClient', provider => {
         type: 'CAS2',
       } as UpdateApplication
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'Request to update an application',
         withRequest: {
@@ -233,7 +233,7 @@ describeClient('ApplicationClient', provider => {
         telephoneNumber: '123',
       } as SubmitCas2Application
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to submit an application',
         withRequest: {
@@ -257,7 +257,7 @@ describeClient('ApplicationClient', provider => {
     it('should return response when a PUT request is made', async () => {
       const application = applicationFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'Request to abandon an application',
         withRequest: {

@@ -16,7 +16,7 @@ describeClient('AssessmentClient', provider => {
     it('should return an assessment', async () => {
       const assessment = assessmentFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for an assessment',
         withRequest: {
@@ -43,7 +43,7 @@ describeClient('AssessmentClient', provider => {
       const assessment = assessmentFactory.build()
       const data = { nacroReferralId: 'nacro-referral-id', assessorName: 'Assessor Name' }
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'Request to update an assessment',
         withRequest: {
@@ -73,7 +73,7 @@ describeClient('AssessmentClient', provider => {
         newStatus: 'received',
       }
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to update the status of an application',
         withRequest: {

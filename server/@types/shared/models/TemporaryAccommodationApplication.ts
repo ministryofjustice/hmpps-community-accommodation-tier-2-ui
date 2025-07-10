@@ -18,16 +18,12 @@ export type TemporaryAccommodationApplication = (Application & {
      */
     document?: any;
     offenceId?: string;
-    outdatedSchema?: boolean;
     risks?: PersonRisks;
-    schemaVersion?: string;
     status?: ApplicationStatus;
     submittedAt?: string;
 } & {
     createdByUserId: string;
     offenceId: string;
-    outdatedSchema: boolean;
-    schemaVersion: string;
     status: ApplicationStatus;
 });
 

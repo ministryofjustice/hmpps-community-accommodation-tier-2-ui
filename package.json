@@ -165,11 +165,11 @@
     "reflect-metadata": "^0.2.0",
     "static-path": "^0.0.4",
     "superagent": "^9.0.0",
-    "swagger-mock-validator": "^11.0.0",
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
     "@pact-foundation/pact": "^13.2.0",
+    "@pactflow/openapi-pact-comparator": "^1.4.0",
     "@playwright/test": "^1.36.2",
     "@types/bunyan": "^1.8.8",
     "@types/bunyan-format": "^0.2.5",
