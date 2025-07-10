@@ -17,7 +17,7 @@ describeClient('ReferenceDataClient', provider => {
     it('should return an array of application statuses', async () => {
       const data = applicationStatusFactory.buildList(5) as Array<ApplicationStatus>
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: `A request to get application statuses`,
         withRequest: {

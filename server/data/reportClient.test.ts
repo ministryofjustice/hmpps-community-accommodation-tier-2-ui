@@ -19,7 +19,7 @@ describeClient('ReportClient', provider => {
     it('should pipe the requested report from the API', async () => {
       const response = createMock<Response>({})
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to get an application report',
         withRequest: {

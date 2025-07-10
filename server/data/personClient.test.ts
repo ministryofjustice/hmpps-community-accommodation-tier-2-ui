@@ -18,7 +18,7 @@ describeClient('PersonClient', provider => {
       const crn = 'crn'
       const oasysRiskToSelf = oasysRiskToSelfFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to get the optional selected sections of OASys for a person',
         withRequest: {
@@ -46,7 +46,7 @@ describeClient('PersonClient', provider => {
       const crn = 'crn'
       const oasysRosh = oasysRoshFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to get the optional selected sections of OASys for a person',
         withRequest: {
@@ -73,7 +73,7 @@ describeClient('PersonClient', provider => {
     it('should return a person', async () => {
       const person = personFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to search for a person',
         withRequest: {
@@ -103,7 +103,7 @@ describeClient('PersonClient', provider => {
       const crn = 'crn'
       const risks = risksFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to get the risks for a person',
         withRequest: {
