@@ -2,9 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * Information needed to submit an application
- */
 export type SubmitCas2Application = {
     /**
      * Id of the application being submitted
