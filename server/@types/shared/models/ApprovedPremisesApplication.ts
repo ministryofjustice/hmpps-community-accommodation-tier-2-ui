@@ -45,16 +45,12 @@ export type ApprovedPremisesApplication = (Application & {
     isPipeApplication?: boolean;
     isWomensApplication?: boolean;
     licenceExpiryDate?: string;
-    outdatedSchema?: boolean;
     personStatusOnSubmission?: PersonStatus;
     risks?: PersonRisks;
-    schemaVersion?: string;
     status?: ApprovedPremisesApplicationStatus;
     submittedAt?: string;
 } & {
     createdByUserId: string;
-    outdatedSchema: boolean;
-    schemaVersion: string;
     status: ApprovedPremisesApplicationStatus;
 });
 
