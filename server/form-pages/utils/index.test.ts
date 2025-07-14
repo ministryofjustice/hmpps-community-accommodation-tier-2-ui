@@ -1,10 +1,10 @@
 import { Request } from 'express'
-import { DeepMocked, createMock } from '@golevelup/ts-jest'
+import { createMock, DeepMocked } from '@golevelup/ts-jest'
 import 'reflect-metadata'
 
 // Use a wildcard import to allow us to use jest.spyOn on functions within this module
 import * as utils from './index'
-import { ApprovedPremisesApplication } from '../../@types/shared'
+import { Cas2Application } from '../../@types/shared'
 
 import { applicationFactory } from '../../testutils/factories'
 import { TaskListPageInterface } from '../taskListPage'
@@ -114,15 +114,13 @@ describe('utils', () => {
     it('if there is userInput it returns it', () => {
       const input = { user: 'input' }
 
-      expect(
-        utils.getBody({} as TaskListPageInterface, {} as ApprovedPremisesApplication, {} as Request, input),
-      ).toEqual(input)
+      expect(utils.getBody({} as TaskListPageInterface, {} as Cas2Application, {} as Request, input)).toEqual(input)
     })
 
     it('if there isnt userInput and there is a request body the request body is returned', () => {
       const request: DeepMocked<Request> = createMock<Request>()
 
-      expect(utils.getBody({} as TaskListPageInterface, {} as ApprovedPremisesApplication, request, {}))
+      expect(utils.getBody({} as TaskListPageInterface, {} as Cas2Application, request, {}))
     })
 
     it('if there is neither a request body or userInput then getPageFromApplicationData is called and returns the data for that page', () => {
