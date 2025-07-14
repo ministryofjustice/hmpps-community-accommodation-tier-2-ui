@@ -2,10 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * Details about the application
- */
-export type NewPlacementApplication = {
-    applicationId: string;
-};
-
+export type Cas2UserType = 'DELIUS' | 'NOMIS' | 'EXTERNAL';

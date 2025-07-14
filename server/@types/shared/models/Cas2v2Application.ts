@@ -21,8 +21,6 @@ export type Cas2v2Application = (Application & {
      * Any object
      */
     document?: any;
-    outdatedSchema?: boolean;
-    schemaVersion?: string;
     status?: ApplicationStatus;
     submittedAt?: string;
     telephoneNumber?: string;
@@ -30,8 +28,6 @@ export type Cas2v2Application = (Application & {
 } & {
     applicationOrigin: ApplicationOrigin;
     createdBy: Cas2v2User;
-    outdatedSchema: boolean;
-    schemaVersion: string;
     status: ApplicationStatus;
 });
 
