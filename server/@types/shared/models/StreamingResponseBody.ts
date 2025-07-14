@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type NewCas2ApplicationNote = {
-    note: string;
+export type StreamingResponseBody = {
 };
 
