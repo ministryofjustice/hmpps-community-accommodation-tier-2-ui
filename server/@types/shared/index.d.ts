@@ -91,6 +91,7 @@ export type { Cas2v2User } from './models/Cas2v2User';
 export type { Category } from './models/Category';
 export type { Characteristic } from './models/Characteristic';
 export type { ClarificationNote } from './models/ClarificationNote';
+export type { ClassesToInclude } from './models/ClassesToInclude';
 export type { Confirmation } from './models/Confirmation';
 export type { DateChange } from './models/DateChange';
 export type { DatePeriod } from './models/DatePeriod';

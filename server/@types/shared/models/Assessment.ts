@@ -14,9 +14,7 @@ export type Assessment = {
     data?: any;
     decision?: AssessmentDecision;
     id: string;
-    outdatedSchema: boolean;
     rejectionRationale?: string;
-    schemaVersion: string;
     service: string;
     submittedAt?: string;
 };
