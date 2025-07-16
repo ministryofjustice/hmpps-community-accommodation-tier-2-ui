@@ -25,6 +25,7 @@ describeClient('SubmittedApplicationClient', provider => {
           query: { page: '1' },
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -62,6 +63,7 @@ describeClient('SubmittedApplicationClient', provider => {
           path: paths.submissions.show({ id: submittedApplication.id }),
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -94,6 +96,7 @@ describeClient('SubmittedApplicationClient', provider => {
           body,
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {

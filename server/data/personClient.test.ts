@@ -27,6 +27,7 @@ describeClient('PersonClient', provider => {
           query: {},
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -55,6 +56,7 @@ describeClient('PersonClient', provider => {
           query: {},
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -84,6 +86,7 @@ describeClient('PersonClient', provider => {
           },
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -111,6 +114,7 @@ describeClient('PersonClient', provider => {
           path: `/cas2/people/${crn}/risks`,
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {

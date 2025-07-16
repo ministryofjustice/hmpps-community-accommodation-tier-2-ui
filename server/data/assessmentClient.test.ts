@@ -24,6 +24,7 @@ describeClient('AssessmentClient', provider => {
           path: paths.assessments.show({ id: assessment.id }),
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -52,6 +53,7 @@ describeClient('AssessmentClient', provider => {
           body: JSON.stringify(data),
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -82,6 +84,7 @@ describeClient('AssessmentClient', provider => {
           body: data,
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
