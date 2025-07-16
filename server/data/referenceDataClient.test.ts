@@ -25,6 +25,7 @@ describeClient('ReferenceDataClient', provider => {
           path: `/cas2/reference-data/application-status`,
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {

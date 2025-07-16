@@ -29,6 +29,7 @@ describeClient('ApplicationClient', provider => {
           path: paths.applications.show({ id: application.id }),
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -61,6 +62,7 @@ describeClient('ApplicationClient', provider => {
           },
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -91,6 +93,7 @@ describeClient('ApplicationClient', provider => {
             query: { assignmentType },
             headers: {
               authorization: `Bearer ${token}`,
+              'X-Service-Name': 'cas2',
             },
           },
           willRespondWith: {
@@ -123,6 +126,7 @@ describeClient('ApplicationClient', provider => {
             },
             headers: {
               authorization: `Bearer ${token}`,
+              'X-Service-Name': 'cas2',
             },
           },
           willRespondWith: {
@@ -164,6 +168,7 @@ describeClient('ApplicationClient', provider => {
             },
             headers: {
               authorization: `Bearer ${token}`,
+              'X-Service-Name': 'cas2',
             },
           },
           willRespondWith: {
@@ -210,6 +215,7 @@ describeClient('ApplicationClient', provider => {
           body: JSON.stringify(data),
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -242,6 +248,7 @@ describeClient('ApplicationClient', provider => {
           body: data,
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
@@ -265,6 +272,7 @@ describeClient('ApplicationClient', provider => {
           path: paths.applications.abandon({ id: application.id }),
           headers: {
             authorization: `Bearer ${token}`,
+            'X-Service-Name': 'cas2',
           },
         },
         willRespondWith: {
