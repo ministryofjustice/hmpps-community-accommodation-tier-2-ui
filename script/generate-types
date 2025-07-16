@@ -7,7 +7,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 if [ -z "$1" ]; then
-  url="https://approved-premises-api-dev.hmpps.service.justice.gov.uk/v3/api-docs/CAS2Shared"
+  url="https://approved-premises-api-dev.hmpps.service.justice.gov.uk/v3/api-docs/CAS2"
 else
   url=$1
 fi
