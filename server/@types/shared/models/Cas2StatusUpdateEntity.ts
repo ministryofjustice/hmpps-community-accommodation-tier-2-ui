@@ -2,11 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Cas2ApplicationEntity } from './Cas2ApplicationEntity';
 import type { Cas2AssessmentEntity } from './Cas2AssessmentEntity';
 import type { Cas2StatusUpdateDetailEntity } from './Cas2StatusUpdateDetailEntity';
 import type { ExternalUserEntity } from './ExternalUserEntity';
 export type Cas2StatusUpdateEntity = {
-    application: any;
+    application: Cas2ApplicationEntity;
     assessment?: Cas2AssessmentEntity;
     assessor: ExternalUserEntity;
     createdAt: string;
