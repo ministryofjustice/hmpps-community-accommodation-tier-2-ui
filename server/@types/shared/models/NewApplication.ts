@@ -3,9 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ApplicationOrigin } from './ApplicationOrigin';
-/**
- * Information to create a blank application with
- */
 export type NewApplication = {
     applicationOrigin?: ApplicationOrigin;
     convictionId?: number;
