@@ -79,6 +79,8 @@ jobs:
 
       - name: Running shell scripts linting checks
         run: npm run shellcheck
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   unit_test:
     name: "Unit testing 🧪"
