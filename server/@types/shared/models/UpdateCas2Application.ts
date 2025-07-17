@@ -2,6 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UpdateApplication } from './UpdateApplication';
-export type UpdateCas2Application = UpdateApplication;
+import type { UpdateApplicationType } from './UpdateApplicationType';
+export type UpdateCas2Application = {
+    data: Record<string, any>;
+    type: UpdateApplicationType;
+};
 
