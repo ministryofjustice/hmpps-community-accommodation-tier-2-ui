@@ -18,7 +18,9 @@ declare global {
 }
 
 const apiSpecPath = path.join(__dirname, '..', '..', 'tmp', 'cas2-api.json')
-const apiSpecUrl = 'https://approved-premises-api-dev.hmpps.service.justice.gov.uk/v3/api-docs/CAS2Shared'
+
+const apiSpecUrl =
+  process.env.CAS2_API_SPEC_URL || 'https://approved-premises-api-dev.hmpps.service.justice.gov.uk/v3/api-docs/CAS2'
 
 /**
  * Returns a local file if it exists, or downloads it and saves it then returns it if it doesn't.
