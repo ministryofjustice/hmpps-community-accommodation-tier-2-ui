@@ -245,7 +245,8 @@ export default class ApplicationsController {
         const next = page.next()
 
         if (redirectPage) {
-          res.redirect(paths.applications.pages.show({ id, task: taskName, page: redirectPage as string }))
+          const redirectPageName = Array.isArray(redirectPage) ? redirectPage[0] : redirectPage
+          res.redirect(paths.applications.pages.show({ id, task: taskName, page: redirectPageName as string }))
         } else if (next) {
           res.redirect(paths.applications.pages.show({ id, task: taskName, page: page.next() }))
         } else {
