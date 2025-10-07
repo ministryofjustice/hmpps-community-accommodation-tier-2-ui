@@ -148,7 +148,9 @@
   <script type="text/javascript" nonce="{{ cspNonce }}">
     function addRedirect(event) {
       const form = document.getElementById('form')
-      form.action = form.action + '&redirectPage=acct-data'
+      const url = new URL(form.action, window.location.origin)
+      url.searchParams.set('redirectPage', 'acct-data')
+      form.action = url.pathname + url.search
     }
 
     document.addEventListener('DOMContentLoaded', function () {
