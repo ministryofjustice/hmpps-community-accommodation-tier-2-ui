@@ -170,7 +170,7 @@
   "devDependencies": {
     "@pact-foundation/pact": "^13.2.0",
     "@pactflow/openapi-pact-comparator": "^1.4.0",
-    "@playwright/test": "^1.36.2",
+    "@playwright/test": "^1.56.1",
     "@types/bunyan": "^1.8.8",
     "@types/bunyan-format": "^0.2.5",
     "@types/compression": "^1.7.2",
