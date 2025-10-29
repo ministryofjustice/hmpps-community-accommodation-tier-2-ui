@@ -1,7 +1,6 @@
 # Community Accommodation Service Tier-2 UI
 
 [![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/hmpps-community-accommodation-tier-2-ui/badge)](https://github-community.service.justice.gov.uk/repository-standards/hmpps-community-accommodation-tier-2-ui)
-[![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-community-accommodation-tier-2-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-community-accommodation-tier-2-ui)
 
 The frontend for Tier 2 of the Community Accommodation Service (CAS-2).
 
