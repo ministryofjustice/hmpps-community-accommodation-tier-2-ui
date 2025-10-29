@@ -773,4 +773,20 @@ describe('ApplicationService', () => {
       expect(applicationClient.update).toHaveBeenCalledWith(application.id, applicationData)
     })
   })
+
+  describe('cancel', () => {
+    it('calls the abandon client method', async () => {
+      const application = applicationFactory.build()
+      const token = 'SOME_TOKEN'
+
+      applicationClient.abandon.mockResolvedValue(undefined)
+
+      const result = await service.cancel(token, application)
+
+      expect(result).toEqual(undefined)
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.abandon).toHaveBeenCalledWith(application.id)
+    })
+  })
 })

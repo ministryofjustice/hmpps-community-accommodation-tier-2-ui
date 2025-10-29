@@ -8,6 +8,7 @@ import {
   getSideNavLinksForDocument,
   getSideNavLinksForApplication,
   showMissingRequiredTasksOrTaskList,
+  generateSuccessMessage,
 } from './utils'
 import { fetchErrorsAndUserInput } from '../validation'
 import { DateFormats } from '../dateUtils'
@@ -280,6 +281,17 @@ describe('utils', () => {
           )
         })
       })
+    })
+  })
+
+  describe('generateSuccessMessage', () => {
+    it.each([
+      ['current-offence-data', 'The offence has been saved'],
+      ['offence-history-data', 'The offence has been saved'],
+      ['acct-data', 'The ACCT has been saved'],
+      ['any-other-page', ''],
+    ])('returns a success message for the %s page', (pageName, expectedMessage) => {
+      expect(generateSuccessMessage(pageName)).toEqual(expectedMessage)
     })
   })
 
