@@ -1,6 +1,6 @@
 import path from 'path'
 import { pactWith } from 'jest-pact'
-import { Pact } from '@pact-foundation/pact'
+import { PactV2 as Pact } from '@pact-foundation/pact'
 
 import config from '../config'
 
