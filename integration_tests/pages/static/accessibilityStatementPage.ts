@@ -14,7 +14,7 @@ export default class AccessibilityStatementPage extends Page {
   shouldShowAccessibilityStatement(): void {
     cy.get('h1').contains('Accessibility statement')
     cy.get('p').contains(
-      'This accessibility statement applies to the Short-Term Accommodation (CAS-2) service, available at https://short-term-accommodation-cas-2.hmpps.service.justice.gov.uk.',
+      'This accessibility statement applies to the CAS2 for HDC service, available at https://short-term-accommodation-cas-2.hmpps.service.justice.gov.uk.',
     )
     cy.get('p').contains('This website is run by HMPPS.')
     cy.get('h2').contains('How you should be able to use this website')
