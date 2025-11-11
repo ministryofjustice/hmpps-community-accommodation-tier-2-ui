@@ -14,10 +14,10 @@ export default class CookiesPolicyPage extends Page {
   shouldShowCookiePolicy(): void {
     cy.get('h1').contains('Cookies')
     cy.get('p').contains('Cookies are small files saved on your phone, tablet or computer when you visit a website.')
-    cy.get('p').contains('We use cookies to make Short-Term Accommodation (CAS-2) work.')
+    cy.get('p').contains('We use cookies to make CAS2 for HDC - short-term accommodation work.')
     cy.get('h2').contains('Essential cookies')
     cy.get('p').contains(
-      'Essential cookies keep your information secure while you use Short-Term Accommodation (CAS-2). We do not need to ask permission to use them.',
+      'Essential cookies keep your information secure while you use CAS2 for HDC - short-term accommodation. We do not need to ask permission to use them.',
     )
     ;['Name', 'Purpose', 'Expires'].forEach(heading => {
       cy.get('table th').contains(heading)

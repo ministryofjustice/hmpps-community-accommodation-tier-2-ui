@@ -13,7 +13,7 @@ export default class PrivacyNoticePage extends Page {
   }
 
   shouldShowPrivacyNotice(): void {
-    cy.get('h1').contains('Privacy notice for Short-Term Accommodation (CAS-2)')
+    cy.get('h1').contains('Privacy notice for CAS2 HDC')
     cy.get('p').contains(
       'The Ministry of Justice (MOJ) is committed to the protection and security of your personal information.',
     )

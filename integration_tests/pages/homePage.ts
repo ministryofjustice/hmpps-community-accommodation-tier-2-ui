@@ -3,7 +3,7 @@ import Page, { PageElement } from './page'
 export default class HomePage extends Page {
   constructor() {
     const name = undefined
-    super('CAS-2: Short-Term Accommodation', name)
+    super('CAS2 for HDC', name)
     this.checkPhaseBanner()
   }
 
