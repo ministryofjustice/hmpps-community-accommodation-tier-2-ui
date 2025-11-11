@@ -12,7 +12,7 @@ services:
     image: wiremock/wiremock
     networks:
     - hmpps_int
-    container_name: wiremock_test2
+    container_name: wiremock_test
     restart: always
     command: --local-response-templating
     ports:
