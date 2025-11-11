@@ -18,11 +18,11 @@ type ConfirmConsentBody = {
   bodyProperties: ['hasGivenConsent', ...dateBodyProperties('consentDate'), 'consentRefusalDetail'],
 })
 export default class ConfirmConsent implements TaskListPage {
-  documentTitle = "Confirm the person's consent to apply for Short-Term Accommodation (CAS-2)"
+  documentTitle = "Confirm the person's consent to apply for CAS2 HDC"
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Confirm ${this.personName}'s consent to apply for Short-Term Accommodation (CAS-2)`
+  title = `Confirm ${this.personName}'s consent to apply for CAS2 HDC`
 
   questions
 

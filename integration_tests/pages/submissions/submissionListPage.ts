@@ -7,7 +7,7 @@ export default class SubmissionListPage extends Page {
     private readonly applications: Array<Cas2SubmittedApplication>,
     name: string,
   ) {
-    super('Short-Term Accommodation (CAS-2) applications', name)
+    super('Short-Term Accommodation (CAS2 HDC) applications', name)
   }
 
   static visit(applications: Array<Cas2SubmittedApplication>): SubmissionListPage {
