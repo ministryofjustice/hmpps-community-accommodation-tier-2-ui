@@ -26,7 +26,6 @@ import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 context('Visit task list', () => {
   const incompleteApplication = applicationFactory.build({
-    id: 'abc123',
     data: {
       'confirm-eligibility': {
         'confirm-eligibility': { isEligible: 'yes' },
@@ -64,7 +63,6 @@ context('Visit task list', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['check-your-answers']['check-your-answers']
       const application = applicationFactory.build({
-        id: 'abc456',
         person: fullPersonFactory.build(),
         data: applicationData,
       })
@@ -87,7 +85,7 @@ context('Visit task list', () => {
   it('shows the tasks listed by section', () => {
     // I visit the task list page
     // --------------------------------
-    cy.visit('applications/abc123')
+    cy.visit(`applications/${incompleteApplication.id}`)
     const person = incompleteApplication.person as FullPerson
 
     const page = Page.verifyOnPage(TaskListPage, person.name)
@@ -105,7 +103,7 @@ context('Visit task list', () => {
     cy.task('stubApplicationGet', { application: this.completeApplication })
 
     //  When I visit the task list page
-    cy.visit('applications/abc456')
+    cy.visit(`applications/${this.completeApplication.id}`)
     const person = this.completeApplication.person as FullPerson
     const page = Page.verifyOnPage(TaskListPage, person.name)
 

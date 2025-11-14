@@ -22,6 +22,7 @@
 //    When I continue to the next task / page
 //    Then I see the "Risk factors" page
 
+import { faker } from '@faker-js/faker'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import RiskToOthersPage from '../../../../pages/apply/risks_and_needs/risk-of-serious-harm/riskToOthersPage'
@@ -29,6 +30,7 @@ import RiskManagementArrangementsPage from '../../../../pages/apply/risks_and_ne
 
 context('Visit "risk to others" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
+  const applicationId = faker.string.uuid()
 
   beforeEach(function test() {
     cy.task('reset')
@@ -38,7 +40,7 @@ context('Visit "risk to others" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['risk-of-serious-harm'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
+        id: applicationId,
         person,
         data: applicationData,
       })
@@ -47,7 +49,7 @@ context('Visit "risk to others" page', () => {
 
     cy.fixture('applicationData.json').then(applicationData => {
       const application = applicationFactory.build({
-        id: 'abc123',
+        id: applicationId,
         person,
         data: applicationData,
       })
@@ -78,7 +80,7 @@ context('Visit "risk to others" page', () => {
     const page = Page.verifyOnPage(RiskToOthersPage, this.application)
 
     // And I can click through to the RoSH summary
-    page.shouldContainRoshSummaryLink()
+    page.shouldContainRoshSummaryLink(applicationId)
   })
 
   //  Scenario: view 'risk to others' page with auto-populated OASyS data

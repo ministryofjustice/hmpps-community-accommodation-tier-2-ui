@@ -47,6 +47,7 @@
 //    When I select personal savings
 //    Then any ID answers are deleted
 
+import { faker } from '@faker-js/faker'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import FundingSourcePage from '../../../../pages/apply/area_and_funding/funding_information/fundingSourcePage'
@@ -56,6 +57,7 @@ import IdentificationPage from '../../../../pages/apply/area_and_funding/funding
 
 context('Visit area and funding section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
+  const applicationId = faker.string.uuid()
 
   beforeEach(function test() {
     cy.task('reset')
@@ -65,7 +67,7 @@ context('Visit area and funding section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['funding-information']
       const application = applicationFactory.build({
-        id: 'abc123',
+        id: applicationId,
         person,
         data: applicationData,
       })
@@ -75,7 +77,7 @@ context('Visit area and funding section', () => {
 
     cy.fixture('applicationData.json').then(applicationData => {
       const application = applicationFactory.build({
-        id: 'abc123',
+        id: applicationId,
         person,
         data: applicationData,
       })
@@ -95,7 +97,7 @@ context('Visit area and funding section', () => {
 
     // And I am viewing the application
     // --------------------------------
-    cy.visit('applications/abc123')
+    cy.visit(`applications/${applicationId}`)
     Page.verifyOnPage(TaskListPage)
   })
 
