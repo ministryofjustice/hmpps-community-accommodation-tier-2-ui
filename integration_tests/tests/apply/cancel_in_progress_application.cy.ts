@@ -31,7 +31,6 @@ import ListPage from '../../pages/apply/list'
 context('Cancel an in progress application', () => {
   const person = fullPersonFactory.build({ name: 'Roger Smith', nomsNumber: '123' })
   const application = applicationFactory.build({
-    id: 'abc123',
     data: {
       'confirm-eligibility': {
         'confirm-eligibility': { isEligible: 'yes' },

@@ -54,7 +54,6 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['confirm-eligibility'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
@@ -166,7 +165,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     }
     // And I am on the 'person ineligible' page
     cy.task('stubApplicationGet', { application: answered })
-    cy.visit('applications/abc123')
+    cy.visit(`applications/${answered.id}`)
     const ineligiblePage = Page.verifyOnPage(IneligiblePage, this.application)
 
     //  When I choose to change my eligibility answer
@@ -210,7 +209,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     }
     // And I am on the 'person ineligible' page
     cy.task('stubApplicationGet', { application: answered })
-    cy.visit('applications/abc123')
+    cy.visit(`applications/${answered.id}`)
     const ineligiblePage = Page.verifyOnPage(IneligiblePage, this.application)
 
     // When I opt to start a new application

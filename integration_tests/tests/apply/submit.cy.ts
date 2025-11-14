@@ -22,7 +22,6 @@ context('Applications dashboard', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       const person = personFactory.build({})
       const application = applicationFactory.build({
-        id: 'abc123',
         data: applicationData,
         status: 'inProgress',
         person,

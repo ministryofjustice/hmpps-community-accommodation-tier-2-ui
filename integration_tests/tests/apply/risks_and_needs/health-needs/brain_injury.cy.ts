@@ -32,7 +32,6 @@ context('Visit "brain injury" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['health-needs'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
