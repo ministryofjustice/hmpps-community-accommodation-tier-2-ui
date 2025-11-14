@@ -37,7 +37,6 @@ context('Visit "previous address" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['address-history']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

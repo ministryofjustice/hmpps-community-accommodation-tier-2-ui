@@ -64,7 +64,6 @@ context('Visit "HDC licence dates" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   const application = applicationFactory.build({
-    id: 'abc123',
     person,
   })
 
@@ -111,7 +110,7 @@ context('Visit "HDC licence dates" page', () => {
 
     // And I have confirmed the user is eligible for CAS-2 and has given consent
     cy.task('stubApplicationGet', { application: this.applicationWithEligibilityAndConsent })
-    cy.visit(paths.applications.show({ id: 'abc123' }))
+    cy.visit(paths.applications.show({ id: this.application.id }))
 
     // And I'm now faced with the 'HDC licence dates' page
     Page.verifyOnPage(HDCLicenceDatesPage, this.applicationWithEligibilityAndConsent)

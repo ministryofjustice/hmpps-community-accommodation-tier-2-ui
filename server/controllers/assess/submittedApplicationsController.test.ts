@@ -3,6 +3,7 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
 
 import { PaginatedResponse, UiTimelineEvent } from '@approved-premises/ui'
+import { faker } from '@faker-js/faker'
 import {
   applicationNoteFactory,
   assessmentFactory,
@@ -315,7 +316,7 @@ describe('submittedApplicationsController', () => {
     describe('when a note is added', () => {
       it('redirects to the overview page with a success message', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         request.query = {
@@ -339,7 +340,7 @@ describe('submittedApplicationsController', () => {
     describe('when there is a 400 error ', () => {
       it('adds the error to the flash and redirects back to the page', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         request.query = {
@@ -366,7 +367,7 @@ describe('submittedApplicationsController', () => {
     describe('when there is an error that is not a 400', () => {
       it('passes the error to the error handler', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         request.query = {

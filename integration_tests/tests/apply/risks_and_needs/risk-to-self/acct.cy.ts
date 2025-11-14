@@ -40,7 +40,6 @@ context('Visit "Risks and needs" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['risk-to-self']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
