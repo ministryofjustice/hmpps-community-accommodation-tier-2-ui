@@ -42,7 +42,6 @@ context('Visit "RoSH summary" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       riskSummaryData = applicationData['risk-of-serious-harm']['summary-data']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
@@ -52,7 +51,6 @@ context('Visit "RoSH summary" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['risk-of-serious-harm'].summary.additionalComments
       const application = applicationFactory.build({
-        id: 'abc1234',
         person,
         data: applicationData,
       })
@@ -62,7 +60,6 @@ context('Visit "RoSH summary" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['risk-of-serious-harm']['summary-data']
       const application = applicationFactory.build({
-        id: 'abc1234',
         person,
         data: applicationData,
       })

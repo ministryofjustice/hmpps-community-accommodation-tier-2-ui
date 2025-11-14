@@ -32,7 +32,6 @@ context('Visit "pregnancy information" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['personal-information']['pregnancy-information']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
