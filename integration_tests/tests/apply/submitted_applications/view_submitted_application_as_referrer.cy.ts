@@ -22,7 +22,6 @@ context('View submitted application', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       cy.fixture('applicationDocument.json').then(applicationDocument => {
         const application = applicationFactory.build({
-          id: 'abc123',
           data: applicationData,
           document: applicationDocument,
           status: 'submitted',

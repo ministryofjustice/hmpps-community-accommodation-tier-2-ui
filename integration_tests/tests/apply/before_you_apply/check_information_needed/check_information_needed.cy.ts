@@ -32,7 +32,6 @@ context('Complete "Check information needed" page in "Check information needed f
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['information-needed-from-applicant'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

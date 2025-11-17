@@ -32,7 +32,6 @@ context('Visit "CPP details" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['cpp-details-and-hdc-licence-conditions']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

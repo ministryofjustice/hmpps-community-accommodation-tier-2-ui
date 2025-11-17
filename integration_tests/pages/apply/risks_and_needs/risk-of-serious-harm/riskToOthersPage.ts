@@ -23,9 +23,9 @@ export default class RiskToOthersPage extends ApplyPage {
     )
   }
 
-  shouldContainRoshSummaryLink = () => {
+  shouldContainRoshSummaryLink = (applicationId: string) => {
     cy.get('a')
       .contains('View RoSH summary')
-      .should('have.attr', 'href', '/applications/abc123/tasks/risk-of-serious-harm/pages/summary')
+      .should('have.attr', 'href', `/applications/${applicationId}/tasks/risk-of-serious-harm/pages/summary`)
   }
 }

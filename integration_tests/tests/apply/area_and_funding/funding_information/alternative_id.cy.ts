@@ -32,7 +32,6 @@ context('Visit alternative ID page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['funding-information'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

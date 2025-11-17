@@ -31,7 +31,6 @@ context('Referrer adds a note to a submitted application', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       cy.fixture('applicationDocument.json').then(applicationDocument => {
         const submittedApplication = applicationFactory.build({
-          id: 'abc123',
           data: applicationData,
           document: applicationDocument,
           status: 'submitted',

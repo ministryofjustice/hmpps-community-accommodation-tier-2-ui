@@ -23,7 +23,6 @@ context('Visit "About the applicant" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['equality-and-diversity-monitoring']['sexual-orientation'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
       })
       application.data = applicationData
@@ -43,7 +42,7 @@ context('Visit "About the applicant" section', () => {
 
     // And I am on the sexual orientation page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/equality-and-diversity-monitoring/pages/sexual-orientation')
+    cy.visit(`applications/${this.application.id}/tasks/equality-and-diversity-monitoring/pages/sexual-orientation`)
     Page.verifyOnPage(SexualOrientationPage, this.application)
   })
 

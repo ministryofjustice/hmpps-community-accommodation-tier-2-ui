@@ -41,11 +41,19 @@ context('Visit "Risks and needs" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['current-offences']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
       cy.wrap(application).as('application')
+
+      const applicationWithDeletedData = applicationFactory.build({
+        id: application.id,
+        person,
+        data: {
+          'current-offences': { 'current-offence-data': [] },
+        },
+      })
+      cy.wrap(applicationWithDeletedData).as('applicationWithDeletedData')
     })
 
     cy.fixture('applicationData.json').then(applicationData => {
@@ -55,15 +63,6 @@ context('Visit "Risks and needs" section', () => {
       }
       cy.wrap(applicationWithData).as('applicationWithData')
     })
-
-    const applicationWithDeletedData = applicationFactory.build({
-      id: 'abc123',
-      person,
-      data: {
-        'current-offences': { 'current-offence-data': [] },
-      },
-    })
-    cy.wrap(applicationWithDeletedData).as('applicationWithDeletedData')
   })
 
   beforeEach(function test() {
