@@ -36,7 +36,6 @@ context('Assessor views submitted application', () => {
 
     cy.fixture('applicationDocument.json').then(applicationDocument => {
       const submittedApplication: Cas2SubmittedApplication = submittedApplicationFactory.build({
-        id: 'abc123',
         document: applicationDocument,
         submittedAt: '2022-12-10T21:47:28Z',
         person: fullPersonFactory.build({ name: 'Robert Smith' }),

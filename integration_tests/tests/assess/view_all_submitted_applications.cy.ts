@@ -17,7 +17,6 @@ context('Submitted applications', () => {
     cy.task('reset')
 
     const submittedApplication = submittedApplicationSummary.build({
-      id: 'abc123',
       submittedAt: '2022-12-10T21:47:28Z',
       personName: 'Robert Smith',
       crn: 'CRN123',

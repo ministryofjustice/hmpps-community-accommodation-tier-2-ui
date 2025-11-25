@@ -30,7 +30,6 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['referrer-details'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

@@ -52,7 +52,6 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['confirm-consent'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
@@ -168,7 +167,7 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     cy.task('stubApplicationGet', { application: this.applicationWithConsentRefused })
 
     // And I am on the 'consent refused' page
-    cy.visit('applications/abc123')
+    cy.visit(`applications/${this.applicationWithConsentRefused.id}`)
     const page = Page.verifyOnPage(ConsentRefusedPage, this.application)
 
     //  When I choose to change my consent answer
@@ -197,7 +196,7 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     cy.task('stubApplicationGet', { application: this.applicationWithConsentRefused })
 
     // And I am on the 'consent refused' page
-    cy.visit('applications/abc123')
+    cy.visit(`applications/${this.applicationWithConsentRefused.id}`)
     const page = Page.verifyOnPage(ConsentRefusedPage, this.application)
 
     // When I opt to start a new application

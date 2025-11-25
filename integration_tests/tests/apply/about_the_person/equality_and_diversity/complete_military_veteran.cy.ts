@@ -24,7 +24,6 @@ context('Visit "About the applicant" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['equality-and-diversity-monitoring']['military-veteran'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
       })
       application.data = applicationData

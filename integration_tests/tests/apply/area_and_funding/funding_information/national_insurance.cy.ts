@@ -33,7 +33,6 @@ context('Visit "National Insurance" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['funding-information']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

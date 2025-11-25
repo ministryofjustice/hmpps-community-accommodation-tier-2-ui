@@ -38,7 +38,6 @@ context('Visit "immigration status" page - when the applicant is a male', () => 
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['immigration-status']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
@@ -95,7 +94,6 @@ context('Visit "immigration status" page - when the applicant is not a male', ()
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['immigration-status']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

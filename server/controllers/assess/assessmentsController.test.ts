@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { UpdateCas2Assessment } from '@approved-premises/api'
 
+import { faker } from '@faker-js/faker'
 import AssessmentsController from './assessmentsController'
 import { AssessmentService, SubmittedApplicationService } from '../../services'
 import { assessmentFactory, submittedApplicationFactory } from '../../testutils/factories'
@@ -67,7 +68,7 @@ describe('AssessmentsController', () => {
     describe('when there is an error', () => {
       it('passes the error to the error handler', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         const err = new Error()
@@ -82,7 +83,7 @@ describe('AssessmentsController', () => {
           request,
           response,
           err,
-          paths.submittedApplications.overview({ id: 'abc123' }),
+          paths.submittedApplications.overview({ id: request.params.id }),
         )
       })
     })
@@ -94,20 +95,20 @@ describe('AssessmentsController', () => {
 
       request.body = { assessorName: 'assessor-name', nacroReferralId: 'referral-id' } as UpdateCas2Assessment
       request.params = {
-        id: 'abc123',
+        id: faker.string.uuid(),
       }
 
       const requestHandler = assessmentsController.update()
       await requestHandler(request, response, next)
 
       expect(assessmentService.updateAssessment).toHaveBeenCalledWith(request.user.token, assessment.id, request.body)
-      expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: 'abc123' }))
+      expect(response.redirect).toHaveBeenCalledWith(paths.submittedApplications.overview({ id: request.params.id }))
     })
 
     describe('when there is an error', () => {
       it('passes the error to the error handler', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         const err = new Error()
@@ -122,7 +123,7 @@ describe('AssessmentsController', () => {
           request,
           response,
           err,
-          paths.assessmentDetails.show({ id: 'abc123' }),
+          paths.assessmentDetails.show({ id: request.params.id }),
         )
       })
     })
