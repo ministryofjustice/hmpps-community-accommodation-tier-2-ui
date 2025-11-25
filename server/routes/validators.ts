@@ -6,6 +6,7 @@ const validators: Validators = {
   page: /^[a-z-]+$/,
   index: /^[0-9]+$/,
   statusName: /^[a-z-]+$/,
+  name: /^[a-z-]+$/,
 }
 
 export const fieldValidators: Validators = {
@@ -14,4 +15,5 @@ export const fieldValidators: Validators = {
   page: validators.page,
   index: validators.index,
   statusName: validators.statusName,
+  name: validators.name,
 }
