@@ -12,7 +12,7 @@ describe('ConfirmConsent', () => {
     it('personalises the page title', () => {
       const page = new ConfirmConsent({}, application)
 
-      expect(page.title).toEqual("Confirm Roger Smith's consent to apply for Short-Term Accommodation (CAS-2)")
+      expect(page.title).toEqual("Confirm Roger Smith's consent to apply for CAS2 HDC")
     })
   })
 

@@ -9,7 +9,7 @@ import ApplyPage from '../../applyPage'
 export default class ConfirmConsentPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Confirm ${nameOrPlaceholderCopy(application.person)}'s consent to apply for Short-Term Accommodation (CAS-2)`,
+      `Confirm ${nameOrPlaceholderCopy(application.person)}'s consent to apply for CAS2 HDC`,
       application,
       'confirm-consent',
       'confirm-consent',

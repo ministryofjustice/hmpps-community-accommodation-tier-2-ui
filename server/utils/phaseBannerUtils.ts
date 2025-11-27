@@ -1,5 +1,5 @@
 export const serviceDeskLink =
-  'https://mojprod.service-now.com/moj_sp?id=sc_cat_item&table=sc_cat_item&sys_id=5a2f4eff1bbf1690a1e2ddf0b24bcb34'
+  'https://mojprod.service-now.com/moj_sp?id=sc_cat_item&sys_id=5a2f4eff1bbf1690a1e2ddf0b24bcb34'
 export const feedbackSurveyUrl =
   'https://forms.office.com/Pages/ResponsePage.aspx?id=KEeHxuZx_kGp4S6MNndq2KxXUZ1jbxlMsEoiPoZPWGNURVpKVERMMzRYOEpYS1cwVVBDUTZQUThFSS4u'
 
