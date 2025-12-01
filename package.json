@@ -39,7 +39,8 @@
     "checks": "script/checks",
     "clean": "rm -rf dist build node_modules stylesheets",
     "generate-types": "script/generate-types",
-    "start-test-wiremock": "docker compose -f docker-compose-test.yml up -d"
+    "start-test-wiremock": "docker compose -f docker-compose-test.yml up -d",
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
   },
   "engines": {
     "node": "^22.0.0",
@@ -168,6 +169,7 @@
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@pact-foundation/pact": "^16.0.2",
     "@pactflow/openapi-pact-comparator": "^1.4.0",
     "@playwright/test": "^1.56.1",
