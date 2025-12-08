@@ -15,9 +15,6 @@ export type Cas2SubmittedApplication = {
     assignmentDate?: string;
     createdAt: string;
     currentPrisonName?: string;
-    /**
-     * Any object
-     */
     document?: any;
     id: string;
     isTransferredApplication: boolean;
