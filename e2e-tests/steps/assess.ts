@@ -12,7 +12,7 @@ export const updateStatus = async (page: Page) => {
 
 export const viewSubmittedApplication = async (page: Page) => {
   await page.goto('/assess/applications')
-  await expect(page.locator('h1')).toContainText('Short-Term Accommodation (CAS-2) applications')
+  await expect(page.locator('h1')).toContainText('Short-Term Accommodation (CAS2 HDC) applications')
   await page.getByTestId('submitted-applications').getByRole('link').first().click()
   await page.getByRole('button', { name: 'View submitted application' }).click()
   await expect(page.locator('h1')).toContainText(`application`)

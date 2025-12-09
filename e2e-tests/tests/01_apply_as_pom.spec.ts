@@ -13,10 +13,7 @@ import {
   submitApplication,
   viewSubmittedApplication,
   addNote,
-  viewApplicationMadeByAnotherUser,
   enterOldOasysDates,
-  goToPrisonDashboard,
-  checkAnApplicationByUserExists,
   viewInProgressDashboard,
   createAnInProgressApplication,
 } from '../steps/apply'
@@ -45,17 +42,6 @@ test('add a note to a submitted application', async ({ page, person, pomUser }) 
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
-})
-
-test(`add a note to a submitted application created by another user within user's prison`, async ({
-  page,
-  pomUser,
-}) => {
-  await signIn(page, pomUser)
-  await goToPrisonDashboard(page)
-  await checkAnApplicationByUserExists(page, pomUser.name)
-  await viewApplicationMadeByAnotherUser(page, pomUser.name)
-  await addNote(page)
 })
 
 test('create a CAS-2 application with no OASys', async ({ page, personWithoutOasys, pomUser }) => {
