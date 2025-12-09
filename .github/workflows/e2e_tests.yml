@@ -14,7 +14,7 @@ jobs:
         shard: [ 1, 2 ]
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Repository is specified to run the workflow from the API repository
           repository: 'ministryofjustice/hmpps-community-accommodation-tier-2-ui'
