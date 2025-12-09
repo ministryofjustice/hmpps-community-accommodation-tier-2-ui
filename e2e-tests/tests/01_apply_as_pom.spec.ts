@@ -16,6 +16,9 @@ import {
   enterOldOasysDates,
   viewInProgressDashboard,
   createAnInProgressApplication,
+  viewApplicationMadeByAnotherUser,
+  goToPrisonDashboard,
+  checkAnApplicationByUserExists,
 } from '../steps/apply'
 import { signIn } from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
@@ -72,4 +75,18 @@ test('cancel an in progress application from the task list', async ({ page, pomU
   )
   await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
   expect(numberOfApplicationsAfterCancellation).toBeLessThan(numberOfApplicationsBeforeCancellation)
+})
+
+test(`add a note to a submitted application created by another user within user's prison`, async ({
+  page,
+  pomUser,
+}) => {
+  await signIn(page, pomUser)
+  await goToPrisonDashboard(page)
+  await checkAnApplicationByUserExists(page, pomUser.name)
+  const hasOtherUserApplication = await viewApplicationMadeByAnotherUser(page, pomUser.name)
+  if (!hasOtherUserApplication) {
+    test.skip()
+  }
+  await addNote(page)
 })
