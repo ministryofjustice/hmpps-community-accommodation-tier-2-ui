@@ -13,12 +13,12 @@ import {
   submitApplication,
   viewSubmittedApplication,
   addNote,
-  enterOldOasysDates,
-  viewInProgressDashboard,
-  createAnInProgressApplication,
   viewApplicationMadeByAnotherUser,
+  enterOldOasysDates,
   goToPrisonDashboard,
   checkAnApplicationByUserExists,
+  viewInProgressDashboard,
+  createAnInProgressApplication,
 } from '../steps/apply'
 import { signIn } from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'

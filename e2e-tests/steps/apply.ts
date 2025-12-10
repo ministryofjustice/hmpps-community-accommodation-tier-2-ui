@@ -135,8 +135,7 @@ export const checkAnApplicationByUserExists = async (page: Page, name: string) =
 
 export const viewApplicationMadeByAnotherUser = async (page: Page, name: string) => {
   const tableRows = page.locator('.govuk-table__row')
-  const rowsWithOtherUsers = tableRows.filter({ hasNotText: name })
-  const rowWithOtherUser = rowsWithOtherUsers.last()
+  const rowWithOtherUser = tableRows.filter({ hasNotText: name }).last()
   await rowWithOtherUser.getByRole('link').click()
   await expect(page.locator('h2').first()).toContainText('Application history')
 }
