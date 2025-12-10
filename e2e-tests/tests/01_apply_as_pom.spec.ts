@@ -47,6 +47,17 @@ test('add a note to a submitted application', async ({ page, person, pomUser }) 
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 })
 
+test(`add a note to a submitted application created by another user within user's prison`, async ({
+  page,
+  pomUser,
+}) => {
+  await signIn(page, pomUser)
+  await goToPrisonDashboard(page)
+  await checkAnApplicationByUserExists(page, pomUser.name)
+  await viewApplicationMadeByAnotherUser(page, pomUser.name)
+  await addNote(page)
+})
+
 test('create a CAS-2 application with no OASys', async ({ page, personWithoutOasys, pomUser }) => {
   await signIn(page, pomUser)
   await startAnApplication(page)
@@ -75,18 +86,4 @@ test('cancel an in progress application from the task list', async ({ page, pomU
   )
   await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
   expect(numberOfApplicationsAfterCancellation).toBeLessThan(numberOfApplicationsBeforeCancellation)
-})
-
-test(`add a note to a submitted application created by another user within user's prison`, async ({
-  page,
-  pomUser,
-}) => {
-  await signIn(page, pomUser)
-  await goToPrisonDashboard(page)
-  await checkAnApplicationByUserExists(page, pomUser.name)
-  const hasOtherUserApplication = await viewApplicationMadeByAnotherUser(page, pomUser.name)
-  if (!hasOtherUserApplication) {
-    test.skip()
-  }
-  await addNote(page)
 })
