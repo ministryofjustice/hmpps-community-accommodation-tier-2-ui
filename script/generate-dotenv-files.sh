@@ -13,7 +13,7 @@ echo "==> Creating .env files and resolving secrets"
 
 touch "$SCRIPT_DIR/../.env"
 
-secret_names=("hmpps-cas-test-users" "hmpps-community-accommodation-tier-2-ui")
+secret_names=("hmpps-cas-test-users")
 resolve_secrets "$SCRIPT_DIR/../e2e.env.template" \
                 "$SCRIPT_DIR/../e2e.env" \
                 "hmpps-community-accommodation-dev" \
