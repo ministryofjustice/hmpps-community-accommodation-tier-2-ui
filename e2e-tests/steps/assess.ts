@@ -32,7 +32,7 @@ export const addAssessmentDetails = async (page: Page) => {
   await page.getByTestId('add-assessment-details').click()
 
   await page.getByLabel('Assessor name').fill('John Doe')
-  await page.getByLabel('Nacro CAS-2 reference number').fill('123456')
+  await page.getByLabel('Nacro CAS2 reference number').fill('123456')
   await page.getByTestId('save-assessment-details').click()
 
   await expect(page.locator('h2').first()).toContainText('Success')

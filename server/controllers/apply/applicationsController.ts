@@ -117,7 +117,7 @@ export default class ApplicationsController {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
       'The person',
-    )} is not eligible for CAS-2 accommodation`
+    )} is not eligible for CAS2 accommodation`
     const changeAnswerPath = paths.applications.pages.show({
       id: application.id,
       task: 'confirm-eligibility',

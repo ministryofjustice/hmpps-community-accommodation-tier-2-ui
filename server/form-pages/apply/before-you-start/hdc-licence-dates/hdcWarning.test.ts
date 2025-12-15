@@ -9,7 +9,7 @@ describe('HDCWarning', () => {
     it('returns the page title', () => {
       const page = new HDCWarning({}, application)
 
-      expect(page.title).toEqual('It may be too late to offer this applicant a CAS-2 placement')
+      expect(page.title).toEqual('It may be too late to offer this applicant a CAS2 placement')
     })
   })
 

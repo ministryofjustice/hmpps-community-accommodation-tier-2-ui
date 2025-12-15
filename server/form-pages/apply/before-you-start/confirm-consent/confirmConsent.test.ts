@@ -71,7 +71,7 @@ describe('ConfirmConsent', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'yes', consentDate: '2023-11-01' }, application)
 
       expect(page.response()).toEqual({
-        'Has Roger Smith given their consent to apply for CAS-2?': 'Yes, Roger Smith has given their consent',
+        'Has Roger Smith given their consent to apply for CAS2 HDC?': 'Yes, Roger Smith has given their consent',
         'When did they give consent?': '1 November 2023',
       })
     })
@@ -81,7 +81,7 @@ describe('ConfirmConsent', () => {
     const page = new ConfirmConsent({ hasGivenConsent: 'no', consentRefusalDetail: 'some reasons' }, application)
 
     expect(page.response()).toEqual({
-      'Has Roger Smith given their consent to apply for CAS-2?': 'No, Roger Smith has not given their consent',
+      'Has Roger Smith given their consent to apply for CAS2 HDC?': 'No, Roger Smith has not given their consent',
       'Why was consent refused?': 'some reasons',
     })
   })

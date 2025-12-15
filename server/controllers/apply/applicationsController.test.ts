@@ -262,7 +262,7 @@ describe('applicationsController', () => {
         person: personFactory.build({ name: 'Roger Smith' }),
       })
 
-      const panelText = `Roger Smith is not eligible for CAS-2 accommodation`
+      const panelText = `Roger Smith is not eligible for CAS2 accommodation`
       const changeAnswerPath = paths.applications.pages.show({
         id: application.id,
         task: 'confirm-eligibility',

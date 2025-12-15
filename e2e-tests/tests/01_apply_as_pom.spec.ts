@@ -84,6 +84,6 @@ test('cancel an in progress application from the task list', async ({ page, pomU
     },
     { numberOfApplicationsBeforeCancellation, numberOfApplicationsAfterCancellation },
   )
-  await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
+  await expect(page.getByText('Your CAS2 HDC applications')).toBeVisible()
   expect(numberOfApplicationsAfterCancellation).toBeLessThan(numberOfApplicationsBeforeCancellation)
 })

@@ -3,7 +3,7 @@ import paths from '../../../server/paths/apply'
 
 export default class PrisonDashboardPage extends Page {
   constructor() {
-    super(`Your prison's CAS-2 applications`, undefined)
+    super(`Your prison's CAS2 HDC applications`, undefined)
   }
 
   static visit(): PrisonDashboardPage {

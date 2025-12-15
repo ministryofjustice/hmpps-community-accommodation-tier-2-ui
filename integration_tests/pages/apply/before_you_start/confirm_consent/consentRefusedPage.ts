@@ -11,7 +11,7 @@ export default class ConsentRefusedPage extends Page {
   }
 
   hasGuidance(): void {
-    cy.contains('has not given their consent so you cannot apply for Short-Term Accommodation (CAS-2) on their behalf')
+    cy.contains('has not given their consent so you cannot apply for CAS2 for HDC on their behalf.')
   }
 
   hasLinkToChangeAnswer(): void {

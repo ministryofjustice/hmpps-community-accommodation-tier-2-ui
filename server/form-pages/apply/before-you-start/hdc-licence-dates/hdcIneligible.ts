@@ -10,9 +10,9 @@ type HDCIneligibleBody = Record<string, never>
   bodyProperties: [],
 })
 export default class HDCIneligible implements TaskListPage {
-  documentTitle = 'It is too late to submit a CAS-2 application'
+  documentTitle = 'It is too late to submit a CAS2 application'
 
-  title = 'It is too late to submit a CAS-2 application'
+  title = 'It is too late to submit a CAS2 application'
 
   body: HDCIneligibleBody
 

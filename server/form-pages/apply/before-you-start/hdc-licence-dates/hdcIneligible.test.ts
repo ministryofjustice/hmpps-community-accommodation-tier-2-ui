@@ -9,7 +9,7 @@ describe('HDCIneligible', () => {
     it('returns the page title', () => {
       const page = new HDCIneligible({}, application)
 
-      expect(page.title).toEqual('It is too late to submit a CAS-2 application')
+      expect(page.title).toEqual('It is too late to submit a CAS2 application')
     })
   })
 
