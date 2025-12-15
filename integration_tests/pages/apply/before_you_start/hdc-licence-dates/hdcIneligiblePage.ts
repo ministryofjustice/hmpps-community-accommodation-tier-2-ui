@@ -4,7 +4,7 @@ import paths from '../../../../../server/paths/apply'
 
 export default class HDCIneligiblePage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('It is too late to submit a CAS-2 application', application, 'hdc-licence-dates', 'hdc-ineligible')
+    super('It is too late to submit a CAS2 application', application, 'hdc-licence-dates', 'hdc-ineligible')
   }
 
   static visit(application: Application): void {

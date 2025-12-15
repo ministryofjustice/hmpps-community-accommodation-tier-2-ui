@@ -8,7 +8,7 @@ export default class ConfirmEligibilityPage extends ApplyPage {
 
   constructor(private readonly application: Application) {
     super(
-      `Check ${nameOrPlaceholderCopy(application.person)} is eligible for Short-Term Accommodation (CAS-2)`,
+      `Check ${nameOrPlaceholderCopy(application.person)} is eligible for CAS2 HDC`,
       application,
       'confirm-eligibility',
       'confirm-eligibility',

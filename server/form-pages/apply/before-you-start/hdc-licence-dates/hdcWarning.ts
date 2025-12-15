@@ -10,9 +10,9 @@ type HDCWarningBody = Record<string, never>
   bodyProperties: [],
 })
 export default class HDCWarning implements TaskListPage {
-  documentTitle = 'It may be too late to offer this applicant a CAS-2 placement'
+  documentTitle = 'It may be too late to offer this applicant a CAS2 placement'
 
-  title = 'It may be too late to offer this applicant a CAS-2 placement'
+  title = 'It may be too late to offer this applicant a CAS2 placement'
 
   body: HDCWarningBody
 

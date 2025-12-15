@@ -26,7 +26,7 @@ export const getQuestions = (name: string) => {
     'confirm-eligibility': {
       'confirm-eligibility': {
         isEligible: {
-          question: `Is ${name} eligible for Short-Term Accommodation (CAS-2)?`,
+          question: `Is ${name} eligible for CAS2 HDC?`,
           answers: {
             yes: `Yes, I confirm ${name} is eligible`,
             no: `No, ${name} is not eligible`,
@@ -37,7 +37,7 @@ export const getQuestions = (name: string) => {
     'confirm-consent': {
       'confirm-consent': {
         hasGivenConsent: {
-          question: `Has ${name} given their consent to apply for CAS-2?`,
+          question: `Has ${name} given their consent to apply for CAS2 HDC?`,
           answers: {
             yes: `Yes, ${name} has given their consent`,
             no: `No, ${name} has not given their consent`,
@@ -492,7 +492,7 @@ export const getQuestions = (name: string) => {
         },
         pastSubstanceMisuseDetail: {
           question: 'Describe their previous substance misuse',
-          hint: 'Include previous substance misuse that support would be needed for or that could lead to potential issues in a CAS-2 placement. For example, relapse prevention support, substitute medication or risk of overdose',
+          hint: 'Include previous substance misuse that support would be needed for or that could lead to potential issues in a CAS2 HDC placement. For example, relapse prevention support, substitute medication or risk of overdose',
         },
         engagedWithDrugAndAlcoholService: {
           question: 'Are they engaged with a drug and alcohol service in custody?',

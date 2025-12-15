@@ -8,7 +8,7 @@ export default class IneligiblePagePage extends Page {
   constructor(private readonly application: Application) {
     const person = application.person as FullPerson
     super(
-      `${nameOrPlaceholderCopy(application.person, 'The person')} is not eligible for CAS-2 accommodation`,
+      `${nameOrPlaceholderCopy(application.person, 'The person')} is not eligible for CAS2 accommodation`,
       person.name,
     )
   }

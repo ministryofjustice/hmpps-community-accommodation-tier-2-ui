@@ -105,7 +105,7 @@ export const submitApplication = async (page: Page) => {
 
 export const viewSubmittedApplication = async (page: Page, name: string) => {
   await page.goto('/applications#submitted')
-  await expect(page.locator('h1')).toContainText('Your CAS-2 applications')
+  await expect(page.locator('h1')).toContainText('Your CAS2 HDC applications')
   await page.getByRole('link', { name }).first().click()
   await expect(page.locator('h1')).toContainText(name)
   await expect(page.locator('h2').first()).toContainText('Application history')
