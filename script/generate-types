@@ -14,7 +14,7 @@ fi
 
 echo "==> Generating types using: $url"
 
-npx openapi-typescript-codegen -i "$url" -o ./server/@types/shared -c axios --exportServices false --exportCore false --useUnionTypes true
+npx openapi-typescript-codegen -i "$url" -o ./server/@types/shared -c axios --exportServices false --exportCore false --useUnionTypes
 
 echo "==> Renaming the declaration file..."
 
