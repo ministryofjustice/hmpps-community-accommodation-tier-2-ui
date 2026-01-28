@@ -29,6 +29,7 @@ import { initialiseName, removeBlankSummaryListItems, stringToKebabCase, camelTo
 import { pagination } from './pagination'
 import { formatLines } from './viewUtils'
 import * as PhaseBannerUtils from './phaseBannerUtils'
+import config from '../config'
 
 // eslint-disable-next-line
 const getMojFilters = require('@ministryofjustice/frontend/moj/filters/all')
@@ -68,6 +69,8 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
       dev: true, // This is set to true to allow us to see the full stacktrace from errors in global functions, otherwise it gets swallowed and tricky to see in logs
     },
   )
+
+  njkEnv.addGlobal('plannedMaintenance', config.flags.plannedMaintenance)
 
   njkEnv.addFilter('initialiseName', initialiseName)
 
