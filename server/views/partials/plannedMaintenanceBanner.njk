@@ -1,0 +1,12 @@
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% if plannedMaintenance %}
+    {% set html %}
+        <h3 class="govuk-notification-banner__heading">Planned maintenance</h3>
+        <p class="govuk-body">CAS2 for HDC will be unavailable on Sunday 8 February 2026 from 10am to 2pm.</p>
+    {% endset %}
+
+    {{ govukNotificationBanner({
+        html: html
+    }) }}
+{% endif %}

@@ -5,78 +5,77 @@
 {% from "../partials/showErrorSummary.njk" import showErrorSummary %}
 {% extends "../partials/layout.njk" %}
 {% block pageTitle %}
-  CAS 2 - Task list
+    CAS 2 - Task list
 {% endblock %}
 
-{% block beforeContent%}
-  {% if backLink %}
-    {{ govukBackLink({
-        text: "Back",
-        href: backLink
-    }) }}
-  {% endif %}
+{% block beforeContent %}
+    {% if backLink %}
+        {{ govukBackLink({
+            text: "Back",
+            href: backLink
+        }) }}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-      {{ showErrorSummary(errorSummary) }}
-      <h1 class="govuk-heading-xl">Apply for CAS2 HDC</h1>
 
-      <div class="govuk-!-margin-bottom-4">
-        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
-          <span class="govuk-!-font-weight-bold">Applicant:</span>
-          {{ application.person.name }}</p>
-        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
-          <span class="govuk-!-font-weight-bold">Prison:</span>
-          {{ application.person.prisonName }}</p>
-        <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
-          <span class="govuk-!-font-weight-bold">Referrer:</span>
-          {{ application.createdBy.name }}</p>
-      </div>
+    {% include 'partials/plannedMaintenanceBanner.njk' %}
 
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-        You have completed {{ taskList.completeTaskCount }} of {{ (taskList.taskCount) }} tasks.
-      </h2>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            {{ showErrorSummary(errorSummary) }}
+            <h1 class="govuk-heading-xl">Apply for CAS2 HDC</h1>
 
-      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible  govuk-!-margin-top-7">
-    </div>
-
-    <div class="govuk-grid-column-three-quarters">
-      <form action="{{ paths.applications.submission({id: application.id}) }}" method="post">
-        <ol class="govuk-task-list">
-          {% include '../partials/taskListItems.njk' %}
-
-          <li>
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
-
-            {% if taskList.status === 'complete' %}
-              {{
-                  govukButton({
-                    text: "Submit application",
-                    preventDoubleClick: true
-                  })
-                }}
-            {% else %}
-              <p>Complete all tasks and check answers before submitting.</p>
-              <div class="govuk-button-group">
-                {{
-                  govukButton({
-                    text: "Submit application",
-                    disabled: true
-                  })
-                }}
-              {% endif %}
-
-              {{ govukButton({
-                  text: "Return to applications dashboard",
-                  classes: "govuk-button--secondary",
-                  href: paths.applications.index()
-                  }) }}
+            <div class="govuk-!-margin-bottom-4">
+                <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+                    <span class="govuk-!-font-weight-bold">Applicant:</span>
+                    {{ application.person.name }}</p>
+                <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+                    <span class="govuk-!-font-weight-bold">Prison:</span>
+                    {{ application.person.prisonName }}</p>
+                <p class="govuk-body govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-1">
+                    <span class="govuk-!-font-weight-bold">Referrer:</span>
+                    {{ application.createdBy.name }}</p>
             </div>
-          </li>
-        </ol>
-      </form>
+
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                You have completed {{ taskList.completeTaskCount }} of {{ (taskList.taskCount) }} tasks.
+            </h2>
+
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible  govuk-!-margin-top-7">
+        </div>
+
+        <div class="govuk-grid-column-three-quarters">
+            <form action="{{ paths.applications.submission({id: application.id}) }}" method="post">
+                <ol class="govuk-task-list">
+                    {% include '../partials/taskListItems.njk' %}
+
+                    <li>
+                        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+                        {% if taskList.status === 'complete' %}
+                        {{ govukButton({
+                            text: "Submit application",
+                            preventDoubleClick: true
+                        }) }}
+                        {% else %}
+                        <p>Complete all tasks and check answers before submitting.</p>
+                        <div class="govuk-button-group">
+                            {{ govukButton({
+                                text: "Submit application",
+                                disabled: true
+                            }) }}
+                            {% endif %}
+
+                            {{ govukButton({
+                                text: "Return to applications dashboard",
+                                classes: "govuk-button--secondary",
+                                href: paths.applications.index()
+                            }) }}
+                        </div>
+                    </li>
+                </ol>
+            </form>
+        </div>
     </div>
-  </div>
 {% endblock %}
