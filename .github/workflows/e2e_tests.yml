@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: CAS2-E2E-playwright-report-${{ matrix.shard }}-of-${{ strategy.job-total }}
           path: playwright-report
@@ -56,7 +56,7 @@ jobs:
 
       - name: Upload E2E artefacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: CAS2-E2E-artefacts-${{ matrix.shard }}-of-${{ strategy.job-total }}
           path: test-results
