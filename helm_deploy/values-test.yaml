@@ -18,7 +18,7 @@ generic-service:
     TOKEN_VERIFICATION_API_URL: 'https://token-verification-api-dev.prison.service.justice.gov.uk'
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
-    PLANNED_MAINTENANCE_BANNER: true
+    PLANNED_MAINTENANCE_BANNER: false
 
   allowlist: null
 
