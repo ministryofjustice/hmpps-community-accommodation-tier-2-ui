@@ -100,6 +100,7 @@ export default {
   },
   domain: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   flags: {
-    maintenanceMode: get('IN_MAINTENANCE_MODE', false),
+    maintenanceMode: get('IN_MAINTENANCE_MODE', 'false') === 'true',
+    plannedMaintenance: get('PLANNED_MAINTENANCE_BANNER', 'false') === 'true',
   },
 }

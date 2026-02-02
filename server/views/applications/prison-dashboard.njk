@@ -4,85 +4,86 @@
 {% from "../partials/table.njk" import applicationsTable %}
 {% from "../partials/applicationSoftDeleteGuidance.njk" import softDeleteGuidance %}
 
-{% set pageTitle = applicationName + " - your prison's applications"  %}
+{% set pageTitle = applicationName + " - your prison's applications" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">Your prison's CAS2 HDC applications</h1>
+    {% include 'partials/plannedMaintenanceBanner.njk' %}
 
-      {{ mojSubNavigation({
-          label: 'Sub navigation',
-          items: [{
-            text: 'Your applications',
-            href: paths.applications.index()
-          }, {
-            text: "Your prison's applications",
-            href: paths.applications.prison(),
-            active: true
-          }]
-        }) }}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Your prison's CAS2 HDC applications</h1>
 
-      {% if transferredIn and transferredIn.length > 0 %}
-        <h2 class="govuk-heading-m">Transferred-in applications</h2>
+            {{ mojSubNavigation({
+                label: 'Sub navigation',
+                items: [{
+                    text: 'Your applications',
+                    href: paths.applications.index()
+                }, {
+                    text: "Your prison's applications",
+                    href: paths.applications.prison(),
+                    active: true
+                }]
+            }) }}
 
-        <p>View CAS2 for HDC applications recently transferred to your prison, which need to be allocated to a prison offender manager.</p>
+            {% if transferredIn and transferredIn.length > 0 %}
+                <h2 class="govuk-heading-m">Transferred-in applications</h2>
 
-				<div class="govuk-!-margin-bottom-9">
-	        {{applicationsTable(
-	          "",
-	          [
-	            {
-	              text: "Person"
-	            },
-	            {
-	              text: "Prison number"
-	            },
-	            {
-	              text: "HDC eligibility date"
-	            },
-	            {
-	              text: "Status"
-	            }
-	          ],
-	          transferredIn)
-	        }}
-				</div>
-      {% endif %}
+                <p>View CAS2 for HDC applications recently transferred to your prison, which need to be allocated to a
+                    prison offender manager.</p>
 
-			<h2 class="govuk-heading-m">All allocated applications</h2>
+                <div class="govuk-!-margin-bottom-9">
+                    {{ applicationsTable(
+                        "",
+                        [
+                            {
+                                text: "Person"
+                            },
+                            {
+                                text: "Prison number"
+                            },
+                            {
+                                text: "HDC eligibility date"
+                            },
+                            {
+                                text: "Status"
+                            }
+                        ],
+                        transferredIn) }}
+                </div>
+            {% endif %}
 
-      <p>View recent allocated applications.</p>
+            <h2 class="govuk-heading-m">All allocated applications</h2>
 
-      {{applicationsTable(
-        "", 
-        [
-          {
-            text: "Person"
-          },
-          {
-            text: "Prison number"
-          },
-          {
-            text: "Application owner"
-          },
-          {
-            text: "HDC eligibility date"
-          },
-          {
-            text: "Status"
-          }
-        ],
-        prisonDashboardTableRows(applications))
-      }}
+            <p>View recent allocated applications.</p>
 
-      {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
+            {{ applicationsTable(
+                "",
+                [
+                    {
+                        text: "Person"
+                    },
+                    {
+                        text: "Prison number"
+                    },
+                    {
+                        text: "Application owner"
+                    },
+                    {
+                        text: "HDC eligibility date"
+                    },
+                    {
+                        text: "Status"
+                    }
+                ],
+                prisonDashboardTableRows(applications)) }}
 
-      {{ softDeleteGuidance() }}
+            {{ govukPagination(pagination(pageNumber, totalPages, hrefPrefix)) }}
 
+            {{ softDeleteGuidance() }}
+
+        </div>
     </div>
-  </div>
 
 {% endblock %}

@@ -11,81 +11,83 @@
 
 {% extends "../partials/layout.njk" %}
 
-{% set pageTitle = applicationName + " - " + pageHeading  %}
+{% set pageTitle = applicationName + " - " + pageHeading %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
-	{% set tabItems =  [{
-		label: tabData.inProgressTab.label,
-	    id: tabData.inProgressTab.id,
-	    panel: {
-	      html: applicationsTable(
-	        tabData.inProgressTab.label,
-	        tabData.inProgressTab.headings,
-	        tabData.inProgressTab.rows
-	      )
-	    }
-	  },
-	  {
-	    label: tabData.submittedTab.label,
-	    id: tabData.submittedTab.id,
-	    panel: {
-	      html: applicationsTable(
-	        tabData.submittedTab.label,
-	        tabData.submittedTab.headings,
-	        tabData.submittedTab.rows
-	      )
-	    }
-	  }]
-	%}
 
-	{% if tabData.transferredOutTab and tabData.transferredOutTab.rows and tabData.transferredOutTab.rows.length > 0 %}
-		{% set tabItems = (tabItems.push({
-			label: tabData.transferredOutTab.label,
-			id: tabData.transferredOutTab.id,
-			panel: {
-				html: applicationsTable(
-					tabData.transferredOutTab.label,
-					tabData.transferredOutTab.headings,
-					tabData.transferredOutTab.rows
-				)
-			}
-		}), tabItems) %}
-	{% endif %}
+    {% include 'partials/plannedMaintenanceBanner.njk' %}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">Your CAS2 HDC applications</h1>
-      {% if successMessages %}
-        {% for message in successMessages %}
-          {{ govukNotificationBanner({
-                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
-                type: 'success',
-                titleId: 'success-title'
-              }) }}
-        {% endfor %}
-      {% endif %}
+    {% set tabItems =  [{
+        label: tabData.inProgressTab.label,
+        id: tabData.inProgressTab.id,
+        panel: {
+            html: applicationsTable(
+                tabData.inProgressTab.label,
+                tabData.inProgressTab.headings,
+                tabData.inProgressTab.rows
+            )
+        }
+    },
+        {
+            label: tabData.submittedTab.label,
+            id: tabData.submittedTab.id,
+            panel: {
+            html: applicationsTable(
+                tabData.submittedTab.label,
+                tabData.submittedTab.headings,
+                tabData.submittedTab.rows
+            )
+        }
+        }] %}
 
-      {{ showErrorSummary(errorSummary) }}
+    {% if tabData.transferredOutTab and tabData.transferredOutTab.rows and tabData.transferredOutTab.rows.length > 0 %}
+        {% set tabItems = (tabItems.push({
+            label: tabData.transferredOutTab.label,
+            id: tabData.transferredOutTab.id,
+            panel: {
+                html: applicationsTable(
+                    tabData.transferredOutTab.label,
+                    tabData.transferredOutTab.headings,
+                    tabData.transferredOutTab.rows
+                )
+            }
+        }), tabItems) %}
+    {% endif %}
 
-      {{ mojSubNavigation({
-          label: 'Sub navigation',
-          items: [{
-            text: 'Your applications',
-            href: paths.applications.index(),
-            active: true
-          }, {
-            text: "Your prison's applications",
-            href: paths.applications.prison()
-          }]
-        }) }}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Your CAS2 HDC applications</h1>
+            {% if successMessages %}
+                {% for message in successMessages %}
+                    {{ govukNotificationBanner({
+                        html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                        type: 'success',
+                        titleId: 'success-title'
+                    }) }}
+                {% endfor %}
+            {% endif %}
 
-      {{ govukTabs({ items: tabItems }) }}
+            {{ showErrorSummary(errorSummary) }}
 
-      {{ softDeleteGuidance() }}
+            {{ mojSubNavigation({
+                label: 'Sub navigation',
+                items: [{
+                    text: 'Your applications',
+                    href: paths.applications.index(),
+                    active: true
+                }, {
+                    text: "Your prison's applications",
+                    href: paths.applications.prison()
+                }]
+            }) }}
 
-      <a class="govuk-button" href="{{ paths.applications.beforeYouStart() }}">Start a new application</a>
+            {{ govukTabs({ items: tabItems }) }}
+
+            {{ softDeleteGuidance() }}
+
+            <a class="govuk-button" href="{{ paths.applications.beforeYouStart() }}">Start a new application</a>
+        </div>
     </div>
-  </div>
 
 {% endblock %}
