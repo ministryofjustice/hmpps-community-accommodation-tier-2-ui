@@ -10,7 +10,6 @@ import reportRoutes from './report'
 import staticRoutes from './static'
 import { actions } from './utils'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function routes(controllers: Controllers, services: Services): Router {
   const router = Router()
   const { get, post } = actions(router, services.auditService)

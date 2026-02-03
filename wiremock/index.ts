@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import superagent, { Response, SuperAgentRequest } from 'superagent'
 
 const wiremockEndpoint = process.env.CYPRESS ? 'http://localhost:9999' : 'http://localhost:9092'

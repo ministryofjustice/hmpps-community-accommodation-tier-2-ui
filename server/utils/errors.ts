@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import type { TaskListErrors } from '@approved-premises/ui'
 import TaskListPage from '../form-pages/taskListPage'
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import { isBefore, isFuture, isToday } from 'date-fns'
 import type { ObjectWithDateParts } from '@approved-premises/ui'
 

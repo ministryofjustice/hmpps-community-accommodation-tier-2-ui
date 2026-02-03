@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 
 import TaskListPage from '../../taskListPage'
 
-type Constructor = new (...args: Array<any>) => {}
+type Constructor = new (...args: Array<any>) => object
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 interface Type<T> extends Function {
   new (...args: Array<any>): T
 }

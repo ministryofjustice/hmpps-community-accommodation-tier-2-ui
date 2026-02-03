@@ -1,8 +1,8 @@
 import { Cas2Application } from '@approved-premises/api'
 import 'reflect-metadata'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
-type Constructor = new (...args: Array<any>) => {}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Constructor = new (...args: Array<any>) => object
 
 const Page = (options: { bodyProperties: Array<string>; name: string; controllerActions?: { update: string } }) => {
   return <T extends Constructor>(constructor: T) => {
