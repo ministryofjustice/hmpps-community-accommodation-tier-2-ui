@@ -63,7 +63,6 @@ expect.extend({
       const results = []
 
       try {
-        // eslint-disable-next-line no-restricted-syntax
         for await (const result of comparator.compare(pact)) {
           results.push(result)
         }

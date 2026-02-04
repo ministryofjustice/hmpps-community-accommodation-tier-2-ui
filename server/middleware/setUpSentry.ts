@@ -40,7 +40,6 @@ export function setUpSentryRequestHandler(app: express.Express): void {
       beforeSend(event) {
         if (event.user) {
           // Don't send username
-          // eslint-disable-next-line no-param-reassign
           delete event.user.username
         }
         return event

@@ -29,7 +29,7 @@ interface PostRequest {
   raw?: boolean
 }
 
-interface PutRequest extends PostRequest {}
+type PutRequest = PostRequest
 
 interface StreamRequest {
   path?: string
@@ -170,7 +170,7 @@ export default class RestClient {
             reject(error)
           } else if (response) {
             const s = new Readable()
-            // eslint-disable-next-line no-underscore-dangle,@typescript-eslint/no-empty-function,no-empty-function
+            // eslint-disable-next-line no-underscore-dangle, no-empty-function
             s._read = () => {}
             s.push(response.body)
             s.push(null)
