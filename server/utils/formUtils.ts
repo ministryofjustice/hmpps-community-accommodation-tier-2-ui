@@ -49,3 +49,8 @@ export const dateFieldValues = (fieldName: string, context: Record<string, unkno
     },
   ]
 }
+
+export const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.gov\.uk$/i
+  return emailRegex.test(email)
+}

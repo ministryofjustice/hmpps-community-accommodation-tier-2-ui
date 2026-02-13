@@ -5,6 +5,7 @@ import {
   convertKeyValuePairToRadioItems,
   convertKeyValuePairToCheckboxItems,
   dateFieldValues,
+  isValidEmail,
 } from './formUtils'
 
 describe('formutils', () => {
@@ -242,5 +243,33 @@ describe('formutils', () => {
         },
       ])
     })
+  })
+
+  describe('isValidEmail', () => {
+    it.each([
+      'invalid-email',
+      'test@example.com',
+      'test@gmail.com',
+      '@justice.gov.uk',
+      'http://justice.co.uk',
+      'http://yahoo.com',
+      'test@justice.go.uk',
+      'test@justice.gov.ykj',
+      'test@.gov.uk',
+      'test @justice.gov.uk',
+      'test@justice.gove.com',
+      'test@justice .gov.uk',
+      'test@ justice.gov.uk',
+      'test@gov.uk',
+    ])('should return false for invalid email: %s', email => {
+      expect(isValidEmail(email)).toBe(false)
+    })
+
+    it.each(['test@justice.gov.uk', 'name@example.gov.uk', 'backup-name@example.gov.uk'])(
+      'should return true for valid email: %s',
+      email => {
+        expect(isValidEmail(email)).toBe(true)
+      },
+    )
   })
 })

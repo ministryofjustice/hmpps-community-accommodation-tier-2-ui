@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
+import { isValidEmail } from '../../../../utils/formUtils'
 
 type CPPDetailsBody = {
   name: string
@@ -61,6 +62,8 @@ export default class CPPDetails implements TaskListPage {
     }
     if (!this.body.email) {
       errors.email = "Enter the CPP's email address"
+    } else if (!isValidEmail(this.body.email)) {
+      errors.email = 'Enter an email address ending .gov.uk'
     }
     if (!this.body.telephone) {
       errors.telephone = "Enter the CPP's contact number"

@@ -4,6 +4,12 @@ import CPPDetails from './cppDetails'
 
 describe('CPPDetails', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+  const body = {
+    name: 'Some Name',
+    probationRegion: 'Cloud City',
+    telephone: '01234 56789',
+    email: 'name@justice.gov.uk',
+  }
 
   describe('title', () => {
     it('personalises the page title', () => {
@@ -27,6 +33,16 @@ describe('CPPDetails', () => {
           telephone: "Enter the CPP's contact number",
         })
       })
+    })
+
+    it('returns an error if the email address is not valid', () => {
+      const page = new CPPDetails({ ...body, email: 'invalid-email' }, application)
+      expect(page.errors()).toEqual({ email: 'Enter an email address ending .gov.uk' })
+    })
+
+    it('returns an error if the email address is not a .gov.uk email address', () => {
+      const page = new CPPDetails({ ...body, email: 'name@example.com' }, application)
+      expect(page.errors()).toEqual({ email: 'Enter an email address ending .gov.uk' })
     })
   })
 
