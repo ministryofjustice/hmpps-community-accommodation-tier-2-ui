@@ -187,7 +187,7 @@
     "@types/supertest": "^6.0.0",
     "audit-ci": "^7.1.0",
     "axe-core": "^4.10.2",
-    "concurrently": "^8.0.1",
+    "concurrently": "^9.0.0",
     "cypress": "^13.8.1",
     "cypress-axe": "^1.5.0",
     "cypress-multi-reporters": "^1.6.3",
