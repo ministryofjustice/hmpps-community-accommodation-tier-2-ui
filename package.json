@@ -124,7 +124,7 @@
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.981.0",
     "@faker-js/faker": "^8.0.0",
-    "@golevelup/ts-jest": "^0.5.0",
+    "@golevelup/ts-jest": "^0.7.0",
     "@microsoft/applicationinsights-web": "^3.3.5",
     "@ministryofjustice/frontend": "^8.0.0",
     "@playwright/test": "^1.56.1",
@@ -167,7 +167,7 @@
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
-    "@ministryofjustice/eslint-config-hmpps": "1.0.2",
+    "@ministryofjustice/eslint-config-hmpps": "1.0.3",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@pact-foundation/pact": "^16.0.2",
     "@pactflow/openapi-pact-comparator": "^1.4.0",
