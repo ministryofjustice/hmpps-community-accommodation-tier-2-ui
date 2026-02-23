@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express'
-import jsonpath from 'jsonpath'
+import { JSONPath } from 'jsonpath-plus'
 
 import type { ErrorMessage, ErrorMessages, ErrorSummary, ErrorsAndUserInput } from '@approved-premises/ui'
 import { SanitisedError } from '../sanitisedError'
@@ -88,7 +88,7 @@ export const generateErrorMessages = (errors: Record<string, string>): ErrorMess
 }
 const errorText = (error: InvalidParams): ErrorSummary => {
   const errors =
-    jsonpath.value(errorLookup, error.propertyName) ||
+    JSONPath({ json: errorLookup, path: error.propertyName, wrap: false }) ||
     throwUndefinedError(`Cannot find a translation for an error at the path ${error.propertyName}`)
 
   const text =
