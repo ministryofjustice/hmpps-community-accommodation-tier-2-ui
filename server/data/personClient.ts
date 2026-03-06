@@ -13,37 +13,27 @@ export default class PersonClient {
   }
 
   async oasysRiskToSelf(crn: string): Promise<OASysRiskToSelf> {
-    const path = paths.people.oasys.riskToSelf({ crn })
-
-    const response = (await this.restClient.get({ path })) as OASysRiskToSelf
-
-    return response
+    return this.restClient.get<OASysRiskToSelf>({
+      path: paths.people.oasys.riskToSelf({ crn }),
+    })
   }
 
   async oasysRosh(crn: string): Promise<OASysRiskOfSeriousHarm> {
-    const path = paths.people.oasys.rosh({ crn })
-
-    const response = (await this.restClient.get({ path })) as OASysRiskOfSeriousHarm
-
-    return response
+    return this.restClient.get<OASysRiskOfSeriousHarm>({
+      path: paths.people.oasys.rosh({ crn }),
+    })
   }
 
   async search(nomsNumber: string): Promise<FullPerson> {
-    const query = { nomsNumber } as Record<string, string | boolean>
-
-    const path = `${paths.people.search({})}?${createQueryString(query)}`
-    const response = await this.restClient.get({
-      path,
+    return this.restClient.get<FullPerson>({
+      path: paths.people.search({}),
+      query: createQueryString({ nomsNumber }),
     })
-
-    return response as FullPerson
   }
 
   async risks(crn: string): Promise<PersonRisks> {
-    const response = await this.restClient.get({
+    return this.restClient.get<PersonRisks>({
       path: paths.people.risks.show({ crn }),
     })
-
-    return response as PersonRisks
   }
 }

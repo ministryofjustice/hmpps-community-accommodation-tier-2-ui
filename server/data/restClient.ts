@@ -67,18 +67,18 @@ export default class RestClient {
     return this.config.timeout
   }
 
-  async put(request: PutRequest = {}): Promise<unknown> {
-    return this.postOrPut('put', request)
+  async put<T = unknown>(request: PutRequest = {}): Promise<T> {
+    return this.postOrPut<T>('put', request)
   }
 
-  async post(request: PostRequest = {}): Promise<unknown> {
-    return this.postOrPut('post', request)
+  async post<T = unknown>(request: PostRequest = {}): Promise<T> {
+    return this.postOrPut<T>('post', request)
   }
 
-  private async postOrPut(
+  private async postOrPut<T = unknown>(
     method: 'post' | 'put',
     { path = null, headers = {}, responseType = '', data = {}, raw = false }: PutRequest | PostRequest = {},
-  ): Promise<unknown> {
+  ): Promise<T> {
     logger.info(`${method} using user credentials: calling ${this.name}: ${path}`)
     try {
       const request =
@@ -93,7 +93,7 @@ export default class RestClient {
         .responseType(responseType)
         .timeout(this.timeoutConfig())
 
-      return raw ? result : result.body
+      return (raw ? result : result.body) as T
     } catch (error) {
       const sanitisedError = sanitiseError(error)
       logger.warn({ ...sanitisedError }, `Error calling ${this.name}, path: '${path}', verb: 'PUT'`)
@@ -101,7 +101,13 @@ export default class RestClient {
     }
   }
 
-  async get({ path = null, query = '', headers = {}, responseType = '', raw = false }: GetRequest): Promise<unknown> {
+  async get<T = unknown>({
+    path = null,
+    query = '',
+    headers = {},
+    responseType = '',
+    raw = false,
+  }: GetRequest): Promise<T> {
     logger.info(`Get using user credentials: calling ${this.name}: ${path} ${query}`)
     try {
       const result = await superagent
@@ -118,7 +124,7 @@ export default class RestClient {
         .responseType(responseType)
         .timeout(this.timeoutConfig())
 
-      return raw ? result : result.body
+      return (raw ? result : result.body) as T
     } catch (error) {
       const sanitisedError = sanitiseError(error)
       logger.warn({ ...sanitisedError, query }, `Error calling ${this.name}, path: '${path}', verb: 'GET'`)
