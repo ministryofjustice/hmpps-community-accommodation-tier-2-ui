@@ -19,23 +19,23 @@ export default class ApplicationClient {
   }
 
   async find(applicationId: string): Promise<Application> {
-    return (await this.restClient.get({
+    return this.restClient.get<Application>({
       path: paths.applications.show({ id: applicationId }),
-    })) as Application
+    })
   }
 
   async create(crn: string): Promise<Application> {
-    return (await this.restClient.post({
+    return this.restClient.post<Application>({
       path: paths.applications.new.pattern,
       data: { crn: crn.trim() },
-    })) as Application
+    })
   }
 
   async getApplications(assignmentType: AssignmentType): Promise<Array<Cas2ApplicationSummary>> {
-    return (await this.restClient.get({
+    return this.restClient.get<Array<Cas2ApplicationSummary>>({
       path: paths.applications.index.pattern,
       query: createQueryString({ assignmentType }),
-    })) as Array<Cas2ApplicationSummary>
+    })
   }
 
   async getPagedApplications(
@@ -50,10 +50,10 @@ export default class ApplicationClient {
   }
 
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
-    return (await this.restClient.put({
+    return this.restClient.put<Application>({
       path: paths.applications.update({ id: applicationId }),
       data: { ...updateData, type: 'CAS2' } as UpdateCas2Application,
-    })) as Application
+    })
   }
 
   async submit(applicationId: string, submissionData: SubmitCas2Application): Promise<void> {
