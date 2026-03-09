@@ -23,17 +23,13 @@ export default class ApplicationService {
   async createApplication(token: string, crn: string): Promise<Cas2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const application = await applicationClient.create(crn)
-
-    return application
+    return applicationClient.create(crn)
   }
 
   async findApplication(token: string, id: string): Promise<Cas2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const application = await applicationClient.find(id)
-
-    return application
+    return applicationClient.find(id)
   }
 
   async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
@@ -48,7 +44,7 @@ export default class ApplicationService {
       inProgress,
       submitted,
       transferredOut,
-    } as GroupedApplications
+    }
   }
 
   async getAllByPrison(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2ApplicationSummary>> {

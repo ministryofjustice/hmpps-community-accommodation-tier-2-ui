@@ -7,22 +7,19 @@ export default class PersonService {
   async findByPrisonNumber(token: string, nomsNumber: string): Promise<FullPerson> {
     const personClient = this.personClientFactory(token)
 
-    const person = await personClient.search(nomsNumber)
-    return person
+    return personClient.search(nomsNumber)
   }
 
   async getOasysRiskToSelf(token: string, crn: string): Promise<OASysRiskToSelf> {
     const personClient = this.personClientFactory(token)
 
-    const riskToSelf = await personClient.oasysRiskToSelf(crn)
-    return riskToSelf
+    return personClient.oasysRiskToSelf(crn)
   }
 
   async getOasysRosh(token: string, crn: string): Promise<OASysRiskOfSeriousHarm> {
     const personClient = this.personClientFactory(token)
 
-    const rosh = await personClient.oasysRosh(crn)
-    return rosh
+    return personClient.oasysRosh(crn)
   }
 
   async getRoshRisks(token: string, crn: string): Promise<RoshRisksEnvelope> {
