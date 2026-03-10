@@ -96,7 +96,7 @@ export default class RestClient {
       return (raw ? result : result.body) as T
     } catch (error) {
       const sanitisedError = sanitiseError(error)
-      logger.warn({ ...sanitisedError }, `Error calling ${this.name}, path: '${path}', verb: 'PUT'`)
+      logger.warn({ ...sanitisedError }, `Error calling ${this.name}, path: '${path}', verb: '${method.toUpperCase()}'`)
       throw sanitisedError
     }
   }

@@ -17,25 +17,19 @@ export default class SubmittedApplicationService {
   async getAll(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2SubmittedApplicationSummary>> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
-    const applications = await applicationClient.all(pageNumber)
-
-    return applications
+    return applicationClient.all(pageNumber)
   }
 
   async findApplication(token: string, id: string): Promise<SubmittedApplication> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
-    const application = await applicationClient.find(id)
-
-    return application
+    return applicationClient.find(id)
   }
 
   async getApplicationStatuses(token: string): Promise<Array<ApplicationStatus>> {
     const referenceDataClient = this.referenceDataClientFactory(token)
 
-    const statuses = await referenceDataClient.getApplicationStatuses()
-
-    return statuses
+    return referenceDataClient.getApplicationStatuses()
   }
 
   async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {

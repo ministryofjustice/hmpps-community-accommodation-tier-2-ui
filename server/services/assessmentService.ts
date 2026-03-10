@@ -11,9 +11,7 @@ export default class AssessmentService {
   async findAssessment(token: string, assessmentId: string): Promise<Cas2Assessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 
-    const assessment = await assessmentClient.find(assessmentId)
-
-    return assessment
+    return assessmentClient.find(assessmentId)
   }
 
   async updateAssessment(
@@ -23,9 +21,7 @@ export default class AssessmentService {
   ): Promise<Cas2Assessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 
-    const assessment = await assessmentClient.update(assessmentId, updateData)
-
-    return assessment
+    return assessmentClient.update(assessmentId, updateData)
   }
 
   async updateAssessmentStatus(token: string, assessmentId: string, newStatus: AssessmentStatusUpdate): Promise<void> {
