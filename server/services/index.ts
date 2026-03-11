@@ -8,8 +8,6 @@ import ApplicationService from './applicationService'
 import AssessmentService from './assessmentService'
 import SubmittedApplicationService from './submittedApplicationService'
 import TaskListService from './taskListService'
-import AuditService from './auditService'
-import config from '../config'
 import ReportService from './reportService'
 import SessionService from './sessionService'
 
@@ -29,7 +27,6 @@ export const services = () => {
   const applicationService = new ApplicationService(applicationClient)
   const assessmentService = new AssessmentService(assessmentClient)
   const submittedApplicationService = new SubmittedApplicationService(submittedApplicationClient, referenceDataClient)
-  const auditService = new AuditService(config.apis.audit)
   const reportService = new ReportService(reportClient)
   const sessionService = new SessionService()
 
@@ -39,7 +36,6 @@ export const services = () => {
     applicationService,
     assessmentService,
     submittedApplicationService,
-    auditService,
     reportService,
     sessionService,
   }
