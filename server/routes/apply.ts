@@ -5,12 +5,11 @@ import Apply from '../form-pages/apply'
 
 import type { Controllers } from '../controllers'
 import paths from '../paths/apply'
-import { Services } from '../services'
 import { actions } from './utils'
 
-export default function applyRoutes(controllers: Controllers, router: Router, services: Services): Router {
+export default function applyRoutes(controllers: Controllers, router: Router): Router {
   const { pages } = Apply
-  const { get, post, put } = actions(router, services.auditService)
+  const { get, post, put } = actions(router)
 
   const { applicationsController, pagesController, cancelController } = controllers
 

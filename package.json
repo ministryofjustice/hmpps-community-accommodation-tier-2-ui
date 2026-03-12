@@ -122,10 +122,10 @@
     ]
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.981.0",
     "@faker-js/faker": "^8.0.0",
     "@golevelup/ts-jest": "^0.5.0",
     "@microsoft/applicationinsights-web": "^3.3.5",
+    "@ministryofjustice/hmpps-audit-client": "^1.1.1",
     "@ministryofjustice/frontend": "^8.0.0",
     "@playwright/test": "^1.56.1",
     "@sentry/node": "^7.57.0",

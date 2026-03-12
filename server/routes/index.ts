@@ -3,16 +3,15 @@
 import { Router } from 'express'
 import { Controllers } from '../controllers'
 import paths from '../paths/apply'
-import { Services } from '../services'
 import applyRoutes from './apply'
 import assessRoutes from './assess'
 import reportRoutes from './report'
 import staticRoutes from './static'
 import { actions } from './utils'
 
-export default function routes(controllers: Controllers, services: Services): Router {
+export default function routes(controllers: Controllers): Router {
   const router = Router()
-  const { get, post } = actions(router, services.auditService)
+  const { get, post } = actions(router)
 
   const { dashboardController } = controllers
 
@@ -25,10 +24,10 @@ export default function routes(controllers: Controllers, services: Services): Ro
     auditBodyParams: ['prisonNumber'],
   })
 
-  applyRoutes(controllers, router, services)
-  assessRoutes(controllers, router, services)
-  reportRoutes(controllers, router, services)
-  staticRoutes(controllers, router, services)
+  applyRoutes(controllers, router)
+  assessRoutes(controllers, router)
+  reportRoutes(controllers, router)
+  staticRoutes(controllers, router)
 
   return router
 }
