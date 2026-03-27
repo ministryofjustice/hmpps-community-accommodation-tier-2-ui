@@ -20,6 +20,9 @@ generic-service:
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
     IN_MAINTENANCE_MODE: false
     PLANNED_MAINTENANCE_BANNER: false
+    # required so hmpps-audit-client doesn't raise an error
+    AUDIT_SQS_QUEUE_URL: ""
+    AUDIT_SQS_QUEUE_NAME: ""
 
   allowlist: null
 
