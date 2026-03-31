@@ -14,13 +14,13 @@ jobs:
         shard: [ 1, 2 ]
     steps:
       - name: Check out code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
         with:
           # Repository is specified to run the workflow from the API repository
           repository: 'ministryofjustice/hmpps-community-accommodation-tier-2-ui'
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
         with:
           node-version-file: '.node-version'
           cache: 'npm'
@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # V7.0.0
         with:
           name: CAS2-E2E-playwright-report-${{ matrix.shard }}-of-${{ strategy.job-total }}
           path: playwright-report
@@ -56,7 +56,7 @@ jobs:
 
       - name: Upload E2E artefacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # V7.0.0
         with:
           name: CAS2-E2E-artefacts-${{ matrix.shard }}-of-${{ strategy.job-total }}
           path: test-results
