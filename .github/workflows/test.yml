@@ -12,16 +12,16 @@ concurrency:
 
 jobs:
   helm_lint:
-    name: "Helm config linting 🔎"
+    name: 'Helm config linting 🔎'
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@95c48db64a6d50acd1f8f8a0f93d1019727e5b4d # 2.9.5
     strategy:
       matrix:
-        environments: [ 'development', 'test', 'preprod', 'prod' ]
+        environments: ['development', 'test', 'preprod', 'prod']
     with:
       environment: ${{ matrix.environments }}
 
   node_build:
-    name: "Build 🛠️"
+    name: 'Build 🛠️'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
   type_checking:
-    name: "Type check 🔎"
+    name: 'Type check 🔎'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -59,7 +59,7 @@ jobs:
         run: npm run typecheck
 
   linting:
-    name: "Linting 🔎"
+    name: 'Linting 🔎'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -83,8 +83,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   unit_test:
-    name: "Unit testing 🧪"
-    runs-on: [ self-hosted, hmpps-github-actions-runner ]
+    name: 'Unit testing 🧪'
+    runs-on: [self-hosted, hmpps-github-actions-runner]
     steps:
       - name: Check out code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
@@ -107,12 +107,12 @@ jobs:
           npx nyc check-coverage -t ./coverage
 
   integration_test:
-    name: "Integration testing 🧪"
+    name: 'Integration testing 🧪'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        shard: [ 1, 2, 3, 4 ]
+        shard: [1, 2, 3, 4]
     steps:
       - name: Check out code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
@@ -129,13 +129,9 @@ jobs:
       - name: Build source
         run: npm run build
 
-      - name: Determine tests splitting
-        uses: chaosaffe/split-tests@4f1ca766cb93923ca216e02f1aefed20944e313f # V1
+      - name: Split tests
         id: split-tests
-        with:
-          glob: integration_tests/tests/**/*.cy.ts
-          split-index: ${{ strategy.job-index }}
-          split-total: ${{ strategy.job-total }}
+        run: ./script/split-tests  ${{ strategy.job-index }} ${{ strategy.job-total }}
 
       - name: Run Integration tests
         run: TEST_RUN_ARGS="--spec $(echo ${{ steps.split-tests.outputs.test-suite }} | sed -E 's/ /,/g')" npm run test:integration
