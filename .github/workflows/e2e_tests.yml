@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack notification
-        uses: ministryofjustice/hmpps-community-accommodation-tier-2-ui/.github/actions/slack_failure_notification@main
+        uses: ministryofjustice/hmpps-community-accommodation-tier-2-ui/.github/actions/slack_failure_notification@77cc6ec1dd5ed994309df8960421cbd3ba1ad5aa # main 2026-04-02
         with:
           title: "CAS2 E2E Tests"
           job: "e2e_test"
