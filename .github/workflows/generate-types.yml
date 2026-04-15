@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   NODE_ENV: test
   API_CLIENT_ID: approved-premises
