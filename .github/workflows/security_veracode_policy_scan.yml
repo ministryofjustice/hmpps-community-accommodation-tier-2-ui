@@ -10,6 +10,7 @@ jobs:
     name: Project security veracode policy scan
     permissions:
       contents: read
+      actions: read
       security-events: write
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/security_veracode_policy_scan.yml@95c48db64a6d50acd1f8f8a0f93d1019727e5b4d # 2.9.5 # WORKFLOW_VERSION
     with:
