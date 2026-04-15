@@ -6,6 +6,9 @@ on:
       - main
   workflow_call:
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
@@ -16,7 +19,7 @@ jobs:
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@95c48db64a6d50acd1f8f8a0f93d1019727e5b4d # 2.9.5
     strategy:
       matrix:
-        environments: ['development', 'test', 'preprod', 'prod']
+        environments: [ 'development', 'test', 'preprod', 'prod' ]
     with:
       environment: ${{ matrix.environments }}
 
@@ -84,7 +87,7 @@ jobs:
 
   unit_test:
     name: 'Unit testing 🧪'
-    runs-on: [self-hosted, hmpps-github-actions-runner]
+    runs-on: [ self-hosted, hmpps-github-actions-runner ]
     steps:
       - name: Check out code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
@@ -112,7 +115,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [ 1, 2, 3, 4 ]
     steps:
       - name: Check out code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
