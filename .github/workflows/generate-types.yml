@@ -35,6 +35,9 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            hmpps-community-accommodation-tier-2-ui
 
       - name: Generate Types
         run: ./script/generate-types ${{ vars.CAS2_API_SPEC_URL }}
