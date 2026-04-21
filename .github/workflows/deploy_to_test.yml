@@ -10,7 +10,7 @@ permissions:
 jobs:
   docker_build:
     name: Build docker image from hmpps-github-actions
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@95c48db64a6d50acd1f8f8a0f93d1019727e5b4d # 2.9.5
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@607c82f9fa98d1c35286644d7d70f13c50c4316b # v2.13.2
     with:
       docker_registry: 'ghcr.io'
       registry_org: 'ministryofjustice'
@@ -22,7 +22,7 @@ jobs:
     name: Deploy to the test environment
     needs:
       - docker_build
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@95c48db64a6d50acd1f8f8a0f93d1019727e5b4d # 2.9.5
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@607c82f9fa98d1c35286644d7d70f13c50c4316b # v2.13.2
     secrets: inherit
     with:
       environment: 'test'
