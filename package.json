@@ -183,7 +183,7 @@
     "@types/passport": "^1.0.12",
     "@types/passport-oauth2": "^1.4.12",
     "@types/superagent": "^8.0.0",
-    "@types/supertest": "^6.0.0",
+    "@types/supertest": "^7.2.0",
     "audit-ci": "^7.1.0",
     "axe-core": "^4.10.2",
     "concurrently": "^8.0.1",
