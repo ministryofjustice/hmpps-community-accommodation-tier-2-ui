@@ -13,6 +13,7 @@ export type { Cas2ApplicationStatusDetail } from './models/Cas2ApplicationStatus
 export type { Cas2ApplicationSummary } from './models/Cas2ApplicationSummary';
 export type { Cas2Assessment } from './models/Cas2Assessment';
 export type { Cas2AssessmentStatusUpdate } from './models/Cas2AssessmentStatusUpdate';
+export type { Cas2ReferralHistory } from './models/Cas2ReferralHistory';
 export type { Cas2ReportName } from './models/Cas2ReportName';
 export type { Cas2StatusUpdate } from './models/Cas2StatusUpdate';
 export type { Cas2StatusUpdateDetail } from './models/Cas2StatusUpdateDetail';
@@ -46,6 +47,7 @@ export type { RiskTierEnvelope } from './models/RiskTierEnvelope';
 export type { RoshRisks } from './models/RoshRisks';
 export type { RoshRisksEnvelope } from './models/RoshRisksEnvelope';
 export type { ServiceName } from './models/ServiceName';
+export type { ServiceType } from './models/ServiceType';
 export type { StreamingResponseBody } from './models/StreamingResponseBody';
 export type { SubmitCas2Application } from './models/SubmitCas2Application';
 export type { TimelineEventType } from './models/TimelineEventType';
