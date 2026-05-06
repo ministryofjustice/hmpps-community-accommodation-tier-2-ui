@@ -187,7 +187,7 @@
     "audit-ci": "^7.1.0",
     "axe-core": "^4.10.2",
     "concurrently": "^8.0.1",
-    "cypress": "^13.8.1",
+    "cypress": "^15.14.2",
     "cypress-axe": "^1.5.0",
     "cypress-multi-reporters": "^1.6.3",
     "dotenv": "^16.0.3",
