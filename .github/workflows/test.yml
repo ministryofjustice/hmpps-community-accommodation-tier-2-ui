@@ -134,10 +134,15 @@ jobs:
 
       - name: Split tests
         id: split-tests
-        run: ./script/split-tests  ${{ strategy.job-index }} ${{ strategy.job-total }}
+        uses: ministryofjustice/hmpps-approved-premises-ui/.github/actions/split_tests@d03ccce7b908369b59e77cb4ce13468dbe6e278a # v1
+        with:
+          tests_directory: integration_tests
+          tests_spec_glob: '*.cy.ts'
+          matrix_index: ${{ strategy.job-index }}
+          matrix_total: ${{ strategy.job-total }}
 
       - name: Run Integration tests
-        run: TEST_RUN_ARGS="--spec $(echo ${{ steps.split-tests.outputs.test-suite }} | sed -E 's/ /,/g')" npm run test:integration
+        run: TEST_RUN_ARGS="--spec ${{ steps.split-tests.outputs.test-suite }}" npm run test:integration
 
       - name: Upload Integration test artefacts
         if: failure()
