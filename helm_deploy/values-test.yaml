@@ -27,4 +27,4 @@ generic-service:
   allowlist: null
 
 generic-prometheus-alerts:
-  alertSeverity: hmpps-approved-premises
+  alertSeverity: hmpps-approved-premises-nonprod
