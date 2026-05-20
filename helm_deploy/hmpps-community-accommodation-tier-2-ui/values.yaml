@@ -57,9 +57,8 @@ generic-service:
       REDIS_HOST: "primary_endpoint_address"
       REDIS_AUTH_TOKEN: "auth_token"
 
-  allowlist:
-    groups:
-      - internal
+  # we use MFA so having no allow list is acceptable
+  allowlist: null
 
 generic-prometheus-alerts:
   targetApplication: hmpps-community-accommodation-tier-2-ui
