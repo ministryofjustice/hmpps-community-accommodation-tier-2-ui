@@ -207,3 +207,27 @@ export type PaginatedResponse<T> = {
 export type PaginatedResponseWithFormattedData = Omit<PaginatedResponse, 'data'> & {
   data: ({ html: string; text?: undefined } | { text: string; html?: undefined })[][]
 }
+
+export type OASysSupportingInformationQuestion = {
+  answer?: string
+  label: string
+  linkedToHarm?: boolean
+  linkedToReOffending?: boolean
+  questionNumber: string
+  sectionNumber?: number
+}
+
+export type OASysSections = {
+  /**
+   * The ID of assessment being used. This should always be the latest Layer 3 assessment, regardless of state.
+   */
+  assessmentId: number
+  assessmentState: OASysAssessmentState
+  dateCompleted?: string
+  dateStarted: string
+  offenceDetails: Array<OASysQuestion>
+  riskManagementPlan: Array<OASysQuestion>
+  riskToSelf: Array<OASysQuestion>
+  roshSummary: Array<OASysQuestion>
+  supportingInformation: Array<OASysSupportingInformationQuestion>
+}

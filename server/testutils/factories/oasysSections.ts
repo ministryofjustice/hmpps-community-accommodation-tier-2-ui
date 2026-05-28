@@ -1,7 +1,8 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker/locale/en_GB'
 
-import { OASysQuestion, OASysSections, OASysSupportingInformationQuestion } from '@approved-premises/api'
+import { OASysQuestion } from '@approved-premises/api'
+import { OASysSections, OASysSupportingInformationQuestion } from '@approved-premises/ui'
 import { DateFormats } from '../../utils/dateUtils'
 import oasysSelectionFactory from './oasysSelection'
 
