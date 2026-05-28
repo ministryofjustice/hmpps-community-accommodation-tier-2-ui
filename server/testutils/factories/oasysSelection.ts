@@ -1,6 +1,6 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker/locale/en_GB'
-import { OASysSupportingInformationQuestion } from '@approved-premises/api'
+import { OASysSupportingInformationQuestion } from '@approved-premises/ui'
 
 class OasysSelectionFactory extends Factory<OASysSupportingInformationQuestion> {
   needsLinkedToHarm() {
