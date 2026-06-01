@@ -22,7 +22,7 @@ describeClient('ReferenceDataClient', provider => {
         uponReceiving: `A request to get application statuses`,
         withRequest: {
           method: 'GET',
-          path: `/cas2/reference-data/application-status`,
+          path: `/cas2-hdc/reference-data/application-status`,
           headers: {
             authorization: `Bearer ${token}`,
             'X-Service-Name': 'cas2',

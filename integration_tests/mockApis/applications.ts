@@ -12,7 +12,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: `/cas2/applications`,
+        url: `/cas2-hdc/applications`,
       },
       response: {
         status: 201,
@@ -24,7 +24,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: `/cas2/applications`,
+        url: `/cas2-hdc/applications`,
       },
       response: {
         status: 500,
@@ -36,7 +36,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications?assignmentType=${args.assignmentType}`,
+        url: `/cas2-hdc/applications?assignmentType=${args.assignmentType}`,
       },
       response: {
         status: 200,
@@ -52,7 +52,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications?page=${args.page}&assignmentType=${args.assignmentType}`,
+        url: `/cas2-hdc/applications?page=${args.page}&assignmentType=${args.assignmentType}`,
       },
       response: {
         status: 200,
@@ -70,7 +70,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/applications/${args.application.id}`,
+        url: `/cas2-hdc/applications/${args.application.id}`,
       },
       response: {
         status: 200,
@@ -82,7 +82,7 @@ export default {
     stubFor({
       request: {
         method: 'PUT',
-        url: `/cas2/applications/${args.application.id}`,
+        url: `/cas2-hdc/applications/${args.application.id}`,
       },
       response: {
         status: 201,
@@ -101,7 +101,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: `/cas2/submissions`,
+        url: `/cas2-hdc/submissions`,
       },
       response: {
         status: 200,
@@ -112,7 +112,7 @@ export default {
     stubFor({
       request: {
         method: 'PUT',
-        url: `/cas2/applications/${args.application.id}/abandon`,
+        url: `/cas2-hdc/applications/${args.application.id}/abandon`,
       },
       response: {
         status: 200,
@@ -124,7 +124,7 @@ export default {
     stubFor({
       request: {
         method: 'PUT',
-        url: `/cas2/applications/${args.application.id}/abandon`,
+        url: `/cas2-hdc/applications/${args.application.id}/abandon`,
       },
       response: {
         status: 400,

@@ -12,7 +12,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/submissions/${args.application.id}`,
+        url: `/cas2-hdc/submissions/${args.application.id}`,
       },
       response: {
         status: 200,
@@ -27,7 +27,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/submissions?page=${args.page}`,
+        url: `/cas2-hdc/submissions?page=${args.page}`,
       },
       response: {
         status: 200,

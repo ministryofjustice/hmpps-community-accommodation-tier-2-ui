@@ -80,7 +80,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2/people/search`,
+          path: `/cas2-hdc/people/search`,
           query: {
             nomsNumber: 'nomsNumber',
           },
@@ -111,7 +111,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to get the risks for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2/people/${crn}/risks`,
+          path: `/cas2-hdc/people/${crn}/risks`,
           headers: {
             authorization: `Bearer ${token}`,
             'X-Service-Name': 'cas2',
