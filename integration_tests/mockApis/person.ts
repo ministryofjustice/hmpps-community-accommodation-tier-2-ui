@@ -6,7 +6,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/${args.crn}/oasys/risk-to-self`,
+        url: `/cas2-hdc/people/${args.crn}/oasys/risk-to-self`,
       },
       response: {
         status: 200,
@@ -19,7 +19,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/${args.crn}/oasys/risk-to-self`,
+        url: `/cas2-hdc/people/${args.crn}/oasys/risk-to-self`,
       },
       response: {
         status: 404,
@@ -32,7 +32,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/${args.crn}/oasys/rosh`,
+        url: `/cas2-hdc/people/${args.crn}/oasys/rosh`,
       },
       response: {
         status: 200,
@@ -45,7 +45,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/${args.crn}/oasys/rosh`,
+        url: `/cas2-hdc/people/${args.crn}/oasys/rosh`,
       },
       response: {
         status: 404,
@@ -58,7 +58,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/search?nomsNumber=${args.person.nomsNumber}`,
+        url: `/cas2-hdc/people/search?nomsNumber=${args.person.nomsNumber}`,
       },
       response: {
         status: 201,
@@ -71,7 +71,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/search?nomsNumber=${args.person.nomsNumber}`,
+        url: `/cas2-hdc/people/search?nomsNumber=${args.person.nomsNumber}`,
       },
       response: {
         status: 404,
@@ -82,7 +82,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/search?nomsNumber=${args.person.nomsNumber}`,
+        url: `/cas2-hdc/people/search?nomsNumber=${args.person.nomsNumber}`,
       },
       response: {
         status: 403,
@@ -93,7 +93,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/${args.crn}/risks`,
+        url: `/cas2-hdc/people/${args.crn}/risks`,
       },
       response: {
         status: 200,
@@ -106,7 +106,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2/people/${args.crn}/risks`,
+        url: `/cas2-hdc/people/${args.crn}/risks`,
       },
       response: {
         status: 404,

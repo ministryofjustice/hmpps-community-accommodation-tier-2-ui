@@ -1,16 +1,17 @@
 import { path } from 'static-path'
 
-const peoplePath = path('/cas2/people')
+const basePath = path('/cas2-hdc')
+const peoplePath = basePath.path('people')
 const personPath = peoplePath.path(':crn')
 const oasysPath = personPath.path('oasys')
-const applicationsPath = path('/cas2/applications')
+const applicationsPath = basePath.path('applications')
 const abandonPath = applicationsPath.path(':id').path('abandon')
 const singleApplicationPath = applicationsPath.path(':id')
-const singleAssessmentPath = path('/cas2/assessments/:id')
-const submissionsPath = path('/cas2/submissions')
+const singleAssessmentPath = basePath.path('assessments/:id')
+const submissionsPath = basePath.path('submissions')
 const singleSubmissionPath = submissionsPath.path(':id')
-const referenceDataPath = path('/cas2/reference-data')
-const reportsPath = path('/cas2/reports')
+const referenceDataPath = basePath.path('reference-data')
+const reportsPath = basePath.path('reports')
 const singleReportPath = reportsPath.path(':name')
 
 export default {
