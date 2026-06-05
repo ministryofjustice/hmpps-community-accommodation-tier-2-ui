@@ -3,7 +3,7 @@
 //  When I view the 'check your answers' page
 //  Then I see a list of questions and answers for the application
 
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import Page from '../../../pages/page'
 import CheckYourAnswersPage from '../../../pages/apply/check_your_answers/check-your-answers/checkYourAnswersPage'
 import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
@@ -67,7 +67,7 @@ context('Check your answers page', () => {
     })
   })
 
-  const beforeTest = (application: Cas2Application) => {
+  const beforeTest = (application: Cas2HdcApplication) => {
     // And an application exists
     // -------------------------
     cy.task('stubApplicationGet', { application })

@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2ApplicationStatus, Cas2ApplicationStatusDetail, FullPerson } from '@approved-premises/api'
+import { Cas2HdcApplicationStatus, Cas2HdcApplicationStatusDetail, FullPerson } from '@approved-premises/api'
 
 import { assessmentFactory, submittedApplicationFactory } from '../../testutils/factories'
 import StatusUpdateController from './statusUpdateController'
@@ -137,7 +137,7 @@ describe('statusUpdateController', () => {
           {
             name: 'awaitingDecision',
             statusDetails: [],
-          } as Cas2ApplicationStatus,
+          } as Cas2HdcApplicationStatus,
         ])
 
         const requestHandler = statusUpdateController.create()
@@ -204,8 +204,8 @@ describe('statusUpdateController', () => {
                 name: 'aboutTheApplicant',
                 label: 'About the applicant',
               },
-            ] as Array<Cas2ApplicationStatusDetail>,
-          } as Cas2ApplicationStatus,
+            ] as Array<Cas2HdcApplicationStatusDetail>,
+          } as Cas2HdcApplicationStatus,
         ])
 
         const requestHandler = statusUpdateController.create()

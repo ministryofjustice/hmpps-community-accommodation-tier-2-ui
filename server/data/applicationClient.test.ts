@@ -1,4 +1,4 @@
-import { AssignmentType, SubmitCas2Application, UpdateCas2Application } from '@approved-premises/api'
+import { AssignmentType, Cas2HdcSubmitApplication, Cas2HdcUpdateApplication } from '@approved-premises/api'
 import { faker } from '@faker-js/faker/locale/en_GB'
 import ApplicationClient from './applicationClient'
 import { applicationFactory, applicationSummaryFactory, assessmentFactory } from '../testutils/factories'
@@ -204,7 +204,7 @@ describeClient('ApplicationClient', provider => {
       const data = {
         data: application.data,
         type: 'CAS2',
-      } as UpdateCas2Application
+      } as Cas2HdcUpdateApplication
 
       await provider.addInteraction({
         state: 'Server is healthy',
@@ -237,7 +237,7 @@ describeClient('ApplicationClient', provider => {
         translatedDocument: application.document,
         applicationId: application.id,
         telephoneNumber: '123',
-      } as SubmitCas2Application
+      } as Cas2HdcSubmitApplication
 
       await provider.addInteraction({
         state: 'Server is healthy',

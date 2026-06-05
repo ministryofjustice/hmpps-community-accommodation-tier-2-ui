@@ -1,4 +1,4 @@
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import PreviousAddress, { PreviousAddressBody } from './previousAddress'
@@ -80,7 +80,7 @@ describe('PreviousAddress', () => {
 
   describe('response', () => {
     it('returns empty object', () => {
-      const applicationWithNoData = { ...application, data: undefined } as Cas2Application
+      const applicationWithNoData = { ...application, data: undefined } as Cas2HdcApplication
       const page = new PreviousAddress({}, applicationWithNoData)
       expect(page.response()).toEqual({})
     })

@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
@@ -48,7 +48,7 @@ export default class AcctData implements TaskListPage {
 
   constructor(
     body: Partial<AcctDataBody>,
-    private readonly application: Cas2Application,
+    private readonly application: Cas2HdcApplication,
   ) {
     this.body = body as AcctDataBody
   }

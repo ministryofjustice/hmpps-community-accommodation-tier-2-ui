@@ -7,7 +7,7 @@
 //    Then I should see the read-only version of the answers submitted
 //    And I see a print button
 
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import SubmissionPage from '../../../pages/submissions/submissionPage'
 import { applicationFactory } from '../../../../server/testutils/factories'
 import { fullPersonFactory } from '../../../../server/testutils/factories/person'
@@ -56,7 +56,7 @@ context('View submitted application', () => {
   })
 
   it('when application is prison transfer it shows the submitted application and the application summary banner is the transferred application banner type', function test() {
-    const transferredApplication: Cas2Application = {
+    const transferredApplication: Cas2HdcApplication = {
       ...this.application,
       isTransferredApplication: true,
     }

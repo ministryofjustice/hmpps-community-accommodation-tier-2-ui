@@ -1,4 +1,4 @@
-import type { Cas2ApplicationStatus as ApplicationStatus } from '@approved-premises/api'
+import type { Cas2HdcApplicationStatus as ApplicationStatus } from '@approved-premises/api'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'

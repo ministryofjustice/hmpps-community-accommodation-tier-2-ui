@@ -1,5 +1,5 @@
 import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2HdcApplication as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'

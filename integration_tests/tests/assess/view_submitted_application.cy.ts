@@ -15,7 +15,7 @@
 //    When I click the 'Update status' button
 //    Then I am taken to the 'Update status' page
 
-import { Cas2SubmittedApplication } from '@approved-premises/api'
+import { Cas2HdcSubmittedApplication } from '@approved-premises/api'
 import { submittedApplicationFactory } from '../../../server/testutils/factories/index'
 import paths from '../../../server/paths/assess'
 import Page from '../../pages/page'
@@ -35,7 +35,7 @@ context('Assessor views submitted application', () => {
     // I have submitted an application
 
     cy.fixture('applicationDocument.json').then(applicationDocument => {
-      const submittedApplication: Cas2SubmittedApplication = submittedApplicationFactory.build({
+      const submittedApplication: Cas2HdcSubmittedApplication = submittedApplicationFactory.build({
         document: applicationDocument,
         submittedAt: '2022-12-10T21:47:28Z',
         person: fullPersonFactory.build({ name: 'Robert Smith' }),
@@ -75,7 +75,7 @@ context('Assessor views submitted application', () => {
   //  Scenario: follows an external link to the submitted transferred application
   // ----------------------------------------------
   it('follows an external link to the submitted transferred application', function test() {
-    const transferredApplication: Cas2SubmittedApplication = {
+    const transferredApplication: Cas2HdcSubmittedApplication = {
       ...this.submittedApplication,
       isTransferredApplication: true,
     }

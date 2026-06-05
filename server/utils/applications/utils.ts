@@ -1,6 +1,10 @@
 import { Request, Response } from 'express'
 import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimelineEvent } from '@approved-premises/ui'
-import type { Cas2Application as Application, Cas2Application, Cas2SubmittedApplication } from '@approved-premises/api'
+import type {
+  Cas2HdcApplication as Application,
+  Cas2HdcApplication,
+  Cas2HdcSubmittedApplication,
+} from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
 import { stringToKebabCase, formatCommaToLinebreak } from '../utils'
 import { formatLines } from '../viewUtils'
@@ -53,7 +57,7 @@ const consentAnswer = (application: Application): string => {
 }
 
 export const getApplicationTimelineEvents = (
-  application: Cas2Application | Cas2SubmittedApplication,
+  application: Cas2HdcApplication | Cas2HdcSubmittedApplication,
 ): Array<UiTimelineEvent> => {
   const { timelineEvents } = application
 

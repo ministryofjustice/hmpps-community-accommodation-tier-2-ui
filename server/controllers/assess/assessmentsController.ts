@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { UpdateCas2Assessment } from '@approved-premises/api'
+import { Cas2HdcUpdateAssessment } from '@approved-premises/api'
 import { SubmittedApplicationService, AssessmentService } from '../../services'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { assessmentHasExistingData } from '../../utils/assessmentUtils'
@@ -44,7 +44,7 @@ export default class AssessmentsController {
       const updateData = {
         assessorName: req.body.assessorName,
         nacroReferralId: req.body.nacroReferralId,
-      } as UpdateCas2Assessment
+      } as Cas2HdcUpdateAssessment
 
       try {
         const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
