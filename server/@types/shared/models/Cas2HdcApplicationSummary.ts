@@ -4,9 +4,9 @@
 /* eslint-disable */
 import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { ApplicationStatus } from './ApplicationStatus';
-import type { LatestCas2StatusUpdate } from './LatestCas2StatusUpdate';
+import type { Cas2HdcLatestStatusUpdate } from './Cas2HdcLatestStatusUpdate';
 import type { PersonRisks } from './PersonRisks';
-export type Cas2ApplicationSummary = {
+export type Cas2HdcApplicationSummary = {
     allocatedPomName: string;
     allocatedPomUserId: string;
     applicationOrigin?: ApplicationOrigin;
@@ -19,7 +19,7 @@ export type Cas2ApplicationSummary = {
     currentPrisonName?: string;
     hdcEligibilityDate?: string;
     id: string;
-    latestStatusUpdate?: LatestCas2StatusUpdate;
+    latestStatusUpdate?: Cas2HdcLatestStatusUpdate;
     nomsNumber: string;
     personName: string;
     risks?: PersonRisks;

@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type LatestCas2StatusUpdate = {
+export type Cas2HdcApplicationStatusDetail = {
+    id: string;
     label: string;
-    statusId: string;
+    name: string;
 };
 

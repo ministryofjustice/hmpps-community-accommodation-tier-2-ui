@@ -1,7 +1,7 @@
 import Page from '../page'
 import Apply from '../../../server/form-pages/apply'
 import paths from '../../../server/paths/apply'
-import { Cas2Application } from '../../../server/@types/shared/models/Cas2Application'
+import { Cas2HdcApplication } from '../../../server/@types/shared/models/Cas2HdcApplication'
 import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 export default class TaskListPage extends Page {
@@ -9,7 +9,7 @@ export default class TaskListPage extends Page {
     super('Apply for CAS2 HDC', name)
   }
 
-  static visit(application: Cas2Application): TaskListPage {
+  static visit(application: Cas2HdcApplication): TaskListPage {
     cy.visit(paths.applications.show({ id: application.id }))
 
     const person = application.person as FullPerson

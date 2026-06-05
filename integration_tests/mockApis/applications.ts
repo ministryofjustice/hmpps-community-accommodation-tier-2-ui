@@ -1,7 +1,7 @@
 import type {
   AssignmentType,
-  Cas2Application as Application,
-  Cas2ApplicationNote as ApplicationNote,
+  Cas2HdcApplication as Application,
+  Cas2HdcApplicationNote as ApplicationNote,
 } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from '../../wiremock'

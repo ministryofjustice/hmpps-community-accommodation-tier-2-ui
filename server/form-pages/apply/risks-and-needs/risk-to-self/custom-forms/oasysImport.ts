@@ -1,5 +1,5 @@
 import type { DataServices, TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, Cas2Application, OASysRiskToSelf } from '@approved-premises/api'
+import { Cas2HdcApplication as Application, Cas2HdcApplication, OASysRiskToSelf } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { DateFormats } from '../../../../../utils/dateUtils'
@@ -72,7 +72,7 @@ export default class OasysImport implements TaskListPage {
 
   static async initialize(
     body: Partial<GuidanceBody>,
-    application: Cas2Application,
+    application: Cas2HdcApplication,
     token: string,
     dataServices: DataServices,
   ) {

@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2AssessmentStatusUpdate = {
+export type Cas2HdcAssessmentStatusUpdate = {
     /**
      * The "name" of the new status to be applied
      */

@@ -1,6 +1,6 @@
 import type { TaskStatus, UiTask } from '@approved-premises/ui'
 
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2HdcApplication as Application } from '@approved-premises/api'
 import { TaskListPageInterface } from '../taskListPage'
 
 export const getPageData = (application: Application, taskName: string, pageName: string) => {

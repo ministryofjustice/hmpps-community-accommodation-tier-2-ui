@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
+import { Cas2HdcApplication, Cas2HdcApplicationSummary } from '@approved-premises/api'
 import {
   DataServices,
   GroupedApplications,
@@ -20,13 +20,13 @@ import applyPaths from '../paths/apply'
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
 
-  async createApplication(token: string, crn: string): Promise<Cas2Application> {
+  async createApplication(token: string, crn: string): Promise<Cas2HdcApplication> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.create(crn)
   }
 
-  async findApplication(token: string, id: string): Promise<Cas2Application> {
+  async findApplication(token: string, id: string): Promise<Cas2HdcApplication> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.find(id)
@@ -47,7 +47,7 @@ export default class ApplicationService {
     }
   }
 
-  async getAllByPrison(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+  async getAllByPrison(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2HdcApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.getPagedApplications(pageNumber, 'PRISON')
@@ -100,11 +100,11 @@ export default class ApplicationService {
   }
 
   private addPageDataToApplicationData(
-    applicationData: Cas2Application['data'],
+    applicationData: Cas2HdcApplication['data'],
     taskName: string,
     pageName: string,
     page: TaskListPage,
-  ): Cas2Application['data'] {
+  ): Cas2HdcApplication['data'] {
     const newApplicationData = applicationData || {}
     newApplicationData[taskName] = newApplicationData[taskName] || {}
     newApplicationData[taskName][pageName] = page.body
@@ -112,7 +112,7 @@ export default class ApplicationService {
   }
 
   private deleteCheckYourAnswersIfPageChange(
-    applicationData: Cas2Application['data'],
+    applicationData: Cas2HdcApplication['data'],
     pageName: string,
     oldBody: Record<string, unknown>,
     newBody: Record<string, unknown>,
@@ -184,7 +184,7 @@ export default class ApplicationService {
     }
   }
 
-  private hasPageData(application: Cas2Application['data'], taskName: string, pageName: string) {
+  private hasPageData(application: Cas2HdcApplication['data'], taskName: string, pageName: string) {
     return application.data && application.data[taskName] && application.data[taskName][pageName]
   }
 
@@ -204,13 +204,13 @@ export default class ApplicationService {
     return page
   }
 
-  async submit(token: string, application: Cas2Application) {
+  async submit(token: string, application: Cas2HdcApplication) {
     const client = this.applicationClientFactory(token)
 
     await client.submit(application.id, getApplicationSubmissionData(application))
   }
 
-  async cancel(token: string, application: Cas2Application) {
+  async cancel(token: string, application: Cas2HdcApplication) {
     const client = this.applicationClientFactory(token)
 
     await client.abandon(application.id)

@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2HdcApplication as Application } from '@approved-premises/api'
 import { FormSections, TaskStatus, TaskWithStatus, UiTask } from '@approved-premises/ui'
 import Apply from '../form-pages/apply'
 import getTaskStatus from '../form-pages/utils/getTaskStatus'

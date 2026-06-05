@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { TimelineEventType } from './TimelineEventType';
-export type Cas2TimelineEvent = {
+export type Cas2HdcTimelineEvent = {
     body?: string;
     createdByName?: string;
     label: string;

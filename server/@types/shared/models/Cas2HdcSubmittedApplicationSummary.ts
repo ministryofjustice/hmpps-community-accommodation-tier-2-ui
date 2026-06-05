@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2SubmittedApplicationSummary = {
+export type Cas2HdcSubmittedApplicationSummary = {
     createdAt: string;
     createdByUserId: string;
     crn: string;

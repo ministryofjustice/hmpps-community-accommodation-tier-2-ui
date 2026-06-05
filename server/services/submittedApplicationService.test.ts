@@ -1,4 +1,4 @@
-import { Cas2SubmittedApplicationSummary } from '@approved-premises/api'
+import { Cas2HdcSubmittedApplicationSummary } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 
 import SubmittedApplicationService from './submittedApplicationService'
@@ -41,7 +41,7 @@ describe('SubmittedApplicationService', () => {
         totalPages: '50',
         totalResults: '500',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2SubmittedApplicationSummary>
+      }) as PaginatedResponse<Cas2HdcSubmittedApplicationSummary>
       submittedApplicationClient.all.mockResolvedValue(paginatedResponse)
 
       const result = await service.getAll(token, 2)

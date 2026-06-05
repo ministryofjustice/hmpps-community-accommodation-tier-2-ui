@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2HdcApplication as Application } from '@approved-premises/api'
 import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
 import logger from '../../../logger'
 import { TaskListPageInterface } from '../taskListPage'

@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cas2ApplicationStatusDetail } from './Cas2ApplicationStatusDetail';
-export type Cas2ApplicationStatus = {
+import type { Cas2HdcApplicationStatusDetail } from './Cas2HdcApplicationStatusDetail';
+export type Cas2HdcApplicationStatus = {
     description: string;
     id: string;
     label: string;
     name: string;
-    statusDetails: Array<Cas2ApplicationStatusDetail>;
+    statusDetails: Array<Cas2HdcApplicationStatusDetail>;
 };
 

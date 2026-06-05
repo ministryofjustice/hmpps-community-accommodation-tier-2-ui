@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ApplicationOrigin = 'courtBail' | 'prisonBail' | 'homeDetentionCurfew';
+export type ApplicationOrigin = 'courtBail' | 'prisonBail' | 'homeDetentionCurfew' | 'other';

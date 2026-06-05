@@ -2,4 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2ReportName = 'submitted-applications' | 'application-status-updates' | 'unsubmitted-applications';
+export type Cas2HdcNewApplicationNote = {
+    note: string;
+};
+

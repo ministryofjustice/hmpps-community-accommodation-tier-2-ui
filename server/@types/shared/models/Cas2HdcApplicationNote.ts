@@ -2,7 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type NewCas2ApplicationNote = {
-    note: string;
+export type Cas2HdcApplicationNote = {
+    body: string;
+    createdAt: string;
+    email: string;
+    id?: string;
+    name: string;
 };
 

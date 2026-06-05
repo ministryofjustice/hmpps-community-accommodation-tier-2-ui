@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application, RoshRisks, RoshRisksEnvelope } from '@approved-premises/api'
+import { Cas2HdcApplication, RoshRisks, RoshRisksEnvelope } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -67,7 +67,7 @@ export default class Summary implements TaskListPage {
 
   constructor(
     body: Partial<SummaryBody>,
-    private readonly application: Cas2Application,
+    private readonly application: Cas2HdcApplication,
   ) {
     this.body = body as SummaryBody
     this.application = application
@@ -211,7 +211,7 @@ export default class Summary implements TaskListPage {
     return undefined
   }
 
-  private getRoSHData(application: Cas2Application) {
+  private getRoSHData(application: Cas2HdcApplication) {
     return application.data['risk-of-serious-harm']
   }
 

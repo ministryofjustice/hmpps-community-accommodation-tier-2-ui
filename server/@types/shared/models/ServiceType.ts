@@ -2,9 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2ApplicationStatusDetail = {
-    id: string;
-    label: string;
-    name: string;
-};
-
+export type ServiceType = 'CAS1' | 'CAS2' | 'CAS2v2' | 'CAS3';

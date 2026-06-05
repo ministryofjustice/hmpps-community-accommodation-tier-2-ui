@@ -2,22 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cas2Assessment } from './Cas2Assessment';
-import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
+import type { Cas2HdcAssessment } from './Cas2HdcAssessment';
+import type { Cas2HdcTimelineEvent } from './Cas2HdcTimelineEvent';
 import type { FullPerson } from './FullPerson';
 import type { NomisUser } from './NomisUser';
 import type { RestrictedPerson } from './RestrictedPerson';
 import type { UnknownPerson } from './UnknownPerson';
-export type Cas2SubmittedApplication = {
+export type Cas2HdcSubmittedApplication = {
     allocatedPomEmailAddress?: string;
     allocatedPomName?: string;
-    assessment: Cas2Assessment;
+    assessment: Cas2HdcAssessment;
     assignmentDate?: string;
     createdAt: string;
     currentPrisonName?: string;
-    /**
-     * Any object
-     */
     document?: any;
     id: string;
     isTransferredApplication: boolean;
@@ -26,6 +23,6 @@ export type Cas2SubmittedApplication = {
     submittedAt?: string;
     submittedBy?: NomisUser;
     telephoneNumber?: string;
-    timelineEvents: Array<Cas2TimelineEvent>;
+    timelineEvents: Array<Cas2HdcTimelineEvent>;
 };
 

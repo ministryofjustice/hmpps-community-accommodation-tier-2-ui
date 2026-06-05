@@ -1,7 +1,7 @@
 import {
-  Cas2SubmittedApplication as SubmittedApplication,
-  Cas2SubmittedApplicationSummary,
-  Cas2ApplicationNote,
+  Cas2HdcSubmittedApplication as SubmittedApplication,
+  Cas2HdcSubmittedApplicationSummary,
+  Cas2HdcApplicationNote,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 import RestClient from './restClient'
@@ -15,8 +15,8 @@ export default class SubmittedApplicationClient {
     this.restClient = new RestClient('submittedApplicationClient', config.apis.approvedPremises as ApiConfig, token)
   }
 
-  async all(pageNumber: number): Promise<PaginatedResponse<Cas2SubmittedApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2SubmittedApplicationSummary>({
+  async all(pageNumber: number): Promise<PaginatedResponse<Cas2HdcSubmittedApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2HdcSubmittedApplicationSummary>({
       path: paths.submissions.index.pattern,
       page: pageNumber.toString(),
       query: {},
@@ -29,8 +29,8 @@ export default class SubmittedApplicationClient {
     })
   }
 
-  addNote(assessmentId: string, newNote: string): Promise<Cas2ApplicationNote> {
-    return this.restClient.post<Cas2ApplicationNote>({
+  addNote(assessmentId: string, newNote: string): Promise<Cas2HdcApplicationNote> {
+    return this.restClient.post<Cas2HdcApplicationNote>({
       path: paths.assessments.applicationNotes.create({ id: assessmentId }),
       data: { note: newNote },
     })

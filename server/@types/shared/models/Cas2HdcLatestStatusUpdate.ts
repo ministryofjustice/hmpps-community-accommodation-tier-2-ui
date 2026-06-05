@@ -2,11 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2ApplicationNote = {
-    body: string;
-    createdAt: string;
-    email: string;
-    id?: string;
-    name: string;
+export type Cas2HdcLatestStatusUpdate = {
+    label: string;
+    statusId: string;
 };
 

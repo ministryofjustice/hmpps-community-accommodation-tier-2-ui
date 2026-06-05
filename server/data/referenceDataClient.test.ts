@@ -1,4 +1,4 @@
-import { Cas2ApplicationStatus as ApplicationStatus } from '@approved-premises/api'
+import { Cas2HdcApplicationStatus as ApplicationStatus } from '@approved-premises/api'
 
 import ReferenceDataClient from './referenceDataClient'
 import { applicationStatusFactory } from '../testutils/factories'

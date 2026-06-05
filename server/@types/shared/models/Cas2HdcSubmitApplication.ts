@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SubmitCas2Application = {
+export type Cas2HdcSubmitApplication = {
     /**
      * Id of the application being submitted
      */
@@ -14,9 +14,6 @@ export type SubmitCas2Application = {
      */
     preferredAreas?: string;
     telephoneNumber: string;
-    /**
-     * Any object
-     */
     translatedDocument: any;
 };
 

@@ -1,4 +1,4 @@
-import { Cas2Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
+import { Cas2HdcApplication, Cas2HdcSubmittedApplication, FullPerson } from '@approved-premises/api'
 
 import { DateFormats } from '../dateUtils'
 
@@ -27,7 +27,7 @@ type ViewType = 'assessor' | 'referrerSubmission'
 
 export const getApplicationSummaryData = (
   viewType: ViewType,
-  application: Cas2Application | Cas2SubmittedApplication,
+  application: Cas2HdcApplication | Cas2HdcSubmittedApplication,
 ): StandardApplicationSummary | TransferredApplicationSummary => {
   if (application.isTransferredApplication) {
     return getTransferredApplicationSummaryData(application, viewType)
@@ -36,7 +36,7 @@ export const getApplicationSummaryData = (
 }
 
 const getStandardApplicationSummaryData = (
-  application: Cas2Application | Cas2SubmittedApplication,
+  application: Cas2HdcApplication | Cas2HdcSubmittedApplication,
   viewType: ViewType,
 ): StandardApplicationSummary => {
   const { name, nomsNumber, prisonName } = application.person as FullPerson
@@ -54,7 +54,7 @@ const getStandardApplicationSummaryData = (
 }
 
 const getTransferredApplicationSummaryData = (
-  application: Cas2Application | Cas2SubmittedApplication,
+  application: Cas2HdcApplication | Cas2HdcSubmittedApplication,
   view: string,
 ): TransferredApplicationSummary => {
   const { name, nomsNumber } = application.person as FullPerson

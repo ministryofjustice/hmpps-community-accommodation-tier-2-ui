@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { UpdateApplicationType } from './UpdateApplicationType';
-export type UpdateCas2Application = {
+export type Cas2HdcUpdateApplication = {
     data: Record<string, any>;
     type: UpdateApplicationType;
 };

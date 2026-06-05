@@ -1,4 +1,4 @@
-import { Cas2Application, FullPerson } from '@approved-premises/api'
+import { Cas2HdcApplication, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 import paths from '../../../server/paths/apply'
 import {
@@ -8,13 +8,13 @@ import {
 
 export default class SubmissionPage extends Page {
   constructor(
-    private readonly application: Cas2Application,
+    private readonly application: Cas2HdcApplication,
     name: string,
   ) {
     super(`${name}'s application`, name)
   }
 
-  static visit(application: Cas2Application): SubmissionPage {
+  static visit(application: Cas2HdcApplication): SubmissionPage {
     cy.visit(paths.applications.show({ id: application.id }))
 
     const person = application.person as FullPerson
@@ -35,7 +35,7 @@ export default class SubmissionPage extends Page {
     })
   }
 
-  hasExpectedSummaryDataForTransferredApplication(application: Cas2Application): void {
+  hasExpectedSummaryDataForTransferredApplication(application: Cas2HdcApplication): void {
     const person = this.application.person as FullPerson
     const summary = getApplicationSummaryData('referrerSubmission', application) as TransferredApplicationSummary
 
