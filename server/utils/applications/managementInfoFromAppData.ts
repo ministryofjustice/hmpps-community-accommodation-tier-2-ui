@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2HdcApplication as Application } from '@approved-premises/api'
 
 const preferredAreasFromAppData = (application: Application): string => {
   const firstPreference: string = (application.data as Record<string, unknown>)?.['area-information']?.[

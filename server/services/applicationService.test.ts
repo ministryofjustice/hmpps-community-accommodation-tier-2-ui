@@ -1,7 +1,7 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
-import { Cas2ApplicationSummary, SubmitCas2Application } from '@approved-premises/api'
-import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
+import { Cas2HdcApplicationSummary, Cas2HdcSubmitApplication } from '@approved-premises/api'
+import { Cas2HdcUpdateApplication } from 'server/@types/shared/models/Cas2HdcUpdateApplication'
 import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
@@ -110,7 +110,7 @@ describe('ApplicationService', () => {
         totalPages: '50',
         totalResults: '500',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2ApplicationSummary>
+      }) as PaginatedResponse<Cas2HdcApplicationSummary>
 
       applicationClient.getPagedApplications.mockResolvedValue(paginatedResponse)
 
@@ -151,7 +151,7 @@ describe('ApplicationService', () => {
         totalPages: '50',
         totalResults: '500',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2ApplicationSummary>
+      }) as PaginatedResponse<Cas2HdcApplicationSummary>
 
       applicationClient.getPagedApplications.mockResolvedValue(paginatedResponse)
 
@@ -175,7 +175,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2Application>()
+    const applicationData = createMock<Cas2HdcUpdateApplication>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -527,7 +527,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2Application>()
+    const applicationData = createMock<Cas2HdcUpdateApplication>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -606,7 +606,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page', index: '1' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2Application>()
+    const applicationData = createMock<Cas2HdcUpdateApplication>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -735,7 +735,7 @@ describe('ApplicationService', () => {
   describe('submit', () => {
     it('calls the submit method', async () => {
       const application = applicationFactory.build()
-      const applicationData = createMock<SubmitCas2Application>()
+      const applicationData = createMock<Cas2HdcSubmitApplication>()
       const token = 'SOME_TOKEN'
 
       applicationClient.submit.mockImplementation(() => Promise.resolve())
@@ -759,7 +759,7 @@ describe('ApplicationService', () => {
         user: { token },
       })
 
-      const applicationData = createMock<UpdateCas2Application>()
+      const applicationData = createMock<Cas2HdcUpdateApplication>()
 
       const newApplicationData = { 'risk-to-self': { vulnerability: { vulnerabilityDetail: 'example' } } }
 

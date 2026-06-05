@@ -1,5 +1,5 @@
 import type { SelectItem, TaskListErrors, YesOrNo } from '@approved-premises/ui'
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
@@ -54,7 +54,7 @@ export default class CurrentOffenceData implements TaskListPage {
 
   constructor(
     body: Partial<CurrentOffenceDataBody>,
-    private readonly application: Cas2Application,
+    private readonly application: Cas2HdcApplication,
   ) {
     this.body = body as CurrentOffenceDataBody
     this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)

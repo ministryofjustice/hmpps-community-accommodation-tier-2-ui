@@ -1,16 +1,16 @@
+import { Cas2HdcSubmittedApplication, Cas2HdcSubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 import paths from '../../../server/paths/assess'
-import { Cas2SubmittedApplication, Cas2SubmittedApplicationSummary, FullPerson } from '../../../server/@types/shared'
 
 export default class SubmissionListPage extends Page {
   constructor(
-    private readonly applications: Array<Cas2SubmittedApplication>,
+    private readonly applications: Array<Cas2HdcSubmittedApplication>,
     name: string,
   ) {
     super('CAS2 for HDC applications', name)
   }
 
-  static visit(applications: Array<Cas2SubmittedApplication>): SubmissionListPage {
+  static visit(applications: Array<Cas2HdcSubmittedApplication>): SubmissionListPage {
     cy.visit(paths.submittedApplications.index.pattern)
 
     const person = applications[0]?.person as FullPerson
@@ -18,7 +18,7 @@ export default class SubmissionListPage extends Page {
     return new SubmissionListPage(applications, person?.name)
   }
 
-  shouldShowSubmittedApplications(applications: Array<Cas2SubmittedApplicationSummary>): void {
+  shouldShowSubmittedApplications(applications: Array<Cas2HdcSubmittedApplicationSummary>): void {
     applications.forEach(application => {
       const { personName } = application
       cy.contains(personName)

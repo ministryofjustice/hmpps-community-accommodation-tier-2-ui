@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
+import { Cas2HdcSubmittedApplication, FullPerson } from '@approved-premises/api'
 import SubmittedApplicationService from '../../services/submittedApplicationService'
 import paths from '../../paths/assess'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
@@ -44,7 +44,7 @@ export default class StatusUpdateController {
     }
   }
 
-  private previousPath(application: Cas2SubmittedApplication, referer?: string) {
+  private previousPath(application: Cas2HdcSubmittedApplication, referer?: string) {
     if (referer?.includes('update-status/further-information')) {
       return paths.submittedApplications.overview({ id: application.id })
     }

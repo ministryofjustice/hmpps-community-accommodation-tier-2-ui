@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2SubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
+import { Cas2HdcSubmittedApplicationSummary, FullPerson } from '@approved-premises/api'
 
 import { PaginatedResponse, UiTimelineEvent } from '@approved-premises/ui'
 import { faker } from '@faker-js/faker'
@@ -63,7 +63,7 @@ describe('submittedApplicationsController', () => {
         data: applications,
         totalPages: '50',
         totalResults: '500',
-      }) as PaginatedResponse<Cas2SubmittedApplicationSummary>
+      }) as PaginatedResponse<Cas2HdcSubmittedApplicationSummary>
 
       const paginationDetails = {
         hrefPrefix: paths.submittedApplications.index({}),

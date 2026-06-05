@@ -1,10 +1,10 @@
-import type { Cas2Assessment } from '@approved-premises/api'
+import type { Cas2HdcAssessment } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { stubFor } from '../../wiremock'
 import paths from '../../server/paths/api'
 
 export default {
-  stubAssessmentPut: (args: { assessment: Cas2Assessment }): SuperAgentRequest =>
+  stubAssessmentPut: (args: { assessment: Cas2HdcAssessment }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'PUT',

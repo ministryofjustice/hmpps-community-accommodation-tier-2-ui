@@ -1,6 +1,6 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker/locale/en_GB'
-import { Cas2ApplicationStatus as ApplicationStatus } from '@approved-premises/api'
+import { Cas2HdcApplicationStatus as ApplicationStatus } from '@approved-premises/api'
 import applicationStatusDetailFactory from './applicationStatusDetailFactory'
 
 export default Factory.define<ApplicationStatus>(() => ({

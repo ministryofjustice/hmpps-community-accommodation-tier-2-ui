@@ -2,11 +2,11 @@ import { ApplicationDocument } from '@approved-premises/ui'
 import { Result } from 'axe-core'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
-import { Cas2Application as Application } from '../../server/@types/shared/models/Cas2Application'
-import { Cas2SubmittedApplication as SubmittedApplication } from '../../server/@types/shared/models/Cas2SubmittedApplication'
+import { Cas2HdcApplication as Application } from '../../server/@types/shared/models/Cas2HdcApplication'
+import { Cas2HdcSubmittedApplication as SubmittedApplication } from '../../server/@types/shared/models/Cas2HdcSubmittedApplication'
 import { FullPerson } from '../../server/@types/shared/models/FullPerson'
 import { stringToKebabCase } from '../../server/utils/utils'
-import { Cas2ApplicationSummary } from '../../server/@types/shared/models/Cas2ApplicationSummary'
+import { Cas2HdcApplicationSummary } from '../../server/@types/shared/models/Cas2HdcApplicationSummary'
 import paths from '../../server/paths/apply'
 import 'cypress-axe'
 
@@ -245,7 +245,7 @@ export default abstract class Page {
     cy.get('h3').contains(message)
   }
 
-  shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
+  shouldShowApplications(applications: Array<Cas2HdcApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
       const { personName } = application
       cy.contains(personName)
@@ -264,7 +264,7 @@ export default abstract class Page {
     })
   }
 
-  shouldShowPreviousApplications(applications: Array<Cas2ApplicationSummary>): void {
+  shouldShowPreviousApplications(applications: Array<Cas2HdcApplicationSummary>): void {
     applications.forEach(application => {
       const { personName } = application
       cy.get('#transferred-out tbody tr').contains('th', personName).should('exist')
@@ -279,7 +279,7 @@ export default abstract class Page {
     cy.get('h2').should('not.contain.text', 'Transferred-in applications')
   }
 
-  shouldShowTransferredIn(applications: Array<Cas2ApplicationSummary>): void {
+  shouldShowTransferredIn(applications: Array<Cas2HdcApplicationSummary>): void {
     cy.get('h2').should('contain.text', 'Transferred-in applications')
 
     applications.forEach(application => {
