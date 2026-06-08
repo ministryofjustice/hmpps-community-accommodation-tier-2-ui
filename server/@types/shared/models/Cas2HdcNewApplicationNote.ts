@@ -2,4 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ApplicationStatus = 'rejected' | 'inProgress' | 'submitted' | 'requestedFurtherInformation';
+export type Cas2HdcNewApplicationNote = {
+    note: string;
+};
+

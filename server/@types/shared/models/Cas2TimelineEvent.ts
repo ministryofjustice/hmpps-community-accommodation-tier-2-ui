@@ -2,12 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { TimelineEventType } from './TimelineEventType';
-export type Cas2TimelineEvent = {
-    body?: string;
-    createdByName?: string;
-    label: string;
-    occurredAt: string;
-    type: TimelineEventType;
-};
-
+import type { Cas2HdcTimelineEvent } from './Cas2HdcTimelineEvent';
+/**
+ * Deprecated alias of Cas2HdcTimelineEvent
+ * @deprecated
+ */
+export type Cas2TimelineEvent = Cas2HdcTimelineEvent;

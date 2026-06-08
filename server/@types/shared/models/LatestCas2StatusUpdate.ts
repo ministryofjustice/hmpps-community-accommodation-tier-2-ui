@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type LatestCas2StatusUpdate = {
-    label: string;
-    statusId: string;
-};
-
+import type { Cas2HdcLatestStatusUpdate } from './Cas2HdcLatestStatusUpdate';
+/**
+ * Deprecated alias of Cas2HdcLatestStatusUpdate
+ * @deprecated
+ */
+export type LatestCas2StatusUpdate = Cas2HdcLatestStatusUpdate;
