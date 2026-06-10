@@ -1,11 +1,11 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import { Cas2ApplicationSummary } from '@approved-premises/api'
+import { Cas2HdcApplicationSummary } from '@approved-premises/api'
 
 import { DateFormats } from '../../utils/dateUtils'
 import latestStatusUpdateFactory from './latestStatusUpdate'
 
-export default Factory.define<Cas2ApplicationSummary>(() => ({
+export default Factory.define<Cas2HdcApplicationSummary>(() => ({
   id: faker.string.uuid(),
   type: 'CAS2',
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),

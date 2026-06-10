@@ -1,6 +1,6 @@
 import {
-  Cas2SubmittedApplication,
-  Cas2SubmittedApplication as SubmittedApplication,
+  Cas2HdcSubmittedApplication,
+  Cas2HdcSubmittedApplication as SubmittedApplication,
   FullPerson,
 } from '@approved-premises/api'
 import Page from '../page'
@@ -35,7 +35,7 @@ export default class SubmittedApplicationPage extends Page {
     })
   }
 
-  hasExpectedSummaryDataForTransferredApplication(application: Cas2SubmittedApplication): void {
+  hasExpectedSummaryDataForTransferredApplication(application: Cas2HdcSubmittedApplication): void {
     const person = this.application.person as FullPerson
     const summary = getApplicationSummaryData('assessor', application) as TransferredApplicationSummary
 

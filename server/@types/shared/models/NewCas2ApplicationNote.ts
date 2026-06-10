@@ -2,7 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type NewCas2ApplicationNote = {
-    note: string;
-};
-
+import type { Cas2HdcNewApplicationNote } from './Cas2HdcNewApplicationNote';
+/**
+ * Deprecated alias of Cas2HdcNewApplicationNote
+ * @deprecated
+ */
+export type NewCas2ApplicationNote = Cas2HdcNewApplicationNote;

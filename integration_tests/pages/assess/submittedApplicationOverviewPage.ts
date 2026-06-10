@@ -1,4 +1,4 @@
-import { Cas2SubmittedApplication as SubmittedApplication, FullPerson } from '@approved-premises/api'
+import { Cas2HdcSubmittedApplication as SubmittedApplication, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 
 export default class SubmittedApplicationOverviewPage extends Page {

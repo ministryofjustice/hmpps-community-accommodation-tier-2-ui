@@ -1,11 +1,15 @@
-import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
+import type {
+  Cas2HdcSubmittedApplicationSummary,
+  Cas2HdcApplicationSummary,
+  Cas2HdcApplication,
+} from '@approved-premises/api'
 import type { GroupedApplications, QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
 
-const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+const inProgressApplicationTableRows = (applications: Array<Cas2HdcApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, false, true),
@@ -18,7 +22,7 @@ const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSumma
 }
 
 const submittedApplicationTableRows = (
-  applications: Array<Cas2ApplicationSummary>,
+  applications: Array<Cas2HdcApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
   return applications.map(application => {
@@ -32,7 +36,7 @@ const submittedApplicationTableRows = (
   })
 }
 
-const transferredOutApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+const transferredOutApplicationTableRows = (applications: Array<Cas2HdcApplicationSummary>): Array<TableRow> => {
   return applications?.map(application => {
     return [
       textValue(application.personName),
@@ -47,13 +51,13 @@ const transferredOutApplicationTableRows = (applications: Array<Cas2ApplicationS
 
 export const indexTabItems = (groupedApplications: GroupedApplications) => {
   return {
-    inProgressTab: indexInProgressTab(groupedApplications.inProgress as Array<Cas2ApplicationSummary>),
-    submittedTab: indexSubmittedTab(groupedApplications.submitted as Array<Cas2ApplicationSummary>),
-    transferredOutTab: indexTransferredOutTab(groupedApplications.transferredOut as Array<Cas2ApplicationSummary>),
+    inProgressTab: indexInProgressTab(groupedApplications.inProgress as Array<Cas2HdcApplicationSummary>),
+    submittedTab: indexSubmittedTab(groupedApplications.submitted as Array<Cas2HdcApplicationSummary>),
+    transferredOutTab: indexTransferredOutTab(groupedApplications.transferredOut as Array<Cas2HdcApplicationSummary>),
   }
 }
 
-const indexInProgressTab = (applications: Array<Cas2ApplicationSummary>) => {
+const indexInProgressTab = (applications: Array<Cas2HdcApplicationSummary>) => {
   return {
     label: 'In progress',
     id: 'applications',
@@ -78,7 +82,7 @@ const indexInProgressTab = (applications: Array<Cas2ApplicationSummary>) => {
   }
 }
 
-const indexSubmittedTab = (applications: Array<Cas2ApplicationSummary>) => {
+const indexSubmittedTab = (applications: Array<Cas2HdcApplicationSummary>) => {
   return {
     label: 'Submitted',
     id: 'submitted',
@@ -103,7 +107,7 @@ const indexSubmittedTab = (applications: Array<Cas2ApplicationSummary>) => {
   }
 }
 
-const indexTransferredOutTab = (applications: Array<Cas2ApplicationSummary>) => {
+const indexTransferredOutTab = (applications: Array<Cas2HdcApplicationSummary>) => {
   return {
     label: 'Transferred out',
     id: 'transferred-out',
@@ -131,7 +135,7 @@ const indexTransferredOutTab = (applications: Array<Cas2ApplicationSummary>) => 
   }
 }
 
-export const prisonDashboardTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+export const prisonDashboardTableRows = (applications: Array<Cas2HdcApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id),
@@ -145,7 +149,7 @@ export const prisonDashboardTableRows = (applications: Array<Cas2ApplicationSumm
   })
 }
 
-export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
+export const assessmentsTableRows = (applications: Array<Cas2HdcSubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, true),
@@ -252,14 +256,14 @@ export const getStatusTagColourByName = (statusName: string) => {
   }
 }
 
-export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
+export const hasOasys = (application: Cas2HdcApplication, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
   if (application.data[task]?.['oasys-import'] || application.data[task]?.['old-oasys']?.hasOldOasys === 'yes') {
     return true
   }
   return false
 }
 
-export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
+export const arePreTaskListTasksIncomplete = (application: Cas2HdcApplication): boolean => {
   if (
     application.data?.['confirm-eligibility'] &&
     application.data?.['confirm-consent'] &&

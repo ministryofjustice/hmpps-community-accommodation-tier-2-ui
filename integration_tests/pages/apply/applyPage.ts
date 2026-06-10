@@ -1,4 +1,4 @@
-import { Cas2Application as Application, FullPerson } from '@approved-premises/api'
+import { Cas2HdcApplication as Application, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 import TaskListPage from '../../../server/form-pages/taskListPage'
 import { DateFormats } from '../../../server/utils/dateUtils'

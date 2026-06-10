@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2Application as Application, Cas2ApplicationSummary, FullPerson } from '@approved-premises/api'
+import { Cas2HdcApplication as Application, Cas2HdcApplicationSummary, FullPerson } from '@approved-premises/api'
 import {
   ErrorsAndUserInput,
   GroupedApplications,
@@ -813,7 +813,7 @@ describe('applicationsController', () => {
         data: prisonApplications,
         totalPages: '50',
         totalResults: '500',
-      }) as PaginatedResponse<Cas2ApplicationSummary>
+      }) as PaginatedResponse<Cas2HdcApplicationSummary>
 
       const paginatedUnallocatedApplicationsResponse = paginatedResponseFactory.build({
         data: unallocatedApplications,

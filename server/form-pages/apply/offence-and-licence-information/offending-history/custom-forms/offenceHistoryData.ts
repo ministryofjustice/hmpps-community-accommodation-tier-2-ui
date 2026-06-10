@@ -1,5 +1,5 @@
 import type { SelectItem, TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { getQuestions } from '../../../../utils/questions'
@@ -36,7 +36,7 @@ export default class OffenceHistoryData implements TaskListPage {
 
   constructor(
     body: Partial<OffenceHistoryDataBody>,
-    private readonly application: Cas2Application,
+    private readonly application: Cas2HdcApplication,
   ) {
     this.body = body as OffenceHistoryDataBody
     this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)

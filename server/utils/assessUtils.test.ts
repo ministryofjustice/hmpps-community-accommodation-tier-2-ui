@@ -1,4 +1,4 @@
-import { Cas2ApplicationStatusDetail } from '@approved-premises/api'
+import { Cas2HdcApplicationStatusDetail } from '@approved-premises/api'
 import {
   statusUpdateFactory,
   statusUpdateDetailFactory,
@@ -97,7 +97,7 @@ describe('applicationStatusUpdateDetailCheckboxes', () => {
       name: 'risksAndNeeds',
       label: 'Risks and needs',
     },
-  ] as Array<Cas2ApplicationStatusDetail>
+  ] as Array<Cas2HdcApplicationStatusDetail>
 
   it('returns an array of checkboxes', () => {
     const expected = [

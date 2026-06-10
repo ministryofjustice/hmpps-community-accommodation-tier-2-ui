@@ -1,4 +1,4 @@
-import { Cas2SubmittedApplication as SubmittedApplication } from '@approved-premises/api'
+import { Cas2HdcSubmittedApplication as SubmittedApplication } from '@approved-premises/api'
 import { getStatusDetailQuestionText } from '../../../server/utils/assessUtils'
 import { kebabToCamelCase } from '../../../server/utils/utils'
 import Page from '../page'

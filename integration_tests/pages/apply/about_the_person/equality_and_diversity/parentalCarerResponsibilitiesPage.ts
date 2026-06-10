@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
+import { Cas2HdcApplication as Application } from '../../../../../server/@types/shared/models/Cas2HdcApplication'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import ApplyPage from '../../applyPage'

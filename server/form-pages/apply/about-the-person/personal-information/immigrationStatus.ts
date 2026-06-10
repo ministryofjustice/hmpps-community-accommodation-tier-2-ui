@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2HdcApplication as Application } from '@approved-premises/api'
 import { SelectItem, TaskListErrors } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'

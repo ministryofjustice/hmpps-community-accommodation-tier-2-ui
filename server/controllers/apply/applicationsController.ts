@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from 'express'
 import { DataServices } from '@approved-premises/ui'
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import {
   catchValidationErrorOrPropogate,
   errorMessage,
@@ -113,7 +113,7 @@ export default class ApplicationsController {
     }
   }
 
-  private ineligibleViewParams(application: Cas2Application): Record<string, string | Cas2Application> {
+  private ineligibleViewParams(application: Cas2HdcApplication): Record<string, string | Cas2HdcApplication> {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
       'The person',
@@ -128,9 +128,9 @@ export default class ApplicationsController {
   }
 
   private consentRefusedViewParams(
-    application: Cas2Application,
+    application: Cas2HdcApplication,
     req: Request,
-  ): Record<string, string | Cas2Application> {
+  ): Record<string, string | Cas2HdcApplication> {
     const panelText = `${nameOrPlaceholderCopy(application.person, 'The person')} has not given their consent`
     const changeAnswerPath = paths.applications.pages.show({
       id: application.id,

@@ -1,4 +1,4 @@
-import { Cas2Application } from '@approved-premises/api'
+import { Cas2HdcApplication } from '@approved-premises/api'
 import Page from './page.decorator'
 import { applicationFactory } from '../../../testutils/factories'
 
@@ -43,7 +43,7 @@ describe('taskListPageDecorator', () => {
     class ClassWithApplication {
       constructor(
         readonly body: Record<string, unknown>,
-        readonly application: Cas2Application,
+        readonly application: Cas2HdcApplication,
       ) {}
     }
 
@@ -54,7 +54,7 @@ describe('taskListPageDecorator', () => {
     class ClassWithApplicationAndPreviousPage {
       constructor(
         readonly body: Record<string, unknown>,
-        readonly application: Cas2Application,
+        readonly application: Cas2HdcApplication,
         readonly previousPage: string,
       ) {}
     }

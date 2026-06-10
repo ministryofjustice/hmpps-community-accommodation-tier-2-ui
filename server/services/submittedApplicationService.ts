@@ -1,8 +1,8 @@
 import {
-  Cas2SubmittedApplication as SubmittedApplication,
-  Cas2ApplicationStatus as ApplicationStatus,
-  Cas2SubmittedApplicationSummary,
-  Cas2ApplicationNote,
+  Cas2HdcSubmittedApplication as SubmittedApplication,
+  Cas2HdcApplicationStatus as ApplicationStatus,
+  Cas2HdcSubmittedApplicationSummary,
+  Cas2HdcApplicationNote,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 
@@ -14,7 +14,7 @@ export default class SubmittedApplicationService {
     private readonly referenceDataClientFactory: RestClientBuilder<ReferenceDataClient>,
   ) {}
 
-  async getAll(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2SubmittedApplicationSummary>> {
+  async getAll(token: string, pageNumber: number = 1): Promise<PaginatedResponse<Cas2HdcSubmittedApplicationSummary>> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
     return applicationClient.all(pageNumber)
@@ -32,7 +32,7 @@ export default class SubmittedApplicationService {
     return referenceDataClient.getApplicationStatuses()
   }
 
-  async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
+  async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2HdcApplicationNote> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
     return applicationClient.addNote(applicationId, newNote)

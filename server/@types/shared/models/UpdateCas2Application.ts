@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UpdateApplicationType } from './UpdateApplicationType';
-export type UpdateCas2Application = {
-    data: Record<string, any>;
-    type: UpdateApplicationType;
-};
-
+import type { Cas2HdcUpdateApplication } from './Cas2HdcUpdateApplication';
+/**
+ * Deprecated alias of Cas2HdcUpdateApplication
+ * @deprecated
+ */
+export type UpdateCas2Application = Cas2HdcUpdateApplication;

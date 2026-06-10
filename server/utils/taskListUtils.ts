@@ -1,5 +1,5 @@
 import type { TaskWithStatus } from '@approved-premises/ui'
-import { Cas2Application as Application } from '../@types/shared'
+import { Cas2HdcApplication as Application } from '../@types/shared'
 import applyPaths from '../paths/apply'
 
 export const statusTag = (task: TaskWithStatus): string => {

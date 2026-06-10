@@ -1,14 +1,14 @@
 import {
-  Cas2Assessment,
-  UpdateCas2Assessment,
-  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
+  Cas2HdcAssessment,
+  Cas2HdcUpdateAssessment,
+  Cas2HdcAssessmentStatusUpdate as AssessmentStatusUpdate,
 } from '@approved-premises/api'
 import { AssessmentClient, RestClientBuilder } from '../data'
 
 export default class AssessmentService {
   constructor(private readonly assessmentClientFactory: RestClientBuilder<AssessmentClient>) {}
 
-  async findAssessment(token: string, assessmentId: string): Promise<Cas2Assessment> {
+  async findAssessment(token: string, assessmentId: string): Promise<Cas2HdcAssessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 
     return assessmentClient.find(assessmentId)
@@ -17,8 +17,8 @@ export default class AssessmentService {
   async updateAssessment(
     token: string,
     assessmentId: string,
-    updateData: UpdateCas2Assessment,
-  ): Promise<Cas2Assessment> {
+    updateData: Cas2HdcUpdateAssessment,
+  ): Promise<Cas2HdcAssessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 
     return assessmentClient.update(assessmentId, updateData)

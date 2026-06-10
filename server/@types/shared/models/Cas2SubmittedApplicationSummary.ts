@@ -2,13 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2SubmittedApplicationSummary = {
-    createdAt: string;
-    createdByUserId: string;
-    crn: string;
-    id: string;
-    nomsNumber: string;
-    personName: string;
-    submittedAt?: string;
-};
-
+import type { Cas2HdcSubmittedApplicationSummary } from './Cas2HdcSubmittedApplicationSummary';
+/**
+ * Deprecated alias of Cas2HdcSubmittedApplicationSummary
+ * @deprecated
+ */
+export type Cas2SubmittedApplicationSummary = Cas2HdcSubmittedApplicationSummary;

@@ -1,16 +1,16 @@
 import Page from '../page'
 import paths from '../../../server/paths/apply'
-import { Cas2Application as Application, Cas2ApplicationSummary } from '../../../server/@types/shared'
+import { Cas2HdcApplication as Application, Cas2HdcApplicationSummary } from '../../../server/@types/shared'
 
 export default class ListPage extends Page {
   constructor(
-    private readonly applications: Array<Cas2ApplicationSummary>,
+    private readonly applications: Array<Cas2HdcApplicationSummary>,
     name: string,
   ) {
     super('Your CAS2 HDC applications', name)
   }
 
-  static visit(applications: Array<Cas2ApplicationSummary>): ListPage {
+  static visit(applications: Array<Cas2HdcApplicationSummary>): ListPage {
     cy.visit(paths.applications.index.pattern)
 
     return new ListPage(applications, applications[0]?.personName)

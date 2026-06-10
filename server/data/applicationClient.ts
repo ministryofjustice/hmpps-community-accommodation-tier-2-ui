@@ -1,11 +1,11 @@
 import {
   AssignmentType,
-  Cas2Application as Application,
-  Cas2ApplicationSummary,
-  SubmitCas2Application,
+  Cas2HdcApplication as Application,
+  Cas2HdcApplicationSummary,
+  Cas2HdcSubmitApplication,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
-import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
+import { Cas2HdcUpdateApplication } from '../@types/shared/models/Cas2HdcUpdateApplication'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
@@ -31,8 +31,8 @@ export default class ApplicationClient {
     })
   }
 
-  async getApplications(assignmentType: AssignmentType): Promise<Array<Cas2ApplicationSummary>> {
-    return this.restClient.get<Array<Cas2ApplicationSummary>>({
+  async getApplications(assignmentType: AssignmentType): Promise<Array<Cas2HdcApplicationSummary>> {
+    return this.restClient.get<Array<Cas2HdcApplicationSummary>>({
       path: paths.applications.index.pattern,
       query: createQueryString({ assignmentType }),
     })
@@ -41,22 +41,22 @@ export default class ApplicationClient {
   async getPagedApplications(
     pageNumber: number,
     assignmentType: AssignmentType,
-  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
+  ): Promise<PaginatedResponse<Cas2HdcApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2HdcApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
       query: { assignmentType },
     })
   }
 
-  async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
+  async update(applicationId: string, updateData: Cas2HdcUpdateApplication): Promise<Application> {
     return this.restClient.put<Application>({
       path: paths.applications.update({ id: applicationId }),
-      data: { ...updateData, type: 'CAS2' } as UpdateCas2Application,
+      data: { ...updateData, type: 'CAS2' } as Cas2HdcUpdateApplication,
     })
   }
 
-  async submit(applicationId: string, submissionData: SubmitCas2Application): Promise<void> {
+  async submit(applicationId: string, submissionData: Cas2HdcSubmitApplication): Promise<void> {
     await this.restClient.post({
       path: paths.submissions.create.pattern,
       data: { ...submissionData, applicationId },
