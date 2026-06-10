@@ -2,21 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SubmitCas2Application = {
-    /**
-     * Id of the application being submitted
-     */
-    applicationId: string;
-    conditionalReleaseDate?: string;
-    hdcEligibilityDate?: string;
-    /**
-     * First and second preferences for where the accommodation should be located, pipe-separated
-     */
-    preferredAreas?: string;
-    telephoneNumber: string;
-    /**
-     * Any object
-     */
-    translatedDocument: any;
-};
-
+import type { Cas2HdcSubmitApplication } from './Cas2HdcSubmitApplication';
+/**
+ * Deprecated alias of Cas2HdcSubmitApplication
+ * @deprecated
+ */
+export type SubmitCas2Application = Cas2HdcSubmitApplication;

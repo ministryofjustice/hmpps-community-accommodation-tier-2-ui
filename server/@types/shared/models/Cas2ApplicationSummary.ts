@@ -2,29 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApplicationOrigin } from './ApplicationOrigin';
-import type { ApplicationStatus } from './ApplicationStatus';
-import type { LatestCas2StatusUpdate } from './LatestCas2StatusUpdate';
-import type { PersonRisks } from './PersonRisks';
-export type Cas2ApplicationSummary = {
-    allocatedPomName: string;
-    allocatedPomUserId: string;
-    applicationOrigin?: ApplicationOrigin;
-    assignmentDate: string;
-    bailHearingDate?: string;
-    createdAt: string;
-    createdByUserId: string;
-    createdByUserName?: string;
-    crn: string;
-    currentPrisonName?: string;
-    hdcEligibilityDate?: string;
-    id: string;
-    latestStatusUpdate?: LatestCas2StatusUpdate;
-    nomsNumber: string;
-    personName: string;
-    risks?: PersonRisks;
-    status: ApplicationStatus;
-    submittedAt?: string;
-    type: string;
-};
-
+import type { Cas2HdcApplicationSummary } from './Cas2HdcApplicationSummary';
+/**
+ * Deprecated alias of Cas2HdcApplicationSummary
+ * @deprecated
+ */
+export type Cas2ApplicationSummary = Cas2HdcApplicationSummary;

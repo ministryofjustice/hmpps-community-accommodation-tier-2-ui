@@ -2,11 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cas2StatusUpdate } from './Cas2StatusUpdate';
-export type Cas2Assessment = {
-    assessorName?: string;
-    id: string;
-    nacroReferralId?: string;
-    statusUpdates?: Array<Cas2StatusUpdate>;
-};
-
+import type { Cas2HdcAssessment } from './Cas2HdcAssessment';
+/**
+ * Deprecated alias of Cas2HdcAssessment
+ * @deprecated
+ */
+export type Cas2Assessment = Cas2HdcAssessment;
