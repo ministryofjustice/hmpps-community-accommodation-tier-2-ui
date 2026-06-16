@@ -24,6 +24,7 @@ export type { Cas2HdcSubmittedApplication } from './models/Cas2HdcSubmittedAppli
 export type { Cas2HdcSubmittedApplicationSummary } from './models/Cas2HdcSubmittedApplicationSummary';
 export type { Cas2HdcUpdateApplication } from './models/Cas2HdcUpdateApplication';
 export type { Cas2HdcUpdateAssessment } from './models/Cas2HdcUpdateAssessment';
+export type { Cas2TimelineEvent } from './models/Cas2TimelineEvent';
 export type { ExternalUser } from './models/ExternalUser';
 export type { FlagsEnvelope } from './models/FlagsEnvelope';
 export type { FullPerson } from './models/FullPerson';
