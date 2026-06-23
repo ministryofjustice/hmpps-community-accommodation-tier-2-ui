@@ -23,6 +23,10 @@ export type Cas2HdcApplicationSummary = {
     personName: string;
     status: ApplicationStatus;
     submittedAt?: string;
+    /**
+     * This is redundant as it's no longer used as a subtype (it'll always be CAS2)
+     * @deprecated
+     */
     type: string;
 };
 
