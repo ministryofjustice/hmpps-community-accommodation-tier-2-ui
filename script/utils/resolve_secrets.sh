@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-# shellcheck disable=SC3040
 set -o pipefail
 
 # Resolve Secrets
@@ -25,7 +24,6 @@ resolve_secrets() {
 
   echo "Rendering template '$source' to '$target' in namespace '$k8s_namespace'"
 
-  # shellcheck disable=SC3020
   if ! command -v jq &> /dev/null
   then
       echo "Cannot find 'jq'. Please install using 'brew install jq'"
@@ -41,7 +39,6 @@ resolve_secrets() {
       secrets=$(kubectl get secrets "$secretName" --namespace "$k8s_namespace" -o json | jq ".data | map_values(@base64d)")
       # get value in format 'key=value' which can then be used with the 'export' command, setting them as env vars
       for secret in $(echo "$secrets" | jq -r "to_entries | map(\"\(.key)=\(.value|tostring)\") | .[]" ); do
-        # shellcheck disable=SC2163
         export "$secret" || echo "Cannot export secret"
       done
 
