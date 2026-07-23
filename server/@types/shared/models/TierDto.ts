@@ -3,9 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { TierVersionDto } from './TierVersionDto';
-export type RiskTier = {
-    lastUpdated: string;
-    level: string;
+export type TierDto = {
+    calculationDate: string;
+    provisional?: boolean;
+    tierScore: string;
     version: TierVersionDto;
 };
 
