@@ -18,6 +18,7 @@ generic-service:
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
     IN_MAINTENANCE_MODE: false
     PLANNED_MAINTENANCE_BANNER: false
+    CLOSURE_BANNER_ENABLED: true
 
   namespace_secrets:
     sqs-hmpps-audit-secret:
