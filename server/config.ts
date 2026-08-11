@@ -102,5 +102,6 @@ export default {
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', 'false') === 'true',
     plannedMaintenance: get('PLANNED_MAINTENANCE_BANNER', 'false') === 'true',
+    closureBanner: get('CLOSURE_BANNER_ENABLED', 'false') === 'true',
   },
 }
