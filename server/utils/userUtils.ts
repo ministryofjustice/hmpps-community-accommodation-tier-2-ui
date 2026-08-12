@@ -52,7 +52,7 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
 
   if (hasRole(userRoles, 'ROLE_POM') || hasRole(userRoles, 'ROLE_LICENCE_CA')) {
     items.push(sections.applications)
-    if (!config.flags.hdcServiceSunset) {
+    if (!config.flags.hdcSunsetPhase1StopNewApplications) {
       items.push(sections.newApplication)
     }
     items.push(sections.prisonDashboard)
