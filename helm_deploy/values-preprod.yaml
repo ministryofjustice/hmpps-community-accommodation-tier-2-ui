@@ -19,6 +19,7 @@ generic-service:
     IN_MAINTENANCE_MODE: false
     PLANNED_MAINTENANCE_BANNER: false
     CLOSURE_BANNER_ENABLED: true
+    CAS2_HDC_SERVICE_SUNSET: true
 
   namespace_secrets:
     sqs-hmpps-audit-secret:

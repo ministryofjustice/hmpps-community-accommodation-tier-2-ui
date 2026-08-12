@@ -1,7 +1,12 @@
 import { sectionsForUser, sections } from './userUtils'
+import config from '../config'
 
 describe('userUtils', () => {
   describe('sectionsForUser', () => {
+    beforeEach(() => {
+      config.flags.hdcServiceSunset = false
+    })
+
     it('should return an empty array for a user with no roles', () => {
       expect(sectionsForUser([])).toEqual([])
     })
@@ -24,6 +29,22 @@ describe('userUtils', () => {
     it('should return correct sections for a management information user', () => {
       const expected = [sections.managementInformationReports]
       expect(sectionsForUser(['ROLE_CAS2_MI'])).toEqual(expected)
+    })
+
+    describe('when the HDC service sunset flag is enabled', () => {
+      beforeEach(() => {
+        config.flags.hdcServiceSunset = true
+      })
+
+      it('should not return the new application section for a POM', () => {
+        const expected = [sections.applications, sections.prisonDashboard]
+        expect(sectionsForUser(['ROLE_POM'])).toEqual(expected)
+      })
+
+      it('should not return the new application section for a Licence CA', () => {
+        const expected = [sections.applications, sections.prisonDashboard]
+        expect(sectionsForUser(['ROLE_LICENCE_CA'])).toEqual(expected)
+      })
     })
   })
 })
