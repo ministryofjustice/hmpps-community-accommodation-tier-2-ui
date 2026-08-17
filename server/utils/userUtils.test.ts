@@ -4,7 +4,7 @@ import config from '../config'
 describe('userUtils', () => {
   describe('sectionsForUser', () => {
     beforeEach(() => {
-      config.flags.hdcSunsetPhase1StopNewApplications = false
+      config.flags.phase1DisableApplicationCreation = false
     })
 
     it('should return an empty array for a user with no roles', () => {
@@ -31,9 +31,9 @@ describe('userUtils', () => {
       expect(sectionsForUser(['ROLE_CAS2_MI'])).toEqual(expected)
     })
 
-    describe('when the HDC sunset phase 1 stop new applications flag is enabled', () => {
+    describe('when the phase 1 disable application creation flag is enabled', () => {
       beforeEach(() => {
-        config.flags.hdcSunsetPhase1StopNewApplications = true
+        config.flags.phase1DisableApplicationCreation = true
       })
 
       it('should not return the new application section for a POM', () => {
