@@ -21,6 +21,7 @@ generic-service:
     IN_MAINTENANCE_MODE: false
     PLANNED_MAINTENANCE_BANNER: false
     CLOSURE_BANNER_ENABLED: true
+    PHASE_1_DISABLE_APPLICATION_CREATION: true
     # required so hmpps-audit-client doesn't raise an error
     AUDIT_SQS_QUEUE_URL: ""
     AUDIT_SQS_QUEUE_NAME: ""
