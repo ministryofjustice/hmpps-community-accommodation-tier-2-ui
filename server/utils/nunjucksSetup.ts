@@ -71,7 +71,8 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   njkEnv.addGlobal('plannedMaintenance', config.flags.plannedMaintenance)
 
-  njkEnv.addGlobal('closureBanner', config.flags.closureBanner)
+  njkEnv.addGlobal('phase0ClosureBanner', config.flags.phase0ClosureBanner)
+  njkEnv.addGlobal('phase1ClosureBanner', config.flags.phase1ClosureBanner)
 
   njkEnv.addFilter('initialiseName', initialiseName)
 
