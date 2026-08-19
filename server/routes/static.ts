@@ -15,6 +15,9 @@ export default function staticRoutes(controllers: Controllers, router: Router): 
   get(paths.static.privacyNotice.pattern, staticController.privacyNoticePage(), {})
   get(paths.static.cookiesPolicy.pattern, staticController.cookiesPolicyPage(), {})
   get(paths.static.accessibilityStatement.pattern, staticController.accessibilityStatementPage(), {})
+  get(paths.static.noLongerApply.pattern, staticController.noLongerApplyPage(), {
+    auditEvent: 'VIEW_NO_LONGER_APPLY',
+  })
 
   return router
 }

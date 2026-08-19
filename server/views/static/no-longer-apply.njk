@@ -1,0 +1,10 @@
+{% from "../partials/noLongerApply.njk" import noLongerApply %}
+
+{% extends "partials/layout.njk" %}
+
+{% set pageTitle = "You can no longer apply for CAS2 for HDC" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+  {{ noLongerApply() }}
+{% endblock %}

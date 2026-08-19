@@ -6,12 +6,25 @@ import Apply from '../form-pages/apply'
 import type { Controllers } from '../controllers'
 import paths from '../paths/apply'
 import { actions } from './utils'
+import disableInProgressApplications from '../middleware/disableInProgressApplications'
 
 export default function applyRoutes(controllers: Controllers, router: Router): Router {
   const { pages } = Apply
   const { get, post, put } = actions(router)
 
   const { applicationsController, pagesController, cancelController } = controllers
+
+  // these should beall the in progress routes
+  router.all(
+    [
+      paths.applications.pages.show.pattern,
+      paths.applications.appendToList.pattern,
+      paths.applications.removeFromList.pattern,
+      paths.applications.submission.pattern,
+    ],
+    disableInProgressApplications(),
+  )
+  router.put(paths.applications.update.pattern, disableInProgressApplications())
 
   get(
     paths.applications.beforeYouStart.pattern,
