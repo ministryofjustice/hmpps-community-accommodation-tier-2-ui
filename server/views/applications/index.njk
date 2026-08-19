@@ -86,7 +86,9 @@
 
             {{ softDeleteGuidance() }}
 
-            <a class="govuk-button" href="{{ paths.applications.beforeYouStart() }}">Start a new application</a>
+            {% if not phase1DisableApplicationCreation %}
+                <a class="govuk-button" href="{{ paths.applications.beforeYouStart() }}">Start a new application</a>
+            {% endif %}
         </div>
     </div>
 
