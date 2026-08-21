@@ -4,6 +4,7 @@ const cookiesPolicyPath = path('/cookies')
 const maintenancePath = path('/maintenance')
 const privacyNoticePath = path('/privacy-notice')
 const accessibilityStatementPath = path('/accessibility-statement')
+const noLongerApplyPath = path('/no-longer-apply')
 
 const paths = {
   static: {
@@ -11,6 +12,7 @@ const paths = {
     maintenancePage: maintenancePath,
     privacyNotice: privacyNoticePath,
     accessibilityStatement: accessibilityStatementPath,
+    noLongerApply: noLongerApplyPath,
   },
 }
 

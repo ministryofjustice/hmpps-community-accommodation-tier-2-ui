@@ -1,10 +1,17 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../partials/noLongerApply.njk" import noLongerApply %}
 {% extends "../partials/layout.njk" %}
 
 {% set pageTitle = "Home - " + applicationName %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+
+  {% if phase1DisableApplicationCreation %}
+
+    {{ noLongerApply() }}
+
+  {% else %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -52,5 +59,7 @@
 
     </div>
   </div>
+
+  {% endif %}
 
 {% endblock %}

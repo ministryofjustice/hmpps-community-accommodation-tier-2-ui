@@ -191,6 +191,28 @@ describe('applicationsController', () => {
           '/applications',
         )
       })
+
+      describe('and in progress applications are disabled', () => {
+        beforeEach(() => {
+          config.flags.phase1DisableInprogressApplications = true
+          ;(showMissingRequiredTasksOrTaskList as jest.Mock).mockClear()
+        })
+
+        afterEach(() => {
+          config.flags.phase1DisableInprogressApplications = false
+        })
+
+        it('redirects to the no longer apply page', async () => {
+          const unsubmittedApplication = applicationFactory.build({})
+          applicationService.findApplication.mockResolvedValue(unsubmittedApplication)
+
+          const requestHandler = applicationsController.show()
+          await requestHandler(request, response, next)
+
+          expect(response.redirect).toHaveBeenCalledWith('/no-longer-apply')
+          expect(showMissingRequiredTasksOrTaskList).not.toHaveBeenCalled()
+        })
+      })
     })
   })
 
