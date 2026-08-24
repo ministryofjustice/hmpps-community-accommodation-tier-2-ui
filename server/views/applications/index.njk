@@ -18,7 +18,7 @@
 
     {% include 'partials/plannedMaintenanceBanner.njk' %}
 
-    {% set tabItems =  [{
+    {% set inProgressTabItem = {
         label: tabData.inProgressTab.label,
         id: tabData.inProgressTab.id,
         panel: {
@@ -28,18 +28,25 @@
                 tabData.inProgressTab.rows
             )
         }
-    },
-        {
-            label: tabData.submittedTab.label,
-            id: tabData.submittedTab.id,
-            panel: {
+    } %}
+
+    {% set submittedTabItem = {
+        label: tabData.submittedTab.label,
+        id: tabData.submittedTab.id,
+        panel: {
             html: applicationsTable(
                 tabData.submittedTab.label,
                 tabData.submittedTab.headings,
                 tabData.submittedTab.rows
             )
         }
-        }] %}
+    } %}
+
+    {% if phase1DisableInprogressApplications %}
+        {% set tabItems = [submittedTabItem] %}
+    {% else %}
+        {% set tabItems = [inProgressTabItem, submittedTabItem] %}
+    {% endif %}
 
     {% if tabData.transferredOutTab and tabData.transferredOutTab.rows and tabData.transferredOutTab.rows.length > 0 %}
         {% set tabItems = (tabItems.push({
@@ -82,11 +89,17 @@
                 }]
             }) }}
 
-            {{ govukTabs({ items: tabItems }) }}
+            {% if tabItems.length > 1 %}
+                {{ govukTabs({ items: tabItems }) }}
+            {% else %}
+                {{ tabItems[0].panel.html | safe }}
+            {% endif %}
 
             {{ softDeleteGuidance() }}
 
-            <a class="govuk-button" href="{{ paths.applications.beforeYouStart() }}">Start a new application</a>
+            {% if not phase1DisableApplicationCreation %}
+                <a class="govuk-button" href="{{ paths.applications.beforeYouStart() }}">Start a new application</a>
+            {% endif %}
         </div>
     </div>
 

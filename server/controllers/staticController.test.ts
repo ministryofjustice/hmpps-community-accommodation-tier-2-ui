@@ -49,4 +49,13 @@ describe('StaticController', () => {
       expect(response.render).toHaveBeenCalledWith('static/accessibility-statement')
     })
   })
+
+  describe('no longer apply page', () => {
+    it('should render the page', () => {
+      const requestHandler = staticController.noLongerApplyPage()
+      requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('static/no-longer-apply')
+    })
+  })
 })

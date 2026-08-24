@@ -14,6 +14,8 @@ import {
   showMissingRequiredTasksOrTaskList,
 } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
+import staticPaths from '../../paths/static'
+import config from '../../config'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
@@ -55,6 +57,10 @@ export default class ApplicationsController {
       if (application.submittedAt) {
         const summary = getApplicationSummaryData('referrerSubmission', application)
         return res.render('applications/show', { application, summary })
+      }
+
+      if (config.flags.phase1DisableInprogressApplications) {
+        return res.redirect(staticPaths.static.noLongerApply({}))
       }
 
       const backLink = this.sessionService.getPageBackLink(paths.applications.show.pattern, req, [

@@ -24,4 +24,10 @@ export default class StaticController {
       res.render('static/accessibility-statement')
     }
   }
+
+  noLongerApplyPage(): RequestHandler {
+    return (_req: Request, res: Response) => {
+      res.render('static/no-longer-apply')
+    }
+  }
 }

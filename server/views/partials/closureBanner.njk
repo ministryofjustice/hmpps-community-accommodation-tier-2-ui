@@ -1,9 +1,14 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
-{% if closureBanner %}
+{% if phase0ClosureBanner or phase1ClosureBanner %}
     {% set html %}
-        <h3 class="govuk-notification-banner__heading">You can apply for CAS2 for HDC until 26 August 2026</h3>
-        <p class="govuk-body">From Thursday 27 August 2026, you will no longer be able to submit new applications and receive an offer online. There will be a separate application for people on youth sentences.</p>
+        {% if phase1ClosureBanner %}
+            <h3 class="govuk-notification-banner__heading">You can no longer apply for CAS2 for HDC</h3>
+            <p class="govuk-body">You cannot submit new applications online. There will be a separate application for people on youth sentences. You can view past applications until Monday 28 September 2026.</p>
+        {% else %}
+            <h3 class="govuk-notification-banner__heading">You can apply for CAS2 for HDC until 26 August 2026</h3>
+            <p class="govuk-body">From Thursday 27 August 2026, you will no longer be able to submit new applications and receive an offer online. There will be a separate application for people on youth sentences.</p>
+        {% endif %}
     {% endset %}
 
     {{ govukNotificationBanner({
