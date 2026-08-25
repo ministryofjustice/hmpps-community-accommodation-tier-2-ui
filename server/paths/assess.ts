@@ -1,6 +1,7 @@
 import { path } from 'static-path'
 
-const assessApplicationsPath = path('/assess/applications')
+export const assessPath = path('/assess')
+const assessApplicationsPath = assessPath.path('applications')
 const singleApplicationPath = assessApplicationsPath.path(':id')
 const updateStatusPath = singleApplicationPath.path('update-status')
 const statusUpdateDetailsPath = updateStatusPath.path('further-information/:statusName')

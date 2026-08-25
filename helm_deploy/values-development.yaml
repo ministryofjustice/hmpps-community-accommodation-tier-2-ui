@@ -23,6 +23,7 @@ generic-service:
     PHASE_1_DISABLE_APPLICATION_CREATION: false
     PHASE_1_DISABLE_INPROGRESS_APPLICATIONS: false
     PHASE_1_CLOSURE_BANNER_ENABLED: false
+    PHASE_2_DISABLE_SUBMITTED_APPLICATIONS: false
 
   namespace_secrets:
     sqs-hmpps-audit-secret:

@@ -6,7 +6,9 @@
 
       <p>You cannot submit new applications.</p>
 
-      <p><a class="govuk-link" href="{{ paths.applications.index() }}">View past applications</a></p>
+      {% if not phase2DisableSubmittedApplications %}
+        <p><a class="govuk-link" href="{{ paths.applications.index() }}">View past applications</a></p>
+      {% endif %}
     </div>
   </div>
 

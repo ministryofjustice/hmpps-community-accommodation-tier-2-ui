@@ -106,5 +106,6 @@ export default {
     phase1DisableApplicationCreation: get('PHASE_1_DISABLE_APPLICATION_CREATION', 'false') === 'true',
     phase1DisableInprogressApplications: get('PHASE_1_DISABLE_INPROGRESS_APPLICATIONS', 'false') === 'true',
     phase1ClosureBanner: get('PHASE_1_CLOSURE_BANNER_ENABLED', 'false') === 'true',
+    phase2DisableSubmittedApplications: get('PHASE_2_DISABLE_SUBMITTED_APPLICATIONS', 'false') === 'true',
   },
 }

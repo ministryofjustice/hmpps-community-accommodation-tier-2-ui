@@ -75,6 +75,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('phase1ClosureBanner', config.flags.phase1ClosureBanner)
   njkEnv.addGlobal('phase1DisableApplicationCreation', config.flags.phase1DisableApplicationCreation)
   njkEnv.addGlobal('phase1DisableInprogressApplications', config.flags.phase1DisableInprogressApplications)
+  njkEnv.addGlobal('phase2DisableSubmittedApplications', config.flags.phase2DisableSubmittedApplications)
 
   njkEnv.addFilter('initialiseName', initialiseName)
 

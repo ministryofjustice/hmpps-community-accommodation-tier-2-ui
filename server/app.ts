@@ -28,6 +28,7 @@ import { Controllers } from './controllers'
 import routes from './routes'
 import type { Services } from './services'
 import setUpProductInfo from './middleware/setUpProductInfo'
+import setupSunsetPageRedirect from './middleware/setupSunsetPageRedirect'
 
 export default function createApp(controllers: Controllers, services: Services): express.Application {
   const app = express()
@@ -55,6 +56,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(setUpCurrentUser(services))
 
   app.use(setUpMaintenancePageRedirect())
+  app.use(setupSunsetPageRedirect())
   app.use((req, res, next) => {
     res.locals.infoMessages = req.flash('info')
     res.locals.successMessages = req.flash('success')
