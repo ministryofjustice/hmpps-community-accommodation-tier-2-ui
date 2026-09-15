@@ -3,7 +3,7 @@ name: Security veracode policy scan
 on:
   workflow_dispatch:
   schedule:
-    - cron: "54 4 * * 1" # Every Monday at 04:54 UTC
+    - cron: "47 2 * * 1" # Every Monday
 
 jobs:
   security-veracode-policy-check:
