@@ -53,7 +53,7 @@ export function pagination(currentPage: number, pageCount: number, hrefPrefix: s
   } else {
     pages = [1, 2, 3, 4].slice(0, currentPage)
   }
-  const maxPage = Math.max(currentPage, pages.at(-1))
+  const maxPage = Math.max(currentPage, pages[pages.length - 1])
   if (maxPage === pageCount - 1) {
     pages.push(pageCount)
   } else if (maxPage === pageCount - 2) {
