@@ -3,5 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Person } from './Person';
-export type RestrictedPerson = Person;
+import type { TierDto } from './TierDto';
+export type RestrictedPerson = (Person & {
+    /**
+     * The person's current tier, if available
+     */
+    tier?: TierDto;
+});
 
