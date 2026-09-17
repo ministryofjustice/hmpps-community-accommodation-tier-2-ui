@@ -1,6 +1,6 @@
 import { path } from 'static-path'
 
-const applicationsPath = path('/applications')
+export const applicationsPath = path('/applications')
 const singleApplicationPath = applicationsPath.path(':id')
 const pagesPath = singleApplicationPath.path('tasks/:task/pages/:page')
 const peoplePath = applicationsPath.path('people')

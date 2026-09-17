@@ -51,14 +51,20 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   const items = []
 
   if (hasRole(userRoles, 'ROLE_POM') || hasRole(userRoles, 'ROLE_LICENCE_CA')) {
-    items.push(sections.applications)
-    if (!config.flags.phase1DisableApplicationCreation) {
-      items.push(sections.newApplication)
+    if (!config.flags.phase2DisableSubmittedApplications) {
+      items.push(sections.applications)
+
+      if (!config.flags.phase1DisableApplicationCreation) {
+        items.push(sections.newApplication)
+      }
+
+      items.push(sections.prisonDashboard)
     }
-    items.push(sections.prisonDashboard)
   }
   if (hasRole(userRoles, 'ROLE_CAS2_ADMIN')) {
-    items.push(sections.submittedApplications)
+    if (!config.flags.phase2DisableSubmittedApplications) {
+      items.push(sections.submittedApplications)
+    }
   }
   if (hasRole(userRoles, 'ROLE_CAS2_MI')) {
     items.push(sections.managementInformationReports)

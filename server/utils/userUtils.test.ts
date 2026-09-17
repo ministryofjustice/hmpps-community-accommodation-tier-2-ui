@@ -5,6 +5,7 @@ describe('userUtils', () => {
   describe('sectionsForUser', () => {
     beforeEach(() => {
       config.flags.phase1DisableApplicationCreation = false
+      config.flags.phase2DisableSubmittedApplications = false
     })
 
     it('should return an empty array for a user with no roles', () => {
@@ -44,6 +45,29 @@ describe('userUtils', () => {
       it('should not return the new application section for a Licence CA', () => {
         const expected = [sections.applications, sections.prisonDashboard]
         expect(sectionsForUser(['ROLE_LICENCE_CA'])).toEqual(expected)
+      })
+    })
+
+    describe('when the phase 2 disable submitted applications flag is enabled', () => {
+      beforeEach(() => {
+        config.flags.phase2DisableSubmittedApplications = true
+      })
+
+      it('should not return any application sections for a POM', () => {
+        expect(sectionsForUser(['ROLE_POM'])).toEqual([])
+      })
+
+      it('should not return any application sections for an LCA', () => {
+        expect(sectionsForUser(['ROLE_LICENCE_CA'])).toEqual([])
+      })
+
+      it('should not return any application sections for an admin', () => {
+        expect(sectionsForUser(['ROLE_CAS2_ADMIN'])).toEqual([])
+      })
+
+      it('should still return the reports section for a reporter', () => {
+        const expected = [sections.managementInformationReports]
+        expect(sectionsForUser(['ROLE_CAS2_MI'])).toEqual(expected)
       })
     })
   })
