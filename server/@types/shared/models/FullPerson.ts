@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { Person } from './Person';
 import type { PersonStatus } from './PersonStatus';
+import type { TierDto } from './TierDto';
 export type FullPerson = (Person & {
     dateOfBirth?: string;
     ethnicity?: string;
@@ -17,6 +18,10 @@ export type FullPerson = (Person & {
     religionOrBelief?: string;
     sex?: string;
     status?: PersonStatus;
+    /**
+     * The person's current tier, if available
+     */
+    tier?: TierDto;
 } & {
     dateOfBirth: string;
     name: string;
