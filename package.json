@@ -167,7 +167,7 @@
   "devDependencies": {
     "@ministryofjustice/eslint-config-hmpps": "1.0.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
-    "@pact-foundation/pact": "^16.0.2",
+    "@pact-foundation/pact": "^17.1.4",
     "@pactflow/openapi-pact-comparator": "^1.4.0",
     "@types/bunyan": "^1.8.8",
     "@types/bunyan-format": "^0.2.5",
