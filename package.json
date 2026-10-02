@@ -125,7 +125,7 @@
     "@golevelup/ts-jest": "^0.5.0",
     "@microsoft/applicationinsights-web": "^3.3.5",
     "@ministryofjustice/frontend": "^8.0.0",
-    "@ministryofjustice/hmpps-audit-client": "^1.1.1",
+    "@ministryofjustice/hmpps-audit-client": "^2.0.0",
     "@playwright/test": "^1.56.1",
     "@sentry/node": "^7.57.0",
     "@types/method-override": "^0.0.35",
