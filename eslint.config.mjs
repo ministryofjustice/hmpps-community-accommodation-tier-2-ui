@@ -3,6 +3,7 @@ import hmppsConfig from '@ministryofjustice/eslint-config-hmpps'
 export default [
   ...hmppsConfig({
     extraIgnorePaths: ['assets/js', 'e2e-tests/playwright-report'],
+    extraPathsAllowingDevDependencies: ['e2e-tests/**/*.ts', 'playwright.config.ts'],
   }),
   {
     name: 'CAS2-specific rules',

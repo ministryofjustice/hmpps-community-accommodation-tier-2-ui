@@ -1,5 +1,4 @@
 import { Page, expect } from '@playwright/test'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Excel, { CellValue } from 'exceljs'
 
 const reportTypeMetaData = {
