@@ -163,7 +163,7 @@
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.0",
+    "@faker-js/faker": "^10.6.0",
     "@golevelup/ts-jest": "^0.5.0",
     "@ministryofjustice/eslint-config-hmpps": "1.0.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
