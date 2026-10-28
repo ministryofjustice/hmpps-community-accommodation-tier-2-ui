@@ -2,6 +2,7 @@ import { configureAllowedScripts } from '@ministryofjustice/hmpps-npm-script-all
 
 export default configureAllowedScripts({
   allowlist: {
+    'node_modules/protobufjs@7.6.6': 'ALLOW',
     'node_modules/@parcel/watcher@2.6.0': 'ALLOW',
     'node_modules/cypress@13.17.0': 'ALLOW',
     'node_modules/dtrace-provider@0.8.8': 'ALLOW',
