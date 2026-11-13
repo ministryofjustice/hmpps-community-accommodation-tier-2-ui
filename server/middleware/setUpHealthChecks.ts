@@ -1,24 +1,23 @@
 import express, { Router } from 'express'
+import { monitoringMiddleware, endpointHealthComponent } from '@ministryofjustice/hmpps-monitoring'
+import logger from '../../logger'
+import { ApplicationInfo } from '../applicationInfo'
+import config from '../config'
+import { healthCheckWithPrometheusHandler } from '../services/healthCheck'
 
-import healthcheck from '../services/healthCheck'
-
-export default function setUpHealthChecks(): Router {
+export default function setUpHealthChecks(applicationInfo: ApplicationInfo): Router {
   const router = express.Router()
 
-  router.get('/health', (req, res, next) => {
-    healthcheck(result => {
-      if (!result.healthy) {
-        res.status(503)
-      }
-      res.json(result)
-    })
+  const apiConfig = Object.entries(config.apis)
+
+  const middleware = monitoringMiddleware({
+    applicationInfo,
+    healthComponents: apiConfig.map(([name, options]) => endpointHealthComponent(logger, name, options)),
   })
 
-  router.get('/ping', (req, res) =>
-    res.send({
-      status: 'UP',
-    }),
-  )
+  router.get('/health', healthCheckWithPrometheusHandler(middleware))
+  router.get('/info', middleware.info)
+  router.get('/ping', middleware.ping)
 
   router.get('/debug-sentry', (_req, res) => {
     throw new Error('Test Sentry error thrown.')

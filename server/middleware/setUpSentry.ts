@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node'
 import express from 'express'
-import applicationVersion from '../applicationVersion'
+import { applicationInfo } from '../data'
 import config from '../config'
 
 export function setUpSentryRequestHandler(app: express.Express): void {
@@ -13,7 +13,7 @@ export function setUpSentryRequestHandler(app: express.Express): void {
     Sentry.init({
       dsn: config.sentry.dsn,
       environment: config.environment,
-      release: applicationVersion.gitRef,
+      release: applicationInfo.gitRef,
       integrations: [
         // enable HTTP calls tracing
         new Sentry.Integrations.Http({ tracing: true }),

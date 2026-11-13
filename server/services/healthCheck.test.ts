@@ -1,53 +1,120 @@
-import healthCheck from './healthCheck'
-import type { HealthCheckCallback, HealthCheckService } from './healthCheck'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import promClient from 'prom-client'
 
-describe('Healthcheck', () => {
-  it('Healthcheck reports healthy', done => {
-    const successfulChecks = [successfulCheck('check1'), successfulCheck('check2')]
+jest.mock('prom-client')
 
-    const callback: HealthCheckCallback = result => {
-      expect(result).toEqual(
-        expect.objectContaining({
-          healthy: true,
-          checks: { check1: 'some message', check2: 'some message' },
-        }),
-      )
-      done()
-    }
+const mockGaugeInstance: any = {
+  labels: jest.fn().mockReturnThis(),
+  set: jest.fn(),
+}
 
-    healthCheck(callback, successfulChecks)
+jest.mocked(promClient.Gauge).mockImplementation(() => mockGaugeInstance)
+
+describe('healthCheck', () => {
+  let createHealthCheckWithPrometheusHandler: any
+  let mockReq: any
+  let mockRes: any
+  let mockNext: any
+  let mockMiddleware: any
+
+  beforeAll(async () => {
+    const module = await import('./healthCheck')
+    createHealthCheckWithPrometheusHandler = module.healthCheckWithPrometheusHandler
   })
-  it('Healthcheck reports unhealthy', done => {
-    const successfulChecks = [successfulCheck('check1'), erroredCheck('check2')]
 
-    const callback: HealthCheckCallback = result => {
-      expect(result).toEqual(
-        expect.objectContaining({
-          healthy: false,
-          checks: { check1: 'some message', check2: 'some error' },
-        }),
-      )
-      done()
+  beforeEach(() => {
+    jest.clearAllMocks()
+    mockGaugeInstance.labels.mockClear()
+    mockGaugeInstance.set.mockClear()
+
+    mockReq = {}
+    mockNext = jest.fn()
+
+    mockRes = {
+      json: jest.fn().mockReturnValue(mockRes),
     }
 
-    healthCheck(callback, successfulChecks)
+    mockMiddleware = {
+      health: jest.fn((req, res, next) => {
+        res.json({
+          components: {
+            'service-1': { status: 'UP', details: {} },
+            'service-2': { status: 'DOWN', details: {} },
+          },
+        })
+        if (next) next()
+      }),
+    }
+  })
+
+  describe('healthCheckWithPrometheusHandler', () => {
+    it('should create a handler function', () => {
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      expect(typeof handler).toBe('function')
+    })
+
+    it('should call middleware.health', () => {
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      handler(mockReq, mockRes, mockNext)
+
+      expect(mockMiddleware.health).toHaveBeenCalledWith(mockReq, mockRes, expect.any(Function))
+    })
+
+    it('should intercept res.json and update gauge for UP status', () => {
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      handler(mockReq, mockRes, mockNext)
+
+      expect(mockGaugeInstance.labels).toHaveBeenCalledWith('service-1')
+      expect(mockGaugeInstance.set).toHaveBeenCalledWith(1)
+    })
+
+    it('should set gauge to 0 for DOWN status', () => {
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      handler(mockReq, mockRes, mockNext)
+
+      expect(mockGaugeInstance.labels).toHaveBeenCalledWith('service-2')
+      expect(mockGaugeInstance.set).toHaveBeenCalledWith(0)
+    })
+
+    it('should still call original res.json with the response body', () => {
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      const originalJson = mockRes.json
+
+      handler(mockReq, mockRes, mockNext)
+
+      expect(originalJson).toHaveBeenCalled()
+    })
+
+    it('should handle response with no components', () => {
+      mockMiddleware.health = jest.fn((req, res, next) => {
+        res.json({})
+        if (next) next()
+      })
+
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      expect(() => {
+        handler(mockReq, mockRes, mockNext)
+      }).not.toThrow()
+    })
+
+    it('should handle multiple services', () => {
+      mockMiddleware.health = jest.fn((req, res, next) => {
+        res.json({
+          components: {
+            auth: { status: 'UP', details: {} },
+            database: { status: 'UP', details: {} },
+            cache: { status: 'DOWN', details: {} },
+          },
+        })
+        if (next) next()
+      })
+
+      const handler = createHealthCheckWithPrometheusHandler(mockMiddleware)
+      handler(mockReq, mockRes, mockNext)
+
+      expect(mockGaugeInstance.labels).toHaveBeenCalledWith('auth')
+      expect(mockGaugeInstance.labels).toHaveBeenCalledWith('database')
+      expect(mockGaugeInstance.labels).toHaveBeenCalledWith('cache')
+    })
   })
 })
-
-function successfulCheck(name: string): HealthCheckService {
-  return () =>
-    Promise.resolve({
-      name: `${name}`,
-      status: 'ok',
-      message: 'some message',
-    })
-}
-
-function erroredCheck(name: string): HealthCheckService {
-  return () =>
-    Promise.resolve({
-      name: `${name}`,
-      status: 'ERROR',
-      message: 'some error',
-    })
-}

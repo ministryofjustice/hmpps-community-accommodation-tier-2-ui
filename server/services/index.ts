@@ -13,6 +13,7 @@ import SessionService from './sessionService'
 
 export const services = () => {
   const {
+    applicationInfo,
     hmppsAuthClient,
     personClient,
     applicationClient,
@@ -31,6 +32,7 @@ export const services = () => {
   const sessionService = new SessionService()
 
   return {
+    applicationInfo,
     userService,
     personService,
     applicationService,
