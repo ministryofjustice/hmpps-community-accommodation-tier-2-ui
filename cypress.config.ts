@@ -8,6 +8,7 @@ import submissions from './integration_tests/mockApis/submissions'
 import referenceData from './integration_tests/mockApis/referenceData'
 import assessments from './integration_tests/mockApis/assessments'
 import accessibilityViolations from './integration_tests/tasks/accessibilityViolations'
+import approvedPremises from './integration_tests/mockApis/approvedPremises'
 
 export default defineConfig({
   chromeWebSecurity: false,
@@ -31,6 +32,7 @@ export default defineConfig({
           return null
         },
         reset: resetStubs,
+        ...approvedPremises,
         ...auth,
         ...person,
         ...tokenVerification,

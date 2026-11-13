@@ -6,6 +6,7 @@ context('Product info', () => {
       cy.task('reset')
       cy.task('stubAuthPing')
       cy.task('stubTokenVerificationPing')
+      cy.task('stubApprovedPremisesPing')
     })
 
     it('Returns a list of prison codes we have released to as activeAgencies', () => {

@@ -1,5 +1,6 @@
 import express, { Router } from 'express'
 import { monitoringMiddleware, endpointHealthComponent } from '@ministryofjustice/hmpps-monitoring'
+import activePrisons from '../utils/activePrisons'
 import logger from '../../logger'
 import { ApplicationInfo } from '../applicationInfo'
 import config from '../config'
@@ -11,7 +12,12 @@ export default function setUpHealthChecks(applicationInfo: ApplicationInfo): Rou
   const apiConfig = Object.entries(config.apis)
 
   const middleware = monitoringMiddleware({
-    applicationInfo,
+    applicationInfo: {
+      ...applicationInfo,
+      additionalFields: {
+        activeAgencies: activePrisons,
+      },
+    },
     healthComponents: apiConfig.map(([name, options]) => endpointHealthComponent(logger, name, options)),
   })
 

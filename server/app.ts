@@ -26,7 +26,6 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import { Controllers } from './controllers'
 import routes from './routes'
 import type { Services } from './services'
-import setUpProductInfo from './middleware/setUpProductInfo'
 import setupSunsetPageRedirect from './middleware/setupSunsetPageRedirect'
 
 export default function createApp(controllers: Controllers, services: Services): express.Application {
@@ -42,7 +41,6 @@ export default function createApp(controllers: Controllers, services: Services):
 
   app.use(setUpHealthChecks(services.applicationInfo))
   app.use(metricsMiddleware)
-  app.use(setUpProductInfo())
   app.use(setUpWebSecurity())
   app.use(setUpWebSession())
   app.use(setUpWebRequestParsing())
