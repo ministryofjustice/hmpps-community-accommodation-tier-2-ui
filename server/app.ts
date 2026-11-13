@@ -22,12 +22,10 @@ import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
-import { appInsightsMiddleware } from './utils/azureAppInsights'
 
 import { Controllers } from './controllers'
 import routes from './routes'
 import type { Services } from './services'
-import setUpProductInfo from './middleware/setUpProductInfo'
 import setupSunsetPageRedirect from './middleware/setupSunsetPageRedirect'
 
 export default function createApp(controllers: Controllers, services: Services): express.Application {
@@ -41,10 +39,8 @@ export default function createApp(controllers: Controllers, services: Services):
   // Add method-override to allow us to use PUT and DELETE methods
   app.use(methodOverride('_method'))
 
-  app.use(appInsightsMiddleware())
+  app.use(setUpHealthChecks(services.applicationInfo))
   app.use(metricsMiddleware)
-  app.use(setUpHealthChecks())
-  app.use(setUpProductInfo())
   app.use(setUpWebSecurity())
   app.use(setUpWebSession())
   app.use(setUpWebRequestParsing())

@@ -1,5 +1,5 @@
-// Require app insights before anything else to allow for instrumentation of bunyan and express
-import 'applicationinsights'
+// Require App Insights setup before anything else to allow for instrumentation of bunyan and express
+import './server/utils/azureAppInsights'
 
 import { app, metricsApp } from './server/index'
 import logger from './logger'

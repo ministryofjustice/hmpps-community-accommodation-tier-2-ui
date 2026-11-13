@@ -111,7 +111,7 @@ const auditDetails = (req: Request, auditBodyParams: string[] | undefined) => {
 const sendAuditMessage = async (auditEvent: string, username: string, details: Record<string, string>) => {
   const jsonDetails = JSON.stringify(details)
 
-  const { serviceName, logErrors } = config.apis.audit
+  const { serviceName, logErrors } = config.audit
 
   try {
     logger.info(`Sending audit message ${auditEvent} (${jsonDetails})`)

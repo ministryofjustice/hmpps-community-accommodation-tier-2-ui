@@ -45,6 +45,10 @@ export default {
   production,
   https: production,
   staticResourceCacheDuration: 20,
+  buildNumber: get('BUILD_NUMBER', '1_0_0', requiredInProduction),
+  productId: get('PRODUCT_ID', 'UNASSIGNED', requiredInProduction),
+  gitRef: get('GIT_REF', 'xxxxxxxxxxxxxxxxxxx', requiredInProduction),
+  branchName: get('GIT_BRANCH', 'xxxxxxxxxxxxxxxxxxx', requiredInProduction),
   redis: {
     host: get('REDIS_HOST', 'localhost', requiredInProduction),
     port: parseInt(process.env.REDIS_PORT, 10) || 6379,
@@ -62,6 +66,7 @@ export default {
   apis: {
     approvedPremises: {
       url: get('APPROVED_PREMISES_API_URL', 'http://localhost:9092', requiredInProduction),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE', 10000)),
         deadline: Number(get('COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE', 10000)),
@@ -71,6 +76,7 @@ export default {
     },
     hmppsAuth: {
       url: get('HMPPS_AUTH_URL', 'http://localhost:9090/auth', requiredInProduction),
+      healthPath: '/health/ping',
       externalUrl: get('HMPPS_AUTH_EXTERNAL_URL', get('HMPPS_AUTH_URL', 'http://localhost:9090/auth')),
       timeout: {
         response: Number(get('HMPPS_AUTH_TIMEOUT_RESPONSE', 10000)),
@@ -84,6 +90,7 @@ export default {
     },
     tokenVerification: {
       url: get('TOKEN_VERIFICATION_API_URL', 'http://localhost:8100', requiredInProduction),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('TOKEN_VERIFICATION_API_TIMEOUT_RESPONSE', 5000)),
         deadline: Number(get('TOKEN_VERIFICATION_API_TIMEOUT_DEADLINE', 5000)),
@@ -91,12 +98,12 @@ export default {
       agent: new AgentConfig(Number(get('TOKEN_VERIFICATION_API_TIMEOUT_RESPONSE', 5000))),
       enabled: get('TOKEN_VERIFICATION_ENABLED', 'false') === 'true',
     },
-    audit: {
-      region: get('AUDIT_SQS_REGION', 'eu-west-2'),
-      queueUrl: get('AUDIT_SQS_QUEUE_URL', ''),
-      serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-ui'),
-      logErrors: get('AUDIT_LOG_ERRORS', 'false') === 'true',
-    },
+  },
+  audit: {
+    region: get('AUDIT_SQS_REGION', 'eu-west-2'),
+    queueUrl: get('AUDIT_SQS_QUEUE_URL', ''),
+    serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-ui'),
+    logErrors: get('AUDIT_LOG_ERRORS', 'false') === 'true',
   },
   domain: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   flags: {
