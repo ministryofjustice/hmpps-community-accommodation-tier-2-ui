@@ -211,6 +211,8 @@
   "overrides": {
     "serialize-javascript": "^7.0.5",
     "diff": "^8.0.3",
-    "proxy-addr": "^2.0.8"
+    "proxy-addr": "^2.0.8",
+    "moment": "^2.31.0",
+    "@opentelemetry/core": "^2.8.0"
   }
 }
