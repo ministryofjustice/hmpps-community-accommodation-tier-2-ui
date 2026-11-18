@@ -19,7 +19,7 @@ export type Cas2HdcApplicationSummary = {
     hdcEligibilityDate?: string;
     id: string;
     latestStatusUpdate?: Cas2HdcLatestStatusUpdate;
-    nomsNumber: string;
+    nomsNumber?: string;
     personName: string;
     status: ApplicationStatus;
     submittedAt?: string;
