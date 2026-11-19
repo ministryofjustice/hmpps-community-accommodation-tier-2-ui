@@ -159,6 +159,7 @@ describe('statusUpdateController', () => {
       request.query = {
         applicationId: 'application-id',
       }
+      request.body = {}
 
       const err = {}
       assessmentService.updateAssessmentStatus.mockImplementation(() => {

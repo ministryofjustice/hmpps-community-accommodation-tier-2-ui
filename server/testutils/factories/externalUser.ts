@@ -4,7 +4,7 @@ import { Factory } from 'fishery'
 
 export default Factory.define<ExternalUser>(() => ({
   id: faker.string.uuid(),
-  username: faker.internet.userName(),
+  username: faker.internet.username(),
   name: faker.person.fullName(),
   email: 'example@example.cas2nacro.org',
   origin: 'NACRO',

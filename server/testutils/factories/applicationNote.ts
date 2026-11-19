@@ -7,7 +7,6 @@ import { DateFormats } from '../../utils/dateUtils'
 export default Factory.define<Cas2HdcApplicationNote>(() => ({
   id: faker.string.uuid(),
   email: faker.internet.email(),
-  username: faker.internet.userName(),
   name: faker.person.fullName(),
   body: faker.lorem.paragraph(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),

@@ -1,7 +1,7 @@
 import { AssignmentType, Cas2HdcSubmitApplication, Cas2HdcUpdateApplication } from '@approved-premises/api'
 import { faker } from '@faker-js/faker/locale/en_GB'
 import ApplicationClient from './applicationClient'
-import { applicationFactory, applicationSummaryFactory, assessmentFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory, assessmentFactory, personFactory } from '../testutils/factories'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -18,6 +18,7 @@ describeClient('ApplicationClient', provider => {
     it('should return an application', async () => {
       const application = applicationFactory.build({
         assessment: assessmentFactory.build(),
+        person: personFactory.build(),
         telephoneNumber: faker.phone.number(),
       })
 
@@ -48,6 +49,7 @@ describeClient('ApplicationClient', provider => {
     it('should return an application when a crn is posted', async () => {
       const application = applicationFactory.build({
         assessment: assessmentFactory.build(),
+        person: personFactory.build(),
         telephoneNumber: faker.phone.number(),
       })
 
@@ -66,7 +68,7 @@ describeClient('ApplicationClient', provider => {
           },
         },
         willRespondWith: {
-          status: 201,
+          status: 200,
           body: application,
         },
       })
@@ -199,6 +201,7 @@ describeClient('ApplicationClient', provider => {
     it('should return an application when a PUT request is made', async () => {
       const application = applicationFactory.build({
         assessment: assessmentFactory.build(),
+        person: personFactory.build(),
         telephoneNumber: faker.phone.number(),
       })
       const data = {

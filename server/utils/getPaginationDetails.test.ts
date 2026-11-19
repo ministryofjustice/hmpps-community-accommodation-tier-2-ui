@@ -6,7 +6,7 @@ describe('getPaginationDetails', () => {
   const basePath = 'http://localhost/example'
 
   it('should return the hrefPrefix with a query string prefix if there are no query parameters', () => {
-    const request = createMock<Request>({})
+    const request = createMock<Request>({ query: {} })
 
     expect(getPaginationDetails(request, basePath)).toEqual({
       pageNumber: undefined,

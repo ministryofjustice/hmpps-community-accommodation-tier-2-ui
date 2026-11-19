@@ -179,6 +179,7 @@ describe('ApplicationService', () => {
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
+      ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
     })
 
     describe('when there are no validation errors', () => {
@@ -545,6 +546,7 @@ describe('ApplicationService', () => {
         })
         ;(getPageName as jest.Mock).mockReturnValue('some-page')
         ;(getTaskName as jest.Mock).mockReturnValue('some-task')
+        ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
       })
 
       it('does not throw an error', () => {
@@ -610,6 +612,7 @@ describe('ApplicationService', () => {
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
+      ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
     })
 
     describe('when there is no list to remove from ', () => {
@@ -760,6 +763,7 @@ describe('ApplicationService', () => {
       })
 
       const applicationData = createMock<Cas2HdcUpdateApplication>()
+      ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
 
       const newApplicationData = { 'risk-to-self': { vulnerability: { vulnerabilityDetail: 'example' } } }
 
