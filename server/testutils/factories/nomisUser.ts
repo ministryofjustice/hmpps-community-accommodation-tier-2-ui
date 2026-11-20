@@ -5,7 +5,7 @@ import { Factory } from 'fishery'
 export default Factory.define<NomisUser>(() => ({
   id: faker.string.uuid(),
   name: faker.person.fullName(),
-  nomisUsername: faker.internet.userName(),
+  nomisUsername: faker.internet.username(),
   email: faker.internet.email(),
   isActive: faker.datatype.boolean(),
 }))
