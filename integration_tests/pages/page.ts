@@ -230,7 +230,7 @@ export default abstract class Page {
         cy.wrap($el).within(() => {
           cy.get('.moj-timeline__header').should('contain', sortedTimelineEvents[index].label)
           cy.get('.moj-timeline__byline').should('contain', sortedTimelineEvents[index].createdByName)
-          cy.get('time').should('have.attr', { time: sortedTimelineEvents[index].occurredAt })
+          cy.get('time').should('have.attr', 'datetime', sortedTimelineEvents[index].occurredAt)
           cy.get('time').should('contain', DateFormats.isoDateTimeToUIDateTime(sortedTimelineEvents[index].occurredAt))
           if (sortedTimelineEvents[index].body) {
             cy.get('.moj-timeline__description').should('contain', sortedTimelineEvents[index].body)

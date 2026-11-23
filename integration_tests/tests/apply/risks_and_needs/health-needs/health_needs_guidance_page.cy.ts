@@ -85,6 +85,18 @@ context('Visit "Risks and needs" section', () => {
     page.hasHealthQuestionsTemplate()
     page.hasDrugAndAlcoholQuestionsTemplate()
 
+    cy.window().then(win => {
+      let copiedText = ''
+      cy.stub(win.document, 'execCommand').callsFake(command => {
+        if (command === 'copy') {
+          copiedText = win.getSelection().toString()
+          return true
+        }
+        return false
+      })
+      cy.stub(win.navigator.clipboard, 'readText').callsFake(() => Promise.resolve(copiedText))
+    })
+
     page.copyIntroduceYourselfTemplateToClipboard()
     page.copyHealthQuestionsTemplateToClipboard()
     page.copyDrugAndAlcoholTemplateToClipboard()

@@ -5,7 +5,7 @@ Cypress.Commands.add('signIn', (options = { failOnStatusCode: true }) => {
 
 Cypress.Commands.add('assertValueCopiedToClipboardContains', value => {
   cy.window().then(win => {
-    win.navigator.clipboard.readText().then(text => {
+    return win.navigator.clipboard.readText().then(text => {
       expect(text).to.contain(value)
     })
   })
