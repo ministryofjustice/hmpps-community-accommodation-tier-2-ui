@@ -85,7 +85,7 @@ export default class OasysImport implements TaskListPage {
         risks = await dataServices.personService.getRoshRisks(token, application.person.crn)
         taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys, risks))
       } catch (e) {
-        logOasysError(e, application.person.crn)
+        await logOasysError(e, application.person.crn)
         oasys = null
       }
       return new OasysImport(body, application, oasys, taskDataJson)
