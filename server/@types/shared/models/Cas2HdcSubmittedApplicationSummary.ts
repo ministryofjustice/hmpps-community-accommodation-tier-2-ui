@@ -7,7 +7,7 @@ export type Cas2HdcSubmittedApplicationSummary = {
     createdByUserId: string;
     crn: string;
     id: string;
-    nomsNumber: string;
+    nomsNumber?: string;
     personName: string;
     submittedAt?: string;
 };
